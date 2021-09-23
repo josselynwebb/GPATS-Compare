@@ -1,0 +1,155 @@
+         Arb ATLAS Driver Benchmark	
+ Date/Time: Thu Apr 06 13:48:07 2006 		
+
+   							
+    AC SIGNAL [PERIOD], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10140    .220000000000000E-05      .201000000000000E-05     .180000000000000E-05            P 
+   							
+    AC SIGNAL [FREQ], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10145    .550000000000000E+06      .497512437810945E+06     .450000000000000E+06            P 
+   							
+    AC SIGNAL [BANDWIDTH], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10150    .420000000000000E+01      .410000000000000E+01     .000000000000000E+00            P 
+   							
+    AC SIGNAL [VOLTAGE-PP], 50-OHM Z, RANGED, NON-TRIGGERED 	
+   ----------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10220    .660000000000000E+01      .610000000000000E+01     .540000000000000E+01            P 
+   							
+    AC SIGNAL [DC-OFFSET], 50-OHM Z, RANGED, NON-TRIGGERED	
+   ----------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10235    .220000000000000E+01      .201000000000000E+01     .180000000000000E+01            P 
+   							
+    AC SIGNAL [VOLTAGE-PP], 1-MOHM Z, RANGED, NON-TRIGGERED 	
+   ----------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10320    .660000000000000E+01      .616000000000000E+01     .540000000000000E+01            P 
+   							
+    AC SIGNAL [DC-OFFSET], 1-MOHM Z, RANGED, NON-TRIGGERED	
+   ----------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10335    .220000000000000E+01      .199000000000000E+01     .180000000000000E+01            P 
+   							
+    SQUARE WAVE [PERIOD], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20140    .220000000000000E-05      .201000000000000E-05     .180000000000000E-05            P 
+   							
+    SQUARE WAVE [FREQ], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20145    .550000000000000E+06      .497512437810945E+06     .450000000000000E+06            P 
+   							
+    RAMP SIGNAL [PERIOD], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30140    .220000000000000E-05      .200000000000000E-05     .180000000000000E-05            P 
+   							
+    RAMP SIGNAL [FREQ], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30145    .550000000000000E+06      .500000000000000E+06     .450000000000000E+06            P 
+   							
+    TRIANGULAR WAVE SIGNAL [PERIOD], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50140    .220000000000000E-05      .200000000000000E-05     .180000000000000E-05            P 
+   							
+    TRIANGULAR WAVE SIGNAL [FREQ], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50145    .550000000000000E+06      .500000000000000E+06     .450000000000000E+06            P 
+   							
+    DC SIGNAL [VOLTAGE], 50-OHM Z, RANGED, NON-TRIGGERED	
+   ----------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60130    .330000000000000E+01      .300500000000000E+01     .270000000000000E+01            P 
+   							
+    DC SIGNAL [VOLTAGE], 1-MOHM Z, RANGED, NON-TRIGGERED	
+   ----------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60230    .220000000000000E+01      .200000000000000E+01     .180000000000000E+01            P 
+   							
+    AC SIGNAL [AGE-RATE], RANGED, NON-TRIGGERED	
+   ------------------------------------------------	
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 70040    .600000000000000E+05      .500000000000000E+05     .400000000000000E+05            P 
+ 							
+    TRIGGER, RANGED, NON-TRIGGERED		
+   ----------------------------------------		
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 11000       TRUE                GO                  FALSE                P 
+

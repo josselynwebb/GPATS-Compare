@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AtXmlInterface"
+ targetNamespace="http://localhost:7014//AtXmlInterface.wsdl"
+ xmlns:tns="http://localhost:7014//AtXmlInterface.wsdl"
+ xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+ xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:atxml="urn:atxml"
+ xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+ xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+ xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+ <schema targetNamespace="urn:atxml"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:atxml="urn:atxml"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="unqualified"
+  attributeFormDefault="unqualified">
+  <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+  <!-- operation request element -->
+  <element name="Initialize">
+   <complexType>
+    <sequence>
+     <element name="ProcType" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="ProcUuid" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="Pid" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="InitializeResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="Close">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="ProcUuid" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="Pid" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="CloseResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterInterUsed">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InterUsage" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterInterUsedResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RetrieveTpsData">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RetrieveTpsDataResponse">
+   <complexType>
+    <sequence>
+     <element name="TpsName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TpsVersion" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TpsFileName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="RecommendedAction" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterTSF">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TSFSignalDefinition" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TSFLibrary" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="STDTSF" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="STDBSC" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterTSFResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="ValidateRequirements">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TestRequirements" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="Allocation" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="ValidateRequirementsResponse">
+   <complexType>
+    <sequence>
+     <element name="Availability" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterRemoveSequence">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="RemoveSequence" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterRemoveSequenceResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="TestStationStatus">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="TestStationStatusResponse">
+   <complexType>
+    <sequence>
+     <element name="TestStationStatus" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterInstStatus">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InstStatus" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterInstStatusResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterTmaSelect">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TmaList" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterTmaSelectResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="SubmitUutId">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="UUT-Partnumber" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="UUT-Serialnumber" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TmaBufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="RaBufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="SubmitUutIdResponse">
+   <complexType>
+    <sequence>
+     <element name="Action" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="cTmaList" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TmaBufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="RecommendedActions" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueSignal">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="SignalDescription" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueSignalResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="QueryInterStatus">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="QueryInterStatusResponse">
+   <complexType>
+    <sequence>
+     <element name="InterStatus" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="InvokeRemoveAllSequence">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="InvokeRemoveAllSequenceResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueTestResults">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TestResults" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TPS-Status" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueTestResultsResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueTestResultsFile">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TestResultsFile" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TPS-Status" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueTestResultsFileResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueIst">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InstSelfTest" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueIstResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueNativeCmds">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InstrumentCmds" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueNativeCmdsResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueDriverFunctionCall">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="DriverFunction" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueDriverFunctionCallResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+ </schema>
+
+</types>
+
+<message name="InitializeRequest">
+ <part name="parameters" element="atxml:Initialize"/>
+</message>
+
+<message name="InitializeResponse">
+ <part name="parameters" element="atxml:InitializeResponse"/>
+</message>
+
+<message name="CloseRequest">
+ <part name="parameters" element="atxml:Close"/>
+</message>
+
+<message name="CloseResponse">
+ <part name="parameters" element="atxml:CloseResponse"/>
+</message>
+
+<message name="RegisterInterUsedRequest">
+ <part name="parameters" element="atxml:RegisterInterUsed"/>
+</message>
+
+<message name="RegisterInterUsedResponse">
+ <part name="parameters" element="atxml:RegisterInterUsedResponse"/>
+</message>
+
+<message name="RetrieveTpsData">
+ <part name="parameters" element="atxml:RetrieveTpsData"/>
+</message>
+
+<message name="RetrieveTpsDataResponse">
+ <part name="parameters" element="atxml:RetrieveTpsDataResponse"/>
+</message>
+
+<message name="RegisterTSFRequest">
+ <part name="parameters" element="atxml:RegisterTSF"/>
+</message>
+
+<message name="RegisterTSFResponse">
+ <part name="parameters" element="atxml:RegisterTSFResponse"/>
+</message>
+
+<message name="ValidateRequirements">
+ <part name="parameters" element="atxml:ValidateRequirements"/>
+</message>
+
+<message name="ValidateRequirementsResponse">
+ <part name="parameters" element="atxml:ValidateRequirementsResponse"/>
+</message>
+
+<message name="RegisterRemoveSequence">
+ <part name="parameters" element="atxml:RegisterRemoveSequence"/>
+</message>
+
+<message name="RegisterRemoveSequenceResponse">
+ <part name="parameters" element="atxml:RegisterRemoveSequenceResponse"/>
+</message>
+
+<message name="TestStationStatus">
+ <part name="parameters" element="atxml:TestStationStatus"/>
+</message>
+
+<message name="TestStationStatusResponse">
+ <part name="parameters" element="atxml:TestStationStatusResponse"/>
+</message>
+
+<message name="RegisterInstStatus">
+ <part name="parameters" element="atxml:RegisterInstStatus"/>
+</message>
+
+<message name="RegisterInstStatusResponse">
+ <part name="parameters" element="atxml:RegisterInstStatusResponse"/>
+</message>
+
+<message name="RegisterTmaSelectRequest">
+ <part name="parameters" element="atxml:RegisterTmaSelect"/>
+</message>
+
+<message name="RegisterTmaSelectResponse">
+ <part name="parameters" element="atxml:RegisterTmaSelectResponse"/>
+</message>
+
+<message name="SubmitUutId">
+ <part name="parameters" element="atxml:SubmitUutId"/>
+</message>
+
+<message name="SubmitUutIdResponse">
+ <part name="parameters" element="atxml:SubmitUutIdResponse"/>
+</message>
+
+<message name="IssueSignal">
+ <part name="parameters" element="atxml:IssueSignal"/>
+</message>
+
+<message name="IssueSignalResponse">
+ <part name="parameters" element="atxml:IssueSignalResponse"/>
+</message>
+
+<message name="QueryInterStatus">
+ <part name="parameters" element="atxml:QueryInterStatus"/>
+</message>
+
+<message name="QueryInterStatusResponse">
+ <part name="parameters" element="atxml:QueryInterStatusResponse"/>
+</message>
+
+<message name="InvokeRemoveAllSequence">
+ <part name="parameters" element="atxml:InvokeRemoveAllSequence"/>
+</message>
+
+<message name="InvokeRemoveAllSequenceResponse">
+ <part name="parameters" element="atxml:InvokeRemoveAllSequenceResponse"/>
+</message>
+
+<message name="IssueTestResults">
+ <part name="parameters" element="atxml:IssueTestResults"/>
+</message>
+
+<message name="IssueTestResultsResponse">
+ <part name="parameters" element="atxml:IssueTestResultsResponse"/>
+</message>
+
+<message name="IssueTestResultsFile">
+ <part name="parameters" element="atxml:IssueTestResultsFile"/>
+</message>
+
+<message name="IssueTestResultsFileResponse">
+ <part name="parameters" element="atxml:IssueTestResultsFileResponse"/>
+</message>
+
+<message name="IssueIst">
+ <part name="parameters" element="atxml:IssueIst"/>
+</message>
+
+<message name="IssueIstResponse">
+ <part name="parameters" element="atxml:IssueIstResponse"/>
+</message>
+
+<message name="IssueNativeCmds">
+ <part name="parameters" element="atxml:IssueNativeCmds"/>
+</message>
+
+<message name="IssueNativeCmdsResponse">
+ <part name="parameters" element="atxml:IssueNativeCmdsResponse"/>
+</message>
+
+<message name="IssueDriverFunctionCall">
+ <part name="parameters" element="atxml:IssueDriverFunctionCall"/>
+</message>
+
+<message name="IssueDriverFunctionCallResponse">
+ <part name="parameters" element="atxml:IssueDriverFunctionCallResponse"/>
+</message>
+
+<portType name="AtXmlInterfacePortType">
+ <operation name="Initialize">
+  <documentation>Service definition of function atxml__Initialize</documentation>
+  <input message="tns:InitializeRequest"/>
+  <output message="tns:InitializeResponse"/>
+ </operation>
+ <operation name="Close">
+  <documentation>Service definition of function atxml__Close</documentation>
+  <input message="tns:CloseRequest"/>
+  <output message="tns:CloseResponse"/>
+ </operation>
+ <operation name="RegisterInterUsed">
+  <documentation>Service definition of function atxml__RegisterInterUsed</documentation>
+  <input message="tns:RegisterInterUsedRequest"/>
+  <output message="tns:RegisterInterUsedResponse"/>
+ </operation>
+ <operation name="RetrieveTpsData">
+  <documentation>Service definition of function atxml__RetrieveTpsData</documentation>
+  <input message="tns:RetrieveTpsData"/>
+  <output message="tns:RetrieveTpsDataResponse"/>
+ </operation>
+ <operation name="RegisterTSF">
+  <documentation>Service definition of function atxml__RegisterTSF</documentation>
+  <input message="tns:RegisterTSFRequest"/>
+  <output message="tns:RegisterTSFResponse"/>
+ </operation>
+ <operation name="ValidateRequirements">
+  <documentation>Service definition of function atxml__ValidateRequirements</documentation>
+  <input message="tns:ValidateRequirements"/>
+  <output message="tns:ValidateRequirementsResponse"/>
+ </operation>
+ <operation name="RegisterRemoveSequence">
+  <documentation>Service definition of function atxml__RegisterRemoveSequence</documentation>
+  <input message="tns:RegisterRemoveSequence"/>
+  <output message="tns:RegisterRemoveSequenceResponse"/>
+ </operation>
+ <operation name="TestStationStatus">
+  <documentation>Service definition of function atxml__TestStationStatus</documentation>
+  <input message="tns:TestStationStatus"/>
+  <output message="tns:TestStationStatusResponse"/>
+ </operation>
+ <operation name="RegisterInstStatus">
+  <documentation>Service definition of function atxml__RegisterInstStatus</documentation>
+  <input message="tns:RegisterInstStatus"/>
+  <output message="tns:RegisterInstStatusResponse"/>
+ </operation>
+ <operation name="RegisterTmaSelect">
+  <documentation>Service definition of function atxml__RegisterTmaSelect</documentation>
+  <input message="tns:RegisterTmaSelectRequest"/>
+  <output message="tns:RegisterTmaSelectResponse"/>
+ </operation>
+ <operation name="SubmitUutId">
+  <documentation>Service definition of function atxml__SubmitUutId</documentation>
+  <input message="tns:SubmitUutId"/>
+  <output message="tns:SubmitUutIdResponse"/>
+ </operation>
+ <operation name="IssueSignal">
+  <documentation>Service definition of function atxml__IssueSignal</documentation>
+  <input message="tns:IssueSignal"/>
+  <output message="tns:IssueSignalResponse"/>
+ </operation>
+ <operation name="QueryInterStatus">
+  <documentation>Service definition of function atxml__QueryInterStatus</documentation>
+  <input message="tns:QueryInterStatus"/>
+  <output message="tns:QueryInterStatusResponse"/>
+ </operation>
+ <operation name="InvokeRemoveAllSequence">
+  <documentation>Service definition of function atxml__InvokeRemoveAllSequence</documentation>
+  <input message="tns:InvokeRemoveAllSequence"/>
+  <output message="tns:InvokeRemoveAllSequenceResponse"/>
+ </operation>
+ <operation name="IssueTestResults">
+  <documentation>Service definition of function atxml__IssueTestResults</documentation>
+  <input message="tns:IssueTestResults"/>
+  <output message="tns:IssueTestResultsResponse"/>
+ </operation>
+ <operation name="IssueTestResultsFile">
+  <documentation>Service definition of function atxml__IssueTestResultsFile</documentation>
+  <input message="tns:IssueTestResultsFile"/>
+  <output message="tns:IssueTestResultsFileResponse"/>
+ </operation>
+ <operation name="IssueIst">
+  <documentation>Service definition of function atxml__IssueIst</documentation>
+  <input message="tns:IssueIst"/>
+  <output message="tns:IssueIstResponse"/>
+ </operation>
+ <operation name="IssueNativeCmds">
+  <documentation>Service definition of function atxml__IssueNativeCmds</documentation>
+  <input message="tns:IssueNativeCmds"/>
+  <output message="tns:IssueNativeCmdsResponse"/>
+ </operation>
+ <operation name="IssueDriverFunctionCall">
+  <documentation>Service definition of function atxml__IssueDriverFunctionCall</documentation>
+  <input message="tns:IssueDriverFunctionCall"/>
+  <output message="tns:IssueDriverFunctionCallResponse"/>
+ </operation>
+</portType>
+
+<binding name="AtXmlInterface" type="tns:AtXmlInterfacePortType">
+ <SOAP:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+ <operation name="Initialize">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="Close">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="RegisterInterUsed">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="RetrieveTpsData">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="RegisterTSF">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="ValidateRequirements">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="RegisterRemoveSequence">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="TestStationStatus">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="RegisterInstStatus">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="RegisterTmaSelect">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="SubmitUutId">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="IssueSignal">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="QueryInterStatus">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="InvokeRemoveAllSequence">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="IssueTestResults">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="IssueTestResultsFile">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="IssueIst">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="IssueNativeCmds">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+ <operation name="IssueDriverFunctionCall">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="parameters" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="parameters" use="literal"/>
+  </output>
+ </operation>
+</binding>
+
+<service name="AtXmlInterface">
+ <documentation>ARGCS Test Executive Interface</documentation>
+ <port name="AtXmlInterface" binding="tns:AtXmlInterface">
+  <SOAP:address location="http://localhost:7014/"/>
+ </port>
+</service>
+
+</definitions>

@@ -1,0 +1,862 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'Bus Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemBus.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+        ESTABLISH, BUS PROTOCOL '1553B_1', SPEC 'MIL-1553B',
+            STANDARD PRIMARY BUS,
+ 	    BUS-PARAMETER MESSAGE-GAP 100 USEC,                             
+      	    BUS-PARAMETER RESPONSE-TIME 22 USEC,                                       
+      	    CNX TRUE MIL1553b-hi COMPL MIL1553b-lo  $
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'IDX' IS INTEGER             $
+	DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-VOLTS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MAX-T' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+        DECLARE, TYPE, '16BIT DATA' IS STRING(16) OF BIT $
+        DECLARE, VARIABLE, 'CMD WORD-T', 'STA WORD-T' IS '16BIT DATA' $
+	DECLARE, VARIABLE, 'CMD WORD-L', 'STA WORD-L' IS '16BIT DATA' $
+        DECLARE, VARIABLE, 'DATA WORDS-T', 'DATA WORDS-M', 'DATA WORDS-L' IS ARRAY(1 THRU 32) OF '16BIT DATA' $
+
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, CONSTANT, 'CONTINUE' IS
+         C' Press TRUE OR FALSE to continue '
+          $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test
+	'
+        $
+C $
+        DEFINE, 'TEST1001-T', EXCHANGE, PROTOCOL '1553B_1', 
+            BUS-MODE CON-RT,
+            TALKER TEST-EQUIP,
+            LISTENER 'UUT'(10),
+            COMMAND 'CMD WORD-T',
+	    DATA 'DATA WORDS-T'(1 THRU 10) $
+
+	DEFINE, 'TEST1001-L', EXCHANGE, PROTOCOL '1553B_1',
+	    BUS-MODE RT-CON,
+	    TALKER  'UUT',
+	    LISTENER TEST-EQUIP,
+	    COMMAND 'CMD WORD-L' $
+
+        DEFINE, 'TEST1001-C', EXCHANGE, PROTOCOL '1553B_1', 
+            BUS-MODE CON-MODE,
+            TALKER TEST-EQUIP,
+            LISTENER 'UUT'(10),
+            COMMAND 'CMD WORD-T',
+	    DATA 'DATA WORDS-T'(1 THRU 10) $
+
+	DEFINE, 'TEST1002-L', EXCHANGE, PROTOCOL '1553B_1', 
+            BUS-MODE CON-RT,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP (10, 1),
+            STATUS 'STA WORD-L'$
+
+	DEFINE, 'TEST1002-C', EXCHANGE, PROTOCOL '1553B_1', 
+            BUS-MODE CON-MODE,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP (10, 1),
+            STATUS 'STA WORD-L'$
+
+	DEFINE, 'TEST1002-T', EXCHANGE, PROTOCOL '1553B_1',
+	    BUS-MODE RT-CON,
+	    TALKER TEST-EQUIP (10, 1),
+	    LISTENER 'UUT',
+	    STATUS 'STA WORD-T',
+	    DATA 'DATA WORDS-T' (1 THRU 5) $
+
+	DEFINE, 'TEST1003-L', EXCHANGE, PROTOCOL '1553B_1', 
+            BUS-MODE ALL-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP $
+
+
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, 
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+      C'Bus ATLAS Driver Benchmark\LF\',
+      C'Date/Time:','DATE-TIME' $
+	
+	OUTPUT, TO 'PRINTER', C'      Bus ATLAS Driver Benchmark\LF\',
+      C'Date/Time:', 'DATE-TIME', C'\LF\' $
+B $
+ 001005  OUTPUT, 
+        C'           Test Menu
+          --------------------------------
+          Run All Tests                  1
+          BC Tests                       2
+          RT Tests                       3
+          Monitor Tests                  4
+          Exit                           0
+
+          Enter a selection'
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * BC Tests
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DATA WORDS-T'(1)  = X'1A2B',
+                   'DATA WORDS-T'(2)  = X'2B2B',
+                   'DATA WORDS-T'(3)  = X'3C3C',
+                   'DATA WORDS-T'(4)  = X'4D4D',
+                   'DATA WORDS-T'(5)  = X'5E5E',
+                   'DATA WORDS-T'(6)  = X'6F6F',
+                   'DATA WORDS-T'(7)  = X'7070',
+                   'DATA WORDS-T'(8)  = X'8181',
+                   'DATA WORDS-T'(9)  = X'9292',
+                   'DATA WORDS-T'(10) = X'A3A3',
+		   'STA WORD-L'       = X'5000',
+		   'STA WORD-T'       = X'5000',
+                   'CMD WORD-L'       = X'502A',
+		   'CMD WORD-T'    = X'542A' $
+B $
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* 1553B BC Pretest Instructions:                           *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On another machine with 1553 capabilities, Set up a RT   *\LF\',
+            C'* with RT number 10, SA 1 and max Response time of 22 uSec *\LF\', 
+            C'* It should be ready to receive 10 pieces of data          *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press True to continue.                                  *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 010055 $
+        END, IF $
+C $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'0000'$
+	END, FOR $
+
+C $
+
+     17 DO, EXCHANGE, 
+	    TEST-EQUIP-ROLE MASTER,
+	    EXCHANGE 'TEST1001-T', 
+		TEST-EQUIP-MONITOR STATUS 'STA WORD-T', 
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+        OUTPUT, C'STATUS WORD = ', 'STA WORD-T', C'\LF\' $
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* Was the following data received?                         *\LF\',
+            C'* 1A2B                                                     *\LF\',
+            C'* 2B2B                                                     *\LF\',
+            C'* 3C3C                                                     *\LF\',
+            C'* 4D4D                                                     *\LF\',
+            C'* 5E5E                                                     *\LF\',
+            C'* 6F6F                                                     *\LF\',
+            C'* 7070                                                     *\LF\',
+            C'* 8181                                                     *\LF\',
+            C'* 9292                                                     *\LF\',
+            C'* A3A3                                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Test Passed.\LF\',
+            C' F - Test Failed.\LF\'
+	$
+
+     20 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+	     CALCULATE, 'FAIL-FLAG'='FAIL-FLAG'+1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 10017$
+        PERFORM, 'RESULTS' $
+
+B $
+     55 OUTPUT,
+            C'************************************************************\LF\',
+            C'* 1553B BC Pretest Instructions:                           *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On another machine with 1553 capabilities, Set up a RT   *\LF\',
+            C'* with RT number 10, SA 1, and max Response time of        *\LF\',
+            C'* 22 uSec.  It should be ready to send the following data: *\LF\',
+            C'*                                                          *\LF\',
+            C'* 1A2B                                                     *\LF\',
+            C'* 2B2B                                                     *\LF\',
+            C'* 3C3C                                                     *\LF\',
+            C'* 4D4D                                                     *\LF\',
+            C'* 5E5E                                                     *\LF\',
+            C'* 6F6F                                                     *\LF\',
+            C'* 7070                                                     *\LF\',
+            C'* 8181                                                     *\LF\',
+            C'* 9292                                                     *\LF\',
+            C'* A3A3                                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     60 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 010070 $
+        END, IF $
+C $
+     63 DO, EXCHANGE,
+	    TEST-EQUIP-ROLE MASTER,
+            EXCHANGE 'TEST1001-L', 
+                TEST-EQUIP-MONITOR DATA 'DATA WORDS-L'(1 THRU 10),
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+     65	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            IF, 'DATA WORDS-T'('IDX') EQ 'DATA WORDS-L'('IDX'), THEN $ 
+	    	OUTPUT,
+                	C' Data Word ', 'IDX', C' Passed!'	$
+		OUTPUT, TO 'PRINTER',
+                	C' Data Word ', 'IDX', C' Passed!\LF\'	$
+	    ELSE $
+		OUTPUT,
+			C' Data Word ', 'IDX', C' Failed!\LF\',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\' $
+		OUTPUT, TO 'PRINTER',
+			C' Data Word ', 'IDX', C' Failed!\LF\',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\' $
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+
+	CALCULATE, 'TESTNO' = 10063$
+        PERFORM, 'RESULTS' $
+B $
+     70 OUTPUT,
+            C'************************************************************\LF\',
+            C'* 1553B BC Pretest Instructions:                           *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On another machine with 1553 capabilities, Set up a RT   *\LF\',
+            C'* with RT number 10, SA 1 and max Response time of 22 uSec *\LF\', 
+            C'* It should be ready to receive 10 pieces of data from a   *\LF\',
+            C'* broadcast.                                               *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press True to continue.                                  *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     75 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 010099 $
+        END, IF $
+C $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'0000'$
+	END, FOR $
+        CALCULATE, 'CMD WORD-T' = X'F82A' $
+C $
+
+     80 DO, EXCHANGE, 
+	    TEST-EQUIP-ROLE MASTER,
+	    EXCHANGE 'TEST1001-C', 
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* Was the following data received?                         *\LF\',
+            C'* 1A2B                                                     *\LF\',
+            C'* 2B2B                                                     *\LF\',
+            C'* 3C3C                                                     *\LF\',
+            C'* 4D4D                                                     *\LF\',
+            C'* 5E5E                                                     *\LF\',
+            C'* 6F6F                                                     *\LF\',
+            C'* 7070                                                     *\LF\',
+            C'* 8181                                                     *\LF\',
+            C'* 9292                                                     *\LF\',
+            C'* A3A3                                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Test Passed.\LF\',
+            C' F - Test Failed.\LF\'
+	$
+
+     85 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+	     CALCULATE, 'FAIL-FLAG'='FAIL-FLAG'+1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 10080$
+        PERFORM, 'RESULTS' $
+
+C $
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * RT TRANSFER
+C ******************************************************************* $
+C $
+C $
+B $
+ 020000 CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DATA WORDS-T'(1)  = X'1A2B',
+                   'DATA WORDS-T'(2)  = X'2B2B',
+                   'DATA WORDS-T'(3)  = X'3C3C',
+                   'DATA WORDS-T'(4)  = X'4D4D',
+                   'DATA WORDS-T'(5)  = X'5E5E',
+                   'DATA WORDS-T'(6)  = X'6F6F',
+                   'DATA WORDS-T'(7)  = X'7070',
+                   'DATA WORDS-T'(8)  = X'8181',
+                   'DATA WORDS-T'(9)  = X'9292',
+                   'DATA WORDS-T'(10) = X'A3A3',
+		   'STA WORD-L'	      = X'5000',
+		   'STA WORD-T'       = X'5000',
+                   'CMD WORD-L'       = X'502A',
+		   'CMD WORD-T'    = X'542A' $
+CJW	GO TO, STEP 020055 $
+
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* 1553B RT Pretest Instructions:                           *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On another machine with 1553 capabilities, Set up a BC   *\LF\',
+            C'* ready to send to an RT number 10, SA 1, Max Response     *\LF\',
+            C'* Time of 22 uSec, and Message Gap of 100 uSec.  It should *\LF\',
+            C'* be ready to send the following data:                     *\LF\',
+            C'* 1A2B                                                     *\LF\',
+            C'* 2B2B                                                     *\LF\',
+            C'* 3C3C                                                     *\LF\',
+            C'* 4D4D                                                     *\LF\',
+            C'* 5E5E                                                     *\LF\',
+            C'* 6F6F                                                     *\LF\',
+            C'* 7070                                                     *\LF\',
+            C'* 8181                                                     *\LF\',
+            C'* 9292                                                     *\LF\',
+            C'* A3A3                                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020055 $
+        END, IF $
+C $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'0000'$
+	END, FOR $
+C $
+        OUTPUT, TO 'PRINTER',
+            C' Test 1002 - Geting data from a remote terminal\LF\\LF\',
+            C'  --------------------------------------\LF\'
+        $
+C $
+
+     17	DO, EXCHANGE, 
+	    TEST-EQUIP-ROLE SLAVE,
+	    EXCHANGE 'TEST1002-L', 
+		TEST-EQUIP-MONITOR DATA 'DATA WORDS-L'(1 THRU 10),
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+     25	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            IF, 'DATA WORDS-T'('IDX') EQ 'DATA WORDS-L'('IDX'), THEN $ 
+	    	OUTPUT,
+                	C' Data Word ', 'IDX', C' Passed!' 	$
+		OUTPUT, TO 'PRINTER',
+                	C' Data Word ', 'IDX', C' Passed!\LF\' 
+			$
+	    ELSE $
+		OUTPUT,
+			C' Data Word ', 'IDX', C' Failed!\LF\',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\' $
+		OUTPUT, TO 'PRINTER',
+			C' Data Word ', 'IDX', C' Failed!\LF\',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+C $
+	CALCULATE, 'TESTNO' = 20017$
+        PERFORM, 'RESULTS' $
+
+B $
+     55 OUTPUT,
+            C'************************************************************\LF\',
+            C'* 1553B RT Pretest Instructions:                           *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On another machine with 1553 capabilities, Set up a BC   *\LF\',
+            C'* ready to send a command word and recieve 5 pieces of data*\LF\',
+            C'* to a RT with number 10, SA 1, max Response time of       *\LF\',
+	    C'* 22 uSec, and Message gap of 100 uSec                     *\LF\',
+            C'* The command word should be:                              *\LF\',
+            C'* 0x5425                                                   *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press True to continue.                                  *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+
+     60 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020075 $
+        END, IF $
+
+     65	DO, EXCHANGE, 
+	    TEST-EQUIP-ROLE SLAVE,
+            EXCHANGE 'TEST1002-T', 
+                TEST-EQUIP-MONITOR COMMAND 'CMD WORD-T',
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+	OUTPUT,
+            C'************************************************************\LF\',
+            C'* Was the following data received?                         *\LF\',
+            C'* 1A2B                                                     *\LF\',
+            C'* 2B2B                                                     *\LF\',
+            C'* 3C3C                                                     *\LF\',
+            C'* 4D4D                                                     *\LF\',
+            C'* 5E5E                                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Test Passed.\LF\',
+            C' F - Test Failed.\LF\'
+	$
+
+     70 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+	     CALCULATE, 'FAIL-FLAG'='FAIL-FLAG'+1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 20065$
+        PERFORM, 'RESULTS' $
+
+B $
+     75 OUTPUT,
+            C'************************************************************\LF\',
+            C'* 1553B RT Pretest Instructions:                           *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On another machine with 1553 capabilities, Set up a BC   *\LF\',
+            C'* ready to Broadcast to an RT number 10, SA 1, Max Response*\LF\',
+            C'* Time of 22 uSec, and Message Gap of 100 uSec.  It should *\LF\',
+            C'* be ready to send the following data:                     *\LF\',
+            C'* 1A2B                                                     *\LF\',
+            C'* 2B2B                                                     *\LF\',
+            C'* 3C3C                                                     *\LF\',
+            C'* 4D4D                                                     *\LF\',
+            C'* 5E5E                                                     *\LF\',
+            C'* 6F6F                                                     *\LF\',
+            C'* 7070                                                     *\LF\',
+            C'* 8181                                                     *\LF\',
+            C'* 9292                                                     *\LF\',
+            C'* A3A3                                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     80 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020099 $
+        END, IF $
+C $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'0000'$
+	END, FOR $
+C $
+        OUTPUT, TO 'PRINTER',
+            C' Test 1002 - Geting data from a remote terminal\LF\\LF\',
+            C'  --------------------------------------\LF\'
+        $
+C $
+
+     85	DO, EXCHANGE, 
+	    TEST-EQUIP-ROLE SLAVE,
+	    EXCHANGE 'TEST1002-C', 
+		TEST-EQUIP-MONITOR DATA 'DATA WORDS-L'(1 THRU 10),
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+     90	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            IF, 'DATA WORDS-T'('IDX') EQ 'DATA WORDS-L'('IDX'), THEN $ 
+	    	OUTPUT,
+                	C' Data Word ', 'IDX', C' Passed!'	$
+		OUTPUT, TO 'PRINTER',
+                	C' Data Word ', 'IDX', C' Passed!\LF\'	$
+	    ELSE $
+		OUTPUT,
+			C' Data Word ', 'IDX', C' Failed!\LF\',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\' 
+			$
+		OUTPUT, TO 'PRINTER',
+			C' Data Word ', 'IDX', C' Failed!\LF\',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+C $
+	CALCULATE, 'TESTNO' = 20085$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' $
+     95    INPUT, INTO 'MI' $
+        END, IF $
+C $
+
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Broadcast to Monitor
+C ******************************************************************* $
+C $
+B $
+ 030000 CALCULATE, 'MAX-T'      = 5 $
+B $
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* 1553B BM Pretest Instructions:                           *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On another machine with 1553 capabilities, Set up a BC   *\LF\',
+            C'* ready to send to an RT number 10, SA 1, Max Response     *\LF\',
+            C'* Time of 22 uSec, and Message Gap of 100 uSec.  It should *\LF\',
+            C'* be ready to send the following data:                     *\LF\',
+            C'* 1A2B                                                     *\LF\',
+            C'* 2B2B                                                     *\LF\',
+            C'* 3C3C                                                     *\LF\',
+            C'* 4D4D                                                     *\LF\',
+            C'* 5E5E                                                     *\LF\',
+            C'* 6F6F                                                     *\LF\',
+            C'* 7070                                                     *\LF\',
+            C'* 8181                                                     *\LF\',
+            C'* 9292                                                     *\LF\',
+            C'* A3A3                                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 030099 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T'(1)  = X'1A2B',
+                   'DATA WORDS-T'(2)  = X'2B2B',
+                   'DATA WORDS-T'(3)  = X'3C3C',
+                   'DATA WORDS-T'(4)  = X'4D4D',
+                   'DATA WORDS-T'(5)  = X'5E5E',
+                   'DATA WORDS-T'(6)  = X'6F6F',
+                   'DATA WORDS-T'(7)  = X'7070',
+                   'DATA WORDS-T'(8)  = X'8181',
+                   'DATA WORDS-T'(9)  = X'9292',
+                   'DATA WORDS-T'(10) = X'A3A3',
+		   'STA WORD-L'       = X'5000',
+                   'CMD WORD-L'       = X'502A',
+		   'CMD WORD-T'    = X'502A' $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'0000'$
+	END, FOR $
+
+C $
+
+CJW 030000 $
+     17 DO, EXCHANGE, 
+	    TEST-EQUIP-ROLE MONITOR,
+	    EXCHANGE 'TEST1003-L', 
+		TEST-EQUIP-MONITOR DATA 'DATA WORDS-L'(1 THRU 10),
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+
+     25	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            IF, 'DATA WORDS-T'('IDX') EQ 'DATA WORDS-L'('IDX'), THEN $ 
+	    	OUTPUT,
+                	C' Data Word ', 'IDX', C' Passed!' 	$
+		OUTPUT, TO 'PRINTER',
+                	C' Data Word ', 'IDX', C' Passed!\LF\' 	$
+	    ELSE $
+		OUTPUT,
+			C' Data Word ', 'IDX', C' Failed!',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\'
+			$
+		OUTPUT, TO 'PRINTER',
+			C' Data Word ', 'IDX', C' Failed!\LF\',
+			C' ', 'DATA WORDS-T'('IDX'), C' IS NOT EQUAL TO ',  'DATA WORDS-L'('IDX'), C'\LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+
+C $
+	CALCULATE, 'TESTNO' = 30017$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 030000 $
+        END, IF $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+B $
+ 060000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+        C'--------------------------------------\LF\',
+        C' END - END TEST\LF\',
+        C'    PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'\LF\', 
+          C'--------------------------------------\LF\',
+         C'END - END TEST\LF\',
+         C'   PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\',
+        C'--------------------------------------\LF\',
+        C' END - END TEST \LF\',
+        C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+       C' --------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	 C'\LF\',  
+        C'--------------------------------------\LF\',
+         C'END - END TEST\LF\ ',
+         C'FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+
+        END, IF  $
+ 060100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+B $
+ 999999 TERMINATE, ATLAS PROGRAM 'Bus Benchmark' $

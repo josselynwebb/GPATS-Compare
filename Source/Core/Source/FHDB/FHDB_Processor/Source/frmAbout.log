@@ -1,0 +1,23 @@
+Line 35: Class Threed.SSPanel of control panTitle was not a loaded control class.
+Line 64: Class Threed.SSPanel of control SSPanel1 was not a loaded control class.
+Line 124: Class Threed.SSCommand of control cmdOk was not a loaded control class.
+Line 41: The property name _Version in panTitle is invalid.
+Line 42: The property name _ExtentX in panTitle is invalid.
+Line 43: The property name _ExtentY in panTitle is invalid.
+Line 44: The property name _StockProps in panTitle is invalid.
+Line 45: The property name Caption in panTitle is invalid.
+Line 57: The property name BevelOuter in panTitle is invalid.
+Line 58: The property name FloodColor in panTitle is invalid.
+Line 59: The property name FloodShowPct in panTitle is invalid.
+Line 60: The property name Font3D in panTitle is invalid.
+Line 61: The property name Alignment in panTitle is invalid.
+Line 70: The property name _Version in SSPanel1 is invalid.
+Line 71: The property name _ExtentX in SSPanel1 is invalid.
+Line 72: The property name _ExtentY in SSPanel1 is invalid.
+Line 73: The property name _StockProps in SSPanel1 is invalid.
+Line 84: The property name BevelOuter in SSPanel1 is invalid.
+Line 131: The property name _Version in cmdOk is invalid.
+Line 132: The property name _ExtentX in cmdOk is invalid.
+Line 133: The property name _ExtentY in cmdOk is invalid.
+Line 134: The property name _StockProps in cmdOk is invalid.
+Line 135: The property name Caption in cmdOk is invalid.

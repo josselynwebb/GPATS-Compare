@@ -1,0 +1,7 @@
+[options]
+title=HPE1428A Digitizing Oscilloscope (VISA) Help
+warning=3
+[files]
+Hpe1428a.rtf
+[map]
+#include <Hpe1428a.whh>

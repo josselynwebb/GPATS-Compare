@@ -1,0 +1,4254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY con-lru-1 SYSTEM "./graphics/CON_LRU/ASSY/CON_LRU_1.pic" NDATA FAXTILE>
+<!ENTITY con-lru-fbd SYSTEM "./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S06" LABEL="VI"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE  E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\CONTROLLER_LRU_2618506-1\TP_AAV_CON_LRU.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_LRU/ASSY/CON_LRU_1.pic' ?><?BUTTON POS='3' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1" previous="./c3s05.ide!C3s05a" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?><?TOCENTRY TITLE="SECTION VI. Theory of Operation for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1" TOCLEVEL="2" LABEL="VI"?>
+<TITLE>SECTION VI. Theory of Operation for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1</TITLE>
+<PARA0 ID="P3-6" LABEL="3.6"><?TOCENTRY TITLE="3.6 Controller C-10879/MSQ-115 Theory of Operation" TOCLEVEL="3"?>
+<TITLE>Controller C-10879/MSQ-115 Theory of Operation</TITLE>
+<CAUTION>
+<PARA>This Line Replaceable Unit contains components sensitive to damage by Electrostatic Discharge. Use precautionary procedures when touching, removing, or installing components.</PARA></CAUTION>
+<PARA>The following paragraphs will describe the Theory of Operation for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1. <?hotspot linktype="picture" href="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>Figure 3-12<?endhotspot?> provides the CCA Layout.</PARA>
+<FIGURE ID="CON-LRU-1" LABEL="3-12">
+<TITLE>Controller C-10879/MSQ-115 LRU Layout</TITLE><?hotspot linktype="picture" href="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3155" LABEL="3.6.1"><?TOCENTRY TITLE="3.6.1 Controller Description" TOCLEVEL="4"?>
+<TITLE>Controller Description</TITLE>
+<PARA>Controller C-10879/MSQ-115 processes all control and audio signals between intercom sets. It has built-in diagnostic circuits and terminal test and switch test/mode indicator lights for self-test and troubleshooting. It provides solid-state digital control circuits to connect intercom sets and radios to each other. The microprocessor computer controls these circuits. The audio and control circuits do the following:   
+<SEQLIST NUMSTYLE="ALPHALC">
+<ITEM LABEL="a">Allow any station to connect or conference to any other station(s) via intercom.</ITEM>
+<ITEM LABEL="b">Allow radio operators to use the radio(s) at his/her station.</ITEM>
+<ITEM LABEL="c">Let the commander and staff use any of the radios remotely when tuned by the radio operators.</ITEM>
+<ITEM LABEL="d">Switch the commander's and staff to the radio that is selected.</ITEM>
+<ITEM LABEL="e">Switch in the commander's or staff push to-talk (PTT) circuit so they can key the transmitters remotely.</ITEM>
+<ITEM LABEL="f">Give the commander an override capability to break into any conversation.</ITEM></SEQLIST></PARA></SUBPARA1>
+<SUBPARA1 ID="GENC3156" LABEL="3.6.2"><?TOCENTRY TITLE="3.6.2 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<PARA>The Controller C-10879/MSQ-115 has three functional sections. They are the control section, voice section, and power section. Refer to <?hotspot linktype="picture" href="./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic"?>Figure 3-13<?endhotspot?>, the functional block diagram, as necessary while reading this section of the TSR.</PARA>
+<FIGURE ID="CON-LRU-FBD" LABEL="3-13">
+<TITLE>Controller C-10879/MSQ-115 Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA2 ID="GENC3158" LABEL="3.6.2.1"><?TOCENTRY TITLE="3.6.2.1 Control Section" TOCLEVEL="5"?>
+<TITLE>Control Section</TITLE>
+<SUBPARA3 ID="GENC3159" LABEL="3.6.2.1.1"><?TOCENTRY TITLE="3.6.2.1.1 Purpose" TOCLEVEL="6"?>
+<TITLE>Purpose</TITLE>
+<PARA>The control section manages the command and control interface between the Controller LRU and the ten Intercommunication Set (ICS) LRUs which may be connected. This section includes an interface which facilitates communication of control commands to and from any one of the ten connected ICS LRUs. The control section also controls the creation of all digital voice connections, conferences and amplitude scaling in the voice section. In addition the control section performs built in test procedures that have the capability to detect and diagnose failures in the Controller itself as well as failures in connected ICS LRUs. BIT diagnostics are accessed by manual procedures and are partly used by this TPS. BIT results are indicated via lamps DS1-DS8 on the front panel.</PARA></SUBPARA3>
+<SUBPARA3 ID="GENC3160" LABEL="3.6.2.1.2"><?TOCENTRY TITLE="3.6.2.1.2 Description" TOCLEVEL="6"?>
+<TITLE>Description</TITLE>
+<PARA>The control section consists of the Control I/O CCA, 6802 Computer CCA, parts of the DPCM CCA and parts of the Conference Accumulator CCA. The control section can be broken down into functional blocks which act as decoded peripherals of the 6802 computer functional block. These functional blocks can be seen in <?hotspot linktype="picture" href="./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic"?>Figure 3-13<?endhotspot?>, the functional block diagram. The functional blocks that make up the control section are the channel address register, ACIA transmitter, serial data demultiplexer (address decoder), (serial data) differential line drivers, (serial data) differential line receivers, serial data multiplexer (selector), ACIA receiver, direct read buffer, 6802 CPU, cross connect RAM interface, cross connect RAM and BIT indicators.</PARA></SUBPARA3>
+<SUBPARA3 ID="GENC3161" LABEL="3.6.2.1.3"><?TOCENTRY TITLE="3.6.2.1.3 ICS/Controller" TOCLEVEL="6"?>
+<TITLE>ICS/Controller</TITLE>
+<PARA>The first function of the control section, the ICS / Controller interface, is accomplished in the following way. The serial data receiver and transmitter are implemented together in the Motorola 6850 asynchronous communications interface adaptor ACIA. The transmitter side of the ACIA forms single bit, 2000 BAUD, odd parity, one start bit, one stop BIT, packets of serial data with eight bit parallel command words which are written to the transmitter by the 6802 via the data bus. This stream propagates via the selected transmit channel of the serial data decoder (demultiplexer). The transmit channel is selected by the serial data decoder based on the high four bits from the eight BIT channel address register. There are sixteen addressable physical channels of which only ten are used, one for each connected ICS. The serial data then propagates via the selected differential line drivers to the ICS connected to that channel. The ICS uses a UART to receive the message on a single channel which is always open. The receive channel is selected in the serial data selector based on the low four BITs of the channel address register. In order to receive messages from an ICS, the receive channel for that ICS must be selected when the ICS asynchronously transmits its message which is also done by the ICS's UART. Because of this the ICS must request permission before transmitting messages back to the Controller LRU. It does this by placing a request on the serial data line in the form of a continuous Space (opposite of Mark or Idle ) using separate logic from the UART. The Controller LRU continuously checks each of the 10 channels in sequence for such requests using separate logic from the ACIA. This separate circuit acts as an addressable switch that prevents such requests from reaching the serial input of the ACIA since the format of a request is not a format understood by the ACIA and it would cause an error detection by the ACIA. This switch, though external to the ACIA chip is controlled by an addressable single bit output of the ACIA which is programmed by the CPU via the chips CPU interface. When an ICS channel is found requesting, a request acknowledgement is sent to the requesting ICS, indicating that the Controller LRU has selected the correct channel, is ready to receive and the ICS may now transmit its data. Received serial data is of identical rate and formatting as transmitted serial data. While the channel is selected the message propagates from the selected ICS to the receiver side of the ACIA via the selected serial data differential line receiver and serial data selector. The ACIA receiver forms the serial data into an eight bit parallel word which can then be read from the ACIA by the CPU. The eight bit channel address register, as previously described controls which transmit channel and which receive channel are currently selected, is written by the CPU via the CPU data bus.</PARA><?FRAME id="c3s06a" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<PARA>The information transmitted to and from the control section is interfaced to the ICS by the control encode/decode circuit card that is installed in each ICS LRU. The types of information that are transferred over the interface between the Controller and the ICS include the following. The control section receives the status of the push-to-operate switch lights and the operators PTT and Radio keys at the ICS. These signals cause voice functions such as conferences to be set up in the voice section. This is part of the second function of the control section which is described in more detail in the paragraphs describing the voice section. In addition, the control section generates digital control signals that are sent back to the intercom sets. The control encode/decode cards that translate the signals causing lamps to turn on or off and causing relays to key the radios. In addition, this allows the master and staff station(s) to remotely key the transmitters on. The control section also causes an audible tone to be heard in a called station operator. This alerts the called station so the call can be answered. Furthermore, the control section recognizes the master stations PTT line and lets the operator at those stations override (interrupt) any conversation. Finally, the control section recognizes illegal requests and causes an illegal lamp to light on the intercom sets. An example of an illegal request would be a staff member or radio operator calling the installation unit crew.</PARA></SUBPARA3>
+<SUBPARA3 ID="GENC3162" LABEL="3.6.2.1.4"><?TOCENTRY TITLE="3.6.2.1.4 Digital Voice Conference" TOCLEVEL="6"?>
+<TITLE>Digital Voice Conference</TITLE>
+<PARA>The second function of the control section, digital voice conference, connections and scaling control, is accomplished as follows. The cross connect RAM interface provides an address selectable interface for the control section to write data to the cross connect RAM (CCRAM). It does so by delivering the low 8 bits of the CPU address bus and an output of the system address decoder to address the cross connect RAM, delivering the 8 bit CPU data bus to the input port of the CCRAM, delivering the CPU read/write signal to control writing to the RAM. This allows the CPU to manipulate the contents of the cross connect RAM. Simultaneously, the contents of the cross connect RAM are continuously scanned and the outputted data acts as control instructions for the conference accumulator &amp; scaler ALU where all switching of connections, conferences and scale factors is accomplished from the twenty-two incoming voice channels and one tone channel.</PARA></SUBPARA3>
+<SUBPARA3 ID="GENC3163" LABEL="3.6.2.1.5"><?TOCENTRY TITLE="3.6.2.1.5 Built In Test (BIT)" TOCLEVEL="6"?>
+<TITLE>Built In Test (BIT)</TITLE>
+<PARA>The third function of the control section, Built In Test (BIT), is accomplished as follows. The CPU contains programming to perform Controller self testing and diagnosis as well as testing and diagnosis of the connected equipment. Note that no form of BIT can automatically verify correct operation of the audio circuits since the CPU is unable to receive audio data. BIT can however cause connections to be created that will allow the use of loopbacks etc. to assist a test technician to verify correct operation of audio circuits by listening to the output. The BIT function of the LRU has two modes of operation. The first mode is self monitoring BIT. This BIT runs constantly as the system is in normal operation to detect certain failures in the system. The four terminal test lamps and four switch test/mode lamps on the front of the LRU will indicate a unique binary code when a self monitoring BIT failure occurs. Self monitoring BIT is partially diagnostic in that thirteen possible codes indicate the type of failure that has been detected. This mode of BIT has the ability to detect some failures of the connected ICS LRUs and failures of the Controller LRU as well.</PARA>
+<PARA>The second mode of the BIT procedure is diagnostic testing. Diagnostic BIT is used when the system is not operating correctly or when the self monitoring BIT indicates a failure and can also be used for general LRU checkout. Diagnostic testing consists of functional and diagnostic tests that run when the operator actuates the test switch on the front panel. The switch is toggled down and when released springs back to its default position. Each actuation of the test switch advances the BIT program to the next procedure of the test. Following each BIT procedure a binary code will be displayed on the terminal test and switch/mode test indicators on the front panel. Diagnostic BIT requires all ten ICS LRUs to be connected to the Controller LRU and those ICS must have certain accessories connected such as a headset. Diagnostic BIT requires between five and fourteen operations of the test switch to complete. Only five operations are required if the LRU passes all tests. Up to fourteen operations of the test switch may be needed depending on the number and type of failures that occur.  This mode of BIT has the ability to detect and diagnose certain failures of the connected ICS LRUs as well as failures of the Controller LRU to the CCA level. A summary of a diagnostic BIT go chain is shown in <XREF XREFID="TABLE3-5A" XIDTYPE="TABLE">Table 3-5</XREF> (All tests passing)</PARA><?FRAME id="c3s06b" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-5A" LABEL="3-5">
+<TITLE>Controller C-10879/MSQ-115 LRU Diagnostic BIT Go Chain</TITLE>
+<TGROUP COLS="4">
+<COLSPEC COLNAME="COL1" COLWIDTH=".8in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".9in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".9in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.7in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Actuation</ENTRY>
+<ENTRY ALIGN="CENTER">Terminal Test</ENTRY>
+<ENTRY ALIGN="CENTER">Switch Test/ Mode</ENTRY>
+<ENTRY ALIGN="CENTER">Test Function/Code Meaning</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>1 1 1 1</ENTRY>
+<ENTRY>1 1 1 1</ENTRY>
+<ENTRY>Lamp Test / Lamp Test</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>X X X X</ENTRY>
+<ENTRY>X X X X</ENTRY>
+<ENTRY>ICS Light Test / NA</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>X X X X</ENTRY>
+<ENTRY>X X X X</ENTRY>
+<ENTRY>ICS Light Test / NA</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>X X X X</ENTRY>
+<ENTRY>1 0 0 0</ENTRY>
+<ENTRY>Loopback Test / System OK</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>0 0 0 0</ENTRY>
+<ENTRY>0 0 0 0</ENTRY>
+<ENTRY>NA / Normal Operation</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<PARA>The diagnostic BIT may also be executed with no other equipment connected to the Controller LRU except for input power. Using the BIT with no equipment connected partially verifies functionality of the BIT itself since essentially all BIT tests will produce a failing result. This testing will require twelve actuations of the test switch when there are no failures of the LRU. This BIT self test is prescribed by the LRU test specification. This is the BIT that is exercised as part of this TPS.  With each actuation of the test switch a binary code will be displayed as follows:</PARA>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-5B" LABEL="3-6">
+<TITLE>Controller C-10879/MSQ-115 LRU BIT Self Test</TITLE>
+<TGROUP COLS="4">
+<COLSPEC COLNAME="COL1" COLWIDTH=".8in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".9in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".9in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.7in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Actuation</ENTRY>
+<ENTRY ALIGN="CENTER">Terminal Test</ENTRY>
+<ENTRY ALIGN="CENTER">Switch Test / Mode</ENTRY>
+<ENTRY ALIGN="CENTER">Indication Meaning</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>1 1 1 1</ENTRY>
+<ENTRY>1 1 1 1</ENTRY>
+<ENTRY>Lamp Test</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>0 0 0 1</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 1 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>0 0 1 0</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 2 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>0 0 1 1</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 3 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 4 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>0 1 0 1</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 5 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>0 1 1 0</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 6 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>0 1 1 1</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 7 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>1 0 0 0</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 8 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>1 0 0 1</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 9 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>1 0 1 0</ENTRY>
+<ENTRY>0 1 0 0</ENTRY>
+<ENTRY>ICS 10 Failed / Not Present</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>0 0 0 1</ENTRY>
+<ENTRY>1 0 0 0</ENTRY>
+<ENTRY>ICS Failure</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA3></SUBPARA2>
+<SUBPARA2 ID="GENC3166" LABEL="3.6.2.2"><?TOCENTRY TITLE="3.6.2.2 Voice Section" TOCLEVEL="5"?>
+<TITLE>Voice Section</TITLE>
+<SUBPARA3 ID="GENC3167" LABEL="3.6.2.2.1"><?TOCENTRY TITLE="3.6.2.2.1 Purpose" TOCLEVEL="6"?>
+<TITLE>Purpose</TITLE>
+<PARA>The voice section of the Controller C-10879/MSQ-115 operates under the command of the control section. The function of the voice section is to scale, connect and or conference the twenty-two incoming CVSD voice signals and the internal CVSD tone signal and then to send the appropriate conferences or single connections to each of the corresponding twenty-two CVSD outputs. The functional blocks of the voice section use time division multiplexing so that the same physical circuitry can perform different operations on all signals simultaneously in real time.</PARA></SUBPARA3>
+<SUBPARA3 ID="GENC3168" LABEL="3.6.2.2.2"><?TOCENTRY TITLE="3.6.2.2.2 Description" TOCLEVEL="6"?>
+<TITLE>Description</TITLE>
+<PARA>The voice section consists of the CVSD I/O CCAs (2), DPCM CCA and Conference Accumulator CCAs (3). The voice section can be broken down into several functional blocks. These functional blocks can be seen in  <?hotspot linktype="picture" href="./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic"?>Figure 3-13<?endhotspot?>, the functional block diagram. These blocks are the crystal oscillator &amp; timing signal generator, CVSD tone generator, (CVSD) differential line receivers, CVSD multiplexer, CVSD to DPCM converter &amp; submultiplexer, conference creation &amp; scaler ALU, DPCM to CVSD converter, CVSD demultiplexer and (CVSD) differential line transmitters.</PARA></SUBPARA3><?FRAME id="c3s06c" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<SUBPARA3 ID="GENC3169" LABEL="3.6.2.2.3"><?TOCENTRY TITLE="3.6.2.2.3 Operation" TOCLEVEL="6"?>
+<TITLE>Operation</TITLE>
+<PARA>The voice section operates as follows. Twenty-two 32 ksps CVSD signals are received by the CVSD differential line receivers and are multiplexed in the CVSD multiplexer. Eight CVSD channels are muxed onto a single line by the CVSD multiplexer. The CVSD multiplexer block consists of four, eight-to-one multiplexer units, each of which produces a single line. Each multiplexer unit is addressed by  the /1 MHz, 512 kHz and 256 kHz timing signals which are generated by the crystal oscillator and timing signal generator producing a bit rate of 2 Mbps on each of these four lines. This multiplex rate causes the eight samples to occur one after the other in sequence eight times within one sample period (1 / 32kHz). In other words each sample from a given channel can be seen at eight separate times before the next sample occurs. The purpose of this repetitive format is so that eight of these multiplexed CVSD lines may be further time division multiplexed onto a single line without having to time shift any of the samples. The DPCM to CVSD converter receives a total of  eight of these multiplexed CVSD lines providing space for a total of sixty-four simultaneous input voice channels. Four of these lines are produced by the CVSD input multiplexers on the CVSD I/O CCA.  On the four multiplexed CVSD lines produced by the CVSD input multiplexers, there are thirty two channels. However only twenty-three channels actually receive CVSD data in this system. Three of these multiplexed CVSD lines are delivered from the DPCM to CVSD converter and conference creation and scaler block which is described later (feedbacks). The eighth line is not used. As a result, only forty-seven of the sixty-four channels actually contain digital audio signals and are used in this system. The DPCM converter and submultiplexer has only one mode of operation which is to continuously convert all incoming multiplexed CVSD voice channels to six-bit DPCM format and multiplex all channels simultaneously onto a single six-bit DPCM bus. Sampling and converting the eight sub channels of all eight multiplexed CVSD lines is readily accomplished because the samples are already properly timed. Refer to  <XREF XREFID="TABLE3-6A" XIDTYPE="TABLE">Table 3-7</XREF>  which is a plot of timing vs. physical location of the of the sixty four channel samples. The entire table represents one system sample period (1 / 32kHz). Time is  dispersed vertically and the height of each cell is a time slot at a 2 Mbps rate. Each column represents the sequence of channels that are present on a multiplexed CVSD line in time. The last column is the super multiplexed CVSD line with all 64 channels present. The grayed areas in the first eight columns represent when those lines are sampled by the CVSD to DPCM converter and the channel samples are placed on the super multiplexed CVSD line. As shown by the table the CVSD to DPCM converter samples and converts the eight channels from the physical line number corresponding to the current repetition number. First the eight channels are sampled from line zero during repetition zero. Then eight more channels are sampled from line one during repetition one etc. The result of this is a single line with a new sample from each of the sixty-four incoming channels, once per sample period and a bit rate of 2 Mbps.  Then the data from each channel is converted to DPCM bus in the same sequence they occur on the super multiplexed CVSD line. Then the resulting six-bit DPCM samples are placed on the DPCM bus at the same rate and in the same sequence.</PARA><?FRAME id="c3s06c1" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="3" ID="TABLE3-6A" LABEL="3-7">
+<TITLE>CVSD Time Division Multiplexing Format</TITLE>
+<TGROUP COLS="10">
+<COLSPEC COLNAME="COL1" COLWIDTH=".75in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL4" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL5" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL6" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL8" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL9" COLWIDTH=".3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL10" COLWIDTH=".3in" ALIGN="CENTER"/>
+<SPANSPEC NAMEST="COL2" NAMEEND="COL10" SPANNAME="C2C10" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER"></ENTRY>
+<ENTRY SPANNAME="C2C10">Multiplexed CVSD Lines</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Time</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">8</ENTRY>
+<ENTRY ALIGN="CENTER">64</ENTRY></ROW>
+<ROW>
+<ENTRY>Repetition</ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>5</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>7</ENTRY>
+<ENTRY>8</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">0</EMPHASIS></ENTRY>
+<ENTRY SHADING="silver">0</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>24</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY>48</ENTRY>
+<ENTRY>56</ENTRY>
+<ENTRY SHADING="silver">0</ENTRY></ROW>
+<ROW>
+<ENTRY SHADING="silver">1</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY>25</ENTRY>
+<ENTRY>33</ENTRY>
+<ENTRY>41</ENTRY>
+<ENTRY>49</ENTRY>
+<ENTRY>57</ENTRY>
+<ENTRY SHADING="silver">1</ENTRY></ROW>
+<ROW>
+<ENTRY SHADING="silver">2</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>26</ENTRY>
+<ENTRY>34</ENTRY>
+<ENTRY>42</ENTRY>
+<ENTRY>50</ENTRY>
+<ENTRY>58</ENTRY>
+<ENTRY SHADING="silver">2</ENTRY></ROW>
+<ROW>
+<ENTRY SHADING="silver">3</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY>27</ENTRY>
+<ENTRY>35</ENTRY>
+<ENTRY>43</ENTRY>
+<ENTRY>51</ENTRY>
+<ENTRY>59</ENTRY>
+<ENTRY SHADING="silver">3</ENTRY></ROW>
+<ROW>
+<ENTRY SHADING="silver">4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>20</ENTRY>
+<ENTRY>28</ENTRY>
+<ENTRY>36</ENTRY>
+<ENTRY>44</ENTRY>
+<ENTRY>52</ENTRY>
+<ENTRY>60</ENTRY>
+<ENTRY SHADING="silver">4</ENTRY></ROW>
+<ROW>
+<ENTRY SHADING="silver">5</ENTRY>
+<ENTRY>13</ENTRY>
+<ENTRY>21</ENTRY>
+<ENTRY>29</ENTRY>
+<ENTRY>37</ENTRY>
+<ENTRY>45</ENTRY>
+<ENTRY>53</ENTRY>
+<ENTRY>61</ENTRY>
+<ENTRY SHADING="silver">5</ENTRY></ROW>
+<ROW>
+<ENTRY SHADING="silver">6</ENTRY>
+<ENTRY>14</ENTRY>
+<ENTRY>22</ENTRY>
+<ENTRY>30</ENTRY>
+<ENTRY>38</ENTRY>
+<ENTRY>46</ENTRY>
+<ENTRY>54</ENTRY>
+<ENTRY>62</ENTRY>
+<ENTRY SHADING="silver">6</ENTRY></ROW>
+<ROW>
+<ENTRY SHADING="silver">7</ENTRY>
+<ENTRY>15</ENTRY>
+<ENTRY>23</ENTRY>
+<ENTRY>31</ENTRY>
+<ENTRY>39</ENTRY>
+<ENTRY>47</ENTRY>
+<ENTRY>55</ENTRY>
+<ENTRY>63</ENTRY>
+<ENTRY SHADING="silver">7</ENTRY></ROW>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY SHADING="silver">8</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>24</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY>48</ENTRY>
+<ENTRY>56</ENTRY>
+<ENTRY SHADING="silver">8</ENTRY></ROW>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY SHADING="silver">9</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY>25</ENTRY>
+<ENTRY>33</ENTRY>
+<ENTRY>41</ENTRY>
+<ENTRY>49</ENTRY>
+<ENTRY>57</ENTRY>
+<ENTRY SHADING="silver">9</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY SHADING="silver">10</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>26</ENTRY>
+<ENTRY>34</ENTRY>
+<ENTRY>42</ENTRY>
+<ENTRY>50</ENTRY>
+<ENTRY>58</ENTRY>
+<ENTRY SHADING="silver">10</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY SHADING="silver">11</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY>27</ENTRY>
+<ENTRY>35</ENTRY>
+<ENTRY>43</ENTRY>
+<ENTRY>51</ENTRY>
+<ENTRY>59</ENTRY>
+<ENTRY SHADING="silver">11</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY SHADING="silver">12</ENTRY>
+<ENTRY>20</ENTRY>
+<ENTRY>28</ENTRY>
+<ENTRY>36</ENTRY>
+<ENTRY>44</ENTRY>
+<ENTRY>52</ENTRY>
+<ENTRY>60</ENTRY>
+<ENTRY SHADING="silver">12</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY SHADING="silver">13</ENTRY>
+<ENTRY>21</ENTRY>
+<ENTRY>29</ENTRY>
+<ENTRY>37</ENTRY>
+<ENTRY>45</ENTRY>
+<ENTRY>53</ENTRY>
+<ENTRY>61</ENTRY>
+<ENTRY SHADING="silver">13</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY SHADING="silver">14</ENTRY>
+<ENTRY>22</ENTRY>
+<ENTRY>30</ENTRY>
+<ENTRY>38</ENTRY>
+<ENTRY>46</ENTRY>
+<ENTRY>54</ENTRY>
+<ENTRY>62</ENTRY>
+<ENTRY SHADING="silver">14</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY SHADING="silver">15</ENTRY>
+<ENTRY>23</ENTRY>
+<ENTRY>31</ENTRY>
+<ENTRY>39</ENTRY>
+<ENTRY>47</ENTRY>
+<ENTRY>55</ENTRY>
+<ENTRY>63</ENTRY>
+<ENTRY SHADING="silver">15</ENTRY></ROW>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY SHADING="silver">16</ENTRY>
+<ENTRY>24</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY>48</ENTRY>
+<ENTRY>56</ENTRY>
+<ENTRY SHADING="silver">16</ENTRY></ROW>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY SHADING="silver">17</ENTRY>
+<ENTRY>25</ENTRY>
+<ENTRY>33</ENTRY>
+<ENTRY>41</ENTRY>
+<ENTRY>49</ENTRY>
+<ENTRY>57</ENTRY>
+<ENTRY SHADING="silver">17</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY SHADING="silver">18</ENTRY>
+<ENTRY>26</ENTRY>
+<ENTRY>34</ENTRY>
+<ENTRY>42</ENTRY>
+<ENTRY>50</ENTRY>
+<ENTRY>58</ENTRY>
+<ENTRY SHADING="silver">18</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY SHADING="silver">19</ENTRY>
+<ENTRY>27</ENTRY>
+<ENTRY>35</ENTRY>
+<ENTRY>43</ENTRY>
+<ENTRY>51</ENTRY>
+<ENTRY>59</ENTRY>
+<ENTRY SHADING="silver">19</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY SHADING="silver">20</ENTRY>
+<ENTRY>28</ENTRY>
+<ENTRY>36</ENTRY>
+<ENTRY>44</ENTRY>
+<ENTRY>52</ENTRY>
+<ENTRY>60</ENTRY>
+<ENTRY SHADING="silver">20</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>13</ENTRY>
+<ENTRY SHADING="silver">21</ENTRY>
+<ENTRY>29</ENTRY>
+<ENTRY>37</ENTRY>
+<ENTRY>45</ENTRY>
+<ENTRY>53</ENTRY>
+<ENTRY>61</ENTRY>
+<ENTRY SHADING="silver">21</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>14</ENTRY>
+<ENTRY SHADING="silver">22</ENTRY>
+<ENTRY>30</ENTRY>
+<ENTRY>38</ENTRY>
+<ENTRY>46</ENTRY>
+<ENTRY>54</ENTRY>
+<ENTRY>62</ENTRY>
+<ENTRY SHADING="silver">22</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>15</ENTRY>
+<ENTRY SHADING="silver">23</ENTRY>
+<ENTRY>31</ENTRY>
+<ENTRY>39</ENTRY>
+<ENTRY>47</ENTRY>
+<ENTRY>55</ENTRY>
+<ENTRY>63</ENTRY>
+<ENTRY SHADING="silver">23</ENTRY></ROW>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY SHADING="silver">24</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY>48</ENTRY>
+<ENTRY>56</ENTRY>
+<ENTRY SHADING="silver">24</ENTRY></ROW>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY SHADING="silver">25</ENTRY>
+<ENTRY>33</ENTRY>
+<ENTRY>41</ENTRY>
+<ENTRY>49</ENTRY>
+<ENTRY>57</ENTRY>
+<ENTRY SHADING="silver">25</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY SHADING="silver">26</ENTRY>
+<ENTRY>34</ENTRY>
+<ENTRY>42</ENTRY>
+<ENTRY>50</ENTRY>
+<ENTRY>58</ENTRY>
+<ENTRY SHADING="silver">26</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY SHADING="silver">27</ENTRY>
+<ENTRY>35</ENTRY>
+<ENTRY>43</ENTRY>
+<ENTRY>51</ENTRY>
+<ENTRY>59</ENTRY>
+<ENTRY SHADING="silver">27</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>20</ENTRY>
+<ENTRY SHADING="silver">28</ENTRY>
+<ENTRY>36</ENTRY>
+<ENTRY>44</ENTRY>
+<ENTRY>52</ENTRY>
+<ENTRY>60</ENTRY>
+<ENTRY SHADING="silver">28</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>13</ENTRY>
+<ENTRY>21</ENTRY>
+<ENTRY SHADING="silver">29</ENTRY>
+<ENTRY>37</ENTRY>
+<ENTRY>45</ENTRY>
+<ENTRY>53</ENTRY>
+<ENTRY>61</ENTRY>
+<ENTRY SHADING="silver">29</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>14</ENTRY>
+<ENTRY>22</ENTRY>
+<ENTRY SHADING="silver">30</ENTRY>
+<ENTRY>38</ENTRY>
+<ENTRY>46</ENTRY>
+<ENTRY>54</ENTRY>
+<ENTRY>62</ENTRY>
+<ENTRY SHADING="silver">30</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>15</ENTRY>
+<ENTRY>23</ENTRY>
+<ENTRY SHADING="silver">31</ENTRY>
+<ENTRY>39</ENTRY>
+<ENTRY>47</ENTRY>
+<ENTRY>55</ENTRY>
+<ENTRY>63</ENTRY>
+<ENTRY SHADING="silver">31</ENTRY></ROW>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>24</ENTRY>
+<ENTRY SHADING="silver">32</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY>48</ENTRY>
+<ENTRY>56</ENTRY>
+<ENTRY SHADING="silver">32</ENTRY></ROW>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY>25</ENTRY>
+<ENTRY SHADING="silver">33</ENTRY>
+<ENTRY>41</ENTRY>
+<ENTRY>49</ENTRY>
+<ENTRY>57</ENTRY>
+<ENTRY SHADING="silver">33</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>26</ENTRY>
+<ENTRY SHADING="silver">34</ENTRY>
+<ENTRY>42</ENTRY>
+<ENTRY>50</ENTRY>
+<ENTRY>58</ENTRY>
+<ENTRY SHADING="silver">34</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY>27</ENTRY>
+<ENTRY SHADING="silver">35</ENTRY>
+<ENTRY>43</ENTRY>
+<ENTRY>51</ENTRY>
+<ENTRY>59</ENTRY>
+<ENTRY SHADING="silver">35</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>20</ENTRY>
+<ENTRY>28</ENTRY>
+<ENTRY SHADING="silver">36</ENTRY>
+<ENTRY>44</ENTRY>
+<ENTRY>52</ENTRY>
+<ENTRY>60</ENTRY>
+<ENTRY SHADING="silver">36</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>13</ENTRY>
+<ENTRY>21</ENTRY>
+<ENTRY>29</ENTRY>
+<ENTRY SHADING="silver">37</ENTRY>
+<ENTRY>45</ENTRY>
+<ENTRY>53</ENTRY>
+<ENTRY>61</ENTRY>
+<ENTRY SHADING="silver">37</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>14</ENTRY>
+<ENTRY>22</ENTRY>
+<ENTRY>30</ENTRY>
+<ENTRY SHADING="silver">38</ENTRY>
+<ENTRY>46</ENTRY>
+<ENTRY>54</ENTRY>
+<ENTRY>62</ENTRY>
+<ENTRY SHADING="silver">38</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>15</ENTRY>
+<ENTRY>23</ENTRY>
+<ENTRY>31</ENTRY>
+<ENTRY SHADING="silver">39</ENTRY>
+<ENTRY>47</ENTRY>
+<ENTRY>55</ENTRY>
+<ENTRY>63</ENTRY>
+<ENTRY SHADING="silver">39</ENTRY></ROW>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">5</EMPHASIS></ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>24</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY SHADING="silver">40</ENTRY>
+<ENTRY>48</ENTRY>
+<ENTRY>56</ENTRY>
+<ENTRY SHADING="silver">40</ENTRY></ROW>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY>25</ENTRY>
+<ENTRY>33</ENTRY>
+<ENTRY SHADING="silver">41</ENTRY>
+<ENTRY>49</ENTRY>
+<ENTRY>57</ENTRY>
+<ENTRY SHADING="silver">41</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>26</ENTRY>
+<ENTRY>34</ENTRY>
+<ENTRY SHADING="silver">42</ENTRY>
+<ENTRY>50</ENTRY>
+<ENTRY>58</ENTRY>
+<ENTRY SHADING="silver">42</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY>27</ENTRY>
+<ENTRY>35</ENTRY>
+<ENTRY SHADING="silver">43</ENTRY>
+<ENTRY>51</ENTRY>
+<ENTRY>59</ENTRY>
+<ENTRY SHADING="silver">43</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>20</ENTRY>
+<ENTRY>28</ENTRY>
+<ENTRY>36</ENTRY>
+<ENTRY SHADING="silver">44</ENTRY>
+<ENTRY>52</ENTRY>
+<ENTRY>60</ENTRY>
+<ENTRY SHADING="silver">44</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>13</ENTRY>
+<ENTRY>21</ENTRY>
+<ENTRY>29</ENTRY>
+<ENTRY>37</ENTRY>
+<ENTRY SHADING="silver">45</ENTRY>
+<ENTRY>53</ENTRY>
+<ENTRY>61</ENTRY>
+<ENTRY SHADING="silver">45</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>14</ENTRY>
+<ENTRY>22</ENTRY>
+<ENTRY>30</ENTRY>
+<ENTRY>38</ENTRY>
+<ENTRY SHADING="silver">46</ENTRY>
+<ENTRY>54</ENTRY>
+<ENTRY>62</ENTRY>
+<ENTRY SHADING="silver">46</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>15</ENTRY>
+<ENTRY>23</ENTRY>
+<ENTRY>31</ENTRY>
+<ENTRY>39</ENTRY>
+<ENTRY SHADING="silver">47</ENTRY>
+<ENTRY>55</ENTRY>
+<ENTRY>63</ENTRY>
+<ENTRY SHADING="silver">47</ENTRY></ROW>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">6</EMPHASIS></ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>24</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY SHADING="silver">48</ENTRY>
+<ENTRY>56</ENTRY>
+<ENTRY SHADING="silver">48</ENTRY></ROW>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY>25</ENTRY>
+<ENTRY>33</ENTRY>
+<ENTRY>41</ENTRY>
+<ENTRY SHADING="silver">49</ENTRY>
+<ENTRY>57</ENTRY>
+<ENTRY SHADING="silver">49</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>26</ENTRY>
+<ENTRY>34</ENTRY>
+<ENTRY>42</ENTRY>
+<ENTRY SHADING="silver">50</ENTRY>
+<ENTRY>58</ENTRY>
+<ENTRY SHADING="silver">50</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY>27</ENTRY>
+<ENTRY>35</ENTRY>
+<ENTRY>43</ENTRY>
+<ENTRY SHADING="silver">51</ENTRY>
+<ENTRY>59</ENTRY>
+<ENTRY SHADING="silver">51</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>20</ENTRY>
+<ENTRY>28</ENTRY>
+<ENTRY>36</ENTRY>
+<ENTRY>44</ENTRY>
+<ENTRY SHADING="silver">52</ENTRY>
+<ENTRY>60</ENTRY>
+<ENTRY SHADING="silver">52</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>13</ENTRY>
+<ENTRY>21</ENTRY>
+<ENTRY>29</ENTRY>
+<ENTRY>37</ENTRY>
+<ENTRY>45</ENTRY>
+<ENTRY SHADING="silver">53</ENTRY>
+<ENTRY>61</ENTRY>
+<ENTRY SHADING="silver">53</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>14</ENTRY>
+<ENTRY>22</ENTRY>
+<ENTRY>30</ENTRY>
+<ENTRY>38</ENTRY>
+<ENTRY>46</ENTRY>
+<ENTRY SHADING="silver">54</ENTRY>
+<ENTRY>62</ENTRY>
+<ENTRY SHADING="silver">54</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>15</ENTRY>
+<ENTRY>23</ENTRY>
+<ENTRY>31</ENTRY>
+<ENTRY>39</ENTRY>
+<ENTRY>47</ENTRY>
+<ENTRY SHADING="silver">55</ENTRY>
+<ENTRY>63</ENTRY>
+<ENTRY SHADING="silver">55</ENTRY></ROW>
+<ROW>
+<ENTRY MOREROWS="7" VALIGN="MIDDLE"><EMPHASIS EMPH="B">7</EMPHASIS></ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>24</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY>48</ENTRY>
+<ENTRY SHADING="silver">56</ENTRY>
+<ENTRY SHADING="silver">56</ENTRY></ROW>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY>25</ENTRY>
+<ENTRY>33</ENTRY>
+<ENTRY>41</ENTRY>
+<ENTRY>49</ENTRY>
+<ENTRY SHADING="silver">57</ENTRY>
+<ENTRY SHADING="silver">57</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>26</ENTRY>
+<ENTRY>34</ENTRY>
+<ENTRY>42</ENTRY>
+<ENTRY>50</ENTRY>
+<ENTRY SHADING="silver">58</ENTRY>
+<ENTRY SHADING="silver">58</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY>27</ENTRY>
+<ENTRY>35</ENTRY>
+<ENTRY>43</ENTRY>
+<ENTRY>51</ENTRY>
+<ENTRY SHADING="silver">59</ENTRY>
+<ENTRY SHADING="silver">59</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>20</ENTRY>
+<ENTRY>28</ENTRY>
+<ENTRY>36</ENTRY>
+<ENTRY>44</ENTRY>
+<ENTRY>52</ENTRY>
+<ENTRY SHADING="silver">60</ENTRY>
+<ENTRY SHADING="silver">60</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>13</ENTRY>
+<ENTRY>21</ENTRY>
+<ENTRY>29</ENTRY>
+<ENTRY>37</ENTRY>
+<ENTRY>45</ENTRY>
+<ENTRY>53</ENTRY>
+<ENTRY SHADING="silver">61</ENTRY>
+<ENTRY SHADING="silver">61</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>14</ENTRY>
+<ENTRY>22</ENTRY>
+<ENTRY>30</ENTRY>
+<ENTRY>38</ENTRY>
+<ENTRY>46</ENTRY>
+<ENTRY>54</ENTRY>
+<ENTRY SHADING="silver">62</ENTRY>
+<ENTRY SHADING="silver">62</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>15</ENTRY>
+<ENTRY>23</ENTRY>
+<ENTRY>31</ENTRY>
+<ENTRY>39</ENTRY>
+<ENTRY>47</ENTRY>
+<ENTRY>55</ENTRY>
+<ENTRY SHADING="silver">63</ENTRY>
+<ENTRY SHADING="silver">63</ENTRY></ROW></TBODY></TGROUP></TABLE><?FRAME id="c3s06c2" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<PARA>The six-bit DPCM data then propagates to the conference creation &amp; scaler ALU and DPCM to CVSD converter block. This block also operates under control of the control section via the cross connect RAM. This block receives the sixty-four channels of incoming DPCM data. The output consists of twenty-four channels of CVSD data which are multiplexed onto three of the same type of eight channel multiplexed CVSD lines already described that are created by the CVSD input multiplexers. Each individual output channel may be formed as any combination of the sixty-four input channels by arithmetic summation of DPCM samples of each of the separate channels to form a cumulative sample. For each connection this occurs on a sample by sample basis at a rate of 2 Msps which is the sample rate of the multiplexed DPCM bus. Additionally each input to output connection may be scaled by a factor of 0 dB, -6 dB or -12 dB prior to being added to a conference. Due to hardware speed limitations a single AM2901 based ALU circuit cannot be cycled fast enough to process sixty-four channels into twenty four conferences at the necessary rate. Therefore six ALUs are each multiplexed and are able to produce four of the conference/connection outputs per ALU by performing four operations per DPCM sample period (1 / 2MHz).</PARA>
+<PARA>Refer to  <XREF XREFID="TABLE3-6B" XIDTYPE="TABLE">Table 3-8</XREF> for a complete map of the following audio processing.  The entire table represents one external 32 kHz sample period.  Time is plotted vertically.  The beginning of the table can be strobed by the falling edge of the TTL version of the 32 kHz clock available at the test point E64, accessible by removing the LRU bottom cover. Each ALU processes connections for and is associated with four specific outputs of the system, for example the first ALU on the A7 CCA is associated with the Commander 1, Crew 1, Radio Operator Terminal 1 and Radio 5B output channels.  During each 2 Msps DPCM sample period, each ALU performs four arithmetic operations, one for each of the output channels. The resulting rate of operation of the ALUs is 8 MHz.  This operation is to either add the current incoming channel sample to the current output or to reject it.  This occurs for each of the four output channels and then the process starts again for the next incoming channel sample until all 64 incoming channel samples within the 32 kHz base sample period have been processed.  Simultaneously all 6 of the ALUs perform this same process.  However, each of the six ALUs has it's own group of four outputs to serve, providing space for a total of 24 outputs.  In this way the system is capable of connecting any combination of incoming CVSD audio signals to any one CVSD audio output, and capable of doing this with all outputs simultaneously.</PARA>
+<PARA>Scaling is accomplished physically before the data reaches the ALU.  0 dBm is accomplished by feeding the DPCM data directly to the ALU.  -6 dBm is accomplished by shifting the data right 1 binary position prior to entering the ALU operand port.  -12 dBm is accomplished by shifting the data right two positions.</PARA>
+<PARA>Each input to output combination is controlled completely and simply by two bits from the CCRAM.  The appropriate bits of data are scanned from the CCRAM and appear with the necessary timing at the instruction inputs of each ALU and scaler.  The conditions of those BITs are as follows:  
+<RANDLIST>
+<ITEM>00 Connect at 0 dBm</ITEM>
+<ITEM>01 Connect at -6 dBm</ITEM>
+<ITEM>10 Connect at -12 dBm</ITEM>
+<ITEM>11 Reject Channel</ITEM></RANDLIST></PARA><?FRAME id="c3s06c3" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" ID="TABLE3-6B" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in"/>
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in"/>
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in"/>
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in"/>
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in"/>
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in"/>
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in"/>
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW>
+<ROW>
+<ENTRY></ENTRY>
+<ENTRY>Operation #</ENTRY>
+<ENTRY>Sample #</ENTRY>
+<ENTRY>Channel</ENTRY>
+<ENTRY>A7 ALU 1</ENTRY>
+<ENTRY>A7 ALU 2</ENTRY>
+<ENTRY>A8 ALU 1</ENTRY>
+<ENTRY>A8 ALU 2</ENTRY>
+<ENTRY>A9 ALU 1</ENTRY>
+<ENTRY>A9 ALU 2</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B">CVSD I/O  A1 Input Group A</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CDR 1</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CRW 1</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 5</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 5B</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">5</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">STA 1</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">6</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 1</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">7</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 1A</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">8</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 1B</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<?FRAME id="c3s06c3b" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map - Continued</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in">
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in">
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in">
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW></THEAD><TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B">CVSD I/O  A1 Input Group B</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">9</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 2</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">10</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 2A</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">11</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 2B</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">12</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">13</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">STA 3</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">14</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 3B</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">15</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 5A</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">16</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CALL TUNE</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<?FRAME id="c3s06c3c" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map - Continued</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in">
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in">
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in">
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW></THEAD><TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B">CVSD I/O  A2 Input Group A</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">17</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CDR 2</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">18</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CRW 2</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">19</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 3</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">20</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 3A</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">21</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">STA 2</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">22</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 4</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">23</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 4A</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">24</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 4B</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<?FRAME id="c3s06c3d" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" image="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map - Continued</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in">
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in">
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in">
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW></THEAD><TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B">CVSD I/O  A2 Input Group B</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">25</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">26</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">27</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">28</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">29</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">30</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">31</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">32</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">-</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<?FRAME id="c3s06c3e" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" IMAGE="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map - Continued</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in">
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in">
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in">
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW></THEAD><TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B">Feedbacks From A7 Output Channels</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">33</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CDR 1 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">34</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CRW 1 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">35</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 5 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">36</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 5B Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">37</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">STA 1 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">38</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 1 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">39</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 1A Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">40</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 1B Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<?FRAME id="c3s06c3f" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" IMAGE="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map - Continued</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in">
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in">
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in">
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW></THEAD><TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B"> Feedbacks From A8 Output Channels</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">41</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 2 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">42</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 2A Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">43</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 2B Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">44</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">INT 1 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">45</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">STA 3 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">46</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 3B Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">47</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 5A Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">48</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">INT 2 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<?FRAME id="c3s06c3g" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" IMAGE="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map - Continued</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in">
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in">
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in">
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW></THEAD><TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B"> Feedbacks From A9 Output Channels</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">49</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CDR 2 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">50</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">CRW 2 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">51</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 3 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">52</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 3A Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">53</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">STA 2 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">54</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">ROT 4 Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">55</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 4A Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">56</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">RAD 4B Feed-back</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<?FRAME id="c3s06c3h" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" IMAGE="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="2" LABEL="3-8">
+<TITLE>CVSD Audio Input to Output Connection Map - Continued</TITLE>
+<TGROUP COLS="10" ALIGN="CENTER">
+<COLSPEC COLNAME="COL1" COLWIDTH=".25in">
+<COLSPEC COLNAME="COL2" COLWIDTH=".85in">
+<COLSPEC COLNAME="COL3" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL4" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL5" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL6" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL8" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL9" COLWIDTH=".75in">
+<COLSPEC COLNAME="COL10" COLWIDTH=".75in">
+<THEAD>
+<ROW ROWSEP="0">
+<ENTRY></ENTRY>
+<ENTRY>ALU</ENTRY>
+<ENTRY>DPCM In</ENTRY>
+<ENTRY>Input</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY>
+<ENTRY>Output Ch.</ENTRY></ROW></THEAD><TBODY>
+<ROW>
+<ENTRY MOREROWS="31" ROWSEP="0" ALIGN="CENTER" VALIGN="MIDDLE" ROTATE="1"><EMPHASIS EMPH="B">No Source - Unused</EMPHASIS></ENTRY>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">57</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">58</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">59</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">60</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">61</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">62</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">63</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">1</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE"><EMPHASIS EMPH="B">64</EMPHASIS></ENTRY>
+<ENTRY MOREROWS="3" VALIGN="MIDDLE">No</ENTRY>
+<ENTRY>CDR 1</ENTRY>
+<ENTRY>STA 1</ENTRY>
+<ENTRY>ROT 2</ENTRY>
+<ENTRY>STA 3</ENTRY>
+<ENTRY>CDR 2</ENTRY>
+<ENTRY>STA 2</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">2</EMPHASIS></ENTRY>
+<ENTRY>CRW 1</ENTRY>
+<ENTRY>ROT 1</ENTRY>
+<ENTRY>RAD 2A</ENTRY>
+<ENTRY>RAD 3B</ENTRY>
+<ENTRY>CRW 2</ENTRY>
+<ENTRY>ROT 4</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">3</EMPHASIS></ENTRY>
+<ENTRY>ROT 5</ENTRY>
+<ENTRY>RAD 1A</ENTRY>
+<ENTRY>RAD 2B</ENTRY>
+<ENTRY>RAD 5A</ENTRY>
+<ENTRY>ROT 3</ENTRY>
+<ENTRY>RAD 4A</ENTRY></ROW>
+<ROW>
+<ENTRY><EMPHASIS EMPH="B">4</EMPHASIS></ENTRY>
+<ENTRY>RAD 5B</ENTRY>
+<ENTRY>RAD 1B</ENTRY>
+<ENTRY>INT 1</ENTRY>
+<ENTRY>INT 2</ENTRY>
+<ENTRY>RAD 3A</ENTRY>
+<ENTRY>RAD 4B</ENTRY></ROW></TBODY></TGROUP></TABLE><?FRAME id="c3s06c4" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" IMAGE="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<PARA>A conference is created if more than one of the sixty-four channels are not rejected by an output. Certain operations would create illegal connections/conferences and are prevented by the CPU. If an ICS operator attempts to create such an illegal connection, the Controller will respond by illuminating the illegal entry light on the ICS.</PARA>
+<PARA>The resulting twenty four conferences/connections are outputted on the three multiplexed CVSD lines and are delivered to the CVSD demultiplexer block. In addition the they are looped back to the remaining three inputs of the CVSD to DPCM converter block as previously described. The CVSD demultiplexer block is capable of receiving and demultiplexing four full eight channel CVSD lines but one line is left unconnected in this system. Using timing signals from the timing bus, the CVSD demultiplexer demultiplexes the twenty-four channels and delivers them to the CVSD differential line drivers block. The CVSD differential line drivers block then transmits only twenty-two of the twenty-four channels to the ten connected ICS LRUs. The remaining two differential output channels are not connected.</PARA></SUBPARA3></SUBPARA2><?FRAME id="c3s06d" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" IMAGE="./graphics/CON_LRU/ASSY/CON_LRU_1.pic"?>
+<SUBPARA2 ID="GENC3172" LABEL="3.6.2.3"><?TOCENTRY TITLE="3.6.2.3 Power Distribution" TOCLEVEL="5"?>
+<TITLE>Power Distribution</TITLE>
+<PARA>The power distribution system provides 24 VDC, 15 VDC, and 5 VDC to the communications equipment. Installation unit power is applied to Controller C-10879/MSQ-115 at pin B of J1- Pin A of J1 is the 24 VDC return. +24 VDC is distributed to circuit breakers CB1, CB2, and CB3 of the Controller C-10879/MSQ-115. The circuit breakers are three pole breakers rated at 20 amps. +24 VDC is delivered to DS9 via the number 1 terminals of CB1, CB2 and CB3 in series so that it will indicate only when power is applied and all circuit breakers are on. Terminals 1, 3 and 5 of CB1 supply radio power to radio operator stations 1, 2, and 3 via J2 through J4. Terminals 3 and 5 of CB2 deliver +24 VDC to radio operator stations 4 and 5 via J5 and J6. 24 V return is isolated from chassis ground and is delivered directly to each radio operator's station via J2 through J6. Terminal 3 of CB3 delivers +24 VDC to the ten connected intercom systems via a tempest filter block and via J7 through J16. 24 V return is delivered directly to the ten connected intercom systems via a tempest filter block and via J7 through J16. Terminal 5 of CB3 delivers +24 VDC to the DC to DC power supply assembly via a tempest filter block, a noise filter block and J17. 24 VDC return is also delivered to the DC to DC power supply via a tempest filter block, a noise filter block and J17. The DC to DC power supply puts out regulated +15 VDC and +5 VDC power supplies. +15 VDC and 15 VDC return are delivered to the ten connected intercom sets via J7 through J16. The 15 VDC power supply is also floating relative to the LRU chassis. The +5 VDC and 5 VDC return is delivered to the Controller C-10879/MSQ-115 backplane to power the installed circuit cards. The +5 VDC power supply is the only power supply that is referenced to the LRU chassis. 5 VDC return is connected to the chassis through the backplane mounting screws and by an internal connection in the DC to DC power supply. The self monitoring capability of the Controller C-10879/MSQ-115 includes monitoring of the +5 VDC power voltage. If this power voltage falls below 4.78 VDC the CPU (part of the control section) will enter the reset state halting all control functions until power rises above 4.78 VDC again. If power does not rise above 4.78 VDC the CPU will remain in reset indefinitely.</PARA></SUBPARA2></SUBPARA1>
+<SUBPARA1 ID="P3-6.1" LABEL="3.6.3"><?TOCENTRY TITLE="3.6.3 Functional Block Diagram" TOCLEVEL="4"?>
+<TITLE>Functional Block Diagram</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic"?>Figure 3-13<?endhotspot?> for the functional block diagram for the Controller C-10879/MSQ-115 LRU.</PARA></SUBPARA1>
+<SUBPARA1 ID="P3-6.2" LABEL="3.6.4"><?TOCENTRY TITLE="3.6.4 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><XREF XREFID="TABLE3-7" XIDTYPE="TABLE">Table 3-9</XREF> lists all repair parts available for the Controller C-10879/MSQ-115 LRU.</PARA><?FRAME id="c3s06e" title="Chapter 3. Theory of Operation, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" next="./c3s07.ide!C3s07"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-7" LABEL="3-9"><?Pub Dtl?>
+<TITLE>Parts List for Controller C-10879/MSQ-115 LRU, P/N 2618506-1</TITLE>
+<TGROUP COLS="7">
+<COLSPEC COLNAME="COL1" COLWIDTH=".6in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.2in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="2.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL6" COLWIDTH="1.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY ALIGN="CENTER">Qty.</ENTRY>
+<ENTRY ALIGN="CENTER">Cage</ENTRY>
+<ENTRY ALIGN="CENTER">P/N</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY>
+<ENTRY ALIGN="CENTER">Reference Des.</ENTRY>
+<ENTRY ALIGN="CENTER">SMR Code</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>08524</ENTRY>
+<ENTRY>DPY7900-8-8-2</ENTRY>
+<ENTRY>Captive screw (part of item 116)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618523-2</ENTRY>
+<ENTRY>Top cover (part o1 item 116)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>AR</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618753</ENTRY>
+<ENTRY>Gasket (part of item 116)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>08524</ENTRY>
+<ENTRY>DPY7900-8-8-2</ENTRY>
+<ENTRY>Captive screw (part of item 117)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618607-2</ENTRY>
+<ENTRY>Bottom cover (part of item 117)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>AR</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618753</ENTRY>
+<ENTRY>Gasket (part of item 117)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618682-3</ENTRY>
+<ENTRY>Captive screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618640</ENTRY>
+<ENTRY>Power supply</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFLL</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>AR</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618753</ENTRY>
+<ENTRY>Gasket</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-18</ENTRY>
+<ENTRY>Clamp screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618587-1</ENTRY>
+<ENTRY>CVSD I/O circuit card</ENTRY>
+<ENTRY>A1</ENTRY>
+<ENTRY>PAFHD</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618572-1</ENTRY>
+<ENTRY>Control I/O circuit card</ENTRY>
+<ENTRY>A3</ENTRY>
+<ENTRY>PAFHD</ENTRY></ROW>
+<ROW>
+<ENTRY>13</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618567-2</ENTRY>
+<ENTRY>6802 computer circuit card</ENTRY>
+<ENTRY>A4</ENTRY>
+<ENTRY>PAFHD</ENTRY></ROW>
+<ROW>
+<ENTRY>14</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618582-1</ENTRY>
+<ENTRY>DPCM Assembly CCA</ENTRY>
+<ENTRY>A6</ENTRY>
+<ENTRY>PAFHD</ENTRY></ROW>
+<ROW>
+<ENTRY>15</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618577-1 656-3766-001</ENTRY>
+<ENTRY>Conference accumulator circuit card</ENTRY>
+<ENTRY>A7</ENTRY>
+<ENTRY>PAFHH</ENTRY></ROW>
+<ROW>
+<ENTRY>16</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>LC36GD2</ENTRY>
+<ENTRY>Lens</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>17</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>O-ring packing (part of item 21)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>18</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25237-387</ENTRY>
+<ENTRY>Lamp</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>19</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 21)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>20</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Lockwasher (part of item 21)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>21</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>LH89/1</ENTRY>
+<ENTRY>Light DS9</ENTRY>
+<ENTRY>DS9</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>22</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of items 24,25,26)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>23</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Lockwasher (part of items 24,25,26)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>24</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39019/05-257</ENTRY>
+<ENTRY>Circuit breaker CB1</ENTRY>
+<ENTRY>CB1</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>25</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39019/05-257</ENTRY>
+<ENTRY>Circuit breaker CB2</ENTRY>
+<ENTRY>CB2</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>26</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39019/05-257</ENTRY>
+<ENTRY>Circuit breaker CB3</ENTRY>
+<ENTRY>CB3</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>27</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>LC36GD2</ENTRY>
+<ENTRY>Lens</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>28</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>O-ring packing (part of item 32)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>29</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25237-328</ENTRY>
+<ENTRY>Lamp</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>30</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 32)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>31</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Lockwasher (part of item 32)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>32</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>LH89/1</ENTRY>
+<ENTRY>Light DS1 thru DS8</ENTRY>
+<ENTRY>DS1-DS8</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>33</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Screw (part of item 38)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>34</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Lockwasher (part of item 38)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>35</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 38)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>36</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Lockwasher (part of item 38)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>37</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS24417-1</ENTRY>
+<ENTRY>Guard</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>38</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS24523-26</ENTRY>
+<ENTRY>Switch S1</ENTRY>
+<ENTRY>S1</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>39</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25196-1</ENTRY>
+<ENTRY>Panel seal</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>40</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 44)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>41</ENTRY>
+<ENTRY>5</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 45, 46, 47, 48, 49)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>42</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 50, 51, 52)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>43</ENTRY>
+<ENTRY>7</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 53,54,55,56,57,58,59)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>44</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PTO7A12-3P(014)</ENTRY>
+<ENTRY>Connector J1</ENTRY>
+<ENTRY>J1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>45</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-8S(014)</ENTRY>
+<ENTRY>Connector J2</ENTRY>
+<ENTRY>J2</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>46</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-8S(014)</ENTRY>
+<ENTRY>Connector J3</ENTRY>
+<ENTRY>J3</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>47</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-8S(014)</ENTRY>
+<ENTRY>Connector J4</ENTRY>
+<ENTRY>J4</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>48</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-8S(014)</ENTRY>
+<ENTRY>Connector J5</ENTRY>
+<ENTRY>J5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>49</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-8S(014)</ENTRY>
+<ENTRY>Connector J6</ENTRY>
+<ENTRY>J6</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>50</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-26S(014)</ENTRY>
+<ENTRY>Connector J7</ENTRY>
+<ENTRY>J7</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>51</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-26S(014)</ENTRY>
+<ENTRY>Connector J8</ENTRY>
+<ENTRY>J8</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>52</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A16-26S(014)</ENTRY>
+<ENTRY>Connector J9</ENTRY>
+<ENTRY>J9</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>53</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A20-32S(014)</ENTRY>
+<ENTRY>Connector J10</ENTRY>
+<ENTRY>J10</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>54</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A20-32S(014)</ENTRY>
+<ENTRY>Connector J11</ENTRY>
+<ENTRY>J11</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>55</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A20-32S(014)</ENTRY>
+<ENTRY>Connector J12</ENTRY>
+<ENTRY>J12</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>56</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A20-32S(014)</ENTRY>
+<ENTRY>Connector J13</ENTRY>
+<ENTRY>J13</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>57</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A20-32S(014)</ENTRY>
+<ENTRY>Connector J14</ENTRY>
+<ENTRY>J14</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>58</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A20-39S(014)</ENTRY>
+<ENTRY>Connector J15</ENTRY>
+<ENTRY>J15</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>59</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>PT07A20-39S(014)</ENTRY>
+<ENTRY>Connector J16</ENTRY>
+<ENTRY>J16</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>60</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51959-32</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>61</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M83733/4RA032</ENTRY>
+<ENTRY>Connector J17</ENTRY>
+<ENTRY>J17</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>62</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35650-304</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>63</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35338-138</ENTRY>
+<ENTRY>Lockwasher</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>64</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-808</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>65</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25266-4-6</ENTRY>
+<ENTRY>Jumper strip</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>66</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35650-304</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>67</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35338-138</ENTRY>
+<ENTRY>Lockwasher</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>68</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-808</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>69</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618528</ENTRY>
+<ENTRY>Jumper strip</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>70</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35650-304</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>71</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35338-138</ENTRY>
+<ENTRY>Lockwasher</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>72</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-808</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>73</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25226-4-4</ENTRY>
+<ENTRY>Jumper strip</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>74</ENTRY>
+<ENTRY>7</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35650-304</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>75</ENTRY>
+<ENTRY>7</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35338-138</ENTRY>
+<ENTRY>Lockwasher</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>76</ENTRY>
+<ENTRY>7</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-808</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>77</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25226-4-4</ENTRY>
+<ENTRY>Jumper strip</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>78</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35650-304</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>79</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35338-138</ENTRY>
+<ENTRY>Lockwasher</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>80</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-808</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>81</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25226-4-8</ENTRY>
+<ENTRY>Jumper strip</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>82</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-15</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>83</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>88044</ENTRY>
+<ENTRY>AN967-4T</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>84</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25281-R7</ENTRY>
+<ENTRY>Clamp</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>85</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25281-R14</ENTRY>
+<ENTRY>Clamp</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>86</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS21044C06</ENTRY>
+<ENTRY>Locknut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>87</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-805</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>88</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS25281-R9</ENTRY>
+<ENTRY>Clamp</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>89</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51959-31</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>90</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS21044C06</ENTRY>
+<ENTRY>Locknut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>91</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15295-805</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>92</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-29</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>93</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-14</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>94</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>95</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-20</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>96</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35338-135</ENTRY>
+<ENTRY>Lockwasher</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>97</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>98</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS21044C04</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>99</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>100</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-18</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>101</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS27212-2-8</ENTRY>
+<ENTRY>Terminal board TB3</ENTRY>
+<ENTRY>TB3</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>102</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS27212-2-4</ENTRY>
+<ENTRY>Terminal board TB4</ENTRY>
+<ENTRY>TB4</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>103</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS27212-2-8</ENTRY>
+<ENTRY>Terminal board TB5</ENTRY>
+<ENTRY>TB5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>104</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS21044C04</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>105</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>106</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-18</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>107</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>108</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>109</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>110</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>111</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>112</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>113</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>114</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>115</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Controller housing</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHHH</ENTRY></ROW>
+<ROW>
+<ENTRY>116</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618523-1</ENTRY>
+<ENTRY>Top cover assy</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBFFF</ENTRY></ROW>
+<ROW>
+<ENTRY>117</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618607-1</ENTRY>
+<ENTRY>Bottom cover assy</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBFFF</ENTRY></ROW>
+<ROW>
+<ENTRY>118</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80058</ENTRY>
+<ENTRY>C-10879/MSQ-115</ENTRY>
+<ENTRY>Controller, Communication system</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFHH</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA1></PARA0></SECTION>

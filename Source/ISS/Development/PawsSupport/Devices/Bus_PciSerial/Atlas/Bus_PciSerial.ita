@@ -1,0 +1,54 @@
+\\OLDfrom RS232_1_HI to ICJ10-2;
+\\OLDfrom RS232_1_LO to ICJ10-7;
+\\OLDfrom RS422_1_TRUE to ICJ10-14;
+\\OLDfrom RS422_1_COMPL to ICJ10-2;
+\\OLDfrom RS485_1_TRUE to ICJ10-14;
+\\OLDfrom RS485_1_COMPL to ICJ10-2;
+
+\\
+\\from RS232_1_NCD    to ICJ5-1;	\\Carier Detect
+\\from RS232_1_NTXD   to ICJ5-3;	\\ Transmit Data
+\\from RS232_1_NDTR   to ICJ5-4;	\\ Data Terminal Ready
+\\from RS232_1_GND    to ICJ5-5;	\\ Ground
+\\from RS232_1_NDSR   to ICJ5-6;	\\ Data Set Ready
+\\from RS232_1_NRTS   to ICJ5-7;	\\ Ready To Send
+\\from RS232_1_NCTS   to ICJ5-8;	\\ Clear To Send
+\\from RS232_1_NRI    to ICJ5-9;	\\ Rind Indicator
+\\
+from RS232_1_HI       to ICJ5-3;	\\ XMIT+
+from RS232_1_LO       to ICJ5-5;	\\ XMIT- (GND)
+\\
+from RS232_1_OUT      to ICJ5-3;	\\ RS232 on J10
+from RS232_1_LO       to ICJ5-5;	\\ RS232 on J10
+from RS232_1_IN       to ICJ5-2;	\\ RS232 on J10
+from RS232_1_RTS      to ICJ5-7;	\\ RS232 on J10
+from RS232_1_CTS      to ICJ5-8;	\\ RS232 on J10
+\\
+from RS422_1_TRUE     to ICJ6-2;	\\ RS422 on J6 TX+
+from RS422_1_COMPL    to ICJ6-1;	\\ RS422 on J6 TX-
+from RS422_1_GND      to ICJ6-5;	\\ RS422 on J6 GND
+from RS422_1_TX_TRUE  to ICJ6-2;	\\ RS422 on J6 TX+
+from RS422_1_TX_COMPL to ICJ6-1;	\\ RS422 on J6 TX-
+from RS422_1_RX_TRUE  to ICJ6-3;	\\ RS422 on J6 RX+
+from RS422_1_RX_COMPL to ICJ6-4;	\\ RS422 on J6 RX-
+\\
+from RS485_1_TRUE     to ICJ10-25;
+from RS485_1_COMPL    to ICJ10-24;
+from RS485_1_TX_TRUE  to ICJ10-25;	\\ RS485 on J10 TX+
+from RS485_1_TX_COMPL to ICJ10-24;	\\ RS485 on J10 TX-
+from RS485_1_RX_TRUE  to ICJ10-22;	\\ RS485 on J10 RX+
+from RS485_1_RX_COMPL to ICJ10-23;	\\ RS485 on J10 RX-
+\\Extra
+from RS232_2_OUT      to ICJ10-2;	\\ RS232 on J10
+from RS232_2_LO       to ICJ10-1;	\\ RS232 on J10
+from RS232_2_IN       to ICJ10-3;	\\ RS232 on J10
+from RS232_2_RTS      to ICJ10-4;	\\ RS232 on J10
+from RS232_2_CTS      to ICJ10-5;	\\ RS232 on J10
+\\
+from RS422_2_GND      to ICJ10-11;		\\ RS422 on J10 GND
+from RS422_2_TX_TRUE  to ICJ10-15;	\\ RS422 on J10 TX+
+from RS422_2_TX_COMPL to ICJ10-14;	\\ RS422 on J10 TX-
+from RS422_2_RX_TRUE  to ICJ10-12;	\\ RS422 on J10 RX+
+from RS422_2_RX_COMPL to ICJ10-13;	\\ RS422 on J10 RX-
+\\
+\\

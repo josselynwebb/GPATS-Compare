@@ -1,0 +1,18 @@
+PAWS Resource Allocator - Version 20140218 (1.40.03)
+1: No signals (INFO)
+DeviceDB:        Tue Oct 12 14:11:19 2010
+1: No Ita DataBase (INFO)
+1: Macro Data 1800 Words (INFO)
+
+Signals           --- 0
+Concurrent Pairs  --- 0
+Assignments:
+
+    User         --- 0
+    Exclusive    --- 0
+    Resolved     --- 0
+    Total        --- 0
+
+Total ERROR  --- 0
+Total WARN   --- 0
+Total INFO   --- 3

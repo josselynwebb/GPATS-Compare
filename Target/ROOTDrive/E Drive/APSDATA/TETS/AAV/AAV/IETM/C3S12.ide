@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY ics-lru-1 SYSTEM "./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic" NDATA FAXTILE>
+<!ENTITY ics-lru-fbd SYSTEM "./graphics/ICS_LRU/Schem/ICS_LRU_FBD.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S12" LABEL="XII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\INTERCOMMUNICATION_SET_LRU_ANMIQ-1\TP_AAV_ICS_LRU.OBJ' ?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic' ?><?BUTTON POS='3' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/ICS_LRU/SCHEM/ICS_LRU_fbd.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section XII. Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3" previous="./c3s11.ide!C3S11A" image="./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic"?><?TOCENTRY TITLE="SECTION XII. Theory of Operation for the Intercommunications Set LRU,  (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3" TOCLEVEL="2" LABEL="XII"?>
+<TITLE>SECTION XII. Theory of Operation for the Intercommunications Set LRU,  (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3</TITLE>
+<PARA0 ID="P3-12" LABEL="3.12"><?TOCENTRY TITLE="3.12 Intercommunications Set Theory of Operation" TOCLEVEL="3"?>
+<TITLE>Intercommunications Set Theory of Operation</TITLE>
+<CAUTION>
+<PARA>This Line Replaceable Unit contains components sensitive to damage by Electrostatic Discharge. Use precautionary procedures when touching, removing, or installing components.</PARA></CAUTION>
+<PARA>The Intercommunications Set LRU performs the following functions for the AN/MSQ 115 Command Communications system:  
+<SEQLIST NUMSTYLE="ALPHALC">
+<ITEM LABEL="a">Allows intercom voice circuits between any two stations through Controller LRU, C 10879/MSQ-115.</ITEM>
+<ITEM LABEL="b">Provides for conference calls between commander's station(s), staff stations, and radio operator stations through the Controller LRU.</ITEM>
+<ITEM LABEL="c">Allows each radio operator to operate his own equipment.</ITEM>
+<ITEM LABEL="d">Allows communication with installation unit crew and master station(s).</ITEM>
+<ITEM LABEL="e">Allows staff and master station personnel to communicate on radios tuned at the radio operator stations.</ITEM>
+<ITEM LABEL="f">Converts analog audio signals to Continuous Variable Slope Delta (CVSD) digital signals which are sent to the Controller LRU.</ITEM>
+<ITEM LABEL="g">Converts (CVSD) digitized audio signals from the Controller LRU to analog audio, amplifies the audio and output to operator headsets.</ITEM>
+<ITEM LABEL="h">Provide the operator the means to adjust headset volume and front panel lamp brightness to the desired levels.</ITEM></SEQLIST></PARA>
+<PARA><?hotspot linktype="picture" href="./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic"?>Figure 3-29<?endhotspot?> provides the CCA Layout.</PARA>
+<FIGURE ID="ICS-LRU-1" LABEL="3-29">
+<TITLE>Intercommunications Set LRU Layout</TITLE><?hotspot linktype="picture" href="./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3246" LABEL="3.12.1"><?TOCENTRY TITLE="3.12.1 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<PARA>The functionality described above and the interfacing between Intercommunication Set sub-assemblies is illustrated in <?hotspot linktype="picture" href="./graphics/ICS_LRU/Schem/ICS_LRU_FBD.pic"?>Figure 3-30<?endhotspot?>, Functional Block Diagram. The UUT is configured by station with one, two or three CVSD Encoder/Decoder CCAs as follows:  
+<SEQLIST NUMSTYLE="ALPHALC">
+<ITEM LABEL="a">AN/MIQ-1(V)1: Contains one CVSD card used by STAFF stations to operate the command comm. Radios and the intercom system.</ITEM>
+<ITEM LABEL="b">AN/MIQ-1(V)2: Contains two CVSD cards and is used by MASTER stations. One is used for two-way intercom or radio operation within the command communication system. The other is used for communication through the Controller LRU to the installation unit crew.</ITEM>
+<ITEM LABEL="c">AN/MIQ-1(V)3: Contains three CVSD cards and is used by RADIO OPERATOR stations for communication with comm. radios and the intercom system through the Controller LRU.</ITEM></SEQLIST></PARA>
+<PARA>The UUT receives +15VDC and +24VDC input power from the Controller LRU via connector J1. The +15V power and return (GND) inputs are TEMPEST filtered through the two parts of Power Filter CCA A6, and applied to the inputs of CCAs A1 through A5. The +24V input is used by the Lamp Dimmer portion of CCA A5 to be regulated by the A5 and chassis mounted transistor Q1 and front panel BRIGHTNESS control R2 to provide front panel lamp power of +5 to +18 VDC. The +24V supply is also used as coil supply for chassis mounted radio keyline relays, K1 and K2.</PARA><?FRAME id="c3s12a" title="Chapter 3. Theory of Operation, Section XII. Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3 Cont'd" IMAGE="./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic"?>
+<PARA>A differential 32 KHz clock from the Controller LRU is applied to the A4, Control Encode/Decode CCA via J1-j/J1-h. The A4 converts the clock to single-ended signals, provides buffered outputs to the CVSD CCAs (A1-A3) and uses the clock to synchronize data bus communication with the Controller LRU. The A4 detects and encodes into a serial data character, front panel switch and radio/intercom push-to-talk operation and generates a request-for-attention to the Controller.  This is indicated by the differential SERIAL DATA OUT (SDO) line (J1-e/J1-f) toggling LOW from its quiescent HIGH state. The Controller LRU issues a Request-Acknowledgement to the A4 enabling transmission of the data to the Controller via the SDO. Commands from the Controller LRU are received asynchronously by the A4 CCA via differential SERIAL DATA IN inputs, J1 d/J1 c beginning with a LOW level START BIT.  The commands are converted to parallel words which are decoded by the A4 decoder logic. These commands (1) turn on the addressed front panel light, (2) energize a keyline relay (K1 or K2), (3) place the CVSD Encoder/Decoder CCA(s) into loopback mode used for self-test by the controller, or (4) clear an error status or a request for attention. The Control Encode/Decode CCA detects and processes two types of input data errors and reports them to the Controller LRU via the status bit (Bit 7). These are PARITY errors and FRAMING errors. The UART on CCA A4 employs odd parity; therefore a parity error is generated by the receipt of a character with an even number of HIGH bits (R0-R7 and parity). A framing error occurs when the received character has no valid stop BIT; that is, the bit following the parity bit is not a HIGH level. When either error is detected by the UART the SERIAL DATA OUT line is toggled LOW, generating a request for attention to the Controller LRU. At the same time, the A4 latches a HIGH on transmitter bit T7, status bit. The status word indicating the error bit is then transmitted to the Controller LRU. The Controller clears the error status bit by sending a STATUS REQUEST code to the CCA which is decoded by the A4, which then resets the error.</PARA>
+<PARA>When an operator depresses a microphone Push-to-Talk (PPT) key, the A4 generates an enabling signal which is applied to the A1 CVSD Encoder/Decoder CCA. This enables voice (audio) signals from the microphone, which are input to the UUT via the un-attenuated MIC IN pin J4-D, to be encoded into Continuously Variable Slope Delta Modulation (CVSD) digital data for transmission to the Controller LRU. The audio input is filtered by a band-pass filter network consisting of a low-pass 4-pole Chebychev and a high-pass 3-pole Chebychev filter reducing out-of-band noise below 200 Hz and above 4.0 KHz. The filter circuit reduces the effect of vehicle noise and eliminates aliasing at the CVSD encoder. The CVSD encoder converts the analog audio signal to CVSD and transmits the digital data over differential CVSD OUT lines at J1-W/J1-X at a rate of 32 kbps (one bit per clock period).  The CVSD CCA accepts digitized CVSD data from the Controller LRU via the differential CVSD IN input at J1 Y/J1 Z. The CVSD decoder converts the CVSD input signals back to analog (audio) signals.  A 6-pole low pass Chebychev eliminates CVSD decoder quantization noise.  It provides high rejection of signals above 4.0 KHz. The audio is coupled from the single-ended audio output at pin A1.3 to the Power Amplifier portion of CCA A5, via front panel VOLUME control R1.  The A5 provides amplification and outputs the audio at levels necessary to drive operator headsets at HEADSET audio output J4-B.</PARA>
+<PARA>The operation of CVSD Encoder/Decoder CCAs A2 and A3, on stations which include them, is essentially the same as that described above for the A1. The major differences are in the sources of audio input and output signals. The A2 accepts either RADIO or CREW INTERCOM input audio which are coupled through a balanced attenuator resistor network at the respective inputs of J3-J/J3-K and J2-G/J2-H. The balanced attenuator scales the high level inputs to levels which will prevent distortion by the input amplifiers. The audio output is coupled through the balanced transformer RADIO OUT at J3-F/J3-E, which is a low level suitable for driving a microphone-type input on the radio set. The A3 operation is identical to that of the A2 except only the RADIO analog input is available. The amplitude of the A2 RADIO output can be increased by a magnitude of seven (7) by applying a LOW (ground) to the MIC OUT LEVEL CONT at J1-B.</PARA>
+<PARA>The CVSD CCA(s) are placed into a self-test (loopback) mode by the receipt of a command from the Controller LRU which is decoded by the A4 CCA applying a HIGH level to the CONTROL pin on the analog switches on each the installed CVSD CCAs. This function provides the system with a digital-in/digital-out self-test feature. </PARA></SUBPARA1>
+<SUBPARA1 ID="P3-12.1" LABEL="3.12.2"><?TOCENTRY TITLE="3.12.2 Functional Block Diagram" TOCLEVEL="4"?>
+<TITLE>Functional Block Diagram</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/ICS_LRU/Schem/ICS_LRU_FBD.pic"?>Figure 3-30<?endhotspot?> for the functional block diagram for the Intercommunications Set LRU.</PARA>
+<FIGURE ID="ICS-LRU-FBD" LABEL="3-30">
+<TITLE>Intercommunication Set LRU Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/ICS_LRU/Schem/ICS_LRU_FBD.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1>
+<SUBPARA1 ID="P3-12.2" LABEL="3.12.3"><?TOCENTRY TITLE="3.12.3 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><XREF XREFID="TABLE3-13" XIDTYPE="TABLE">Table 3-15</XREF> lists all repair parts available for the Intercommunications Set LRU.</PARA><?FRAME id="c3s12b" title="Chapter 3. Theory of Operation, Section XII. Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3 Cont'd" next="./c3s13.ide!C3S13"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-13" LABEL="3-15">
+<TITLE>Parts List for Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3</TITLE>
+<TGROUP COLS="7">
+<COLSPEC COLNAME="COL1" COLWIDTH=".6in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="2.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL6" COLWIDTH="1.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY ALIGN="CENTER">Qty.</ENTRY>
+<ENTRY ALIGN="CENTER">Cage</ENTRY>
+<ENTRY ALIGN="CENTER">P/N</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY>
+<ENTRY ALIGN="CENTER">Reference Des.</ENTRY>
+<ENTRY ALIGN="CENTER">SMR Code</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618682-4</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618511-1</ENTRY>
+<ENTRY>Rear cover</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618753</ENTRY>
+<ENTRY>Gasket</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618753</ENTRY>
+<ENTRY>Gasket</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>08524</ENTRY>
+<ENTRY>DPY7900-8-8-2</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618512-2</ENTRY>
+<ENTRY>Top cover</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZ2</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618753</ENTRY>
+<ENTRY>Gasket</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618553-1</ENTRY>
+<ENTRY>CVSD Encoder/Decoder circuit card</ENTRY>
+<ENTRY>A1</ENTRY>
+<ENTRY>PAFHH</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618541-1</ENTRY>
+<ENTRY>Control encode/decode circuit card</ENTRY>
+<ENTRY>A4</ENTRY>
+<ENTRY>PAFHH</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M55302/57-A14Y</ENTRY>
+<ENTRY>Connector P6</ENTRY>
+<ENTRY>P6</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-15</ENTRY>
+<ENTRY>Shaft screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618547-1</ENTRY>
+<ENTRY>Power amplifier/dimmer circuit card</ENTRY>
+<ENTRY>A5</ENTRY>
+<ENTRY>PAFHH</ENTRY></ROW>
+<ROW>
+<ENTRY>13</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>LC35RN2</ENTRY>
+<ENTRY>Lens</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>14</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>71744</ENTRY>
+<ENTRY>CM370</ENTRY>
+<ENTRY>Lamp</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>15</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>LH89/1</ENTRY>
+<ENTRY>Light XDS1</ENTRY>
+<ENTRY>XDS1</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>16</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Lockwasher (part of item 14)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>17</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 14)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>18</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>88044</ENTRY>
+<ENTRY>AN565F4H8</ENTRY>
+<ENTRY>Set screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>19</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS91528-1E1B</ENTRY>
+<ENTRY>Knob</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>20</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of items 22. 23)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>21</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Lockwasher (part of item 22, 23)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>22</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RV6SAYSD103C</ENTRY>
+<ENTRY>Variable resistor R1</ENTRY>
+<ENTRY>R1</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>23</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RV6SAYSD103A</ENTRY>
+<ENTRY>Variable resistor R2</ENTRY>
+<ENTRY>R2</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>24</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>10-101964-125</ENTRY>
+<ENTRY>Cover, electrical</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>25</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>77820</ENTRY>
+<ENTRY>10-101964-125</ENTRY>
+<ENTRY>Cover, electrical</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>26</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 42)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>27</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 43)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>28</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 44)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>29</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Nut (part of item 30, 31)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>30</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>49956</ENTRY>
+<ENTRY>481660-1</ENTRY>
+<ENTRY>Connector J4</ENTRY>
+<ENTRY>J4</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>31</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>49956</ENTRY>
+<ENTRY>481660-1</ENTRY>
+<ENTRY>Connector J5</ENTRY>
+<ENTRY>J5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>32</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>Gasket (part of item 30, 31)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>-</ENTRY></ROW>
+<ROW>
+<ENTRY>33</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS21044C04</ENTRY>
+<ENTRY>Locknut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>34</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>35</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS77068-1</ENTRY>
+<ENTRY>Terminal lug</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>36</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81439</ENTRY>
+<ENTRY>JANTX2N5686</ENTRY>
+<ENTRY>Transistor Q1</ENTRY>
+<ENTRY>Q1</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>37</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435274-001</ENTRY>
+<ENTRY>Conductive sheet</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>38</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS519517-18</ENTRY>
+<ENTRY>Screw</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>39</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>13013</ENTRY>
+<ENTRY>7721-3PPS</ENTRY>
+<ENTRY>Insulator</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>40</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35489-6</ENTRY>
+<ENTRY>Grommet</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>41</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618785-1</ENTRY>
+<ENTRY>Plate, ID</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>42</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618784-1</ENTRY>
+<ENTRY>Plate, ID</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>43</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618783-1</ENTRY>
+<ENTRY>Plate. ID</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>44</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618688-8</ENTRY>
+<ENTRY>Connector J1</ENTRY>
+<ENTRY>J1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>45</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618688-3</ENTRY>
+<ENTRY>Connector J2</ENTRY>
+<ENTRY>J2</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>46</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618687-1</ENTRY>
+<ENTRY>Connector J3</ENTRY>
+<ENTRY>J3</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>47</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS21044C04</ENTRY>
+<ENTRY>Nut</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>48</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618509-1</ENTRY>
+<ENTRY>Terminal, braze</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>49</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618512-1</ENTRY>
+<ENTRY>Cover assembly</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBFFF</ENTRY></ROW>
+<ROW>
+<ENTRY>50</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80058</ENTRY>
+<ENTRY>AN/MIQ-1(V)1</ENTRY>
+<ENTRY>Intercom set</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOFF</ENTRY></ROW>
+<ROW>
+<ENTRY>51</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80058</ENTRY>
+<ENTRY>AN/MIQ-1(V)2</ENTRY>
+<ENTRY>Intercom set</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOFF</ENTRY></ROW>
+<ROW>
+<ENTRY>52</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80058</ENTRY>
+<ENTRY>AN/MIQ-1(V)3</ENTRY>
+<ENTRY>Intercom set</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAOHD</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA1></PARA0></SECTION>

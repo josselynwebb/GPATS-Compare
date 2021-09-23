@@ -1,0 +1,658 @@
+**************************************************************************
+************       FREEDOM-PDU (DCP) STATIC DESCRIPTION       ************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : DcPs.ddb
+*
+* INSTRUMENT  : DC Power Supplies
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev DCP_1;
+	begin;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			volt-lmt range -40 v to 40 v continuous;
+			current range 1 a to 5 a continuous;
+			current-lmt range 0 a to 5 a continuous;
+		}
+
+		begin FNC = 1 using DCP-1; * dc_ps_one
+			source dc signal;
+			cnx hi DC1-Hi, lo DC1-Lo, sense-hi DC1-SHi, sense-lo DC1-SLo;
+		end;
+
+		begin FNC = 2 using DCP-2; * dc_ps_two
+			source dc signal;
+			cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+		end;
+
+		begin FNC = 3 using DCP-3; * dc_ps three
+			source dc signal;
+			cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+		end;
+
+		begin FNC = 4 using DCP-4; * dc_ps_four
+			source dc signal;
+			cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+		end;
+
+		begin FNC = 5 using DCP-5; * dc_ps_five
+			source dc signal;
+			cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+		end;
+
+		begin FNC = 6 using DCP-6; * dc_ps_six
+			source dc signal;
+			cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+		end;
+
+		begin FNC = 7 using DCP-7; * dc_ps seven
+			source dc signal;
+			cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+		end;
+
+		begin FNC = 8 using DCP-8; * dc_ps_eight
+			source dc signal;
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC = 9 using DCP-9; * dc_ps_nine
+			source dc signal;
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+	end;
+
+	begin FNC = 10 using DCP-10; * dc_ps_ten
+		source dc signal;
+		control
+		{
+			voltage range -65 v to 65 v continuous;
+			volt-lmt range -65 v to 65 v continuous;
+			current range 1 a to 5 a continuous;
+			current-lmt range 0 a to 5 a continuous;
+		}
+		cnx hi DC10-Hi, lo DC10-Lo, sense-hi DC10-SHi, sense-lo DC10-SLo;
+	end;
+
+	begin using DC8Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+
+		begin FNC = 89 using DCP-8, DCP-9; 	* dc_ps_eight master, 9 slave
+			control
+			{
+				current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;  
+	end;
+
+	begin using DC7Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+		
+		*begin FNC = 17;    
+		begin FNC=78 using DCP-7, DCP-8;			* slaves power supply 7 with 8
+			control
+			{
+				current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC=79 using DCP-7, DCP-8, DCP-9;		* slaves power supply 7 with 8, 9
+			control
+			{
+				current-lmt range 10.0001 a to 15 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+	end;
+
+	begin using DC6Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+
+		*begin FNC = 16; 
+		begin FNC=67 using DCP-6, DCP-7;			* slaves power supply 6 with 7
+			control
+			{
+				current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+		end;
+
+		begin FNC=68 using DCP-6, DCP-7, DCP-8;          * slaves power supply 6 with 7, 8
+			control
+			{
+				current-lmt range 10.0001 a to 15 a continuous;
+			}
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC=69 using DCP-6, DCP-7, DCP-8, DCP-9;   * slaves power supply 6 with 7, 8, 9
+			control
+			{
+				current-lmt range 15.0001 a to 20 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+	end;
+
+	begin using DC5Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+
+		*begin FNC=15;
+		begin FNC=56 using DCP-5, DCP-6; 		* slaves power supply 5 with 6
+			control
+			{
+				current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+		end;
+
+		begin FNC=57 using DCP-5, DCP-6, DCP-7; 		* slaves power supply 5 with 6, 7
+			control
+			{
+				current-lmt range 10.0001 a to 15 a continuous;
+			}
+			cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+		end;
+
+		begin FNC=58 using DCP-5, DCP-6, DCP-7, DCP-8;   * slaves power supply 5 with 6, 7, 8
+			control
+			{
+				current-lmt range 15.0001 a to 20 a continuous;
+			}
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC=59 using DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;       * slaves power supply 5 with 6, 7, 8, 9
+			control
+			{
+				current-lmt range 20.0001 a to 25 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+
+	end;
+
+	begin using DC4Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+
+		*begin FNC=14;
+		begin FNC=45 using DCP-4, DCP-5;  		* slaves power supply 4 with 5
+			control
+			{
+				current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+		end;
+
+		begin FNC=46 using DCP-4, DCP-5, DCP-6;       	* slaves power supply 4 with 5, 6
+			control
+			{
+				current-lmt range 10.0001 a to 15 a continuous;
+			}
+			cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+		end;
+
+		begin FNC=47 using DCP-4, DCP-5, DCP-6, DCP-7;   * slaves power supply 4 with 5, 6, 7
+			control
+			{
+				current-lmt range 15.0001 a to 20 a continuous;
+			}
+			cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+		end;
+
+		begin FNC=48 using DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;         * slaves power supply 4 with 5, 6, 7, 8
+			control
+			{
+				current-lmt range 20.0001 a to 25 a continuous;
+			}
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC=49 using DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;  * slaves power supply 4 with 5, 6, 7, 8, 9
+			control
+			{
+				current-lmt range 25.0001 a to 30 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+
+	end;
+
+	begin using DC3Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+
+		*begin FNC=13;
+		begin FNC=34 using DCP-3, DCP-4;  			* slaves power supply 3 with 4
+			control
+			{
+			current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+		end;
+
+		begin FNC=35 using DCP-3, DCP-4, DCP-5;		         * slaves power supply 3 with 4, 5
+			control
+			{
+				current-lmt range 10.0001 a to 15 a continuous;
+			}
+			cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+		end;
+
+		begin FNC=36 using DCP-3, DCP-4, DCP-5, DCP-6;    	 * slaves power supply 3 with 4, 5, 6
+			control
+			{
+				current-lmt range 15.0001 a to 20 a continuous;
+			}
+			cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+		end;
+
+		begin FNC=37 using DCP-3, DCP-4, DCP-5, DCP-6, DCP-7;     * slaves power supply 3 with 4, 5, 6, 7
+			control
+			{
+				current-lmt range 20.0001 a to 25 a continuous;
+			}
+			cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+		end;
+
+		begin FNC=38 using DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;         * slaves power supply 3 with 4, 5, 6, 7, 8
+			control
+			{
+				current-lmt range 25.0001 a to 30 a continuous;
+			}
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC=39 using DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;  * slaves power supply 3 with 4, 5, 6, 7, 8, 9
+			control
+			{
+				current-lmt range 30.0001 a to 35 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+	end;
+
+	begin using DC2Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+
+		*begin FNC=23;
+		begin FNC=23 using DCP-2, DCP-3; 			* slaves power supply 2 with 3
+			control
+			{
+				current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+		end;
+
+		begin FNC=24 using DCP-2, DCP-3, DCP-4;			* slaves power supply 2 with 3, 4
+			control
+			{
+				current-lmt range 10.0001 a to 15 a continuous;
+			}
+			cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+		end;
+
+		begin FNC=25 using DCP-2, DCP-3, DCP-4, DCP-5;  		* slaves power supply 2 with 3, 4, 5
+			control
+			{
+				current-lmt range 15.0001 a to 20 a continuous;
+			}
+			cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+		end;
+
+		begin FNC=26 using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6;  	* slaves power supply 2 with 3, 4, 5, 6
+			control
+			{
+				current-lmt range 20.0001 a to 25 a continuous;
+			}
+			cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+		end;
+
+		begin FNC=27 using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7;  		* slaves power supply 2 with 3, 4, 5, 6, 7
+			control
+			{
+				current-lmt range 25.0001 a to 30 a continuous;
+			}
+			cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+		end;
+
+		begin FNC=28 using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;  * slaves power supply 2 with 3, 4, 5, 6, 7, 8
+			control
+			{
+				current-lmt range 30.0001 a to 35 a continuous;
+			}
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC=29 using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;  * slaves power supply 2 with 3, 4, 5, 6, 7, 8, 9
+			control
+			{
+				current-lmt range 35.0001 a to 40 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+	end;
+
+	begin using DC1Master;	* any supply master, adjacent slave, sense lines define master
+		source dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+		}
+
+		*begin FNC=12;
+		begin FNC=12 using DCP-1, DCP-2;  		* slaves power supply 1 with 2
+			control
+			{
+				current-lmt range 5.0001 a to 10 a continuous;
+			}
+			cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+		end;
+
+		begin FNC=13 using DCP-1, DCP-2, DCP-3;        	* slaves power supply 1 with 2, 3
+			control
+			{
+				current-lmt range 10.0001 a to 15 a continuous;
+			}
+			cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+		end;
+
+		begin FNC=14 using DCP-1, DCP-2, DCP-3, DCP-4;  	* slaves power supply 1 with 2, 3, 4
+			control
+			{
+				current-lmt range 15.0001 a to 20 a continuous;
+			}
+			cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+		end;
+
+		begin FNC=15 using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5; 		* slaves power supply 1 with 2, 3, 4, 5
+			control
+			{
+				current-lmt range 20.0001 a to 25 a continuous;
+			}
+			cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+		end;
+
+		begin FNC=16 using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6;     * slaves power supply 1 with 2, 3, 4, 5, 6
+			control
+			{
+				current-lmt range 25.0001 a to 30 a continuous;
+			}
+			cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+		end;
+
+		begin FNC=17 using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7; 		* slaves power supply 1 with 2, 3, 4, 5, 6, 7
+			control
+			{
+				current-lmt range 30.0001 a to 35 a continuous;
+			}
+			cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+		end;
+
+		begin FNC=18 using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;       * slaves power supply 1 with 2, 3, 4, 5, 6, 7, 8
+			control
+			{
+				current-lmt range 35.0001 a to 40 a continuous;
+			}
+			cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+		end;
+
+		begin FNC=19 using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;* slaves power supply 1 with 2, 3, 4, 5, 6, 7, 8, 9
+			control
+			{
+				current-lmt range 40.0001 a to 45 a continuous;
+			}
+			cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+		end;
+	end;
+
+
+
+	***********************************************************
+	***** READBACK FNCs ***************************************
+	***********************************************************
+	begin FNC=210;		* readback of voltage at the output for dcp1	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC1-Hi, lo DC1-Lo, sense-hi DC1-SHi, sense-lo DC1-SLo;
+	end;
+
+	begin FNC=211;		* readback of current at the output for dcp1
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC1-Hi, lo DC1-Lo, sense-hi DC1-SHi, sense-lo DC1-SLo;
+	end;
+
+	begin FNC=212;		* readback of voltage at the output for dcp2	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+	end;
+
+	begin FNC=213;		* readback of current at the output for dcp2
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+	end;
+
+	begin FNC=214;		* readback of voltage at the output for dcp3	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+	end;
+
+	begin FNC=215;		* readback of current at the output for dcp3
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+	end;
+
+	begin FNC=216;		* readback of voltage at the output for dcp4	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+	end;
+
+	begin FNC=217;		* readback of current at the output for dcp4
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+	end;
+
+	begin FNC=218;		* readback of voltage at the output for dcp5	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+	end;
+
+	begin FNC=219;		* readback of current at the output for dcp5
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+	end;
+
+	begin FNC=220;		* readback of voltage at the output for dcp6	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+	end;
+
+	begin FNC=221;		* readback of current at the output for dcp6
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+	end;
+
+	begin FNC=222;		* readback of voltage at the output for dcp7	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+	end;
+
+	begin FNC=223;		* readback of current at the output for dcp7
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+	end;
+
+	begin FNC=224;		* readback of voltage at the output for dcp8
+		sensor (voltage) dc signal;
+		control
+		{
+		voltage range -40 v to 40 v continuous;
+		max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+	end;
+
+	begin FNC=225;		* readback of current at the output for dcp8
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+	end;
+
+	begin FNC=226;		* readback of voltage at the output for dcp9	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -40 v to 40 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+	end;
+
+	begin FNC=227;		* readback of current at the output for dcp9
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+	end;
+
+	begin FNC=228;		* readback of voltage at the output for dcp10	
+		sensor (voltage) dc signal;
+		control
+		{
+			voltage range -65 v to 65 v continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC10-Hi, lo DC10-Lo, sense-hi DC10-SHi, sense-lo DC10-SLo;
+	end;
+
+	begin FNC=229;		* readback of current at the output for dcp10
+		sensor (current) dc signal;
+		control
+		{
+			current range 0 a to 5 a continuous;
+			max-time 0 sec to 1000 sec continuous;
+		}
+		cnx hi DC10-Hi, lo DC10-Lo, sense-hi DC10-SHi, sense-lo DC10-SLo;
+	end;
+
+end; *DCP_1

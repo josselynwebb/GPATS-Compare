@@ -1,0 +1,10 @@
+from MIC1-HI to BUSIO-4;
+from MIC1-LO to BUSIO-5;
+from MIC2-HI to BUSIO-10;
+from MIC2-LO to BUSIO-11;
+
+from CAN1-HI to BUSIO-16;
+from CAN1-LO to BUSIO-17;
+from CAN2-HI to BUSIO-22;
+from CAN2-LO to BUSIO-23;
+

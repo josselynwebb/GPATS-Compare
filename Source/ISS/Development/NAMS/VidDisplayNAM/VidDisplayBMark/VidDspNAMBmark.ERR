@@ -1,0 +1,23 @@
+PAWS Resource Allocator - Version 20140218 (1.40.03)
+1: No signals (INFO)
+DeviceDB:        Thu May 18 11:10:30 2017
+1: No Ita DataBase (INFO)
+RESETALL Macro NOT Defined
+CONNECT Macro NOT Defined
+DISCONNECT Macro NOT Defined
+PATH Macro NOT Defined
+1: Macro Data 1816 Words (INFO)
+1: Macro Code Generation (INFO)
+
+Signals           --- 0
+Concurrent Pairs  --- 0
+Assignments:
+
+    User         --- 0
+    Exclusive    --- 0
+    Resolved     --- 0
+    Total        --- 0
+
+Total ERROR  --- 0
+Total WARN   --- 0
+Total INFO   --- 4

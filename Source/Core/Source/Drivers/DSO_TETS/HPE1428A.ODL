@@ -1,0 +1,44 @@
+[uuid(7ed28143-b678-11d0-896c-00a0243cd784), helpfile("Hpe1428a.hlp"), helpcontext(17), helpstring("HPE1428A Digitizing Oscilloscope (VISA)")]
+library Hpe1428a{
+	[dllname("Hpe1428a.dll"), helpcontext(17), helpstring("Initialize")]
+	module Initialize{
+		[helpcontext(1), entry("hpe1428a_init"), helpstring("Initialize")]
+		ViStatus __stdcall hpe1428a_init([in] ViRsrc resourceName, [in] ViBoolean IDQuery, [in] ViBoolean resetDevice, [in, out] ViSession *instrumentHandle);
+	};
+	[dllname("Hpe1428a.dll"), helpcontext(17), helpstring("Utility Functions")]
+	module UtilityFunctions{
+		[helpcontext(2), entry("hpe1428a_writeInstrData"), helpstring("Write To Instrument")]
+		ViStatus __stdcall hpe1428a_writeInstrData([in] ViSession instrumentHandle, [in] ViString writeBuffer);
+		[helpcontext(3), entry("hpe1428a_FindInst"), helpstring("Find Instrument")]
+		ViStatus __stdcall hpe1428a_FindInst([in] ViSession instrSession, [in] int memOffset1, [in] int memOffset2, [in] int mathOffset, [in] int memoryPoints, [in, out] long *VMEAddress);
+		[helpcontext(4), entry("hpe1428a_WvData"), helpstring("Wavve Data")]
+		ViStatus __stdcall hpe1428a_WvData([in] ViSession instSession, [in] float YInc, [in] float YOff, [in] float XInc, [in] float XOff, [in] int area, [in] int totalChannels, [in] int aquireType);
+		[helpcontext(5), entry("hpe1428a_GtWv"), helpstring("Get Waveform")]
+		ViStatus __stdcall hpe1428a_GtWv([in, out] float *waveArray, [in, out] float *timeArray);
+		[helpcontext(6), entry("hpe1428a_readInstrData"), helpstring("Read Instrument Data")]
+		ViStatus __stdcall hpe1428a_readInstrData([in] ViSession instrumentHandle, [in] ViInt16 numberBytesToRead, [in] LPSTR readBuffer, [in, out] ViInt32 *numBytesRead);
+		[helpcontext(7), entry("hpe1428a_reset"), helpstring("Reset")]
+		ViStatus __stdcall hpe1428a_reset([in] ViSession instrumentHandle);
+		[helpcontext(8), entry("hpe1428a_softReset"), helpstring("Soft Reset")]
+		ViStatus __stdcall hpe1428a_softReset([in] ViSession instrumentHandle);
+		[helpcontext(9), entry("hpe1428a_ResetTM"), helpstring("Reset Timeout")]
+		ViStatus __stdcall hpe1428a_ResetTM([in] ViSession instrumentHandle);
+		[helpcontext(10), entry("hpe1428a_msgWaiting"), helpstring("Message Waiting")]
+		ViStatus __stdcall hpe1428a_msgWaiting([in] ViSession instrSession, [in, out] ViInt32 *buffFull);
+		[helpcontext(11), entry("hpe1428a_selfTest"), helpstring("Self-Test")]
+		ViStatus __stdcall hpe1428a_selfTest([in] ViSession instrumentHandle, [in, out] ViInt16 *selfTestResult, [in] LPSTR selfTestMessage);
+		[helpcontext(12), entry("hpe1428a_errorQuery"), helpstring("Error-Query")]
+		ViStatus __stdcall hpe1428a_errorQuery([in] ViSession instrumentHandle, [in, out] ViInt32 *errorCode, [in] LPSTR errorMessage);
+		[helpcontext(13), entry("hpe1428a_errorMessage"), helpstring("Error Message")]
+		ViStatus __stdcall hpe1428a_errorMessage([in] ViSession instrumentHandle, [in] ViStatus errorCode, [in] LPSTR errorMessage);
+		[helpcontext(14), entry("hpe1428a_revisionQuery"), helpstring("Revision Query")]
+		ViStatus __stdcall hpe1428a_revisionQuery([in] ViSession instrumentHandle, [in] LPSTR instrumentDriverRevision, [in] LPSTR firmwareRevision);
+		[helpcontext(15), entry("hpe1428a_waitForRqs"), helpstring("Wait for RQS")]
+		ViStatus __stdcall hpe1428a_waitForRqs([in] ViSession instrumentHandle, [in] ViInt32 timeoutms, [in, out] ViInt16 *statusByte);
+	};
+	[dllname("Hpe1428a.dll"), helpcontext(17), helpstring("Close")]
+	module Close{
+		[helpcontext(16), entry("hpe1428a_close"), helpstring("Close")]
+		ViStatus __stdcall hpe1428a_close([in] ViSession instrumentHandle);
+	};
+};

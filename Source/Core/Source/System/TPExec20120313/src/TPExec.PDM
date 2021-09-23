@@ -1,0 +1,1064 @@
+[Root]
+Most Recent Package=Standard Setup Package 2
+
+
+[Package|TP Demo|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup
+
+[Package|TP Demo|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=No
+Excel=No
+Exchange=No
+Text=No
+Jet 2.x=No
+Lotus=No
+Paradox=No
+
+[Package|TP Demo|Configure DAO ODBC]
+JetWorkspace=No
+ODBCDirect=No
+
+[Package|TP Demo|Files Found]
+APS6062.DLL=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL
+Rfcnt.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll
+gt50000.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll
+DiagMgr.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll
+
+[Package|TP Demo|Files Released]
+Kernel.DLL=
+User.DLL=
+GDI.DLL=
+misc.dll=
+
+[Package|TP Demo|Missing Dependency Information]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll=
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL=
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=
+C:\WINDOWS\SYSTEM32\visa32.dll=
+C:\WINDOWS\SYSTEM32\terM9_32.dll=
+
+[Package|TP Demo|Out-of-Date Dependency Information]
+
+[Package|TP Demo|Files Added]
+c:\aps\data\fault-file=
+C:\TPS\Demo\TPSXXXXDEMO.vbw=
+C:\TPS\Demo\probgen.dat=
+C:\TPS\Demo\PTF_Demo.bas=
+C:\TPS\Demo\TC_File.bas=
+C:\TPS\Demo\TPSXXXXDEMO.vbp=
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=
+C:\Documents and Settings\Grady Johnson\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=
+
+[Package|TP Demo|Files Removed]
+
+[Package|TP Demo|Files In Project]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=Yes
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=Yes
+C:\WINDOWS\SYSTEM32\terM9_32.dll=Yes
+C:\WINDOWS\SYSTEM32\visa32.dll=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\Dao350.dll=Yes
+C:\WINDOWS\SYSTEM32\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM32\VBAJET32.DLL=Yes
+C:\WINDOWS\SYSTEM32\EXPSRV.DLL=Yes
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM32\msrepl35.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM32\THREED32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=Yes
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=Yes
+C:\WINDOWS\SYSTEM32\COMCT332.OCX=Yes
+C:\WINDOWS\SYSTEM32\Richtx32.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSCOMCTL.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\APS\Data\FAULT-FILE=Yes
+C:\WINDOWS\SYSTEM32\APS6062.DLL=Yes
+C:\WINDOWS\SYSTEM32\gt50000.dll=Yes
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=Yes
+C:\TPS\Demo\TPSXXXXDEMO.vbw=Yes
+C:\TPS\Demo\probgen.dat=Yes
+C:\TPS\Demo\PTF_Demo.bas=Yes
+C:\TPS\Demo\TC_File.bas=Yes
+C:\TPS\Demo\TPSXXXXDEMO.vbp=Yes
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=Yes
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=Yes
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=Yes
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=Yes
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=Yes
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=Yes
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=Yes
+C:\Documents and Settings\Grady Johnson\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=Yes
+
+[Package|TP Demo|Configure Registry Files]
+Applicable=No
+
+[Package|TP Demo|Configure Remote Servers]
+Applicable=No
+
+[Package|TP Demo|Install Locations]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL=$(WinSysPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\terM9_32.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\visa32.dll=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO\Dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM32\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VBAJET32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrepl35.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\THREED32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\COMCT332.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Richtx32.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\MSCOMCTL.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSRDO20.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\RDOCURS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\APS\Data\FAULT-FILE=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\APS6062.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\gt50000.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=$(AppPath)
+C:\TPS\Demo\TPSXXXXDEMO.vbw=$(AppPath)
+C:\TPS\Demo\probgen.dat=$(AppPath)
+C:\TPS\Demo\PTF_Demo.bas=$(AppPath)
+C:\TPS\Demo\TC_File.bas=$(AppPath)
+C:\TPS\Demo\TPSXXXXDEMO.vbp=$(AppPath)
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=$(AppPath)
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=$(AppPath)
+
+[Package|TP Demo|Configure Shared Files]
+Applicable=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=Yes
+C:\WINDOWS\SYSTEM32\terM9_32.dll=Yes
+C:\WINDOWS\SYSTEM32\visa32.dll=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=No
+C:\TPS\Demo\TPSXXXXDEMO.vbw=No
+C:\TPS\Demo\probgen.dat=No
+C:\TPS\Demo\PTF_Demo.bas=No
+C:\TPS\Demo\TC_File.bas=No
+C:\TPS\Demo\TPSXXXXDEMO.vbp=No
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=No
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=No
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=No
+C:\Documents and Settings\Grady Johnson\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=No
+
+[Package|TP Demo|Distribution]
+Type=single
+Size=
+Title=ManTech TPS Executive Environment
+
+[Package|TP Demo|Package]
+PackageFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup
+ProjectFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe
+ServerSideCab=
+File1=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\setup.exe
+File2=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\Setup.Lst
+File3=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\TPExec.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|TP Demo|IconGroups]
+Group0=TPS
+PrivateGroup0=0
+Parent0=$(Programs)
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=No
+Excel=No
+Exchange=No
+Text=No
+Lotus=No
+Paradox=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=No
+ODBCDirect=No
+
+[Package|Standard Setup Package 1|Files Found]
+APS6062.DLL=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL
+Rfcnt.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll
+gt50000.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll
+DiagMgr.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll
+C5000372.C4=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\C5000372.C4
+GRAPH01.PCX=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH01.PCX
+Partslist1.pcx=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist1.pcx
+probgen.dat=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probgen.dat
+VB Computer Programmers Manual.pdf=C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf
+
+[Package|Standard Setup Package 1|Files Released]
+Kernel.DLL=
+User.DLL=
+GDI.DLL=
+misc.dll=
+MSJInt35.dll=
+MSJtEr35.dll=
+MSJet35.dll=
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll=
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL=
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=
+C:\WINDOWS\SYSTEM32\visa32.dll=
+C:\WINDOWS\SYSTEM32\terM9_32.dll=
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package 1|Files Added]
+c:\aps\data\fault-file=
+vb computer programmers manual.pdf=
+tpsxxxxdemo.vbp=
+probgen.dat=
+ptf_demo.bas=
+tc_file.bas=
+tpsxxxxdemo.vbw=
+layout.pcx=
+c5000372.c4=
+partslist4.pcx=
+partslist1.pcx=
+partslist2.pcx=
+partslist3.pcx=
+graph09.pcx=
+graph01.pcx=
+graph02.pcx=
+graph03.pcx=
+graph04.pcx=
+graph05.pcx=
+graph06.pcx=
+graph07.pcx=
+graph08.pcx=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\1635842.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\analog.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\dmmtodc1.jpg=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\hvcaution.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\hvwarn.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\idsetup1.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\idsetup2.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\idsetup3.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\saif.jpg=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\posttest.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\splashlogo.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\tps.ico=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\tpsinfo1.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\tpsinfo2.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\tpsinfo3.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\uutconnect.jpg=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\uutsetup1.bmp=
+c:\documents and settings\grady johnson\my documents\new tps shell\tps\graphics\form images\uutsetup2.bmp=
+
+[Package|Standard Setup Package 1|Files Removed]
+
+[Package|Standard Setup Package 1|Files In Project]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=Yes
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\terM9_32.dll=Yes
+C:\WINDOWS\SYSTEM32\visa32.dll=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\Dao350.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM32\THREED32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=Yes
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=Yes
+C:\WINDOWS\SYSTEM32\COMCT332.OCX=Yes
+C:\WINDOWS\SYSTEM32\Richtx32.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSCOMCTL.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\APS\Data\FAULT-FILE=Yes
+C:\WINDOWS\SYSTEM32\APS6062.DLL=Yes
+C:\WINDOWS\SYSTEM32\gt50000.dll=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\1635842.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Analog.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\dmmtodc1.JPG=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVCaution.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVWarn.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup1.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup2.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup3.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Saif.jpg=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\PostTest.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\SplashLogo.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\tps.ICO=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo1.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo2.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo3.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTconnect.jpg=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup1.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup2.bmp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=Yes
+C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbp=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probgen.dat=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\PTF_Demo.bas=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TC_File.bas=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbw=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\LAYOUT.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\C5000372.C4=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist4.pcx=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist1.pcx=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist2.pcx=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist3.pcx=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH09.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH01.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH02.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH03.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH04.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH05.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH06.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH07.PCX=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH08.PCX=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL=$(WinSysPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\terM9_32.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\visa32.dll=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO\Dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM32\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VBAJET32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrepl35.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\THREED32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\COMCT332.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Richtx32.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\MSCOMCTL.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSRDO20.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\RDOCURS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\APS\Data\FAULT-FILE=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\APS6062.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Rfcnt.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\gt50000.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=$(AppPath)
+C:\Documents and Settings\All Users\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=$(AppPath)
+C:\TPS\Demo\TPSXXXXDEMO.vbp=$(AppPath)
+C:\TPS\Demo\probgen.dat=$(AppPath)
+C:\TPS\Demo\PTF_Demo.bas=$(AppPath)
+C:\TPS\Demo\TC_File.bas=$(AppPath)
+C:\TPS\Demo\TPSXXXXDEMO.vbw=$(AppPath)
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=$(AppPath)
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\1635842.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Analog.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\dmmtodc1.JPG=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVCaution.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVWarn.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup1.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup2.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup3.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Saif.jpg=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\PostTest.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\SplashLogo.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\tps.ICO=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo1.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo2.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo3.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTconnect.jpg=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup1.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup2.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probgen.dat=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\PTF_Demo.bas=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TC_File.bas=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbw=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\LAYOUT.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\C5000372.C4=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist4.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist1.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist2.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist3.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH09.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH01.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH02.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH03.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH04.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH05.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH06.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH07.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH08.PCX=$(AppPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=Yes
+C:\WINDOWS\SYSTEM32\terM9_32.dll=Yes
+C:\WINDOWS\SYSTEM32\visa32.dll=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+C:\WINDOWS\SYSTEM32\Rfcnt.dll=No
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=No
+C:\Documents and Settings\All Users\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=No
+C:\TPS\Demo\TPSXXXXDEMO.vbp=No
+C:\TPS\Demo\probgen.dat=No
+C:\TPS\Demo\PTF_Demo.bas=No
+C:\TPS\Demo\TC_File.bas=No
+C:\TPS\Demo\TPSXXXXDEMO.vbw=No
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=No
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=No
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\1635842.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Analog.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\dmmtodc1.JPG=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVCaution.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVWarn.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup1.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup2.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup3.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Saif.jpg=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\PostTest.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\SplashLogo.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\tps.ICO=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo1.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo2.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo3.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTconnect.jpg=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup1.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup2.bmp=No
+C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probgen.dat=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\PTF_Demo.bas=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TC_File.bas=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbw=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\LAYOUT.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\C5000372.C4=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist4.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist1.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist2.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist3.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH09.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH01.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH02.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH03.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH04.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH05.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH06.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH07.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH08.PCX=No
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=ManTech TPS Executive Environment
+
+[Package|Standard Setup Package 1|IconGroups]
+Group0=TPS
+PrivateGroup0=0
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 1|TPS]
+Icon1="VB Computer Programmers Manual.pdf"
+Title1=VB Computer Programers Manual
+StartIn1=$(AppPath)
+Key1=Icon1
+Icon2=TPSXXXXDEMO.vbp
+Title2=TPS Shell
+StartIn2=c:\TPS\Demo
+Key2=Icon2
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup
+ProjectFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe
+ServerSideCab=
+File1=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\setup.exe
+File2=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\Setup.Lst
+File3=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\TPExec.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|Standard Setup Package 2|IconGroups]
+Group0=TPS
+PrivateGroup0=0
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 2|TPS]
+Icon1="VB Computer Programmers Manual.pdf"
+Title1=VB Computer Programers Manual
+StartIn1=$(AppPath)
+Key1=Icon1
+Icon2=TPSXXXXDEMO.vbp
+Title2=TPS Shell
+StartIn2=c:\TPS\Demo
+Key2=Icon2
+
+
+[Package|Standard Setup Package 2|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\Setup2
+
+[Package|Standard Setup Package 2|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=No
+Excel=No
+Exchange=No
+Text=No
+Lotus=No
+Paradox=No
+
+[Package|Standard Setup Package 2|Configure DAO ODBC]
+JetWorkspace=No
+ODBCDirect=Yes
+
+[Package|Standard Setup Package 2|Files Found]
+APS6062.DLL=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL
+Rfcnt.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll
+gt50000.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll
+DiagMgr.dll=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll
+VB Computer Programmers Manual.pdf=C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf
+
+[Package|Standard Setup Package 2|Files Released]
+Kernel.DLL=
+User.DLL=
+GDI.DLL=
+misc.dll=
+MSJInt35.dll=
+MSJtEr35.dll=
+MSJet35.dll=
+uutsetup2.bmp=
+uutsetup1.bmp=
+uutconnect.jpg=
+tpsinfo3.bmp=
+tps.ico=
+posttest.bmp=
+idsetup3.bmp=
+idsetup2.bmp=
+idsetup1.bmp=
+dmmtodc1.jpg=
+analog.bmp=
+1635842.bmp=
+graph08.pcx=
+graph07.pcx=
+graph06.pcx=
+graph05.pcx=
+graph04.pcx=
+graph03.pcx=
+graph02.pcx=
+graph09.pcx=
+partslist3.pcx=
+partslist2.pcx=
+Partslist1.pcx=
+partslist4.pcx=
+C5000372.C4=
+layout.pcx=
+tpsxxxxdemo.vbw=
+tc_file.bas=
+ptf_demo.bas=
+probgen.dat=
+tpsxxxxdemo.vbp=
+MSRD2x35.dll=
+OCX Runtime Support=
+General APS Information.pdf=
+ELTD-D803225-TETS.pdf=
+TSR-D803225-TETS.pdf=
+TPSDemo.vbw=
+TPSDemo.vbp=
+Test3.Arb=
+Test2.Arb=
+Test1.Arb=
+StaticDigital.bas=
+probegen.dat=
+CASETWO.Seg=
+CASETHREE.Seg=
+CASEONE.Seg=
+TPSDemo.exe=
+tpsinfo2.bmp=
+tpsinfo1.bmp=
+splashlogo.bmp=
+saif.jpg=
+hvwarn.bmp=
+hvcaution.bmp=
+GRAPH01.PCX=
+hpe1416a.DLL=
+
+[Package|Standard Setup Package 2|Missing Dependency Information]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll=
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL=
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=
+C:\WINDOWS\SYSTEM32\visa32.dll=
+C:\WINDOWS\SYSTEM32\terM9_32.dll=
+C:\WINDOWS\SYSTEM32\FHDBDriver.dll=
+C:\WINDOWS\SYSTEM32\CWUtils.dll=
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSDemo.exe=
+C:\WINDOWS\SYSTEM32\Hpe1428a.dll=
+C:\VXIPNP\WinNT\Bin\terM9_val.dll=
+C:\VXIPNP\WinNT\Bin\nigpvx32.dll=
+
+[Package|Standard Setup Package 2|Out-of-Date Dependency Information]
+C:\WINDOWS\SYSTEM32\comct332.ocx=
+
+[Package|Standard Setup Package 2|Files Added]
+c:\aps\data\fault-file=
+vb computer programmers manual.pdf=
+c:\windows\system32\cwvisa.ocx=
+c:\windows\system32\comctl32.oca=
+c:\windows\system32\comctl32.ocx=
+c:\windows\system32\cwref.dll=
+c:\windows\system32\cwref.hlp=
+c:\windows\system32\cwui.dep=
+c:\windows\system32\cwui.oca=
+c:\windows\system32\cwui.ocx=
+c:\windows\system32\cwutils.dll=
+c:\vxipnp\winnt\bin\term9_val.dll=
+c:\vxipnp\winnt\bin\_gpibvxi.ini=
+c:\vxipnp\winnt\bin\nigpvx32.dll=
+c:\vxipnp\winnt\bin\nigpvx.mem=
+
+[Package|Standard Setup Package 2|Files Removed]
+c:\windows\system32\term9_32.dll=
+c:\aps\data\fault-file=
+
+[Package|Standard Setup Package 2|Files In Project]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=Yes
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\terM9_32.dll=No
+C:\WINDOWS\SYSTEM32\visa32.dll=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\Dao350.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM32\THREED32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=Yes
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=Yes
+C:\WINDOWS\SYSTEM32\COMCT332.OCX=Yes
+C:\WINDOWS\SYSTEM32\Richtx32.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSCOMCTL.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\APS\Data\FAULT-FILE=No
+C:\WINDOWS\SYSTEM32\APS6062.DLL=Yes
+C:\WINDOWS\SYSTEM32\gt50000.dll=Yes
+C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf=Yes
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=Yes
+C:\WINDOWS\SYSTEM32\Rfcnt.dll=Yes
+C:\WINDOWS\SYSTEM32\RI1260.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSJET35.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSJTER35.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSJINT35.DLL=Yes
+C:\WINDOWS\SYSTEM32\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM32\expsrv.dll=Yes
+C:\WINDOWS\SYSTEM32\MSREPL35.DLL=Yes
+C:\WINDOWS\SYSTEM32\FHDBDriver.dll=Yes
+C:\WINDOWS\SYSTEM32\MSRDO20.DLL=Yes
+C:\WINDOWS\SYSTEM32\RDOCURS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\WINDOWS\SYSTEM32\cwvisa.ocx=Yes
+C:\WINDOWS\SYSTEM32\COMCTL32.oca=Yes
+C:\WINDOWS\SYSTEM32\comctl32.ocx=Yes
+C:\WINDOWS\SYSTEM32\cwref.dll=Yes
+C:\WINDOWS\SYSTEM32\cwref.hlp=Yes
+C:\WINDOWS\SYSTEM32\cwui.dep=Yes
+C:\WINDOWS\SYSTEM32\cwui.oca=Yes
+C:\WINDOWS\SYSTEM32\cwui.ocx=Yes
+C:\WINDOWS\SYSTEM32\CWUtils.dll=Yes
+C:\WINDOWS\SYSTEM32\Hpe1428a.dll=Yes
+C:\VXIPNP\WinNT\Bin\terM9_val.dll=Yes
+C:\VXIPNP\WinNT\Bin\_gpibvxi.ini=Yes
+C:\VXIPNP\WinNT\Bin\nigpvx32.dll=Yes
+C:\VXIPNP\WinNT\Bin\nigpvx.mem=Yes
+
+[Package|Standard Setup Package 2|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 2|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 2|Install Locations]
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\APS6062.DLL=$(WinSysPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\gt50000.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\terM9_32.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\visa32.dll=$(WinSysPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO\Dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM32\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VBAJET32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrepl35.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\THREED32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\viewdx45.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\COMCT332.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Richtx32.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\MSCOMCTL.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSRDO20.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\RDOCURS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\APS\Data\FAULT-FILE=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\APS6062.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Rfcnt.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\gt50000.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=$(WinSysPath)
+C:\Documents and Settings\All Users\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=$(AppPath)
+C:\TPS\Demo\TPSXXXXDEMO.vbp=$(AppPath)
+C:\TPS\Demo\probgen.dat=$(AppPath)
+C:\TPS\Demo\PTF_Demo.bas=$(AppPath)
+C:\TPS\Demo\TC_File.bas=$(AppPath)
+C:\TPS\Demo\TPSXXXXDEMO.vbw=$(AppPath)
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=$(AppPath)
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=$(AppPath)
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=$(AppPath)
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\1635842.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Analog.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\dmmtodc1.JPG=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVCaution.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVWarn.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup1.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup2.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup3.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Saif.jpg=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\PostTest.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\SplashLogo.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\tps.ICO=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo1.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo2.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo3.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTconnect.jpg=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup1.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup2.bmp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf=$(WinSysPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probgen.dat=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\PTF_Demo.bas=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TC_File.bas=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbw=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\LAYOUT.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\C5000372.C4=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist4.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist1.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist2.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist3.pcx=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH09.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH01.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH02.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH03.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH04.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH05.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH06.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH07.PCX=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH08.PCX=$(AppPath)
+C:\WINDOWS\SYSTEM32\RI1260.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\FHDBDriver.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\cwvisa.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\COMCTL32.oca=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\comctl32.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\cwref.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\cwref.hlp=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\cwui.dep=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\cwui.oca=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\cwui.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\CWUtils.dll=$(WinSysPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSDemo.exe=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\CASEONE.Seg=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\CASETHREE.Seg=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\CASETWO.Seg=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probegen.dat=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\StaticDigital.bas=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\Test1.Arb=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\Test2.Arb=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\Test3.Arb=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSDemo.vbp=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSDemo.vbw=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\DOC\TSR-D803225-TETS.pdf=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\DOC\ELTD-D803225-TETS.pdf=$(AppPath)
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\DOC\General APS Information.pdf=$(AppPath)
+C:\WINDOWS\SYSTEM32\Hpe1428a.dll=$(WinSysPath)
+C:\VXIPNP\WinNT\Bin\terM9_val.dll=$(WinSysPath)
+C:\VXIPNP\WinNT\Bin\_gpibvxi.ini=$(WinSysPath)
+C:\VXIPNP\WinNT\Bin\nigpvx32.dll=$(WinSysPath)
+C:\VXIPNP\WinNT\Bin\nigpvx.mem=$(WinSysPath)
+
+[Package|Standard Setup Package 2|Configure Shared Files]
+Applicable=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\TPExec.dll=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\Rfcnt.dll=Yes
+C:\WINDOWS\SYSTEM32\terM9_32.dll=Yes
+C:\WINDOWS\SYSTEM32\visa32.dll=Yes
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Drivers\DiagMgr.dll=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+C:\WINDOWS\SYSTEM32\Rfcnt.dll=No
+C:\WINDOWS\SYSTEM32\DiagMgr.dll=No
+C:\Documents and Settings\All Users\Start Menu\Programs\TPS\VB Computer Programmers Manual.pdf=No
+C:\TPS\Demo\TPSXXXXDEMO.vbp=No
+C:\TPS\Demo\probgen.dat=No
+C:\TPS\Demo\PTF_Demo.bas=No
+C:\TPS\Demo\TC_File.bas=No
+C:\TPS\Demo\TPSXXXXDEMO.vbw=No
+C:\TPS\Demo\graphics\ASSY\LAYOUT.PCX=No
+C:\TPS\Demo\graphics\ASSY\C5000372.C4=No
+C:\TPS\Demo\graphics\PL\Partslist4.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist1.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist2.pcx=No
+C:\TPS\Demo\graphics\PL\Partslist3.pcx=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH09.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH01.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH02.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH03.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH04.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH05.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH06.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH07.PCX=No
+C:\TPS\Demo\graphics\SCHEM\GRAPH08.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\1635842.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Analog.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\dmmtodc1.JPG=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVCaution.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\HVWarn.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup1.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup2.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\IDSetup3.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\Saif.jpg=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\PostTest.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\SplashLogo.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\tps.ICO=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo1.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo2.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\TPSInfo3.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTconnect.jpg=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup1.bmp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\Form Images\UUTSetup2.bmp=No
+C:\Documents and Settings\Grady Johnson\Desktop\VB Computer Programmers Manual.pdf=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probgen.dat=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\PTF_Demo.bas=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TC_File.bas=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSXXXXDEMO.vbw=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\LAYOUT.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\ASSY\C5000372.C4=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist4.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist1.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist2.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\PL\Partslist3.pcx=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH09.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH01.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH02.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH03.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH04.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH05.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH06.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH07.PCX=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\SCHEM\GRAPH08.PCX=No
+C:\WINDOWS\SYSTEM32\RI1260.DLL=No
+C:\WINDOWS\SYSTEM32\COMCTL32.oca=No
+C:\WINDOWS\SYSTEM32\cwref.dll=No
+C:\WINDOWS\SYSTEM32\cwref.hlp=No
+C:\WINDOWS\SYSTEM32\cwui.dep=No
+C:\WINDOWS\SYSTEM32\cwui.oca=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSDemo.exe=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\CASEONE.Seg=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\CASETHREE.Seg=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\CASETWO.Seg=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\probegen.dat=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\StaticDigital.bas=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\Test1.Arb=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\Test2.Arb=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\Test3.Arb=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSDemo.vbp=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\TPSDemo.vbw=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\DOC\TSR-D803225-TETS.pdf=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\DOC\ELTD-D803225-TETS.pdf=No
+C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS\graphics\DOC\General APS Information.pdf=No
+
+[Package|Standard Setup Package 2|Distribution]
+Type=single
+Size=
+Title=ManTech TPS Executive Environment
+
+[Package|Standard Setup Package 2|Package]
+PackageFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\Setup2
+ProjectFolder=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe
+ServerSideCab=
+File1=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\Setup2\setup.exe
+File2=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\Setup2\Setup.Lst
+File3=C:\Documents and Settings\Grady Johnson\My Documents\New TPS Shell\TPS Exe\Setup\Setup2\TPExec.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

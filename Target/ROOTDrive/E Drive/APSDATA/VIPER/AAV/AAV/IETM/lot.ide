@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE IDXCLS [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<IDXCLS>
+<?FRAME ID='LOT' TITLE='LIST OF TABLES' TOCLEVEL='1' NEXT='./SAFESUM.IDE' PREVIOUS='./loi.IDE'?>
+<TITLE>List of Tables</title>
+<tocndx><para><hotspot>Table 1-1. Cross Reference Table<action>
+<?display text = "./C1S01.ide!TABLE1-1">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 1-2. AN/PSM-115 Specifications<action>
+<?display text = "./C1S02.ide!TABLE1-2">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-1. Parts List for DDM LRU, P/N 5429249<action>
+<?display text = "./C3S02.ide!TABLE3-1">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-2. Parts List for Display Board CCA, P/N 5428412<action>
+<?display text = "./C3S03.ide!TABLE3-2">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-3. Parts List for Signal Conditioner CCA, P/N 5429427 and 5428551<action>
+<?display text = "./C3S04.ide!TABLE3-3">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-4. Parts List for Power Supply CCA, P/N 6227570 and P/N 5429442<action>
+<?display text = "./C3S05.ide!TABLE3-4">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-5. Controller C-10879/MSQ-115 LRU Diagnostic BIT Go Chain<action>
+<?display text = "./C3S06.ide!TABLE3-5A">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-6. Controller C-10879/MSQ-115 LRU BIT Self Test<action>
+<?display text = "./C3S06.ide!TABLE3-5B">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-7. CVSD Time Division Multiplexing Format<action>
+<?display text = "./C3S06.ide!TABLE3-6A">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-8. CVSD Audio Input to Output Connection Map<action>
+<?display text = "./C3S06.ide!TABLE3-6B">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-9. Parts List for Controller C-10879/MSQ-115 LRU, P/N 2618506-1<action>
+<?display text = "./C3S06.ide!TABLE3-7">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-10. Parts List for 6802 Computer CCA, P/N 2618567-2<action>
+<?display text = "./C3S07.ide!TABLE3-8">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-11. Parts List for Control Input/Output CCA, P/N 2618572-1<action>
+<?display text = "./C3S08.ide!TABLE3-9">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-12. Parts List for DPCM Assembly CCA, P/N 2618582-1<action>
+<?display text = "./C3S09.ide!TABLE3-10">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-13. Parts List for Conference Accumulator CCA, P/N 2618577-1 and 656-3766-001<action>
+<?display text = "./C3S10.ide!TABLE3-11">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-14. Parts List for CVSD Input/Output CCA, P/N 2618587-1<action>
+<?display text = "./C3S11.ide!TABLE3-12">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-15. Parts List for Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3<action>
+<?display text = "./C3S12.ide!TABLE3-13">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-16. Parts List for CVSD Encoder/Decoder CCA, P/N 2618553-1<action>
+<?display text = "./C3S13.ide!TABLE3-14">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-17. Parts List for Control Encode/Decode CCA, P/N 2618541-1<action>
+<?display text = "./C3S14.ide!TABLE3-15">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-18. Parts List for Power Amplifier CCA, P/N 2618547-1<action>
+<?display text = "./C3S15.ide!TABLE3-16">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-19. UUT Reference Designators<action>
+<?display text = "./C3S16.ide!TABLE3-17">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 3-20. ITA Components<action>
+<?display text = "./C3S16.ide!TABLE3-18">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-1. Test Station Instrumentation Required to test the DDM LRU, P/N 5429249.<action>
+<?display text = "./C4S02.ide!TABLE4-1">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-2. TPS Equipment Required to test the DDM LRU, P/N 5429249.<action>
+<?display text = "./C4S02.ide!TABLE4-2">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-3. Test Station Instrumentation Required to Test the Display Board CCA, P/N 5428412.<action>
+<?display text = "./C4S03.ide!TABLE4-3">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-4. TPS Equipment Required to test the Display Board CCA, P/N 5428412.<action>
+<?display text = "./C4S03.ide!TABLE4-4">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-5. Test Station Instrumentation Required to test the Signal Conditioner CCA, P/N 5429427 and P/N 5428551.<action>
+<?display text = "./C4S04.ide!TABLE4-5">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-6. TPS Equipment Required to test the Signal Conditioner CCA, P/N 5429427 and P/N 5428551.<action>
+<?display text = "./C4S04.ide!TABLE4-6">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-7. Test Station Instrumentation Required to test the Power Supply CCA, P/N 6227570 and 5429442.<action>
+<?display text = "./C4S05.ide!TABLE4-7">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-8. TPS Equipment Required to test the Power Supply CCA, P/N 6227570 and 5429442.<action>
+<?display text = "./C4S05.ide!TABLE4-8">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-9. Test Station Instrumentation Required to Test the Controller C-10879/MSQ-115 LRU, P/N 2618506-1.<action>
+<?display text = "./C4S06.ide!TABLE4-9">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-10. TPS Equipment Required to Test the Controller C-10879/MSQ-115 LRU, P/N 2618506-1.<action>
+<?display text = "./C4S06.ide!TABLE4-10">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-11. Test Station Instrumentation Required to Test the 6802 Computer CCA, P/N 2618567-2.<action>
+<?display text = "./C4S07.ide!TABLE4-11">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-12. TPS Equipment Required to Test the 6802 Computer CCA, P/N 2618567-2.<action>
+<?display text = "./C4S07.ide!TABLE4-12">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-13. Test Station Instrumentation Required to Test the Control Input/Output CCA, P/N 2618572-1.<action>
+<?display text = "./C4S08.ide!TABLE4-13">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-14. TPS Equipment Required to Test the Control Input/Output CCA, P/N 2618572-1.<action>
+<?display text = "./C4S08.ide!TABLE4-14">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-15. Test Station Instrumentation Required to Test the DPCM Assembly CCA, P/N 2618582-1.<action>
+<?display text = "./C4S09.ide!TABLE4-15">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-16. TPS Equipment Required to Test the DPCM Assembly CCA, P/N 2618582-1.<action>
+<?display text = "./C4S09.ide!TABLE4-16">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-17. Test Station Instrumentation Required to Test the Conference Accumulator CCA, P/N 2618577-1 and P/N 656-3766-001.<action>
+<?display text = "./C4S10.ide!TABLE4-17">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-18. TPS Equipment Required to Test the Conference Accumulator CCA, P/N 2618577-1 and P/N 656-3766-001.<action>
+<?display text = "./C4S10.ide!TABLE4-18">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-19. Test Station Instrumentation Required to Test the CVSD Input/Output CCA, P/N 2618587-1.<action>
+<?display text = "./C4S11.ide!TABLE4-19">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-20. TPS Equipment Required to Test the CVSD Input/Output CCA, P/N 2618587-1.<action>
+<?display text = "./C4S11.ide!TABLE4-20">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-21. Test Station Instrumentation Required to Test the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3.<action>
+<?display text = "./C4S12.ide!TABLE4-21">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-22. TPS Equipment Required to Test the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3.<action>
+<?display text = "./C4S12.ide!TABLE4-22">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-23. Test Station Instrumentation Required to Test the CVSD Encoder/Decoder CCA, P/N 2618553-1.<action>
+<?display text = "./C4S13.ide!TABLE4-23">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-24. TPS Equipment Required to Test the CVSD Encoder/Decoder CCA, P/N 2618553-1.<action>
+<?display text = "./C4S13.ide!TABLE4-24">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-25. Test Station Instrumentation Required to Test the Control Encode/Decode CCA, P/N 2618541-1.<action>
+<?display text = "./C4S14.ide!TABLE4-25">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-26. TPS Equipment Required to Test the Control Encode/Decode CCA, P/N 2618541-1.<action>
+<?display text = "./C4S14.ide!TABLE4-26">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-27. Test Station Instrumentation Required to Test the Power Amplifier CCA, P/N 2618547-1.<action>
+<?display text = "./C4S15.ide!TABLE4-27">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-28. TPS Equipment Required to Test the Power Amplifier CCA, P/N 2618547-1.<action>
+<?display text = "./C4S15.ide!TABLE4-28">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-29. Test Station Instrumentation Required to Test the ITA, P/N 05005A1000.<action>
+<?display text = "./C4S16.ide!TABLE4-29">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 4-30. TPS Equipment Required to Test the ITA, P/N 05005A1000.<action>
+<?display text = "./C4S16.ide!TABLE4-30">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 5-1. Inspection<action>
+<?display text = "./C5S01.ide!TABLE5-1">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table 5-2. Consumable Materials<action>
+<?display text = "./C5S01.ide!TABLE5-2">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table A-1. List of Components<action>
+<?display text = "./APPENA.ide!TABLEA-1">
+</action>
+</hotspot>
+</para>
+
+<para><hotspot>Table B-1. Acronym List<action>
+<?display text = "./APPENB.ide!TABLEB-1">
+</action>
+</hotspot>
+</para>
+
+</tocndx></idxcls>

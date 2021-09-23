@@ -1,0 +1,13 @@
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\TETS_RF\RfStim_Gig\Source\gt50000.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\TETS_RF\RfStim_Gig\Source\gt50000.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\gt50000.dll"
+
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\TETS_RF\RfMeas\Source\B8701.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\TETS_RF\RFMeas\Source\B8701.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\B8701.dll"
+
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\TETS_RF\RfPwr\Source\HPE1416A.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\TETS_RF\RFPwr\Source\HPE1416A.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\HPE1416A.dll"
+
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\VIPERT_RF\PM1313B\PM1313B.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\VIPERT_RF\PM1313B\PM1313B_32.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM1313B_32.dll"
+copy /Y "..\..\Core\Source\Drivers\VIPERT_RF\PM1313B\PM1313B_32.dll" "C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM1313B_32.dll"
+copy /Y  "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM20309_32.dll" "C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM20309_32.dll"

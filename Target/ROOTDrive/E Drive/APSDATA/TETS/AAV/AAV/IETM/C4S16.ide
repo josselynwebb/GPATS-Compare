@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY fig4-47 SYSTEM "./graphics/fig4-47.pic" NDATA FAXTILE>
+<!ENTITY fig4-48a SYSTEM "./graphics/fig4-48a.pic" NDATA FAXTILE>
+<!ENTITY fig4-48b SYSTEM "./graphics/fig4-48b.pic" NDATA FAXTILE>
+<!ENTITY fig4-49a SYSTEM "./graphics/fig4-49a.pic" NDATA FAXTILE>
+<!ENTITY fig4-49b SYSTEM "./graphics/fig4-49b.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S16" LABEL="XVI"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\INTERFACE_TEST_ADAPTER\ITA_05005A1000\TP_AAV_ITA.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s16.ide!c3s16'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./ITA.ide!5-16a'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ITA/ASSY/ITA_1.PIC' ?><?BUTTON POS='5' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section XVI. ITA, P/N 05005A1000" previous="./c4s15.ide!c4s15c"?><?TOCENTRY TITLE="SECTION XVI. Test Program Instructions for the ITA, P/N 05005A1000" TOCLEVEL="2" LABEL="XVI"?>
+<TITLE>SECTION XVI. Test Program Instructions for the ITA, P/N 05005A1000</TITLE>
+<PARA0 ID="P4-16" LABEL="4.16"><?TOCENTRY TITLE="4.16 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the ITA, P/N 05005A1000.</PARA>
+<SUBPARA1 ID="P4-16.1" LABEL="4.16.1"><?TOCENTRY TITLE="4.16.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-29" LABEL="4-29">
+<TITLE>Test Station Instrumentation Required to Test
+<BRK/> the ITA, P/N 05005A1000.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5.5in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digitizing Oscilloscope</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Counter/Timer</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Function Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">LF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Arbitrary Waveform Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Test System</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-16.2" LABEL="4.16.2"><?TOCENTRY TITLE="4.16.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-30" LABEL="4-30">
+<TITLE>TPS Equipment Required to Test the
+<BRK/> ITA, P/N 05005A1000.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3.5in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="3.0in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">Part Number</ENTRY>
+<ENTRY ALIGN="CENTER">Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">AAV Interface Test Adapter</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1000</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W1</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0101</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W2</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0102</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W3</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0103</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W4</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0104</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, W5</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0105</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W6</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0106</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, W7</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0107</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, W8</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0108</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, W9</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0109</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W10</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0110</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1008-1</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1008-2</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1011</ENTRY>
+<ENTRY ALIGN="CENTER">2</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Consolidated Self-Test Adapter, A2</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1017</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">PWA - DDM Adapter, CP1</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1042</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">PWA - Controller XA5 Adapter, CP2</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1045</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Extender Card Assembly - Electronic Test, 70 Pin to 70 Pin, A1</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1033</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">PWA - CP1 Self-Test Adapter, A3</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1039</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Shorting Plug, SP1</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1048</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">PWA - 70 Pin Self-Test Adapter, A4</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1049</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Test Station W16 Cable</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 93006A9011-2 (or BNC-M to BNC-M equivalent)</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-16.3" LABEL="4.16.3"><?TOCENTRY TITLE="4.16.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s16b" title="Chapter 4. Test Program Instructions, Section XVI. ITA, P/N 05005A1000 Cont'd"?>
+<SUBPARA1 ID="P4-16.4" LABEL="4.16.4"><?TOCENTRY TITLE="4.16.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-16.5" LABEL="4.16.5"><?TOCENTRY TITLE="4.16.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-16.6" LABEL="4.16.6"><?TOCENTRY TITLE="4.16.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>32 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-16.7" LABEL="4.16.7"><?TOCENTRY TITLE="4.16.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-16.8" LABEL="4.16.8"><?TOCENTRY TITLE="4.16.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<STEP1 ID="P4-16.81" LABEL="a">
+<PARA>Prior to executing the Self-Test Test Program for APS hardware, install ITA P/N 05005A1000 onto the test station receiver.</PARA></STEP1>
+<STEP1 ID="P4-16.82" LABEL="b">
+<PARA>Load the test program for the Self-Test into the ATLAS RTS.  When the RTS State field of the RTS front panel displays "READY", the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-16.83" LABEL="c">
+<PARA>"***OPERATOR ACTION***: Initiate the test program by selecting "Run" from the RTS "Run" menu.</PARA></STEP1>
+<STEP1 ID="P4-16.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-47.pic"?>Figure 4-47<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-47" LABEL="4-47">
+<TITLE>Test Program Information AAV Interface Test Adapter</TITLE><?hotspot linktype="picture" href="./graphics/fig4-47.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-16.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-48a.pic"?>Figure 4-48<?endhotspot?>) is displayed which identifies additional hardware required to execute the Self-Test Program for the ITA.</PARA></STEP1>
+<FIGURE ID="FIG4-48" LABEL="4-48">
+<TITLE>Test Program Information Interface Test Adapter Continued</TITLE>
+<SUBFIG ID="FIG4-48A" LABEL="1"><?hotspot linktype="picture" href="./graphics/fig4-48a.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</SUBFIG>
+<SUBFIG ID="FIG4-48B" LABEL="2"><?hotspot linktype="picture" href="./graphics/fig4-48b.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</SUBFIG></FIGURE>
+<STEP1 ID="P4-16.86" LABEL="f">
+<PARA>The test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-49a.pic"?>Figure 4-49<?endhotspot?>) is displayed. From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-16) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM, (98) Exit Testing and (99) Next Menu.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-49" LABEL="4-49">
+<TITLE>Test Program Main Menu AAV Interface Test Adapter</TITLE>
+<SUBFIG ID="FIG4-49A" LABEL="1"><?hotspot linktype="picture" href="./graphics/fig4-49a.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</SUBFIG>
+<SUBFIG ID="FIG4-49B" LABEL="2"><?hotspot linktype="picture" href="./graphics/fig4-49b.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</SUBFIG></FIGURE>
+<STEP1 ID="P4-16.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-16.88" LABEL="h">
+<PARA>Rotate front panel potentiometer R1 fully clockwise (CW). 
+<BRK/> ***OPERATOR ACTION***: Rotate front panel potentiometer R1 fully clockwise (CW).</PARA></STEP1>
+<STEP1 ID="P4-16.89" LABEL="i">
+<PARA>Ensure there are No Cables, CCAs, Self-Test Fixtures and/or other devices installed onto the ITA.
+<BRK/> ***OPERATOR ACTION***: Ensure there are No Cables, CCAs, Self-Test Fixtures and/or other devices installed onto the ITA.</PARA></STEP1><?FRAME id="c4s16c" title="Chapter 4. Test Program Instructions, Section XVI. ITA, P/N 05005A1000 Cont'd" next="./c5S01.ide!c5S01"?>
+<STEP1 ID="C4S16C10" LABEL="j">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION***: Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S16C11" LABEL="k">
+<PARA>The display prompts the operator to enter the ITA serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S16C12" LABEL="l">
+<PARA>The display prompts the operator to enter the ITA revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S16C13" LABEL="m">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S16C15" LABEL="n">
+<PARA>The display prompts the operator to verify the test setup and ITA are ready to begin testing.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-16.9" LABEL="4.16.9"><?TOCENTRY TITLE="4.16.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-16.91" LABEL="a">
+<PARA>Upon detection of an ITA failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-16.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

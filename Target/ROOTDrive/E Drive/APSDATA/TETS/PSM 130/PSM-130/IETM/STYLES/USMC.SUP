@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<!DOCTYPE IADSSTYLESUP [
+]>
+<IADSSTYLESUP>
+
+<Attrib name="bullet" TrueValue="1" AppliesTo="item" GetFromParent="1">
+<OnStart><emphasis type="b">&bull;  </emphasis></OnStart>
+<OnEnd></OnEnd>
+</Attrib>
+</IADSSTYLESUP>

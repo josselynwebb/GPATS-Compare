@@ -1,0 +1,7 @@
+[options]
+title=HPE1445A Arb.Waveform Generator (VISA) Help
+warning=3
+[files]
+Hpe1445a.rtf
+[map]
+#include <Hpe1445a.whh>

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY con-a4-1 SYSTEM "./graphics/CON_A4/ASSY/CON_A4_1.pic" NDATA FAXTILE>
+<!ENTITY con-a4-sch-1 SYSTEM "./graphics/CON_A4/SCHEM/CON_A4_SCH_1.pic" NDATA FAXTILE>
+<!ENTITY fig3-15 SYSTEM "./graphics/fig3-15.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S07" LABEL="VII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\6802_COMPUTER_A4_CCA_2618567-2\TP_AAV_CON_A4.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_A4/ASSY/CON_A4_1.pic' ?><?BUTTON POS='3' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/CON_A4/SCHEM/CON_A4_SCH_1.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section VII. 6802 Computer CCA, P/N 2618567-2" previous="./c3s06.ide!C3s06e" image="./graphics/CON_A4/ASSY/CON_A4_1.pic"?><?TOCENTRY TITLE="SECTION VII. Theory of Operation for the 6802 Computer CCA, P/N 2618567-2" TOCLEVEL="2" LABEL="VII"?>
+<TITLE>SECTION VII. Theory of Operation for the 6802 Computer CCA, P/N 2618567-2</TITLE>
+<PARA0 ID="P3-7" LABEL="3.7"><?TOCENTRY TITLE="3.7 6802 Computer Theory of Operation" TOCLEVEL="3"?>
+<TITLE>6802 Computer Theory of Operation</TITLE>
+<CAUTION>
+<PARA>This Circuit Card Assembly contains components sensitive to damage by Electrostatic Discharge. Use precautionary procedures when touching, removing, or installing components.</PARA></CAUTION>
+<PARA>The following paragraphs will describe the Theory of Operation for the 6802 Computer CCA, P/N 2618567-2. <?hotspot linktype="picture" href="./graphics/CON_A4/ASSY/CON_A4_1.pic"?>Figure 3-14<?endhotspot?> provides the CCA Layout.</PARA>
+<FIGURE ID="CON-A4-1" LABEL="3-14">
+<TITLE>6802 Computer CCA Layout</TITLE><?hotspot linktype="picture" href="./graphics/CON_A4/ASSY/CON_A4_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3178" LABEL="3.7.1"><?TOCENTRY TITLE="3.7.1 6802 Computer Description" TOCLEVEL="4"?>
+<TITLE>6802 Computer Description</TITLE>
+<PARA>The 6802 Computer CCA controls the Controller C 10879/MSQ-115.  This CCA uses a 6802 microprocessor that operates from a 4.0 MHz crystal as a clock input. The CCA provides the functions of Valid Memory Address, Read-Write Control Signal, Timer Interrupt Request Signal, Memory Ready Signal, Address Bus, Enable Signals, Data Bus, Diagnostic Lamp Data, and External Clock Signals. Refer to <?hotspot linktype="picture" href="./graphics/fig3-15.pic"?>Figure 3-15<?endhotspot?>, the functional block diagram, as necessary while reading this section.</PARA></SUBPARA1>
+<FIGURE ID="FIG3-15" LABEL="3-15">
+<TITLE>6802 Computer CCA Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/fig3-15.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3180" LABEL="3.7.2"><?TOCENTRY TITLE="3.7.2 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<SUBPARA2 ID="GENC3181" LABEL="3.7.2.1"><?TOCENTRY TITLE="3.7.2.1 Read-Write Control Signal" TOCLEVEL="5"?>
+<TITLE>Read-Write Control Signal</TITLE>
+<PARA>The read-write (R/W) control signal is output on pin 34 of U65. Since this output is only capable of driving one TTL load, a non-inverting gate is used as a buffer (U54). The R/W signal is input on pin 9 and output on pin 8 of U54. This output is R/W1which is the read-write signal to DTDIR signal gate (U44), PROM (U11, U21, U31, and U41), RAM (U13, U23, U33, U43, U53, U22, U32, and U42), timer (U51), chip select gates (U34 and U44), and card connector. The bus available (BA) signal is output on pin 7 of U65. This signal is capable of driving one TTL load and is buffered by a non-inverting gate (U54).  BA is input on pins 1 and 2 and output on pin 3 of U54. This output is BA1, and is used as output control (G) input signal to address bus and data bus buffers. R/W1 is input on pins 1 and 2 of U44.  DTDIR is the output signal and is on pin 12 of U44. This signal is used to determine direction of data flow through the data bus buffers and as a condition for input/output chip select signals.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3182" LABEL="3.7.2.2"><?TOCENTRY TITLE="3.7.2.2 Timer Interrupt Request Signal" TOCLEVEL="5"?>
+<TITLE>Timer Interrupt Request Signal</TITLE>
+<PARA>The TIRQ signal is the timer interrupt request signal. This signal IRQ is output on pin 9 of U51 and input (card connector pins 56 and 111 are connected together) on pin 4 of U65. To ensure a floating line does not activate this signal, it is pulled to Vcc through R7.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3183" LABEL="3.7.2.3"><?TOCENTRY TITLE="3.7.2.3 Memory Ready Signal" TOCLEVEL="5"?>
+<TITLE>Memory Ready Signal</TITLE>
+<PARA>Memory ready signal is input on pin 3 of U65. This signal is not used and is brought to Vcc through R6 to ensure the signal is not floating in the open state. The halt is also not used and is brought to Vcc through R4 and is input on pin 2 of U65. Resistors R9, R10, and R11 are voltage divider network that is used to set level for threshold and hysteresis of the voltage level detector (U82). Threshold is input on pin 1 and hysteresis is input on pin 8 of U82. Output pulse is on pin 2 of U82 and is input on (+) trigger input pin 8 of U63. This input signal is used to trigger single shot multi-vibrator (U63). Output pulse width of U63 is determined by C21 and R12. C21 is connected between pins 1 and 3 of U63. R12 is connected between pins 2 and 3 of U63. The output pulse is on pin 11 of U63 and is input on pin 40 of U65 and pin 8 of U51. This signal is the reset signal for microprocessor and timer. Microprocessor and timer receive a reset signal if U82 detects Vcc dropping below 4.68 volts. The time duration of the reset signal is 54.8 ms. The non-maskable interrupt (NMI) signal is input on pin 6 of U65. This signal is the interrupt request (IRQ) signal from the ACIA (pin 9 of U13 on the control input/output card) and is pulled up to Vcc through R5.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3184" LABEL="3.7.2.4"><?TOCENTRY TITLE="3.7.2.4 Memory Ready Signal" TOCLEVEL="5"?>
+<TITLE>Memory Ready Signal</TITLE>
+<PARA>The eight BIT 6802 data bus is input from and output to the 6802 computer data bus buffer (U64). U64 is the data bus buffer and driver for microprocessor (U65). The data bus buffer (U64) is output to and input from memory {EPROM (U11, U21, U31, and U41), RAM (U13, U23, U33, U43, U53, U22, U32, and U42)}, timer (U51), diagnostic lamps latch (U52), and buffer for control input/output card (U24). Signal DTDIR is input to U64 and U24 on pin 1. This signal determines direction of data flow through U64 and U24. DTDIR is also input to chip select gates U34 pins 1 and 4 and U44 pin 10. DTDIR furnishes R/W1 signal for chip select gates when R/W1 signal is set for a write operation. DTDIR is also connected to pins 16 and 52 of card connector. Signal BA1is input on pin 19 of U64. This signal is used to enable or disable data bus buffer (U64).</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3185" LABEL="3.7.2.5"><?TOCENTRY TITLE="3.7.2.5 Address Bus" TOCLEVEL="5"?>
+<TITLE>Address Bus</TITLE>
+<PARA>The 6802 address bus is output to address buffers (U35 and U45) from U65. U35 and U45 are address bus buffers and drivers for microprocessor (U65).  Address buffers and drivers (U35 and U45) are output to memory {EPROM U11, U21, U31, and U41), RAM (U13, U23, U33, U43, U53, U22, U32, and U42)}, timer (U51), address decoder (U15), and to the card connector.  Signal BA1 is also input on pins 1 and 19 of U35 and U45. BA1is used as the chip enable for address buffers. BA1 is also connected to pin 112 of the card connector.</PARA></SUBPARA2><?FRAME id="c3s07a" title="Chapter 3. Theory of Operation, Section VII. 6802 Computer CCA, P/N 2618567-2 Cont'd" image="./graphics/CON_A4/ASSY/CON_A4_1.pic"?>
+<SUBPARA2 ID="GENC3186" LABEL="3.7.2.6"><?TOCENTRY TITLE="3.7.2.6 Enable Signals" TOCLEVEL="5"?>
+<TITLE>Enable Signals</TITLE>
+<PARA>Addresses on the address bus are decoded to give enable signals which are used for memory and input /output. The address decoder is a field programmable logic array (U15). The address is input to U15. The enable signals are output from U15 and input to the enable gates. Pin 19 is grounded so the address decoder will always be enabled. The address decoder outputs are active only when input address is within range of programmed output. When the address decoder output is active, the device selected will be enabled. Signal F0 (U15 pin 18) enables 6802 (U65) RAM, F1 (U15 pin 17) enables the timer (U51), and F2 (U15 pin 16) enables ACIA (U13 of the control input/output card). Signal F3 (U15 pin 15) is NANDed (U34) with DTDIR to give output signal CS1 (U34 pin 6) that is diagnostic lamp latch chip select (U52 pin 11). F4 (U15 pin 13) is NANDed (U34) with DTDIR and VMAE to give output signals CS2W (U34 pin 12) which is the set select latch clock input (U14 pin 11 on control input /output card). CS2W is output off the 6802 computer card on pin 107 of the card connector. F4 is also NANDed (U34) with R/W1 to give output signal CS2R (U34 pin 8) which is read terminals 9 through 16 buffer enable (U12 pins 1 and 19 on control input /output card).  CS2R is output off 6802 computer card on pin 47 of the card connector.  F5 is NANDed (U44) with R/W1 to give output signal CS3R (U44 pin 6) which is read terminals 1 through 3 buffer enable (U11 pins 1 and 19 on control input/ output card). CS3R is output off 6802 computer card on pin 48 of the card connector. F6 is NANDed (U44) with DTDIR and VMAE to give output signal CS4W (U44 pin 8) which is clock input to address bus and data bus latches on DPCM card (U21, U22, and U31 pin 11 and U25 pin 13). CS4W is output off 6802 computer card on pin 49 of the card connector. F7 is chip enable input for RAM second level address decoder (U12 pin 1). RAM second level address decoder (U12) uses input address bits A9 and A10 which are decoded into chip select lines for RAM (U13, U22, U23, U33, U42, U43, and U53). F8 is chip enable input for PROM second level address decoder (U12 pin 15). PROM second level address decoder (U12) uses input address bits A11 and A12, which were decoded for chip enable lines for PROM (U11, U21, U31, and U41). Each PROM chip (U11, U21, U31, and U41) has a programming input voltage command. This signal is input to PROMs from the card connector.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3187" LABEL="3.7.2.7"><?TOCENTRY TITLE="3.7.2.7 Data Bus" TOCLEVEL="5"?>
+<TITLE>Data Bus</TITLE>
+<PARA>The data bus is buffered from data bus external to 6802 computer card with U24. External data bus buffer (U24) is enabled only when a valid device is address which is external to 6802 computer card. U24 enable signal (BA2) is input on pin 19. BA2 is an active low signal and is pulled up to Vcc through R2 when not activated. BA2 is generated by output pins 4, 6, 8, and 10 of U14, which are hardwired ORed together. BA2 is activated by signal F2, F4, F5, and F6 of U15. F2 of U15 is an active low signal. F2 is buffered by two inverters (U14) to activate BA2 whereas F4, F5, and F6 are active high signals and only buffered by one inverter to activate BA2 F2 is connected from U15 pin 16 to U14 pin 1, inverted and output on pin 2. Pin 2 of U14 is connected to pin 3 of U14 and pull up resistor R1, which is connected to Vcc. Pin 3 of U14 is the input of an inverter gate whose output is on pin 4 that is signal BA2. BA2 is output on pin 53 of the card connector for future use.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3188" LABEL="3.7.2.8"><?TOCENTRY TITLE="3.7.2.8 Diagnostic Lamp Data" TOCLEVEL="5"?>
+<TITLE>Diagnostic Lamp Data</TITLE>
+<PARA>The diagnostic lamp data word is input to U52. Pin 1 of U52 is grounded so the output of U52 is always enabled. Diagnostic lamp drivers use the output of U52. Output of lamp drivers is routed to lamps on front panel of Controller C-10879/MSQ-115.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3189" LABEL="3.7.2.9"><?TOCENTRY TITLE="3.7.2.9 External Clock Inputs" TOCLEVEL="5"?>
+<TITLE>External Clock Inputs</TITLE>
+<PARA>Each of the three timers of U51 has an external clock and gate input and an output. These signals for each timer are not used but are connected off the card for future use.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3190" LABEL="3.7.2.10"><?TOCENTRY TITLE="3.7.2.10 Spare Gates" TOCLEVEL="5"?>
+<TITLE>Spare Gates</TITLE>
+<PARA>There are two spare gates on the 6802 Computer card (one AND gate of U54 and one inverter of U14). Inputs to these gates are grounded for minimum power dissipation.  Input pins for AND gate of U54 are pins 4 and 5. Input pin for the inverter gate of U14 is pin 13. The output of both gates is open-ended.</PARA></SUBPARA2></SUBPARA1>
+<SUBPARA1 ID="P3-7.1" LABEL="3.7.3"><?TOCENTRY TITLE="3.7.3 Schematic" TOCLEVEL="4"?>
+<TITLE>Schematic</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/CON_A4/SCHEM/CON_A4_SCH_1.pic"?>Figure 3-16<?endhotspot?> for the schematic diagram for the 6802 Computer CCA.</PARA></SUBPARA1>
+<FIGURE ID="CON-A4-SCH-1" LABEL="3-16">
+<TITLE>6802 Computer CCA Schematic Diagram</TITLE><?hotspot linktype="picture" href="./graphics/CON_A4/SCHEM/CON_A4_SCH_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="P3-7.2" LABEL="3.7.4"><?TOCENTRY TITLE="3.7.4 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><XREF XREFID="TABLE3-8" XIDTYPE="TABLE">Table 3-10</XREF> lists all repair parts available for the 6802 Computer CCA.</PARA><?FRAME id="c3s07b" title="Chapter 3. Theory of Operation, Section VII. 6802 Computer CCA, P/N 2618567-2 Cont'd" next="./c3s08.ide!C3S08"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-8" LABEL="3-10">
+<TITLE>Parts List for 6802 Computer CCA, P/N 2618567-2</TITLE>
+<TGROUP COLS="7">
+<COLSPEC COLNAME="COL1" COLWIDTH=".6in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.3in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="1.6in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL6" COLWIDTH="1.9in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY ALIGN="CENTER">Qty.</ENTRY>
+<ENTRY ALIGN="CENTER">Cage</ENTRY>
+<ENTRY ALIGN="CENTER">P/N</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY>
+<ENTRY ALIGN="CENTER">Reference Des.</ENTRY>
+<ENTRY ALIGN="CENTER">SMR Code</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618568-1</ENTRY>
+<ENTRY>PWB, 6802 Computer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435236-3</ENTRY>
+<ENTRY>EPROM, Programmed</ENTRY>
+<ENTRY>U31</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435236-2</ENTRY>
+<ENTRY>EPROM, Programmed</ENTRY>
+<ENTRY>U21</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435236-1</ENTRY>
+<ENTRY>EPROM, Programmed</ENTRY>
+<ENTRY>U11</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618709</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U13,U22,U23,U33,U32,U42,U45</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30702BEX</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U12</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>M38510/32803BRB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U24,U64</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR05G102JS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R1-R8,R13,R14</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30004BCB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U14</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618778</ENTRY>
+<ENTRY>FPGA, Programmed</ENTRY>
+<ENTRY>U15</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>M38510/32403BRB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U35,U45</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>9</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-01</ENTRY>
+<ENTRY>Jack, TIP, White</ENTRY>
+<ENTRY>TP1,TP3-TP7,TP9-TP11</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>13</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-03</ENTRY>
+<ENTRY>Jack, TIP, Black </ENTRY>
+<ENTRY>TP2</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>14</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-02</ENTRY>
+<ENTRY>Jack, TIP, Red </ENTRY>
+<ENTRY>TP8</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>15</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>CR-64/U4.00000MC</ENTRY>
+<ENTRY>Crystal</ENTRY>
+<ENTRY>Y1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>16</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618713</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U65</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>17</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30005BCX</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U34,U44</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>18</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30501BCB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U54</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>19</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RNC60H4751FS</ENTRY>
+<ENTRY>Resistor, Fixed </ENTRY>
+<ENTRY>R9</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>20</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>M38510/32503BRB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U52</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>21</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618714</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U51</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>22</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435236-4</ENTRY>
+<ENTRY>EPROM, Programmed</ENTRY>
+<ENTRY>U41</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>23</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/01-2962</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C22</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>24</ENTRY>
+<ENTRY>17</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618715-1</ENTRY>
+<ENTRY>Pin, .025 Square</ENTRY>
+<ENTRY>E1-E17</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>25</ENTRY>
+<ENTRY>19</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1592</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C1-C18,C21</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>26</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51923-157</ENTRY>
+<ENTRY>Pin, Spring</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>27</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618701-1</ENTRY>
+<ENTRY>Extractor, Left Hand</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>28</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1329</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C19,C20</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>29</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS16535-21</ENTRY>
+<ENTRY>Rivet</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>30</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>139-3003-030</ENTRY>
+<ENTRY>Clip, Component</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>31</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618701-2</ENTRY>
+<ENTRY>Extractor, Right Hand</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>32</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RNC60H2213FS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R12</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>33</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RNC60H1502FS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R10</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>34</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RNC60H5113FS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R11</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>35</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>CD4047BD/3</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U63</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>36</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618725</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U61,U62,U71,U72</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>37</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618706</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U82</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>38</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618702</ENTRY>
+<ENTRY>Retainer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>39</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>333-0605-000</ENTRY>
+<ENTRY>Nut, Self-locking</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>40</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer, Flat</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>41</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-15</ENTRY>
+<ENTRY>Screw, Machine</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>42</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M55302/59-A120Y(-0)</ENTRY>
+<ENTRY>Connector, 120 Pin</ENTRY>
+<ENTRY>P1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA1></PARA0></SECTION>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="DDM-A3" LABEL="V"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\POWER_SUPPLY_A3_CCA_6227570_5429442\TP_AAV_DDM_A3.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s05.ide!c4s05'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/DDM_A3/ASSY/DDM_A3_1.pic'?><?BUTTON POS='4' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/DDM_A3/SCHEM/DDM_A3_sch.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s05.ide!Table3-4'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s05.ide!c3s05'?><?FRAME ID="5-5a" TITLE="Chapter 5. Maintenance, Section V. ELTD FOR POWER SUPPLY CCA, P/N 6227570 and P/N 5429442" previous="./DDM_A2.ide" next="./con_lru.ide"?><?TOCENTRY TITLE="SECTION V. ELTD for the Power Supply CCA, P/N 6227570 and P/N 5429442" TOCLEVEL="2" LABEL="V"?>
+<TITLE>SECTION V. ELTD for the Power Supply CCA, P/N 6227570 and P/N 5429442</TITLE>
+<PARA0 ID="P5-5" LABEL="5.5"><?TOCENTRY TITLE="5.5 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the Power Supply CCA, P/N 6227570 and P/N 5429442. Power Supply CCA P/N 5429442 contains circuitry which is no longer used by the DDM LRU and is therefore not tested by the UUT test program. The affected circuitry is comprised of C1 - C3, VR1 - VR3, R1 - R4, R6, and R8.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-PwrSup-6227570.PDF"?>Power Supply CCA ELTD<?endhotspot?></PARA></PARA0></SECTION>

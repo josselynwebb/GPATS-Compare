@@ -1,0 +1,12 @@
+771, 715, 30, 4500, 20, 20, 310, 246 
+771, 715, 30, 4500, 20, 20, 310, 246 
+771, 715, 30, 12000, 20, 20, 310, 246 
+
+
+Data sequence - LARRS AZ position, LARRS EL POSITION, Lower Area Limit, Upper Area limit, 
+Signal Block Low x, Low y, Upper x, Upper y
+
+LARRS position is only written to the device once prior to 1540 testing but is fetched three times from the data above
+in order to simplify array handling
+
+Lasers - line #1 is 1540, #2 is 1570, #3 is 1064

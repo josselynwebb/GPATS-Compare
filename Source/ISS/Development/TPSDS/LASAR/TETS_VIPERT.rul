@@ -1,0 +1,68 @@
+!+
+! Description:
+!------------
+! This file describes the rules for the TETS_VIPERT DTI using a default channel
+! card (M917_02).
+! It is used by the RULES compiler to create the RULES.LIO database.
+! Modify filename by replacing "TETS_VIPERT" with UUT "nomenclature".
+!     nomenclature_RUL.RUL
+!
+!+
+! Revision       Date        Name        Comment
+! --------       ----        ----        -------
+! 660001         18-Jan-17   ATS         Initial release with history
+!
+
+! Teradyne M910
+! These limits are given as "tester" limits, even though the M917_02
+! has 4 phases and 4 windows PER BOARD.  So these rules are more
+! restrictive than required.  This is because the LASAR rules
+! syntax does not allow phases and windows to be specified per board.
+
+! include specific channel card rules
+include "lsr$:m917_02.rul"
+!
+tester;
+    max phases = 4;
+    max windows = 4;
+    max tsets = 256;
+    max dynamic patterns = 32768;
+    max static patterns = 32768;
+    min resolution = 1 nsec;
+endtester;
+
+! set up M910 default channel = M917_02
+
+channel_type $DEFAULT ;
+    format nreturn legal;
+    format rzero legal;
+    format rone legal;
+    format roff legal;
+    format rcomp_surround illegal;
+    format rcomp illegal;
+! NOTE 1: this card does a true return-to-complement (no-precomplement)
+!         when $RCOMP is programmed; this format is not supported in TESTCOM.
+!
+! NOTE 2: The specifications below presume a 3V swing, not a full 5V.
+!
+
+    min vector_period = 80 nsec;
+
+! Note: these guards are due to drive skew, not dead time
+
+    drive
+        sov = 5 NSEC
+        eov = 5 NSEC
+        min_activity_width = 40 NSEC;
+
+    detect
+        sov = 5 NSEC
+        eov = 5 NSEC
+        min_activity_width = 10 NSEC;
+
+    max channels = 64;
+
+    program phases by_pin;
+    program window by_pin;
+    program formats by_pin;
+endchannel_type;

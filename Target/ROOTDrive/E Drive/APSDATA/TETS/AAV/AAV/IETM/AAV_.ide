@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE IDINFO SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY logo SYSTEM "./graphics/logo.pcx" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<IDINFO><?FRAME ID="COVER" TITLE="COVER" TOCLEVEL="1" NEXT="./loi.ide"?>
+<PUBNO SERVICE="MARINECORPS">
+<DOCNO>TM 11617A-CD</DOCNO></PUBNO>
+<TITLEBLK>
+<DOCTYPE>Technical Manual</DOCTYPE>
+<MAINTLVL>Operation and Maintenance Manual with Parts List</MAINTLVL>
+<PRTITLE>
+<NOMEN>Application Program Set AN/PSM-115</NOMEN>
+<MODELNO>Driver's Display Module (DDM)</MODELNO>
+<MODELNO>Controller, C-10879/MSQ-115</MODELNO>
+<MODELNO>AN/MIQ-1(V)3 Intercommunications Set</MODELNO></PRTITLE></TITLEBLK>
+<SEAL><GRAPHIC BOARDNO="logo"/></SEAL>
+<NOTICE NOTCTYPE="DIST">
+<PARA>This publication is required for official use or for administrative or operational purposes. Distribution is limited to U.S. Government agencies only. Other requests for this document must be referred to: Commandant of the Marine Corps (ARD), Washington, DC 20380-0001.</PARA></NOTICE>
+<NOTICE NOTCTYPE="DESTR">
+<PARA>Destroy by any method that will prevent disclosure of contents or reconstruction of the documents.</PARA></NOTICE>
+<NOTICE NOTCTYPE="FOUO">
+<PARA>FOR OFFICIAL USE ONLY</PARA></NOTICE>
+<PUBDATE>9 FEBRUARY 2012</PUBDATE>
+<PCN>
+<TYPE>179</TYPE>
+<ITEMID>11617</ITEMID>
+<VERSION>000</VERSION></PCN></IDINFO>

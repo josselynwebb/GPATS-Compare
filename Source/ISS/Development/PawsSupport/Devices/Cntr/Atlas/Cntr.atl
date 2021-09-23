@@ -1,0 +1,1609 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000000 BEGIN, ATLAS PROGRAM 'Cntr Benchmark' $
+C *******************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemCntr.dll.
+  * Subset:  PAWS_89
+  *
+  *******************************************************************$
+C $
+C *******************************************************************
+C * REQUIRE STATEMENTS
+C ******************************************************************* $
+C $
+C       REQUIRE, 'PRINTER', I-O DEVICE,
+               CAPABILITY,
+                        LINE-LENGTH 80 CHAR,
+                        PAGE-SIZE 25 LINES $
+C $
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER          $
+        DECLARE, VARIABLE, 'SUB-CHOICE' IS INTEGER      $
+        DECLARE, VARIABLE, 'E-E' IS BOOLEAN             $
+        DECLARE, VARIABLE, 'SUB-E-E' IS BOOLEAN         $
+        DECLARE, VARIABLE, 'MI' IS BOOLEAN              $
+        DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN       $
+        DECLARE, VARIABLE, 'READY' IS BOOLEAN           $
+        DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL      $
+        DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL    $
+        DECLARE, VARIABLE, 'AC-VOLTS-PP' IS DECIMAL     $
+        DECLARE, VARIABLE, 'PULSE-VOLTS' IS DECIMAL     $
+        DECLARE, VARIABLE, 'SQ-VOLTS-P' IS DECIMAL      $
+        DECLARE, VARIABLE, 'SQ-VOLTS-PP' IS DECIMAL     $
+        DECLARE, VARIABLE, 'RAMP-VOLTS-P' IS DECIMAL    $
+        DECLARE, VARIABLE, 'RAMP-VOLTS-PP' IS DECIMAL   $
+        DECLARE, VARIABLE, 'TRNG-VOLTS-P' IS DECIMAL    $
+        DECLARE, VARIABLE, 'TRNG-VOLTS-PP' IS DECIMAL   $
+        DECLARE, VARIABLE, 'TRIG-VOLTS' IS DECIMAL      $
+        DECLARE, VARIABLE, 'PH-ANGLE' IS DECIMAL        $
+        DECLARE, VARIABLE, 'DUTY-CYCLE' IS DECIMAL      $
+        DECLARE, VARIABLE, 'CURRENT' IS DECIMAL         $
+        DECLARE, VARIABLE, 'CURRENT-RMS' IS DECIMAL     $
+        DECLARE, VARIABLE, 'DC-VOLTS ' IS DECIMAL       $
+        DECLARE, VARIABLE, 'IMPED' IS DECIMAL           $
+        DECLARE, VARIABLE, 'FREQ1' IS DECIMAL           $
+        DECLARE, VARIABLE, 'FREQ2' IS DECIMAL           $
+        DECLARE, VARIABLE, 'PERIOD' IS DECIMAL          $
+        DECLARE, VARIABLE, 'MAX-T' IS DECIMAL           $
+        DECLARE, VARIABLE, 'M-MAX' IS DECIMAL           $
+        DECLARE, VARIABLE, 'VER-UL' IS DECIMAL          $
+        DECLARE, VARIABLE, 'VER-LL' IS DECIMAL          $
+        DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER       $
+        DECLARE, VARIABLE, 'TESTNO' IS INTEGER          $
+        DECLARE, VARIABLE, 'SAMP-COUNT' IS INTEGER      $
+        DECLARE, VARIABLE, 'REF-VOLTS' IS INTEGER       $
+C $
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+C $
+ 000300 DECLARE, GLOBAL, CONSTANT, 'CONTINUE' IS
+         C'\LF\   Press TRUE OR FALSE to continue.\LF\' $
+C $
+        DECLARE, GLOBAL, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+        Enter T - to return to menu
+        Enter F - to repeat test\LF\
+        ' $
+
+        DECLARE, GLOBAL, CONSTANT, 'RMS-PEAK' IS 1.414213562373 $
+        DECLARE, GLOBAL, CONSTANT, 'RMS-PP' IS   2.828427124746 $
+
+        IDENTIFY, EVENT 'STARTW' AS (VOLTAGE), PULSED DC,
+          EQ 1 V, INCREASING, VOLTAGE MAX 5 V,
+          PRF MAX 1000000 HZ,
+          TEST-EQUIP-IMP 50 OHM,
+          SETTLE-TIME 0.025 SEC,
+          CNX HI CNTR-CH1 $
+
+        IDENTIFY, EVENT 'STOPW' AS (VOLTAGE), PULSED DC,
+          EQ 1 V, DECREASING, VOLTAGE MAX 5 V,
+          PRF MAX 1000000 HZ,
+          TEST-EQUIP-IMP 50 OHM,
+          COUPLING AC,
+          CNX HI CNTR-CH2 $
+
+        IDENTIFY, EVENT 'STARTTIME' AS (VOLTAGE), PULSED DC,
+          EQ 0 V, INCREASING, VOLTAGE MAX 5 V,
+          PRF MAX 1000000 HZ,
+          TEST-EQUIP-IMP 50 OHM,
+          COUPLING AC,
+          SETTLE-TIME 0.002 SEC,
+          CNX HI CNTR-CH1 $
+
+        IDENTIFY, EVENT 'STOPTIME' AS (VOLTAGE), PULSED DC,
+          EQ 0 V, DECREASING, VOLTAGE MAX 5 V,
+          PRF MAX 1000000 HZ,
+          TEST-EQUIP-IMP 50 OHM,
+          COUPLING AC,
+          CNX HI CNTR-CH2 $
+
+        IDENTIFY, EVENT 'STARTARM' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.5 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-ARM $
+
+        IDENTIFY, EVENT 'STOPARM' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-ARM $
+
+        IDENTIFY, EVENT 'STARTT0' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG0 $
+
+        IDENTIFY, EVENT 'STOPT0' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG0 $
+
+        IDENTIFY, EVENT 'STARTT1' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG1 $
+
+        IDENTIFY, EVENT 'STOPT1' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG1 $
+
+        IDENTIFY, EVENT 'STARTT2' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG2 $
+
+        IDENTIFY, EVENT 'STOPT2' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG2 $
+
+        IDENTIFY, EVENT 'STARTT3' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG3 $
+
+        IDENTIFY, EVENT 'STOPT3' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG3 $
+
+        IDENTIFY, EVENT 'STARTT4' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG4 $
+
+        IDENTIFY, EVENT 'STOPT4' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG4 $
+
+        IDENTIFY, EVENT 'STARTT5' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG5 $
+
+        IDENTIFY, EVENT 'STOPT5' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG5 $
+
+        IDENTIFY, EVENT 'STARTT6' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG6 $
+
+        IDENTIFY, EVENT 'STOPT6' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG6 $
+
+        IDENTIFY, EVENT 'STARTT7' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, INCREASING, VOLTAGE MAX 5 V,
+          CNX GATE-START-IN CNTR-TRIG7 $
+
+        IDENTIFY, EVENT 'STOPT7' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.6 V, DECREASING, VOLTAGE MAX 5 V,
+          CNX GATE-STOP-IN CNTR-TRIG7 $
+C $
+C       DEFINE, 'RESULTS-MSG', MESSAGE,
+            UL   ()
+              MV ()
+            LL   () $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', GLOBAL, PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+           CALCULATE, 'GoNogo' = C'GO  ' $
+        ELSE  $
+           CALCULATE, 'PassFail' = C'F' $
+           CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+        CALCULATE, 'NESTED' = FALSE $
+
+        IF, 'VER-UL' EQ 0, THEN $
+
+            IF, 'VER-LL' EQ 0, THEN $
+
+                CALCULATE, 'NESTED' = TRUE $
+
+            END, IF $
+
+        END, IF $
+
+        IF, 'NESTED', THEN $
+
+            OUTPUT,
+                C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+            OUTPUT,
+                C'----        ------------        ------------        ------------         ------' $
+
+            OUTPUT,
+                'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$
+
+
+            OUTPUT, TO 'PRINTER',
+                C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+            OUTPUT, TO 'PRINTER',
+                C'----        ------------        ------------        ------------         ------' $
+
+            OUTPUT, TO 'PRINTER',
+                'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$
+
+        ELSE $
+
+            OUTPUT,
+                C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+            OUTPUT,
+                C'----        ------------               ------------            ------------             ------\LF\'   $
+
+            OUTPUT,
+               'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+            OUTPUT, TO 'PRINTER',
+                C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+            OUTPUT, TO 'PRINTER',
+                C'----        ------------               ------------            ------------             ------\LF\'   $
+
+            OUTPUT, TO 'PRINTER',
+               'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+        END, IF $
+
+        END, 'RESULTS' $
+
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+E001000 OUTPUT, C'\LF\',
+          C'Cntr ATLAS Driver Benchmark\LF\',
+          C'Date/Time:','DATE-TIME',C'\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'Cntr ATLAS Driver Benchmark\LF\',
+          C'Date/Time:','DATE-TIME',C'\LF\' $
+B $
+ 001005 OUTPUT,
+          C'             Test Menu\LF\',
+          C'  --------------------------------\LF\',
+          C'   0 Run All Tests\LF\\LF\',
+          C'   1 AC Signal\LF\',
+          C'   2 Pulsed DC\LF\',
+          C'   3 Square Wave\LF\',
+          C'   4 Ramp Signal\LF\',
+          C'   5 Triangle Wave\LF\',
+          C'   6 Totalize & Time Interval\LF\',
+          C'   7 Gated Measurements\LF\',
+          C'   8 Channel 2\LF\',
+          C'   9 Input Impedance\LF\\LF\',
+          C'  99 Exit\LF\\LF\',
+          C'  Enter a selection\LF\' $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT,
+          C'  Selection:', 'CHOICE', C'\LF\' $
+        CALCULATE, 'E-E' = FALSE $
+        IF, 'CHOICE' EQ 99, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 0, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          GO TO, STEP 020000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          GO TO, STEP 030000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          GO TO, STEP 040000 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          GO TO, STEP 050000 $
+        END, IF $
+        IF, 'CHOICE' EQ 6, THEN $
+          GO TO, STEP 060000 $
+        END, IF $
+        IF, 'CHOICE' EQ 7, THEN $
+          GO TO, STEP 070000 $
+        END, IF $
+        IF, 'CHOICE' EQ 8, THEN $
+          GO TO, STEP 080000 $
+        END, IF $
+        IF, 'CHOICE' EQ 9, THEN $
+          GO TO, STEP 085000 $
+        END, IF $
+
+        OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * AC Signal Tests
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'AC-VOLTS-P' = 1 $
+        CALCULATE, 'DC-VOLTS'   = 1 $
+        CALCULATE, 'FREQ1'      = 1000 $
+        CALCULATE, 'FREQ2'      = 100 $
+        CALCULATE, 'MAX-T'      = 5 $
+B $
+     05 OUTPUT,
+          C' AC Signal Tests\LF\',
+          C' --------------------------------------\LF\',
+          C' Input an AC SIGNAL of 2Vpp at 1kHz\LF\',
+          C' with 1V DC-OFFSET at 50Ohm impedance\LF\',
+          C' to the CH1 input.\LF\\LF\',
+          C' Input an AC SIGNAL of 2Vpp at 100Hz\LF\',
+          C' with 0V DC-OFFSET at 50Ohm impedance\LF\',
+          C' to the CH2 input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010099 $
+        END, IF $
+C $
+C * Frequency
+C $
+        CALCULATE, 'VER-UL' = 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 'FREQ1' * 1.5 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 'RMS-PEAK' $
+
+     20 VERIFY, (FREQ INTO 'MEASUREMENT'), AC SIGNAL,
+          UL 'VER-UL' HZ LL 'VER-LL' HZ,
+          FREQ MAX 'M-MAX' RANGE 0.001 HZ TO 200000000 HZ,
+          VOLTAGE 'AC-VOLTS-RMS' RANGE 0.1 V TO 100 V,
+          DC-OFFSET 'DC-VOLTS' RANGE -100 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 10020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   AC [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   AC [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Period
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1' * 1.5 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), AC SIGNAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          PERIOD MAX 'M-MAX' RANGE .000000005 SEC TO 1000 SEC,
+          VOLTAGE-P 'AC-VOLTS-P' RANGE 0.1414 V TO 100.0 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          COUPLING AC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 10030 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   AC [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   AC [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Frequency Ratio
+C $
+        CALCULATE, 'VER-UL' = 'FREQ1' / 'FREQ2' * 1.1 $
+        CALCULATE, 'VER-LL' = 'FREQ1' / 'FREQ2' * 0.9 $
+        CALCULATE, 'M-MAX'  = 'FREQ1' / 'FREQ2' * 1.5 $
+        CALCULATE, 'AC-VOLTS-PP' = 'AC-VOLTS-P' * 2 $
+
+     40 VERIFY, (FREQ-RATIO INTO 'MEASUREMENT'), AC SIGNAL,
+          UL 'VER-UL' LL 'VER-LL',
+          FREQ-RATIO MAX 'M-MAX' RANGE .00000000001 TO 100000000000,
+          VOLTAGE-PP 'AC-VOLTS-PP' RANGE 0.2828 V TO 100.0 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 REF VIA CNTR-CH2 $
+
+        CALCULATE, 'TESTNO' = 10040 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   AC [Freq-Ratio], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   AC [Freq-Ratio], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Phase Angle
+C $
+        OUTPUT,
+          C' Connect CH2 Input to the CH1 Input (same signal).\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010099 $
+        END, IF $
+
+        CALCULATE, 'PH-ANGLE'   = 0 $
+
+        CALCULATE, 'VER-UL' = 5 $
+        CALCULATE, 'VER-LL' = 355 $
+        CALCULATE, 'M-MAX'  = 'PH-ANGLE' * 1.5 $
+
+     50 MEASURE, (PHASE-ANGLE INTO 'MEASUREMENT'), AC SIGNAL,
+          PHASE-ANGLE MAX 'M-MAX' RANGE 0 DEG TO 359.9 DEG,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 REF VIA CNTR-CH2 $
+
+        COMPARE, 'MEASUREMENT', GE 'VER-LL' $
+
+        IF, NOGO, THEN $
+            COMPARE, 'MEASUREMENT', LE 'VER-UL' $
+        END, IF $
+
+        CALCULATE, 'TESTNO' = 10050 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   AC [Phase-Angle], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   AC [Phase-Angle], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Pulsed DC Tests
+C ******************************************************************* $
+C $
+B $
+ 020000 CALCULATE, 'PULSE-VOLTS' = 2 $
+        CALCULATE, 'DC-VOLTS'    = 0 $
+        CALCULATE, 'FREQ1'       = 1000 $
+        CALCULATE, 'DUTY-CYCLE'  = 50 $
+        CALCULATE, 'MAX-T'       = 5 $
+B $
+     05 OUTPUT,
+          C' Pulsed DC Tests\LF\',
+          C' --------------------------------------\LF\',
+          C' Input an Square Wave of 2Vpp at 1kHz\LF\',
+          C' with 50% duty cycle, 0V DC-OFFSET\LF\',
+          C' to the CH1 input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020099 $
+        END, IF $
+C $
+C * PRF
+C $
+        CALCULATE, 'VER-UL' = 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 'FREQ1' * 1.5 $
+
+     20 VERIFY, (PRF INTO 'MEASUREMENT'), PULSED DC,
+          UL 'VER-UL' HZ LL 'VER-LL' HZ,
+          PRF MAX 'M-MAX' RANGE 0.001 HZ TO 200000000 HZ,
+          VOLTAGE-P 'PULSE-VOLTS' RANGE 0.1 V TO 100 V,
+          DC-OFFSET 'DC-VOLTS' RANGE -100 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 20020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Pulsed DC [PRF], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Pulsed DC [PRF], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Period
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1' * 1.5 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), PULSED DC,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          PERIOD MAX 'M-MAX' RANGE .000000005 SEC TO 1000 SEC,
+          DUTY-CYCLE 'DUTY-CYCLE' RANGE 0 PC TO 100 PC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          COUPLING AC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 20030 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Pulsed DC [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Pulsed DC [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Rise Time
+C $
+        CALCULATE, 'VER-UL' = 1 / (4 * 'FREQ1') $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'M-MAX'  = 1 / (2 * 'FREQ1') $
+
+     40 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), PULSED DC,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          RISE-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 20040 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Pulsed DC [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Pulsed DC [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Fall Time
+C $
+        CALCULATE, 'VER-UL' = 1 / (4 * 'FREQ1') $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'M-MAX'  = 1 / (2 * 'FREQ1') $
+
+     50 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), PULSED DC,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          FALL-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 20050 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Pulsed DC [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Pulsed DC [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Pulse Width
+C $
+        CALCULATE, 'VER-UL' = 'DUTY-CYCLE' / 100 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 'DUTY-CYCLE' / 100 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 'VER-UL' * 1.4 $
+
+     60 VERIFY, (PULSE-WIDTH INTO 'MEASUREMENT'), PULSED DC,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          PULSE-WIDTH MAX 'M-MAX' RANGE .000000005 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 20060 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Pulsed DC [Pulse-Width], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Pulsed DC [Pulse-Width], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Positive Pulse Width (deprecated)
+C $
+        CALCULATE, 'VER-UL' = 'DUTY-CYCLE' / 100 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 'DUTY-CYCLE' / 100 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 'VER-UL' * 1.4 $
+
+     70 VERIFY, (POS-PULSE-WIDTH INTO 'MEASUREMENT'), PULSED DC,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          POS-PULSE-WIDTH MAX 'M-MAX' RANGE .000000005 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 20070 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Pulsed DC [Pos-Pulse-Width], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Pulsed DC [Pos-Pulse-Width], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Negative Pulse Width (deprecated)
+C $
+        CALCULATE, 'VER-UL' = 'DUTY-CYCLE' / 100 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 'DUTY-CYCLE' / 100 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 'VER-UL' * 1.4 $
+
+     80 VERIFY, (NEG-PULSE-WIDTH INTO 'MEASUREMENT'), PULSED DC,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          NEG-PULSE-WIDTH MAX 'M-MAX' RANGE .000000005 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 20080 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Pulsed DC [Neg-Pulse-Width], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Pulsed DC [Neg-Pulse-Width], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Square Wave Tests
+C ******************************************************************* $
+C $
+B $
+ 030000 CALCULATE, 'SQ-VOLTS-PP'  = 2 $
+        CALCULATE, 'DC-VOLTS'     = 0 $
+        CALCULATE, 'FREQ1'        = 1000 $
+        CALCULATE, 'DUTY-CYCLE'   = 50 $
+        CALCULATE, 'MAX-T'        = 5 $
+B $
+     05 OUTPUT,
+          C' Square Wave Tests\LF\',
+          C' --------------------------------------\LF\',
+          C' Input an Square Wave of 2Vpp at 1kHz\LF\',
+          C' with 50% duty cycle, 0V DC-OFFSET\LF\',
+          C' to the CH1 input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030099 $
+        END, IF $
+C $
+C * Frequency
+C $
+        CALCULATE, 'VER-UL'     = 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL'     = 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'      = 'FREQ1' * 1.5 $
+        CALCULATE, 'SQ-VOLTS-P' = 'SQ-VOLTS-PP' / 2 $
+
+     20 VERIFY, (FREQ INTO 'MEASUREMENT'), SQUARE WAVE,
+          UL 'VER-UL' HZ LL 'VER-LL' HZ,
+          FREQ MAX 'M-MAX' RANGE 0.001 HZ TO 200000000 HZ,
+          VOLTAGE-P 'SQ-VOLTS-P' RANGE 0.1 V TO 100 V,
+          DC-OFFSET 'DC-VOLTS' RANGE -100 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 30020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Square Wave [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Square Wave [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Period
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1' * 1.5 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), SQUARE WAVE,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          PERIOD MAX 'M-MAX' RANGE .000000005 SEC TO 1000 SEC,
+          VOLTAGE-PP 'SQ-VOLTS-PP' RANGE 0.2 V TO 200 V,
+          DUTY-CYCLE 'DUTY-CYCLE' RANGE 0 PC TO 100 PC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          COUPLING AC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 30030 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Square Wave [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Square Wave [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Rise Time
+C $
+        CALCULATE, 'VER-UL' = 1 / (4 * 'FREQ1') $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'M-MAX'  = 1 / (2 * 'FREQ1') $
+
+     40 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), SQUARE WAVE,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          RISE-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 30040 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Square Wave [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Square Wave [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Fall Time
+C $
+        CALCULATE, 'VER-UL' = 1 / (4 * 'FREQ1') $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'M-MAX'  = 1 / (2 * 'FREQ1') $
+
+     50 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), SQUARE WAVE,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          FALL-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 30050 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Square Wave [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Square Wave [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 040000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 030000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Ramp Signal Tests
+C ******************************************************************* $
+C $
+B $
+ 040000 CALCULATE, 'RAMP-VOLTS-PP' = 2 $
+        CALCULATE, 'DC-VOLTS'      = 0 $
+        CALCULATE, 'FREQ1'         = 2000 $
+        CALCULATE, 'DUTY-CYCLE'    = 50 $
+        CALCULATE, 'MAX-T'         = 5 $
+B $
+     05 OUTPUT,
+          C' Ramp Signal Tests\LF\',
+          C' --------------------------------------\LF\',
+          C' Input an Ramp Signal, positive slope,\LF\',
+          C' of 2Vpp at 2kHz with 0V DC-OFFSET to\LF\',
+          C' the CH1 input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040099 $
+        END, IF $
+C $
+C * Frequency
+C $
+        CALCULATE, 'VER-UL'       = 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL'       = 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'        = 'FREQ1' * 1.5 $
+        CALCULATE, 'RAMP-VOLTS-P' = 'RAMP-VOLTS-PP' / 2 $
+
+     20 VERIFY, (FREQ INTO 'MEASUREMENT'), RAMP SIGNAL,
+          UL 'VER-UL' HZ LL 'VER-LL' HZ,
+          FREQ MAX 'M-MAX' RANGE 0.001 HZ TO 200000000 HZ,
+          VOLTAGE-P 'RAMP-VOLTS-P' RANGE 0.1 V TO 100 V,
+          DC-OFFSET 'DC-VOLTS' RANGE -100 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          POS-SLOPE,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 40020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Ramp Signal [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Ramp Signal [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Period
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1' * 1.5 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), RAMP SIGNAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          PERIOD MAX 'M-MAX' RANGE .000000005 SEC TO 1000 SEC,
+          VOLTAGE-PP 'RAMP-VOLTS-PP' RANGE 0.2 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          NEG-SLOPE,
+          COUPLING AC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 40030 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Ramp Signal [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Ramp Signal [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Rise Time
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 0.8 * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.8 * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1' * 1.5 $
+
+     40 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), RAMP SIGNAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          RISE-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 40040 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Ramp Signal [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Ramp Signal [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Fall Time
+C $
+        CALCULATE, 'VER-UL' = 1 / (4 * 'FREQ1') $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'M-MAX'  = 1 / (2 * 'FREQ1') $
+
+     50 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), RAMP SIGNAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          FALL-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 40050 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Ramp Signal [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Ramp Signal [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 040000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Triangle Wave Tests
+C *******************************************************************
+C $
+B $
+ 050000 CALCULATE, 'TRNG-VOLTS-PP' = 2 $
+        CALCULATE, 'DC-VOLTS'      = 0 $
+        CALCULATE, 'FREQ1'         = 1000 $
+        CALCULATE, 'MAX-T'         = 5 $
+B $
+     05 OUTPUT,
+          C' Triangular Wave Tests\LF\',
+          C' --------------------------------------\LF\',
+          C' Input an Triangular Wave of 2Vpp at 1kHz\LF\',
+          C' with 0V DC-OFFSET to the CH1 input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050099 $
+        END, IF $
+C $
+C * Frequency
+C $
+        CALCULATE, 'VER-UL'       = 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL'       = 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'        = 'FREQ1' * 1.5 $
+        CALCULATE, 'TRNG-VOLTS-P' = 'TRNG-VOLTS-PP' / 2 $
+
+     20 VERIFY, (FREQ INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+          UL 'VER-UL' HZ LL 'VER-LL' HZ,
+          FREQ MAX 'M-MAX' RANGE 0.001 HZ TO 200000000 HZ,
+          VOLTAGE-P 'TRNG-VOLTS-P' RANGE 0.1 V TO 100 V,
+          DC-OFFSET 'DC-VOLTS' RANGE -100 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          POS-SLOPE,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 50020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Triangular Wave [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Triangular Wave [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Period
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1' * 1.5 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          PERIOD MAX 'M-MAX' RANGE .000000005 SEC TO 1000 SEC,
+          VOLTAGE-PP 'TRNG-VOLTS-PP' RANGE 0.2 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          NEG-SLOPE,
+          COUPLING AC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 50030 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Triangular Wave [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Triangular Wave [Period], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Rise Time
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 0.4 * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.4 * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1' $
+
+     40 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          RISE-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 50040 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Triangular Wave [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Triangular Wave [Rise-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Fall Time
+C $
+        CALCULATE, 'VER-UL' = 1 / 'FREQ1' * 0.4 * 1.1 $
+        CALCULATE, 'VER-LL' = 1 / 'FREQ1' * 0.4 * 0.9 $
+        CALCULATE, 'M-MAX'  = 1 / 'FREQ1'  $
+
+     50 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          FALL-TIME MAX 'M-MAX' RANGE .000000015 SEC TO .001 SEC,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 50050 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Triangular Wave [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Triangular Wave [Fall-Time], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 050000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Totalize & Time Interval Tests
+C ******************************************************************* $
+C $
+B $
+ 060000 CALCULATE, 'SQ-VOLTS-P'  = 1 $
+        CALCULATE, 'FREQ1'       = 100000 $
+        CALCULATE, 'FREQ2'       = 1000 $
+        CALCULATE, 'DUTY-CYCLE'  = 50 $
+        CALCULATE, 'MAX-T'       = 5 $
+C $
+C * Count CH1 by CH2
+C $
+B $
+     05 OUTPUT,
+          C' Totalize Tests\LF\',
+          C' --------------------------------------\LF\',
+          C' Input a Square Wave of 2Vpp at 100kHz\LF\',
+          C' with 0V DC-OFFSET to the CH1 input.\LF\\LF\',
+          C' Input a Square Wave of 2Vpp at 1kHz\LF\',
+          C' with 50% Duty-Cycle and 0V DC-OFFSET\LF\',
+          C' to the CH2 input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060099 $
+        END, IF $
+
+        CALCULATE, 'VER-UL'     = 'FREQ1' / 'FREQ2' / 2 * 1.1 $
+        CALCULATE, 'VER-LL'     = 'FREQ1' / 'FREQ2' / 2 * 0.9 $
+        CALCULATE, 'M-MAX'      = 'FREQ1' / 'FREQ2' $
+        CALCULATE, 'TRIG-VOLTS' = 'SQ-VOLTS-P' / 2 $
+
+     20 VERIFY, (COUNT INTO 'MEASUREMENT'), EVENTS,
+          UL 'VER-UL' TIMES LL 'VER-LL' TIMES,
+          COUNT MAX 'M-MAX' RANGE 0 TIMES TO 999999999999 TIMES,
+          TRIG 'TRIG-VOLTS' RANGE 0.1 V TO 100 V,
+          VOLTAGE-P 'SQ-VOLTS-P' RANGE 0.1 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          POS-SLOPE,
+          CNX VIA CNTR-CH1 GATE-IN CNTR-CH2 $
+
+        CALCULATE, 'TESTNO' = 60020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Count [1 by 2], Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Count [1 by 2], Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Time Interval
+C $
+        CALCULATE, 'FREQ1'       = 100 $
+
+        OUTPUT,
+          C' Time Interval Tests\LF\',
+          C' --------------------------------------\LF\',
+          C' Input a Square Wave of 2Vpp at 100Hz\LF\',
+          C' with 0V DC-OFFSET to the CH1 input.\LF\\LF\',
+          C' Input the same Square Wave to the CH2\LF\',
+          C' input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060099 $
+        END, IF $
+
+        CALCULATE, 'VER-UL'     = 1 / 'FREQ1' / 2 * 1.1 $
+        CALCULATE, 'VER-LL'     = 1 / 'FREQ1' / 2 * 0.9 $
+        CALCULATE, 'M-MAX'      = 1 / 'FREQ1' $
+        CALCULATE, 'TRIG-VOLTS' = 'SQ-VOLTS-P' / 2 $
+
+        ENABLE, EVENT 'STARTTIME', 'STOPTIME' $
+     30 VERIFY, (TIME INTO 'MEASUREMENT'), TIME INTERVAL,
+          UL 'VER-UL' SEC LL 'VER-LL' SEC,
+          TIME MAX 'M-MAX' RANGE .000000001 SEC TO 1000 SEC,
+          FROM 'STARTTIME' TO 'STOPTIME',
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC $
+        DISABLE, EVENT 'STARTTIME', 'STOPTIME' $
+
+        CALCULATE, 'TESTNO' = 60030 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Time Interval, Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Time Interval, Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 070000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Gated Tests
+C ******************************************************************* $
+C $
+B $
+ 070000 CALCULATE, 'SQ-VOLTS-P'  = 1 $
+        CALCULATE, 'FREQ1'       = 100000 $
+        CALCULATE, 'FREQ2'       = 1000 $
+        CALCULATE, 'DUTY-CYCLE'  = 50 $
+        CALCULATE, 'MAX-T'       = 5 $
+	CALCULATE, 'SQ-VOLTS-PP'  = 2 $
+C $
+C * Count CH1 by ARM
+C $
+B $
+     05 OUTPUT,
+          C' Totalize by ARM\LF\',
+          C' --------------------------------------\LF\',
+          C' Input a Square Wave of 2Vpp at 100kHz\LF\',
+          C' with 0V DC-OFFSET to the CH1 input.\LF\\LF\',
+          C' Input a Square Wave of 4Vpp at 1kHz\LF\',
+          C' with 50% Duty-Cycle and 0V DC-OFFSET\LF\',
+          C' to the ARM input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070099 $
+        END, IF $
+
+        CALCULATE, 'VER-UL'     = 'FREQ1' / 'FREQ2' / 2 * 1.1 $
+        CALCULATE, 'VER-LL'     = 'FREQ1' / 'FREQ2' / 2 * 0.9 $
+        CALCULATE, 'M-MAX'      = 'FREQ1' / 'FREQ2' $
+        CALCULATE, 'TRIG-VOLTS' = 'SQ-VOLTS-PP' / 4 $
+
+        ENABLE, EVENT 'STARTARM', 'STOPARM' $
+     20 VERIFY, (COUNT INTO 'MEASUREMENT'), EVENTS,
+          UL 'VER-UL' TIMES LL 'VER-LL' TIMES,
+          COUNT MAX 'M-MAX' RANGE 0 TIMES TO 999999999999 TIMES,
+          TRIG 'TRIG-VOLTS' RANGE 0.1 V TO 100 V,
+          VOLTAGE-P 'SQ-VOLTS-P' RANGE 0.1 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          POS-SLOPE,
+          GATED FROM 'STARTARM' TO 'STOPARM',
+          CNX VIA CNTR-CH1 $
+        DISABLE, EVENT 'STARTARM', 'STOPARM' $
+
+        CALCULATE, 'TESTNO' = 70020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Count [1 by ARM], Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Count [1 by ARM], Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C * Count CH1 by VXIbus TTL TRIG lines
+C $
+        OUTPUT,
+          C' Totalize by TTLTrig0\LF\',
+          C' --------------------------------------\LF\',
+	  C' NOTE:  This test will use the FGEN to route\LF\',
+	  C' 	    a signal to the back plane.\LF\\LF\',
+	  C' 1.  Input a Square Wave of 2Vpp at 100kHz\LF\',
+          C' with 0V DC-OFFSET to the CH1 input of the CNTR.\LF\\LF\',
+          C' 2.  Input a Square Wave of 4Vpp at 1kHz\LF\',
+          C' with 50% Duty-Cycle and 0V DC-OFFSET\LF\',
+          C' to the FGEN TRIGGER IN input.\LF\\LF\',
+	  C' 3.  Open up the FGEN SFP, select the "MARKERS" Tab.\LF\',
+	  C' Under the Heading "TTL Marker Source" select\LF\',
+	  C' "External Trigger In" then under the \LF\',
+	  C' Heading "TTL Marker Output" select "TTLTrg0" \LF\',
+	  C' and select "On"			\LF\ \LF\',
+          C' The following measurements cannot be\LF\',
+          C' performed without a VXI trigger source.\LF\',
+          C' Check the device programming instead.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070099 $
+        END, IF $
+
+        ENABLE, EVENT 'STARTT0', 'STOPT0' $
+     30 VERIFY, (COUNT INTO 'MEASUREMENT'), EVENTS,
+          UL 'VER-UL' TIMES LL 'VER-LL' TIMES,
+          COUNT MAX 'M-MAX' RANGE 0 TIMES TO 999999999999 TIMES,
+          TRIG 'TRIG-VOLTS' RANGE 0.1 V TO 100 V,
+          VOLTAGE-P 'SQ-VOLTS-P' RANGE 0.1 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          POS-SLOPE,
+          GATED FROM 'STARTT0' TO 'STOPT0',
+          CNX VIA CNTR-CH1 $
+        DISABLE, EVENT 'STARTT0', 'STOPT0' $
+
+        CALCULATE, 'TESTNO' = 70030 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Count [1 by TTLTrig0], Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Count [1 by TTLTrig0], Ranged, Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 080000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 070000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Channel 2 Test
+C ******************************************************************* $
+C $
+B $
+ 080000 CALCULATE, 'AC-VOLTS-P' = 1 $
+        CALCULATE, 'DC-VOLTS'   = 1 $
+        CALCULATE, 'FREQ1'      = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+B $
+     05 OUTPUT,
+          C' CH2 AC Signal Test\LF\',
+          C' --------------------------------------\LF\',
+          C' Input an AC SIGNAL of 2Vpp at 1kHz\LF\',
+          C' with 1V DC-OFFSET at 50Ohm impedance\LF\',
+          C' to the CH2 input.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 080099 $
+        END, IF $
+C $
+C * Frequency
+C $
+        CALCULATE, 'VER-UL' = 'FREQ1' * 1.1 $
+        CALCULATE, 'VER-LL' = 'FREQ1' * 0.9 $
+        CALCULATE, 'M-MAX'  = 'FREQ1' * 1.5 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 'RMS-PEAK' $
+
+     20 VERIFY, (FREQ INTO 'MEASUREMENT'), AC SIGNAL,
+          UL 'VER-UL' HZ LL 'VER-LL' HZ,
+          FREQ MAX 'M-MAX' RANGE 0.001 HZ TO 100000000 HZ,
+          VOLTAGE 'AC-VOLTS-RMS' RANGE 0.1 V TO 100 V,
+          DC-OFFSET 'DC-VOLTS' RANGE -100 V TO 100 V,
+          TEST-EQUIP-IMP 50 OHM,
+          MAX-TIME 'MAX-T' RANGE 0 SEC TO 2000 SEC,
+          CNX HI CNTR-CH2 $
+
+        CALCULATE, 'TESTNO' = 80020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   CH2 [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   CH2 [Freq], Ranged, non-Triggered\LF\',
+          C'  --------------------------------------\LF\' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 085000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 080000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Input Impedance Test
+C ******************************************************************* $
+C $
+B $
+ 085000 CALCULATE, 'IMPED' = 1000000 $
+        CALCULATE, 'MAX-T' = 5 $
+C $
+C * Input Impedance
+C $
+B $
+     05 OUTPUT,
+          C' Input Impedance Test\LF\',
+          C' --------------------------------------\LF\',
+	  C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+
+	 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 085099 $
+        END, IF $
+
+     10 CALCULATE, 'VER-UL' = 'IMPED' * 1.1 $
+        CALCULATE, 'VER-LL' = 'IMPED' * 0.9 $
+
+        SETUP, (FREQ), AC SIGNAL,
+          FREQ MAX 100 HZ,
+          TEST-EQUIP-IMP 1 MOHM,
+          CNX HI CNTR-CH1 $
+
+
+       OUTPUT,
+          C' Input Impedance Test\LF\',
+          C' --------------------------------------\LF\',
+          C' Measure the Resistance across the CH1\LF\',
+          C' input and input the measurment.\LF\',
+	  C' Nominal value is 1 MOhm\LF\',
+          $
+
+     20 INPUT, INTO 'MEASUREMENT' $
+        COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+        REMOVE, (FREQ), AC SIGNAL,
+          CNX HI CNTR-CH1 $
+
+        CALCULATE, 'TESTNO' = 85020 $
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+          C'   Input Impedance\LF\',
+          C'  --------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'   Input Impedance\LF\',
+          C'  --------------------------------------\LF\' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 090000 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 085000 $
+        END, IF $
+C $
+C *******************************************************************
+C * Wrap Up
+C ******************************************************************* $
+C $
+B $
+ 090000 IF, 'FAIL-FLAG' EQ 0, THEN $
+            OUTPUT,
+              C' --------------------------------------\LF\',
+              C'  END - END TEST\LF\',
+              C'     PASSED\LF\',
+              C' --------------------------------------\LF\' $
+
+            OUTPUT, TO 'PRINTER',
+              C' --------------------------------------\LF\',
+              C'  END - END TEST\LF\',
+              C'     PASSED\LF\',
+              C' --------------------------------------\LF\' $
+        ELSE $
+            OUTPUT,
+              C' --------------------------------------\LF\',
+              C'  END - END TEST\LF\',
+              C'  FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+              C' --------------------------------------\LF\' $
+
+            OUTPUT, TO 'PRINTER',
+              C' --------------------------------------\LF\',
+              C'  END - END TEST\LF\',
+              C'  FAILED WITH', 'FAIL-FLAG', C'FAILURES\LF\',
+              C' --------------------------------------\LF\' $
+        END, IF  $
+
+ 090100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+ 999999 TERMINATE, ATLAS PROGRAM 'Cntr Benchmark' $

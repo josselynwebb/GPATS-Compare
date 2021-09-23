@@ -1,0 +1,4926 @@
+
+                       ZT1428VXI Digitizing Oscilloscope
+________________________________________________________________________________
+
+  Introduction:
+
+  This instrument driver provides programming support for ZT1428VXI Digitizing Oscilloscope.
+  It contains functions for opening, configuring, taking measurements from, and
+  closing the instrument.
+
+________________________________________________________________________________
+
+  Assumptions:
+
+  To successfully use this module, the following conditions must be met:
+
+  For GPIB instrument drivers:
+         -  the instrument is connected to the GPIB.
+         -  the GPIB address supplied to the initialize function must match the
+            GPIB address of the instrument.
+
+  For VXI instrument drivers:
+         -  the instrument is installed in the VXI mainframe and you are
+            using one of the following controller options:
+                  Embedded controller
+                  MXI
+                  MXI2
+                  GPIB-VXI
+         -  the logical address supplied to the initialize function must
+            match the logical address of the instrument.
+
+  For RS-232 instrument drivers:
+         -  the instrument is connected to the RS-232 interface.
+         -  the COM port, baud rate, parity, and timeout supplied to the
+            initialize function must match the settings of the instrument.
+
+________________________________________________________________________________
+
+  Error and Status Information:
+
+  Each function in this instrument driver returns a status code that
+  either indicates success or describes an error or warning condition.
+  Your program should examine the status code from each call to an
+  instrument driver function to determine if an error occurred.
+  The general meaning of the status code is as follows:
+
+       Value                  Meaning
+       -------------------------------
+       0                      Success
+       Positive Values        Warnings
+       Negative Values        Errors
+
+  The description of each instrument driver function lists possible error
+  codes and their meanings
+
+________________________________________________________________________________
+
+  How To Use This Document:
+
+  Use this document as a programming reference manual.
+  It describes each function in the
+
+                       ZT1428VXI Digitizing Oscilloscope
+
+  instrument.  The functions appear in alphabetical order, with a description
+  of the function and its C syntax, a description of each parameter, and a list
+  of possible error codes.
+
+________________________________________________________________________________
+
+Function Tree Layout:
+
+   Class/Panel Name:                    Function Name:
+
+      Initialize                        zt1428_init
+      Initialize with Options           zt1428_init_with_options
+      Configure
+         Auto Setup                     zt1428_auto_setup
+         Auto Logic Setup               zt1428_auto_logic
+         Set Vertical                   zt1428_vertical
+         Set Acquisition                zt1428_acquisition
+         Set Math Function              zt1428_function
+         Set External Input             zt1428_ext_input
+         Set Outputs                    zt1428_outputs
+         Set Edge Trigger               zt1428_edge_trigger
+         Advanced Trigger
+            Soft Trigger                zt1428_soft_trigger
+            Set Trigger to Offset       zt1428_trigger_center
+            Set Trigger Holdoff         zt1428_trigger_holdoff
+            Set Pattern Trigger         zt1428_pattern_trigger
+            Set State Trigger           zt1428_state_trigger
+            Set TV Trigger              zt1428_tv_trigger
+            Get Trigger Event           zt1428_trigger_event
+      Configuration Readback
+         Query Vertical                 zt1428_query_vertical
+         Query Acquisition              zt1428_query_acquisition
+         Query Math Function            zt1428_query_function
+         Query External Input           zt1428_query_ext_input
+         Query Outputs                  zt1428_query_outputs
+         Query Trigger                  zt1428_query_trigger
+         Query Advanced Trigger         zt1428_query_adv_trigger
+         Query Measurement              zt1428_query_measurement
+      Measurement
+         Get Measurement                zt1428_measurement
+         Advanced Measurement
+            Set Measurement Level       zt1428_measurement_level
+            Set Delay Parameters        zt1428_delay_parameters
+            Set Width Parameters        zt1428_width_parameters
+            Set Limit Test              zt1428_limit_test
+            Set Mask Test               zt1428_mask_test
+            Get Result Statistics       zt1428_result_stats
+      Waveform Operations
+         Digitize Waveform              zt1428_digitize_waveform
+         Get Digitize Complete          zt1428_dig_complete
+         Read Waveform to Array         zt1428_read_waveform
+         Store Waveform to Memory       zt1428_store_waveform
+         Load Array to Memory           zt1428_load_array
+      Low Level Operations
+         Reset                          zt1428_reset
+         Device Clear                   zt1428_device_clear
+         Self Test                      zt1428_self_test
+         Run/Stop                       zt1428_run_stop
+         Calibrate                      zt1428_calibrate
+         Save/Recall State              zt1428_save_recall
+         Get ID and Version             zt1428_id_version
+         Get Error                      zt1428_error
+         Get Running                    zt1428_running
+         Wait for Operation Complete    zt1428_wait_op_complete
+      Close                             zt1428_close
+________________________________________________________________________________
+
+  ZT1428VXI Digitizing Oscilloscope
+
+       Instrument Name: Ztec Instruments ZT1428VXI
+                        Digitizing Oscilloscope
+      
+       Description:     This instrument module provides
+                        programming support for the
+                        ZT1428VXI.  The module
+                        is divided into the following
+                        functions:
+      
+       Functions/Classes:
+      
+       (1)  Initialize
+            Initialize the instrument and set to default
+            configuration.
+      
+       (2)  Configure
+            This class of functions set the vertical,
+            acquisition, function, external input,
+            outputs, and trigger settings on the
+            instrument.
+      
+       (3)  Configuration Readback
+            This class of functions query the instrument
+            settings.
+      
+       (4)  Measure
+            This class of functions select and retrieve
+            measurements.
+      
+       (5)  Waveform Operations
+            This class of functions digitize, store,
+            and retrieve waveform data.
+      
+       (6)  Low Level Operations
+            This class of functions perform basic low
+            level routines.
+      
+       (7)  Close
+            Take the instrument offline.
+________________________________________________________________________________
+
+              The following functions are in alphabetical order.
+
+________________________________________________________________________________
+
+  zt1428_acquisition
+
+      int zt1428_acquisition (ViSession instrumentHandle, int number_ofPoints,
+                              double sampleInterval, int timebaseReference,
+                              double timebaseDelay, int triggerMode,
+                              int acquireType, int acquireCount);
+
+  Purpose
+
+      Set Acquisition
+      
+      Congfigures the acquisition and timebase settings
+      of the oscilloscope (horizontal-axis settings).
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      number_ofPoints
+
+          Variable Type       int
+
+          Number of Points
+          
+          Specifies the number of points for each waveform.
+          
+          Valid Range depends upon Sample Interval:
+          100 to Max_points
+          
+          Max_points = 125,000 for Sample Interval > 10 us
+          Max_points = 1,000,000 for Sample Interval <= 10 us
+          
+
+      sampleInterval
+
+          Variable Type       double
+
+          Sample Interval
+          
+          Specifies the acquisition sampling interval in
+          seconds.
+          
+          Valid Range:
+          20 ps (50 GS/s) to 1 sec (1 S/s) in 1, 2, 4 steps
+
+      timebaseReference
+
+          Variable Type       int
+
+          Timebase Reference
+          
+          Specifies the timebase reference to the left,
+          center, or right of the active waveform.
+          
+          0 - ZT1428_ACQ_LEFT  - Left
+          1 - ZT1428_ACQ_CENT  - Center
+          2 - ZT1428_ACQ_RIGHT - Right
+
+      timebaseDelay
+
+          Variable Type       double
+
+          Timebase Delay
+          
+          Specifies the timebase delay, the time between the
+          trigger event and the waveform timebase reference
+          point.  This value is specified in seconds.
+          
+          Valid Range depends upon Number of Points, Sample
+          Interval, and Timebase Reference:
+          Minimum to 500 s
+          
+          Minimum = -Max_Points + (Ref * Number of Points)
+          Max_points = 125,000 for Sample Interval > 10 us
+          Max_points = 1,000,000 for Sample Interval <= 10 us
+          Ref = 0 for Left Timebase Reference
+          Ref = 0.5 for Center Timebase Reference
+          Ref = 1.0 for Right Timebase Reference
+          
+
+      triggerMode
+
+          Variable Type       int
+
+          Trigger Mode
+          
+          Selects the trigger mode to enable automatic
+          triggering in absence of trigger event.
+          
+          0 - ZT1428_ACQ_AUTO - Auto
+          1 - ZT1428_ACQ_SING - Single
+          2 - ZT1428_ACQ_TRIG - Triggered
+          
+
+      acquireType
+
+          Variable Type       int
+
+          Acquire Type
+          
+          Specifies the type of acquisition that is to take
+          place when a Digitize or Run command is executed.
+          In Normal mode, a single waveform is captured.
+          In Average mode, multiple captured waveforms are
+          averaged. In Envelope mode, the minimum and maximum
+          values of multiple captured waveforms are used to
+          create an envelope.
+          
+          Valid Range:
+          0 - ZT1428_ACQ_NORM - Normal
+          1 - ZT1428_ACQ_AVER - Average
+          2 - ZT1428_ACQ_ENV  - Envelope
+          
+
+      acquireCount
+
+          Variable Type       int
+
+          Acquire Count
+          
+          Specifies the acquisition count for repetitive
+          aquisition modes. In Normal mode, this parameter
+          is ignored. In Average mode, this specifies the
+          number of waveforms to be averaged before the
+          acquisition is complete.  In Envelope mode, this
+          specifies the number of waveforms for which to
+          capture minimum and maximumvalues before the
+          acquisition is complete.
+          
+          Valid Range:
+          1 to 2048
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_auto_logic
+
+      int zt1428_auto_logic (ViSession instrumentHandle, int channel,
+                             int logic);
+
+  Purpose
+
+      Auto Logic Setup
+      
+      Configures the vertical settings for selected
+      channel to standard logic levels (either TTL
+      or ECL).  The affected settings are:
+      - Channel Voltage Range
+      - Channel DC Offset
+      - Channel Coupling
+      - Trigger Level
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      channel
+
+          Variable Type       int
+
+          Channel
+          
+          Selects the channel to be configured.
+          
+          Valid Range:
+          1  - ZT1428_CHAN1     - Channel 1
+          2  - ZT1428_CHAN2     - Channel 2
+
+      logic
+
+          Variable Type       int
+
+          Logic
+          
+          Selects the logic to set the selected channel(s).
+          The offset, range, coupling, and trigger level are
+          configured for the selected logic type.
+          
+          Valid Range:
+          0 - ZT1428_LOGIC_TTL - TTL Logic
+          1 - ZT1428_LOGIC_ECL - ECL Logic
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_auto_setup
+
+      int zt1428_auto_setup (ViSession instrumentHandle);
+
+  Purpose
+
+      Auto Setup
+      
+      Commands the instrument to autoscale.
+      Autoscale disables the following controls:
+      - All markers OFF
+      - All memories OFF
+      - Functions OFF
+      - Measurements OFF
+      
+      Autoscale determines settings for the applied
+      input signals, affecting the following controls:
+      - Channel Offset as required
+      - Channel Range as required
+      - Channel Coupling as required
+      - Channel State On/Off as required
+      - Timebase Range as required
+      - Trigger level as required
+      - Trigger mode to edge
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_calibrate
+
+      int zt1428_calibrate (ViSession instrumentHandle, int *result);
+
+  Purpose
+
+      Calibrate
+      
+      Performs a calibration routine on the instrument
+      and returns the result. The calibration may take
+      up to 10 minutes to complete. Note that the two
+      input channels must be disconnected before starting
+      the calibration.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      result
+
+          Variable Type       int (passed by reference)
+
+          Result
+          
+          Specifies the variable name in which to place the
+          result of the calibration.  If zero is returned,
+          the internal self-calibration was successful.
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_close
+
+      int zt1428_close (ViSession instrumentHandle);
+
+  Purpose
+
+      Close
+      
+      Close the VISA session.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                         function call.
+________________________________________________________________________________
+
+  zt1428_delay_parameters
+
+      int zt1428_delay_parameters (ViSession instrumentHandle, int startSlope,
+                                   int startEdge, int startLevel,
+                                   int stopSlope, int stopEdge,
+                                   int stopLevel);
+
+  Purpose
+
+      Set Delay Parameters
+      
+      Sets the start and stop conditions for delay
+      measurements.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      startSlope
+
+          Variable Type       int
+
+          Start Slope
+          
+          Specifies the slope for the start condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_SLOP_NEG - Negative Slope
+          1 - ZT1428_DEL_SLOP_POS - Positive Slope
+
+      startEdge
+
+          Variable Type       int
+
+          Start Edge
+          
+          Specifies the edge for the start condition in
+          Delay measurements.
+          
+          Valid Values:
+          1 to 4000
+
+      startLevel
+
+          Variable Type       int
+
+          Start Level
+          
+          Specifies the level for the start condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+      stopSlope
+
+          Variable Type       int
+
+          Stop Slope
+          
+          Specifies the slope for the stop condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_SLOP_NEG - Negative Slope
+          1 - ZT1428_DEL_SLOP_POS - Positive Slope
+
+      stopEdge
+
+          Variable Type       int
+
+          Stop Edge
+          
+          Specifies the edge for the stop condition in
+          Delay measurements.
+          
+          Valid Values:
+          1 to 4000
+
+      stopLevel
+
+          Variable Type       int
+
+          Stop Level
+          
+          Specifies the level for the stop condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_device_clear
+
+      int zt1428_device_clear (ViSession instrumentHandle);
+
+  Purpose
+
+      Device Clear
+      
+      Low-level VXIbus device clear that resets the
+      command interface to the instrument.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_dig_complete
+
+      int zt1428_dig_complete (ViSession instrumentHandle, int *digComplete);
+
+  Purpose
+
+      Digitize Waveform
+      
+      Returns the digitize operation complete status.
+      This is used with the asynchronous digitize mode
+      of the Digitize Waveform function to synchronize
+      the digitize operation.
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      digComplete
+
+          Variable Type       int (passed by reference)
+
+          Dig Complete
+          
+          Specifies the variable name in which to place the
+          status of an on-going digitize operation. A
+          returned value of 1 indicates that the digitize
+          operation is complete. A returned value of 0
+          indicates that the operation is still in progress.
+          
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                         function call.
+          
+________________________________________________________________________________
+
+  zt1428_digitize_waveform
+
+      int zt1428_digitize_waveform (ViSession instrumentHandle, int channel_s,
+                                    int mode);
+
+  Purpose
+
+      Digitize Waveform
+      
+      Commands the oscilloscope to digitize the waveform
+      for the specified source(s). Normal digitize mode
+      waits for the digitize operation to complete.
+      Asynchronous digitize mode uses the Get Digitize
+      Complete function to synchronize the digitize
+      operation.
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      channel_s
+
+          Variable Type       int
+
+          Channel(s)
+          
+          Selects the channel(s) to be digitized.
+          
+          Valid Range:
+          1  - ZT1428_CHAN1     - Channel 1
+          2  - ZT1428_CHAN2     - Channel 2
+          10 - ZT1428_CHAN_BOTH - Channels 1 & 2
+
+      mode
+
+          Variable Type       int
+
+          Mode
+          
+          Specifies the mode to be used for a digitize
+          operation. Normal operation uses the operation
+          complete query to halt all instrument communication
+          unitl the digitize operation is complete.
+          Asynchronous digitize mode sets the instrument to
+          use its status register reporting to identify when
+          the digitize operation is complete. Asynchronous
+          digitize mode should only be used by advanced
+          users familier with the IEEE-488 status register
+          reporting structures.
+          
+          Valid Values:
+          0 - ZT1428_DIG_NORM - Normal
+          1 - ZT1428_DIG_ASYN - Asynchronous
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_edge_trigger
+
+      int zt1428_edge_trigger (ViSession instrumentHandle, int source,
+                               double level, int slope, int sensitivity);
+
+  Purpose
+
+      Set Edge Trigger
+      
+      Configures the oscilloscope for edge triggering.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      source
+
+          Variable Type       int
+
+          Source
+          
+          Specifies the source for the trigger signal.
+          
+          Valid Values:
+          1 - ZT1428_TRG_CHAN1 - Chan 1
+          2 - ZT1428_TRG_CHAN2 - Chan 2
+          3 - ZT1428_TRG_EXT   - External
+          4 - ZT1428_TRG_ECL0  - ECL 0
+          5 - ZT1428_TRG_ECL0  - ECL 1
+
+      level
+
+          Variable Type       double
+
+          Level
+          
+          Specifies the trigger level of the selected source
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      slope
+
+          Variable Type       int
+
+          Slope
+          
+          Specifies the trigger slope for the specified
+          source.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+
+      sensitivity
+
+          Variable Type       int
+
+          Sensitivity
+          
+          Specifies the trigger filter mode.  If Normal is
+          selected, trigger filtering is turned off. If Low
+          is selected, noise rejection hysteresis is enabled.
+          If Low Freq Reject is selected, the trigger signal
+          is AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_error
+
+      int zt1428_error (ViSession instrumentHandle, int *instrumentError);
+
+  Purpose
+
+      Get Error
+      
+      Returns the instrument error code for an existing
+      error.  Also clears the instrument error light when
+      all errors are read.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      instrumentError
+
+          Variable Type       int (passed by reference)
+
+          Instrument Error
+          
+          Specifies the variable name in which to place the
+          instrument error code.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_ext_input
+
+      int zt1428_ext_input (ViSession instrumentHandle, int externalMode,
+                            double externalLevel, int externalImpedance);
+
+  Purpose
+
+      Set External Input
+      
+      Configures the Ext Trig BNC input connection which
+      has the dual functionality of external trigger
+      input and external 100MHz timebase clock input.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      externalMode
+
+          Variable Type       int
+
+          External Mode
+          
+          Specifies the external connector input function.
+          If Trigger is specified, the external connector
+          is used as a trigger input and the internal clock
+          reference is used. If Clock is specified, an
+          external 100 MHz clock must be applied to the
+          external input for use as the timebase reference.
+          In clock mode, the external trigger function cannot
+          be used.
+          
+          Valid Range:
+          0 - ZT1428_EXT_MODE_TRIG - Trigger (Internal Clock)
+          1 - ZT1428_EXT_MODE_CLK  - Clock (External Clock)
+          
+
+      externalLevel
+
+          Variable Type       double
+
+          External Level
+          
+          Specifies the threshold voltage level of the
+          external trigger or sample clock connected to
+          the EXT TRIG input.
+          
+          Valid Range:
+          -2.0 V to 2.0 V
+
+      externalImpedance
+
+          Variable Type       int
+
+          External Impedance
+          
+          Specifies the input impedance for the external
+          trigger or clock input.
+          
+          Valid Range:
+          0 - ZT1428_EXT_IMP_1M - 1Mê
+          1 - ZT1428_EXT_IMP_50 - 50ê
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_function
+
+      int zt1428_function (ViSession instrumentHandle, int functionNumber,
+                           int operation, int source1, int source2,
+                           int functionState, double range, double offset);
+
+  Purpose
+
+      Set Math Function
+      
+      Configures the waveform math functions of the
+      oscilloscope.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      functionNumber
+
+          Variable Type       int
+
+          Function Number
+          
+          Specifies the function to be configured.
+          
+          Valid Values:
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+
+      operation
+
+          Variable Type       int
+
+          Operation
+          
+          Specifies what operation is to take place.
+          The difference, integrate, invert, and only
+          operations ignore the second source.
+          
+          Valid Values:
+          0 - ZT1428_FUNC_ADD  - Add
+          1 - ZT1428_FUNC_SUB  - Subtract
+          2 - ZT1428_FUNC_MULT - Multiply
+          3 - ZT1428_FUNC_DIFF - Difference
+          4 - ZT1428_FUNC_INT  - Integrate
+          5 - ZT1428_FUNC_INV  - Invert
+          6 - ZT1428_FUNC_ONLY - Only
+
+      source1
+
+          Variable Type       int
+
+          Source 1
+          
+          Specifies the channel to be used as the first
+          operand.  In operations that need only one
+          operand this control selects the source.
+          
+          Valid Values:
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+
+      source2
+
+          Variable Type       int
+
+          Source 2
+          
+          Specifies the channel to be used as the second
+          operand.  In operations that need only one
+          operand this control has no effect.
+          
+          Valid Values:
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+
+      functionState
+
+          Variable Type       int
+
+          Function State
+          
+          Controls the function on/off state. Unused math
+          functions should be disabled to decrease waveform
+          processing time.
+          
+          Valid Values:
+          0 - ZT1428_FUNC_OFF - Function Off
+          1 - ZT1428_FUNC_ON  - Function On
+
+      range
+
+          Variable Type       double
+
+          Range
+          
+          Specifies the full scale range in volts
+          for the specified function channel.
+          
+          Valid Range:
+          0.0 or 1E-38 to 1E+38
+          0.0 leaves the ZT1428VXI-calculated range and
+              offset values unchanged at the auto-calculated
+              values.
+          
+
+      offset
+
+          Variable Type       double
+
+          Offset
+          
+          Specifies the DC offset in volts
+          for the specified function channel.
+          
+          Valid Range:
+          -1E+38 to 1E+38
+          
+          Note: A 0.0 Range Control setting leaves the
+                ZT1428VXI-calculated range and offset values
+                unchanged at the auto-calculated values.
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_id_version
+
+      int zt1428_id_version (ViSession instrumentHandle, char instrumentID[],
+                             double *driverVersion);
+
+  Purpose
+
+      Get ID and Version
+      
+      Returns the instrument identification string and
+      the CVI driver version.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      instrumentID
+
+          Variable Type       char []
+
+          Instrument ID
+          
+          Specifies the variable name in which to place the
+          instrument id string (returned from *IDN?). This
+          array must be at least 100 characters in length.
+          
+          
+
+      driverVersion
+
+          Variable Type       double (passed by reference)
+
+          Driver Version
+          
+          Specifies the variable name in which to place the
+          CVI driver version.
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_init
+
+      int zt1428_init (ViRsrc resourceName, ViPSession instrumentHandle);
+
+  Purpose
+
+      Initialize
+      
+      This routine performs the following initialization:
+      -  Opens the instrument by starting a VISA Session.
+      -  Performs an identification query on the
+         Instrument.
+      -  Verifies that that the instrumnet is in
+         advanced mode.
+      -  Returns an Instrument Handle which is used to
+         differentiate between instruments of the same
+         model type.  This value will be used to identify
+         the instrument in subsequent calls.
+
+  Parameter List
+
+      resourceName
+
+          Variable Type       ViRsrc
+
+          Resource Name
+          
+          This control specifies the interface and address
+          of the device that is to be initialized (Instrument
+          Descriptor). The exact grammar to be used in this
+          control is:
+          GPIB[board]::primary addr[::second addr][::INSTR]
+          VXI[board]::logical address::INSTR
+
+      instrumentHandle
+
+          Variable Type       ViSession (passed by reference)
+
+          Instrument Handle
+          
+          This control returns an Instrument Handle that is
+          used in all subsequent function calls to
+          differentiate between different sessions of this
+          instrument driver.  Each time this function is
+          invoked a Unique Session is opened.  It is possible
+          to have more than one session open for the same
+          resource.
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_init_with_options
+
+      ViStatus zt1428_init_with_options (ViRsrc resourceName,
+                                         ViBoolean IDQuery,
+                                         ViBoolean resetDevice,
+                                         ViPSession instrumentHandle);
+
+
+  Parameter List
+
+      resourceName
+
+          Variable Type       ViRsrc
+
+          This control specifies the interface and address of the device that
+          is to be initialized (Instrument Descriptor). The exact grammar to be
+          used in this control is shown in the note below.
+          
+          Default Value:  "GPIB::1"
+          
+          Notes:
+          
+          (1) Based on the Instrument Descriptor, this operation establishes a
+          communication session with a device.  The grammar for the Instrument
+          Descriptor is shown below.  Optional parameters are shown in square
+          brackets ([]).
+          
+          Interface   Grammar
+          ------------------------------------------------------
+          GPIB        GPIB[board]::primary address[::secondary address]
+                      [::INSTR]
+          
+          The GPIB keyword is used with GPIB instruments.
+          
+          The default value for optional parameters are shown below.
+          
+          Optional Parameter          Default Value
+          -----------------------------------------
+          board                       0
+          secondary address           none - 31
+          
+
+      IDQuery
+
+          Variable Type       ViBoolean
+
+          This control specifies if an ID Query is sent to the instrument
+          during the initialization procedure.
+          
+          Valid Range:
+          VI_OFF (0) - Skip Query
+          VI_ON  (1) - Do Query (Default Value)
+          
+          Notes:
+          
+          (1) Under normal circumstances the ID Query ensures that the
+          instrument initialized is the type supported by this driver. However
+          circumstances may arise where it is undesirable to send an ID Query
+          to the instrument.  In those cases; set this control to "Skip Query"
+          and this function will initialize the selected interface, without
+          doing an ID Query.
+          
+          /**** DELETE THIS NOTE AND THE STATUS CODE IF SUPPORTED *****/
+          (2) If this instrument does not support an ID Query, and this control
+          is set to "Do Query" then this function should return the Warning
+          Code 0x3FFC0101 - VI_WARN_NSUP_ID_QUERY.
+          
+
+      resetDevice
+
+          Variable Type       ViBoolean
+
+          This control specifies if the instrument is to be reset to its
+          power-on settings during the initialization procedure.
+          
+          Valid Range:
+          VI_OFF (0) - Don't Reset
+          VI_ON  (1) - Reset Device (Default Value)
+          
+          Notes:
+          
+          (1) If you do not want the instrument reset. Set this control to
+          "Don't Reset" while initializing the instrument.
+          
+          /**** DELETE THIS NOTE AND THE STATUS CODE IF SUPPORTED *****/
+          (2) If this instrument does not support a Reset, and this control is
+          set to "Reset Device" then this function should return the Warning
+          Code 0x3FFC0102 - VI_WARN_NSUP_RESET.
+          
+
+      instrumentHandle
+
+          Variable Type       ViSession (passed by reference)
+
+          This control returns an Instrument Handle that is used in all
+          subsequent function calls to differentiate between different sessions
+          of this instrument driver.
+          
+          Notes:
+          
+          (1) Each time this function is invoked a Unique Session is opened.
+          It is possible to have more than one session open for the same
+          resource.
+          
+
+  Return Value
+
+          This control contains the status code returned by the function call.
+          
+          Status Codes:
+          
+          Status    Description
+          -------------------------------------------------
+                 0  No error (the call was successful).
+          
+          3FFC0101  ID Query not supported - VI_WARN_NSUP_ID_QUERY
+          3FFC0102  Reset not supported - VI_WARN_NSUP_RESET
+          3FFC0103  Self Test not supported - VI_WARN_NSUP_SELF_TEST
+          3FFC0104  Error Query not supported - VI_WARN_NSUP_ERROR_QUERY
+          3FFC0105  Revision Query not supported - VI_WARN_NSUP_REV_QUERY
+          3FFF0005  The specified termination character was read.
+          3FFF0006  The specified number of bytes was read.
+          
+          BFFC0001  Parameter 1 out of range. (String not range checked)
+          BFFC0002  Parameter 2 (ID Query) out of range.
+          BFFC0003  Parameter 3 (Reset Device) out of range.
+          BFFC0004  Parameter 4 out of range.
+          BFFC0005  Parameter 5 out of range.
+          BFFC0006  Parameter 6 out of range.
+          BFFC0007  Parameter 7 out of range.
+          BFFC0008  Parameter 8 out of range.
+          BFFC0011  Instrument returned invalid response to ID Query
+          
+          BFFC0800  Error Opening File      VI_ERROR_INSTR_FILE_OPEN
+          BFFC0801  Error Writing to File   VI_ERROR_INSTR_FILE_WRITE
+          BFFC0803  Invalid Response VI_ERROR_INSTR_INTERPRETING_RESPONSE
+          BFFC0809  Parameter 9 out of range.  VI_ERROR_INSTR_PARAMETER9
+          BFFC080A  Parameter 10 out of range. VI_ERROR_INSTR_PARAMETER10
+          BFFC080B  Parameter 11 out of range. VI_ERROR_INSTR_PARAMETER11
+          BFFC080C  Parameter 12 out of range. VI_ERROR_INSTR_PARAMETER12
+          
+          BFFF0000  Miscellaneous or system error occurred.
+          BFFF000E  Invalid session handle.
+          BFFF0015  Timeout occurred before operation could complete.
+          BFFF0034  Violation of raw write protocol occurred.
+          BFFF0035  Violation of raw read protocol occurred.
+          BFFF0036  Device reported an output protocol error.
+          BFFF0037  Device reported an input protocol error.
+          BFFF0038  Bus error occurred during transfer.
+          BFFF003A  Invalid setup (attributes are not consistent).
+          BFFF005F  No listeners condition was detected.
+          BFFF0060  This interface is not the controller in charge.
+          BFFF0067  Operation is not supported on this session.
+          
+          Notes:
+          
+          (1) Parameter Error Codes for parameters 1 through 8 are defined in
+          the vpptype.h header file the range is BFFC0001 - BFFC0008; Parameter
+          Error Codes for parameters 9 through 15 are defined in the instrument
+          driver's header file the range is BFFC0809 - BFFC080F; for parameter
+          errors greater than 15, and other instrument specific error codes,
+          use an error code in the range of BFFC0900 to BFFC0FFF.  This is
+          equivalent to using (VI_ERROR_INSTR_OFFSET + n); where n represents
+          each instrument specific error number.  Valid ranges for n are 0 to
+          6FF.  (All values are given in Hexadecimal Notation)
+          
+          (2) Delete all unused status codes from the Status Control of each
+          function panel when you are finished development of your instrument
+          driver, for example in this control the status codes for parameters
+          1, 3-8, and the codes for Error Opening and Writing to File should be
+          deleted.  Those status codes are provided here as a convenience for
+          during driver development.
+          
+          (3) Delete these three (3) notes when you are finished with your
+          driver development.
+________________________________________________________________________________
+
+  zt1428_limit_test
+
+      int zt1428_limit_test (ViSession instrumentHandle, int limitTest,
+                             int statistics, int primarySource,
+                             int secondarySource, int measurement,
+                             double upperLimit, double lowerLimit,
+                             int postfailure, int destination);
+
+  Purpose
+
+      Set Limit Test
+      
+      Sets the instrument to perform limit test
+      measurement comparisons or statistical
+      measurement recording. Up to three different
+      limit test or statistical measurements may
+      be specified.
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      limitTest
+
+          Variable Type       int
+
+          Limit Test
+          
+          Controls the on/off state of the limit testing.
+          If limit testing is enabled, the high, low and
+          pass/fail statistics are recorded for the specified
+          measurement over many continuous acquisitions.
+          The continuous acquisition is started by a run
+          command. The results of the limit test are returned
+          in the result statistics and limit test event
+          register.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_LIM_OFF - Limit Test Off
+          1 - ZT1428_MEAS_LIM_ON  - Limit Test On
+          
+
+      statistics
+
+          Variable Type       int
+
+          Statistics
+          
+          Controls the on/off state of the statistics.
+          If statistics are enabled, the high, low and
+          average statistics are recorded for the specified
+          measurement over many continuous acquisitions.
+          The continuous acquisition is started by a run
+          command. The measurement statistics are returned
+          in the result statistics.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_STAT_OFF - Statistics Off
+          1 - ZT1428_MEAS_STAT_ON  - Statistics On
+          
+
+      primarySource
+
+          Variable Type       int
+
+          Primary Source
+          
+          Specifies the source for the measurement function.
+          Valid sources include input channels, waveforms
+          saved in memory, and math function waveforms.
+          
+          Valid Values:
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+          
+
+      secondarySource
+
+          Variable Type       int
+
+          Secondary Source
+          
+          Specifies the secondary source for the measurement
+          function. This is only used in delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_NONE  - None Selected
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+
+      measurement
+
+          Variable Type       int
+
+          Measurement
+          
+          Specifies the measurement to be performed.
+          
+          Valid Values:
+          0  - ZT1428_MEAS_RISE - Rise Time
+          1  - ZT1428_MEAS_FALL - Fall Time
+          2  - ZT1428_MEAS_FREQ - Frequency
+          3  - ZT1428_MEAS_PER  - Period
+          4  - ZT1428_MEAS_PWID - +Width
+          5  - ZT1428_MEAS_NWID - -Width
+          6  - ZT1428_MEAS_VAMP - V. Amplitude
+          7  - ZT1428_MEAS_VBAS - V. Base
+          8  - ZT1428_MEAS_VTOP - V. Top
+          9  - ZT1428_MEAS_VPP  - V. Peak to Peak
+          10 - ZT1428_MEAS_VAVG - V. Average
+          11 - ZT1428_MEAS_VMAX - V. Max
+          12 - ZT1428_MEAS_VMIN - V. Min
+          13 - ZT1428_MEAS_VACR - V. AC(rms)
+          14 - ZT1428_MEAS_VDCR - V. DC(rms)
+          15 - ZT1428_MEAS_DUTY - Duty Cycle
+          16 - ZT1428_MEAS_DEL  - Delay
+          17 - ZT1428_MEAS_OVER - Over Shoot
+          18 - ZT1428_MEAS_PRE  - Pre Shoot
+
+      upperLimit
+
+          Variable Type       double
+
+          Upper Limit
+          
+          Specifies the upper limit of the measurement
+          limit test comparison.
+          
+          Valid Values depends upon Measurement
+
+      lowerLimit
+
+          Variable Type       double
+
+          Lower Limit
+          
+          Specifies the lower limit of the measurement
+          limit test comparison.
+          
+          Valid Values depends upon Measurement
+
+      postfailure
+
+          Variable Type       int
+
+          Post Failure
+          
+          Specifies the postfailure condition.  If set to
+          Stop, the instrument will stop acquiring waveforms
+          after a limit test comparison failure.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_POST_STOP - Stop upon Failure
+          1 - ZT1428_MEAS_POST_CONT - Continue upon Failure
+          
+
+      destination
+
+          Variable Type       int
+
+          Destination
+          
+          Specifies the destination for the waveform to be
+          stored when a limit test fails.
+          
+          Note:  When storing in envelope acq. mode, the
+          min. and max. waveforms are stored in two memories.
+          For example, storing the wave to memory 1 will
+          place the min. waveform in memory 1 and the max.
+          waveform in memory 2.  Memories are grouped as 1
+          & 2, and 3 & 4.  Selecting 1 or 2 has the same
+          effect. Selecting 3 or 4 has the same effect.
+          
+          Valid Values:
+          0 - ZT1428_NONE  - Not Saved Upon Failure
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_load_array
+
+      int zt1428_load_array (ViSession instrumentHandle, int destination,
+                             double waveformArray[], int number_ofPoints,
+                             double sampleInterval, double timeOffset,
+                             int xReference, double voltIncrement,
+                             double voltOffset, int yReference);
+
+  Purpose
+
+      Load Array to Memory
+      
+      Loads waveform data from an array to the specified
+      waveform memory location.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      destination
+
+          Variable Type       int
+
+          Destination
+          
+          Specifies the destination for the waveform to be
+          stored.
+          
+          Valid Values:
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          
+
+      waveformArray
+
+          Variable Type       double []
+
+          Waveform Array
+          
+          Specifies the name of array of waveform data to
+          be stored. The waveform is specified in voltage
+          units and converted to codes according to the
+          preamble settings.
+          
+
+      number_ofPoints
+
+          Variable Type       int
+
+          Number of Points
+          
+          Specifies the number of points to be stored to
+          the selected waveform.
+
+      sampleInterval
+
+          Variable Type       double
+
+          Sample Interval
+          
+          Specifies the sample interval in seconds at which
+          the waveform to be stored was digitized (i.e. time
+          interval between points).
+          
+
+      timeOffset
+
+          Variable Type       double
+
+          Time Offset
+          
+          Specifies the time of the first data point in
+          seconds relative to the trigger point of the
+          waveform to be stored.
+          
+
+      xReference
+
+          Variable Type       int
+
+          X Reference
+          
+          Specifies the horizontal axis trigger reference
+          point of the waveform to be stored.
+
+      voltIncrement
+
+          Variable Type       double
+
+          Volt Increment
+          
+          Specifies the voltage increment in volts at which
+          the waveform to be stored was digitized (voltage
+          increment between LSBs).
+          
+
+      voltOffset
+
+          Variable Type       double
+
+          Volt Offset
+          
+          Specifies the zero-voltage reference or DC offset
+          voltage of the waveform to be stored.
+          
+
+      yReference
+
+          Variable Type       int
+
+          Y Reference
+          
+          Specifies the vertical axis voltage reference point
+          of the waveform to be stored.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_mask_test
+
+      int zt1428_mask_test (ViSession instrumentHandle, int maskTest,
+                            int source, int mask, double allowance,
+                            int postfailure, int destination);
+
+  Purpose
+
+      Set Mask Test
+      
+      Sets the instrument to perform mask test
+      waveform comparisons.
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      maskTest
+
+          Variable Type       int
+
+          Mask Test
+          
+          Controls the on/off state of the mask testing.
+          If mask testing is enabled, the source input
+          is compared to the mask over many continuous
+          acquisitions.  The continuous acquisition is
+          started by a run command. The result of the
+          mask test is returned in the limit test event
+          register.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_MASK_OFF - Mask Test Off
+          1 - ZT1428_MEAS_MASK_ON  - Mask Test On
+          
+
+      source
+
+          Variable Type       int
+
+          Source
+          
+          Specifies the source for the mask test function.
+          Valid sources include the two input channels.
+          
+          Valid Values:
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+
+      mask
+
+          Variable Type       int
+
+          Mask
+          
+          Selects the mask waveforms to which the source will
+          be compared. The maximum waveform mask is stored in
+          Memory 1 or 3. The minimum waveform mask is stored
+          in Memory 2 or 4.
+          
+          Valid Values:
+          3 - ZT1428_WMEM1 - Memory 1 & 2
+          5 - ZT1428_WMEM3 - Memory 3 & 4
+
+      allowance
+
+          Variable Type       double
+
+          Allowance
+          
+          Specifies the allowable number of divisions that
+          the waveform mask comparison test can deviate
+          from and still pass. One division is 1/8 of the
+          full-scale range of the selected input source.
+          
+          Valid Values:
+          0.0 to 8.0 divisions
+
+      postfailure
+
+          Variable Type       int
+
+          Post Failure
+          
+          Specifies the postfailure condition.  If set to
+          Stop, the instrument will stop acquiring waveforms
+          after a mask test comparison failure.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_POST_STOP - Stop upon Failure
+          1 - ZT1428_MEAS_POST_CONT - Continue upon Failure
+          
+
+      destination
+
+          Variable Type       int
+
+          Destination
+          
+          Specifies the destination for the waveform to be
+          stored when a mask test fails. Data may be stored
+          to any of the waveform memories EXCEPT the pair of
+          memories used for the mask in the comparison test.
+          
+          Valid Values:
+          0 - ZT1428_NONE  - Not Saved Upon Failure
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_measurement
+
+      int zt1428_measurement (ViSession instrumentHandle, int primarySource,
+                              int secondarySource, int measurement,
+                              double *result);
+
+  Purpose
+
+      Get Measurement
+      
+      Causes the instrument to make the specified
+      measurement on a previously captured waveform
+      and returns the result.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      primarySource
+
+          Variable Type       int
+
+          Primary Source
+          
+          Specifies the source for the measurement function.
+          Valid sources include input channels, waveforms
+          saved in memory, and math function waveforms.
+          
+          Valid Values:
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+          
+
+      secondarySource
+
+          Variable Type       int
+
+          Secondary Source
+          
+          Specifies the secondary source for the measurement
+          function. This is only used in delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_NONE  - None Selected
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+
+      measurement
+
+          Variable Type       int
+
+          Measurement
+          
+          Specifies the measurement to be performed.
+          
+          Valid Values:
+          0  - ZT1428_MEAS_RISE - Rise Time
+          1  - ZT1428_MEAS_FALL - Fall Time
+          2  - ZT1428_MEAS_FREQ - Frequency
+          3  - ZT1428_MEAS_PER  - Period
+          4  - ZT1428_MEAS_PWID - +Width
+          5  - ZT1428_MEAS_NWID - -Width
+          6  - ZT1428_MEAS_VAMP - V. Amplitude
+          7  - ZT1428_MEAS_VBAS - V. Base
+          8  - ZT1428_MEAS_VTOP - V. Top
+          9  - ZT1428_MEAS_VPP  - V. Peak to Peak
+          10 - ZT1428_MEAS_VAVG - V. Average
+          11 - ZT1428_MEAS_VMAX - V. Max
+          12 - ZT1428_MEAS_VMIN - V. Min
+          13 - ZT1428_MEAS_VACR - V. AC(rms)
+          14 - ZT1428_MEAS_VDCR - V. DC(rms)
+          15 - ZT1428_MEAS_DUTY - Duty Cycle
+          16 - ZT1428_MEAS_DEL  - Delay
+          17 - ZT1428_MEAS_OVER - Over Shoot
+          18 - ZT1428_MEAS_PRE  - Pre Shoot
+          19 - ZT1428_MEAS_TMAX - T. Max
+          20 - ZT1428_MEAS_TMIN - T. Min
+
+      result
+
+          Variable Type       double (passed by reference)
+
+          Result
+          
+          Specifies the variable name in which to place
+          the result of the measurement.  If 9.9999E+37
+          is returned, a result for the selected measurement
+          cannot be determined.
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_measurement_level
+
+      int zt1428_measurement_level (ViSession instrumentHandle, int userMode,
+                                    int units, double upperLevel,
+                                    double lowerLevel);
+
+  Purpose
+
+      Set Measurement Level
+      
+      Sets the upper and lower threshold levels for
+      measurements.
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      userMode
+
+          Variable Type       int
+
+          User Mode
+          
+          Defines the measurement mode as either user-defined
+          or standard for upper, middle and lower thresholds.
+          This mode applies to all measurements that require
+          threshold crossings. Standard values for the upper,
+          middle and lower thresholds are 90%, 50% and 10%.
+          A user threshold can be defined as either a percent
+          of waveform level or as a specific voltage.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_MODE_STAN - Standard
+          1 - ZT1428_MEAS_MODE_USER - User
+
+      units
+
+          Variable Type       int
+
+          Units
+          
+          Specifies the units used for the user-defined
+          limits as either a percent of waveform level or
+          as a specific voltage.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_USER_PCT  - Percent
+          1 - ZT1428_MEAS_USER_VOLT - Volts
+
+      upperLevel
+
+          Variable Type       double
+
+          Upper Level
+          
+          Specifies the upper threshold level for
+          measurements.
+          
+          Valid range depends upon Units:
+              Units       Range
+              Percent    -25.00 to 125.00
+              Volts      -250,000 V to 250,000 V
+
+      lowerLevel
+
+          Variable Type       double
+
+          Lower Level
+          
+          Specifies the lower threshold level for
+          measurements.
+          
+          Valid range depends upon Units:
+              Units       Range
+              Percent    -25.00 to 125.00
+              Volts      -250,000 V to 250,000 V
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_outputs
+
+      int zt1428_outputs (ViSession instrumentHandle, int BNCOutput,
+                          double BNCVoltage, int ECL0, int ECL1);
+
+  Purpose
+
+      Set Outputs
+      
+      Configures the Probe Comp/Cal/Trig Output BNC
+      connection and backplane ECLTRG0-1 trigger outputs.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      BNCOutput
+
+          Variable Type       int
+
+          BNC Output
+          
+          Specifies the output mode of the BNC
+          Probe Comp/Cal/Trig Output connector.
+          Probe selects a 500 Hz output. Trigger
+          selects a trigger output pulse upon a
+          detected trigger event. SClock selects
+          a 10 MHz output. DC Calibrate, 0V and 5V
+          select DC output levels.
+          
+          Valid Range:
+          0 - ZT1428_OUT_BNC_PROB - Probe
+          1 - ZT1428_OUT_BNC_TRIG - Trigger
+          2 - ZT1428_OUT_BNC_DC   - DC Calibrate
+          3 - ZT1428_OUT_BNC_0V   - 0 Volts
+          4 - ZT1428_OUT_BNC_5V   - 5 Volts
+          5 - ZT1428_OUT_BNC_SCL  - SClock
+
+      BNCVoltage
+
+          Variable Type       double
+
+          BNC Voltage
+          
+          Specifies the active-state output voltage for the
+          BNC output. For the Probe, Trigger and Sclock
+          output modes, the signal transitions between 0V
+          and this voltage level. For DC CAL mode, the DC
+          output voltage is set at this level. This control
+          is ignored for 0V and 5V output modes.
+          
+          Valid Range:
+          -3.5V to +8.5V (into high impedance)
+          
+
+      ECL0
+
+          Variable Type       int
+
+          ECL 0
+          
+          Turns the ECL 0 trigger output on or off. The ECL
+          trigger output occurs when the instrument detects
+          a trigger event.
+          
+          Valid Values:
+          0 - ZT1428_OUT_OFF - Off
+          1 - ZT1428_OUT_ON  - On
+
+      ECL1
+
+          Variable Type       int
+
+          ECL 1
+          
+          Turns the ECL 1 trigger output on or off. The ECL
+          trigger output occurs when the instrument detects
+          a trigger event.
+          
+          Valid Values:
+          0 - ZT1428_OUT_OFF - Off
+          1 - ZT1428_OUT_ON  - On
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_pattern_trigger
+
+      int zt1428_pattern_trigger (ViSession instrumentHandle, char logic[],
+                                  int condition, double GTTime, double LTTime,
+                                  double levelChan1, double levelChan2,
+                                  double levelExt, int sensitivity1,
+                                  int sensitivity2);
+
+  Purpose
+
+      Set Pattern Trigger
+      
+      Configures the oscilloscope for pattern triggering.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      logic
+
+          Variable Type       char []
+
+          Logic
+          
+          Specifies the logical relationship between
+          the signal and the defined voltage level that
+          must exist before the pattern is considered valid.
+          The logic pattern to be matched uses:
+            L to represent logic Low
+            H to represent logic High
+            X to represent Don't Care
+          A five-character string should be specified.
+          The first character is for Channel 1,
+          the second for Channel 2, the third for External,
+          the fourth for ECLT0 and the last for ECLT1.
+          
+
+      condition
+
+          Variable Type       int
+
+          Condition
+          
+          Sets the pattern condition that must be satisfied
+          in order to generate a trigger event.  In GT mode,
+          the pattern must be present for more than the GT
+          Time. In LT mode, the pattern must be present for
+          less than the LT Time. In Range mode, the pattern
+          must be present between the GT Time and the LT Time.
+          
+          Valid Range:
+          0 - ZT1428_TRG_PATT_ENTER - Enter
+          1 - ZT1428_TRG_PATT_EXIT  - Exit
+          2 - ZT1428_TRG_PATT_GT    - Greater Than
+          3 - ZT1428_TRG_PATT_LT    - Less Than
+          4 - ZT1428_TRG_PATT_RANGE - Between
+          
+
+      GTTime
+
+          Variable Type       double
+
+          GT Time
+          
+          This parameter specifes the greater than time in
+          seconds. The pattern must be present for more than
+          this time when using either greater than mode
+          or range mode.
+          
+          Valid Values:
+          20 ns to 160 ms
+
+      LTTime
+
+          Variable Type       double
+
+          LT Time
+          
+          This parameter specifes the less than time in
+          seconds. The pattern must be present for less than
+          this time when using either less than mode or
+          range mode.
+          
+          Valid Values:
+          30 ns to 160 ms
+
+      levelChan1
+
+          Variable Type       double
+
+          Level Chan1
+          
+          Specifies the trigger level of input channel 1
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      levelChan2
+
+          Variable Type       double
+
+          Level Chan2
+          
+          Specifies the trigger level of input channel 2
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      levelExt
+
+          Variable Type       double
+
+          Level Ext
+          
+          Specifies the trigger level of the external trigger
+          input in Volts.
+          
+          Valid Range:
+          -2.0V to +2.0V
+
+      sensitivity1
+
+          Variable Type       int
+
+          Sensitivity1
+          
+          Specifies the trigger filter mode for input
+          channel 1.  If Normal is  selected, trigger
+          filtering is turned off. If Low is selected,
+          noise rejection hysteresis is enabled. If Low
+          Freq Reject is selected, the trigger signal is
+          AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+      sensitivity2
+
+          Variable Type       int
+
+          Sensitivity2
+          
+          Specifies the trigger filter mode for input
+          channel 2.  If Normal is  selected, trigger
+          filtering is turned off. If Low is selected,
+          noise rejection hysteresis is enabled. If Low
+          Freq Reject is selected, the trigger signal is
+          AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_query_acquisition
+
+      int zt1428_query_acquisition (ViSession instrumentHandle,
+                                    int *number_ofPoints,
+                                    double *sampleInterval,
+                                    int *timebaseReference,
+                                    double *timebaseDelay, int *triggerMode,
+                                    int *acquireType, int *acquireCount);
+
+  Purpose
+
+      Query Acquistion
+      
+      Queries the the acquisition and timebase settings
+      of the oscilloscope (horizontal-axis settings).
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      number_ofPoints
+
+          Variable Type       int (passed by reference)
+
+          Number of Points
+          
+          Returns the number of points for each waveform.
+          
+          Valid Range depends upon Sample Interval:
+          100 to Max_points
+          
+          Max_points = 125,000 for Sample Interval > 10 us
+          Max_points = 1,000,000 for Sample Interval <= 10 us
+          
+
+      sampleInterval
+
+          Variable Type       double (passed by reference)
+
+          Sample Interval
+          
+          Returns the acquisition sampling interval in
+          seconds.
+          
+          Valid Range:
+          20 ps (50 GS/s) to 1 sec (1 S/s) in 1, 2, 4 steps
+
+      timebaseReference
+
+          Variable Type       int (passed by reference)
+
+          Timebase Reference
+          
+          Returns the timebase reference to the left,
+          center, or right of the active waveform.
+          
+          0 - ZT1428_ACQ_LEFT  - Left
+          1 - ZT1428_ACQ_CENT  - Center
+          2 - ZT1428_ACQ_RIGHT - Right
+
+      timebaseDelay
+
+          Variable Type       double (passed by reference)
+
+          Range
+          
+          Returns the full scale acquisition range in volts
+          for the specified input channel.
+          
+          Valid Range depends upon probe attenuation (P):
+          0.008 * P to 50 * P
+
+      triggerMode
+
+          Variable Type       int (passed by reference)
+
+          Trigger Mode
+          
+          Returns the trigger mode to enable automatic
+          triggering in absence of trigger event.
+          
+          0 - ZT1428_ACQ_AUTO - Auto
+          1 - ZT1428_ACQ_SING - Single
+          2 - ZT1428_ACQ_TRIG - Triggered
+          
+
+      acquireType
+
+          Variable Type       int (passed by reference)
+
+          Acquire Type
+          
+          Returns the type of acquisition that is to take
+          place when a Digitize or Run command is executed.
+          In Normal mode, a single waveform is captured.
+          In Average mode, multiple captured waveforms are
+          averaged. In Envelope mode, the minimum and maximum
+          values of multiple captured waveforms are used to
+          create an envelope.
+          
+          Valid Range:
+          0 - ZT1428_ACQ_NORM - Normal
+          1 - ZT1428_ACQ_AVER - Average
+          2 - ZT1428_ACQ_ENV  - Envelope
+          
+
+      acquireCount
+
+          Variable Type       int (passed by reference)
+
+          Acquire Count
+          
+          Returns the acquisition count for repetitive
+          aquisition modes. In Normal mode, this parameter
+          is ignored. In Average mode, this specifies the
+          number of waveforms to be averaged before the
+          acquisition is complete.  In Envelope mode, this
+          specifies the number of waveforms for which to
+          capture minimum and maximumvalues before the
+          acquisition is complete.
+          
+          Valid Range:
+          1 to 2048
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_query_adv_trigger
+
+      int zt1428_query_adv_trigger (ViSession instrumentHandle,
+                                    int *holdoffType, double *holdoffValue,
+                                    char logic[], int *patternCondition,
+                                    double *GTTime, double *LTTime,
+                                    int *stateCondition, int *standard,
+                                    int *field, int *line);
+
+  Purpose
+
+      Query Advanced Trigger
+      
+      Queries the advanced triggering configuration of
+      the oscilloscope.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      holdoffType
+
+          Variable Type       int (passed by reference)
+
+          Holdoff Type
+          
+          Returns the type of trigger holdoff.
+          
+          Valid Values:
+          0 - ZT1428_TRG_HOLD_TIME  - Time
+          1 - ZT1428_TRG_HOLD_EVENT - Event
+
+      holdoffValue
+
+          Variable Type       double (passed by reference)
+
+          Holdoff Value
+          
+          Returns the holdoff time in seconds or the holdoff
+          events by number of events. This value depends upon
+          the setting for the Holdfoff Type.
+          
+          Valid Values:
+          40 ns to 320 ms
+          1 to 65536 events
+
+      logic
+
+          Variable Type       char []
+
+          Logic
+          
+          Returns the logical relationship between
+          the signal and the defined voltage level that
+          must exist before the pattern is considered valid.
+          The logic pattern to be matched uses:
+            L to represent logic Low
+            H to represent logic High
+            X to represent Don't Care
+          A five-character string should be specified.
+          The first character is for Channel 1,
+          the second for Channel 2, the third for External,
+          the fourth for ECLT0 and the last for ECLT1.
+          
+
+      patternCondition
+
+          Variable Type       int (passed by reference)
+
+          Pattern Condition
+          
+          Returns the pattern condition that must be satisfied
+          in order to generate a trigger event.  In GT mode,
+          the pattern must be present for more than the GT
+          Time. In LT mode, the pattern must be present for
+          less than the LT Time. In Range mode, the pattern
+          must be present between the GT Time and the LT Time.
+          
+          Valid Range:
+          0 - ZT1428_TRG_PATT_ENTER - Enter
+          1 - ZT1428_TRG_PATT_EXIT  - Exit
+          2 - ZT1428_TRG_PATT_GT    - Greater Than
+          3 - ZT1428_TRG_PATT_LT    - Less Than
+          4 - ZT1428_TRG_PATT_RANGE - Between
+          
+
+      GTTime
+
+          Variable Type       double (passed by reference)
+
+          GT Time
+          
+          Returns the greater than time in  seconds. The
+          pattern must be present for more than this time
+          when using either greater than mode or range mode.
+          
+          Valid Values:
+          20 ns to 160 ms
+
+      LTTime
+
+          Variable Type       double (passed by reference)
+
+          LT Time
+          
+          Specifes the less than time in seconds. The pattern
+          must be present for less than this time when using
+          either less than mode or range mode.
+          
+          Valid Values:
+          30 ns to 160 ms
+
+      stateCondition
+
+          Variable Type       int (passed by reference)
+
+          State Condition
+          
+          Returns the condition for the pattern that must be
+          present while detecting an edge on the selected
+          trigger source.
+          
+          Valid Values:
+          0 - ZT1428_TRG_STAT_FALSE - False
+          1 - ZT1428_TRG_STAT_TRUE  - True
+          
+
+      standard
+
+          Variable Type       int (passed by reference)
+
+          Standard
+          
+          Returns which TV standard to use.
+          525 - United States(60Hz) NTSC
+          625 - European(50Hz) PAL
+          
+          Valid Range:
+          525 - ZT1428_TRG_TV_STAN_525 - NTSC
+          625 - ZT1428_TRG_TV_STAN_625 - PAL
+          
+
+      field
+
+          Variable Type       int (passed by reference)
+
+          Field
+          
+          Returns the field for the standard video signal.
+          This determines the line availability.
+          
+          Valid Range:
+          1 - ZT1428_TRG_TV_FIELD1 - Field 1
+          2 - ZT1428_TRG_TV_FIELD2 - Field 2
+
+      line
+
+          Variable Type       int (passed by reference)
+
+          Line
+          
+          Returns which line in the TV signal will
+          generate a trigger event.
+          
+          Valid Range depends upon Standard and Field
+             Field  Standard     Range
+               1      525        1 to 263
+               2      525        1 to 262
+               1      625        1 to 313
+               2      625        314 to 625
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_query_ext_input
+
+      int zt1428_query_ext_input (ViSession instrumentHandle,
+                                  int *externalMode, double *externalLevel,
+                                  int *externalImpedance);
+
+  Purpose
+
+      Query External Input
+      
+      Queries the setup of the Ext Trig BNC input
+      connection which has the dual functionality of
+      external trigger input and external 100MHz
+      timebase clock input.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      externalMode
+
+          Variable Type       int (passed by reference)
+
+          External Mode
+          
+          Returns the external connector input function.
+          If Trigger is specified, the external connector
+          is used as a trigger input and the internal clock
+          reference is used. If Clock is specified, an
+          external 100 MHz clock must be applied to the
+          external input for use as the timebase reference.
+          In clock mode, the external trigger function cannot
+          be used.
+          
+          Valid Range:
+          0 - ZT1428_EXT_MODE_TRIG - Trigger (Internal Clock)
+          1 - ZT1428_EXT_MODE_CLK  - Clock (External Clock)
+          
+
+      externalLevel
+
+          Variable Type       double (passed by reference)
+
+          External Level
+          
+          Returns the threshold voltage level of the
+          external trigger or sample clock connected to
+          the EXT TRIG input.
+          
+          Valid Range:
+          -2.0 V to 2.0 V
+
+      externalImpedance
+
+          Variable Type       int (passed by reference)
+
+          External Impedance
+          
+          Returns the input impedance for the external
+          trigger or clock input.
+          
+          Valid Range:
+          0 - ZT1428_EXT_IMP_1M - 1Mê
+          1 - ZT1428_EXT_IMP_50 - 50ê
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_query_function
+
+      int zt1428_query_function (ViSession instrumentHandle,
+                                 int functionNumber, int *functionState,
+                                 double *range, double *offset);
+
+  Purpose
+
+      Query Math Function
+      
+      Queries the waveform math setup of the selected
+      function.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      functionNumber
+
+          Variable Type       int
+
+          Function Number
+          
+          Specifies the function to be queried.
+          
+          Valid Values:
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+
+      functionState
+
+          Variable Type       int (passed by reference)
+
+          Function State
+          
+          Returns the function on/off state. Unused math
+          functions should be disabled to decrease waveform
+          processing time.
+          
+          Valid Values:
+          0 - ZT1428_FUNC_OFF - Function Off
+          1 - ZT1428_FUNC_ON  - Function On
+
+      range
+
+          Variable Type       double (passed by reference)
+
+          Range
+          
+          Returns the full scale range in volts
+          for the specified function channel.
+          
+          Valid Range:
+          0.0 or 1E-38 to 1E+38
+          0.0 leaves the ZT1428VXI-calculated range and
+              offset values unchanged at the auto-calculated
+              values.
+          
+
+      offset
+
+          Variable Type       double (passed by reference)
+
+          Offset
+          
+          Returns the DC offset in volts
+          for the specified function channel.
+          
+          Valid Range:
+          -1E+38 to 1E+38
+          
+          Note: A 0.0 Range Control setting leaves the
+                ZT1428VXI-calculated range and offset values
+                unchanged at the auto-calculated values.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_query_measurement
+
+      int zt1428_query_measurement (ViSession instrumentHandle, int *userMode,
+                                    int *units, double *upperLimit,
+                                    double *lowerLimit, int *startSlope,
+                                    int *stopSlope, int *startEdge,
+                                    int *stopEdge, int *startLevel,
+                                    int *stopLevel, int *positiveWidthLevel,
+                                    int *negativeWidthLevel);
+
+  Purpose
+
+      Query Measurement
+      
+      Queries the upper and lower threshold levels, delay
+      parameters, and width parameters for measurements.
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      userMode
+
+          Variable Type       int (passed by reference)
+
+          User Mode
+          
+          Returns the measurement mode as either user-defined
+          or standard for upper, middle and lower thresholds.
+          This mode applies to all measurements that require
+          threshold crossings. Standard values for the upper,
+          middle and lower thresholds are 90%, 50% and 10%.
+          A user threshold can be defined as either a percent
+          of waveform level or as a specific voltage.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_MODE_STAN - Standard
+          1 - ZT1428_MEAS_MODE_USER - User
+
+      units
+
+          Variable Type       int (passed by reference)
+
+          Units
+          
+          Returns the units used for the user-defined
+          limits as either a percent of waveform level or
+          as a specific voltage.
+          
+          Valid Values:
+          0 - ZT1428_MEAS_USER_PCT  - Percent
+          1 - ZT1428_MEAS_USER_VOLT - Volts
+
+      upperLimit
+
+          Variable Type       double (passed by reference)
+
+          Upper Limit
+          
+          Returns the upper threshold level for
+          measurements.
+          
+          Valid range depends upon Units:
+              Units       Range
+              Percent    -25.00 to 125.00
+              Volts      -250,000 V to 250,000 V
+
+      lowerLimit
+
+          Variable Type       double (passed by reference)
+
+          Lower Limit
+          
+          Returns the lower threshold level for
+          measurements.
+          
+          Valid range depends upon Units:
+              Units       Range
+              Percent    -25.00 to 125.00
+              Volts      -250,000 V to 250,000 V
+
+      startSlope
+
+          Variable Type       int (passed by reference)
+
+          Start Slope
+          
+          Returns the slope for the start condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_SLOP_NEG - Negative Slope
+          1 - ZT1428_DEL_SLOP_POS - Positive Slope
+
+      stopSlope
+
+          Variable Type       int (passed by reference)
+
+          Stop Slope
+          
+          Returns the slope for the stop condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_SLOP_NEG - Negative Slope
+          1 - ZT1428_DEL_SLOP_POS - Positive Slope
+
+      startEdge
+
+          Variable Type       int (passed by reference)
+
+          Start Edge
+          
+          Returns the edge number for the start condition in
+          Delay measurements.
+          
+          Valid Values:
+          1 to 4000
+
+      stopEdge
+
+          Variable Type       int (passed by reference)
+
+          Stop Edge
+          
+          Returns the edge number for the stop condition in
+          Delay measurements.
+          
+          Valid Values:
+          1 to 4000
+
+      startLevel
+
+          Variable Type       int (passed by reference)
+
+          Start Level
+          
+          Returns the level for the start condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+      stopLevel
+
+          Variable Type       int (passed by reference)
+
+          Stop Level
+          
+          Returns the level for the stop condition in
+          Delay measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+      positiveWidthLevel
+
+          Variable Type       int (passed by reference)
+
+          Positive Width Level
+          
+          Returns the level for the positive pulse width
+          measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+      negativeWidthLevel
+
+          Variable Type       int (passed by reference)
+
+          Negative Width Level
+          
+          Returns the level for the negative pulse width
+          measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_query_outputs
+
+      int zt1428_query_outputs (ViSession instrumentHandle, int *BNCOutput,
+                                double *BNCVoltage, int *ECL0, int *ECL1);
+
+  Purpose
+
+      Query Outputs
+      
+      Queries the configuration of the
+      Probe Comp/Cal/Trig Output BNC connection and
+      backplane ECLTRG0-1 trigger outputs.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      BNCOutput
+
+          Variable Type       int (passed by reference)
+
+          BNC Output
+          
+          Returns the output mode of the BNC
+          Probe Comp/Cal/Trig Output connector.
+          Probe selects a 500 Hz output. Trigger
+          selects a trigger output pulse upon a
+          detected trigger event. SClock selects
+          a 10 MHz output. DC Calibrate, 0V and 5V
+          select DC output levels.
+          
+          Valid Range:
+          0 - ZT1428_OUT_BNC_PROB - Probe
+          1 - ZT1428_OUT_BNC_TRIG - Trigger
+          2 - ZT1428_OUT_BNC_DC   - DC Calibrate
+          3 - ZT1428_OUT_BNC_0V   - 0 Volts
+          4 - ZT1428_OUT_BNC_5V   - 5 Volts
+          5 - ZT1428_OUT_BNC_SCL  - SClock
+
+      BNCVoltage
+
+          Variable Type       double (passed by reference)
+
+          BNC Voltage
+          
+          Returns the active-state output voltage for the
+          BNC output. For the Probe, Trigger and Sclock
+          output modes, the signal transitions between 0V
+          and this voltage level. For DC CAL mode, the DC
+          output voltage is set at this level. This control
+          is ignored for 0V and 5V output modes.
+          
+          Valid Range:
+          -3.5V to +8.5V (into high impedance)
+          
+
+      ECL0
+
+          Variable Type       int (passed by reference)
+
+          ECL 0
+          
+          Returns the ECL 0 trigger output on or off state.
+          The ECL trigger output occurs when the instrument
+          detects a trigger event.
+          
+          Valid Values:
+          0 - ZT1428_OUT_OFF - Off
+          1 - ZT1428_OUT_ON  - On
+
+      ECL1
+
+          Variable Type       int (passed by reference)
+
+          ECL 1
+          
+          Returns the ECL 1 trigger output on or off state.
+          The ECL trigger output occurs when the instrument
+          detects a trigger event.
+          
+          Valid Values:
+          0 - ZT1428_OUT_OFF - Off
+          1 - ZT1428_OUT_ON  - On
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_query_trigger
+
+      int zt1428_query_trigger (ViSession instrumentHandle, int *source,
+                                int *triggerMode, double *levelChan1,
+                                double *levelChan2, double *levelExt,
+                                int *sensitivity1, int *sensitivity2,
+                                int *slopeChan1, int *slopeChan2,
+                                int *slopeExt, int *slopeECL0,
+                                int *slopeECL1);
+
+  Purpose
+
+      Query Trigger
+      
+      Queries the triggering configuration of the
+      oscilloscope.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      source
+
+          Variable Type       int (passed by reference)
+
+          Source
+          
+          Returns the source for the trigger signal.
+          
+          Valid Values:
+          1 - ZT1428_TRG_CHAN1 - Chan 1
+          2 - ZT1428_TRG_CHAN2 - Chan 2
+          3 - ZT1428_TRG_EXT   - External
+          4 - ZT1428_TRG_ECL0  - ECL 0
+          5 - ZT1428_TRG_ECL0  - ECL 1
+
+      triggerMode
+
+          Variable Type       int (passed by reference)
+
+          Trigger Mode
+          
+          Returns the selected trigger mode.
+          
+          Valid Values:
+          0 - ZT1428_TRG_MODE_EDGE - Edge
+          1 - ZT1428_TRG_MODE_PATT - Pattern
+          2 - ZT1428_TRG_MODE_STAT - State
+          3 - ZT1428_TRG_MODE_TV   - TV
+
+      levelChan1
+
+          Variable Type       double (passed by reference)
+
+          Level Chan1
+          
+          Returns the trigger level of input channel 1
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      levelChan2
+
+          Variable Type       double (passed by reference)
+
+          Level Chan2
+          
+          Returns the trigger level of input channel 2
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      levelExt
+
+          Variable Type       double (passed by reference)
+
+          Level Ext
+          
+          Returns the trigger level of the external trigger
+          input in Volts.
+          
+          Valid Range:
+          -2.0V to +2.0V
+
+      sensitivity1
+
+          Variable Type       int (passed by reference)
+
+          Sensitivity1
+          
+          Returns the trigger filter mode for input
+          channel 1.  If Normal is  selected, trigger
+          filtering is turned off. If Low is selected,
+          noise rejection hysteresis is enabled. If Low
+          Freq Reject is selected, the trigger signal is
+          AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+      sensitivity2
+
+          Variable Type       int (passed by reference)
+
+          Sensitivity2
+          
+          Returns the trigger filter mode for input
+          channel 2.  If Normal is  selected, trigger
+          filtering is turned off. If Low is selected,
+          noise rejection hysteresis is enabled. If Low
+          Freq Reject is selected, the trigger signal is
+          AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+      slopeChan1
+
+          Variable Type       int (passed by reference)
+
+          Slope Chan1
+          
+          Returns the trigger slope for the input
+          channel 1.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+
+      slopeChan2
+
+          Variable Type       int (passed by reference)
+
+          Slope Chan2
+          
+          Returns the trigger slope for the input
+          channel 2.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+
+      slopeExt
+
+          Variable Type       int (passed by reference)
+
+          Slope Ext
+          
+          Returns the trigger slope for the external
+          trigger input.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+
+      slopeECL0
+
+          Variable Type       int (passed by reference)
+
+          Slope ECL0
+          
+          Returns the trigger slope for the ECLTRG0
+          trigger input.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+
+      slopeECL1
+
+          Variable Type       int (passed by reference)
+
+          Slope ECL1
+          
+          Returns the trigger slope for the ECLTRG1
+          trigger input.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_query_vertical
+
+      int zt1428_query_vertical (ViSession instrumentHandle, int channel,
+                                 int *coupling, int *lowpassFilter,
+                                 double *probeAttenuation, double *range,
+                                 double *offset);
+
+  Purpose
+
+      Query Vertical
+      
+      Queries the vertical settings for the selected
+      channel.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      channel
+
+          Variable Type       int
+
+          Channel
+          
+          Selects the channel to be read back.
+          
+          Valid Range:
+          1  - ZT1428_CHAN1 - Channel 1
+          2  - ZT1428_CHAN2 - Channel 2
+          
+
+      coupling
+
+          Variable Type       int (passed by reference)
+
+          Coupling
+          
+          Returns the input coupling for the selected channel.
+          The coupling for each channel can be set to AC, DC,
+          or DCFifty, or ACLFR. DCFifty is DC coupling with
+          50 ohm impedance. ACLFR is AC coupling which also
+          selects an internal high pass filter to reject
+          frequencies below approximately 450Hz.
+          
+          Valid Range:
+          0 - ZT1428_VERT_COUP_AC    - AC 1Mê (10 Hz)
+          1 - ZT1428_VERT_COUP_ACLFR - AC 1Mê (450 Hz)
+          2 - ZT1428_VERT_COUP_DC    - DC 1Mê
+          3 - ZT1428_VERT_COUP_DCF   - DC 50ê
+
+      lowpassFilter
+
+          Variable Type       int (passed by reference)
+
+          Lowpass Filter
+          
+          Returns the state of an internal lowpass filter.
+          When OFF, the lowpass filter is bypassed, providing
+          approximately 250 MHz bandwidth.  The bandwidth
+          limit filter may be used with all coupling
+          selections.
+          
+          Valid Range:
+          0 - ZT1428_VERT_FILT_OFF   - Off
+          1 - ZT1428_VERT_FILT_30MHZ - 30 MHz Lowpass Filter
+          2 - ZT1428_VERT_FILT_1MHZ  - 1 MHz Lowpass Filter
+
+      probeAttenuation
+
+          Variable Type       double (passed by reference)
+
+          Probe Attenuation
+          
+          Returns the probe's attenuation factor for the
+          specified channel.  The probe attenuation changes
+          the reference constants for scaling the vertical
+          range and offset, automatic measurements, trigger
+          levels, etc.
+          
+          Valid Range:
+          0.9 to 1000.0
+
+      range
+
+          Variable Type       double (passed by reference)
+
+          Range
+          
+          Returns the full scale acquisition range in volts
+          for the specified input channel.
+          
+          Valid Range depends upon probe attenuation (P):
+          0.008 * P to 50 * P
+
+      offset
+
+          Variable Type       double (passed by reference)
+
+          Offset
+          
+          Returns the DC offset voltage that is represented
+          at vertical center for the selected channel.
+          
+          Valid Range depends upon range and probe
+          attenuation (P):
+          
+                  Channel range       Offset Limit
+                8mV * P to 400mV * P    ñ2V * P
+            > 400mV * P to  2.0V * P    ñ10V * P
+             > 2.0V * P to 10.0V * P    ñ50V * P
+            > 10.0V * P to 50.0V * P    ñ250V * P
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_read_waveform
+
+      int zt1428_read_waveform (ViSession instrumentHandle, int source,
+                                int transferType, double waveformArray[],
+                                int *number_ofPoints, int *acquisitionCount,
+                                double *sampleInterval, double *timeOffset,
+                                int *xReference, double *voltIncrement,
+                                double *voltOffset, int *yReference);
+
+  Purpose
+
+      Read Waveform to Array
+      
+      Reads a waveform and its preamble information
+      from the specified waveform source.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      source
+
+          Variable Type       int
+
+          Source
+          
+          Specifies the source waveform to be read.
+          Valid sources include input channels, waveforms
+          saved in memory, and math function waveforms.
+          
+          Valid Values:
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+          
+
+      transferType
+
+          Variable Type       int
+
+          Transfer Type
+          
+          Specifies the type of data transfer to be used.
+          A32 transfers are only available with VXI
+          (non-GPIB) interfaces.
+          
+          For Preamble transfers, the waveform arrway will
+          not be returned.  Only the preamble data is
+          returned.
+          
+          Note: A32 transfers can only be used with Input
+          channels and Math Function channels.  The
+          memories must be read using word-serial.
+          
+          Valid Values:
+          0 - ZT1428_TRAN_SER - Word Serial
+          1 - ZT1428_TRAN_A32 - A32
+          2 - ZT1428_TRAN_PRE - Preamble
+
+      waveformArray
+
+          Variable Type       double []
+
+          Waveform Array
+          
+          Specifies the name of array in which to place the
+          waveform data. The data is returned as an array
+          of floating point numbers that represents the
+          acquired waveform in voltage units.
+          
+          Note: When the acquisition mode is set to envelope,
+          two arrays will be returned.  They will both be
+          placed in this array.  The first half of the array
+          will be an array of minimums.  The second half of
+          the array will be an array of maximums.
+          
+
+      number_ofPoints
+
+          Variable Type       int (passed by reference)
+
+          Number of Points
+          
+          Specifies the variable name in which to place the
+          number of points read from the selected waveform.
+          
+          Note: If the acquisition type is set to envelope
+          then this number is the length of the entire array
+          returned.  Divide this number by two to get the
+          length of each individual array.
+
+      acquisitionCount
+
+          Variable Type       int (passed by reference)
+
+          Acquistion Count
+          
+          Specifies the variable name in which to place the
+          acquired waveform count used to create the selected
+          average or envelope waveform. In Normal acquisition
+          the Acquisition Count is always 1.
+
+      sampleInterval
+
+          Variable Type       double (passed by reference)
+
+          Sample Interval
+          
+          Specifies the variable name in which to place the
+          sample interval in seconds at which the waveform
+          was digitized (i.e. time interval between points).
+          
+
+      timeOffset
+
+          Variable Type       double (passed by reference)
+
+          Time Offset
+          
+          Specifies the variable name in which to place the
+          time of the first data point in seconds relative to
+          the trigger point.
+          
+
+      xReference
+
+          Variable Type       int (passed by reference)
+
+          X Reference
+          
+          Specifies the variable name in which to place the
+          horizontal axis trigger reference point.
+
+      voltIncrement
+
+          Variable Type       double (passed by reference)
+
+          Volt Increment
+          
+          Specifies the variable name in which to place the
+          voltage increment in volts at which the waveform
+          was digitized (voltage increment between LSBs).
+          
+
+      voltOffset
+
+          Variable Type       double (passed by reference)
+
+          Volt Offset
+          
+          Specifies the variable name in which to place the
+          zero-voltage reference or DC offset voltage for
+          the specified waveform.
+          
+
+      yReference
+
+          Variable Type       int (passed by reference)
+
+          Y Reference
+          
+          Specifies the variable name in which to place the
+          vertical axis voltage reference point.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_reset
+
+      int zt1428_reset (ViSession instrumentHandle);
+
+  Purpose
+
+      Reset
+      
+      Resets the instrument to its power-on state.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_result_stats
+
+      int zt1428_result_stats (ViSession instrumentHandle, int measurement,
+                               double *current, double *minimum,
+                               double *maximum, double *averagePassRatio,
+                               int *limitTestResult);
+
+  Purpose
+
+      Get Result Statistics
+      
+      Gets the statistical results of the statistics or
+      limit test measurements, and the pass/fail results
+      of the limit test or mask test. Because up to 3
+      statistical or limit test results can be returned,
+      the measurement type is specified.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      measurement
+
+          Variable Type       int
+
+          Measurement
+          
+          Specifies the measurement results to be returned.
+          
+          Valid Values:
+          0  - ZT1428_MEAS_RISE - Rise Time
+          1  - ZT1428_MEAS_FALL - Fall Time
+          2  - ZT1428_MEAS_FREQ - Frequency
+          3  - ZT1428_MEAS_PER  - Period
+          4  - ZT1428_MEAS_PWID - +Width
+          5  - ZT1428_MEAS_NWID - -Width
+          6  - ZT1428_MEAS_VAMP - V. Amplitude
+          7  - ZT1428_MEAS_VBAS - V. Base
+          8  - ZT1428_MEAS_VTOP - V. Top
+          9  - ZT1428_MEAS_VPP  - V. Peak to Peak
+          10 - ZT1428_MEAS_VAVG - V. Average
+          11 - ZT1428_MEAS_VMAX - V. Max
+          12 - ZT1428_MEAS_VMIN - V. Min
+          13 - ZT1428_MEAS_VACR - V. AC(rms)
+          14 - ZT1428_MEAS_VDCR - V. DC(rms)
+          15 - ZT1428_MEAS_DUTY - Duty Cycle
+          16 - ZT1428_MEAS_DEL  - Delay
+          17 - ZT1428_MEAS_OVER - Over Shoot
+          18 - ZT1428_MEAS_PRE  - Pre Shoot
+
+      current
+
+          Variable Type       double (passed by reference)
+
+          Current
+          
+          Specifies the name of the variable into which the
+          current result of the measurement is placed.
+
+      minimum
+
+          Variable Type       double (passed by reference)
+
+          Minimum
+          
+          Specifies the name of the variable into which
+          the minimum result of the measurement is placed.
+          
+
+      maximum
+
+          Variable Type       double (passed by reference)
+
+          Maximum
+          
+          Specifies the name of the variable into which
+          the maximum result of the measurement is placed.
+
+      averagePassRatio
+
+          Variable Type       double (passed by reference)
+
+          Average Pass Ratio
+          
+          Specifies the name of the variable into which
+          the average (Statistics Mode) or pass ratio
+          (Limit Test Mode) result of the measurement is
+          placed.
+
+      limitTestResult
+
+          Variable Type       int (passed by reference)
+
+          Limit Test Result
+          
+          Specifies the name of the variable into which
+          the result of the limit test or mask test
+          comparison is placed.
+          
+          Valid Values:
+          0 - Passed
+          1 - Failed
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_run_stop
+
+      int zt1428_run_stop (ViSession instrumentHandle, int state);
+
+  Purpose
+
+      Run/Stop
+      
+      Enables or disables continuous data acquisition.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      state
+
+          Variable Type       int
+
+          State
+          
+          Specifies state in which to place the instrument.
+          Run enables continuous acquisition.  Stop disables
+          an on-going acquisition.
+          
+          Valid Values:
+          0 - ZT1428_STOP - Stop
+          1 - ZT1428_RUN  - Run
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_running
+
+      int zt1428_running (ViSession instrumentHandle, int *state);
+
+  Purpose
+
+      Get Run/Stop
+      
+      Returns the continuous data acquisition state.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      state
+
+          Variable Type       int (passed by reference)
+
+          State
+          
+          Queries run state of the instrument. Run indicates
+          on-going continuous acquisition.  Stop indicates
+          that acquisitions are stopped.
+          
+          Valid Values:
+          0 - ZT1428_STOP - Stopped
+          1 - ZT1428_RUN  - Running
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_save_recall
+
+      int zt1428_save_recall (ViSession instrumentHandle, int setup,
+                              int stateNumber);
+
+  Purpose
+
+      Save/Recall Setup
+      
+      Saves or recalls the oscilloscope setup from/to
+      non-volatile memory on the instrument.
+      
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      setup
+
+          Variable Type       int
+
+          Setup
+          
+          Defines the setup state operation to be performed.
+          Save stores the current instrument settings to
+          non-volatile memory. Recall loads a previously
+          saved instrument state from non-volatile memory.
+          
+          Valid Range:
+          0 - ZT1428_SAVE - Save
+          1 - ZT1428_RCL  - Recall
+          
+
+      stateNumber
+
+          Variable Type       int
+
+          State Number
+          
+          Defines the setup state number to be saved or
+          recalled from non-volatile memory.
+          
+          Valid Range:
+          1 to 48
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_self_test
+
+      int zt1428_self_test (ViSession instrumentHandle, int *result);
+
+  Purpose
+
+      Self Test
+      
+      Performs an instrument self test and returns the
+      result.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      result
+
+          Variable Type       int (passed by reference)
+
+          Result
+          
+          Specifies the variable name in which to place the
+          result of the self test.  If zero is returned, the
+          self test passed.
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_soft_trigger
+
+      int zt1428_soft_trigger (ViSession instrumentHandle);
+
+  Purpose
+
+      Soft Trigger
+      
+      Causes a software-generated trigger event. This
+      is useful when operating in triggered mode and
+      the trigger source is not present.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_state_trigger
+
+      int zt1428_state_trigger (ViSession instrumentHandle, char logic[],
+                                int source, int condition, int slope,
+                                double levelChan1, double levelChan2,
+                                double levelExt, int sensitivity1,
+                                int sensitivity2);
+
+  Purpose
+
+      Set State Trigger
+      
+      Configures the oscilloscope for state triggering.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      logic
+
+          Variable Type       char []
+
+          Logic
+          
+          This logic specifies the relationship between
+          the signal and the defined voltage level that
+          must exist before the pattern is considered valid.
+          The logic pattern to be matched uses:
+            L to represent logic Low
+            H to represent logic High
+            X to represent Don't Care
+          A five-character string should be specified.
+          The first character is for Channel 1,
+          the second for Channel 2, the third for External,
+          the fourth for ECLT0 and the last for ECLT1.
+          The logic pattern for the selected state trigger
+          source is ignored.
+          
+
+      source
+
+          Variable Type       int
+
+          Source
+          
+          Specifies the source for the state trigger signal.
+          
+          Valid Values:
+          1 - ZT1428_TRG_CHAN1 - Chan 1
+          2 - ZT1428_TRG_CHAN2 - Chan 2
+          3 - ZT1428_TRG_EXT   - External
+          4 - ZT1428_TRG_ECL0  - ECL 0
+          5 - ZT1428_TRG_ECL0  - ECL 1
+
+      condition
+
+          Variable Type       int
+
+          Condition
+          
+          Selects the condition for the pattern that must be
+          present while detecting an edge on the selected
+          trigger source.
+          
+          Valid Values:
+          0 - ZT1428_TRG_STAT_FALSE - False
+          1 - ZT1428_TRG_STAT_TRUE  - True
+          
+
+      slope
+
+          Variable Type       int
+
+          Slope
+          
+          Specifies the trigger slope for the specified
+          state trigger source.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+          
+
+      levelChan1
+
+          Variable Type       double
+
+          Level Chan1
+          
+          Specifies the trigger level of input channel 1
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      levelChan2
+
+          Variable Type       double
+
+          Level Chan2
+          
+          Specifies the trigger level of input channel 2
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      levelExt
+
+          Variable Type       double
+
+          Level Ext
+          
+          Specifies the trigger level of the external trigger
+          input in Volts.
+          
+          Valid Range:
+          -2.0V to +2.0V
+
+      sensitivity1
+
+          Variable Type       int
+
+          Sensitivity1
+          
+          Specifies the trigger filter mode for input
+          channel 1.  If Normal is  selected, trigger
+          filtering is turned off. If Low is selected,
+          noise rejection hysteresis is enabled. If Low
+          Freq Reject is selected, the trigger signal is
+          AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+      sensitivity2
+
+          Variable Type       int
+
+          Sensitivity2
+          
+          Specifies the trigger filter mode for input
+          channel 2.  If Normal is  selected, trigger
+          filtering is turned off. If Low is selected,
+          noise rejection hysteresis is enabled. If Low
+          Freq Reject is selected, the trigger signal is
+          AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+________________________________________________________________________________
+
+  zt1428_store_waveform
+
+      int zt1428_store_waveform (ViSession instrumentHandle, int source,
+                                 int destination);
+
+  Purpose
+
+      Store Waveform to Memory
+      
+      Stores waveform data from the specified input
+      channel or math function to the specified waveform
+      memory location.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      source
+
+          Variable Type       int
+
+          Source
+          
+          Specifies the source waveform to be stored.
+          Valid sources include input channels, waveforms
+          saved in memory, and math function waveforms.
+          
+          Valid Values:
+          1 - ZT1428_CHAN1 - Channel 1
+          2 - ZT1428_CHAN2 - Channel 2
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          7 - ZT1428_FUNC1 - Function 1
+          8 - ZT1428_FUNC2 - Function 2
+          
+
+      destination
+
+          Variable Type       int
+
+          Destination
+          
+          Specifies the destination for the waveform to be
+          stored.
+          
+          Note:  When storing in envelope acq. mode, the
+          min. and max. waveforms are stored in two memories.
+          For example, storing the wave to memory 1 will
+          place the min. waveform in memory 1 and the max.
+          waveform in memory 2.  Memories are grouped as 1
+          & 2, and 3 & 4.  Selecting 1 or 2 has the same
+          effect. Selecting 3 or 4 has the same effect.
+          
+          Valid Values:
+          3 - ZT1428_WMEM1 - Memory 1
+          4 - ZT1428_WMEM2 - Memory 2
+          5 - ZT1428_WMEM3 - Memory 3
+          6 - ZT1428_WMEM4 - Memory 4
+          
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_trigger_center
+
+      int zt1428_trigger_center (ViSession instrumentHandle, int source);
+
+  Purpose
+
+      Set Trigger to Offset
+      
+      Configures the level of the selected trigger
+      to its vertical center, which is equivalent to
+      the DC offset for that selected source.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      source
+
+          Variable Type       int
+
+          Source
+          
+          Specifies the trigger source to center by setting
+          its level at its DC offset setting.
+          
+          Valid Values:
+          1 - ZT1428_TRG_CHAN1 - Chan 1
+          2 - ZT1428_TRG_CHAN2 - Chan 2
+          3 - ZT1428_TRG_EXT   - External
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_trigger_event
+
+      int zt1428_trigger_event (ViSession instrumentHandle,
+                                int *triggerEvent);
+
+  Purpose
+
+      Get Trigger Event
+      
+      Returns the trigger event register status to
+      indicate whether a trigger event has occured.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      triggerEvent
+
+          Variable Type       int (passed by reference)
+
+          Trigger Event
+          
+          Specifies the variable name in which to place the
+          trigger event status. Reading the trigger event
+          status clears the trigger event status.
+          
+          Values Returned:
+          0 - No trigger Event
+          1 - Trigger Event Occurred.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_trigger_holdoff
+
+      int zt1428_trigger_holdoff (ViSession instrumentHandle, int holdoffType,
+                                  int holdoffEvents, double holdoffTime);
+
+  Purpose
+
+      Set Trigger Holdoff
+      
+      Sets the time or number of events to holdoff before
+      detecting the trigger event.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      holdoffType
+
+          Variable Type       int
+
+          Holdoff Type
+          
+          Specifies the type of trigger holdoff.
+          
+          Valid Values:
+          0 - ZT1428_TRG_HOLD_TIME  - Time
+          1 - ZT1428_TRG_HOLD_EVENT - Event
+
+      holdoffEvents
+
+          Variable Type       int
+
+          Holdoff Events
+          
+          Specifies the holdoff by number of events.
+          
+          Valid Values:
+          1 to 65536 events
+          
+
+      holdoffTime
+
+          Variable Type       double
+
+          Holdoff Time
+          
+          Specifies the holdoff time in seconds.
+          
+          Valid Values:
+          40 ns to 320 ms
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_tv_trigger
+
+      int zt1428_tv_trigger (ViSession instrumentHandle, int standard,
+                             int field, int line, int slope, int source,
+                             double level, int sensitivity);
+
+  Purpose
+
+      Set TV Trigger
+      
+      Configures the oscilloscope for tv triggering.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      standard
+
+          Variable Type       int
+
+          Standard
+          
+          Specifies which TV standard to use.
+          525 - United States(60Hz) NTSC
+          625 - European(50Hz) PAL
+          
+          Valid Range:
+          525 - ZT1428_TRG_TV_STAN_525 - NTSC
+          625 - ZT1428_TRG_TV_STAN_625 - PAL
+          
+
+      field
+
+          Variable Type       int
+
+          Field
+          
+          Specifies the field for the standard video signal.
+          This determines the line availability.
+          
+          Valid Range:
+          1 - ZT1428_TRG_TV_FIELD1 - Field 1
+          2 - ZT1428_TRG_TV_FIELD2 - Field 2
+
+      line
+
+          Variable Type       int
+
+          Line
+          
+          Specifies which line in the TV signal will
+          generate a trigger event.
+          
+          Valid Range depends upon Standard and Field
+             Field  Standard     Range
+               1      525        1 to 263
+               2      525        1 to 262
+               1      625        1 to 313
+               2      625        314 to 625
+          
+
+      slope
+
+          Variable Type       int
+
+          Slope
+          
+          Specifies the trigger slope for the specified
+          source.
+          
+          Valid Value:
+          0 - ZT1428_TRG_SLOPE_NEG - Negative slope
+          1 - ZT1428_TRG_SLOPE_POS - Positive slope
+          
+
+      source
+
+          Variable Type       int
+
+          Source
+          
+          Specifies the source for the trigger signal.
+          
+          Valid Values:
+          1 - ZT1428_TRG_CHAN1 - Chan 1
+          2 - ZT1428_TRG_CHAN2 - Chan 2
+          3 - ZT1428_TRG_EXT   - External
+          4 - ZT1428_TRG_ECL0  - ECL 0
+          5 - ZT1428_TRG_ECL0  - ECL 1
+
+      level
+
+          Variable Type       double
+
+          Level
+          
+          Specifies the trigger level of the selected source
+          in Volts.
+          
+          Valid Range:
+          ñ0.75 of the current voltage range from the current
+          offset.
+
+      sensitivity
+
+          Variable Type       int
+
+          Sensitivity
+          
+          Specifies the trigger filter mode.  If Normal is
+          selected, trigger filtering is turned off. If Low
+          is selected, noise rejection hysteresis is enabled.
+          If Low Freq Reject is selected, the trigger signal
+          is AC coupled with a 50 kHz high-pass filter. If
+          High Freq Reject is selected, the trigger signal
+          is filtered with a 50 kHz low-pass filter.
+          
+          Valid Range:
+          0 - ZT1428_TRG_SENS_NORM - Normal
+          1 - ZT1428_TRG_SENS_LOW  - Low (Noise Reject)
+          2 - ZT1428_TRG_SENS_LFR  - Low Freq Reject
+          3 - ZT1428_TRG_SENS_HFR  - High Freq Reject
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_vertical
+
+      int zt1428_vertical (ViSession instrumentHandle, int channel,
+                           int coupling, int lowpassFilter,
+                           double probeAttenuation, double range,
+                           double offset);
+
+  Purpose
+
+      Set Vertical
+      
+      Configures the vertical settings for the selected
+      channel(s).
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle returned by the
+          Initialize function to select the desired
+          instrument.
+
+      channel
+
+          Variable Type       int
+
+          Channel
+          
+          Selects the channel to be configured.
+          
+          Valid Range:
+          1  - ZT1428_CHAN1     - Channel 1
+          2  - ZT1428_CHAN2     - Channel 2
+          10 - ZT1428_CHAN_BOTH - Channels 1 & 2
+
+      coupling
+
+          Variable Type       int
+
+          Coupling
+          
+          Sets the input coupling for the selected channel.
+          The coupling for each channel can be set to AC, DC,
+          or DCFifty, or ACLFR. DCFifty is DC coupling with
+          50 ohm impedance. ACLFR is AC coupling which also
+          selects an internal high pass filter to reject
+          frequencies below approximately 450Hz.
+          
+          Valid Range:
+          0 - ZT1428_VERT_COUP_AC    - AC 1Mê (10 Hz)
+          1 - ZT1428_VERT_COUP_ACLFR - AC 1Mê (450 Hz)
+          2 - ZT1428_VERT_COUP_DC    - DC 1Mê
+          3 - ZT1428_VERT_COUP_DCF   - DC 50ê
+
+      lowpassFilter
+
+          Variable Type       int
+
+          Lowpass Filter
+          
+          Selects which lowpass filter, if any, will be used.
+          When OFF, the lowpass filter is bypassed, providing
+          approximately 250 MHz bandwidth.  The bandwidth
+          limit filter may be used with all coupling
+          selections.
+          
+          Valid Range:
+          0 - ZT1428_VERT_FILT_OFF   - Off
+          1 - ZT1428_VERT_FILT_30MHZ - 30 MHz Lowpass Filter
+          2 - ZT1428_VERT_FILT_1MHZ  - 1 MHz Lowpass Filter
+          
+
+      probeAttenuation
+
+          Variable Type       double
+
+          Probe Attenuation
+          
+          Specifies the probe's attenuation factor for the
+          specified channel.  The probe attenuation changes
+          the reference constants for scaling the vertical
+          range and offset, automatic measurements, trigger
+          levels, etc.
+          
+          Valid Range:
+          0.9 to 1000.0
+
+      range
+
+          Variable Type       double
+
+          Range
+          
+          Specifies the full scale acquisition range in volts
+          for the specified input channel.
+          
+          Valid Range depends upon probe attenuation (P):
+          (0.008 * P) to (50 * P)
+          with (0.008 * P) resolution
+          
+
+      offset
+
+          Variable Type       double
+
+          Offset
+          
+          Specifies the DC offset voltage that is represented
+          at vertical center for the selected channel.
+          
+          Valid Range depends upon range and probe
+          attenuation (P):
+          
+                  Channel range       Offset Limit
+                8mV * P to 400mV * P    ñ2V * P
+            > 400mV * P to  2.0V * P    ñ10V * P
+             > 2.0V * P to 10.0V * P    ñ50V * P
+            > 10.0V * P to 50.0V * P    ñ250V * P
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+          
+________________________________________________________________________________
+
+  zt1428_wait_op_complete
+
+      int zt1428_wait_op_complete (ViSession instrumentHandle);
+
+  Purpose
+
+      Get Operation Complete
+      
+      Returns the instrument operation complete status.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+________________________________________________________________________________
+
+  zt1428_width_parameters
+
+      int zt1428_width_parameters (ViSession instrumentHandle,
+                                   int positiveWidthLevel,
+                                   int negativeWidthLevel);
+
+  Purpose
+
+      Set Width Parameters
+      
+      Sets the level conditions for positive width and
+      negative width measurements.
+
+  Parameter List
+
+      instrumentHandle
+
+          Variable Type       ViSession
+
+          Instrument Handle
+          
+          Accepts the Instrument Handle, returned by the
+          Initialize function, to select the desired
+          instrument.
+
+      positiveWidthLevel
+
+          Variable Type       int
+
+          Positive Width Level
+          
+          Specifies the level for the positive pulse width
+          measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+      negativeWidthLevel
+
+          Variable Type       int
+
+          Negative Width Level
+          
+          Specifies the level for the negative pulse width
+          measurements.
+          
+          Valid Values:
+          0 - ZT1428_DEL_LEV_LOW - Lower
+          1 - ZT1428_DEL_LEV_MID - Middle
+          2 - ZT1428_DEL_LEV_UPP - Upper
+
+  Return Value
+
+           Control Name:  Error
+          
+           Description:   Displays status relating to the
+                          function call.
+          
+

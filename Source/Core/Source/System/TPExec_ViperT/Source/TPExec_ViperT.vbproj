@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4789964C-F3AD-4DA5-BC08-6F6B03638850}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <RootNamespace>TPExec</RootNamespace>
+    <AssemblyName>TPExec_ViperT</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>TPExec_ViperT.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>TPExec_ViperT.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FHDB">
+      <HintPath>..\..\..\FHDB\FHDB_DLL\bin\FHDB.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NationalInstruments.Common, Version=15.0.40.49154, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL" />
+    <Reference Include="NationalInstruments.UI, Version=15.0.45.49153, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL" />
+    <Reference Include="NationalInstruments.UI.WindowsForms, Version=15.0.45.49153, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="FHDB" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="NationalInstruments" />
+    <Import Include="NationalInstruments.UI" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="c1553.vb" />
+    <Compile Include="cARB.vb" />
+    <Compile Include="cCounter.vb" />
+    <Compile Include="cDMM.vb" />
+    <Compile Include="cDTS.vb" />
+    <Compile Include="cEOIR.vb" />
+    <Compile Include="cEOMF.vb" />
+    <Compile Include="cEOMS.vb" />
+    <Compile Include="cEOVC.vb" />
+    <Compile Include="cEOVIS.vb" />
+    <Compile Include="cFGEN.vb" />
+    <Compile Include="Cicl.vb" />
+    <Compile Include="CMain.vb" />
+    <Compile Include="cOSCOPE.vb" />
+    <Compile Include="cTETS.vb" />
+    <Compile Include="cVCC.vb" />
+    <Compile Include="cVEO2.vb" />
+    <Compile Include="cDCPS.vb" />
+    <Compile Include="Diagnostics.vb" />
+    <Compile Include="DM_Services.vb" />
+    <Compile Include="EXIT.Designer.vb">
+      <DependentUpon>EXIT.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EXIT.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDisplayLED.Designer.vb">
+      <DependentUpon>frmDisplayLED.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDisplayLED.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFHDBComment.Designer.vb">
+      <DependentUpon>frmFHDBComment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFHDBComment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHV.Designer.vb">
+      <DependentUpon>frmHV.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHV.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImage.Designer.vb">
+      <DependentUpon>frmImage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmImage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOperatorComment.Designer.vb">
+      <DependentUpon>frmOperatorComment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOperatorComment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOperatorMsg.Designer.vb">
+      <DependentUpon>frmOperatorMsg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOperatorMsg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSplash.Designer.vb">
+      <DependentUpon>frmSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IMAGE.vb" />
+    <Compile Include="INITInst.vb" />
+    <Compile Include="MAIN.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="S101.vb" />
+    <Compile Include="S201.vb" />
+    <Compile Include="S202.vb" />
+    <Compile Include="S301.vb" />
+    <Compile Include="S401.vb" />
+    <Compile Include="S402.vb" />
+    <Compile Include="S403.vb" />
+    <Compile Include="S404.vb" />
+    <Compile Include="S405.vb" />
+    <Compile Include="S406.vb" />
+    <Compile Include="S501.vb" />
+    <Compile Include="S502.vb" />
+    <Compile Include="S503.vb" />
+    <Compile Include="S504.vb" />
+    <Compile Include="S505.vb" />
+    <Compile Include="S506.vb" />
+    <Compile Include="S507.vb" />
+    <Compile Include="S508.vb" />
+    <Compile Include="S509.vb" />
+    <Compile Include="S510.vb" />
+    <Compile Include="S601.vb" />
+    <Compile Include="S602.vb" />
+    <Compile Include="S603.vb" />
+    <Compile Include="S604.vb" />
+    <Compile Include="S605.vb" />
+    <Compile Include="S606.vb" />
+    <Compile Include="S607.vb" />
+    <Compile Include="S608.vb" />
+    <Compile Include="S609.vb" />
+    <Compile Include="S610.vb" />
+    <Compile Include="S611.vb" />
+    <Compile Include="S612.vb" />
+    <Compile Include="S701.vb" />
+    <Compile Include="S751.vb" />
+    <Compile Include="S801.vb" />
+    <Compile Include="S802.vb" />
+    <Compile Include="S803.vb" />
+    <Compile Include="S804.vb" />
+    <Compile Include="S901.vb" />
+    <Compile Include="S902.vb" />
+    <Compile Include="S903.vb" />
+    <Compile Include="S904.vb" />
+    <Compile Include="S905.vb" />
+    <Compile Include="S906.vb" />
+    <Compile Include="SwitchErrorMessages.vb" />
+    <Compile Include="TERM9.vb" />
+    <Compile Include="TetsUtility.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EXIT.resX">
+      <DependentUpon>EXIT.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDisplayLED.resX">
+      <DependentUpon>frmDisplayLED.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFHDBComment.resX">
+      <DependentUpon>frmFHDBComment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHV.resX">
+      <DependentUpon>frmHV.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImage.resX">
+      <DependentUpon>frmImage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resX">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOperatorComment.resX">
+      <DependentUpon>frmOperatorComment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOperatorMsg.resX">
+      <DependentUpon>frmOperatorMsg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSplash.resX">
+      <DependentUpon>frmSplash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxVIEWDIRXLib">
+      <Guid>{CD4409E1-BF00-11D3-BE16-0090270D7696}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>52</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="RFMSLib">
+      <Guid>{5E2F5ED5-2E80-4DC1-93B3-EFFAD8ECEAB5}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VIEWDIRXLib">
+      <Guid>{CD4409E1-BF00-11D3-BE16-0090270D7696}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>52</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="graphics\66x66UUTPartsList.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

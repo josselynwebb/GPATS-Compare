@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="ICS-A4" LABEL="XIV"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\CONTROL_ENCODE_DECODE_A4_CCA_2618541-1\TP_AAV_ICS_A4.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s14.ide!c4s14'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ICS_A4/ASSY/ICS_A4_1.pic' ?><?BUTTON POS='4' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/ICS_A4/SCHEM/ICS_A4_Sch_1.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s14.ide!Table3-15'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s14.ide!c3s14'?><?FRAME ID="5-14a" TITLE="Chapter 5. Maintenance, Section XIV. ELTD FOR CONTROL ENCODE/DECODE CCA, P/N 2618541-1" previous="./ICS_A1.ide" next="./ics_a5.ide"?><?TOCENTRY TITLE="SECTION XIV. ELTD for the Control Encode/Decode CCA, P/N 2618541-1" TOCLEVEL="2" LABEL="XIV"?>
+<TITLE>SECTION XIV. ELTD for the Control Encode/Decode CCA, P/N 2618541-1</TITLE>
+<PARA0 ID="P5-14" LABEL="5.14"><?TOCENTRY TITLE="5.14 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the Control Encode/Decode CCA, P/N 2618541-1.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-Contr EncDec-2618541-1.PDF"?>Control Encode/Decode CCA ELTD<?endhotspot?></PARA></PARA0></SECTION>

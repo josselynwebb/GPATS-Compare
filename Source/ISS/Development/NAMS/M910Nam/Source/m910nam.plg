@@ -1,0 +1,62 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: m910nam - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Jessg\LOCALS~1\Temp\RSP2EC7.tmp" with contents
+[
+/nologo /ML /W4 /GX /O2 /I "../../../include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Release/m910nam.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\callbacks.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\concurrent.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\diag_routine.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\dtb_routine.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\error.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\file_utils.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\message.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\new_m910nam.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\newm910way.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\oldm910way.c"
+"C:\Documents and Settings\Jessg\Desktop\Releases\TETS_B_v20100823\Source\Core\Source\NAM\M910 NAM\Source\process_utils.c"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Jessg\LOCALS~1\Temp\RSP2EC7.tmp" 
+Creating temporary file "C:\DOCUME~1\Jessg\LOCALS~1\Temp\RSP2EC8.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib psapi.lib oldnam.lib diagmgr.lib term9.lib /nologo /subsystem:console /incremental:no /pdb:"Release/m910nam.pdb" /machine:I386 /out:"Release/m910nam.exe" /libpath:"../../../lib" 
+".\Release\callbacks.obj"
+".\Release\concurrent.obj"
+".\Release\diag_routine.obj"
+".\Release\dtb_routine.obj"
+".\Release\error.obj"
+".\Release\file_utils.obj"
+".\Release\message.obj"
+".\Release\new_m910nam.obj"
+".\Release\newm910way.obj"
+".\Release\oldm910way.obj"
+".\Release\process_utils.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\Jessg\LOCALS~1\Temp\RSP2EC8.tmp"
+<h3>Output Window</h3>
+Compiling...
+callbacks.c
+concurrent.c
+diag_routine.c
+dtb_routine.c
+error.c
+file_utils.c
+message.c
+new_m910nam.c
+newm910way.c
+oldm910way.c
+process_utils.c
+Linking...
+
+
+
+<h3>Results</h3>
+m910nam.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

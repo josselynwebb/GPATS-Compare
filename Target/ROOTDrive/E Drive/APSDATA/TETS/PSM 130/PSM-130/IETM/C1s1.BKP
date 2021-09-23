@@ -1,0 +1,2382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\STYLES\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?FRAME id='C1s1a' title='CHAPTER 1 - GENERAL INFORMATION' previous='.\PSM130.xml!PSM130f'?>
+<?PUB TOCLEVEL="1" TEXT="CHAPTER 1 - GENERAL INFORMATION"?>
+<chapter id="chapter1" label="CHAPTER 1" tocentry="1">
+<title>GENERAL INFORMATION</title>
+<?PUB TOCLEVEL="2" TEXT="Section I. Introduction."?>
+<section id="c1s1" label="Section I. Introduction." tocentry="1">
+<para0 id="p1-1" label="1-1" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="1-1 Introduction."?>
+<title>Introduction.</title>
+<para>This manual describes the operation and maintenance of the AN/PSM-130
+Application Program Set (APS). This chapter is divided into four sections.
+Section I is an introduction to the AN/PSM-130 APS. This section will
+provide a cross-reference of the Unit Under Test (UUT) and the APS.
+Additionally, this section will describe the documents used to support
+the Test Program Set (TPS) and methods to report errors or improvements
+to this APS. Section II provides a description of all the APS components
+as they are packed for shipment. Section III describes the procedures
+and methods used to demolish the APS to prevent enemy use. Section
+IV describes procedures for APS set up.</para>
+<subpara1 id="p1-1.1" label="1-1.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1-1.1 Documents."?>
+<title>Documents.</title>
+<para>The current edition of the SL-3 provides a listing of associated
+AN/PSM-130 Technical Manuals and, when used in conjunction with this
+manual, aids the technician in operation, troubleshooting and repair
+of the AN/PSM-130 LRUs.</para>
+</subpara1>
+<subpara1 id="p1-1.2" label="1-1.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1-1.2 Reporting Errors And Improvements."?>
+<title>Reporting Errors And Improvements.</title>
+<para>The Automatic Test Equipment Program (ATEP) Support and Engineering
+Branch, Marine Corps Logistics Base, Albany, Georgia, has been assigned
+the responsibility to provide technical engineering services for the
+Marine Corps Automatic Test Equipment Program as described in MCO
+10510.18. Contact the Marine Corps Liaison at DSN 567-6338 or Commercial
+(229) 639-6338.</para>
+</subpara1>
+<subpara1 id="p1-1.3" label="1-1.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1-1.3 Unit Under Test (UUT) Nomenclature Cross-Reference."?>
+<title>Unit Under Test (UUT) Nomenclature Cross-Reference.</title>
+<para><?hotspot href="T1-1"?>Table 1-1<?endhotspot?> provides the
+AN/PSM-130 Line Replaceable Units (LRUs) supported by this APS. The
+UUT nomenclature is listed with a cross reference to each LRU Part
+Number, the Interface Device (ID) or Test used in testing, the Cable
+Numbers/Part Numbers used in testing, and the Test Program File Name.</para>
+<para> <?pub tablewidth="95%"?> <table id="T1-1" tocentry="1">
+<title>Table 1-1. UUT Nomenclature Cross-Reference</title>
+<tgroup cols="5">
+<?PubTbl tgroup dispwid="1365.00px"?>
+<colspec colname="col1" colwidth="0.58*"/>
+<colspec colname="col2" colwidth="0.56*"/>
+<colspec colname="col3" colwidth="1.09*"/>
+<colspec colname="col4" colwidth="0.93*"/>
+<colspec colname="col5" colwidth="0.69*"/>
+<thead>
+<row>
+<entry align="center">Nomenclature</entry>
+<entry align="center">LRU Part Number</entry>
+<entry align="center">ID/Test Fixture Part Number</entry>
+<entry align="center">Cable Numbers/Part Numbers</entry>
+<entry align="center">Test Program File Name</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<?PubTbl row rht="0.65in"?>
+<entry morerows="1">CDA Logic</entry>
+<entry align="center" morerows="1">16104813-011</entry>
+<entry rowsep="0">VIPER/T or TETS-B ATE </entry>
+<entry rowsep="0">W1 - Cable Assembly (P/N 13020A7100)</entry>
+<entry morerows="1">TP_LAV_CDA_CCA.OBJ</entry>
+</row>
+<row>
+<?PubTbl row rht="0.65in"?>
+<entry>(P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W2 - Cable Assembly (P/N 13020A7200)</entry>
+</row>
+<row>
+<?PubTbl row rht="0.64in"?>
+<entry>CDA Control Logic A</entry>
+<entry align="center">16101157-021</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W1 - Cable Assembly (P/N 13020A7100)</entry>
+<entry>TP_LAV_LOGIC_A.OBJ</entry>
+</row>
+<row>
+<entry>CDA Control Logic B</entry>
+<entry align="center">7566139-121</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W2 - Cable Assembly (P/N 13020A7200)</entry>
+<entry>TP_LAV_LOGIC_B.OBJ</entry>
+</row>
+<row>
+<entry>CDA Grenade Relay</entry>
+<entry align="center">7579575-011</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W3 - Cable Assembly (P/N 13020A7300)</entry>
+<entry>TP_LAV_RELAY.OBJ </entry>
+</row>
+<row>
+<entry>GCU Gun Control Logic A1</entry>
+<entry align="center">7575335-011</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W6 - Cable Assembly (P/N 13020A7600)</entry>
+<entry>TP_LAV_GCU_LOG.OBJ</entry>
+</row>
+<row>
+<entry>GCU Power Drive A2</entry>
+<entry align="center">7566394-011</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W7 - Cable Assembly (P/N 13020A7700)</entry>
+<entry>TP_LAV_PWR_DRV.OBJ</entry>
+</row>
+<row>
+<entry>GCU Gun Control Logic A1 SLEP</entry>
+<entry align="center">00004A2206-1</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W4 - Cable Assembly (P/N 13020A7400)</entry>
+<entry>TP_LAV_GCL_SLP.OBJ</entry>
+</row>
+<row>
+<entry>GCU Power Drive A2 SLEP</entry>
+<entry align="center">00004A2205-1</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W5 - Cable Assembly (P/N 13020A7500)</entry>
+<entry>TP_LAV_PWRSLEP.OBJ</entry>
+</row>
+<row>
+<entry>GTD Power Supply</entry>
+<entry align="center">7566131-121</entry>
+<entry>VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry>W6 - Cable Assembly (P/N 13020A7600)</entry>
+<entry>TP_LAV_GTD_PSU.OBJ</entry>
+</row>
+<row>
+<entry morerows="1">GTD Stabilization System Processor</entry>
+<entry align="center" morerows="1">16102218-061</entry>
+<entry morerows="1">VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry rowsep="0">W7 - Cable Assembly (P/N 13020A7700)</entry>
+<entry morerows="1">TP_LAV_GTD_SSP.OBJ</entry>
+</row>
+<row>
+<entry>W8 - Cable Assembly (P/N 0814A3800)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry morerows="8">TPH Self-Test (AN/PSM-130)</entry>
+<entry align="center" morerows="8">13020A1000</entry>
+<entry morerows="8">VIPER/T or TETS-B ATE (P/N AN/USM-717 or AN/USM-657B)</entry>
+<entry rowsep="0">W1 - Cable Assembly (P/N 13020A7100)</entry>
+<entry morerows="8">TP_LAV_SRU_ID.OBJ</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry rowsep="0">W2 - Cable Assembly (P/N 13020A7200)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry rowsep="0">W3 - Cable Assembly (P/N 13020A7300)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry rowsep="0">W4 - Cable Assembly (P/N 13020A7400)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry rowsep="0">W5 - Cable Assembly (P/N 13020A7500)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry rowsep="0">W6 - Cable Assembly (P/N 13020A7600)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry rowsep="0">W7 - Cable Assembly (P/N 13020A7700)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry rowsep="0">W8 - Cable Assembly (P/N 0814A3800)</entry>
+</row>
+<row>
+<?PubTbl row rht="2.02in"?>
+<entry>W204 - Cable Assembly (P/N 93006H6048)</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+</para0>
+</section>
+<?FRAME id='C1s2b' title='CHAP. 1 - GENERAL INFORMATION, SECT. II - EQUIPMENT DESCRIPTION' next='.\C1s1.xml!C1s2c' previous='.\C1s1.xml!C1s1a'?>
+<?PUB TOCLEVEL="2" TEXT="Section II. Equipment Description."?>
+<section id="c1s2" label="Section II." tocentry="1">
+<title>Equipment Description.</title>
+<para0 id="p1-2" label="1-2" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="1-2 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide descriptions and illustrations.
+General information on the APS is covered in the first few paragraphs.
+Graphics for the APS case are shown with components listed in tables
+for easy identification. Information on cables W1 through W8 are also
+provided.</para>
+<subpara1 id="p1-2.1" label="1-2.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1.2.1. General Equipment Description."?>
+<title>General Equipment Description.</title>
+<para><?hotspot href="T1-2"?>Table 1-2<?endhotspot?> provides APS
+general physical information.</para>
+<subpara2 id="p1-2.1.1" label="1-2.1.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.1.1 APS General Physical Description."?>
+<title>APS General Physical Description.</title>
+<?pub tablewidth="65%"?>
+<para><?pub tablewidth="60%"?><table id="T1-2" tocentry="1">
+<title>Table 1-2. AN/PSM-130 APS General Physical Description</title>
+<tgroup cols="2">
+<?PubTbl tgroup dispwid="569.00px"?>
+<colspec colname="col1" colwidth="1.06*"/>
+<colspec align="center" colname="col2" colwidth="0.94*"/>
+<tbody>
+<row>
+<entry>APS Part Number </entry>
+<entry>13020A0000</entry>
+</row>
+<row>
+<entry>APS Nomenclature</entry>
+<entry>AN/PSM-130 APS</entry>
+</row>
+<row>
+<entry>Weapons System Nomenclature</entry>
+<entry>LAV-25A2</entry>
+</row>
+<row>
+<entry>TPH Reference Designators</entry>
+<entry>W1 through W8, A2 and A3</entry>
+</row>
+<row>
+<entry>TPH Category</entry>
+<entry>Wiring</entry>
+</row>
+<row>
+<entry>Cooling Requirements</entry>
+<entry>None</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara2>
+<subpara2 id="p1-2.1.2" label="1-2.1.2" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.1.2 AN/PSM-130 APS Functional Overview."?>
+<title>AN/PSM-130 APS Functional Overview.</title>
+<para>The APS consists of one (1) Test Program Set that is made up
+of Test Program Hardware (TPH) which includes one (1) transit case,
+one (1) interface device (ID), one (1) test fixtures, one (1) holding
+fixture, and eight (8) Unit Under Test (UUT) test cables, used to
+support ten (10) test programs and one (1) TPH Self-Test program. </para>
+<para>A CD will be delivered with each APS that contains object files
+(.obj) for the TPS test programs. The ID interfaces the UUT to the
+Automatic Test Equipment (ATE) Virtual Instrument Portable Equipment
+Repair/Tester (VIPER/T), or Third Echelon Test Set, Rev. B (TETS-B).</para>
+</subpara2>
+<subpara2 id="p1-2.1.3" label="1-2.1.3" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.1.3 Interface Device Identification."?>
+<title>Interface Device Identification.</title>
+<para>LAV-25A2 (P/N 13020A1000).</para>
+</subpara2>
+<subpara2 id="p1-2.1.4" label="1-2.1.4" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.1.4 Physical Characteristics."?>
+<title>Physical Characteristics.</title>
+<para>Storage and shipping information for APS case can be found in <?hotspot href="T1-3"?>Table
+1-3<?endhotspot?>.</para>
+<para></para>
+<?pub tablewidth="65%"?>
+<table id="T1-3" tocentry="1">
+<title>Table 1-3. Storage and Shipping Configuration</title>
+<tgroup cols="2">
+<?PubTbl tgroup dispwid="538.00px"?>
+<colspec colname="col1" colsep="1" colwidth="0.97*"/>
+<colspec colname="col2" colsep="1" colwidth="0.73*"/>
+<tbody>
+<row rowsep="1" valign="middle">
+<entry align="center" nameend="col2" namest="col1"><emphasis emph="b"
+>Transit Case 1</emphasis></entry>
+</row>
+<row>
+<entry align="center"><emphasis emph="b">Length</emphasis></entry>
+<entry align="center">34.43 Inches</entry>
+</row>
+<row>
+<entry align="center"><emphasis emph="b">Width</emphasis></entry>
+<entry align="center">27.40 Inches</entry>
+</row>
+<row rowsep="1">
+<entry align="center"><emphasis emph="b">Height</emphasis></entry>
+<entry align="center">19.37 Inches</entry>
+</row>
+<row>
+<entry align="center"><emphasis emph="b">Square</emphasis></entry>
+<entry align="center">19.0 Inches</entry>
+</row>
+<row rowsep="1">
+<entry align="center"><emphasis emph="b">Cube</emphasis></entry>
+<entry align="center">6.96 Cubic Feet</entry>
+</row>
+<row>
+<entry align="center"><emphasis emph="b">Weight</emphasis></entry>
+<entry align="center">30 Pounds</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</subpara2>
+</subpara1>
+<?FRAME id='C1s2c' title='CHAP. 1 - GENERAL INFORMATION, SECT. II - EQUIPMENT DESCRIPTION' image="'.\graphics\Fig1-1_1.pic'" next='.\C1s1.xml!C1s2d' previous='.\C1s1.xml!C1s2b'?>
+<subpara1 id="p1-2.2" label="1-2.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1-2.2 APS Case 1 Components."?>
+<title>APS Case 1 Components.</title>
+<para>This paragraph provides APS Case 1 component information. <?hotspot linktype="picture" href="./graphics/Fig1-1_1.pic"?>Figure
+1-1<?endhotspot?> displays a graphic showing APS Case 1 components.
+ <?hotspot href="T1-4"?>Table 1-4<?endhotspot?> provides a description
+and part number for each component.</para>
+<para></para>
+<?pub tablewidth="80%"?>
+<table id="T1-4" tocentry="1">
+<title>Table 1-4. APS Case 1 Components</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="700.00px"?>
+<colspec colname="col1" colwidth="0.32*"/>
+<colspec colname="col2" colwidth="1.14*"/>
+<colspec colname="col3" colwidth="0.64*"/>
+<thead>
+<row>
+<entry>Figure 1-1, Item #</entry>
+<entry align="center">Description</entry>
+<entry align="center">Part Number</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W8</entry>
+<entry align="center">08014A3800</entry>
+</row>
+<row>
+<entry align="center">2</entry>
+<entry>INTERFACE DEVICE</entry>
+<entry align="center">13020A1000</entry>
+</row>
+<row>
+<entry align="center">3</entry>
+<entry>FIXTURE ASSEMBLY, Self-Test</entry>
+<entry align="center">13020A6000</entry>
+</row>
+<row>
+<entry align="center">4</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W1</entry>
+<entry align="center">13020A7100</entry>
+</row>
+<row>
+<entry align="center">5</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W2</entry>
+<entry align="center">13020A7200</entry>
+</row>
+<row>
+<entry align="center">6</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W3</entry>
+<entry align="center">13020A7300</entry>
+</row>
+<row>
+<entry align="center">7</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W4</entry>
+<entry align="center">13020A7400</entry>
+</row>
+<row>
+<entry align="center">8</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W5</entry>
+<entry align="center">13020A7500</entry>
+</row>
+<row>
+<entry align="center">9</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W6</entry>
+<entry align="center">13020A7600</entry>
+</row>
+<row>
+<entry align="center">10</entry>
+<entry>CABLE ASSEMBLY, Special Purpose, W7</entry>
+<entry align="center">13020A7700</entry>
+</row>
+<row>
+<entry align="center">11</entry>
+<entry>FIXTURE ASSEMBLY, Holding</entry>
+<entry align="center">13020A9015</entry>
+</row>
+<row>
+<entry align="center">12</entry>
+<entry>DISK, Executables, TETS-B, AN/PSM-130</entry>
+<entry align="center">13020A0051</entry>
+</row>
+<row>
+<entry align="center">13</entry>
+<entry>DISK, Executables, VIPER/T, AN/PSM-130</entry>
+<entry align="center">13020A0050</entry>
+</row>
+<row>
+<entry align="center">14</entry>
+<entry>LABEL, Inventory</entry><?Pub Caret 5?>
+<entry align="center">13020A0013</entry>
+</row>
+<row>
+<entry align="center">15</entry>
+<entry>TRANSIT CASE</entry>
+<entry align="center">13020A0010</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</subpara1>
+<?FRAME id='C1s2d' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  next='.\C1s1.xml!C1s2e' previous='.\C1s1.xml!C1s2c'?>
+<subpara1 id="p1-2.3" label="1-2.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1-2.3 APS UUT Cables W1 Through W8."?>
+<title>UUT Cables List, W1 through W8.</title>
+<para>The following paragraphs provide information for each cable
+utilized in Application Program Set testing of UUTs. <?hotspot href="T1-5"?>Table
+1-5<?endhotspot?> provides cable numbers (where available), a description,
+and part numbers for the cables. When selecting one of the cable numbers
+&ldquo;W1 through W8&rdquo; in the table, a graphic will display showing
+each cable assembly.</para>
+<para> <?pub tablewidth="60%"?> <table id="T1-5" tocentry="1">
+<title>Table 1-5. APS UUT Cable Assembly List</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="961.00px"?>
+<colspec colname="col1" colwidth="0.54*"/>
+<colspec colname="col2" colwidth="1.28*"/>
+<colspec colname="col3" colwidth="0.59*"/>
+<thead>
+<row>
+<entry align="center">Cable Number</entry>
+<entry align="center">Description</entry>
+<entry align="center">Part Number</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.1"?>W1<?endhotspot?></entry>
+<entry>UUT Cable Assembly, CDA Control Logic A</entry>
+<entry align="center">13020A7100</entry>
+</row>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.2"?>W2<?endhotspot?></entry>
+<entry>UUT Cable Assembly, CDA Control Logic B</entry>
+<entry align="center">13020A7200</entry>
+</row>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.3"?>W3<?endhotspot?></entry>
+<entry>UUT Cable Assembly, CDA Grenade Relay</entry>
+<entry align="center">13020A7300</entry>
+</row>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.4"?>W4<?endhotspot?></entry>
+<entry>UUT Cable Assembly, GCU Logic</entry>
+<entry align="center">13020A7400</entry>
+</row>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.5"?>W5<?endhotspot?></entry>
+<entry>UUT Cable Assembly, GCU Power Drive</entry>
+<entry align="center">13020A7500</entry>
+</row>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.6"?>W6<?endhotspot?></entry>
+<entry>UUT Cable Assembly, GTD Power Supply</entry>
+<entry align="center">13020A7600</entry>
+</row>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.7"?>W7<?endhotspot?></entry>
+<entry>UUT Cable Assembly, GTD Processor</entry>
+<entry align="center">13020A7700</entry>
+</row>
+<row>
+<entry align="center"><?hotspot href="p1-2.3.8"?>W8<?endhotspot?></entry>
+<entry>UUT Cable Assembly, RS422</entry>
+<entry align="center">08014A3800</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+<?FRAME id='C1s2e' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-2_1.pic'" next='.\C1s1.xml!C1s2f'  previous='.\C1s1.xml!C1s2d'?>
+<subpara2 id="p1-2.3.1" label="1-2.3.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.1 W1 UUT Cable Assembly, CDA Control Logic A (P/N 13020A7100)."?>
+<title>W1 UUT Cable Assembly, CDA Control Logic A (P/N 13020A7100).</title>
+<para>W1 cable provides electrical signal interface between the Automatic
+Test Equipment (ATE) and the Unit Under Test (UUT) being tested (CDA
+Logic CCA 16104813-011 or CDA Logic A CCA 16101157-021). Cable W1
+is used in conjunction with Cable W2 when testing the CDA Logic CCA.
+Cable W1 is solely used when testing the CDA Logic A CCA.</para>
+<para><note>
+<para>Only signals used by the UUT are listed in the table below.</para>
+</note> </para>
+<?pub tablewidth="90%"?>
+<table id="T1-6" tocentry="1">
+<title>Table 1-6. W1 UUT Cable Assembly, CDA Control Logic A (P/N
+13020A7100)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="860.00px"?>
+<colspec colname="col1" colwidth="1.53*"/>
+<colspec colname="col2" colwidth="0.66*"/>
+<colspec colname="col4" colwidth="1.12*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W1 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J1-3 / HE LOW AMMO LAMP LO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-3/P1B-14E</entry>
+</row>
+<row>
+<entry>J1-4 / MAIN GUN ABOVE ZERO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-4/P1B-13A</entry>
+</row>
+<row>
+<entry>J1-5 / DRIVERS HATCH OVERRIDE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-5/P1B-14A</entry>
+</row>
+<row>
+<entry>J1-8 / HE AMMO SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-8/P1A-5E</entry>
+</row>
+<row>
+<entry>J1-9 / AP AMMO SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-9/P1A-1A</entry>
+</row>
+<row>
+<entry>J1-12 / AP LOW AMMO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-12/P1B-8A</entry>
+</row>
+<row>
+<entry>J1-13 / CDR CONTROL MAIN GUN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-13/P1B-14B</entry>
+</row>
+<row>
+<entry>J1-17 / GNR CONTROL COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-17/P1A-2B</entry>
+</row>
+<row>
+<entry>J1-19 / MAIN GUN MISFIRE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-19/P1B-13C</entry>
+</row>
+<row>
+<entry>J1-20 / FIRE COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-20/P1B-4A</entry>
+</row>
+<row>
+<entry>J1-22 / WEAPON SELECT SW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-22/P1A-1B</entry>
+</row>
+<row>
+<entry>J1-26 / 200 R/M LAMP HI</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-26/P1A-6C</entry>
+</row>
+<row>
+<entry>J1-27 / CDR SELECT 200 R/M</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-27/P1B-14C</entry>
+</row>
+<row>
+<entry>J1-28 / CDR SELECT 100 R/M</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-28/P1B-9A</entry>
+</row>
+<row>
+<entry>J1-29 / MAIN GUN ARMED </entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-29/P1A-1C</entry>
+</row>
+<row>
+<entry>J1-30 / LAMP TEST</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-30/P1B-4B</entry>
+</row>
+<row>
+<entry>J1-31 / STBD SALVO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-31/P1A-2C</entry>
+</row>
+<row>
+<entry>J1-32 / TURRENT DRIVE POWER SUPPLY</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-32/P1B-6B</entry>
+</row>
+<row>
+<entry>J1-33 / SHORTED TO J1-32</entry>
+<entry align="center">I/O</entry>
+<entry align="center">NOT USED</entry>
+</row>
+<row>
+<entry>J1-34 / WEAPON CONTROL PWR</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-34/P1A-5F</entry>
+</row>
+<row>
+<entry>J1-38 / REAR DECK HATCH CLOSED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-38/P1B-8B</entry>
+</row>
+<row>
+<entry>J1-41 / DRIVE UP DISCRETE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-41/P1B-10E</entry>
+</row>
+<row>
+<entry>J1-43 / MAIN GUN SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-43/P1B-9D</entry>
+</row>
+<row>
+<entry>J1-46 / HE LOW AMMO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-46/P1B-7B</entry>
+</row>
+<row>
+<entry>J1-47 / CDR CONTROL MAIN GUN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-47/P1A-3F</entry>
+</row>
+<row>
+<entry>J1-50 / COAX LOW AMMO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-50/P1B-6A</entry>
+</row>
+<row>
+<entry>J1-51 / CDR CONTROL COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-51/P1B-9B</entry>
+</row>
+<row>
+<entry>J1-53 / MAIN GUN MISFIRE LAMP LO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-53/P1B-12F</entry>
+</row>
+<row>
+<entry>J1-54 / VENT BLOWER HI</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-54/P1B-4C</entry>
+</row>
+<row>
+<entry>J1-57 / 100 R/M RATE OF FIRE CMD</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-57/P1A-7B</entry>
+</row>
+<row>
+<entry>J1-59 / ARM MAIN GUN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-59/P1A-4C</entry>
+</row>
+<row>
+<entry>J1-60 / FIRE MAIN GUN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-60/P1A-1D</entry>
+</row>
+<row>
+<entry>J1-61 / GNR SELECT 200 R/M</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-61/P1B-7A</entry>
+</row>
+<row>
+<entry>J1-62 / GNR SELECT 100 R/M</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-62/P1B-7C</entry>
+</row>
+<row>
+<entry>J1-69 / PRIME POWER RETURN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-69/P1B-1F</entry>
+</row>
+<row>
+<entry>J3-4 / SWITCH EXCITATION (h)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-4/P1A-3B</entry>
+</row>
+<row>
+<entry>J3-7 / F1-1</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-7/P1A-9F</entry>
+</row>
+<row>
+<entry>J3-8 / AUX_POWER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-8/P1A-2D</entry>
+</row>
+<row>
+<entry>J3-16 / BATTLE OVERRIDE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-16/P1B-6C</entry>
+</row>
+<row>
+<entry>J3-17 / APA_A_TP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-17/P1B-13F</entry>
+</row>
+<row>
+<entry>J3-18 / APA_B_TP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-18/P1B-12E</entry>
+</row>
+<row>
+<entry>J3-19 / TRAVERSE INHIBIT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-19/P1B-9F</entry>
+</row>
+<row>
+<entry>J3-22 / APA_C</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-22/P1A-3E</entry>
+</row>
+<row>
+<entry>J3-24 / AZ RATE COMMAND HI</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-24/P1A-7F</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</subpara2>
+<?FRAME id='C1s2f' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION' image="'.\graphics\Fig1-3_1.pic'" next='.\C1s1.xml!C1s2g' previous='.\C1s1.xml!C1s2e'?>
+<subpara2 id="p1-2.3.2" label="1-2.3.2" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.2 W2 UUT Cable Assembly, CDA Control Logic B (P/N 13020A7200)."?>
+<title>W2 UUT Cable Assembly, CDA Control Logic B (P/N 13020A7200).</title>
+<para>W2 cable provides electrical signal interface between the Automatic
+Test Equipment (ATE) and the Unit Under Test (UUT) being tested (CDA
+Logic CCA 16104813-011 or CDA Logic B CCA 7566139-121). Cable W2 is
+used in conjunction with Cable W1 when testing the CDA Logic CCA.
+Cable W2 is solely used when testing the CDA Logic B CCA. </para>
+<para><note>
+<para>Only signals used by the UUT are listed in the table below.</para>
+</note></para>
+<?pub tablewidth="90%"?>
+<table id="T1-7" tocentry="1">
+<title>Table 1-7. W2 UUT Cable Assembly, CDA Control Logic B (P/N
+13020A7200)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="884.00px"?>
+<colspec colname="col1" colwidth="1.69*"/>
+<colspec colname="col2" colwidth="0.64*"/>
+<colspec colname="col4" colwidth="0.98*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W2 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J1-3 / EL STAB NULL MONITOR</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-3/P1B-8F</entry>
+</row>
+<row>
+<entry>J1-5 / AZ STAB NULL MONITOR</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-5/P1B-6F</entry>
+</row>
+<row>
+<entry>J1-8 / GNR PALM SWITCH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-8/P1A-2B</entry>
+</row>
+<row>
+<entry>J1-12 / SELECT H.E.</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-12/P1B-9F</entry>
+</row>
+<row>
+<entry>J1-13 / CDR AZ HANDLE CMD (LO)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-13/P1A-2A</entry>
+</row>
+<row>
+<entry>J1-16 / TRIGGER (TR)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-16/P1B-11F</entry>
+</row>
+<row>
+<entry>J1-17 / -15V DC (GTDE)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-17/P1A-8C</entry>
+</row>
+<row>
+<entry>J1-18 / +15VDC (GTDE)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-18/P1A-3C</entry>
+</row>
+<row>
+<entry>J1-22 / CDR TRIGGER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-22/P1A-4F </entry>
+</row>
+<row>
+<entry>J1-23 / HYD PUMP MOTOR ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-23/P1A-7B</entry>
+</row>
+<row>
+<entry>J1-24 / PALM SWITCH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-24/P1B-8C</entry>
+</row>
+<row>
+<entry>J1-28 / HYDRAULIC DRIVE ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-28/P1B-14F</entry>
+</row>
+<row>
+<entry>J1-32 / AUX TRIGGER ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-32/P1B-7A</entry>
+</row>
+<row>
+<entry>J1-33 / GNR PALM SW. ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-33/P1B-14E</entry>
+</row>
+<row>
+<entry>J1-34 / CDR PALM SW. ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-34/P1A-4E</entry>
+</row>
+<row>
+<entry>J1-41 / CMDR TRIGGER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-41/P1B-12D</entry>
+</row>
+<row>
+<entry>J1-42 / GNR-AUX TRIGGER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-42/P1A-1C</entry>
+</row>
+<row>
+<entry>J1-43 / GNR AZ HANDLE CMD (LO)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-43/P1A-2D</entry>
+</row>
+<row>
+<entry>J1-47 / SELECT A.P.</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-47/P1B-7F</entry>
+</row>
+<row>
+<entry>J1-49 / STAB SWITCH N.O.</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-49/P1B-6A</entry>
+</row>
+<row>
+<entry>J1-50 / EL RATE COMMAND (HI)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-50/P1B-8B</entry>
+</row>
+<row>
+<entry>J1-51 / PRIME POWER RETURN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-51/P1B-4F</entry>
+</row>
+<row>
+<entry>J1-53 / GNR SELECT A.P.</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-53/P1A-1B</entry>
+</row>
+<row>
+<entry>J1-54 / CDR SELECT H.E.</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-54/P1A-2F</entry>
+</row>
+<row>
+<entry>J1-55 / GNR SELECT H.E.</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-55/P1B-12F </entry>
+</row>
+<row>
+<entry>J1-56 / CDR AZ HANDLE CMD (HI)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-56/P1A-3E</entry>
+</row>
+<row>
+<entry>J1-57 / GNR AZ HANDLE CMD (HI)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-57/P1B-10A</entry>
+</row>
+<row>
+<entry>J1-61 / +15V DC CONTROL</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-61/P1A-3F</entry>
+</row>
+<row>
+<entry>J1-62 / -15V DC CONTROL</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-62/P1B-13F </entry>
+</row>
+<row>
+<entry>J1-64 / WEAPON CONTROL POWER SUPPLY</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-64/P1B-10F</entry>
+</row>
+<row>
+<entry>J1-67 / GNR PALM SWITCH INTERLOCK</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-67/P1B-12E</entry>
+</row>
+<row>
+<entry>J1-69 / TURRENT DRIVE POWER SUPPLY (TDPS)</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-69/P1A-4D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</subpara2>
+<?FRAME id='C1s2g' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-4_1.pic'" next='.\C1s1.xml!C1s2h'  previous='.\C1s1.xml!C1s2f'?>
+<subpara2 id="p1-2.3.3" label="1-2.3.3" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.3 W3 UUT Cable Assembly, CDA Grenade Relay (P/N 13020A7300)."?>
+<title>W3 UUT Cable Assembly, CDA Grenade Relay (P/N 13020A7300).</title>
+<para>The W3 cable provides electrical signal interface between the
+Automatic Test Equipment (ATE) and the CDA Grenade Relay CCA 7579575-011
+Unit Under Test (UUT).</para>
+<para><note>
+<para>Only signals used by the UUT are listed in the table below.</para>
+</note> </para>
+<?pub tablewidth="90%"?>
+<table id="T1-8" tocentry="1">
+<title>Table 1-8. W3 UUT Cable Assembly, CDA Grenade Relay (P/N 13020A7300)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="885.00px"?>
+<colspec colname="col1" colwidth="1.58*"/>
+<colspec colname="col2" colwidth="0.60*"/>
+<colspec colname="col4" colwidth="0.93*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W3 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J1-1 / VENT BLOWER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-1/P1B-14C</entry>
+</row>
+<row>
+<entry>J1-2 / TRT VENT PWR HI</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-2/P1B-13C</entry>
+</row>
+<row>
+<entry>J1-3 /VENT BLOWER RELAY HI</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-3/P1B-14A</entry>
+</row>
+<row>
+<entry>J1-4 / GRENADE LAUNCHER ARMED LAMP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-4/P1A-2E</entry>
+</row>
+<row>
+<entry>J1-5 / FIRE 28V RTN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-5/P1B-4A</entry>
+</row>
+<row>
+<entry>J1-6 / FIRE 28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-6/P1B-7A</entry>
+</row>
+<row>
+<entry>J1-7 / COAX ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-7/P1B-13B</entry>
+</row>
+<row>
+<entry>J1-8 / TRIGGER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-8/P1B-14B</entry>
+</row>
+<row>
+<entry>J1-9 / VENT BLOWER RELAY LO</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-9/P1B-13A</entry>
+</row>
+<row>
+<entry>J1-10 / SMOKE PORT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-10/P1A-6E</entry>
+</row>
+<row>
+<entry>J1-11 / RS 28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-11/P1B-5C</entry>
+</row>
+<row>
+<entry>J1-12 / COAX ARMED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-12/P1A-IC</entry>
+</row>
+<row>
+<entry>J1-13 / COAX ARMED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-13/P1A-2C</entry>
+</row>
+<row>
+<entry>J1-14 / RS PORT SMOKE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-14/P1B-7B</entry>
+</row>
+<row>
+<entry>J1-15 / HATCH OVERRIDE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-15/P1A-2A</entry>
+</row>
+<row>
+<entry>J1-16 / GRENADE RTN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-16/P1A-5F</entry>
+</row>
+<row>
+<entry>J1-17 / SMOKE STBD</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-17/P1A-6F</entry>
+</row>
+<row>
+<entry>J1-19 / FIRE COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-19/P1A-10F</entry>
+</row>
+<row>
+<entry>J1-20 / FIRE COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-20/P1A-1D</entry>
+</row>
+<row>
+<entry>J1-21 / VENT BLOWER HI</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-21/P1B-9A</entry>
+</row>
+<row>
+<entry>J1-22 / TRT VENT PWR HI</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-22/P1B-9B</entry>
+</row>
+<row>
+<entry>J1-23 / ARM LAMP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-23/P1A-1F</entry>
+</row>
+<row>
+<entry>J1-24 / FIRE 28V RTN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-24/P1B-14D</entry>
+</row>
+<row>
+<entry>J1-25 / FIRE 28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-25/P1A-2F</entry>
+</row>
+<row>
+<entry>J1-26 / FIRE 28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-26/P1B-7C</entry>
+</row>
+<row>
+<entry>J1-28 / TRIGGER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-28/P1A-1A</entry>
+</row>
+<row>
+<entry>J1-29 / FIRE 28V RTN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-29/P1B-13D</entry>
+</row>
+<row>
+<entry>J1-30 / RS STB SMOKE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-30/P1B-6A</entry>
+</row>
+<row>
+<entry>J1-31 / COAX ARMED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-31/P1B-9C</entry>
+</row>
+<row>
+<entry>J1-32 / COAX ARMED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-32/P1B-8B</entry>
+</row>
+<row>
+<entry>J1-33 / COAX ARMED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-33/P1A-2D</entry>
+</row>
+<row>
+<entry>J1-34 / RS ALL SMOKE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-34/P1A-3E</entry>
+</row>
+<row>
+<entry>J1-35 / REAR DECK HATCHES CLOSED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-35/P1A-1B</entry>
+</row>
+<row>
+<entry>J1-36 / DRIVERS HATCH CLOSED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-36/P1A-2B</entry>
+</row>
+<row>
+<entry>J1-38 / FIRE COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-38/P1B-8A</entry>
+</row>
+<row>
+<entry>J1-39 / FIRE COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-39/P1A-8E</entry>
+</row>
+<row>
+<entry>J1-40 / FIRE COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-40/P1A-1E</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</subpara2>
+<?FRAME id='C1s2h' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-5_1.pic'" next='.\C1s1.xml!C1s2h1' previous='.\C1s1.xml!C1s2g'?>
+<subpara2 id="p1-2.3.4" label="1-2.3.4" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.4 W4 UUT Cable Assembly, GCU Logic (P/N 13020A7400)."?>
+<title>W4 UUT Cable Assembly, GCU Logic (P/N 13020A7400).</title>
+<para>The W4 cable provides electrical signal interface between the
+Automatic Test Equipment (ATE) and the Unit Under Test (UUT) being
+tested (Gun Control Logic CCA 7575335-011 or Gun Control logic SLEP
+CCA 00004A2206-1).</para>
+<para><?pub tablewidth="90%"?><table id="T1-9" tocentry="1">
+<title>Table 1-9. W4 UUT Cable Assembly, GCU Logic (P/N 13020A7400)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="885.00px"?>
+<colspec colname="col1" colwidth="1.59*"/>
+<colspec colname="col2" colwidth="0.59*"/>
+<colspec colname="col4" colwidth="0.94*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W4 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J1-1/ SHUNT FIELD</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-1/P1A-13A</entry>
+</row>
+<row>
+<entry>J1-2/ GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-2/P1B-4F</entry>
+</row>
+<row>
+<entry>J1-3/ N.C.</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-3/P1A-1E</entry>
+</row>
+<row>
+<entry>J1-4/ MAIN GUN SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-4/P1B-14C</entry>
+</row>
+<row>
+<entry>J1-5/ CONTROL POWER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-5/P1B-14F</entry>
+</row>
+<row>
+<entry>J1-6/ MAIN GUN CONTROL EXCITATION</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-6/P1B-13D</entry>
+</row>
+<row>
+<entry>J1-7</entry>
+<entry align="center">I/O</entry>
+<entry align="center">NOT USED- TSR</entry>
+</row>
+<row>
+<entry>J1-8/060T EMITTERS</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-8/P1B-6E</entry>
+</row>
+<row>
+<entry>J1-9/ FET # 2</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-9/P1B-5E</entry>
+</row>
+<row>
+<entry>J1-10/ BURST LIMIT ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-10/P1A-11B</entry>
+</row>
+<row>
+<entry>J1-11/ SINGLE SHOT CMD</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-11/P1A-11A</entry>
+</row>
+<row>
+<entry>J1-12</entry>
+<entry align="center">I/O</entry>
+<entry align="center">NOT USED - TSR</entry>
+</row>
+<row>
+<entry>J1-13/ BRAKE B</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-13/P1A-14E</entry>
+</row>
+<row>
+<entry>J1-14/ 100 R/M CMD</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-14/P1A-12E</entry>
+</row>
+<row>
+<entry>J1-15/ MISFIRE RESET</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-15/P1A-12D</entry>
+</row>
+<row>
+<entry>J1-16/ BREECH LOCK</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-16/P1A-12C</entry>
+</row>
+<row>
+<entry>J1-17/ TP36</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-17/P1A-1F</entry>
+</row>
+<row>
+<entry>J1-18/ SEAR POSITION</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-18/P1A-12B</entry>
+</row>
+<row>
+<entry>J1-19/ AP AMMO SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-19/P1A-3E</entry>
+</row>
+<row>
+<entry>J1-20/ AP POSITION</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-20/P1A-9C</entry>
+</row>
+<row>
+<entry>J1-21/ HE FEED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-21/P1A-13B</entry>
+</row>
+<row>
+<entry>J1-22/ AP FEED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-22/P1A-13C</entry>
+</row>
+<row>
+<entry>J1-23/ GUN CONTROL GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-23/P1B-13E</entry>
+</row>
+<row>
+<entry>J1-24/ SENSOR GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-24/P1B-13F</entry>
+</row>
+<row>
+<entry>J1-25/ MAIN GUN ARMED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-25/P1B-12F</entry>
+</row>
+<row>
+<entry>J1-26/ SWITCHED POWER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-26/P1A-13E</entry>
+</row>
+<row>
+<entry>J1-27/ SEAR</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-27/P1A-13D</entry>
+</row>
+<row>
+<entry>J1-28/ FET # 1</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-28/P1B-4E</entry>
+</row>
+<row>
+<entry>J1-29/ MISFIRE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-29/P1B-1F</entry>
+</row>
+<row>
+<entry>J1-30/ NORMAL SHUTDOWN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-30/P1A-9B</entry>
+</row>
+<row>
+<entry>J1-31/ 200 R/M CMD</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-31/P1A-10C</entry>
+</row>
+<row>
+<entry>J1-32/ BRAKE A</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-32/P1B-1E</entry>
+</row>
+<row>
+<entry>J1-33</entry>
+<entry align="center">I/O</entry>
+<entry align="center">NOT USED -TSR</entry>
+</row>
+<row>
+<entry>J1-34/ FIRE MAIN GUN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-34/P1A-10B</entry>
+</row>
+<row>
+<entry>J1-35/ HE AMMO SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-35/P1A2D</entry>
+</row>
+<row>
+<entry>J1-36/ HE POSITION</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-36/P1A-10A</entry>
+</row>
+<row>
+<entry>J1-37/ SEARED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-37/P1A-11C</entry>
+</row>
+<row>
+<entry>J1-38/ SELECT HE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-38/P1A-12A</entry>
+</row>
+<row>
+<entry>J1-39/ SELECT AP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-39/P1A-13F</entry>
+</row>
+<row>
+<entry>J1-40/ MAIN GUN SEARED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-40/P1A13F</entry>
+</row>
+<row>
+<entry nameend="col4" namest="col1">(Continued on next page.)</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+<?FRAME id='C1s2h1' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-5_1.pic'" next='.\C1s1.xml!C1s2i' previous='.\C1s1.xml!C1s2h'?>
+<para><?pub tablewidth="90%"?><table id="T1-9" tocentry="1">
+<title>Table 1-9. W4 UUT Cable Assembly, GCU Logic (P/N 13020A7400)
+(Continued)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="885.00px"?>
+<colspec colname="col1" colwidth="1.59*"/>
+<colspec colname="col2" colwidth="0.59*"/>
+<colspec colname="col4" colwidth="0.94*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W4 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J2-1 /15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A1/P1B-1D</entry>
+</row>
+<row>
+<entry>J2-2 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B1/P1B-1C</entry>
+</row>
+<row>
+<entry>J2-3 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A2/P1B-1B</entry>
+</row>
+<row>
+<entry>J2-4 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B2/P1B-1A</entry>
+</row>
+<row>
+<entry>J2-5 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A3/P1B-2F</entry>
+</row>
+<row>
+<entry>J2-6 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B3/P1B-2C</entry>
+</row>
+<row>
+<entry>J2-7 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A4/P1B-2B</entry>
+</row>
+<row>
+<entry>J2-8 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B4/P1B-9F</entry>
+</row>
+<row>
+<entry>J2-9 /15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3B-B3/P1A-2E</entry>
+</row>
+<row>
+<entry>J2-10 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B5/P1B-2A</entry>
+</row>
+<row>
+<entry>J2-11 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A6/P1B-3C</entry>
+</row>
+<row>
+<entry>J2-12 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B6/P1B-3B</entry>
+</row>
+<row>
+<entry>J2-13 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A7/P1B-3A</entry>
+</row>
+<row>
+<entry>J2-14 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B7/P1B-4C</entry>
+</row>
+<row>
+<entry>J2-15 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A8/P1B-4B</entry>
+</row>
+<row>
+<entry>J2-16 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B8/P1B-4A</entry>
+</row>
+<row>
+<entry>J2-17 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A9/P1B-5C</entry>
+</row>
+<row>
+<entry>J2-18 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B9/P1B-5B</entry>
+</row>
+<row>
+<entry>J2-19 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A10/P1A-3F</entry>
+</row>
+<row>
+<entry>J2-20 / 15V +/- 0.1V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B10/P1B-5A</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara2>
+<?FRAME id='C1s2i' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-6_1.pic'" next='.\C1s1.xml!C1s2J' previous='.\C1s1.xml!C1s2h1'?>
+<subpara2 id="p1-2.3.5" label="1-2.3.5" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.5 W5 UUT Cable Assembly, GCU Power Drive (P/N 13020A7500)."?>
+<title>W5 UUT Cable Assembly, GCU Power Drive (P/N 13020A7500).</title>
+<para>The W5 cable provides electrical signal interface between the
+Automatic Test Equipment (ATE) and the Unit Under Test (UUT) being
+tested (Gun Control Power Drive CCA 7566394-011 or Gun Control Power
+Drive SLEP CCA 00004A2205-1).</para>
+<para><?pub tablewidth="90%"?><table id="T1-10" tocentry="1">
+<title>Table 1-10. W5 UUT Cable Assembly, GCU Power Drive (P/N 13020A7500)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="885.00px"?>
+<colspec colname="col1" colwidth="1.58*"/>
+<colspec colname="col2" colwidth="0.59*"/>
+<colspec colname="col4" colwidth="0.94*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W5 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>TB1-1 / SEAR</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-1/P1-1</entry>
+</row>
+<row>
+<entry>TB1-2 / SEAR SOLENOID POWER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-2/P1-2/P1-19/P1-22</entry>
+</row>
+<row>
+<entry>TB1-3 / SWITCHED WEAPON POWER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-3/P1-5/P1-28</entry>
+</row>
+<row>
+<entry>TB1-4 / FIELD RETURN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-4/P1-27/P1-17/P1-6</entry>
+</row>
+<row>
+<entry>TB1-5 / FIELD POWER</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-5/P1-3/P1-20/P1-23</entry>
+</row>
+<row>
+<entry>TB1-6 / FIELD</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-6/P1-4</entry>
+</row>
+<row>
+<entry>TB1-7 / BRAKE B</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-7/P1-7</entry>
+</row>
+<row>
+<entry>TB1-8 / BRAKE A</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-8/P1-11</entry>
+</row>
+<row>
+<entry>TB1-9 / GROUND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-9/P1-9/P1-24</entry>
+</row>
+<row>
+<entry>TB1-10 / GROUND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-10/P1-10</entry>
+</row>
+<row>
+<entry>TB1-11 / BRAKE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-11/P1-21/P1-8</entry>
+</row>
+<row>
+<entry>TB1-12 / BRAKE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-12/P1-12/P1-18</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara2>
+<?FRAME id='C1s2J' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-7_1.pic'" next='.\C1s1.xml!C1s2K1' previous='.\C1s1.xml!C1s2i'?>
+<subpara2 id="p1-2.3.6" label="1-2.3.6" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.6 W6 UUT Cable Assembly, GTD Power Supply (P/N 13020A7600)."?>
+<title>W6 UUT Cable Assembly, GTD Power Supply (P/N 13020A7600).</title>
+<para>The W6 cable provides electrical signal interface between the
+Automatic Test Equipment (ATE) and the Gun Turret Drive Power Supply
+CCA 7566131-121 Unit Under Test (UUT).</para>
+<para><?pub tablewidth="90%"?><table id="T1-11" tocentry="1">
+<title>Table 1-11. W6 UUT Cable Assembly, GTD Power Supply (P/N 13020A7600)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="885.00px"?>
+<colspec colname="col1" colwidth="1.58*"/>
+<colspec colname="col2" colwidth="0.60*"/>
+<colspec colname="col4" colwidth="0.93*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W6 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J1-1 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-1/P1B-14A</entry>
+</row>
+<row>
+<entry>J1-2 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-2/P1B-13A</entry>
+</row>
+<row>
+<entry>J1-3 / -15V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-3/P1B-14B</entry>
+</row>
+<row>
+<entry>J1-4 /+28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-4/P1B-3D</entry>
+</row>
+<row>
+<entry>J1-5 / +28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-5/P1B-3B</entry>
+</row>
+<row>
+<entry>J1-6 / +15V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-6/P1B-13B</entry>
+</row>
+<row>
+<entry>J1-7 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-7/P1B-1E</entry>
+</row>
+<row>
+<entry>J1-8 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-8/P1A-1E</entry>
+</row>
+<row>
+<entry>J1-9 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-9/P1A-1A</entry>
+</row>
+<row>
+<entry>J1-10 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-10/P1A-2A</entry>
+</row>
+<row>
+<entry>J1-11 / 26V- 800HZ</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-11/P1A-1B</entry>
+</row>
+<row>
+<entry>J1-12 / 26V- 800HZ</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-12/P1A-2B</entry>
+</row>
+<row>
+<entry>J1-13 / 26V- 800HZ</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-13/P1B-14C</entry>
+</row>
+<row>
+<entry>J1-14 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-14/P1B-13C</entry>
+</row>
+<row>
+<entry>J1-15 / -15V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-15/P1B-9A</entry>
+</row>
+<row>
+<entry>J1-16 / -15V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-16/P1B-9B</entry>
+</row>
+<row>
+<entry>J1-17 / NOT USED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">NOT USED</entry>
+</row>
+<row>
+<entry>J1-18 / 15V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-18/P1B-3C</entry>
+</row>
+<row>
+<entry>J1-19 / 15V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-19/P1A-10F</entry>
+</row>
+<row>
+<entry>J1-20 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-20/P1A-2C</entry>
+</row>
+<row>
+<entry>J1-21 / GND </entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-21/P1A-1D</entry>
+</row>
+<row>
+<entry>J1-22 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-22/P1B-9C</entry>
+</row>
+<row>
+<entry>J1-23 / GND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-23/P1B-8A</entry>
+</row>
+<row>
+<entry>J1-24 / 26V - 800HZ</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-24/P1B-8B</entry>
+</row>
+<row>
+<entry>J1-25 / 26V - 800HZ</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-25/P1B-8C</entry>
+</row>
+<row>
+<entry>J1-26 / 26V - 800HZ</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-26/P1A-2D</entry>
+</row>
+<row>
+<entry>J2-1 / 15V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A1/P1A-6E</entry>
+</row>
+<row>
+<entry>J2-2 / 5V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B1/P1A-6F</entry>
+</row>
+<row>
+<entry>J2-3 / UNK</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A2/P1A-7F</entry>
+</row>
+<row>
+<entry>J2-4 / (5 sec.) clock</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B2/P1A-8E</entry>
+</row>
+<row>
+<entry>J2-5 / UNK</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A3/P1B-5C</entry>
+</row>
+<row>
+<entry>J2-6 / UNK</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B3/P1B-4A</entry>
+</row>
+<row>
+<entry>J2-7 / UNK</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A4/P1B-4B</entry>
+</row>
+<row>
+<entry>J2-8 / 0 V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-B4/P1B-4C</entry>
+</row>
+<row>
+<entry>J2-9 / 27.6V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A5/P1B-5B</entry>
+</row>
+<row>
+<entry>J2-11 / 27.6 V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-A6/P1A-7E</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara2>
+<?FRAME id='C1s2K1' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-8_1.pic'" next='.\C1s1.xml!C1s2K2' previous='.\C1s1.xml!C1s2J'?>
+<subpara2 id="p1-2.3.7" label="1-2.3.7" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.7 W7 UUT Cable Assembly, GTD Processor (P/N 13020A7700)."?>
+<title>W7 UUT Cable Assembly, GTD Processor (P/N 13020A7700).</title>
+<para>The W7 cable provides electrical signal interface between the
+Automatic Test Equipment (ATE) and the Gun Turret Drive Stabilization
+System Processor CCA 16102218-061 Unit Under Test (UUT).</para>
+<para><note>
+<para>Only signals used by the UUT are listed in the table below.</para>
+</note></para>
+<para><?pub tablewidth="90%"?><table id="T1-12" tocentry="1">
+<title>Table 1-12. W7 UUT Cable Assembly, GTD Processor (P/N 13020A7700)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="885.00px"?>
+<colspec colname="col1" colwidth="1.58*"/>
+<colspec colname="col2" colwidth="0.61*"/>
+<colspec colname="col4" colwidth="0.94*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W7 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J1-A1, +28 VOLT POWER INPUT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A1/P1-1D</entry>
+</row>
+<row>
+<entry>J1-A4, ROTOR AZ GYRO HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A4/P1B-14E</entry>
+</row>
+<row>
+<entry>J1-A5, TURRENT EL GYRO LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A5/P1A-4A</entry>
+</row>
+<row>
+<entry>J1-A6, EL TEST COMMAND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A6/P1B-14D</entry>
+</row>
+<row>
+<entry>J1-A7, AZ TEST COMMAND</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-47/P1B-13D</entry>
+</row>
+<row>
+<entry>J1-A8, EL TACH HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A8/P1B-14F</entry>
+</row>
+<row>
+<entry>J1-A9, SIGNAL AZ TACH LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A9/P1B-12E</entry>
+</row>
+<row>
+<entry>J1-A11, EL MOTOR CURRENT LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A11/P1A-8A</entry>
+</row>
+<row>
+<entry>J1-A14, EL DRIVE HIGH DAC0</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A14/P1B-14A</entry>
+</row>
+<row>
+<entry>J1-A17, DAC LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A17/P1A-1F</entry>
+</row>
+<row>
+<entry>J1-A20, SYSTEM TEST ENABLE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A20/P1A-5B</entry>
+</row>
+<row>
+<entry>J1-A23, AZ MC FAULT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A23/P1A-11B</entry>
+</row>
+<row>
+<entry>J1-A24, BATTLE OVERRIDE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A24/P1A-12B</entry>
+</row>
+<row>
+<entry>J1-A25, CFG1</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A25/P1A-13B</entry>
+</row>
+<row>
+<entry>J1-A26, STOP UP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A26/P1B-7D</entry>
+</row>
+<row>
+<entry>J1-A27, TEST</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A27/P1B-9E</entry>
+</row>
+<row>
+<entry>J1-A28, CMDR CONTROL COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A28/P1B-11F</entry>
+</row>
+<row>
+<entry>J1-A30, EL MON LAMP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A30/P1B-14B</entry>
+</row>
+<row>
+<entry>J1-A33, AZ BRAKE 28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A33/P1A-2A</entry>
+</row>
+<row>
+<entry>J1-A34, AZ BRAKE PULL</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A34/P1A-10E</entry>
+</row>
+<row>
+<entry>J1-A35, AZ MC MOOG</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A35/P1B-7C</entry>
+</row>
+<row>
+<entry>J1-B1, V15 TP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B1/P1B-9A</entry>
+</row>
+<row>
+<entry>J1-B3, ROTOR EL GYRO HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B3/P1A-3A</entry>
+</row>
+<row>
+<entry>J1-B4, ROTOR AZ GYRO LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B4/P1B-13E</entry>
+</row>
+<row>
+<entry>J1-B6, EL COMMAND HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B6/P1A-5A</entry>
+</row>
+<row>
+<entry>J1-B7, AZ COMMAND HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B7/P1B-12F</entry>
+</row>
+<row>
+<entry>J1-B8, EL TACH LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B8/P1B-13F</entry>
+</row>
+<row>
+<entry>J1-B11, AZ MOTOR CURRENT HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B11/P1B-11D</entry>
+</row>
+<row>
+<entry>J1-B14, EL DRIVE LOW DAC0</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B14/P1B-13A</entry>
+</row>
+<row>
+<entry>J1-B15, AZ DRIVE HIGH DAC1</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B15/P1B-8B</entry>
+</row>
+<row>
+<entry>J1-B16, DAC2 LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B16/P1A-1E</entry>
+</row>
+<row>
+<entry>J1-B20, STAB EN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B20/P1B-7E</entry>
+</row>
+<row>
+<entry>J1-B24, TM EN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B24/P1A-5C</entry>
+</row>
+<row>
+<entry>J1-B25, CFG2</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B25/P1A-6A</entry>
+</row>
+<row>
+<entry>J1-B26, STOP DN</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-26/P1A-6B</entry>
+</row>
+<row>
+<entry>J1-B27, GNR CONTROL COAX</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B27/P1A-6C</entry>
+</row>
+<row>
+<entry>J1-B30, AZ MON LAMP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B30/P1B-13B</entry>
+</row>
+<row>
+<entry>J1-B31, FAULT LAMP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B31/P1A-3E</entry>
+</row>
+<row>
+<entry>J1-B34, EL BRAKE MOOG</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-B34/P1A-2F</entry>
+</row>
+<row>
+<entry nameend="col4" namest="col1">(Continued on next page.)</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+<?FRAME id='C1s2K2' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-8_1.pic'" next='.\C1s1.xml!C1s2L' previous='.\C1s1.xml!C1s2K1'?>
+<para><?pub tablewidth="90%"?><table id="T1-12" tocentry="1">
+<title>Table 1-12. W7 UUT Cable Assembly, GTD Processor (P/N 13020A7700)
+(Continued)</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="885.00px"?>
+<colspec colname="col1" colwidth="1.58*"/>
+<colspec colname="col2" colwidth="0.61*"/>
+<colspec colname="col4" colwidth="0.94*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">W7 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J1-C1, V15N TP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C1/P1B-9B</entry>
+</row>
+<row>
+<entry>J1-C2, GND EXT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C2/P1B-3A</entry>
+</row>
+<row>
+<entry>J1-C3, ROTOR EL GYRO LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C3/P1A-3B</entry>
+</row>
+<row>
+<entry>J1-C4, TURRENT EL GYRO HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C4/P1A-3C</entry>
+</row>
+<row>
+<entry>J1-C6, EL COMMAND LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C6/P1A-10B</entry>
+</row>
+<row>
+<entry>J1-C7, AZ COMMAND LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C7/P1B-8D</entry>
+</row>
+<row>
+<entry>J1-C8, SIGNAL AZ TACH HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C8/P1B-12D</entry>
+</row>
+<row>
+<entry>J1-C10, EL MOTOR CURRENT HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C10/P1A-4B</entry>
+</row>
+<row>
+<entry>J1-C11, AZ MOTOR CURRENT LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C11/P1B-8F</entry>
+</row>
+<row>
+<entry>J1-C15, AZ DRIVE LOW DAC1</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C15/P1B-8C</entry>
+</row>
+<row>
+<entry>J1-C16, DAC3 HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C16/P1A-2E</entry>
+</row>
+<row>
+<entry>J1-C20, PALM SW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C20/P1B-10E</entry>
+</row>
+<row>
+<entry>J1-C21, DCDC FAULT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">J1-C21/P1B-10F</entry>
+</row>
+<row>
+<entry>J1-C22, EL MC FAULT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C22/P1B-11E</entry>
+</row>
+<row>
+<entry>J1-C24, DRIVE UP</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C24/P1A-7A</entry>
+</row>
+<row>
+<entry>J1-C25, MAST</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C25/P1A-7B</entry>
+</row>
+<row>
+<entry>J1-C32, EL BRAKE 28V</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C32/P1A-1B</entry>
+</row>
+<row>
+<entry>J1-C33, EL BRAKE PULL</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C33/P1A-2B</entry>
+</row>
+<row>
+<entry>J1-C40, +5 VOLT TEST POINT</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-C340/P1A-2C</entry>
+</row>
+<row>
+<entry>J2-7, TRT LRF FIRE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-7/P1A-3F</entry>
+</row>
+<row>
+<entry>J2-8, DRIVER UMBRELLA</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-8/P1A-7C</entry>
+</row>
+<row>
+<entry>J2-10, CAN V+</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P2-A2/P1A-14F</entry>
+</row>
+<row>
+<entry>J2-11, CAN V-</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-11/P1A-12F</entry>
+</row>
+<row>
+<entry>J2-12, HE SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-12/P1A-4C</entry>
+</row>
+<row>
+<entry>J2-13, AP SELECTED</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-13/P1A-8B</entry>
+</row>
+<row>
+<entry>J2-14, LAY PB</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-14/P1A-9A</entry>
+</row>
+<row>
+<entry>J2-15, SEAR</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-15/P1B-7F</entry>
+</row>
+<row>
+<entry>J2-16, RANGE PB</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-16/P1B-8E</entry>
+</row>
+<row>
+<entry>J2-17, CARDTEST ENAB</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-17/P1A-8C</entry>
+</row>
+<row>
+<entry>J2-20, MOOG BATTLE MODE</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-20/P1A-11E</entry>
+</row>
+<row>
+<entry>J2-35, CAN_LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-35/P1A-6F</entry>
+</row>
+<row>
+<entry>J2-37, REAR HATCH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-37/P1A-9B</entry>
+</row>
+<row>
+<entry>J2-38, CAN1 LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-38/P1B-5A</entry>
+</row>
+<row>
+<entry>J2-39, MOOG CLOCK-</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-39/P1A-7F</entry>
+</row>
+<row>
+<entry>J2-40, S485 0 LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-40/P1B-9F</entry>
+</row>
+<row>
+<entry>J2-42, MOOG EXT ENAB-</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-42/P1B-5B</entry>
+</row>
+<row>
+<entry>J2-43, S422 2 LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-43/P1A-8E</entry>
+</row>
+<row>
+<entry>J2-44, S485 0 HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-44/P1B-11E</entry>
+</row>
+<row>
+<entry>J2-58, MOOG CLOCK+</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-58/P1A-12E</entry>
+</row>
+<row>
+<entry>J2-60, S422 1 LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-60/P1A-7E</entry>
+</row>
+<row>
+<entry>J2-61, S422 1 HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-61/P1A-11F</entry>
+</row>
+<row>
+<entry>J2-62, CAN TERM DIS</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-62/P1B-1A</entry>
+</row>
+<row>
+<entry>J2-64, S422 2 HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-64/P1A-7F</entry>
+</row>
+<row>
+<entry>J2-66, MOOG EXT ENAB+</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-66/P1B-1B</entry>
+</row>
+<row>
+<entry>J2-67, CAN HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-67/P1A-6E</entry>
+</row>
+<row>
+<entry>J2-68, S485 1 LOW</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-68/P1A-7E</entry>
+</row>
+<row>
+<entry>J2-72, S485 1 HIGH</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-72/P1A-11F</entry>
+</row>
+<row>
+<entry>J2-76, C</entry>
+<entry align="center">I/O</entry>
+<entry align="center">P3-76/P1A-12C</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara2>
+<?FRAME id='C1s2L' title='CHAP. 1 - GENERAL INFORMATION,   SECT. II - EQUIPMENT DESCRIPTION'  image="'.\graphics\Fig1-9_1.pic'" next='.\C1s1.xml!C1s2M' previous='.\C1s1.xml!C1s2K2'?>
+<subpara2 id="p1-2.3.8" label="1-2.3.8" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="1-2.3.8 W8 UUT Cable Assembly, RS422 (P/N 08014A3800)."?>
+<title>W8 UUT Cable Assembly, RS422 (P/N 08014A3800).</title>
+<para>The W8 cable provides RS422 signal interface from the Automatic
+Test Equipment (ATE) to the Gun Turret Drive Stabilization System
+Processor CCA 16102218-061 Unit Under Test (UUT).</para>
+<para><note>
+<para>Only signals used by the UUT are listed in the table below.</para>
+</note> </para>
+<?pub tablewidth="85%"?>
+<table id="T1-13" tocentry="1">
+<title>Table 1-13. W8 UUT Cable Assembly, RS422 (P/N 08014A3800)</title>
+<tgroup cols="4">
+<?PubTbl tgroup dispwid="983.00px"?>
+<colspec colname="col1" colwidth="1.29*"/>
+<colspec colname="col2" colwidth="0.77*"/>
+<colspec colname="col3" colwidth="0.78*"/>
+<colspec colname="col4" colwidth="1.16*"/>
+<thead>
+<row>
+<entry align="center">UUT Connector Pin/Signal Name</entry>
+<entry align="center">I/O Type</entry>
+<entry align="center">Asset</entry>
+<entry align="center">W8 Connector Pin</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>J2-32/RS422 TXD-</entry>
+<entry align="center">I/O</entry>
+<entry align="center">DMM</entry>
+<entry align="center">P2-1/P1-1</entry>
+</row>
+<row>
+<entry>J2-40/RS422 RXD-</entry>
+<entry align="center">I/O</entry>
+<entry align="center">DMM</entry>
+<entry align="center">P2-4/P1-4</entry>
+</row>
+<row>
+<entry>J2-44/RS422 RXD+</entry>
+<entry align="center">I/O</entry>
+<entry align="center">DMM</entry>
+<entry align="center">P2-3/P1-3</entry>
+</row>
+<row>
+<entry>J2-59/RS422 TXD+</entry>
+<entry align="center">I/O</entry>
+<entry align="center">DMM</entry>
+<entry align="center">P2-2/P1-2</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</subpara2>
+</subpara1>
+</para0>
+</section>
+<?FRAME id='C1s2M' title='CHAP. 1 - GENERAL INFORMATION' next='.\C1s1.xml!C1s2n' previous='.\C1s1.xml!C1s2L'?>
+<?PUB TOCLEVEL="2" TEXT="Section III. Demolition to Prevent Enemy Use."?>
+<section id="c1s3" label="Section III." tocentry="1">
+<title>Demolition to Prevent Enemy Use.</title>
+<?PUB TOCLEVEL="3" TEXT="1-3 Introduction."?>
+<para0 id="p1-3" label="1-3" tocentry="1">
+<title>Introduction.</title>
+<para>When capture or abandonment of the APS to an enemy is imminent,
+the responsible unit Commander must make the decision to either destroy
+the equipment or render it inoperative. Based on this decision, orders
+are issued which cover the desired extent of destruction.</para>
+<subpara1 id="p1-3.1" label="1-3.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1-3.1 Render the AN/PSM-130 Inoperative."?>
+<title>Render the AN/PSM-130 APS Inoperative.</title>
+<para>To render the APS inoperative, smash, demolish, or burn Test
+Program Hardware (TPH). Cut or burn the digital media associated with
+the APS.</para>
+</subpara1>
+</para0>
+</section>
+<?FRAME id='C1s2N' title='CHAP. 1 - GENERAL INFORMATION' next='.\C2s1.xml!C2s1a' previous='.\C1s1.xml!C1s2M'?>
+<?PUB TOCLEVEL="2" TEXT="Section IV. Preparation for Use."?>
+<section id="c1s4" label="Section IV." tocentry="1">
+<title>Preparation for Use.</title>
+<?PUB TOCLEVEL="3" TEXT="1-4 Introduction."?>
+<para0 id="p1-4" label="1-4" tocentry="1">
+<title>Introduction.</title>
+<para>For preparation of use, click on &ldquo;Set-up&rdquo; link below
+to go to the Test Program Instructions (TPI) for the Interface Device
+(P/N 13020A1000).</para>
+<subpara1 id="p1-4.1" label="1-4.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="1-4.1 Preparation for Use Instructions."?>
+<title>Preparation for Use Instructions.</title>
+<para>Click on <?hotspot href="./C4s12.xml!C4s12b"?>&rdquo;Interface
+Device (ID) Set-up instructions&rdquo;<?endhotspot?> to continue.</para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body>

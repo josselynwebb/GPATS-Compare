@@ -1,0 +1,11 @@
+Attribute VB_Name = "Module1"
+'Declare Function hpe1420b_init& Lib "Hpe1420b_32.dll" (ByVal x1$, ByVal x2%, ByVal x3%, x4&)
+'Declare Function hpe1420b_writeInstrData& Lib "Hpe1420b_32.dll" (ByVal x1&, ByVal x2$)
+'Declare Function hpe1420b_readInstrData& Lib "Hpe1420b_32.dll" (ByVal x1&, ByVal x2%, ByVal x3$, x4&)
+'Declare Function hpe1420b_reset& Lib "Hpe1420b_32.dll" (ByVal x1&)
+'Declare Function hpe1420b_selfTest& Lib "Hpe1420b_32.dll" (ByVal x1&, x2%, ByVal x3$)
+'Declare Function hpe1420b_errorQuery& Lib "Hpe1420b_32.dll" (ByVal x1&, x2&, ByVal x3$)
+'Declare Function hpe1420b_errorMessage& Lib "Hpe1420b_32.dll" (ByVal x1&, ByVal x2&, ByVal x3$)
+'Declare Function hpe1420b_revisionQuery& Lib "Hpe1420b_32.dll" (ByVal x1&, ByVal x2$, ByVal x3$)
+'Declare Function hpe1420b_waitForRqs& Lib "Hpe1420b_32.dll" (ByVal x1&, ByVal x2&, x3%)
+'Declare Function hpe1420b_close& Lib "Hpe1420b_32.dll" (ByVal x1&)

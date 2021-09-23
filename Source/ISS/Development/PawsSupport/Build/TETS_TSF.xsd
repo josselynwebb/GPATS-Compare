@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by Ion Neag (TYX Corporation) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="STDBSC" targetNamespace="STDTSF" elementFormDefault="qualified">
+	<xs:import namespace="STDBSC" schemaLocation="STDBSC.xsd"/>
+	<xs:element name="ACPS_AC_SIGNAL">
+		<xs:annotation>
+			<xs:documentation>A sinusoidal time-varying electrical signal.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="SignalFunctionType">
+					<xs:attribute name="ac_ampl" type="Physical">
+						<xs:annotation>
+							<xs:documentation>AC Signal amplitude</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="dc_ampl" type="Physical" default="0">
+						<xs:annotation>
+							<xs:documentation>DC Offset</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="freq" type="Frequency">
+						<xs:annotation>
+							<xs:documentation>AC Signal frequency</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="current" type="Current">
+						<xs:annotation>
+							<xs:documentation>AC Signal current</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="current_max" type="Current">
+						<xs:annotation>
+							<xs:documentation>AC Signal current max</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DMM_DC_SIGNAL">
+		<xs:annotation>
+			<xs:documentation>A sinusoidal time-varying electrical signal.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="SignalFunctionType">
+					<xs:attribute name="dc_ampl" type="Physical">
+						<xs:annotation>
+							<xs:documentation>DC Signal amplitude</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="ac_ampl" type="Physical">
+						<xs:annotation>
+							<xs:documentation>AC Signal amplitude</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="freq" type="Frequency">
+						<xs:annotation>
+							<xs:documentation>AC Signal frequency</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="current" type="Current">
+						<xs:annotation>
+							<xs:documentation>DC Signal current</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="sample_count" type="Current">
+						<xs:annotation>
+							<xs:documentation>DC Signal current</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

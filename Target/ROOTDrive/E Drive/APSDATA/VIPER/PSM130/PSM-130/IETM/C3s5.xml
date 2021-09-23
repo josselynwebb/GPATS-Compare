@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-11_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='2' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-12_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='3' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='4' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Control Display Assy\CDA_Grenade Relay (7579575-011)\ TP_LAV_RELAY.OBJ"' bitmap='n' DESC='Select to launch CDA Grenade Relay TPS.'?>
+<?FRAME id='C3s5' title='CHAP. 3 - THEORY OF OPERATION' next='.\C3s5.xml!C3S5b' previous='.\C3s4.xml!C3s4b'?>
+<chapter>
+<section id="c3s5a" label="Section V." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section V. CDA Grenade Relay."?>
+<title>CDA Grenade Relay.</title>
+<para0 id="p3-5" label="3-5" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-5 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide information on the Theory of
+Operation for the CDA Grenade Relay. Part information is also provided
+in paragraph <?hotspot href="p3-5.2"?>3-5.2 Part Information<?endhotspot?>.</para>
+<subpara1 id="p3-5.1" label="3-5.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-5.1 Theory Of Operation."?>
+<title>Theory Of Operation.</title>
+<para>The CDA Grenade Relay contains switching to operate the smoke
+and grenade launcher and circuitry for their indicator lamps.</para>
+<subpara2 id="p3-5.1.1" label="3-5.1.1" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-5.1.1 CDA Grenade Relay Equipment Description."?>
+<title>CDA Grenade Relay Equipment Description.</title>
+<para>The CDA Grenade Relay CCA contains discrete resistors, capacitors,
+diodes and relays. Connection to the UUT chassis is made through the
+J1 connector.</para>
+</subpara2>
+</subpara1>
+<?FRAME label='C3s5b' title='CHAP. 3 - THEORY OF OPERATION,  SECT. V - CDA Grenade Relay' image=".\graphics\Fig3-10_1.pic"  next='.\C3s6.xml!C3S6A' previous='.\C3s5.xml!C3S5A'?>
+<subpara1 id="p3-5.2" label="3-5.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-5.2 Part Information."?>
+<title>Part Information.</title>
+<para>The following provides part information for the CDA Grenade
+Relay.</para>
+<para>Refer to <?hotspot href="T3-4"?>Table 3-4<?endhotspot?> for
+part information.</para>
+<para> <table id="T3-4">
+<title id="T3-4">Table 3-4. CDA Grenade Relay Part Information</title>
+<tgroup align="left" cols="5">
+<colspec colname="col1" colwidth="0.50*"/>
+<colspec colname="COL2" colwidth="0.60*"/>
+<colspec colname="COL3" colwidth="0.49*"/>
+<colspec colname="col4" colwidth="1.39*"/>
+<colspec colname="col5" colwidth="0.43*"/>
+<thead>
+<row>
+<entry align="center">Fig. 3-10 and Index Number</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">CAGEC</entry>
+<entry align="center">Description</entry>
+<entry align="center">Quantity (Qty)</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry align="center">7579575-011</entry>
+<entry align="center">13160</entry>
+<entry>Circuit Card Assembly, CDA Grenade Relay</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 3?>

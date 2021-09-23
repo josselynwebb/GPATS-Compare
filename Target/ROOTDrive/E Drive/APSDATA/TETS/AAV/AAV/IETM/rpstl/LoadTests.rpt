@@ -1,0 +1,33 @@
+	Load Parts Data - Input File Test Results
+
+This test checks the RPSTL input files for problems that might
+impact the way parts data is loaded.  This particular report
+will only check the Section 2 tag file.
+
+This check lists two kinds of problems in the data or structure of
+the input file: 
+
+  - WARNINGS are bad practices, missing data, or inconsistencies
+    that might cause problems.
+  - ERRORS will always result in problems or incorrect data.
+
+Line numbers are provided to help you find and correct these
+issues, but they may not always be exact.  If a report section
+has no entries below its header, no problems were found.
+
+_________________________________________________________
+
+Section 2 Tag File
+
+File: U:\finalCDRSGML\rpstl\rptag.tag
+
+ERROR: Line 1429, The total Part Number value exceeded the maximum size (50).
+WARNING: Standard data field 'UOC' was not used in the data.
+WARNING: Standard data field 'SMR' was not used in the data.
+WARNING: Standard data field 'LCN' was not used in the data.
+WARNING: Standard data field 'WUC' was not used in the data.
+WARNING: Standard data field 'Unit Price' was not used in the data.
+WARNING: Standard data field 'Eco Repl' was not used in the data.
+WARNING: Standard data field 'Man Repl' was not used in the data.
+WARNING: Standard data field 'UI' was not used in the data.
+WARNING: Standard data field 'UM' was not used in the data.

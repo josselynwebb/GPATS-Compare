@@ -1,0 +1,86 @@
+ 000001 BEGIN, ATLAS PROGRAM 'FIREWALL' $
+C $
+C         ************************************************ $
+C         ***           FIREWALL UPDATE NAM            *** $
+C         ************************************************ $
+C $
+        INCLUDE, NON-ATLAS MODULE 'FirewallUpdateNAM' $
+C $
+        DECLARE, VARIABLE,
+          'ACTION'    IS STRING (5) OF CHAR INITIAL  = C'OPEN';
+          'DIRECTION' IS STRING (3) OF CHAR INITIAL  = C'IN';
+          'PROTOCOL'  IS STRING (3) OF CHAR INITIAL  = C'TCP';
+          'PORT'      IS STRING (6) OF CHAR INITIAL  = C'55545';
+          'RETVALUE'  IS INTEGER             INITIAL  = -1 $       
+
+C $
+C         ************************************************ $
+C         ***          OPEN PORT PROCEDURE             *** $
+C         ************************************************ $
+C $
+          DEFINE, 'OPEN_PORT', PROCEDURE('DIRECTION' IS STRING (3) OF CHAR, 'PROTOCOL' IS STRING (3) OF CHAR, 'PORT' IS STRING (6) OF CHAR)
+            RESULT('RESPONSE' IS INTEGER) $
+C $
+            DECLARE, VARIABLE, 'ACTION' IS STRING (5) OF CHAR INITIAL  = C'OPEN' $
+C $
+            CALCULATE, 
+              'DIRECTION' = C'/DIR:' & 'DIRECTION',
+              'PROTOCOL' = C'/PROTO:' & 'PROTOCOL',
+              'PORT' = C'/PORT:' & 'PORT',
+              'RESPONSE' = -1 $
+C $
+            PERFORM, 'FirewallUpdateNAM' ('ACTION', 'DIRECTION', 'PROTOCOL', 'PORT', 'RESPONSE') $
+C $
+          END, 'OPEN_PORT' $
+C $
+C         ************************************************ $
+C         ***          CLOSE PORT PROCEDURE            *** $
+C         ************************************************ $
+C $
+          DEFINE, 'CLOSE_PORT', PROCEDURE('DIRECTION' IS STRING (3) OF CHAR, 'PROTOCOL' IS STRING (3) OF CHAR, 'PORT' IS STRING (6) OF CHAR)
+            RESULT('RESPONSE' IS INTEGER) $
+C $
+            DECLARE, VARIABLE, 'ACTION' IS STRING (5) OF CHAR INITIAL = C'CLOSE' $
+C $
+            CALCULATE, 
+              'DIRECTION' = C'/DIR:' & 'DIRECTION',
+              'PROTOCOL' = C'/PROTO:' & 'PROTOCOL',
+              'PORT' = C'/PORT:' & 'PORT',
+              'RESPONSE' = -1 $
+C $
+            PERFORM, 'FirewallUpdateNAM' ('ACTION', 'DIRECTION', 'PROTOCOL', 'PORT', 'RESPONSE') $
+C $
+          END, 'CLOSE_PORT' $
+C $
+E000010   OUTPUT, C'*** BEGIN ATLAS PROGRAM ***\LF\\LF\' $
+          OUTPUT, C'NOTE:  This NAM requires the GPATSUtils v1.1.0 windows service to be installed and running\LF\' $
+          OUTPUT, C'Upon completion of successful attempt, NAM will return a <int> 0\LF\' $
+          OUTPUT, C'Press ENTER when ready\LF\' $
+          INPUT, GO-NOGO $
+
+
+     15   OUTPUT, C'Configuring Windows Firewall to open port ','PORT',C' ...' $
+
+     20   PERFORM, 'OPEN_PORT'('DIRECTION', 'PROTOCOL', 'PORT')
+            RESULT('RETVALUE') $
+
+     25   OUTPUT, 'RETVALUE' $
+
+          INPUT, GO-NOGO $
+
+          CALCULATE, 'RETVALUE' = -1 $
+
+     30   OUTPUT, C'Configuring Windows Firewall to close port ','PORT',c' ...' $
+
+     35   PERFORM, 'CLOSE_PORT'('DIRECTION', 'PROTOCOL', 'PORT')
+            RESULT('RETVALUE') $
+
+     40   OUTPUT, 'RETVALUE' $
+
+          INPUT, GO-NOGO $
+
+          CALCULATE, 'RETVALUE' = -1 $
+
+     90   FINISH $
+C $
+ 999999 TERMINATE, ATLAS PROGRAM 'FIREWALL' $

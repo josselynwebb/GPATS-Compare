@@ -1,0 +1,248 @@
+COVER
+LIST OF FIGURES
+LIST OF TABLES
+SAFETY SUMMARY
+CHAPTER 1 - GENERAL INFORMATION
+	Section I. Introduction.
+		1-1 Introduction.
+			1-1.1 Documents.
+			1-1.2 Reporting Errors And Improvements.
+			1-1.3 Unit Under Test (UUT) Nomenclature Cross-Reference.
+	Section II. Equipment Description.
+		1-2 Introduction.
+			1.2.1. General Equipment Description.
+				1-2.1.1 APS General Physical Description.
+				1-2.1.2 AN/PSM-130 APS Functional Overview.
+				1-2.1.3 Interface Device Identification.
+				1-2.1.4 Physical Characteristics.
+			1-2.2 APS Case 1 Components.
+			1-2.3 APS UUT Cables W1 Through W8.
+				1-2.3.1 W1 UUT Cable Assembly, CDA Control Logic A (P/N 13020A7100).
+				1-2.3.2 W2 UUT Cable Assembly, CDA Control Logic B (P/N 13020A7200).
+				1-2.3.3 W3 UUT Cable Assembly, CDA Grenade Relay (P/N 13020A7300).
+				1-2.3.4 W4 UUT Cable Assembly, GCU Logic (P/N 13020A7400).
+				1-2.3.5 W5 UUT Cable Assembly, GCU Power Drive (P/N 13020A7500).
+				1-2.3.6 W6 UUT Cable Assembly, GTD Power Supply (P/N 13020A7600).
+				1-2.3.7 W7 UUT Cable Assembly, GTD Processor (P/N 13020A7700).
+				1-2.3.8 W8 UUT Cable Assembly, RS422 (P/N 08014A3800).
+	Section III. Demolition to Prevent Enemy Use.
+		1-3 Introduction.
+			1-3.1 Render the AN/PSM-130 Inoperative.
+	Section IV. Preparation for Use.
+		1-4 Introduction.
+			1-4.1 Preparation for Use Instructions.
+CHAPTER 2 - SAFETY PRECAUTIONS
+	Section I. Introduction.
+		2-1 Introduction.
+			2-1.1 Safety Responsibilities.
+			2-1.2 Safety Notations - Warnings, Cautions And Notes.
+	Section II. General Safety Summary.
+		2-2 Introduction.
+			2-2.1 Electrical Current.
+				2-2.1.1 Emergency Procedures For Victims Of Electrical Shock.
+			2-2.2 ESD Hazards And Precautions.
+				2-2.2.1 ESD Awareness, Management And Symbol.
+				2-2.2.2 ESD Damage Prevention.
+	Section III. Maintenance Safety Guidelines.
+		2-3 Introduction.
+			2-3.1 General Maintenance Safety Guidelines.
+			2-3.2 Personal Maintenance Safety Guidelines.
+			2-3.3 Hand Tool And Test Equipment Maintenance Safety Guidelines.
+			2-3.4 Handling Chemical Agent Safety Guidelines.
+			2-3.5 Do Not Service Alone.
+			2-3.6 Keep Away From Live Circuits.
+			2-3.7 Resuscitation.
+			2-3.8 Flammable Liquids.
+			2-3.9 Chemicals/Cleaners.
+			2-3.10 Personal Protective Equipment.
+			2-3.11 Soldering.
+			2-3.12 Do Not Wear Jewelry.
+CHAPTER 3 - THEORY OF OPERATION
+	Section I. Introduction.
+		3-1 Introduction.
+			3-1.1 Scope.
+			3-1.2 Purpose.
+			3-1.3 Content Arrangement.
+	Section II. CDA Logic.
+		3-2 Introduction.
+			3-2.1 Theory Of Operation.
+				3-2.1.1 CDA Logic Equipment Description.
+			3-2.2 Part Information.
+	Section III. CDA Control Logic A.
+		3-3 Introduction.
+			3-3.1 Theory Of Operation.
+				3-3.1.1 CDA Control Logic A Equipment Description.
+			3-3.2 Part Information.
+	Section IV. CDA Control Logic B.
+		3-4 Introduction.
+			3-4.1 Theory Of Operation.
+				3-4.1.1 CDA Control Logic B Equipment Description.
+			3-4.2 Part Information.
+	Section V. CDA Grenade Relay.
+		3-5 Introduction.
+			3-5.1 Theory Of Operation.
+				3-5.1.1 CDA Grenade Relay Equipment Description.
+			3-5.2 Part Information.
+	Section VI. GCU Gun Control Logic A1.
+		3-6 Introduction.
+			3-6.1 Theory Of Operation.
+				3-6.1.1 GCU Gun Control Logic A1 Equipment Description.
+			3-6.2 Part Information.
+	Section VII. GCU Power Drive A2.
+		3-7 Introduction.
+			3-7.1 Theory Of Operation.
+				3-7.1.1 GCU Power Drive A2 Equipment Description.
+			3-7.2 Part Information.
+	Section VIII. GCU Gun Control Logic A1 SLEP.
+		3-8 Introduction.
+			3-8.1 Theory Of Operation.
+				3-8.1.1 GCU Gun Control Logic A1 SLEP Equipment Description.
+			3-8.2 Part Information.
+	Section IX. GCU Power Drive A2 SLEP.
+		3-9 Introduction.
+			3-9.1 Theory Of Operation.
+				3-9.1.1 GCU Power Drive A2 SLEP Equipment Description.
+			3-9.2 Part Information.
+	Section X. GTD Power Supply.
+		3-10 Introduction.
+			3-10.1 Theory Of Operation.
+				3-10.1.1 GTD Power Supply Equipment Description.
+				3-10.1.2 DCPS Description.
+				3-10.1.3 800Hz AC Supply.
+			3-10.2 Part Information.
+	Section XI. GTD Stabilization System Processor.
+		3-11 Introduction.
+			3-11.1 Theory Of Operation.
+				3-11.1.1 GTD Stabilization System Processor Equipment Description.
+				3-11.1.2 Functional Decomposition.
+			3-11.2 Part Information.
+	Section XII. TPH Self-Test.
+		3-12 Introduction.
+			3-12.1 Theory Of Operation.
+				3-12.1.1 TPH Equipment Description.
+			3-12.2 Unit Under Test (UUT) List.
+CHAPTER 4 - TEST PROGRAM INSTRUCTIONS
+	Section I. Introduction.
+		4-1 Introduction.
+			4-1.1 Scope.
+			4-1.2 Purpose.
+			4-1.3 Content Arrangement.
+	Section II. CDA Logic.
+		4-2 Introduction.
+			4-2.1 Test Program Instructions.
+			4-2.2 Set-up Instructions.
+			4-2.3 Disconnect Instructions.
+	Section III. CDA Control Logic A.
+		4-3 Introduction.
+			4-3.1 Test Program Instructions.
+			4-3.2 Set-up Instructions.
+			4-3.3 Disconnect Instructions.
+	Section IV. CDA Control Logic B.
+		4-4 Introduction.
+			4-4.1 Test Program Instructions.
+			4-4.2 Set-up Instructions.
+			4-4.3 Disconnect Instructions.
+	Section V. CDA Grenade Relay.
+		4-5 Introduction.
+			4-5.1 Test Program Instructions.
+			4-5.2 Set-up Instructions.
+			4-5.3 Disconnect Instructions.
+	Section VI. GCU Gun Control Logic A1.
+		4-6 Introduction.
+			4-6.1 Test Program Instructions.
+			4-6.2 Set-up Instructions.
+			4-6.3 Disconnect Instructions.
+	Section VII. GCU Power Drive A2.
+		4-7 Introduction.
+			4-7.1 Test Program Instructions.
+			4-7.2 Set-up Instructions (all models).
+			4-7.3 Instructions for all Modules and Steps.
+			4-7.4 Disconnect Instructions.
+	Section VIII. GCU Gun Control Logic A1 SLEP.
+		4-8 Introduction.
+			4-8.1 Test Program Instructions.
+			4-8.2 Set-up Instructions.
+			4-8.3 Disconnect Instructions.
+	Section IX. GCU Power Drive A2 SLEP.
+		4-9 Introduction.
+			4-9.1 Test Program Instructions.
+			4-9.2 Set-up Instructions (all modules).
+			4-9.3 Instructions for all Modules and Steps.
+			4-9.4 Disconnect Instructions.
+	Section X.  GTD Power Supply.
+		4-10 Introduction.
+			4-10.1 Test Program Instructions.
+			4-10.2 Set-up Instructions.
+			4-10.3 Probe for Diagnostics.
+			4-10.4 Disconnect Instructions.
+	Section XI.  GTD Stabilization System Processor.
+		4-11 Introduction.
+			4-11.1 VIPER/T Test Program Instructions.
+				4-11.1.1 Set-up Instructions.
+				4-11.1.2 Successful Completion of Safe To Turn On Instructions.
+				4-11.1.3 Disconnect Instructions.
+			4-11.2 TETS-B Test Program Instructions.
+				4-11.2.1 Set-up Instructions.
+				4-11.2.2 Successful Completion of Safe To Turn On Instructions.
+				4-11.2.3 Disconnect Instructions:
+	Section XII. TPH Self-Test.
+		4-12 Introduction.
+			4-12.1 Test Program Instructions.
+			4-12.2 Set-up Instructions (All Modules).
+				4-12.2.1 Instruction For Modules 1 - Steps 101 thru 180.
+				4-12.2.2 Instructions for Module 1 - Step 181.
+				4-12.2.3 Instructions for Module 2 - Steps 201 thru 254.
+				4-12.2.4 Instructions for Module 3 - Steps 301 thru 335.
+				4-12.2.5 Instructions for Module 3 - Steps 336 thru 351.
+				4-12.2.6 Instructions for Module 4 - Steps 401 thru 419.
+				4-12.2.7 Instructions for Module 5 - Steps 501 thru 541.
+				4-12.2.8 Instructions for Module 6 - Steps 601 thru 614.
+				4-12.2.9 Instructions for Module 7 - Steps 701 thru 732.
+				4-12.2.10 Instructions for Module 8 - Steps 801 thru 865.
+			4-12.3 Disconnect Instructions.
+				4-12.3.1 Disconnect Instructions for Module 1.
+				4-12.3.2 Disconnect Instructions for Module 2.
+				4-12.3.3 Disconnect Instructions for Module 3.
+				4-12.3.4 Disconnect Instructions for Module 4.
+				4-12.3.5 Disconnect Instructions for Module 5.
+				4-12.3.6 Disconnect Instructions for Module 6.
+				4-12.3.7 Disconnect Instructions for Module 7.
+				4-12.3.8 Disconnect Instructions for Module 8.
+CHAPTER 5 - MAINTENANCE
+	Section I. Introduction.
+		5-1 Introduction.
+	Section II. Preventive Maintenance Checks and Services (PMCS).
+		5-2 Introduction.
+			5-2.1 Before Use Inspections.
+			5-2.2 Consumable Materials.
+				5-2.2.1 Specific Cleaning Procedures.
+	Section III. Corrective Maintenance Instructions.
+		5-3 Introduction.
+	Section IV. CDA Logic.
+		5-4 Introduction.
+	Section V. CDA Control Logic A.
+		5-5 Introduction.
+	Section VI. CDA Control Logic B.
+		5-6 Introduction.
+	Section VII. CDA Grenade Relay.
+		5-7 Introduction.
+	Section VIII. GCU Gun Control Logic A1.
+		5-8 Introduction.
+	Section IX. GCU Power Drive A2.
+		5-9 Introduction.
+	Section X. GCU Gun Control Logic A1 SLEP.
+		5-10 Introduction.
+	Section XI. GCU Power Drive A2 SLEP.
+		5-11 Introduction.
+	Section XII. GTD Power Supply.
+		5-12 Introduction.
+	Section XIII. GTD Stabilization System Processor.
+		5-13 Introduction.
+	Section XIV. TPH Self-Test.
+		5-14 Introduction.
+CHAPTER 6 - RPSTL
+	Section I. Introduction.
+		6-1. Introduction.
+			6-1.1 Application Program Set, AN/PSM-130 Figures.
+APPENDIX A - ACRONYM/ABBREVIATION LIST
+	A-1 Introduction.

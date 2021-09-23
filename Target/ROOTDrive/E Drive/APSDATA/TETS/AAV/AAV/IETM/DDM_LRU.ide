@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="DDM-LRU" LABEL="II"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\DRIVER_DISPLAY_MODULE_LRU_5429249\TP_AAV_DDM_LRU.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s02.ide!c4s02'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic'?><?BUTTON POS='4' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/DDM_LRU/SCHEM/DDM_LRU_FBD.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s02.ide!Table3-1'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s02.ide!c3s02'?><?FRAME ID="5-2a" TITLE="Chapter 5. Maintenance, Section II. ELTD FOR DDM LRU, P/N 5429249" previous="./c5s01.ide!c5s01b" next="./ddm_a1.ide"?><?TOCENTRY TITLE="SECTION II. ELTD for the DDM LRU, P/N 5429249" TOCLEVEL="2" LABEL="II"?>
+<TITLE>SECTION II. ELTD for the DDM LRU, P/N 5429249</TITLE>
+<PARA0 ID="P5-2" LABEL="5.2"><?TOCENTRY TITLE="5.2 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an English Language Test Description (ELTD) for the DDM LRU, P/N 5429249.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-DDM-5429249.PDF"?>Drivers Display Module LRU ELTD<?endhotspot?></PARA></PARA0></SECTION>

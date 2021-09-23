@@ -1,0 +1,879 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'Bus_RS485 Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemBus_RS485.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+        ESTABLISH, BUS PROTOCOL 'RS232_1', SPEC 'RS-232',
+            STANDARD PRIMARY BUS,
+      	    BUS-PARAMETER BIT-RATE 9600 BITS/SEC,
+            BUS-PARAMETER STOP-BITS 1 BITS,
+ 	    BUS-PARAMETER PARITY ODD,
+	    BUS-PARAMETER WORD-LENGTH 8 BITS,
+ 	    CNX HI RS232_1_HI LO RS232_1_LO $
+
+        ESTABLISH, BUS PROTOCOL 'RS422_1', SPEC 'RS-422',
+            STANDARD PRIMARY BUS,
+     	    BUS-PARAMETER BIT-RATE 19200 BITS/SEC,
+            BUS-PARAMETER  STOP-BITS 1 BITS,                                       
+	    BUS-PARAMETER PARITY EVEN,
+ 	    CNX TRUE RS422_1_TRUE COMPL RS422_1_COMPL  $
+
+        ESTABLISH, BUS PROTOCOL 'RS485_1', SPEC 'RS-485',
+            STANDARD PRIMARY BUS,
+      	    BUS-PARAMETER BIT-RATE 19200 BITS/SEC,
+            BUS-PARAMETER STOP-BITS 1 BITS,
+            BUS-PARAMETER PARITY ODD,
+ 	    CNX TRUE RS485_1_TRUE COMPL RS485_1_COMPL  $
+
+	ESTABLISH, BUS PROTOCOL 'RS485T_1', SPEC 'RS-485',
+            STANDARD PRIMARY BUS,
+            BUS-PARAMETER BIT-RATE 19200 BITS/SEC,
+            BUS-PARAMETER STOP-BITS 1 BITS,
+            BUS-PARAMETER PARITY ODD,
+ 	    BUS-PARAMETER TERMINATED,
+ 	    CNX TRUE RS485_1_TRUE COMPL RS485_1_COMPL  $
+
+C	ESTABLISH, BUS PROTOCOL '1553B #2', SPEC 'MIL-STD-1553B-A',
+            STANDARD PRIMARY BUS,
+            BUS-PARAMETER ONE-AMPLITUDE 10.0 V,
+	    CNX TX-TRUE WA1553B-2-TRUE TX-COMPL WA1553B-2-COMPL $
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'IDX' IS INTEGER             $
+	DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-VOLTS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MAX-T' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+        DECLARE, TYPE, '8BIT DATA' IS STRING(8) OF BIT $
+        DECLARE, VARIABLE, 'CMD WORD-T', 'STA WORD-T' IS '8BIT DATA' $
+	DECLARE, VARIABLE, 'CMD WORD-L', 'STA WORD-L' IS '8BIT DATA' $
+        DECLARE, VARIABLE, 'DATA WORDS-T', 'DATA WORDS-M', 'DATA WORDS-L' IS ARRAY(1 THRU 32) OF '8BIT DATA' $
+
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, CONSTANT, 'CONTINUE' IS
+         C' Press TRUE OR FALSE to continue '
+          $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test
+	'
+        $
+C $
+        DEFINE, 'TEST1001-T', EXCHANGE, PROTOCOL 'RS232_1', 
+            BUS-MODE ALL-LISTENER,
+	    DATA 'DATA WORDS-T'(1 THRU 10) $
+
+	DEFINE, 'TEST1001-L', EXCHANGE, PROTOCOL 'RS232_1', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP $
+
+	DEFINE, 'TEST1002-L', EXCHANGE, PROTOCOL 'RS422_1',
+	    BUS-MODE TALKER-LISTENER,
+            TALKER  'UUT',
+	    LISTENER TEST-EQUIP $
+
+	DEFINE, 'TEST1002-T', EXCHANGE, PROTOCOL 'RS422_1',
+	    BUS-MODE TALKER-LISTENER,
+            TALKER TEST-EQUIP,
+	    LISTENER 'UUT',
+	    DATA 'DATA WORDS-T' (1 THRU 10) $
+
+        DEFINE, 'TEST1003-T', EXCHANGE, PROTOCOL 'RS485_1', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER TEST-EQUIP,
+	    DATA 'DATA WORDS-T'(1 THRU 10) $
+
+	DEFINE, 'TEST1003-L', EXCHANGE, PROTOCOL 'RS485_1', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP $
+
+	DEFINE, 'TEST1004-L', EXCHANGE, PROTOCOL 'RS485T_1', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP $
+
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, 
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+      C'Bus_RS485 ATLAS Driver Benchmark\LF\',
+      C'Date/Time:','DATE-TIME' $
+	
+	OUTPUT, TO 'PRINTER', C'      Bus_RS485 ATLAS Driver Benchmark\LF\',
+      C'Date/Time:', 'DATE-TIME', C'\LF\' $
+B $
+ 001005  OUTPUT, 
+        C'           Test Menu
+          --------------------------------
+          Run All Tests                  1
+          RS232                          2
+          RS422                          3
+          RS485                          4
+          Exit                           0
+
+          Enter a selection'
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * RS232
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'MAX-T'      = 5,
+                   'VER-UL'     = 0,
+                   'VER-LL'     = 0  $
+B $
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* RS232 Transmit Pretest Instructions:                     *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Connect SeaLevel Systems Card of the station to the      *\LF\',
+            C'* Sealevel Systems Card of another station using a null-   *\LF\',
+            C'* modem cable.  If a null-modem cable is not avaliable,    *\LF\',
+            C'* connect pin 2 to pin 3, pin 3 to pin 2, and pin 7 to     *\LF\',
+            C'* pin 7.                                                   *\LF\',
+            C'*                                                          *\LF\',
+            C'* On the remote station:                                   *\LF\',
+            C'* Open WinSDD. Select Serial Device Type: SeaMAC           *\LF\',
+            C'* Under the port section, set COM to 0 and click Open.     *\LF\',
+            C'* Click the Setting box and Configure the card as          *\LF\',
+            C'* specified under the RS232 section in Benchmark.rtf.      *\LF\',
+	    C'* located in the Build directory of this project.		 *\LF\', 
+            C'* Click Set Configuration.                                 *\LF\',
+            C'*                                                          *\LF\',
+            C'* Click on the Terminal tab.  Select Options and verify    *\LF\',
+            C'* Display Type = HEX and Local Echo is not checked.        *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 010055 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T'(1)  = X'1A',
+                   'DATA WORDS-T'(2)  = X'2B',
+                   'DATA WORDS-T'(3)  = X'3C',
+                   'DATA WORDS-T'(4)  = X'4D',
+                   'DATA WORDS-T'(5)  = X'5E',
+                   'DATA WORDS-T'(6)  = X'6F',
+                   'DATA WORDS-T'(7)  = X'70',
+                   'DATA WORDS-T'(8)  = X'81',
+                   'DATA WORDS-T'(9)  = X'92',
+                   'DATA WORDS-T'(10) = X'A3',
+		   'STA WORD-L'       = X'00',
+                   'CMD WORD-L'       = X'21',
+		   'CMD WORD-T'    = X'21' $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'00'$
+	END, FOR $
+
+C $
+
+     17 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-T', 
+            DELAY 10 USEC,
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+	
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* VERIFY THE FOLLOWING DATA WAS TRANSMITTED                *\LF\',
+            C'* ---------------------                                    *\LF\',
+	$
+
+     25	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+        	OUTPUT,
+			C' Data Word ', 'IDX', C' = ', 'DATA WORDS-T'('IDX'), C' '
+		$
+	END, FOR $
+
+	OUTPUT,
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - SUCCESS\LF\',
+            C' F - FAIL.\LF\'
+     	$
+C $
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 10017$
+        PERFORM, 'RESULTS' $
+
+B $
+     55 OUTPUT,
+            C'************************************************************\LF\',
+            C'* RS232 Recieve Pretest Instructions:                      *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On the remote station:                                   *\LF\',
+            C'* In the WinSDD terminal window, paste the following data: *\LF\',
+            C'* 1A2B3C4D5E6F708192A3                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'* The data will be received by the byte, so this benchmark *\LF\',
+            C'* will recieve the folling 10 data points:                 *\LF\',
+            C'* 1A, 2B, 3C, 4D, 5E, 6F, 70, 81, 92, A3                   *\LF\',
+            C'*                                                          *\LF\',
+            C'* After pressing Enter to continue, immediately press send *\LF\',
+            C'* in the WinSDD terminal window.                           *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     60 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 010099 $
+        END, IF $
+
+     65	DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-L', 
+		TEST-EQUIP-MONITOR DATA 'DATA WORDS-L'(1 THRU 10),
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+
+	OUTPUT,
+            C'************************************************************\LF\',
+            C'* THE FOLLOWING DATA WAS RECIEVED                          *\LF\',
+            C'* ---------------------                                    *\LF\',
+	$
+
+     75	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+        	OUTPUT,
+			C' Data Word ', 'IDX', C' = ', 'DATA WORDS-L'('IDX'), C' '
+		$
+	END, FOR $
+
+	OUTPUT,
+            C'************************************************************\LF\', 
+            C' IS THIS CORRECT?          \LF\',
+            C' T - SUCCESS\LF\',
+            C' F - FAIL.\LF\'
+     	$
+C $
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 10065$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * RS422
+C ******************************************************************* $
+C $
+C $
+B $
+ 020000 CALCULATE, 'MAX-T'      = 10,
+                   'VER-UL'     = 0,
+                   'VER-LL'     = 0  $
+B $
+
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* RS422 Transmit Pretest Instructions:                     *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Connect SeaLevel Systems Card of the station to the      *\LF\',
+            C'* Sealevel Systems Card of another station using a null-   *\LF\',
+            C'* modem cable.  If a null-modem cable is not avaliable,    *\LF\',
+            C'* connect pin 2 to pin 3, pin 3 to pin 2, pin 7 to         *\LF\',
+            C'* pin 7, pin 14 to pin 16, and pin 16 to pin 14.           *\LF\',
+            C'*                                                          *\LF\',
+            C'* On the remote station:                                   *\LF\',
+            C'* Open WinSDD. Select Serial Device Type: SeaMAC           *\LF\',
+            C'* Under the port section, set COM to 0 and click Open.     *\LF\',
+            C'* Click the Setting box and Configure the card as          *\LF\',
+            C'* specified under the RS422 section in Benchmark.rtf.      *\LF\', 
+	    C'* located in the Build directory of this project.		 *\LF\',
+            C'* Click Set Configuration.                                 *\LF\',
+            C'*                                                          *\LF\',
+            C'* Click on the Terminal tab.  Select Options and verify    *\LF\',
+            C'* Display Type = HEX and Local Echo is not checked.        *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020055 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T'(1)  = X'1A',
+                   'DATA WORDS-T'(2)  = X'2B',
+                   'DATA WORDS-T'(3)  = X'3C',
+                   'DATA WORDS-T'(4)  = X'4D',
+                   'DATA WORDS-T'(5)  = X'5E',
+                   'DATA WORDS-T'(6)  = X'6F',
+                   'DATA WORDS-T'(7)  = X'70',
+                   'DATA WORDS-T'(8)  = X'81',
+                   'DATA WORDS-T'(9)  = X'92',
+                   'DATA WORDS-T'(10) = X'A3',
+		   'STA WORD-L'       = X'00',
+                   'CMD WORD-L'       = X'21',
+		   'CMD WORD-T'    = X'21' $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'00'$
+	END, FOR $
+
+C $
+
+     17 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1002-T', 
+            DELAY 10 USEC,
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+	
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* VERIFY THE FOLLOWING DATA WAS TRANSMITTED                *\LF\',
+            C'* ---------------------                                    *\LF\',
+	$
+
+     25	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+        	OUTPUT,
+			C' Data Word ', 'IDX', C' = ', 'DATA WORDS-T'('IDX'), C' '
+		$
+	END, FOR $
+
+	OUTPUT,
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - SUCCESS\LF\',
+            C' F - FAIL.\LF\'
+     	$
+C $
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 20017$
+        PERFORM, 'RESULTS' $
+
+B $
+     55 OUTPUT,
+            C'************************************************************\LF\',
+            C'* RS422 Recieve Pretest Instructions:                      *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On the remote station:                                   *\LF\',
+            C'* In the WinSDD terminal window, paste the following data: *\LF\',
+            C'* 1A2B3C4D5E6F708192A3                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'* The data will be received by the byte, so this benchmark *\LF\',
+            C'* will recieve the folling 10 data points:                 *\LF\',
+            C'* 1A, 2B, 3C, 4D, 5E, 6F, 70, 81, 92, A3                   *\LF\',
+            C'*                                                          *\LF\',
+            C'* After pressing Enter to continue, immediately press send *\LF\',
+            C'* in the WinSDD terminal window.                           *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     60 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020099 $
+        END, IF $
+
+     65	DO, EXCHANGE, 
+	    EXCHANGE 'TEST1002-L', 
+		TEST-EQUIP-MONITOR DATA 'DATA WORDS-L'(1 THRU 10),
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+
+	OUTPUT,
+            C'************************************************************\LF\',
+            C'* THE FOLLOWING DATA WAS RECIEVED                          *\LF\',
+            C'* ---------------------                                    *\LF\',
+	$
+
+     75	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+        	OUTPUT,
+			C' Data Word ', 'IDX', C' = ', 'DATA WORDS-L'('IDX'), C' '
+		$
+	END, FOR $
+
+	OUTPUT,
+            C'************************************************************\LF\', 
+            C' IS THIS CORRECT?          \LF\',
+            C' T - SUCCESS\LF\',
+            C' F - FAIL.\LF\'
+     	$
+C $
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 20065$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * RS485
+C ******************************************************************* $
+C $
+B $
+ 030000 CALCULATE, 'MAX-T'      = 5,
+                   'VER-UL'     = 0,
+                   'VER-LL'     = 0  $
+B $
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* RS485 Transmit Pretest Instructions:                     *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Connect SeaLevel Systems Card of the station to the      *\LF\',
+            C'* Sealevel Systems Card of another station using a null-   *\LF\',
+            C'* modem cable.  If a null-modem cable is not avaliable,    *\LF\',
+            C'* connect pin 2 to pin 3, pin 3 to pin 2, pin 7 to         *\LF\',
+            C'* pin 7, pin 14 to pin 16, and pin 16 to pin 14.           *\LF\',
+            C'*                                                          *\LF\',
+            C'* On the remote station:                                   *\LF\',
+            C'* Open WinSDD. Select Serial Device Type: SeaMAC           *\LF\',
+            C'* Under the port section, set COM to 0 and click Open.     *\LF\',
+            C'* Click the Setting box and Configure the card as          *\LF\',
+            C'* specified under the RS485 section in Benchmark.rtf.      *\LF\',
+	    C'* located in the Build directory of this project		 *\LF\', 
+            C'* Click Set Configuration.                                 *\LF\',
+            C'*                                                          *\LF\',
+            C'* Click on the Terminal tab.  Select Options and verify    *\LF\',
+            C'* Display Type = HEX and Local Echo is not checked.        *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 030055 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T'(1)  = X'1A',
+                   'DATA WORDS-T'(2)  = X'2B',
+                   'DATA WORDS-T'(3)  = X'3C',
+                   'DATA WORDS-T'(4)  = X'4D',
+                   'DATA WORDS-T'(5)  = X'5E',
+                   'DATA WORDS-T'(6)  = X'6F',
+                   'DATA WORDS-T'(7)  = X'70',
+                   'DATA WORDS-T'(8)  = X'81',
+                   'DATA WORDS-T'(9)  = X'92',
+                   'DATA WORDS-T'(10) = X'A3',
+		   'STA WORD-L'       = X'00',
+                   'CMD WORD-L'       = X'21',
+		   'CMD WORD-T'    = X'21' $
+C $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+            CALCULATE, 'DATA WORDS-L'('IDX') = X'00'$
+	END, FOR $
+
+C $
+
+     17 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1003-T', 
+            DELAY 10 USEC,
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+	
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* VERIFY THE FOLLOWING DATA WAS TRANSMITTED                *\LF\',
+            C'* ---------------------                                    *\LF\',
+	$
+
+     25	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+        	OUTPUT,
+			C' Data Word ', 'IDX', C' = ', 'DATA WORDS-T'('IDX'), C' '
+		$
+	END, FOR $
+
+	OUTPUT,
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - SUCCESS\LF\',
+            C' F - FAIL.\LF\'
+     	$
+C $
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 30017$
+        PERFORM, 'RESULTS' $
+B $
+     55 OUTPUT,
+            C'************************************************************\LF\',
+            C'* RS485 Recieve Pretest Instructions:                      *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* On the remote station:                                   *\LF\',
+            C'* In the WinSDD terminal window, paste the following data: *\LF\',
+            C'* 1A2B3C4D5E6F708192A3                                     *\LF\',
+            C'*                                                          *\LF\',
+            C'* The data will be received by the byte, so this benchmark *\LF\',
+            C'* will recieve the folling 10 data points:                 *\LF\',
+            C'* 1A, 2B, 3C, 4D, 5E, 6F, 70, 81, 92, A3                   *\LF\',
+            C'*                                                          *\LF\',
+            C'* After pressing Enter to continue, immediately press send *\LF\',
+            C'* in the WinSDD terminal window.                           *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     60 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 030080 $
+        END, IF $
+
+     65 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1003-L', 
+		TEST-EQUIP-MONITOR DATA 'DATA WORDS-L'(1 THRU 10),
+	    WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+
+	OUTPUT,
+            C'************************************************************\LF\',
+            C'* THE FOLLOWING DATA WAS RECIEVED                          *\LF\',
+            C'* ---------------------                                    *\LF\',
+	$
+
+     75	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 10, THEN $
+        	OUTPUT,
+			C' Data Word ', 'IDX', C' = ', 'DATA WORDS-L'('IDX'), C' '
+		$
+	END, FOR $
+
+	OUTPUT,
+            C'************************************************************\LF\', 
+            C' IS THIS CORRECT?          \LF\',
+            C' T - SUCCESS\LF\',
+            C' F - FAIL.\LF\'
+     	$
+C $
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 30065 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     80 OUTPUT,
+            C'************************************************************\LF\',
+            C'* RS485-T Pretest Instructions:                            *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Connect a DMM across pins 3 and 16 and verify the        *\LF\',
+            C'* impedance is high.                                       *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press Enter to continue.                                 *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     85 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 030099 $
+        END, IF $
+
+	REMOVE, ALL $
+
+     90	DO, EXCHANGE, 
+	    EXCHANGE 'TEST1004-L', 
+	    PROCEED, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+
+     95	OUTPUT,
+            C'************************************************************\LF\', 
+            C' Did the impedance go from high(unterminated)               \LF\',
+            C'  to low(terminated)?                                       \LF\',
+            C' T - SUCCESS\LF\',
+            C' F - FAIL.\LF\'
+     	$
+C $
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 30090$
+        PERFORM, 'RESULTS' $
+
+	REMOVE, ALL $
+
+	IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 030000 $
+        END, IF $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+B $
+ 060000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+        C'--------------------------------------\LF\',
+        C' END - END TEST\LF\',
+        C'    PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'\LF\', 
+          C'--------------------------------------\LF\',
+         C'END - END TEST\LF\',
+         C'   PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\',
+        C'--------------------------------------\LF\',
+        C' END - END TEST \LF\',
+        C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+       C' --------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	 C'\LF\',  
+        C'--------------------------------------\LF\',
+         C'END - END TEST\LF\ ',
+         C'FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+
+        END, IF  $
+ 060100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+B $
+ 999999 TERMINATE, ATLAS PROGRAM 'Bus_RS485 Benchmark' $

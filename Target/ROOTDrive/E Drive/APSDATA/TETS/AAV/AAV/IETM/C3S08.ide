@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY con-a3-1 SYSTEM "./graphics/CON_A3/ASSY/CON_A3_1.pic" NDATA FAXTILE>
+<!ENTITY con-a3-sch-1 SYSTEM "./graphics/CON_A3/SCHEM/CON_A3_SCH_1.pic" NDATA FAXTILE>
+<!ENTITY fig3-18 SYSTEM "./graphics/fig3-18.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S08" LABEL="VIII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\CONTROL_IO_A3_CCA_2618572-1\TP_AAV_CON_A3.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_A3/ASSY/CON_A3_1.pic' ?><?BUTTON POS='3' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/CON_A3/SCHEM/CON_A3_Sch_1.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section VIII. Control Input/Output CCA, P/N 2618572-1" previous="./c3s07.ide!C3S07b" IMAGE="./graphics/CON_A3/ASSY/CON_A3_1.pic"?><?TOCENTRY TITLE="SECTION VIII. Theory of Operation for the Control Input/Output CCA, P/N 2618572-1" TOCLEVEL="2" LABEL="VIII"?>
+<TITLE>SECTION VIII. Theory of Operation for the Control Input/Output CCA, P/N 2618572-1</TITLE>
+<PARA0 ID="P3-8" LABEL="3.8"><?TOCENTRY TITLE="3.8 Control Input/Output Theory of Operation" TOCLEVEL="3"?>
+<TITLE>Control Input/Output Theory of Operation</TITLE>
+<CAUTION>
+<PARA>This Circuit Card Assembly contains components sensitive to damage by Electrostatic Discharge. Use precautionary procedures when touching, removing, or installing components.</PARA></CAUTION>
+<PARA>The following paragraphs will describe the Theory of Operation for the Control Input/Output CCA, P/N 2618572-1. <?hotspot linktype="picture" href="./graphics/CON_A3/ASSY/CON_A3_1.pic"?>Figure 3-17<?endhotspot?> provides the CCA Layout.</PARA>
+<FIGURE ID="CON-A3-1" LABEL="3-17">
+<TITLE>Control Input/Output CCA Layout</TITLE><?hotspot linktype="picture" href="./graphics/CON_A3/ASSY/CON_A3_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<PARA>This CCA controls all CPU and firmware data interchanges with the Intercommunications Set LRU and controls lamps on the intercom set by outputting lamp address and on/off bit to intercom set as selected by the 1:16 de-multiplexer. Refer to <?hotspot linktype="picture" href="./graphics/fig3-18.pic"?>Figure 3-18<?endhotspot?>, the functional block diagram, as necessary while reading this section.</PARA>
+<FIGURE ID="FIG3-18" LABEL="3-18">
+<TITLE>Control Input/Output CCA Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/fig3-18.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3198" LABEL="3.8.1"><?TOCENTRY TITLE="3.8.1 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<SUBPARA2 ID="GENC3199" LABEL="3.8.1.1"><?TOCENTRY TITLE="3.8.1.1 6802 Computer" TOCLEVEL="5"?>
+<TITLE>6802 Computer</TITLE>
+<PARA>Controller C-10879/MSQ-115 uses the 6802 computer for control of intercom sets through the control input/output card interface circuitry. The control input/output card takes control signals from intercom sets and sends them to the 6802 computer. It also takes control signals from the 6802 computer and sends them to intercom sets.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3200" LABEL="3.8.1.2"><?TOCENTRY TITLE="3.8.1.2 Terminal Inputs" TOCLEVEL="5"?>
+<TITLE>Terminal Inputs</TITLE>
+<PARA>Inputs from intercom sets enter the control input/output card via line receivers. Each line receiver requires a .01 microfarad capacitor connected between the negative input line and termination resistor (internal to the line receiver) for use as a differential line receiver. Output of each line receiver goes to a multiplexer and to an input buffer. Strobe signal for each line receiver is pulled up to Vcc. The strobe signal is pin 4 for one line receiver and pin 10 of the other line receiver for each dual receiver. Pins 4 and 10 of U31, U41, U51, and U61 are connected together and pulled up to Vcc through R4. Pins 4 and 10 of U32, U42, U52, and U62 are connected together and pulled up to Vcc through R3. The 6802 computer firmware/software poll the intercom set inputs to the control input/output card to see if a set is requesting service. The status of sets 1 through 8 is read via U11, at address 0116H. When the 6802 computer addresses this address, CS3R signal is activated on pin 48 of the card connector. CS3R is input on pins 1 and 19 on U11 enabling U11. After CS3R enables U11, the status of terminals 1 through 8 is entered on the control input/output card data bus. When the 6802 computer addresses 0116H, the control input/output card data bus is connected to the 6802 computer data bus. The status of terminals 9 through 16 is read via U12 at address 0115H. When the 6802 computer addresses 0115H, CS2R signal is activated on pin 47 of the card connector. CS2R is then input on pins 1 and 19 of U12 enabling U12. After CS2R enables U12, the status of terminals 9 through 16 is entered on the data bus.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3201" LABEL="3.8.1.3"><?TOCENTRY TITLE="3.8.1.3 Communication Link" TOCLEVEL="5"?>
+<TITLE>Communication Link</TITLE>
+<PARA>The 6802 computer reads the status of all intercom sets. When a switch-light on a set is pushed, a code link between the set and 6802 computer is generated.  The code for that set is written into terminal select latch (U14).  The set code is entered on the data bus by the 6802 computer. The set code is a 4-bit hexadecimal number and is contained in least significant 4 bits. Most significant 4 bits of data word are entered on the data bus. The set code is latched into U14 when a clock signal (CS2W), U14 pin 11, is received from the 6802 computer on pin 107 of the card connector. CS2W is generated when 6802 computer addresses 0115H and is in a write mode. The output of the set select latch uses least significant 4 bits as code for multiplexing input from the set. The most significant 4 bits is used as code for de-multiplexing output to the set. Bit 3 of the set select code is decoded for an enable signal for U21 and U22. U14 pin 12 is connected to U21 pin 7 and U15 (an inverter) pin 9. U15 pin 8 is connected to U22 pin 7. Either U21 or U22 will be enabled, depending on state of bit 3 or U14 pin 12. BIT 7 of the set select code is decoded for an enable signal for U23 and U24. U14 pin 19 is connected to U23 pins 4 and 5 and U15 pin 13. U15 pin 12 is connected to U24 pins 4 and 5. Either U23 or U24 will be enabled, depending on the state of bit 7 or U14 pin 19. U14 pin 1 is grounded so outputs of U14 will never go to high impedance state. After a set select code has been latched in U14, it will not change until another set select code is clocked in.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3202" LABEL="3.8.1.4"><?TOCENTRY TITLE="3.8.1.4 Multiplexer Output Terminals Selection" TOCLEVEL="5"?>
+<TITLE>Multiplexer Output Terminals Selection</TITLE>
+<PARA>The 4-bit code on pins 7, 9, 10 and 11 of U21 and U22 will select one of AN/MIQ-1 sets as output of multiplexer (U21 and U22 pin 6). U21 pin 6 is connected to U25 pin 4 (a NAND gate) and U22 pin 6 is connected to U25 pin 5. Pin 6 of U21 and U22 is inverted output and used (instead of non inverting output) with NAND gate (U25) which acts like an OR gate. The output of NAND gate (Pin 6 of U25) will be true signal of either U21-6 or U22-6, depending on which one has been selected. The output of NAND gate (pin 6 of U25) is connected to message start detector (pins 1 and 3 of U15). U15 is an inverter and inverts output on pin 1. The output is on pin 2 and is input (U25 pin 13) to a two-NAND gate version of an RS flip-flop. Pin 13 of U25 would be the R input and pin 9 of U25 would be the S input (U25 pin 11 connected to pin 10 and pin 8 connected to pin 12). The S input is RTS output signal of ACIA (U13 pin 5). RTS is used to set NAND gate flip-flop. The Q output of flip-flop (U25 pin 8) is connected to U15 pin 11. Two inverter gates of U15 and a NAND gate of U25 are used to simulate an OR gate (U15 pin 10 is connected to U25 pin 2 and U15 pin 4 is connected to U25 pin 1). The output of NAND gate (U25 pin 3) is connected to input signal (RX) of ACIA which is U13 pin 2.</PARA></SUBPARA2><?FRAME id="c3s08a" title="Chapter 3. Theory of Operation, Section VIII. Control Input/Output CCA, P/N 2618572-1 Cont'd" IMAGE="./graphics/CON_A3/ASSY/CON_A3_1.pic"?>
+<SUBPARA2 ID="GENC3203" LABEL="3.8.1.5"><?TOCENTRY TITLE="3.8.1.5 Message Start Detector" TOCLEVEL="5"?>
+<TITLE>Message Start Detector</TITLE>
+<PARA>The message start detector is used to detect a start bit and allow data to be received by ACIA (U13). The RTS (U13 pin 5) is used to disable message start detector when 6802 computer is not getting data from an intercom set by placing a logic 0 on S input to flip-flop (U25 pin 9). This will not allow false data to be received by ACIA (RX input held to logic 1). When ACIA (U13) is receiving data it will bring RTS (pin 5) to a logic 1 (S input to the flip-flop). When a stop bit (logic 1) is received by message start detector, output of the flip-flop will change states allowing data to be gated to RX input of ACIA.  After word is received by ACIA, RTS output of ACIA will be brought to a logic 0 disabling message start bit detector.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3204" LABEL="3.8.1.6"><?TOCENTRY TITLE="3.8.1.6 Registers" TOCLEVEL="5"?>
+<TITLE>Registers</TITLE>
+<PARA>The ACIA (U13) registers are loaded and read through data bus. The data bus is connected to 6802 computer when computer addresses address 0110 and 0111. The registers are selected by least significant bit of address word (A0) and are input on pin 102 of the card connector. A0 is register select input to ACIA (U13 pin 11). The ACIA is selected by state of CS0 (pin 8), CS1 (pin 10), and CS2 (pin 9). CS0 and CS1 are pulled to Vcc through R2 and CS2 is connected to pin 108 of card connector which is ACIA CS5 signal from 6802 computer. The ACIA enable signal (pin 14) is VMAE and is input on pin 109 of the card connector. The R/W signal (pin 13) is R/W1 and is input on pin 51 of the card connector.  The ACIA IRQ signal (pin 7) is output to 6802 computer (SIRQ) on pin 110 of the card connector. The TX clock (pin 4) and Rx clock (pin 3) are connected together and receive a 32 kHz clock from the DPCM card on pin 59 of the card connector. Pins 24 and 23 of U13 are grounded because they are not used. When ACIA (U13) is selected, data is transmitted on pin 6, which is connected to demultiplexer (U23 and U24 pin 6). </PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3205" LABEL="3.8.1.7"><?TOCENTRY TITLE="3.8.1.7 Data Transmission" TOCLEVEL="5"?>
+<TITLE>Data Transmission</TITLE>
+<PARA>Data is transmitted to the selected intercom set when the select code connects the input transmitted signal to the output that goes to a set line driver. Outputs of the demultiplexers are connected to set line drivers. The output of the set line driver is the output on the control input/output card connector. Each line driver requires an 82pf capacitor connected between positive line and slew rate pin, and negative line and slew rate pin to reduce rise time and minimize EMI radiation. </PARA></SUBPARA2></SUBPARA1>
+<SUBPARA1 ID="P3-8.1" LABEL="3.8.2"><?TOCENTRY TITLE="3.8.2 Schematic" TOCLEVEL="4"?>
+<TITLE>Schematic</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/CON_A3/SCHEM/CON_A3_SCH_1.pic"?>Figure 3-19<?endhotspot?> for the schematic diagram for the Control Input/Output CCA.</PARA>
+<FIGURE ID="CON-A3-SCH-1" LABEL="3-19">
+<TITLE>Control Input/Output CCA Schematic Diagram</TITLE><?hotspot linktype="picture" href="./graphics/CON_A3/SCHEM/CON_A3_SCH_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1>
+<SUBPARA1 ID="P3-8.2" LABEL="3.8.3"><?TOCENTRY TITLE="3.8.3 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><XREF XREFID="TABLE3-9" XIDTYPE="TABLE">Table 3-11</XREF> lists all repair parts available for the Control Input/Output CCA.</PARA><?FRAME id="c3s08b" title="Chapter 3. Theory of Operation, Section VIII. Control Input/Output CCA, P/N 2618572-1 Cont'd" next="./c3s09.ide!C3S09"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-9" LABEL="3-11"><?Pub Dtl?>
+<TITLE>Parts List for Control Input/Output CCA, P/N 2618572-1</TITLE>
+<TGROUP COLS="7">
+<COLSPEC COLNAME="COL1" COLWIDTH=".6in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.3in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="1.5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL6" COLWIDTH="2.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY ALIGN="CENTER">Qty.</ENTRY>
+<ENTRY ALIGN="CENTER">Cage</ENTRY>
+<ENTRY ALIGN="CENTER">P/N</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY>
+<ENTRY ALIGN="CENTER">Reference Des.</ENTRY>
+<ENTRY ALIGN="CENTER">SMR Code</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618573-1</ENTRY>
+<ENTRY>PWB, Input/Output</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>96214</ENTRY>
+<ENTRY>536993-1</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U31,U32,U41,U42,U51,U52,U61,U62</ENTRY>
+<ENTRY>PAHZ2</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30901BEB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U21,U22</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>M38510/32403BRB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U11,U12</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR05G102JS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R1-R4</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618710</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U13</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30701 BEB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U23,U24</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>8</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>SM-A-839054</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U33,U34,U43,U53,U54,U63,U64</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>M38510/32503BRB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U14</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30003BCB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U15</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618701-1</ENTRY>
+<ENTRY>Extractor, Left Hand</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30001BCB</ENTRY>
+<ENTRY>Microcircuit </ENTRY>
+<ENTRY>U25</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>13</ENTRY>
+<ENTRY>5</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-01</ENTRY>
+<ENTRY>Jack, TIP, White</ENTRY>
+<ENTRY>TP1-TP5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>14</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-03</ENTRY>
+<ENTRY>Jack, TIP, Black </ENTRY>
+<ENTRY>TP6</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>15</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-02</ENTRY>
+<ENTRY>Jack, TIP, Red </ENTRY>
+<ENTRY>TP7</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>16</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618701-2</ENTRY>
+<ENTRY>Extractor, Right Hand</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>17</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/01-2962</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>18</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1592</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C2-C19</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>19</ENTRY>
+<ENTRY>32</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1338</ENTRY>
+<ENTRY>Capacitor, Fixed </ENTRY>
+<ENTRY>C20-C50</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>20</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1575</ENTRY>
+<ENTRY>Capacitor, Fixed </ENTRY>
+<ENTRY>C52-C67</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>21</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618702</ENTRY>
+<ENTRY>Retainer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>22</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>333-0605-000</ENTRY>
+<ENTRY>Nut, Self-locking </ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>23</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer, Flat </ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>24</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-15</ENTRY>
+<ENTRY>Screw, Machine</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>25</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M55302/59-A120Y</ENTRY>
+<ENTRY>Connector, 120 Pin</ENTRY>
+<ENTRY>P1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA1></PARA0></SECTION>

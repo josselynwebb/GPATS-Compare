@@ -1,0 +1,209 @@
+ 000100	BEGIN, ATLAS PROGRAM 'NAM-VIDCAP'			         $
+C************************************************************************$
+C   BENCH MARK TO TEST THE VIDEO CAPTURE NON-ATLAS MODULE. THIS          $
+C   BENCH MARK WILL SET THE VALUES OF "TYPE", "MODE", AND    	         $
+C   "INSTRUCTIONS". FIRST THE RS170cross.arb FILE WILL BE LOADED AND     $
+C   THE ARB WILL PROVIDE A SIMULATEED RS-170 SIGNAL TO THE VIDEO         $
+C   CAPTURE CARD. THE OPERATOR WILL BE PROMPTED VIA THE OPERATOR         $
+C   INSTRUCTIONS FORM TO VERIFY THE IMAGE. ATLAS EXECUTION WILL          $
+C   BE SUSPENDED UNTIL THE VIDEO DISPLAY WINDOW IS TERMINATED AND        $
+C   THE ERROR STATUS IS RETURNED. THE IMAGE WILL BE DISPLAYED FIRST WITH $
+C   OPERATORS INSTRUCTIONS, THEN WITHOUT. THE RS-343A CONFIGURATION WILL $
+C   BE TESTED NEXT.                                                      $
+C					                                 $
+C************************************************************************$
+C								         $
+C********************************** INCLUDES ****************************$
+C								         $
+ 000105	INCLUDE, NON-ATLAS MODULE 'VIDCAPNAM'			         $
+ 000106 INCLUDE, NON-ATLAS MODULE 'ARBNAM'                               $			         
+C								         $
+C************************** DECLARE LOCAL VARIABLES *********************$
+C								         $
+ 000400	DECLARE, VARIABLE, 
+ 'TYPE' IS STRING (17) OF CHAR;
+ 'MODE' IS STRING (11) OF CHAR;
+ 'INSTRUCTIONS' IS STRING (256) OF CHAR;
+ 'VID-ERROR-CODE' IS INTEGER;
+ 'VID-RETURN-STRING' IS STRING (256) OF CHAR                             $
+C						                         $
+ 000500 DECLARE, VARIABLE, 
+ 'ARB_FILE' IS STRING (80) OF CHAR                        		 $
+C									 $
+ 000600 DECLARE, VARIABLE,
+ 'RETURN_STATUS' IS INTEGER                                              $
+C									 $
+ 000700 DECLARE, VARIABLE, 
+ 'RETURN_STRING' IS STRING (499) OF CHAR                                 $
+C							                 $
+C ***********************************************************************$
+C * PROCEDURE: CLRSCR				    	               **$
+C ***********************************************************************$
+C 								         $
+ 001630 DEFINE, 'CLRSCR', PROCEDURE                                      $
+ 001640     OUTPUT, C' \LF\\LF\\LF\\LF\\LF\\LF\\LF\ \LF\
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\'               $
+ 001650 END, 'CLRSCR'                                                    $
+C 									 $
+C ***********************************************************************$
+C *		     START PROGRAM EXECUTION    	               **$
+C ***********************************************************************$
+C							                 $
+E10000 OUTPUT, C' \LF\ \LF\',
+         C'************* OPERATOR INSTRUCTIONS ***********',
+         C'\LF\ \LF\',
+         C'  1. CONNECT THE CAMERA VIDEO 0 INPUT TO ARB OUTPUT.',
+         C'\LF\ \LF\',
+         C'  LOADING ARB VIDEO FILES. PLEASE WAIT...',
+         C' \LF\ \LF\' $
+C									 $
+E20000 CALCULATE, 'ARB_FILE' = C'Rs170cross.arb' $
+C*********************       LOAD RS-170 SIGNAL       *******************$
+ 	PERFORM, 'ARBNAM' ('ARB_FILE', 'RETURN_STATUS','RETURN_STRING')  $
+     	IF, ('RETURN_STATUS' NE 0), THEN				  $
+	     OUTPUT, C'ARBNAM RS-170 ERROR CODE: ', 'RETURN_STATUS'	  $
+             OUTPUT, C'ARBNAM RS-170 ERROR DESCRIPTION: ', 'RETURN_STRING'$
+        END, IF                                                           $	
+	OUTPUT, 
+         C' \LF\ \LF\',
+	 C' TESTING A RS-170 SIGNAL WITH CONTINUOUS ACQUISITION AND OPERATOR INSTRUCTIONS.',
+	 C'\LF\ \LF\ \LF\ \LF\',
+         C'                    **** PRESS ENTER TO CONTINUE ***',
+         C'\LF\'                                                         $
+C								         $
+ 	INPUT, GO-NOGO                                                   $ 
+ 	PERFORM, 'CLRSCR'                                                $
+C									 $
+C***************** ASSIGN DATA TO BE PASSED TO VIDCAPTURE ***************$			
+C								         $
+E30000 CALCULATE, 
+ 'TYPE' = C'RS-170', 			
+ 'MODE' = C'CONTINUOUS', 			
+ 'INSTRUCTIONS' = C'The display should have a black field with a white cross.'$ 
+C 		     						          $
+C**************** PASS ARGUMENTS AND RETURN ERROR CODE *******************$
+C									  $
+	PERFORM, 'VIDCAPNAM' ('TYPE', 'MODE', 'INSTRUCTIONS', 
+			      'VID-ERROR-CODE', 'VID-RETURN-STRING')$
+C									  $
+     	IF, ('VID-ERROR-CODE' EQ 0), THEN				  $
+             OUTPUT, C'RS-170, CONTINUOUS FRAME TEST WITH OPERATOR INSTRUCTIONS SUCCESSFUL.'         $
+     	ELSE								  $
+	     OUTPUT, C'ERROR CODE: ', 'VID-ERROR-CODE'			  $
+             OUTPUT, C'ERROR DESCRIPTION: ', 'VID-RETURN-STRING'          $
+        END, IF                                                           $	
+C                                                                         $
+ 	INPUT, GO-NOGO                                                    $
+	PERFORM, 'CLRSCR'                                                 $
+C									  $
+	OUTPUT, 
+         C' \LF\ \LF\',
+	 C' TESTING A RS-170 SIGNAL WITH SINGLE ACQUISITION WITHOUT OPERATOR INSTRUCTIONS.',
+	 C'\LF\ \LF\ \LF\ \LF\',
+         C'                    **** PRESS ENTER TO CONTINUE ***',
+         C'\LF\'							  $
+	INPUT, GO-NOGO                                                    $
+C									  $
+C***************** ASSIGN DATA TO BE PASSED TO VIDCAPTURE ***************$			
+C								         $
+E40000 CALCULATE, 
+ 'TYPE' = C'RS-170', 			
+ 'MODE' = C'SINGLE', 			
+ 'INSTRUCTIONS' = C''$ 
+C 		     						          $
+C**************** PASS ARGUMENTS AND RETURN ERROR CODE *******************$
+C									  $
+	PERFORM, 'VIDCAPNAM' ('TYPE', 'MODE', 'INSTRUCTIONS', 
+			      'VID-ERROR-CODE', 'VID-RETURN-STRING')$
+C									  $
+     	IF, ('VID-ERROR-CODE' EQ 0), THEN				  $
+             OUTPUT, C'RS-170, SINGLE FRAME TEST WITHOUT OPERATORS INSTRUCTIONS SUCCESSFUL.'         $
+     	ELSE								  $
+	     OUTPUT, C'ERROR CODE: ', 'VID-ERROR-CODE'			  $
+             OUTPUT, C'ERROR DESCRIPTION: ', 'VID-RETURN-STRING'          $
+        END, IF                                                           $	
+C                                                                         $
+ 	INPUT, GO-NOGO                                                    $
+	PERFORM, 'CLRSCR'                                                 $ 
+C								         $
+	PERFORM, 'ARBNAM' (C'REMOVE', 'RETURN_STATUS','RETURN_STRING')    $ 
+     	IF, ('RETURN_STATUS' NE 0), THEN				  $
+	     OUTPUT, C'ARBNAM REMOVE ERROR CODE: ', 'RETURN_STATUS'	  $
+             OUTPUT, C'ARBNAM REMOVE ERROR DESCRIPTION: ', 'RETURN_STRING'$
+        END, IF                                                           $
+C								         $
+	OUTPUT, C' \LF\ \LF\',
+         C'************* OPERATOR INSTRUCTIONS ***********',
+         C'\LF\ \LF\',
+         C'  1. LEAVE THE CAMERA VIDEO INPUT CONNECTED TO ARB-OUT.',
+         C'\LF\ \LF\',
+         C'  LOADING ARB VIDEO FILES. PLEASE WAIT...',
+         C' \LF\ \LF\' $
+E50000 CALCULATE, 'ARB_FILE' = C'BlkCross.Arb'    $
+C									  $
+C********************       LOAD RS-343A SIGNAL       ********************$
+ 	PERFORM, 'ARBNAM' ('ARB_FILE', 'RETURN_STATUS','RETURN_STRING')   $
+     	IF, ('RETURN_STATUS' NE 0), THEN				  $
+	     OUTPUT, C'ARBNAM RS-343A ERROR CODE: ', 'RETURN_STATUS'	  $
+             OUTPUT, C'ARBNAM RS-343A ERROR DESCRIPTION: ', 'RETURN_STRING'$
+        END, IF                                                           $
+	OUTPUT, C' \LF\ \LF\',
+	 C' TESTING A RS-343A SIGNAL WITH CONTINUOUS ACQUISITION AND OPERATOR INSTRUCTIONS.',
+	 C' \LF\ \LF\ \LF\ \LF\',
+         C'                     **** PRESS ENTER TO CONTINUE ***',
+         C' \LF\'                                                         $
+C									  $
+	INPUT, GO-NOGO                                                    $
+	PERFORM, 'CLRSCR'                                                 $
+C									  $
+E60000 CALCULATE, 
+ 'TYPE' = C'RS-343A', 			
+ 'MODE' = C'CONTINUOUS', 			
+ 'INSTRUCTIONS' = C'The display should have a white field with a black cross.'$
+C									  $
+  	PERFORM, 'VIDCAPNAM' ('TYPE', 'MODE', 'INSTRUCTIONS', 
+			      'VID-ERROR-CODE', 'VID-RETURN-STRING')      $
+C									  $
+     	IF, ('VID-ERROR-CODE' EQ 0), THEN				  $
+             OUTPUT, C'RS-343A, CONTINUOUS FRAME TEST WITH OPERATOR INSTRUCTIONS SUCCESSFUL.'         $
+     	ELSE								  $
+	     OUTPUT, C'ERROR CODE: ', 'VID-ERROR-CODE'			  $
+             OUTPUT, C'ERROR DESCRIPTION: ', 'VID-RETURN-STRING'          $
+        END, IF                                                           $
+	OUTPUT, C' \LF\ \LF\',
+	 C'  TESTING A RS-343A SIGNAL WITH SINGLE ACQUISITION WITHOUT OPERATOR INSTRUCTIONS.',
+	 C' \LF\ \LF\ \LF\ \LF\',
+         C'         **** PRESS ENTER TO CONTINUE ***',
+         C' \LF\'                                                         $
+C									  $
+	INPUT, GO-NOGO                                                    $
+	PERFORM, 'CLRSCR'                                                 $
+C									  $
+E70000 CALCULATE, 
+ 'TYPE' = C'RS-343A', 			
+ 'MODE' = C'SINGLE', 			
+ 'INSTRUCTIONS' = C''$
+C									  $
+  	PERFORM, 'VIDCAPNAM' ('TYPE', 'MODE', 'INSTRUCTIONS', 
+			      'VID-ERROR-CODE', 'VID-RETURN-STRING')      $
+C									  $
+     	IF, ('VID-ERROR-CODE' EQ 0), THEN				  $
+             OUTPUT, C'RS-343A, SINGLE FRAME TEST WITHOUT OPERATOR INSTRUCTIONS SUCCESSFUL.'         $
+     	ELSE								  $
+	     OUTPUT, C'ERROR CODE: ', 'VID-ERROR-CODE'			  $
+             OUTPUT, C'ERROR DESCRIPTION: ', 'VID-RETURN-STRING'          $
+        END, IF                                                           $
+ 	OUTPUT, C' \LF\\LF\',
+	     C'DISCONNET ALL CABLES FROM THE SAIF.'     		  $
+C									  $
+ 	INPUT, GO-NOGO	                                                  $
+	PERFORM, 'ARBNAM' (C'REMOVE', 'RETURN_STATUS','RETURN_STRING')    $
+     	IF, ('RETURN_STATUS' NE 0), THEN				  $
+	     OUTPUT, C'ARBNAM REMOVE ERROR CODE: ', 'RETURN_STATUS'	  $
+             OUTPUT, C'ARBNAM REMOVE ERROR DESCRIPTION: ', 'RETURN_STRING'$
+        END, IF                                                           $	
+ 	PERFORM, 'CLRSCR'                                                 $
+C									  $	
+C									  $
+C									  $
+ 999999	 TERMINATE, ATLAS PROGRAM 'NAM-VIDCAP'                            $

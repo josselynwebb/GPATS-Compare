@@ -1,0 +1,874 @@
+{\rtf\windows\deff0
+{\fonttbl{\f0\fswiss\Arial;}{\f1\fmodern New Courier;}{\f2\ftech Symbol;}}
+#{\footnote WinHelp_Contents}
+${\footnote Contents}
+K{\footnote Contents}
+\pard\plain\f0\fs24 Contents
+\pard\plain\f1\fs16{
+\par 
+{\uldb Introduction}{\v WinHelp_Introduction}\par 
+{\uldb Assumptions}{\v WinHelp_Assumptions}\par 
+{\uldb Error Codes}{\v WinHelp_ErrorCodes}\par 
+{\uldb HPE1445A Arb.Waveform Generator (VISA) Summary}{\v WinHelp_Summary}\par 
+Function Tree Layout:\par 
+    HPE1445A Arb.Waveform Generator (VISA)        
+Function Name:\par 
+        {\uldb Initialize}{\v WinHelp_hpe1445a_init}
+                                {\uldb hpe1445a_init}{\v WinHelp_hpe1445a_init}\par 
+        Utility Functions\par 
+            {\uldb Write To Instrument}{\v WinHelp_hpe1445a_writeInstrData}
+                   {\uldb hpe1445a_writeInstrData}{\v WinHelp_hpe1445a_writeInstrData}\par 
+            {\uldb Read Instrument Data}{\v WinHelp_hpe1445a_readInstrData}
+                  {\uldb hpe1445a_readInstrData}{\v WinHelp_hpe1445a_readInstrData}\par 
+            {\uldb Reset}{\v WinHelp_hpe1445a_reset}
+                                 {\uldb hpe1445a_reset}{\v WinHelp_hpe1445a_reset}\par 
+            {\uldb Self-Test}{\v WinHelp_hpe1445a_selfTest}
+                             {\uldb hpe1445a_selfTest}{\v WinHelp_hpe1445a_selfTest}\par 
+            {\uldb Error-Query}{\v WinHelp_hpe1445a_errorQuery}
+                           {\uldb hpe1445a_errorQuery}{\v WinHelp_hpe1445a_errorQuery}\par 
+            {\uldb Error Message}{\v WinHelp_hpe1445a_errorMessage}
+                         {\uldb hpe1445a_errorMessage}{\v WinHelp_hpe1445a_errorMessage}\par 
+            {\uldb Revision Query}{\v WinHelp_hpe1445a_revisionQuery}
+                        {\uldb hpe1445a_revisionQuery}{\v WinHelp_hpe1445a_revisionQuery}\par 
+            {\uldb Wait for RQS}{\v WinHelp_hpe1445a_waitForRqs}
+                          {\uldb hpe1445a_waitForRqs}{\v WinHelp_hpe1445a_waitForRqs}\par 
+        {\uldb Close}{\v WinHelp_hpe1445a_close}
+                                     {\uldb hpe1445a_close}{\v WinHelp_hpe1445a_close}\par 
+}\page
+#{\footnote WinHelp_Introduction}
+${\footnote Introduction}
+K{\footnote Introduction}
+\pard\plain\f0\fs24 Introduction
+\pard\plain\f1\fs16{
+\keep\par
+  This instrument driver provides programming support for HPE1445A Arb.Waveform Generator (VISA).\par
+  It contains functions for opening, configuring, taking measurements from, and\par
+  closing the instrument.\par
+\par
+\par
+}\page
+#{\footnote WinHelp_Assumptions}
+${\footnote Assumptions}
+K{\footnote Assumptions}
+\pard\plain\f0\fs24 Assumptions
+\pard\plain\f1\fs16{
+\keep\par
+  To successfully use this module, the following conditions must be met:\par
+\par
+  For GPIB instrument drivers:\par
+         -  the instrument is connected to the GPIB.\par
+         -  the GPIB address supplied to the initialize function must match the\par
+            GPIB address of the instrument.\par
+\par
+\par
+\par
+  For VXI instrument drivers:\par
+         -  the instrument is installed in the VXI mainframe and you are\par
+            using one of the following controller options:\par
+            Embedded controller\par
+                  AT-MXI\par
+                  MC-MXI\par
+                  GPIB-VXI\par
+\par
+\par
+         -  the logical address supplied to the initialize function must\par
+            match the logical address of the instrument.\par
+         -  if you are using GPIB-VXI, there must be at least one unused\par
+            device name in the handler.\par
+\par
+\par
+\par
+  For RS-232 instrument drivers:\par
+         -  the instrument is connected to the RS-232 interface.\par
+         -  the COM port, baud rate, parity, and timeout supplied to the\par
+            initialize function must match the settings of the instrument.\par
+\par
+\par
+}\page
+#{\footnote WinHelp_ErrorCodes}
+${\footnote Error Codes}
+K{\footnote Error Codes}
+\pard\plain\f0\fs24 Error Codes
+\pard\plain\f1\fs16{
+\keep\par
+  Error codes are returned as the return value of each instrument driver\par
+  function. A program should examine this value after each call to an instrument\par
+  driver function to determine if any error occurred. Possible error codes and\par
+  their meanings are listed with the corresponding instrument driver function.\par
+\par
+\par
+}\page
+#{\footnote WinHelp_Summary}
+${\footnote HPE1445A Arb.Waveform Generator (VISA)}
+K{\footnote HPE1445A Arb.Waveform Generator (VISA)}
+\pard\plain\f0\fs24 HPE1445A Arb.Waveform Generator (VISA)
+\pard\plain\f1\fs16{
+\par No Summary in .fp file}\page
+#{\footnote WinHelp_hpe1445a_close}
+${\footnote hpe1445a_close}
+K{\footnote hpe1445a_close}
+\pard\plain\f0\fs24 hpe1445a_close
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_close As ViStatus (ByVal instrumentHandle As ViSession)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function performs the following operations:\par
+      viClose (instrSession) and viClose (rmSession).\par
+      \par
+      Notes:\par
+      \par
+      (1) The instrument must be reinitialized to use it again.\par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_errorMessage}
+${\footnote hpe1445a_errorMessage}
+K{\footnote hpe1445a_errorMessage}
+\pard\plain\f0\fs24 hpe1445a_errorMessage
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_errorMessage As ViStatus (ByVal instrumentHandle As ViSession,\par
+                                                  ByVal errorCode As ViStatus,\par
+                                                  errorMessage As ViChar)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function takes the Status Code returned by the instrument driver functions, interprets\par
+      it and returns it as a user readable string.\par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  VI_NULL\par
+\f1\fs16\keep
+\par
+      ByVal errorCode As ViStatus\par
+\par
+          This control accepts the Status Code returned from the instrument driver functions.\par
+          \par
+          Default Value:\par
+          0 - VI_SUCCESS\par
+\f1\fs16\keep
+\par
+      errorMessage As ViChar\par
+\par
+          This control returns the interpreted Status Code as a user readable message string.\par
+          \par
+          Notes:\par
+          \par
+          (1) The array must contain at least 256 elements ViChar[256].\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_errorQuery}
+${\footnote hpe1445a_errorQuery}
+K{\footnote hpe1445a_errorQuery}
+\pard\plain\f0\fs24 hpe1445a_errorQuery
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_errorQuery As ViStatus (ByVal instrumentHandle As ViSession,\par
+                                                errorCode As ViInt32, errorMessage As ViChar)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function reads an error code from the instrument's error queue.\par
+      \par
+      \par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\f1\fs16\keep
+\par
+      errorCode As ViInt32\par
+\par
+          This control returns the error code read from the instrument's error queue.\par
+          \par
+\f1\fs16\keep
+\par
+      errorMessage As ViChar\par
+\par
+          This control returns the error message string read from the instrument's error message\par
+          queue.\par
+          \par
+          Notes:\par
+          \par
+          (1) The array must contain at least 256 elements ViChar[256].\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_init}
+${\footnote hpe1445a_init}
+K{\footnote hpe1445a_init}
+\pard\plain\f0\fs24 hpe1445a_init
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_init As ViStatus (ByVal resourceName As ViRsrc, ByVal IDQuery As ViBoolean,\par
+                                          ByVal resetDevice As ViBoolean,\par
+                                          instrumentHandle As ViSession)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function performs the following initialization actions:\par
+      \par
+      - Opens a session to the Default Resource Manager resource and a session to the specified\par
+      device using the interface and address specified in the Resource_Name control.\par
+      \par
+      - Performs an identification query on the Instrument.\par
+      \par
+      - Resets the instrument to a known state.\par
+      \par
+      - Sends initialization commands to the instrument that set any necessary programmatic\par
+      variables such as Headers Off, Short Command form, and Data Transfer Binary to the state\par
+      necessary for the operation of the instrument driver.\par
+      \par
+      - Returns an Instrument Handle which is used to differentiate between different sessions of\par
+      this instrument driver.\par
+      \par
+      - Each time this function is invoked a Unique Session is opened.  It is possible to have more\par
+      than one session open for the same resource.\par
+      \par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal resourceName As ViRsrc\par
+\par
+          This control specifies the interface and address of the device that is to be initialized\par
+          (Instrument Descriptor). The exact grammar to be used in this control is shown in the\par
+          note below.\par
+          \par
+          Default Value:  "VXI::24"\par
+          \par
+          Notes:\par
+          \par
+          (1) Based on the Instrument Descriptor, this operation establishes a communication\par
+          session with a device.  The grammar for the Instrument Descriptor is shown below.\par
+          Optional parameters are shown in square brackets ([]).\par
+          \par
+          Interface   Grammar\par
+          ------------------------------------------------------\par
+          VXI        VXI[board]::primary address[::secondary address]\par
+                      [::INSTR]\par
+          \par
+          The VXI keyword is used with VXI instruments.\par
+          \par
+          The default value for optional parameters are shown below.\par
+          \par
+          Optional Parameter          Default Value\par
+          -----------------------------------------\par
+          board                       0\par
+          secondary address           none - 31\par
+          \par
+\f1\fs16\keep
+\par
+      ByVal IDQuery As ViBoolean\par
+\par
+          This control specifies if an ID Query is sent to the instrument during the initialization\par
+          procedure.\par
+          \par
+          Valid Range:\par
+          VI_OFF (0) - Skip Query\par
+          VI_ON  (1) - Do Query (Default Value)\par
+          \par
+          Notes:\par
+          \par
+          (1) Under normal circumstances the ID Query ensures that the instrument initialized is\par
+          the type supported by this driver. However circumstances may arise where it is\par
+          undesirable to send an ID Query to the instrument.  In those cases; set this control to\par
+          "Skip Query" and this function will initialize the selected interface, without doing an\par
+          ID Query.\par
+\f1\fs16\keep
+\par
+      ByVal resetDevice As ViBoolean\par
+\par
+          This control specifies if the instrument is to be reset to its power-on settings during\par
+          the initialization procedure.\par
+          \par
+          Valid Range:\par
+          VI_OFF (0) - Don't Reset\par
+          VI_ON  (1) - Reset Device (Default Value)\par
+          \par
+          Notes:\par
+          \par
+          (1) If you do not want the instrument reset, set this control to "Don't Reset" while\par
+          initializing the instrument.\par
+\f1\fs16\keep
+\par
+      instrumentHandle As ViSession\par
+\par
+          This control returns an Instrument Handle that is used in all subsequent function calls\par
+          to differentiate between different sessions of this instrument driver.\par
+          \par
+          Notes:\par
+          \par
+          (1) Each time this function is invoked a Unique Session is opened.  It is possible to\par
+          have more than one session open for the same resource.\par
+          \par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFC0002  Parameter 2 (ID Query) out of range.\par
+          BFFC0003  Parameter 3 (Reset Device) out of range.\par
+          BFFC0011  Instrument returned invalid response to ID Query.\par
+          \par
+          BFFC0803  Error Scanning Response VI_ERROR_INTERPRETING_RESPONSE\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_readInstrData}
+${\footnote hpe1445a_readInstrData}
+K{\footnote hpe1445a_readInstrData}
+\pard\plain\f0\fs24 hpe1445a_readInstrData
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_readInstrData As ViStatus (ByVal instrumentHandle As ViSession,\par
+                                                   ByVal numberBytesToRead As ViInt16,\par
+                                                   readBuffer As ViChar, numBytesRead As ViInt32)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function reads data from the instrument's output buffer and returns it to the specified\par
+      variable in memory.\par
+      \par
+      Notes:\par
+      \par
+      (1) Because the instrument may return both numeric and text data in response to queries this\par
+      function returns the data in string format.\par
+      \par
+      (2) If valid data is not available at the instrument's output buffer when this function is\par
+      called the instrument will hang up and the function will not return until it times out.  If\par
+      the time-out is disabled this function will hang indefinitely and it may be necessary to\par
+      reboot the computer to break out.\par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\f1\fs16\keep
+\par
+      ByVal numberBytesToRead As ViInt16\par
+\par
+          The number of bytes specified by this control should be greater than or equal to the\par
+          number of bytes which are to be read from the instrument. If the actual number of bytes\par
+          to be read is greater than the number this control specifies then multiple reads will be\par
+          required to empty the instrument's output buffer.\par
+          \par
+          If the instrument's output buffer is not emptied the instrument may return invalid data\par
+          when future reads are performed.\par
+          \par
+          Default Value:  50 (See NOTE 2)\par
+          \par
+          Notes:\par
+          \par
+          (1) If NO DATA is available at the instrument's output buffer when this function is\par
+          called the instrument will hang up and the function will not return until it times out.\par
+          If the time-out is disabled, this function will hang indefinitely and it may be necessary\par
+          to reboot the computer.\par
+          \par
+          (2) If the number of bytes expected is greater than 50 the value of this control may be\par
+          increased. If the actual number of bytes read is larger than the declared size of the\par
+          read buffer a run-time error will be generated.\par
+          \par
+\f1\fs16\keep
+\par
+      readBuffer As ViChar\par
+\par
+          The incoming data from the instrument is placed into this variable.\par
+          \par
+          Notes:\par
+          \par
+          (1) Because the instrument may return both numeric and text data in response to queries\par
+          this function returns the data in string format.\par
+          \par
+          (2) This function does not overwrite any old data left in the string variable from the\par
+          last time the function was called. String data in LabWindows/CVI is terminated with an\par
+          ASCII null(0x0) and string manipulation functions will only recognize data before the\par
+          ASCII null.\par
+          \par
+          (3) The declared size of the string variable must be greater than the actual number of\par
+          bytes read from the instrument if it is not a run-time error will be generated.\par
+          \par
+\f1\fs16\keep
+\par
+      numBytesRead As ViInt32\par
+\par
+          This variable contains the actual number of bytes read from the instrument. This is the\par
+          value which is returned by the read function.\par
+          \par
+          Notes:\par
+          \par
+          (1) If the actual number of bytes read is less than the number of bytes specified in the\par
+          Number Bytes To Read control then the output buffer has probably been emptied. If the\par
+          read function fails and the number of bytes read is 0, the most probable cause for the\par
+          failure is there was no data available at the instrument's output buffer.\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_reset}
+${\footnote hpe1445a_reset}
+K{\footnote hpe1445a_reset}
+\pard\plain\f0\fs24 hpe1445a_reset
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_reset As ViStatus (ByVal instrumentHandle As ViSession)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function resets the instrument to a known state and sends initialization commands to the\par
+      instrument that set any necessary programmatic variables such as Headers Off, Short Command\par
+      form, and Data Transfer Binary to the state necessary for the operation of the instrument\par
+      driver.\par
+      \par
+      \par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_revisionQuery}
+${\footnote hpe1445a_revisionQuery}
+K{\footnote hpe1445a_revisionQuery}
+\pard\plain\f0\fs24 hpe1445a_revisionQuery
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_revisionQuery As ViStatus (ByVal instrumentHandle As ViSession,\par
+                                                   instrumentDriverRevision As ViChar,\par
+                                                   firmwareRevision As ViChar)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function returns the revision numbers of the instrument driver and instrument firmware,\par
+      and tells the user what firmware the driver is compatible with, this instrument driver's\par
+      Revision Number is "Rev 1.0, 2/96, CVI 3.1".  The firmware revision number is unknown.\par
+      \par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\f1\fs16\keep
+\par
+      instrumentDriverRevision As ViChar\par
+\par
+          This control returns the Instrument Driver Software Revision.\par
+          \par
+          Notes:\par
+          \par
+          (1) The array must contain at least 256 elements ViChar[256].\par
+\f1\fs16\keep
+\par
+      firmwareRevision As ViChar\par
+\par
+          This control returns the Instrument Firmware Revision.\par
+          \par
+          Notes:\par
+          \par
+          (1) The array must contain at least 256 elements ViChar[256].\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_selfTest}
+${\footnote hpe1445a_selfTest}
+K{\footnote hpe1445a_selfTest}
+\pard\plain\f0\fs24 hpe1445a_selfTest
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_selfTest As ViStatus (ByVal instrumentHandle As ViSession,\par
+                                              selfTestResult As ViInt16, selfTestMessage As ViChar)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function runs the instrument's self test routine and returns the test result(s).\par
+      \par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\f1\fs16\keep
+\par
+      selfTestResult As ViInt16\par
+\par
+          This control contains the value returned from the instrument self test.  Zero means\par
+          success.  For any other code, see the device's operator's manual.\par
+          \par
+\f1\fs16\keep
+\par
+      selfTestMessage As ViChar\par
+\par
+          This control contains the string returned from the self test. See the device's operation\par
+          manual for an explanation of the string's contents.\par
+          \par
+          Notes:\par
+          \par
+          (1) The array must contain at least 256 elements ViChar[256].\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_waitForRqs}
+${\footnote hpe1445a_waitForRqs}
+K{\footnote hpe1445a_waitForRqs}
+\pard\plain\f0\fs24 hpe1445a_waitForRqs
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_waitForRqs As ViStatus (ByVal instrumentHandle As ViSession,\par
+                                                ByVal timeoutms As ViInt32, statusByte As ViInt16)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function waits for a service request to be generated by the instrument.\par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\f1\fs16\keep
+\par
+      ByVal timeoutms As ViInt32\par
+\par
+          Maximum time to wait (in milliseconds) for an event\par
+          of the specified type to occur.  Special values are:\par
+           VI_TMO_IMMEDIATE (dequeue only, do not wait)\par
+           VI_TMO_INFINITE  (wait forever, do not fail)\par
+          \par
+\f1\fs16\keep
+\par
+      statusByte As ViInt16\par
+\par
+          The status byte read from the instrument.\par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFC0002  Parameter 2 (Timeout) out of range.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+#{\footnote WinHelp_hpe1445a_writeInstrData}
+${\footnote hpe1445a_writeInstrData}
+K{\footnote hpe1445a_writeInstrData}
+\pard\plain\f0\fs24 hpe1445a_writeInstrData
+\pard\plain\f1\fs16{
+\f1\fs16\keep\par
+      Function hpe1445a_writeInstrData As ViStatus (ByVal instrumentHandle As ViSession,\par
+                                                    ByVal writeBuffer As ViString)\par
+\par \pard\plain\f0\fs24Purpose\f1\fs16\keep\par
+      This function writes commands and queries to the instrument to modify parameters and query\par
+      device settings.\par
+\par \pard\plain\f0\fs24
+Parameter List
+\f1\fs16\keep
+\par
+      ByVal instrumentHandle As ViSession\par
+\par
+          This control accepts the Instrument Handle returned by the Initialize function to select\par
+          the desired instrument driver session.\par
+          \par
+          Default Value:  None\par
+\f1\fs16\keep
+\par
+      ByVal writeBuffer As ViString\par
+\par
+          The user can use this control to send common commands and queries to the instrument. This\par
+          control can also be used to write any valid command to the instrument.\par
+          \par
+          Default Value:  "*RST"\par
+          \par
+          Notes:\par
+          \par
+          (1) The command or query to be sent to the instrument may be a literal enclosed in double\par
+          quotes i.e. "*RST" or may be contained in a variable of type string.\par
+          \par
+\par \pard\plain\f0\fs24
+Return Value
+\f1\fs16\keep
+\par
+          This control contains the status code returned by the function call.\par
+          \par
+          Status Codes:\par
+          \par
+          Status    Description\par
+          -------------------------------------------------\par
+                 0  No error (the call was successful).\par
+          \par
+          3FFF0005  The specified termination character was read.\par
+          3FFF0006  The specified number of bytes was read.\par
+          \par
+          BFFF0000  Miscellaneous or system error occurred.\par
+          BFFF000E  Invalid session handle.\par
+          BFFF0015  Timeout occurred before operation could complete.\par
+          BFFF0034  Violation of raw write protocol occurred.\par
+          BFFF0035  Violation of raw read protocol occurred.\par
+          BFFF0036  Device reported an output protocol error.\par
+          BFFF0037  Device reported an input protocol error.\par
+          BFFF0038  Bus error occurred during transfer.\par
+          BFFF003A  Invalid setup (attributes are not consistent).\par
+          BFFF005F  No listeners condition was detected.\par
+          BFFF0060  This interface is not the controller in charge.\par
+          BFFF0067  Operation is not supported on this session.\par
+          \par
+}\page
+}

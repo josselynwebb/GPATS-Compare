@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY tet-30 SYSTEM "./graphics/tet_30.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S01" LABEL="I"><?Pub Dtl?><?FRAME title="Chapter 4. Test Program Instructions, Section I. Introduction" previous="./c3s16.ide!c3s16c"?>
+<?TOCENTRY TITLE="CHAPTER 4. TEST PROGRAM INSTRUCTIONS" TOCLEVEL="1"?>
+<?CHAPTERINFO LABEL="4" ID="C4" TITLE="TEST PROGRAM INSTRUCTIONS"?><?TOCENTRY TITLE="SECTION I. Introduction" TOCLEVEL="2" LABEL="I"?>
+<TITLE>SECTION I. Introduction</TITLE>
+<PARA0 ID="P4-1" LABEL="4.1"><?TOCENTRY TITLE="4.1 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This chapter gives detailed Test Program Instructions for testing each CCA contained in the DDM, the Controller C-10879/MSQ-115, and the AN/MIQ-1 Intercommunications Set, using the test station.</PARA>
+<SUBPARA1 ID="P4-1.1" LABEL="4.1.1"><?TOCENTRY TITLE="4.1.1 Testing Guidelines" TOCLEVEL="4"?>
+<TITLE>Testing Guidelines</TITLE>
+<PARA>Use the following guidelines when performing test procedures:  
+<SEQLIST NUMSTYLE="ALPHALC">
+<ITEM LABEL="a">If a test station error message appears during testing, refer to the test station technical manual troubleshooting guide for instruction.</ITEM>
+<ITEM LABEL="b">Test procedures identify all required displays and indicators during the test.</ITEM>
+<ITEM LABEL="c">Passing self test assures that the equipment is operational and that UUT testing will be complete and accurate.</ITEM>
+<ITEM LABEL="d">The test program will call out the most likely fault first.</ITEM>
+<ITEM LABEL="e">Cable connection and disconnection messages appear on the test station display monitor.</ITEM>
+<ITEM LABEL="f">If required, probing instructions appear on the test station display monitor during testing.</ITEM></SEQLIST></PARA></SUBPARA1>
+<SUBPARA1 ID="P4-1.2" LABEL="4.1.2"><?TOCENTRY TITLE="4.1.2 Test Procedures" TOCLEVEL="4"?>
+<TITLE>Test Procedures</TITLE>
+<PARA>The test procedures are software driven. Test program software automatically isolates faults and directs replacements and/or adjustments.  All of the information the operator needs to perform UUT testing is displayed on the test station monitor. Monitor displays contain test options and test results data. Operating instructions for the test procedure are used to run tests and isolate faults.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-1.3" LABEL="4.1.3"><?TOCENTRY TITLE="4.1.3 Operator Intervention" TOCLEVEL="4"?>
+<TITLE>Operator Intervention</TITLE>
+<PARA>If directed by the test program software, the operator may be required to perform manual actions to aid in testing the UUT. These actions may include probing, adjustment, and the attachment of clips.  The operator action will appear on the test station display monitor. In order to access component probe/clip points, the operator may be required to remove conformal coating.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-1.4" LABEL="4.1.4"><?TOCENTRY TITLE="4.1.4 Interpretation of Test Results" TOCLEVEL="4"?>
+<TITLE>Interpretation of Test Results</TITLE>
+<PARA>Replacement callouts will be displayed on the test station display monitor.  Replace the first part listed and rerun the test. If the replacement part did not correct the problem, replace the next suggested part and rerun the test.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-1.5" LABEL="4.1.5"><?TOCENTRY TITLE="4.1.5 Malfunction Isolation" TOCLEVEL="4"?>
+<TITLE>Malfunction Isolation</TITLE>
+<PARA>During UUT performance tests, the TPS can correctly isolate 95% of the detectable faults of a UUT. Diagnostic fault isolation varies depending on whether the UUT is an LRU or a CCA. For LRUs, fault isolation is 100% for three CCAs, 90% for two CCAs, and 80% for one CCA. For CCAs, fault isolation is 100% for twelve to fourteen components, 90% for ten to twelve components, and 80% for eight to ten components.</PARA></SUBPARA1><?FRAME id="c4s01b" title="Chapter 4. Test Program Instructions, Section I. Introduction Cont'd"?>
+<SUBPARA1 ID="P4-1.6" LABEL="4.1.6"><?TOCENTRY TITLE="4.1.6 Preparation for Testing" TOCLEVEL="4"?>
+<TITLE>Preparation for Testing</TITLE>
+<PARA>The following step-by-step procedures are performed to prepare for testing:</PARA>
+<STEP1 ID="P4-1.61" LABEL="a">
+<PARA>Inspect and start up the test station using procedures in the test station manual.</PARA></STEP1>
+<STEP1 ID="P4-1.62" LABEL="b">
+<PARA>Inspect all ITA connectors for bent or broken pins.</PARA></STEP1>
+<STEP1 ID="P4-1.63" LABEL="c">
+<PARA>Inspect ITA for loose or missing hardware.</PARA></STEP1>
+<STEP1 ID="P4-1.64" LABEL="d">
+<PARA>Inspect all cable assembly connectors for loose or missing hardware.</PARA></STEP1>
+<STEP1 ID="P4-1.65" LABEL="e">
+<PARA>Inspect self test and mounting CCAs for damaged connectors and missing or loose hardware.</PARA></STEP1>
+<STEP1 ID="P4-1.66" LABEL="f">
+<PARA>Inspect card guides for loose or missing hardware.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-1.7" LABEL="4.1.7"><?TOCENTRY TITLE="4.1.7 Test Station Power-Up/Power Down" TOCLEVEL="4"?>
+<TITLE>Test Station Power-Up/Power Down</TITLE>
+<PARA>The following paragraphs describe test station power-up and power down.</PARA>
+<SUBPARA2 ID="P4-1.8" LABEL="4.1.7.1"><?TOCENTRY TITLE="4.1.7.1 Test Station Power-Up" TOCLEVEL="5"?>
+<TITLE>Test Station Power-Up</TITLE>
+<PARA>Power-up the test station using procedures in the test station manual.</PARA></SUBPARA2>
+<SUBPARA2 ID="P4-1.9" LABEL="4.1.7.2"><?TOCENTRY TITLE="4.1.7.2 Test Station Power Down" TOCLEVEL="5"?>
+<TITLE>Test Station Power Down</TITLE>
+<PARA>Power down the test station using procedures in the test station manual.</PARA></SUBPARA2></SUBPARA1><?FRAME id="c4s01c" title="Chapter 4. Test Program Instructions, Section I. Introduction Cont'd" next="./c4s02.ide!c4s02" image="./graphics/tet_30.pic"?>
+<SUBPARA1 ID="P4-1.10" LABEL="4.1.8"><?TOCENTRY TITLE="4.1.8 ITA Installation/Removal" TOCLEVEL="4"?>
+<TITLE>ITA Installation/Removal</TITLE>
+<PARA>The following paragraphs provide procedures for the installation and removal of the TPS ITA.</PARA>
+<SUBPARA2 ID="P4-1.10.1" LABEL="4.1.8.1"><?TOCENTRY TITLE="4.1.8.1 ITA Installation" TOCLEVEL="5"?>
+<TITLE>ITA Installation</TITLE>
+<CAUTION>
+<PARA>To avoid damage to the receiver adapter on the test station, be careful not to bend the adapter contacts while installing the ITA. Also, if the ITA does not seem to fit, do not continue with the installation or force the ITA to make it fit.</PARA></CAUTION>
+<PARA>Using <?hotspot linktype="picture" href="./graphics/tet_30.pic"?>Figure 4-1<?endhotspot?>, the following step-by-step procedure describes ITA installation.</PARA>
+<FIGURE ID="TET-30" LABEL="4-1">
+<TITLE>ITA Installation</TITLE><?hotspot linktype="picture" href="./graphics/tet_30.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-1.10.1S1" LABEL="a">
+<PARA>Remove protective cover (3) from ITA (4).</PARA></STEP1>
+<STEP1 ID="P4-1.10.1S2" LABEL="b">
+<PARA>Carefully align ITA guide pins (6 and 7) with the test station adapter receiver support hooks (1) and gently place ITA (4) on test station patch panel receiver hooks (1).</PARA></STEP1>
+<STEP1 ID="P4-1.10.1S3" LABEL="c">
+<PARA>Depress locking switch (9) and pull adapter receiver handle (10) down.</PARA></STEP1>
+<STEP1 ID="P4-1.10.1S4" LABEL="d">
+<PARA>Using even pressure on top and bottom of ITA, to maintain the ITA parallel to the front of the adapter receiver (8), slowly push the ITA in and down to fully seat the guide pins in the grooves (2) on the side of the adapter receiver.</PARA></STEP1>
+<STEP1 ID="P4-1.10.1S5" LABEL="e">
+<PARA>When the ITA is fully seated, raise the adapter receiver handle (10) to the vertical position making sure that the locking switch (9) catch engages the mating tab.</PARA></STEP1></SUBPARA2>
+<SUBPARA2 ID="P4-1.10.2" LABEL="4.1.8.2"><?TOCENTRY TITLE="4.1.8.2 ITA Removal" TOCLEVEL="5"?>
+<TITLE>ITA Removal</TITLE>
+<PARA>Using <?hotspot linktype="picture" href="./graphics/tet_30.pic"?>Figure 4-1<?endhotspot?>, the following step-by-step procedure describes ITA removal.</PARA>
+<STEP1 ID="P4-1.10.21" LABEL="a">
+<PARA>If a test program is running, terminate the program.</PARA></STEP1>
+<STEP1 ID="P4-1.10.2S2" LABEL="b">
+<PARA>At the test station adapter receiver (8), depress the locking switch (9) and slowly and completely lower the handle (10) to a position perpendicular to the adapter receiver (8).</PARA></STEP1>
+<STEP1 ID="P4-1.10.2S3" LABEL="c">
+<PARA>Grasp the ITA (4) by the handles (5) and slowly pull it up and away from the test station adapter receiver (8). Place the protective cover (3) on the ITA.</PARA></STEP1>
+<STEP1 ID="P4-1.10.2S4" LABEL="d">
+<PARA>Raise the test station adapter receiver handle (10) to the vertical position while depressing the locking switch (9). When the handle is fully seated, release the locking switch (9) to engage the mating tab.</PARA></STEP1></SUBPARA2></SUBPARA1></PARA0></SECTION>

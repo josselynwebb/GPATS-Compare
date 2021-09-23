@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub EntList alpha bull copy rArr sect trade amp?>
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-23_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='2' LABEL='UUT Sch' TYPE='pic' LINK='.\graphics\Fig3-24_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='3' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='4' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Gun Control Unit 7575345-051\GCU Pwr_Drv  )7566394-011)\TP_LAV_PWR_DRV.OBJ"' bitmap='n' DESC='Select to launch GTD Power Supply TPS.'?>
+<?FRAME id='C3s9a' title='CHAPTER 3 - THEORY OF OPERATION.' next='.\C3s9.xml!C3s9b' previous='.\C3s8.xml!C3S8b'?>
+<chapter>
+<section id="c3s9" label="Section IX." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section IX. GCU Power Drive A2 SLEP."?>
+<title>GCU Power Drive A2 SLEP.</title>
+<para0 id="p3-9" label="3-9" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-9 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide information on the Theory of
+Operation for the GCU Power Drive A2 SLEP. Part information is also
+provided in paragraph <?hotspot href="p3-9.2"?>3-9.2 Part Information<?endhotspot?>.</para>
+<subpara1 id="p3-9.1" label="3-9.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-9.1 Theory Of Operation."?>
+<title>Theory Of Operation.</title>
+<para>The GCU Power Drive A2 SLEP (P/N 00004A2205-1) CCA consists
+of 4 power transistors and their associated protection components.
+The 2 NMOS devices provide open drain outputs intended for the main
+weapon brakes, while the 2 PNP devices provide open collector outputs
+to the sear solenoid and field windings. </para>
+<subpara2 id="p3-9.1.1" label="3-9.1.1" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-9.1.1 GCU Power Drive A2 SLEP Equipment Description."?>
+<title>GCU Power Drive A2 SLEP Equipment Description.</title>
+<para>The GCU Power Drive A2 SLEP (P/N 00004A2205-1) herein referred
+to as the UUT, is a Circuit Card Assembly (CCA) that provides high
+current outputs to the main weapon brakes, sear solenoid, and field
+windings.</para>
+</subpara2>
+</subpara1>
+<?FRAME label='C3s9b' title='CHAP. 3 - THEORY OF OPERATION,  SECT. IX - GCU Power Drive A2 SLEP' image=".\graphics\Fig3-22_1.pic" next='.\C3s10.xml!C3S10A' previous='.\C3s9.xml!C3S9a'?>
+<subpara1 id="p3-9.2" label="3-9.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-9.2 Part Information."?>
+<title>Part Information.</title>
+<para>The following provides part information for the GCU Power Drive
+A2 SLEP.</para>
+<para>Refer to <?hotspot href="T3-8"?>Table 3-8<?endhotspot?> for
+part information.</para>
+<para> <table id="T3-8">
+<title id="T3-8">Table 3-8. GCU Power Drive A2 SLEP Part Information</title>
+<tgroup align="left" cols="5">
+<colspec colname="col1" colwidth="0.50*"/>
+<colspec colname="COL2" colwidth="0.60*"/>
+<colspec colname="COL3" colwidth="0.47*"/>
+<colspec colname="col4" colwidth="1.40*"/>
+<colspec colname="col5" colwidth="0.43*"/>
+<thead>
+<row>
+<entry align="center">Fig. 3-22 and Index Number</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">CAGEC</entry>
+<entry align="center">Description</entry>
+<entry align="center">Quantity (Qty)</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry align="center">00004A2205-1</entry>
+<entry align="center">1st 01365 <brk/>2nd 12339</entry>
+<entry>Circuit Card Assembly, GCU Power Drive A2 SLEP</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 4?>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="ITA" LABEL="XVI"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\INTERFACE_TEST_ADAPTER\ITA_05005A1000\TP_AAV_ITA.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s16.ide!c4s16'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ITA/ASSY/ITA_1.PIC' ?><?BUTTON POS='4' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c6s01.ide!chap6'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s16.ide!c3s16'?><?FRAME ID="5-16a" TITLE="Chapter 5. Maintenance, Section XVI. ELTD FOR ITA, P/N 05005A1000" previous="./ICS_A5.ide" next="./c6s01.ide!c6s01"?><?TOCENTRY TITLE="SECTION XVI. ELTD for the ITA, P/N 05005A1000" TOCLEVEL="2" LABEL="XVI"?>
+<TITLE>SECTION XVI. ELTD for the ITA, P/N 05005A1000</TITLE>
+<PARA0 ID="P5-16" LABEL="5.16"><?TOCENTRY TITLE="5.16 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the ITA, P/N 05005A1000.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-TPH-05005A1000.PDF"?>AAV Test Program Hardware (TPH) ELTD<?endhotspot?></PARA></PARA0></SECTION>

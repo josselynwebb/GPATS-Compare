@@ -1,0 +1,173 @@
+<FILE
+ TITLE='REPAIR PARTS AND SPECIAL TOOLS LIST'
+ INDEX='../index.ide'
+ STYLE='./intro.sty'>
+
+<?FRAME LABEL='TOC' SHOWNO='N'>
+
+<title>ELECTRONIC REPAIR PARTS AND SPECIAL TOOLS LIST (ERPSTL)</title>
+<item><hotspot>GENERAL<action><?display textblk="INTRODUCTION-1"></action></hotspot></item>
+<item><hotspot>EXPLANATION OF PARTS INFORMATION<action><?display textblk="INTRODUCTION-2"></action></hotspot></item>
+
+<?FRAME
+ LABEL='INTRODUCTION-1'
+ SHOWNO='NSHOWNO'>
+<title>GENERAL</title>
+<para>The Repair Parts and Special Tools List (RPSTL) contains parts breakdown information.  This information may be accessed in three ways.</para>
+<para>(1)  The figure number appearing for each repair procedure may be linked by hotspot to the appropriate illustration for the procedure.  The illustration could then be accessed by double-clicking on the figure number hotspot.  In addition, the callout numbers in the illustration could be linked by hotspot to the parts data for each callout.  This data could then be accessed by double-clicking on the hotspot for the item for which parts data is desired.</para>
+<para>(2)  Within each maintenance procedure the callout numbers for parts could be linked by hotspot to the parts data.  This data could then be accessed by double-clicking on the hotspot for the item for which parts data is desired.</para>
+<para>(3)  By using the RPSTL control panel button and using the lookup menu.</para>
+<para>NSN and Part Number Indexes are accessible, in NSN and part number sequence, of all items appearing in the RPSTL.  NSN and part numbers are cross-referenced to each illustration figure and item number.</para>
+
+<?FRAME
+ LABEL='INTRODUCTION-2'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.</title>
+<item><hotspot>Illustration<action><?display textblk="INTRODUCTION-2_2"></action></hotspot>
+</item>
+<item><hotspot>Source, Maintenance, and Recoverability (SMR) Codes<action><?display textblk="INTRODUCTION-2_3"></action></hotspot></item>
+<item><hotspot>National Stock Number (NATIONAL STK #)<action><?display textblk="INTRODUCTION-2_7"></action></hotspot></item>
+<item><hotspot>Commercial and Government Entity  Code (CAGEC)<action><?display textblk="INTRODUCTION-2_8"></action></hotspot></item>
+<item><hotspot>Part Number<action><?display textblk="INTRODUCTION-2_9"></action></hotspot>
+</item>
+<item><hotspot>Description and Usable On Code (UOC)<action><?display textblk="INTRODUCTION-2_10"></action></hotspot></item>
+<item><hotspot>ECO Repl/MAN Repl<action><?display textblk="INTRODUCTION-2_11"></action></hotspot></item>
+<item><hotspot>Quantity (QTY)<action><?display textblk="INTRODUCTION-2_12"></action></hotspot>
+</item>
+
+<?frame
+ LABEL='INTRODUCTION-2_2'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE2>Illustration.</TITLE2>
+<TITLE3>Figure Number (FIG).</TITLE3>
+<PARA3>The figure number indicates the number of the illustration in which the item is shown.</PARA3>
+<TITLE3>Item Number (ITEM).</TITLE3>
+<PARA3>The item number identifies the item called out in the illustration.  When an item is part of another item, the item number for the next higher part is indicated in parenthesis after the item number.</PARA3>
+
+<?frame
+ LABEL='INTRODUCTION-2_3'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION  (Continued)</title>
+<TITLE2>Source, Maintenance, and Recoverability (SMR) Codes.</TITLE2>
+<item><hotspot>Source Code<action><?display textblk="INTRODUCTION-2_4"></action></hotspot>
+</item>
+<item><hotspot>Maintenance Code<action><?display textblk="INTRODUCTION-2_5"></action></hotspot></item>
+<item><hotspot>Recoverability Code<action><?display textblk="INTRODUCTION-2_6"></action></hotspot></item>
+
+<?frame
+ LABEL='INTRODUCTION-2_4'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE2>Source, Maintenance, and Recoverability (SMR) Codes.  (Continued)</TITLE2>
+<TITLE3>Source Code.</TITLE3>
+<PARA3>Source codes indicate the manner of acquiring support items for maintenance, repair, or overhaul of end items.  Source codes are entered in the first and second position of the Uniform SMR Code format as follows:</PARA3>
+<defhd><hd1>Code</hd1><hd2>Definition</hd2></defhd>
+<row><term>PA</term><def>Item procured and stocked for anticipated or known usage</def></row>
+<row><term>PB</term><def>Item procured and stocked for insurance purposes because it essentially dictates that a minimum quantity must be available in the supply system.</def></row>
+<row><term>PC</term><def>Item procured and stocked and which otherwise would be coded PA except that it is deteriorative in nature.</def></row>
+<row><term>PD</term><def>Support item, excluding support equipment, procured for initial issue or outfitting and stocked only for subsequent or additional initial issues outfitting.  Not subject to automatic replenishment.</def></row>
+<row><term>PE</term><def>Support equipment procured and stocked for initial issue or outfitting to specified maintenance repair activities.</def></row>
+<row><term>PF</term><def>Support equipment which will not be stocked but will be centrally procured on demand.</def></row>
+<row><term>PG</term><def>Item procured and stocked to provide for sustained support for the life of the equipment.</def></row>
+<row><term>KD</term><def>An item of depot overhaul/repair kit and not purchased separately. Depot kit is defined as a kit that provides items required at the time of overhaul or repair.</def></row>
+<row><term>KF</term><def>An item of a maintenance kit and not purchased separately. Maintenance kit is defined as a kit that provides an item that can be replaced at organizational or intermediate levels of maintenance.</def></row>
+<row><term>KB</term><def>Item included in both a depot overhaul/repair kit and a maintenance kit.</def></row>
+<row><term>MO</term><def>Item to be manufactured or fabricated at organizational level.</def></row>
+<row><term>MF</term><def>Item to be manufactured or fabricated at the direct support level.</def></row>
+<row><term>MH</term><def>Item to be manufactured or fabricated at the general support level.</def></row>
+<row><term>MD</term><def>Item to be manufactured or fabricated at depot level.</def></row>
+<row><term>AO</term><def>Item to be assembled at organizational level.</def></row>
+<row><term>AF</term><def>Item to be assembled at the direct support level.</def></row>
+<row><term>AH</term><def>Item to be assembled at the general support level.</def></row>
+<row><term>AD</term><def>Item to be assembled at depot level.</def></row>
+<row><term>XA</term><def>Item is not procured or stocked because the requirement for the item will result in replacement of the next higher assembly.</def></row>
+<row><term>XB</term><def>Item is not procured or stocked.  If not available through salvage, it is requisitioned.</def></row>
+<row><term>XC</term><def>Installation drawing, diagram, instruction sheet, or field service drawing that is identified by manufacturer's number.</def></row>
+<row><term>XD</term><def>A support item that is not stocked.  When required, item will be procured through normal supply channels.</def></row>
+
+<?frame
+ LABEL='INTRODUCTION-2_5'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE2>Source, Maintenance, and Recoverability (SMR) Codes.  (Continued)</TITLE2>
+<TITLE3>Maintenance Code.</TITLE3>
+<PARA3>Maintenance codes are assigned to indicate the levels of maintenance authorized to use and repair support items.  The maintenance codes are entered in the third and fourth positions of the Uniform SMR Code format as follows:</PARA3>
+<para>The maintenance code entered in the third position indicates the lowest maintenance level authorized to remove, replace, and use the support item.  The maintenance code entered in the third position indicates one of the following levels of maintenance:</para>
+<defhd><hd1>Code</hd1><hd2>Application/Explanation</hd2></defhd>
+<row><term>O</term><def>Support item is removed, replaced, and used at organizational level.
+</def></row>
+<row><term>F</term><def>Support item is removed, replaced, and used at direct support level.</def></row>
+<row><term>H</term><def>Support item is removed, replaced, and used at general support level.</def></row>
+<row><term>D</term><def>Support items that are removed, replaced, and used at depot or specialized repair activity only.</def></row>
+<para>The maintenance code entered in the fourth position indicates whether the item is to be repaired and the lowest maintenance level with the capability to perform complete repair (i.e., all authorized maintenance functions).  This position will contain one of the following maintenance codes:</para>
+
+<defhd><hd1>Code</hd1><hd2>Application/Explanation</hd2></defhd>
+<row><term>O</term><def>The lowest maintenance level capable of complete repair of the support item is the organizational level.</def></row>
+<row><term>F</term><def>The lowest maintenance level capable of complete repair of the support item is the direct support level.</def></row>
+<row><term>H</term><def>The lowest maintenance level capable of complete repair of the support item is the general support level.</def></row>
+<row><term>D</term><def>The lowest maintenance level capable of complete repair of the support item is the depot level.</def></row>
+<row><term>L</term><def>Repair restricted to designated Specialized Repair Activity.</def></row>
+<row><term>Z</term><def>Nonreparable.  No repair is authorized.</def></row>
+<row><term>B</term><def>No repair is authorized.  The item may be reconditioned by adjusting, lubricating, etc., at the user level.  No parts or special tools are procured for the maintenance of this item.</def></row>
+
+<?frame
+ LABEL='INTRODUCTION-2_6'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE2>Source, Maintenance, and Recoverability (SMR) Codes.  (Continued)</TITLE2>
+<TITLE3>Recoverability Code.</TITLE3>
+<PARA3>Recoverability codes are assigned to support items to indicate the disposition action on unserviceable items.  The recoverability code is entered in the fifth position of the Uniform SMR Code format as follows:</PARA3>
+<defhd><hd1>Code</hd1><hd2>Application/Explanation</hd2></defhd>
+<row><term>Z</term><def>Nonreparable item.  When unserviceable, condemn and dispose at the level indicated in SMR code position 3.</def></row>
+<row><term>O</term><def>Reparable item.  When not economically reparable, condemn and dispose at organizational level.</def></row>
+<row><term>F</term><def>Reparable item.  When not economically reparable, condemn and dispose at direct support level.</def></row>
+<row><term>H</term><def>Reparable item.  When not economically reparable, condemn and dispose at general support level.</def></row>
+<row><term>D</term><def>Reparable item.  When beyond lower level repair capability, return to depot.  Condemnation and disposal not authorized beyond depot level.</def></row>
+<row><term>L</term><def>Reparable item.  Repair, condemnation, and disposal not authorized below depot/specialized repair activity level.</def></row>
+<row><term>A</term><def>Item requires special handling or condemnation procedures because of specific reasons (i.e., precious metal content, high dollar value, or hazardous material).  Refer to appropriate manuals/directives for specific instructions.</def></row>
+
+<?frame
+ LABEL='INTRODUCTION-2_7'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE3>National Stock Number (NATIONAL STK#).</TITLE3>
+<PARA3>This row lists the NSN assigned to the item and is to be used for requisitioning.</PARA3>
+
+<?frame
+ LABEL='INTRODUCTION-2_8'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE3>Commercial and Government Entity Code (CAGEC).</TITLE3>
+<PARA3>The CAGE is a 5-digit numeric code listed in SB 708-42 which is used to identify the manufacturer, distributor, or Government agency, etc.</PARA3>
+
+<?frame
+ LABEL='INTRODUCTION-2_9'
+ SHOWNO='NSHOWNO'>
+
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE3>Part Number.</TITLE3>
+<PARA3>This row contains the primary number used by the manufacturer (individual, company, firm, corporation, or Government activity), which controls the design and characteristics of the item by means of engineering drawings, specifications, standards, and inspection requirements to identify an item or range of items.</PARA3>
+
+<?frame
+ LABEL='INTRODUCTION-2_10'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE3>Description and Usable On Code (UOC).</TITLE3>
+<PARA3>The description indicates the Federal item name and, if required, a minimum description to identify the item.  Items included in kits and sets are listed below the name of the kit or set with the quantity of each item indicated in the unit column.  When the part used differs between serial numbers of the same model, the affected serial numbers are shown as the last line of the description.</PARA3>
+
+<?frame
+ LABEL='INTRODUCTION-2_11'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE3>ECO Repl/MAN Repl.</TITLE3>
+<PARA3>The ECO Repl row indicates items that are economically cheaper to replace during repair than to expend the man hours necessary to fully inspect each item.  MAN Repl row indicates items that must be replaced any time they are loosened or removed.</PARA3>
+
+<?frame
+ LABEL='INTRODUCTION-2_12'
+ SHOWNO='NSHOWNO'>
+<title>EXPLANATION OF PARTS INFORMATION.  (Continued)</title>
+<TITLE3>Quantity (QTY).</TITLE3>
+<PARA3>This row indicates the quantity of the item used in the breakout shown on the illustration figure, which is prepared for a functional group, subfunctional group, or an assembly.  An 'A/R' appearing in this column in lieu of quantity indicates that no specific quantity is applicable (e.g., shims, spacers, etc.).</PARA3>
+
+</file>

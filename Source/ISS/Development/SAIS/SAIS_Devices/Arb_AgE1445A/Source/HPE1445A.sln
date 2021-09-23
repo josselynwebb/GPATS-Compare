@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HPE1445A", "HPE1445A.vbproj", "{30FD8BC6-5C54-4C9A-BDE5-16E14AE942DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C93147D4-CD70-42A6-8CF4-8700FE6095AC} = {C93147D4-CD70-42A6-8CF4-8700FE6095AC}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AxArrayWrappers", "AxArrayWrappers\AxArrayWrappers.vbproj", "{C93147D4-CD70-42A6-8CF4-8700FE6095AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30FD8BC6-5C54-4C9A-BDE5-16E14AE942DF}.Debug|x86.ActiveCfg = Debug|x86
+		{30FD8BC6-5C54-4C9A-BDE5-16E14AE942DF}.Debug|x86.Build.0 = Debug|x86
+		{30FD8BC6-5C54-4C9A-BDE5-16E14AE942DF}.Release|x86.ActiveCfg = Release|x86
+		{30FD8BC6-5C54-4C9A-BDE5-16E14AE942DF}.Release|x86.Build.0 = Release|x86
+		{C93147D4-CD70-42A6-8CF4-8700FE6095AC}.Debug|x86.ActiveCfg = Debug|x86
+		{C93147D4-CD70-42A6-8CF4-8700FE6095AC}.Debug|x86.Build.0 = Debug|x86
+		{C93147D4-CD70-42A6-8CF4-8700FE6095AC}.Release|x86.ActiveCfg = Release|x86
+		{C93147D4-CD70-42A6-8CF4-8700FE6095AC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

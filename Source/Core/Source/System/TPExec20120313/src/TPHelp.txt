@@ -1,0 +1,90 @@
+[!MAIN MENU]
+
+ You are in the Main Menu section of the Test Program.  To select an item, 
+ touch the corresponding button of the item you wish to see.  To exit 
+ from the program, touch the QUIT button.
+
+ Touch the QUIT button to quit the program.
+
+ Touch the CONTINUE button to continue.
+
+[!RUN TEST PROGRAM]
+
+ You are running the test program of the selected CCA.  Follow the 
+ instructions on the screen to continue testing the CCA.  Touch the CONTINUE 
+ button to go to the next step.  Touch the BACKUP button to see previous 
+ steps.  Touch the MAIN MENU button to go to the main menu and select another 
+ action with out losing your place in the test program setup.
+
+ If you wish to stop the test program while it is running, touch the ABORT 
+ button.
+
+ After the test program has run, you may choose to rerun to test program by
+ touching the RERUN button.  You cannont backup once the test program has 
+ started.
+
+ Touch the QUIT button to quit the program.
+
+ Touch the CONTINUE button to continue.
+
+[!VIEW SCHEMATIC]
+
+ You are viewing the CCA schematic diagram.  
+	
+ To zoom in on an area touch the ZOOM button and touch and drag in the 
+ schematic diagram to select an area to zoom.
+	
+ To pan, touch the PAN button and touch and drag the schematic diagram to 
+ change your view.  
+	
+ To magnify an area, touch the magnifying glass and touch an area to magnify.  
+
+ To zoom out to the full view of the schematic diagram, touch the RESET 
+ VIEW button.  
+	
+ To zoom out 50 percent from current view, touch the ZOOM OUT 50% button
+
+ To move through the pages of the schematic diagram, use the NEXT PAGE and 
+ PREVIOUS PAGE buttons.  The current page number is displayed on the title
+ bar.
+
+ To return to the main menu, touch the MAIN MENU button.
+
+ Touch the QUIT button to quit the program.
+
+ Touch the CONTINUE button to continue.
+
+[!VIEW ASSEMBLY]
+
+ You are viewing the CCA Parts Location Diagram.
+
+ Touch the MAIN MENU button to return to the main menu.
+
+ Touch the QUIT button to quit the program.
+
+ Touch the CONTINUE button to continue.
+
+[!VIEW PARTS LIST]
+
+ You are viewing the CCA Parts List.
+
+ Touch and drag in the parts list to move through the list.
+
+ Touch the QUIT button to quit the program.
+
+ Touch the CONTINUE button to continue.
+
+[!PROBE]
+
+  A failure has occurred on the UUT.  Follow the probe instructions
+  to isolate the failure.  Place the probe on the designated spot, and
+  touch the CONTINUE button.
+
+  Touch the ABORT button to terminate the program and restart.
+    
+  Touch the QUIT button the quit the program.
+
+  Touch the CONTINUE button now to exit HELP.
+
+[END]
+

@@ -1,0 +1,15 @@
+#define WinHelp_hpe1445a_init 1
+#define WinHelp_hpe1445a_writeInstrData 2
+#define WinHelp_hpe1445a_readInstrData 3
+#define WinHelp_hpe1445a_reset 4
+#define WinHelp_hpe1445a_selfTest 5
+#define WinHelp_hpe1445a_errorQuery 6
+#define WinHelp_hpe1445a_errorMessage 7
+#define WinHelp_hpe1445a_revisionQuery 8
+#define WinHelp_hpe1445a_waitForRqs 9
+#define WinHelp_hpe1445a_close 10
+#define WinHelp_Contents 11
+#define WinHelp_Introduction 12
+#define WinHelp_Assumptions 13
+#define WinHelp_ErrorCodes 14
+#define WinHelp_Summary 15

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY fig4-36 SYSTEM "./graphics/fig4-36.pic" NDATA FAXTILE>
+<!ENTITY fig4-37 SYSTEM "./graphics/fig4-37.pic" NDATA FAXTILE>
+<!ENTITY fig4-38 SYSTEM "./graphics/fig4-38.pic" NDATA FAXTILE>
+<!ENTITY fig4-39 SYSTEM "./graphics/fig4-39.pic" NDATA FAXTILE>
+<!ENTITY fig4-40 SYSTEM "./graphics/fig4-40.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S13" LABEL="XIII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\CVSD_ENCODER_DECODER_A1_CCA_2618553-1\TP_AAV_ICS_A1.OBJ' ?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s13.ide!c3s13'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./ICS_A1.ide!5-13A'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ICS_A1/ASSY/ICS_A1_1.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/ICS_A1/SCHEM/ICS_A1_SCH_1.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section XIII. CVSD Encoder/Decoder CCA, P/N 2618553-1" previous="./c4s12.ide!c4s12c"?><?TOCENTRY TITLE="SECTION XIII. Test Program Instructions for the CVSD Encoder/Decoder CCA, P/N 2618553-1" TOCLEVEL="2" LABEL="XIII"?>
+<TITLE>SECTION XIII. Test Program Instructions for the CVSD Encoder/Decoder CCA, P/N 2618553-1</TITLE>
+<PARA0 ID="P4-13" LABEL="4.13"><?TOCENTRY TITLE="4.13 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the CVSD Encoder/Decoder CCA, P/N 2618553-1.</PARA>
+<SUBPARA1 ID="P4-13.1" LABEL="4.13.1"><?TOCENTRY TITLE="4.13.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-23" LABEL="4-23">
+<TITLE>Test Station Instrumentation Required to Test the
+<BRK/> CVSD Encoder/Decoder CCA, P/N 2618553-1.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5.5in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digitizing Oscilloscope</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Arbitrary Waveform Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Function Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">LF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">MF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Test System</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-13.2" LABEL="4.13.2"><?TOCENTRY TITLE="4.13.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-24" LABEL="4-24">
+<TITLE>TPS Equipment Required to Test the
+<BRK/> CVSD Encoder/Decoder CCA, P/N 2618553-1.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3.5in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.5in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">Part Number</ENTRY>
+<ENTRY ALIGN="CENTER">Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">AAV Interface Test Adapter</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1000</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W10</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0110</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1011</ENTRY>
+<ENTRY ALIGN="CENTER">2</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-13.3" LABEL="4.13.3"><?TOCENTRY TITLE="4.13.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s13b" title="Chapter 4. Test Program Instructions, Section XIII. CVSD Encoder/Decoder CCA, P/N 2618553-1 Cont'd"?>
+<SUBPARA1 ID="P4-13.4" LABEL="4.13.4"><?TOCENTRY TITLE="4.13.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-13.5" LABEL="4.13.5"><?TOCENTRY TITLE="4.13.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<CAUTION>
+<PARA>The UUT contains components that are subject to damage from electrostatic discharge (ESD). When handling the UUT, a grounded wrist strap must be used. <GRAPHIC BOARDNO="esd"/></PARA></CAUTION>
+<PARA>Refer to <EXTREF DOCNO="C2S02" XREFID="./C2S02.ide!P2-2.2.2" XIDTYPE="PARA">Paragraph 2.2.2.2, ESD Damage Prevention</EXTREF> for proper handling requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-13.6" LABEL="4.13.6"><?TOCENTRY TITLE="4.13.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>10.0 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-13.7" LABEL="4.13.7"><?TOCENTRY TITLE="4.13.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-13.8" LABEL="4.13.8"><?TOCENTRY TITLE="4.13.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<STEP1 ID="P4-13.81" LABEL="a">
+<PARA>Prior to executing the CVSD Encoder/Decoder CCA, P/N 2618553-1 Test Program, install ITA P/N 05005A1000 onto the test station receiver. </PARA></STEP1>
+<STEP1 ID="P4-13.82" LABEL="b">
+<PARA>Load the test program for the CVSD Encoder/Decoder CCA into the ATLAS RTS. When the RTS State field of the RTS front panel displays 'READY', the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-13.83" LABEL="c">
+<PARA>***OPERATOR ACTION***: Initiate the test program by selecting 'Run' from the RTS 'Run' menu.</PARA></STEP1>
+<STEP1 ID="P4-13.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-36.pic"?>Figure 4-36<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-36" LABEL="4-36">
+<TITLE>Test Program Information CVSD Encoder/Decoder CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-36.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-13.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-37.pic"?>Figure 4-37<?endhotspot?>) is displayed which identifies the UUT fault states which are non-detectable and untested by the test program.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-37" LABEL="4-37">
+<TITLE>Nondetectable/Untested Faults CVSD Encoder/Decoder CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-37.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-13.86" LABEL="f">
+<PARA>Screen 1 of the test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-38.pic"?>Figure 4-38<?endhotspot?>) is displayed. Enter (99) to display screen 2 of the MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-39.pic"?>Figure 4-39<?endhotspot?>). From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-11) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM and (98) Exit Testing.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-38" LABEL="4-38">
+<TITLE>Test Program Main Menu CVSD Encoder/Decoder CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-38.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG4-39" LABEL="4-39">
+<TITLE>Test Program Main Menu CVSD Encoder/Decoder CCA Continued</TITLE><?hotspot linktype="picture" href="./graphics/fig4-39.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-13.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-13.88" LABEL="h">
+<PARA>The operator is instructed to install the UUT Card Guide Assemblies onto the ITA.
+<BRK/> ***OPERATOR ACTION***: Install UUT Card Guide Assemblies (P/N 05005A1011) onto the mounting points adjacent to ITA J7.</PARA></STEP1>
+<STEP1 ID="P4-13.89" LABEL="i">
+<PARA>The operator is instructed to install the CVSD Encoder/Decoder CCA onto the ITA.
+<BRK/> ***OPERATOR ACTION***: Install UUT P1 into ITA J7.</PARA></STEP1>
+<STEP1 ID="P4-13.810" LABEL="j">
+<PARA>The operator is instructed to connect cable W10 P/N 05005A1010, P1 Connector to connector J4 of the ITA and W10P5-P9 to TP1, TP2, and TP10-TP12 of the UUT (refer to <?hotspot linktype="picture" href="./graphics/fig4-40.pic"?>Figure 4-40<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Connect cable W10, P1 connector, to J4 of the ITA. Connect cable W10P5 to TP1, W10P6 to TP2, W10P7 to TP10, W10P8 to TP11, and W10P9 to TP12 of the UUT.</PARA></STEP1>
+<FIGURE ID="FIG4-40" LABEL="4-40">
+<TITLE>Cable Connections CVSD Encoder/Decoder CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-40.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE><?FRAME id="c4s13c" title="Chapter 4. Test Program Instructions, Section XIII. CVSD Encoder/Decoder CCA, P/N 2618553-1 Cont'd" next="./c4s14.ide!c4s14"?>
+<STEP1 ID="C4S13C11" LABEL="k">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION***: Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S13C12" LABEL="l">
+<PARA>The display prompts the operator to enter the UUT serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S13C13" LABEL="m">
+<PARA>The display prompts the operator to enter the UUT revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S13C14" LABEL="n">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S13C15" LABEL="o">
+<PARA>The display prompts the operator to enter the Interface serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the ITA label, which is found on the upper, right corner of the right side and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S13C16" LABEL="p">
+<PARA>The display prompts the operator to verify the test setup and UUT are ready to begin testing.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-13.9" LABEL="4.13.9"><?TOCENTRY TITLE="4.13.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-13.91" LABEL="a">
+<PARA>Upon detection of a UUT failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-13.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

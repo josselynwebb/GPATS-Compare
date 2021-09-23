@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?FRAME id='C4s1a' title='CHAPTER 4 - TEST PROGRAM INSTRUCTIONS' next='.\C4s2.xml!C4s2a' previous='.\C3s12.xml!C3s12b'?>
+<?PUB TOCLEVEL="1" TEXT="CHAPTER 4 - TEST PROGRAM INSTRUCTIONS"?>
+<chapter id="chapter4" label="CHAPTER 4" tocentry="1">
+<title>TEST PROGRAM INSTRUCTIONS</title>
+<section id="c4s1" label="Section I." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section I. Introduction."?>
+<title>Introduction.</title>
+<para0 id="p4-1" label="4-1" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="4-1 Introduction."?>
+<title>Introduction.</title>
+<para>This section describes the scope, purpose, and content arrangement
+of this chapter.</para>
+<subpara1 id="p4-1.1" label="4-1.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-1.1 Scope."?>
+<title>Scope.</title>
+<para>This chapter provides Test Program Instructions (TPIs) for each
+of the Units Under Test (UUT) using the AN/PSM-130 TPS on the Test
+Station. In addition to the UUTs, the self-test for both IDs are discussed.
+The chapter is divided into 12 sections. Section I contains general
+introduction information. Sections II through XI each contain information
+on a single UUT. Section XII contains information on the AN/PSM-130
+TPH self-test.</para>
+</subpara1>
+<subpara1 id="p4-1.2" label="4-1.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-1.2 Purpose."?>
+<title>Purpose.</title>
+<para>The purpose of this chapter is to provide the maintenance technician
+with the information necessary to execute performance and diagnostic
+tests on the UUTs and Test Program Hardware (TPH) in the field.</para>
+</subpara1>
+<subpara1 id="p4-1.3" label="4-1.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-1.3 Content Arrangement."?>
+<title>Content Arrangement.</title>
+<para>This chapter is divided into sections for each LRU and ID tested
+with the AN/PSM-130 TPS. Each individual section contains set-up instructions
+and lists the necessary equipment to run the LRU test programs or
+ID Self-Test. Within each section, a button bar provides links to
+additional information (when available) the user may need during testing.
+The buttons are as follows:<randlist>
+<item>
+<para><emphasis emph="b">TOO</emphasis> &ndash; UUT Theory of Operation</para>
+</item>
+<item>
+<para><emphasis emph="b">Comp Lay</emphasis> &ndash; UUT Component
+Layout</para>
+</item>
+<item>
+<para><emphasis emph="b">UUT Sch</emphasis> &ndash; UUT Schematic</para>
+</item>
+<item>
+<para><emphasis emph="b">ID Sch</emphasis> &ndash; ID Schematic</para>
+</item>
+<item>
+<para><emphasis emph="b">UUT ELTD</emphasis> &ndash; UUT English Language
+Test Description (ELTD)</para>
+</item>
+<item>
+<para><emphasis emph="b">ID ELTD</emphasis> &ndash; ID English Language
+Test Description (ELTD)</para>
+</item>
+<item>
+<para><emphasis emph="b">TPS</emphasis><?Pub Caret -2?> &ndash; (launches
+Test Program Software)</para>
+</item>
+</randlist></para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body>

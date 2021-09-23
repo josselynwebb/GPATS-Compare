@@ -1,0 +1,12 @@
+[General]
+DocsCount=2
+[Document 1]
+FileSource=I:\Video Benchmarks\CoyoteNAMBmark\CoyoteNAMBmark.ATL
+FileType=1
+Selection=4E0800004E080000AC
+FirstVisibleLine=93
+[Document 2]
+FileSource=I:\Video Benchmarks\CoyoteNAMBmark\CoyoteNAMBmark.ita
+FileType=4
+Selection=000000000000000000
+FirstVisibleLine=0

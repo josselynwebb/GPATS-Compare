@@ -1,0 +1,240 @@
+ Cntr ATLAS Driver Benchmark
+ Date/Time: Fri Feb 17 14:29:48 2006 
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10020    .110000000000000E+04      .100002267116900E+04     .900000000000000E+03            P 
+    AC [Freq], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10030    .110000000000000E-02      .999977154406500E-03     .900000000000000E-03            P 
+    AC [Period], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10040    .110000000000000E+02      .100297029703000E+02     .900000000000000E+01            P 
+    AC [Freq-Ratio], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10050    .500000000000000E+01      .359409000000000E+03     .355000000000000E+03            P 
+    AC [Phase-Angle], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20020    .110000000000000E+04      .100002281442800E+04     .900000000000000E+03            P 
+    Pulsed DC [PRF], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20030    .110000000000000E-02      .999977163208100E-03     .900000000000000E-03            P 
+    Pulsed DC [Period], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20040    .250000000000000E-03      .118869047619000E-07     .000000000000000E+00            P 
+    Pulsed DC [Rise-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20050    .250000000000000E-03      .178571428571400E-07     .000000000000000E+00            P 
+    Pulsed DC [Fall-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20060    .550000000000000E-03      .500026222222200E-03     .450000000000000E-03            P 
+    Pulsed DC [Pulse-Width], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20070    .550000000000000E-03      .500067869047600E-03     .450000000000000E-03            P 
+    Pulsed DC [Pos-Pulse-Width], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20080    .550000000000000E-03      .499968000000000E-03     .450000000000000E-03            P 
+    Pulsed DC [Neg-Pulse-Width], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30020    .110000000000000E+04      .100002284541800E+04     .900000000000000E+03            P 
+    Square Wave [Freq], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30030    .110000000000000E-02      .999977241027000E-03     .900000000000000E-03            P 
+    Square Wave [Period], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30040    .250000000000000E-03      .112797619047600E-07     .000000000000000E+00            P 
+    Square Wave [Rise-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30050    .250000000000000E-03      .175853174603200E-07     .000000000000000E+00            P 
+    Square Wave [Fall-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40020    .110000000000000E+04      .100002407102300E+04     .900000000000000E+03            P 
+    Ramp Signal [Freq], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40030    .110000000000000E-02      .999977175126400E-03     .900000000000000E-03            P 
+    Ramp Signal [Period], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40040    .880000000000000E-03      .794583471092200E-03     .720000000000000E-03            P 
+    Ramp Signal [Rise-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40050    .250000000000000E-03      .199955555555600E-05     .000000000000000E+00            P 
+    Ramp Signal [Fall-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50020    .110000000000000E+04      .100002282277900E+04     .900000000000000E+03            P 
+    Triangular Wave [Freq], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50030    .110000000000000E-02      .999977176478400E-03     .900000000000000E-03            P 
+    Triangular Wave [Period], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50040    .440000000000000E-03      .388549000000000E-03     .360000000000000E-03            P 
+    Triangular Wave [Rise-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50050    .440000000000000E-03      .388905920634900E-03     .360000000000000E-03            P 
+    Triangular Wave [Fall-Time], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60020    .550000000000000E+02      .480000000000000E+02     .450000000000000E+02            P 
+    Count [1 by 2], Ranged, Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60030    .550000000000000E-02      .500396901984100E-02     .450000000000000E-02            P 
+    Time Interval, Ranged, Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 70020    .550000000000000E+02      .500000000000000E+02     .450000000000000E+02            P 
+    Count [1 by ARM], Ranged, Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 70030    .550000000000000E+02      .991000000000000E+38     .450000000000000E+02            F 
+    Count [1 by TTLTrig0], Ranged, Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 80020    .110000000000000E+04      .100002186594800E+04     .900000000000000E+03            P 
+    CH2 [Freq], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 85020    .110000000000000E+07      .998000000000000E+06     .900000000000000E+06            P 
+    Input Impedance
+   --------------------------------------
+
+  --------------------------------------
+   END - END TEST
+   FAILED WITH 1 FAILURES
+  --------------------------------------
+

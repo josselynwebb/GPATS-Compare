@@ -1,0 +1,91 @@
+**************************************************************************
+************  Ballard LE1553-5 (LE1553) STATIC DESCRIPTION    ************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Bus_1553.ddb
+*
+* INSTRUMENT  : Data Bus
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  2.1   25MAY17  Updated for CIC/TETS
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev MIL1553_1;
+
+	cnx true MIL1553b-hi, compl MIL1553b-lo;
+
+	begin FNC=1;
+		function bus protocol;
+		control
+		{
+			bus-spec mil-1553b;
+			standard primary;
+			max-time range 0 sec to 10 sec continuous;
+			test-equip-role master, monitor, slave;
+			response-time range 18 usec to 130 usec;
+			message-gap range 0 sec to .0655 sec;
+			wait;
+			proceed;
+		}
+	end;
+
+	begin FNC=2;  ** Bus Monitor Mode
+		function exchange;
+		control
+		{
+			bus-mode all-listener;
+			test-equip-role monitor;
+			uut-talker max 0;
+			test-equip-listener max 0;
+		}
+	end;
+
+	begin FNC=3;  ** Bus Controller Mode 
+		function exchange;
+		control
+		{
+			bus-mode con-rt,
+			rt-con,
+			con-mode,
+			rt-rt;
+			test-equip-role master;
+			test-equip-talker max 0;
+			uut-talker max 1;
+			test-equip-listener max 0;
+			uut-listener range 0 to 3;
+			data max 32;
+			command max 2;
+			delay range 0 usec to 65535 usec;
+		}
+	end;
+
+	begin FNC=4;  ** Remote Terminal Mode
+		function exchange;
+		control
+		{
+			bus-mode con-rt,
+			rt-con,
+			con-mode;
+			test-equip-role slave;
+			test-equip-listener max 33;
+			test-equip-talker max 33;
+			uut-listener max 33;
+			uut-talker max 33;
+			data max 32;
+			status max 2;
+		}
+	end;
+
+end; *end MIL1553

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-29_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='2' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-30_0.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='3' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='4' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Gun Turret Drive Assy\GTD_SSP_LRU (16102218-061)\TP_LAV_GTD_SSP.OBJ" bitmap='n' DESC='Select to launch GTD Stabilization System Processor TPS.'?>
+<?FRAME id='C3s11a' title='CHAPTER 3 - THEORY OF OPERATION.' next='.\C3s11.xml!C3S11b' previous='.\C3s10.xml!C3S10b'?>
+<chapter>
+<section id="c3s11" label="Section XI." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section XI. GTD Stabilization System Processor."?>
+<title>GTD Stabilization System Processor.</title>
+<para0 id="p3-11" label="3-11" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-11 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide information on the Theory of
+Operation for the GTD Stabilization System Processor. Part information
+is also provided in paragraph <?hotspot href="p3-11.2"?>3-11.2 Part
+Information<?endhotspot?>.</para>
+<subpara1 id="p3-11.1" label="3-11.1">
+<?PUB TOCLEVEL="4" TEXT="3-11.1 Theory Of Operation."?>
+<title>Theory Of Operation.</title>
+<para>The Stabilization System Processor CCA (P/N 16102218-061) provides
+the main processor, memory, I/O and interface for static signal reception
+and drive and A/D and D/A functions for control of the GTD function,
+resolver and I/O within the LAV-25A2.</para>
+<subpara2 id="p3-11.1.1" label="3-11.1.1" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-11.1.1 GTD Stabilization System Processor Equipment Description."?>
+<title>GTD Stabilization System Processor Equipment Description.</title>
+<para>The UUT described within this document is the Shop Replaceable
+Unit (SRU) - Stabilization System Processor CCA (P/N 16102218-061).
+This SRU is the main processor and control complex for the Gun Turret
+Drive and Power Distribution Assembly (P/N 16104540) and is one of
+two CCAs contained within the Electronic Assembly Module within the
+GTD (P/N 16103473). The Electronic Assembly Module also includes another
+CCA Assembly - Power Supply CCA (P/N 7566131). </para>
+</subpara2>
+<subpara2 id="p3-11.1.2" label="3-11.1.2" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-11.1.2 Functional Decomposition."?>
+<title>Functional Decomposition.</title>
+<para>The following describes a functional decomposition:</para>
+<para>The main part of the CCA is the ADSP-2181 DSP Microcomputer
+U36. The core of the processing architecture is the ADSP 2181. The
+2181 contains 3 independent computational units (ALU, Multiplier/Accumulator
+and Shifter) and provides 80 kbytes of internal on-chip memory configured
+as 16k words (24 bit) of program RAM and 16k words of 16 bit of data
+RAM. Two simultaneous address generators allow for dual operation
+and fetches from data and program memory. In addition, external bus
+interfaces extend the 24 bit data bus outside the device to external
+memory. The microprocessor performs all the computations and control
+functions. The CPU can also receive and send serial data via its Communications-Register-Unit.
+In addition to the address and data bus for external memory connection,
+the DSP 2181 has a 16 bit internal DMA port for connection to external
+systems.</para>
+<para>The CPU has a crystal controlled oscillator Y1 (9.216M). The
+CCA external memory (U44, 47 and 43) provide 64kbit of nvRAM, 32*128k
+of static RAM and 4M*8 bits of Flash.</para>
+<para>The CCA accomplishes address decoding and I/O enable/selection
+through interface with a CPLD U41 CY37512 which, in addition to address
+decoding, it provides separate static I/O Data leads, serial I/O interface
+logic and state machines and reset, clock, timing and memory interface
+functions.</para>
+<para>A 12 bit D/A converter (U46 &ndash; DAC 8412) can provide 4
+unique analog outputs and routes these outputs through 4 separate
+unity gain amplifier/buffer stages to the J1 output connector. A 12
+bit A/D converter U49 with 4 separate analog inputs with individual
+track and hold in concert with 2 dual 4 input analog switches allows
+for the reception of up to 16 different analog inputs from external
+signals. These inputs consist of 2 Rotor Elevation Gyro signals (El/Az),
+2 Tach signals, Turret and Hull Gyro inputs, additional elevation
+and azimuth command signals, motor currents and spares. Rotor and
+Tach inputs have scale change switches (U52 a,b,c,d) to provide necessary
+amplification of the input signal.</para>
+<para>The Stability System Processor provides connectivity to 42 unique
+inputs brought in through J1 and J2 connector pins. These signals
+are derived from specific vehicle control signal inputs and are filtered
+and buffered through 42 unique Schmidt trigger buffers (54HC14) and
+then fed into the CPLD directly for presentation to the processor. </para>
+<para>Static drive and indicator signals are provided through 25 unique
+buffered outputs and in some cases tandem indicator driver circuits
+U12 &ndash; 15, U24 - 27 and U66 &ndash; 71.</para>
+<para>Separate RS422 and RS485 bi-directional bus interfaces are provided
+through 6 DS 16F95 devices U17 &ndash; 22.</para>
+<para>2 CAN Bus interfaces are provided &ndash; U8, U10 and U29, U30-32,
+U78 and K1 and allow for switching capability to support bus termination.
+The Intel 82527 devices provide the implementation of the CAN bus
+protocol and interface to the CCA system processor.</para>
+<para>Resolver components are provided for turret positioning U33
+and U34. Note that the Resolver and CAN functionalities cannot be
+tested on AN/USM-657B. These functions are only available when testing
+on AN/USM-717.</para>
+<para>Power bus rails are created via +28 Volt to +15, +5, and -15
+V regulation including input filtering, soft start circuitry, input
+protection, output filtering U35, Q4, Q5, D50, D48, D41 and a host
+of capacitors and resistors.</para>
+<para>Two main connectors (J1 and J2) provide the interface to the
+outside hardware.</para>
+</subpara2>
+</subpara1>
+<?FRAME id='C3s11b' title='CHAP. 3 - THEORY OF OPERATION, SECT. XI - GTD Stabilization System Processor' image=".\graphics\Fig3-28_1.pic" next='.\C3s12.xml!C3S12a' previous='.\C3s11.xml!c3s11a'?>
+<subpara1 id="p3-11.2" label="3-11.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-11.2 Part Information."?>
+<title>Part Information.</title>
+<para>The following provides part information for the GTD Stabilization
+System Processor.</para>
+<para>Refer to <?hotspot href="T3-10"?>Table 3-10<?endhotspot?> for
+part information.</para>
+<para> <table id="T3-10">
+<title>Table 3-10. GTD Stabilization System Processor Part Information</title>
+<tgroup cols="5">
+<colspec colname="col1" colwidth="0.50*"/>
+<colspec colname="col2" colwidth="0.60*"/>
+<colspec colname="col3" colwidth="0.47*"/>
+<colspec colname="col4" colwidth="1.39*"/>
+<colspec colname="col5" colwidth="0.54*"/>
+<thead>
+<row>
+<entry align="center">Fig. 3-28 and Index Number</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">CAGEC</entry>
+<entry align="center">Description</entry>
+<entry align="center">Quantity (Qty)</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry align="center">16102218&ndash;061</entry>
+<entry align="center">13160</entry>
+<entry>GTD Stabilization System Processor</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 3?>

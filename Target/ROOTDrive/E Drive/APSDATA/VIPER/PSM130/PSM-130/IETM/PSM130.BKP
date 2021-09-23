@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE docmarinecorpstm SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<docmarinecorpstm>
+<?FRAME id='PSM130a' title='COVER' toclevel='1' style='./STYLES/CVR.STY'?>
+<fronttm>
+<idinfo>
+<pubno service="marinecorps">
+<docno>TM 12541A-OD/1</docno>
+</pubno>
+<titleblk>
+<doctype>U.S. MARINE CORPS TECHNICAL MANUAL</doctype>
+<maintlvl>OPERATIONAL AND INTERMEDIATE MAINTENANCE WITH PARTS LIST</maintlvl>
+<prtitle>
+<nomen>AN/PSM-130 APPLICATION PROGRAM SET (APS)</nomen>
+<nsn>NSN: 6625-01-642-1200</nsn>
+</prtitle>
+</titleblk>
+<seal><graphic boardno="./graphics/Logo IETM.PCX"/></seal>
+<notice notctype="dist">
+<para>THIS PUBLICATION IS REQUIRED FOR OFFICIAL USE OR FOR ADMINISTRATIVE
+OR OPERATIONAL PURPOSES. DISTRIBUTION IS LIMITED TO U.S. GOVERNMENT
+AGENCIES ONLY. OTHER REQUESTS FOR THIS DOCUMENT MUST BE REFERRED TO:
+COMMANDANT OF THE MARINE CORPS (ARD), WASHINGTON, DC 20380-0001.</para>
+</notice>
+<notice notctype="destr">
+<para><emphasis emph="bu">DESTRUCTION NOTICE</emphasis>: DESTROY BY
+ANY METHOD THAT WILL PREVENT DISCLOSURE OF CONTENTS OR RECONSTRUCTION
+OF THE DOCUMENTS.</para>
+</notice>
+<notice notctype="fouo">
+<para><title>FOR OFFICIAL USE ONLY</title></para>
+</notice>
+<pubdate>MAY 2016</pubdate>
+<pcn>
+<type>PCN 179</type>
+<itemid>125410</itemid>
+<version>00</version>
+</pcn>
+</idinfo>
+<fsection>
+<?FRAME id='PSM130b' title='LIST OF FIGURES' toclevel='1' style='./styles/FRONT.STY'?>
+<section>
+<title>LIST OF FIGURES</title>
+<para0>
+<para>Chapter 1</para>
+<para> <randlist>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-1_1.pic"?>Figure
+1-1.<?endhotspot?> APS Case 1 Components.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-2_1.pic"?>Figure
+1-2.<?endhotspot?> W1 UUT Cable Assembly, CDA Control Logic A (P/N 13020A7100).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-2_2.pic"?>Figure
+1-2.<?endhotspot?> W1 UUT Cable Assembly Schematic.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-3_1.pic"?>Figure
+1-3.<?endhotspot?> W2 UUT Cable Assembly, CDA Control Logic B (P/N
+13020A7200).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-3_2.pic"?>Figure
+1-3.<?endhotspot?> W2 UUT Cable Assembly Schematic.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-4_1.pic"?>Figure
+1-4.<?endhotspot?> W3 UUT Cable Assembly, CDA Grenade Relay (P/N 13020A7300).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-4_2.pic"?>Figure
+1-4.<?endhotspot?> W3 UUT Cable Assembly Schematic.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-5_1.pic"?>Figure
+1-5.<?endhotspot?> W4 UUT Cable Assembly, GCU Logic (P/N 13020A7400).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-5_2.pic"?>Figure
+1-5.<?endhotspot?> W4 UUT Cable Assembly Schematic.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-6_1.pic"?>Figure
+1-6.<?endhotspot?> W5 UUT Cable Assembly, GCU Power Drive (P/N 13020A7500).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-6_2.pic"?>Figure
+1-6.<?endhotspot?> W5 UUT Cable Assembly Schematic.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-7_1.pic"?>Figure
+1-7.<?endhotspot?> W6 UUT Cable Assembly, GTD Power Supply (P/N 13020A7600).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-7_2.pic"?>Figure
+1-7.<?endhotspot?> W6 UUT Cable Assembly Schematic.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-8_1.pic"?>Figure
+1-8.<?endhotspot?> W7 UUT Cable Assembly, GTD Processor (P/N 13020A7700).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-8_2.pic"?>Figure
+1-8.<?endhotspot?> W7 UUT Cable Assembly Schematic (Sheet 1 of 2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-8_3.pic"?>Figure
+1-8.<?endhotspot?> W7 UUT Cable Assembly Schematic (Sheet 2 of 2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-9_1.pic"?>Figure
+1-9.<?endhotspot?> W8 UUT Cable Assembly, RS422 (P/N 08014A3800).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig1-9_2.pic"?>Figure
+1-9.<?endhotspot?> W8 UUT Cable Assembly Drawing.</para>
+</item>
+</randlist> </para>
+</para0>
+<para0>
+<para>Chapter 2</para>
+<para><randlist>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig2-1_1.pic"?>Figure
+2-1.<?endhotspot?> Basic ESD Symbol.</para>
+</item>
+</randlist></para>
+</para0>
+<para0>
+<para>Chapter 3</para>
+<para><randlist>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-1_1.pic"?>Figure
+3-1.<?endhotspot?> CDA Logic Circuit Card Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-2_1.pic"?>Figure
+3-2.<?endhotspot?> CDA Logic Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_1.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 1 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_2.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 2 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_3.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic  Schematic (Sheet 3 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_4.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 4 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_5.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 5 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_6.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 6 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_7.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 7 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_8.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 8 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_9.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 9 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_10.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 10 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_11.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 11 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_12.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 12 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-3_13.pic"?>Figure
+3-3.<?endhotspot?> CDA Logic Schematic (Sheet 13 of 13).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-4_1.pic"?>Figure
+3-4.<?endhotspot?> CDA Control Logic A Circuit Card Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-5_1.pic"?>Figure
+3-5.<?endhotspot?> CDA Control Logic A Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_0.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 1 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_1.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 2 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_2.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 3 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_3.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 4 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_4.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 5 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_5.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 6 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_6.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 7 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_7.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 8 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_8.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 9 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_9.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 10 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_10.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 11 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-6_11.pic"?>Figure
+3-6.<?endhotspot?> CDA Control Logic A Schematic (Sheet 12 of 12).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-7_1.pic"?>Figure
+3-7.<?endhotspot?> CDA Control Logic B Circuit Card Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-8_1.pic"?>Figure
+3-8.<?endhotspot?> CDA Control Logic B Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_1.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 1 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_2.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 2 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_3.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 3 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_4.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 4 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_5.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 5 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_6.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 6 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_7.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 7 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-9_8.pic"?>Figure
+3-9.<?endhotspot?> CDA Control Logic B Schematic (Sheet 8 of 8).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-10_1.pic"?>Figure
+3-10.<?endhotspot?> CDA Grenade Relay Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-11_1.pic"?>Figure
+3-11.<?endhotspot?> CDA Grenade Relay Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-12_1.pic"?>Figure
+3-12.<?endhotspot?> CDA Grenade Relay Schematic (Sheet 1 of 1).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-13_1.pic"?>Figure
+3-13.<?endhotspot?> GCU Gun Control Logic A1 Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-14_1.pic"?>Figure
+3-14.<?endhotspot?> GCU Gun Control Logic A1 Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-15_1.pic"?>Figure
+3-15.<?endhotspot?> GCU Gun Control Logic A1 Schematic (Sheet 1 of
+2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-15_2.pic"?>Figure
+3-15.<?endhotspot?> GCU Gun Control Logic A1 Schematic (Sheet 2 of
+2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-16_1.pic"?>Figure
+3-16.<?endhotspot?> GCU Power Drive A2 Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-17_1.pic"?>Figure
+3-17.<?endhotspot?> GCU Power Drive A2 Component Layout (Sheet 1 of
+4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-17_2.pic"?>Figure
+3-17.<?endhotspot?> GCU Power Drive A2 Component Layout (Sheet 2 of
+4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-17_3.pic"?>Figure
+3-17.<?endhotspot?> GCU Power Drive A2 Component Layout (Sheet 3 of
+4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-17_4.pic"?>Figure
+3-17.<?endhotspot?> GCU Power Drive A2 Component Layout (Sheet 4 of
+4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-18_1.pic"?>Figure
+3-18.<?endhotspot?> GCU Power Drive A2 Schematic (Sheet 1 of 1).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-19_1.pic"?>Figure
+3-19.<?endhotspot?> GCU Gun Control Logic A1 SLEP Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-20_1.pic"?>Figure
+3-20.<?endhotspot?> GCU Gun Control Logic A1 SLEP Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-21_1.pic"?>Figure
+3-21.<?endhotspot?> GCU Gun Control Logic A1 SLEP Schematic (Sheet
+1 of 1).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-22_1.pic"?>Figure
+3-22.<?endhotspot?> GCU Power Drive A2 SLEP Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-23_1.pic"?>Figure
+3-23.<?endhotspot?> GCU Power Drive A2 SLEP Component Layout (Sheet
+1 of 4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-23_2.pic"?>Figure
+3-23.<?endhotspot?> GCU Power Drive A2 SLEP Component Layout (Sheet
+2 of 4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-23_3.pic"?>Figure
+3-23.<?endhotspot?> GCU Power Drive A2 SLEP Component Layout (Sheet
+3 of 4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-23_4.pic"?>Figure
+3-23.<?endhotspot?> GCU Power Drive A2 SLEP Component Layout (Sheet
+4 of 4).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-24_1.pic"?>Figure
+3-24.<?endhotspot?> GCU Power Drive A2 SLEP Schematic (Sheet 1 of
+1).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-25_1.pic"?>Figure
+3-25.<?endhotspot?> GTD Power Supply Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-26_1.pic"?>Figure
+3-26.<?endhotspot?> GTD Power Supply Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-27_1.pic"?>Figure
+3-27.<?endhotspot?> GTD Power Supply Schematic (Sheet 1 of 2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-27_2.pic"?>Figure
+3-27.<?endhotspot?> GTD Power Supply Schematic (Sheet 2 of 2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-28_1.pic"?>Figure
+3-28.<?endhotspot?> GTD Stabilization System Processor Assembly.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-29_1.pic"?>Figure
+3-29.<?endhotspot?> GTD Stabilization System Processor Component Layout
+(Sheet 1 of 7).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-29_2.pic"?>Figure
+3-29.<?endhotspot?> GTD Stabilization System Processor Component Layout
+(Sheet 2 of 7).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-29_3.pic"?>Figure
+3-29.<?endhotspot?> GTD Stabilization System Processor Component Layout
+(Sheet 3 of 7).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-29_4.pic"?>Figure
+3-29.<?endhotspot?> GTD Stabilization System Processor Component Layout
+(Sheet 4 of 7).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-29_5.pic"?>Figure
+3-29.<?endhotspot?> GTD Stabilization System Processor Component Layout
+(Sheet 5 of 7).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-29_6.pic"?>Figure
+3-29.<?endhotspot?> GTD Stabilization System Processor Component Layout
+(Sheet 6 of 7).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-29_7.pic"?>Figure
+3-29.<?endhotspot?> GTD Stabilization System Processor Component Layout
+(Sheet 7 of 7).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_0.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+1 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_1.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+2 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_2.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+3 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_3.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+4 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_4.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+5 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_5.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+6 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_6.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+7 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_7.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+8 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_8.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+9 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_9.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+10 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_10.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+11 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_11.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+12 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_12.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+13 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_13.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+14 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_14.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+15 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_15.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+16 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_16.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+17 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_17.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+18 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_18.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+19 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-30_19.pic"?>Figure
+3-30.<?endhotspot?> GTD Stabilization System Processor Schematic (Sheet
+20 of 20).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-31_1.pic"?>Figure
+3-31.<?endhotspot?> TPH Self-Test Component Layout.</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_1.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 1 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_2.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 2 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_3.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 3 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_4.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 4 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_5.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 5 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_6.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 6 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_7.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 7 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_8.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 8 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_9.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 9 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_10.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 10 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_11.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 11 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_12.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 12 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_13.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 13 of 14).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./graphics/Fig3-32_14.pic"?>Figure
+3-32.<?endhotspot?> TPH Self-Test ID Schematic (Sheet 14 of 14).</para><?Pub
+Caret 12?>
+</item>
+</randlist></para>
+</para0>
+<para0>
+<para>Chapter 6</para>
+<para><randlist>
+<item>
+<para><?hotspot linktype="picture" href="./RPSTL/graphics/1_1.pic"?>Figure
+6-1.<?endhotspot?> Application Program Set AN/PSM-130 Assembly (Sheet
+1 of 1).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./RPSTL/graphics/2_1.pic"?>Figure
+6-2.<?endhotspot?> Application Program Set AN/PSM-130 Interface Device
+Assembly (Sheet 1 of 2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./RPSTL/graphics/2_2.pic"?>Figure
+6-2.<?endhotspot?> Application Program Set AN/PSM-130 Interface Device
+Assembly (Sheet 2 of 2).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./RPSTL/graphics/3_1.pic"?>Figure
+6-3.<?endhotspot?> Application Program Set AN/PSM-130 Test Fixture
+Assembly (Sheet 1 of 1).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./RPSTL/graphics/4_1.pic"?>Figure
+6-4.<?endhotspot?> Application Program Set AN/PSM-130 Holding Fixture
+Assembly (Sheet 1 of 1).</para>
+</item>
+<item>
+<para><?hotspot linktype="picture" href="./RPSTL/graphics/5_1.pic"?>Figure
+6-5.<?endhotspot?> Application Program Set AN/PSM-130 Bulk Items (Sheet
+1 of 1).</para>
+</item>
+</randlist> </para>
+</para0>
+</section>
+<?FRAME id='PSM130c' title='LIST OF TABLES' toclevel='1'  style='./styles/FRONT.STY'?>
+<section>
+<title>LIST OF TABLES</title>
+<para0>
+<para>Chapter 1</para>
+<para> <randlist>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-1"?>Table 1-1.<?endhotspot?> UUT
+Nomenclature Cross-Reference</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-2"?>Table 1-2.<?endhotspot?> AN/PSM-130
+APS General Physical Description</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-3"?>Table 1-3.<?endhotspot?> Storage
+and Shipping Configuration</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-4"?>Table 1-4.<?endhotspot?> APS
+Case 1 Components</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-5"?>Table 1-5.<?endhotspot?> APS
+UUT Cable Assembly List</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-6"?>Table 1-6.<?endhotspot?> W1
+UUT Cable Assembly, CDA Control Logic A (P/N 13020A7100)</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-7"?>Table 1-7.<?endhotspot?> W2
+UUT Cable Assembly, CDA Control Logic B (P/N 13020A7200)</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-8"?>Table 1-8.<?endhotspot?> W3
+UUT Cable Assembly, CDA Grenade Relay (P/N 13020A7300)</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-9"?>Table 1-9.<?endhotspot?> W4
+UUT Cable Assembly, GCU Logic (P/N 13020A7400)</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-10"?>Table 1-10.<?endhotspot?>
+W5 UUT Cable Assembly, GCU Power Drive (P/N 13020A7500)</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-11"?>Table 1-11.<?endhotspot?>
+W6 UUT Cable Assembly, GTD Power Supply (P/N 13020A7600)</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-12"?>Table 1-12.<?endhotspot?>
+W7 UUT Cable Assembly, GTD Processor (P/N 13020A7700)</para>
+</item>
+<item>
+<para><?hotspot href="./C1s1.xml!T1-13"?>Table 1-13.<?endhotspot?>
+W8 UUT Cable Assembly, RS422 (P/N 08014A3800)</para>
+</item>
+</randlist> </para>
+</para0>
+<para0>
+<para>Chapter 3</para>
+<para>  <randlist>
+<item>
+<para><?hotspot href="./C3s2.xml!T3-1"?>Table 3-1.<?endhotspot?> CDA
+Logic Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s3.xml!T3-2"?>Table 3-2.<?endhotspot?> CDA
+Control Logic A Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s4.xml!T3-3"?>Table 3-3.<?endhotspot?> CDA
+Control Logic B Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s5.xml!T3-4"?>Table 3-4.<?endhotspot?> CDA
+Grenade Relay Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s6.xml!T3-5"?>Table 3-5.<?endhotspot?> GCU
+Gun Control Logic A1 Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s7.xml!T3-6"?>Table 3-6.<?endhotspot?> GCU
+Power Drive A2 Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3S8.xml!T3-7"?>Table 3-7.<?endhotspot?> GCU
+Gun Control Logic A1 SLEP Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s9.xml!T3-8"?>Table 3-8.<?endhotspot?> GCU
+Power Drive A2 SLEP Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s10.xml!T3-9"?>Table 3-9.<?endhotspot?>
+GTD Power Supply Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3s11.xml!T3-10"?>Table 3-10.<?endhotspot?>
+GTD Stabilization System Processor Part Information</para>
+</item>
+<item>
+<para><?hotspot href="./C3S12.xml!T3-11"?>Table 3-11.<?endhotspot?>
+Unit Under Test (UUT) Information</para>
+</item>
+</randlist>  </para>
+</para0>
+<para0>
+<para>Chapter 4</para>
+<para>  <randlist>
+<item>
+<para><?hotspot href="./C4s2.xml!T4-1"?>Table 4-1.<?endhotspot?> CDA
+Logic Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s3.xml!T4-2"?>Table 4-2.<?endhotspot?> CDA
+Control Logic A Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s4.xml!T4-3"?>Table 4-3.<?endhotspot?> CDA
+Control Logic B Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s5.xml!T4-4"?>Table 4-4.<?endhotspot?> CDA
+Grenade Relay Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s6.xml!T4-5"?>Table 4-5.<?endhotspot?> GCU
+Gun Control Logic A1 Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s7.xml!T4-6"?>Table 4-6.<?endhotspot?> GCU
+Power Drive A2 Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s8.xml!T4-7"?>Table 4-7.<?endhotspot?> GCU
+Gun Control Logic A1 SLEP Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s9.xml!T4-8"?>Table 4-8.<?endhotspot?> GCU
+Power Drive A2 SLEP Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s10.xml!T4-9"?>Table 4-9.<?endhotspot?>
+GTD Power Supply Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s11.xml!T4-10"?>Table 4-10.<?endhotspot?>
+GTD Stabilization System Processor, VIPER/T Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s11.xml!T4-11"?>Table 4-11.<?endhotspot?>
+GTD Stabilization System Processor, TETS-B Required Equipment</para>
+</item>
+<item>
+<para><?hotspot href="./C4s12.xml!T4-12"?>Table 4-12.<?endhotspot?>
+TPH Self-Test Required Equipment</para>
+</item>
+</randlist>  </para>
+</para0>
+<para0>
+<para>Chapter 5</para>
+<para>  <randlist>
+<item>
+<para><?hotspot href="./C5s2.xml!T5-1"?>Table 5-1.<?endhotspot?> Consumable
+Materials</para>
+</item>
+<item>
+<para><?hotspot href="./C5s4.xml!T5-2"?>Table 5-2.<?endhotspot?> CDA
+Logic Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s5.xml!T5-3"?>Table 5-3.<?endhotspot?> CDA
+Control Logic A Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s6.xml!T5-4"?>Table 5-4.<?endhotspot?> CDA
+Control Logic B Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s7.xml!T5-5"?>Table 5-5.<?endhotspot?> CDA
+Grenade Relay Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s8.xml!T5-6"?>Table 5-6.<?endhotspot?> GCU
+Gun Control Logic A1 Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s9.xml!T5-7"?>Table 5-7.<?endhotspot?> GCU
+Power Drive A2 Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s10.xml!T5-8"?>Table 5-8.<?endhotspot?>
+GCU Gun Control Logic A1 SLEP Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s11.xml!T5-9"?>Table 5-9.<?endhotspot?>
+GCU Power Drive A2 SLEP Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s12.xml!T5-10"?>Table 5-10.<?endhotspot?>
+GTD Power Supply Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s13.xml!T5-11"?>Table 5-11.<?endhotspot?>
+GTD Stabilization System Processor Information</para>
+</item>
+<item>
+<para><?hotspot href="./C5s14.xml!T5-12"?>Table 5-12.<?endhotspot?>
+TPH Self-Test Information</para>
+</item>
+</randlist>  </para>
+</para0>
+<para0>
+<para>Appendix A</para>
+<para>  <randlist>
+<item>
+<para><?hotspot href="./App_A.xml!TA-1"?>Table A-1.<?endhotspot?>
+Acronym/Abbreviation List</para>
+</item>
+</randlist>  </para>
+</para0>
+</section>
+<?FRAME id='PSM130d' title='SAFETY SUMMARY' toclevel='1' style='./styles/FRONT.STY'?>
+<section>
+<title>SAFETY SUMMARY</title>
+<para>The following are general safety precautions that are not related
+to any specific procedures and therefore do not appear elsewhere in
+this publication. These are recommended precautions that personnel
+must understand and apply during many phases of operation and maintenance.</para>
+<para><emphasis emph="b">DO NOT POWER UP AND SERVICE LIVE EQUIPMENT
+ALONE</emphasis></para>
+<para>Personnel shall not plug in power, power up or service the equipment
+without the presence of someone capable of rendering aid.</para>
+<para><emphasis emph="b">EMERGENCY OFF SWITCH</emphasis></para>
+<para>Personnel shall be aware of the Emergency OFF switch and its
+intended use with the system.</para>
+<para><emphasis emph="b">OPERATION UNDER ADVERSE WEATHER CONDITIONS</emphasis
+></para>
+<para>Personnel shall not operate the equipment under adverse weather
+conditions. When adverse weather occurs, power down the equipment,
+place the covers on and take protective cover.</para>
+<para><emphasis emph="b">SAFETY AROUND LIVE CIRCUITS</emphasis></para>
+<para>Operating personnel must observe all safety regulations at all
+times. Do not replace components with the power supply turned on applied
+to a chassis. Under certain conditions, dangerous potentials may exist
+when troubleshooting the equipment.</para>
+<para><emphasis emph="b">RESUSCITATION</emphasis></para>
+<para>Personnel working with or near radiation, high voltage, dangerous
+compounds, or other hazards should be familiar with modern methods
+of resuscitation. Such information may be obtained from the unit medical
+sources.</para>
+<para><emphasis emph="b">SAFETY AROUND ROTATING FANS</emphasis></para>
+<para>Personnel working with or near the rotating fans shall not place
+fingers or other objects into the fans, as serious injury could result.</para>
+<para><emphasis emph="b">TOXINS</emphasis></para>
+<para>Cleaning solvents or similar chemicals shall not be used to
+clean the equipment. Vapor concentrations and skin contact can be
+harmful. Death may result if the vapors are inhaled for lengthy periods.
+ Protective glasses should be worn and skin contact avoided. Body
+surfaces which contact the fluids must be washed in hot water, eyes
+must be rinsed with water, and examined.</para>
+<para><emphasis emph="b">COMPRESSED AIR</emphasis></para>
+<para>The air pressure used for cleaning and drying operations in
+normal work areas must not exceed 29 PSI. Special work areas must
+be designated for the use of pressures above 29 PSI. The approved
+eye protection equipment must be worn whenever the air system is used.</para>
+<para><emphasis emph="b">HIGH VOLTAGES</emphasis></para>
+<para>During testing, high voltages and currents are present in the
+Unit Under Test (UUT), the test module and the test cables. Access
+covers must not be opened and cables must not be disconnected until
+instructed to do so. High voltage locations are identified with warning
+labels.</para>
+<para><emphasis emph="b">WEIGHT</emphasis></para>
+<para>The APS case weights 30 pounds when packaged together for transportation.
+This weight requires a two-person lift to prevent injury.</para>
+<para><emphasis emph="b">HAZARDOUS MATERIALS</emphasis></para>
+<para>No hazardous materials are used in the AN/PSM-130 APS.</para>
+<para><emphasis emph="b">SOUND LEVELS</emphasis></para>
+<para>AN/PSM-130 APS creates no appreciable sound and is not considered
+a threat to hearing.</para>
+<para><emphasis emph="b">EQUIPMENT HANDLING</emphasis></para>
+<para>This equipment contains electronic components. Care must be
+used to prevent them from moisture, excessive dust and excessive shock.
+The connectors must be aligned and carefully attached to minimize
+bending or breaking connector pins. </para>
+<para>Circuit Card Assembly and Microcircuit Components are electrostatic
+discharge sensitive.</para>
+<para>Clean and dust component parts and packing boxes as needed.
+In a Nuclear, Biological, Chemical (NBC) environment, decontaminate
+the outside of the carrying cases before opening them.</para>
+<?FRAME label='PSM130e' title='SAFETY SUMMARY' style='./styles/FRONT.STY' next='.\PSM130.xml!PSM130f' previous='.\PSM130.xml!PSM130d'?>
+<?ALERT id="Warntop" type="warning"?>
+<para>Warning statements call attention to steps or procedures that
+must be strictly followed to prevent death or serious injury to personnel.</para>
+<?ENDALERT?>
+<warning>
+<para>Warning statements call attention to steps or procedures that
+must be strictly followed to prevent death or serious injury to personnel.</para>
+</warning>
+<para>The following <emphasis emph="b">WARNING</emphasis> statements
+appear in this manual and are repeated here for emphasis:</para>
+<para> <randlist>
+<item>
+<para><emphasis emph="b">Warning statements are used to highlight
+an essential operating or maintenance procedure, practice, condition,
+statement, etc., which if not strictly observed, could result in injury
+or death of personnel.</emphasis></para>
+<para>(<?hotspot href="./C2s1.xml!w212"?>paragraph 2-1.2<?endhotspot?>)</para>
+</item>
+<item>
+<para><emphasis emph="b">**************************************************************************************************************************</emphasis
+></para>
+</item>
+<item>
+<para><emphasis emph="b">ISOPROPYL ALCOHOL, TT-I-735 GRADE A, Flammable
+liquid and vapor. May cause eye, skin and respiratory irritation.
+Keep away from heat, sparks, and flame. Keep container closed. Use
+only with adequate ventilation. Avoid contact with eyes, skin and
+clothing. Wash thoroughly after handling. Avoid breathing dust (vapor,
+mist, gas).  </emphasis></para>
+<para><emphasis emph="b">Failure to follow this warning may cause
+injury to personnel.</emphasis></para>
+<para>(<?hotspot href="./C5s2.xml!w5as2a"?>paragraph 5&ndash;2.2<?endhotspot?>)</para>
+</item>
+<item>
+<para><emphasis emph="b">**************************************************************************************************************************</emphasis
+> </para>
+</item>
+</randlist></para>
+<?FRAME label='PSM130f' title='SAFETY SUMMARY' style='./styles/FRONT.STY' next='.\C1s1.xml!C1s1a' previous='.\PSM130.xml!PSM130e'?>
+<?ALERT id="CautTop" type="caution"?>
+<para>Caution statements highlight an essential operating or maintenance
+procedure, practice, condition, statement, etc., which, if not strictly
+observed, could result in damage or destruction of equipment.</para>
+<?ENDALERT?>
+<caution>
+<para>Caution statements highlight an essential operating or maintenance
+procedure, practice, condition, statement, etc., which, if not strictly
+observed, could result in damage or destruction of equipment.</para>
+</caution>
+<para>The following <emphasis emph="b">CAUTION</emphasis> statements
+appear in this manual and are repeated here for emphasis:</para>
+<para> <randlist>
+<item>
+<para><emphasis emph="b">Caution statements highlight an essential
+operating or maintenance procedure, practice, condition, statement,
+etc., which, if not strictly observed, could result in damage or destruction
+of equipment.</emphasis></para>
+</item>
+<item>
+<para>(<?hotspot href="./C2s1.xml!c212"?>paragraph 2-1.2<?endhotspot?>)</para>
+</item>
+<item>
+<para><emphasis emph="b">**************************************************************************************************************************</emphasis
+></para>
+</item>
+<item>
+<para><emphasis emph="b">UUT contains electrostatic sensitive devices
+(ESDs). Failure to follow ESD handling procedures may result in damage
+to equipment.</emphasis></para>
+</item>
+<item>
+<para>(<?hotspot href="./C4s2.xml!C422"?>paragraph 4-2.2<?endhotspot?>, <?hotspot href="./C4s3.xml!C432"?>paragraph
+4-3.2<?endhotspot?>, <?hotspot href="./C4s4.xml!C442"?>paragraph 4-4.2<?endhotspot?>, <?hotspot href="./C4s5.xml!C452"?>paragraph
+4-5.2<?endhotspot?>, <?hotspot href="./C4s6.xml!C462"?>paragraph 4-6.2<?endhotspot?>, <?hotspot href="./C4s7.xml!C472"?>paragraph
+4-7.2<?endhotspot?>, <?hotspot href="./C4s8.xml!C482"?>paragraph 4-8.2<?endhotspot?>, <?hotspot href="./C4s9.xml!C492"?>paragraph
+4-9.2<?endhotspot?>, <?hotspot href="./C4s10.xml!C4102"?>paragraph
+4-10.2<?endhotspot?>, <?hotspot href="./C4s11.xml!C4111"?>paragraph
+4-11.1.1<?endhotspot?>, <?hotspot href="./C4s11.xml!C4112"?>paragraph
+4-11.2.1<?endhotspot?>, <?hotspot href="./C4s12.xml!C4122"?>paragraph
+4-12.2<?endhotspot?>, <?hotspot href="./C4s12.xml!C4123"?>paragraph
+4-12.3<?endhotspot?>)</para>
+</item>
+<item>
+<para><emphasis emph="b">**************************************************************************************************************************</emphasis
+></para>
+</item>
+</randlist> </para>
+</section>
+</fsection>
+</fronttm>
+</docmarinecorpstm>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-14_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='2' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-15_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='3' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='4' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Gun Control Unit 00004A2200-1\GCU Logic SLEP (00004A2206-1)\TP_LAV_GCL_SLP.OBJ"' bitmap='n' DESC='Select to launch Gun Control Logic A1 SLEP TPS.'?>
+<?FRAME id='C3s6a' title='CHAP. 3 - THEORY OF OPERATION' next='.\C3s6.xml!C3S6b' previous='.\C3s5.xml!C3S5b'?>
+<chapter>
+<section id="c3s6" label="Section VI." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section VI. GCU Gun Control Logic A1."?>
+<title>GCU Gun Control Logic A1.</title>
+<para0 id="p3-6" label="3-6" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-6 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide information on the Theory of
+Operation for the GCU Gun Control Logic A1. Part information is also
+provided in paragraph <?hotspot href="p3-6.2"?>3-6.2 Part Information<?endhotspot?>.</para>
+<subpara1 id="p3-6.1" label="3-6.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-6.1 Theory Of Operation."?>
+<title>Theory Of Operation.</title>
+<para>The GCU extends the functions performed by the CDA and specifically
+deals with logic molding associated with the main gun. In performing
+these functions, the GCU interfaces the PDA, CDA, and the hand controls.
+Control signals for the main gun are sent from the hand control on
+the CDA to the GCU, where control logic circuits are used to develop
+the control signals which are then relayed to the main gun. These
+control signals provide timing control for the various rates of fire
+and to select AP or HE ammunition. Status signals are then sent back
+to the GCU to assure safe operation. These signals indicate a misfire,
+bolt position, and which ammo is selected (AP or HE). Status signals
+are then sent back to the CDA, where they are used to light the MAIN
+GUN STATUS indicators.</para>
+<subpara2 id="p3-6.1.1" label="3-6.1.1" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-6.1.1 GCU Gun Control Logic A1 Equipment Description."?>
+<title>GCU Gun Control Logic A1 Equipment Description.</title>
+<para>The Gun Control Logic A1 (P/N 7575335-011) herein referred to
+as the UUT, is a Circuit Card Assembly (CCA) containing the discrete
+logic chips used for timing and control of the main weapon system.</para>
+</subpara2>
+</subpara1>
+<?FRAME label='C3s6b' title='CHAP. 3 - THEORY OF OPERATION, SECT. VI - GCU Gun Control Logic A1' image=".\graphics\Fig3-13_1.pic" next='.\C3s7.xml!C3S7A' previous='.\C3s6.xml!C3S6a'?>
+<subpara1 id="p3-6.2" label="3-6.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-6.2 Part Information."?>
+<title>Part Information.</title>
+<para>The following provides part information for the GCU Gun Control
+Logic A1.</para>
+<para>Refer to <?hotspot href="T3-5"?>Table 3-5<?endhotspot?> for
+part information.</para>
+<para> <table id="T3-5">
+<title id="T3-5">Table 3-5. GCU Gun Control Logic A1 Part Information</title>
+<tgroup align="left" cols="5">
+<colspec colname="col1" colwidth="0.50*"/>
+<colspec colname="COL2" colwidth="0.60*"/>
+<colspec colname="COL3" colwidth="0.47*"/>
+<colspec colname="col4" colwidth="1.40*"/>
+<colspec colname="col5" colwidth="0.43*"/>
+<thead>
+<row>
+<entry align="center">Fig. 3-13 and Index Number</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">CAGEC</entry>
+<entry align="center">Description</entry>
+<entry align="center">Quantity (Qty)</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry align="center">7575335-011</entry>
+<entry align="center">13160</entry>
+<entry>Circuit Card Assembly, GCU Gun Control Logic A1</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 3?>

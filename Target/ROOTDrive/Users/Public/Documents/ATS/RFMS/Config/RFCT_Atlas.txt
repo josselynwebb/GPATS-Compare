@@ -1,0 +1,492 @@
+ 000100 BEGIN, ATLAS PROGRAM 'Rf_Cntr Benchmark'                       $
+C ********************************************************************
+  * Purpose: To test all modifiers and ranges as required for the    *
+  *          TETS_Wcem.dll.                                          *
+  * Subset:  TETS PAWS_89                                            *
+  ******************************************************************** $
+C                                                                      $	
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 000200 REQUIRE, 'RFCTR_FREQ_AC', SENSOR(FREQ), AC SIGNAL,      
+	    CONTROL,
+		FREQ RANGE 100.0E6 HZ TO 18.6E9 HZ,
+                POWER RANGE -35 DBM TO 0 DBM,
+                FREQ-WINDOW RANGE 100.0E6 HZ TO 18.6E9 HZ,
+                PEAK-SEARCH 1,
+		MAX-TIME RANGE 0.1 SEC TO 1500 SEC,
+            CNX HI                                                     $
+     15 REQUIRE, 'RFCTR_PULSEWIDTH_PAC', SENSOR(PULSE-WIDTH), AC SIGNAL,      
+	   CONTROL,
+		PULSE-WIDTH RANGE 50E-9 SEC TO 0.5 SEC,
+		FREQ RANGE 100.0E6 HZ TO 18.6E9 HZ,
+                POWER RANGE -35 DBM TO 0 DBM,
+		MAX-TIME RANGE 0.1 SEC TO 1500 SEC,
+	   LIMIT,	
+                POWER MAX +7 DBM,
+            CNX HI                                                     $
+     20 REQUIRE, 'RFCTR_PERIOD_AC', SENSOR(PERIOD), AC SIGNAL,
+           CONTROL,
+                PERIOD RANGE 250E-9 SEC TO 1 SEC,
+		FREQ RANGE 100.0E6 HZ TO 18.6E9 HZ,
+                POWER RANGE 0.1E-9 W TO 0.316 W,
+		MAX-TIME RANGE 0.1 SEC TO 1500 SEC,
+           CNX HI                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 000400 DECLARE, VARIABLE, 'CHOICE'      IS INTEGER                    $
+     05 DECLARE, VARIABLE, 'E-E'         IS BOOLEAN                    $
+     10 DECLARE, VARIABLE, 'FREQ'        IS DECIMAL                    $
+     15 DECLARE, VARIABLE, 'PERIOD'      IS DECIMAL                    $
+     20 DECLARE, VARIABLE, 'PULSEWIDTH'  IS DECIMAL                    $
+     25 DECLARE, VARIABLE, 'MVAL'        IS DECIMAL                    $ 
+     30 DECLARE, VARIABLE, 'FAIL-CNT'    IS INTEGER                    $
+     35 DECLARE, VARIABLE, 'LOCAL E-E'   IS BOOLEAN                    $
+     40 DECLARE, VARIABLE, 'VER-UL'      IS DECIMAL                    $
+     45 DECLARE, VARIABLE, 'VER-LL'      IS DECIMAL                    $
+     50 DECLARE, VARIABLE, 'TESTNO'      IS INTEGER                    $
+     55 DECLARE, VARIABLE, 'CONNECTED'   IS BOOLEAN                    $
+     60 DECLARE, VARIABLE, 'DATETIME'    IS STRING(15) OF CHAR         $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE PROCEDURE STATEMENTS                                      * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                              ** $
+C ******************************************************************** $
+C                                                                      $
+ 010000 DEFINE, 'RESULTS', PROCEDURE ('TEST' IS INTEGER,
+                                      'MVAL' IS DECIMAL,
+                                      'ULIM' IS DECIMAL,
+                                      'LLIM' IS DECIMAL)               $
+C                                                                      $
+     05 DECLARE, VARIABLE, 'PassFail' IS STRING(4) OF CHAR             $ 
+     10 DECLARE, VARIABLE, 'GoNogo'   IS STRING(5) OF CHAR             $
+     15 DECLARE, VARIABLE, 'NESTED'   IS BOOLEAN                       $
+C                                                                      $
+     20 IF, 'MVAL' UL 'ULIM' LL 'LLIM', THEN                           $
+     25    CALCULATE, 'PassFail' = C'PASS'                             $
+     30    CALCULATE, 'GoNogo' = C'GO  '                               $
+     35 ELSE                                                           $
+     40    CALCULATE, 'PassFail' = C'FAIL'                             $
+     45    CALCULATE, 'GoNogo' = C'NOGO'                               $
+     50    CALCULATE, 'FAIL-CNT' = 'FAIL-CNT' + 1                      $
+     55 END, IF                                                        $
+C                                                                      $
+     60 CALCULATE, 'NESTED' = FALSE                                    $
+C                                                                      $
+     65 IF, 'ULIM' EQ 0, THEN                                          $
+     70    IF, 'LLIM' EQ 0, THEN                                       $
+     75       CALCULATE, 'NESTED' = TRUE                               $
+     80    END, IF                                                     $
+     85 END, IF                                                        $
+C                                                                      $
+     90 IF, 'NESTED', THEN                                             $
+     95     OUTPUT, C' TEST        UPPER LIMIT    MEAS VALUE    LOWER LIMIT    RESULT' $
+ 010100     OUTPUT, C'------      ------------   ------------   ------------   ------' $ 
+     05     OUTPUT, 'TEST', C'           ', C'GO', C'           ', 'GoNogo', 
+               C'           ', C'NOGO', C'        ', 'PassFail'        $
+     25 ELSE                                                           $
+     30     IF, 'ULIM' GT 1.0, THEN                                    $
+     35         OUTPUT, C' TEST       UPPER LIMIT         MEAS VALUE          LOWER LIMIT      RESULT' $
+     40         OUTPUT, C'------  ------------------  ------------------  ------------------   ------' $ 
+     45         OUTPUT, 'TEST', C' ', 'ULIM':18:3, C' ', 'MVAL':18:3, C' ', 'LLIM':18:3,
+                    C'  ', 'PassFail', C'\LF\'                         $
+     50     END, IF                                                    $
+     55     IF, 'ULIM' LE 1.0, THEN                                    $
+     60         OUTPUT, C' TEST       UPPER LIMIT         MEAS VALUE          LOWER LIMIT      RESULT' $
+     65         OUTPUT, C'------  ------------------  ------------------  ------------------   ------' $ 
+     70         OUTPUT, 'TEST', C' ', 'ULIM':18:12, C' ', 'MVAL':18:12, C' ', 'LLIM':18:12,
+                    C'  ', 'PassFail', c'\LF\'                         $
+     75     END, IF                                                    $
+     80 END, IF                                                        $
+C                                                                      $ 
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * Procedure CONNECT RFCNTR                                         * $
+C ******************************************************************** $
+C                                                                      $
+ 011000 DEFINE, 'CONNECT RF CNTR', PROCEDURE                           $
+C                                                                      $
+     05 IF, NOT 'CONNECTED', THEN                                      $
+C                                                                      $
+     10     OUTPUT, 
+                C'            Operator Instructions\LF\',
+                C' --------------------------------------------\LF\',
+                C' 1. Connect RF Signal Generator to Rf_Ctr \LF\',
+                C'    input.\LF\',
+                C'\LF\',
+                C' Press Enter to Continue.\LF\'                       $
+     15     INPUT, GO-NOGO                                             $
+     20     CALCULATE, 'CONNECTED' = TRUE                              $
+     25 END, IF                                                        $
+C                                                                      $
+     99 END, 'CONNECT RF CNTR'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * IDENTIFY STATEMENTS                                              * $
+C ******************************************************************** $
+C                                                                      $
+ 020000 IDENTIFY, EVENT 'TRIG' AS (VOLTAGE-INST), DC SIGNAL,
+            EQ 2.5 V,
+            INCREASING, 
+            VOLTAGE-INST MAX 5.0 V,
+            CNX HI RFCNTR-TRIG-IN                                      $
+     05 IDENTIFY, EVENT '1 SEC DELAY' AS 1 SEC AFTER 'TRIG'            $
+C                                                                      $
+C ******************************************************************** $
+C * TEST MENU                                                        * $
+C ******************************************************************** $
+C                                                                      $
+E099000 CALCULATE, 'DATETIME' = DATE                                   $ 
+     05 OUTPUT,
+            C'Rf_Cntr ATLAS Driver Benchmark\LF\',
+            C'Date/Time: ', 'DATETIME'                                 $
+C     05 OUTPUT, USING 'PRINTER',
+            C'Rfctr_Eip1231A ATLAS Driver Benchmark\LF\'
+            C'Date/Time: ', DATE-TIME                                  $
+C                                                                      $
+     10 CALCULATE, 'FAIL-CNT' = 0                                      $
+B                                                                      $
+ 099015 OUTPUT, 
+            C'           Test Menu\LF\',
+            C'--------------------------------------\LF\',
+            C'FREQUENCY MEASUREMENT TESTS         1\LF\',
+            C'PERIOD MEASUREMENT TESTS            2\LF\',
+            C'PULSE-WIDTH MEASUREMENT TESTS       3\LF\',
+            C'PEAK-SEARCH TESTS                   4\LF\',
+            C'Triggered Tests                     5\LF\',
+            C'End to End Test                     6\LF\',
+            C'Exit                                0\LF\',
+            C'\LF\',
+            C'Enter a selection\LF\'                                   $
+     20 INPUT, INTO 'CHOICE'                                           $
+     30 IF, 'CHOICE' EQ 0, THEN                                        $
+     35     GO TO, STEP 990000                                         $
+     40 END, IF                                                        $
+     45 IF, 'CHOICE' EQ 1, THEN                                        $
+     50     CALCULATE, 'E-E' = FALSE                                   $
+     55     GO TO, STEP 100000                                         $
+     60 END, IF                                                        $
+     65 IF, 'CHOICE' EQ 2, THEN                                        $
+     70     CALCULATE, 'E-E' = FALSE                                   $
+     75     GO TO, STEP 110000                                         $
+     80 END, IF                                                        $
+     85 IF, 'CHOICE' EQ 3, THEN                                        $
+     90     CALCULATE, 'E-E' = FALSE                                   $
+     95     GO TO, STEP 120000                                         $
+ 099100 END, IF                                                        $
+     05 IF, 'CHOICE' EQ 4, THEN                                        $
+     10     CALCULATE, 'E-E' = FALSE                                   $
+     15     GO TO, STEP 130000                                         $
+     20 END, IF                                                        $        
+     25 IF, 'CHOICE' EQ 5, THEN                                        $
+     30     CALCULATE, 'E-E' = FALSE                                   $
+     35     GO TO, STEP 140000                                         $
+     40 END, IF                                                        $
+     45 IF, 'CHOICE' EQ 6, THEN                                        $
+     50     CALCULATE, 'E-E' = TRUE                                    $
+     55     GO TO, STEP 100000                                         $
+     60 END, IF                                                        $        
+     65 OUTPUT, 
+           C'Invalid Selection.\LF\'                                   $
+     70 GO TO, STEP 099015                                             $
+C                                                                      $
+C ******************************************************************** $
+C * Frequency Measurements                                           * $
+C ******************************************************************** $
+B                                                                      $
+ 100000 PERFORM, 'CONNECT RF CNTR'                                     $
+C                                                                      $
+C ******************************************************************** $
+C * FREQ AC SIGNAL Test                                              * $
+C ******************************************************************** $
+C                                                                      $
+ 101000 OUTPUT,
+           C'RF CNTR FREQUENCY MEASUREMENT\LF\',
+           C'----------------------------------------------\LF\',
+           C'Configure RF Signal Generator for a 1.0 GHz \LF\',
+           C'AT 0 DBM CW Signal Output.\LF\',
+	   C'\LF\', 
+           C'T - Ready to test. \LF\',
+           C'F - Skip test. \LF\'                                      $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOGO, THEN                                                 $
+     15     GO TO, STEP 099015                                         $
+     20 END, IF                                                        $
+C                                                                      $
+     25 CALCULATE, 'FREQ'   = 1.0E9                                    $
+     30 CALCULATE, 'VER-UL' = 'FREQ' * 1.1                             $
+     35 CALCULATE, 'VER-LL' = 'FREQ' * 0.9                             $
+     40 CALCULATE, 'TESTNO' = 101000                                   $
+     45 VERIFY, (FREQ INTO 'MVAL'),
+            AC SIGNAL USING 'RFCTR_FREQ_AC',
+            UL 'VER-UL' HZ LL 'VER-LL' HZ,
+            FREQ MAX 'FREQ' RANGE 100.0E6 HZ TO 18.6E9 HZ,
+            POWER 0 DBM,
+            CNX HI RFCTR-HI                                            $
+     55 PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'VER-UL', 'VER-LL')       $
+     60 IF, 'E-E' EQ TRUE, THEN                                        $
+     65     GO TO, STEP 110000                                         $
+     70 END, IF                                                        $
+     75 GO TO, STEP 099015                                             $
+C                                                                      $
+C ******************************************************************** $
+C * PERIOD TESTS                                                     * $
+C ******************************************************************** $
+B                                                                      $
+ 110000 PERFORM, 'CONNECT RF CNTR'                                     $
+C                                                                      $
+C ******************************************************************** $
+C * PERIOD TESTS                                                     * $
+C ******************************************************************** $
+C                                                                      $
+ 111000 OUTPUT,
+           C'PERIOD AC Signal Test\LF\',
+           C'-----------------------------------------------\LF\',
+           C'Configure RF Signal Generator for : \LF\',
+           C'    Frequency            750 MHz \LF\',
+           C'    Power                1 mW / 0 dBm\LF\',
+           C'    Pulse modulation\LF\',
+	   C'      Period             200 uSec\LF\',
+	   C'      Pulse Width         10 uSec\LF\',
+	   C'\LF\',
+           C'T - Ready to test. \LF\',
+           C'F - Skip test. \LF\'                                      $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOGO, THEN                                                 $
+     15     GO TO, STEP 099015                                         $
+     20 END, IF                                                        $
+C                                                                      $
+     25 CALCULATE, 'FREQ'   = 750.0E6                                  $
+     30 CALCULATE, 'PERIOD' = 200.0E-6                                 $
+     35 CALCULATE, 'VER-UL' = 'PERIOD' * 1.1                           $
+     40 CALCULATE, 'VER-LL' = 'PERIOD' * 0.9                           $
+     45 CALCULATE, 'TESTNO' = 111000                                   $
+     50 VERIFY, (PERIOD INTO 'MVAL'), 
+            AC SIGNAL USING 'RFCTR_PERIOD_AC',
+            UL 'VER-UL' SEC LL 'VER-LL' SEC,
+            PERIOD MAX 'PERIOD' RANGE 250E-9 SEC TO 1 SEC,
+            FREQ 'FREQ' RANGE 100.0E6 HZ TO 18.6E9 HZ,
+            POWER 1.0 MW,
+            MAX-TIME 30 SEC,
+            CNX HI RFCTR-HI                                            $
+     55 PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'VER-UL', 'VER-LL')       $
+     60 IF, 'E-E' EQ TRUE, THEN                                        $
+     65     GO TO, STEP 120000                                         $
+     70 END, IF                                                        $
+     75 GO TO, STEP 099015                                             $
+C                                                                      $
+C ******************************************************************** $
+C * PULSE WIDTH MEASUREMENT TESTS                                    * $
+C ******************************************************************** $
+B                                                                      $
+ 120000 PERFORM, 'CONNECT RF CNTR'                                     $
+C                                                                      $
+C ******************************************************************** $
+C * Band 2 [950 Hz to 20 GHz] FREQ AC SIGNAL Test                    * $
+C ******************************************************************** $
+C                                                                      $
+ 121000 OUTPUT, 
+           C'PULSE WIDTH MEASUREMENTS\LF\',
+           C'-----------------------------------------------\LF\',
+           C'Configure RF Signal Generator for : \LF\',
+           C'    Frequency            750 MHz \LF\',
+           C'    Power                1 mW / 0 dBm\LF\',
+           C'    Pulse modulation\LF\',
+	   C'      Period             100 uSec\LF\',
+	   C'      Pulse Width         20 uSec\LF\',
+	   C'\LF\',
+           C'T - Ready to test. \LF\',
+           C'F - Skip test. \LF\'                                      $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOGO, THEN                                                 $
+     15     GO TO, STEP 099015                                         $
+     20 END, IF                                                        $
+C                                                                      $
+     25 CALCULATE, 'FREQ' = 750.0E6                                    $
+     30 CALCULATE, 'PULSEWIDTH' = 20.0E-6                              $
+     35 CALCULATE, 'VER-UL' = 'PULSEWIDTH' * 1.1                       $
+     40 CALCULATE, 'VER-LL' = 'PULSEWIDTH' * 0.9                       $
+     45 CALCULATE, 'TESTNO' = 121000                                   $
+     50 VERIFY, (PULSE-WIDTH INTO 'MVAL'), 
+            AC SIGNAL USING 'RFCTR_PULSEWIDTH_AC',
+            UL 'VER-UL' SEC LL 'VER-LL' SEC,
+            PULSE-WIDTH MAX 'PULSEWIDTH' RANGE 50.0E-9 SEC TO 0.5 SEC,
+            FREQ 'FREQ' RANGE 100.0E6 HZ TO 18.6E9 HZ,
+            POWER 0 DBM,
+            MAX-TIME 30 SEC,
+            CNX HI RFCTR-HI                                            $
+     55 PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'VER-UL', 'VER-LL')       $
+     60 IF, 'E-E' EQ TRUE, THEN                                        $
+     65     GO TO, STEP 130000                                         $
+     70 END, IF                                                        $
+     75 GO TO, STEP 099015                                             $
+C                                                                      $
+C ******************************************************************** $
+C * PEAK SEARCH TESTS                                                * $
+C ******************************************************************** $
+B                                                                      $
+ 130000 PERFORM, 'CONNECT RF CNTR'                                     $
+C                                                                      $
+C ******************************************************************** $
+C * PEAK SEARCH TEST                                                 * $
+C ******************************************************************** $
+C                                                                      $
+ 131000 OUTPUT,
+            C'RFCNTR PEAK SEARCH TESTS\LF\',
+            C'\LF\',
+            C'Test Instructions\LF\',
+            C'--------------------------------------------------\LF\',
+            C'1. Configure RF Signal Generator for : \LF\',
+            C'   Frequency          12.0 GHz\LF\',
+            C'   Power              -10 dBm \LF\',
+            C'   No Modulation \LF\',
+            C'\LF\',
+            C'Press GO to continue\LF\',
+            C'Press NOGO to return to Main Menu \LF\'                  $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOGO, THEN                                                 $
+     15     GO TO, STEP 099015                                         $
+     20 END, IF                                                        $
+C                                                                      $
+     25 CALCULATE, 'FREQ' = 12.0E9                                     $
+     35 CALCULATE, 'VER-UL' = 'FREQ' * 1.1                             $
+     40 CALCULATE, 'VER-LL' = 'FREQ' * 0.9                             $
+     45 CALCULATE, 'TESTNO' = 131000                                   $
+     50 VERIFY, (FREQ INTO 'MVAL'), 
+            AC SIGNAL USING 'RFCTR_FREQ_AC',
+            UL 'VER-UL' HZ LL 'VER-LL' HZ,
+            FREQ MAX 'FREQ' RANGE 100.0E6 HZ TO 18.6E9 HZ,
+            FREQ-WINDOW RANGE 11.5E9 HZ TO 12.5E9 HZ,
+            POWER -10 DBM,
+            PEAK-SEARCH 1,
+            MAX-TIME 300 SEC,
+            CNX HI RFCTR-HI                                            $
+     55 PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'VER-UL', 'VER-LL')       $
+     60 IF, 'E-E' EQ TRUE, THEN                                        $
+     65     GO TO, STEP 140000                                         $
+     70 END, IF                                                        $
+     75 GO TO, STEP 099015                                             $
+C                                                                      $
+C ******************************************************************** $
+C * EXTERNAL TRIGGER TESTS                                           * $
+C ******************************************************************** $
+B                                                                      $
+ 140000 PERFORM, 'CONNECT RF CNTR'                                     $
+C                                                                      $
+C ******************************************************************** $
+C * EXTERNAL TRIGGER TEST                                            * $
+C ******************************************************************** $
+C                                                                      $
+ 141000 OUTPUT,
+            C'RFCNTR EXTERNAL TRIGGER TESTS\LF\',
+            C'\LF\',
+            C'Test Instructions\LF\',
+            C'--------------------------------------------------\LF\',
+            C'1. Configure RF Signal Generator for : \LF\',
+            C'   Frequency          1.0 GHz\LF\',
+            C'   Power              0 dBm \LF\',
+            C'   No Modulation \LF\',
+            C'2. Connect a pulse generator to the trig in port\LF\',
+            C'   at J114 on the RF CNTR. Configure the output for:\LF\',
+            C'   PRF 1 Hz\LF\',
+            C'   Pulse Width 1 uSec\LF\',
+            C'   Voltage-P 5.0 V\LF\',
+            C'\LF\',
+            C'Press GO to continue\LF\',
+            C'Press NOGO to return to Main Menu \LF\'                  $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOGO, THEN                                                 $
+     15     GO TO, STEP 099015                                         $
+     20 END, IF                                                        $
+C                                                                      $
+     25 CALCULATE, 'FREQ' = 10.0E9                                     $
+     30 CALCULATE, 'VER-UL' = 'FREQ' * 1.1                             $
+     35 CALCULATE, 'VER-LL' = 'FREQ' * 0.9                             $
+     40 CALCULATE, 'TESTNO' = 141000                                   $
+     45 ENABLE, EVENT 'TRIG'                                           $
+     50 VERIFY, (FREQ INTO 'MVAL'), 
+            AC SIGNAL USING 'RFCTR_FREQ_AC',
+            UL 'VER-UL' HZ LL 'VER-LL' HZ,
+            FREQ MAX 'FREQ' RANGE 100.0E6 HZ TO 18.6E9 HZ,
+            FREQ-WINDOW RANGE 10E9 HZ TO 16E9 HZ,
+            POWER -10 DBM,
+            STROBE-TO-EVENT 'TRIG' MAX-TIME 10 SEC,
+            CNX HI RFCTR-HI                                            $
+     55 DISABLE, EVENT 'TRIG'                                          $
+     60 PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'VER-UL', 'VER-LL')       $
+C                                                                      $
+C ******************************************************************** $
+C * EXTERNAL TRIGGER TEST                                            * $
+C ******************************************************************** $
+C                                                                      $
+ 142000 OUTPUT, 
+            C'RFCNTR EXTERNAL TRIGGER TESTS WITH DELAY\LF\'            $
+     05 ENABLE, EVENT 'TRIG'                                           $
+     10 ENABLE, EVENT '1 SEC DELAY'                                    $
+C                                                                      $
+     15 VERIFY, (FREQ INTO 'MEASUREMENT'), 
+            AC SIGNAL USING 'RFCTR_FREQ_AC',
+            UL 'VER-UL' HZ LL 'VER-LL' HZ,
+            FREQ MAX 'FREQ' RANGE 100.0E6 HZ TO 18.6E9 HZ,
+            FREQ-WINDOW RANGE 10E9 HZ TO 16E9 HZ,
+            POWER -10 DBM,
+            STROBE-TO-EVENT '1 SEC DELAY' MAX-TIME 10 SEC,
+            CNX HI RFCTR-HI                                            $
+C                                                                      $
+     20 DISABLE, EVENT '1 SEC DELAY'                                   $
+     25 DISABLE, EVENT 'TRIG'                                          $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'VER-UL', 'VER-LL')       $
+C                                                                      $
+     35 IF, 'E-E' EQ TRUE, THEN                                        $
+     40     GO TO, STEP 990000                                         $
+     45 END, IF                                                        $
+     50 GO TO, STEP 099015                                             $
+C                                                                      $
+C ******************************************************************** $
+C * END OF TESTING                                                   * $
+C ******************************************************************** $
+B                                                                      $
+ 990000 CALCULATE, 'DATETIME' = DATE                                   $
+     05 IF, 'FAIL-CNT' EQ 0, THEN                                      $
+     10   OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Rf_Cntr ATLAS Driver Benchmark\LF\',
+          C'Date/Time: ', 'DATETIME', C'\LF\',
+          C' END - END TEST\LF\',
+          C'    PASSED\LF\',
+          C'--------------------------------------\LF\'                $
+C     10   OUTPUT, USING 'PRINTER',
+          C'--------------------------------------\LF\',
+          C'Rf_Cntr ATLAS Driver Benchmark\LF\',
+          C'Date/Time: ', DATE-TIME, '\LF\',
+          C' END - END TEST\LF\',
+          C'    PASSED\LF\',
+          C'--------------------------------------\LF\'                $
+     15 ELSE                                                           $
+     20   OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Rf_Cntr ATLAS Driver Benchmark\LF\',
+          C'Date/Time: ', 'DATETIME', C'\LF\',
+          C' END - END TEST\LF\',
+          C'    FAILED WITH ', 'FAIL-CNT', C' NOGOs\LF\',
+          C'--------------------------------------\LF\'                $
+C     25   OUTPUT, USING 'PRINTER',
+          C'--------------------------------------\LF\',
+          C'Rf_Cntr ATLAS Driver Benchmark\LF\',
+          C'Date/Time: ', DATE-TIME, '\LF\',
+          C' END - END TEST\LF\',
+          C'    FAILED WITH ', 'FAIL-FLAG', C' NOGOs\LF\',
+          C'--------------------------------------\LF\'                $
+     30 END, IF                                                        $
+C                                                                      $
+ 999900 REMOVE, ALL                                                    $
+ 999999 TERMINATE, ATLAS PROGRAM 'Rf_Cntr Benchmark'                   $

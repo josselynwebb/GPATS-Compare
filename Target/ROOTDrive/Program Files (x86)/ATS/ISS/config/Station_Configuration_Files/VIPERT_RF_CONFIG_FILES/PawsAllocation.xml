@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AtXmlMessages xmlns:stdbsc="STDBSC" xmlns:tsf="USER_TSF" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:noNamespaceSchemaLocation="AtXmlMessageSchema.xsd">
+	<AtXmlAllocation>
+<!--Currently Remove All and PAWS Reset Button removes in forward order of this file-->
+<!--Dso-->
+			<AllcationAssignment resourceName="DSO_1" stationInstrumentName="DSO_1" stationResourceName=""/>
+<!--Counter-->
+			<AllcationAssignment resourceName="CNTR_1" stationInstrumentName="CNTR_1" stationResourceName=""/>
+<!--Dmm-->
+			<AllcationAssignment resourceName="DMM_1" stationInstrumentName="DMM_1" stationResourceName=""/>
+<!--Rf Counter-->
+			<AllcationAssignment resourceName="RF_CNTR_1" stationInstrumentName="RF_CNTR_1" stationResourceName=""/>
+<!--Rf Measurement Analyzer-->
+			<AllcationAssignment resourceName="RF_MEASAN_1" stationInstrumentName="RF_MEASAN_1" stationResourceName=""/>
+<!--RF Power Meter-->
+			<AllcationAssignment resourceName="RF_PWR_1" stationInstrumentName="RF_PWR_1" stationResourceName=""/>
+<!--RF Stim-->
+			<AllcationAssignment resourceName="RFGEN_1" stationInstrumentName="RFGEN_1" stationResourceName=""/>
+<!--Gigabit Ethernet-->
+			<AllcationAssignment resourceName="ETHERNET_1" stationInstrumentName="ETHERNET_1" stationResourceName=""/>
+			<AllcationAssignment resourceName="ETHERNET_2" stationInstrumentName="ETHERNET_2" stationResourceName=""/>
+<!--Serial 1553 card-->
+			<AllcationAssignment resourceName="MIL1553_1" stationInstrumentName="MIL1553_1" stationResourceName=""/>
+<!--COM channels RS232 Rs442-->
+			<AllcationAssignment resourceName="COM_1" stationInstrumentName="COM_1" stationResourceName=""/>
+			<AllcationAssignment resourceName="COM_2" stationInstrumentName="COM_2" stationResourceName=""/>
+<!--Serial card-->
+			<AllcationAssignment resourceName="COM_3" stationInstrumentName="COM_3" stationResourceName=""/>
+			<AllcationAssignment resourceName="COM_4" stationInstrumentName="COM_4" stationResourceName=""/>
+			<AllcationAssignment resourceName="COM_5" stationInstrumentName="COM_5" stationResourceName=""/>
+	<!--CANS physical resources-->
+			<AllcationAssignment resourceName="CAN_1" stationInstrumentName="CAN_1" stationResourceName=""/>
+<!--Arb-->
+			<AllcationAssignment resourceName="ARB_GEN_1" stationInstrumentName="ARB_GEN_1" stationResourceName=""/>
+<!--Function Generator-->
+			<AllcationAssignment resourceName="FUNC_GEN_1" stationInstrumentName="FUNC_GEN_1" stationResourceName=""/>
+<!--Srs-->
+			<AllcationAssignment resourceName="SRS_1_DS1" stationInstrumentName="SRS_1" stationResourceName="SRS_1_DS1"/>
+			<AllcationAssignment resourceName="SRS_1_DS2" stationInstrumentName="SRS_1" stationResourceName="SRS_1_DS2"/>
+			<AllcationAssignment resourceName="SRS_1_SD1" stationInstrumentName="SRS_1" stationResourceName="SRS_1_SD1"/>
+			<AllcationAssignment resourceName="SRS_1_SD2" stationInstrumentName="SRS_1" stationResourceName="SRS_1_SD2"/>
+ <!--Digital Device-->
+            <AllcationAssignment resourceName="DWG_1" stationInstrumentName="DWG_1" stationResourceName=""/>
+
+<!--DC Power Supplies-->
+			<AllcationAssignment resourceName="DCP_1" stationInstrumentName="DCPS" stationResourceName=""/>
+	<!--single supply physical resources-->
+			<AllcationAssignment resourceName="DCPS_1" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_1"/>
+			<AllcationAssignment resourceName="DCPS_2" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_2"/>
+			<AllcationAssignment resourceName="DCPS_3" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_3"/>
+			<AllcationAssignment resourceName="DCPS_4" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_4"/>
+			<AllcationAssignment resourceName="DCPS_5" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_5"/>
+			<AllcationAssignment resourceName="DCPS_6" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_6"/>
+			<AllcationAssignment resourceName="DCPS_7" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_7"/>
+			<AllcationAssignment resourceName="DCPS_8" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_8"/>
+			<AllcationAssignment resourceName="DCPS_9" stationInstrumentName="DCPS" stationResourceName="DCPS_40V5A_9"/>
+			<AllcationAssignment resourceName="DCPS_10" stationInstrumentName="DCPS" stationResourceName="DCPS_65V5A_10"/>
+	<!-- parallel (virtual) resources-->
+			<AllcationAssignment resourceName="DCPS_PAR89" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_89"/>
+			<AllcationAssignment resourceName="DCPS_PAR78" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_78"/>
+			<AllcationAssignment resourceName="DCPS_PAR789" stationInstrumentName="DCPS" stationResourceName="DCPS_40V15A_789"/>
+			<AllcationAssignment resourceName="DCPS_PAR67" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_67"/>
+			<AllcationAssignment resourceName="DCPS_PAR678" stationInstrumentName="DCPS" stationResourceName="DCPS_40V15A_678"/>
+			<AllcationAssignment resourceName="DCPS_PAR6789" stationInstrumentName="DCPS" stationResourceName="DCPS_40V20A_6789"/>
+			<AllcationAssignment resourceName="DCPS_PAR56" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_56"/>
+			<AllcationAssignment resourceName="DCPS_PAR567" stationInstrumentName="DCPS" stationResourceName="DCPS_40V15A_567"/>
+			<AllcationAssignment resourceName="DCPS_PAR5678" stationInstrumentName="DCPS" stationResourceName="DCPS_40V20A_5678"/>
+			<AllcationAssignment resourceName="DCPS_PAR56789" stationInstrumentName="DCPS" stationResourceName="DCPS_40V25A_56789"/>
+			<AllcationAssignment resourceName="DCPS_PAR45" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_45"/>
+			<AllcationAssignment resourceName="DCPS_PAR456" stationInstrumentName="DCPS" stationResourceName="DCPS_40V15A_456"/>
+			<AllcationAssignment resourceName="DCPS_PAR4567" stationInstrumentName="DCPS" stationResourceName="DCPS_40V20A_4567"/>
+			<AllcationAssignment resourceName="DCPS_PAR45678" stationInstrumentName="DCPS" stationResourceName="DCPS_40V25A_45678"/>
+			<AllcationAssignment resourceName="DCPS_PAR456789" stationInstrumentName="DCPS" stationResourceName="DCPS_40V30A_456789"/>
+			<AllcationAssignment resourceName="DCPS_PAR34" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_34"/>
+			<AllcationAssignment resourceName="DCPS_PAR345" stationInstrumentName="DCPS" stationResourceName="DCPS_40V15A_345"/>
+			<AllcationAssignment resourceName="DCPS_PAR3456" stationInstrumentName="DCPS" stationResourceName="DCPS_40V20A_3456"/>
+			<AllcationAssignment resourceName="DCPS_PAR34567" stationInstrumentName="DCPS" stationResourceName="DCPS_40V25A_34567"/>
+			<AllcationAssignment resourceName="DCPS_PAR345678" stationInstrumentName="DCPS" stationResourceName="DCPS_40V30A_345678"/>
+			<AllcationAssignment resourceName="DCPS_PAR3456789" stationInstrumentName="DCPS" stationResourceName="DCPS_40V35A_3456789"/>
+			<AllcationAssignment resourceName="DCPS_PAR23" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_23"/>
+			<AllcationAssignment resourceName="DCPS_PAR234" stationInstrumentName="DCPS" stationResourceName="DCPS_40V15A_234"/>
+			<AllcationAssignment resourceName="DCPS_PAR2345" stationInstrumentName="DCPS" stationResourceName="DCPS_40V20A_2345"/>
+			<AllcationAssignment resourceName="DCPS_PAR23456" stationInstrumentName="DCPS" stationResourceName="DCPS_40V25A_23456"/>
+			<AllcationAssignment resourceName="DCPS_PAR234567" stationInstrumentName="DCPS" stationResourceName="DCPS_40V30A_234567"/>
+			<AllcationAssignment resourceName="DCPS_PAR2345678" stationInstrumentName="DCPS" stationResourceName="DCPS_40V35A_2345678"/>
+			<AllcationAssignment resourceName="DCPS_PAR23456789" stationInstrumentName="DCPS" stationResourceName="DCPS_40V40A_23456789"/>
+			<AllcationAssignment resourceName="DCPS_PAR12" stationInstrumentName="DCPS" stationResourceName="DCPS_40V10A_12"/>
+			<AllcationAssignment resourceName="DCPS_PAR123" stationInstrumentName="DCPS" stationResourceName="DCPS_40V15A_123"/>
+			<AllcationAssignment resourceName="DCPS_PAR1234" stationInstrumentName="DCPS" stationResourceName="DCPS_40V20A_1234"/>
+			<AllcationAssignment resourceName="DCPS_PAR12345" stationInstrumentName="DCPS" stationResourceName="DCPS_40V25A_12345"/>
+			<AllcationAssignment resourceName="DCPS_PAR123456" stationInstrumentName="DCPS" stationResourceName="DCPS_40V30A_123456"/>
+			<AllcationAssignment resourceName="DCPS_PAR1234567" stationInstrumentName="DCPS" stationResourceName="DCPS_40V35A_1234567"/>
+			<AllcationAssignment resourceName="DCPS_PAR12345678" stationInstrumentName="DCPS" stationResourceName="DCPS_40V40A_12345678"/>
+			<AllcationAssignment resourceName="DCPS_PAR123456789" stationInstrumentName="DCPS" stationResourceName="DCPS_40V45A_123456789"/>
+<!--Switch-->
+			<AllcationAssignment resourceName="PAWS_SWITCH" stationInstrumentName="SWITCH" stationResourceName="PAWS_SWITCH"/>
+
+	</AtXmlAllocation>
+</AtXmlMessages>

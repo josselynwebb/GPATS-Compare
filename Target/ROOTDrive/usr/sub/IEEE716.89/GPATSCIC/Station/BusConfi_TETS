@@ -1,0 +1,58 @@
+;************************************************************************
+;
+;  FILENAME   :  busconfi
+;
+;  REVISION   :  1.0
+;
+;  DATE       :  12-Jan-06
+;
+;  DESCRIPTION:  PAWS IEEE-488 bus configuration file for DME TETS II
+;
+;************************************************************************
+;
+;                     SOURCE REVISION HISTORY
+;
+;  VER  DATE     DESCRIPTION                AUTHOR
+;  ---  -------  -------------------------                    --------------------------
+;  1.0  12Jan06  Initial Release                  EADS NA
+;  1.1  26Mar09 Added MICCAN                EADS NA
+;                      Added CDDI
+;                      Added TCIDM
+;  2.0  12Apr17  Updated for CIC/VIPERT     JWitcher
+;  2.1  28Jul17  Updated FOR GPATS CIC TETS JWitcher
+;                Removed VEO2
+;  2.2	19Dec19	Updating for RF Bypass
+;************************************************************************
+
+"Channel"           2  LIB WcemBus_1553.dll
+"Channel"           5  LIB WcemBus_Ethernet_Gigabit.dll 
+"Channel"           6  LIB WcemBUS_PciSerial.dll
+"Channel"           7  LIB WcemBus_Can.dll
+"Channel"          10  LIB WcemCntr.dll
+"Channel"          11  LIB WcemDcPs.dll
+"Channel"          16  LIB WcemDmm.dll
+"Channel"          17  LIB WcemFncGen.dll
+"Channel"          21  LIB WcemDwg.dll
+"Channel"          22  LIB WcemDso_TETS.dll
+"Channel"          24  LIB WcemArb_Gen.dll
+"Channel"          25  LIB WcemSrs.dll
+"VXI Bus"          33  MLA 0 MTA 0 Simulation
+"Channel"          40  LIB WcemSwitch.dll
+"Channel"          41  LIB WcemSwitch.dll
+
+
+MIL1553_1          BUS 2
+ETHERNET_1         BUS 5
+PCISERIAL_1        BUS 6
+CAN_1              BUS 7 
+CNTR_1             BUS 10
+DCP_1              BUS 11
+DMM_1              BUS 16
+FUNC_GEN_1         BUS 17
+DWG_1              BUS 21
+DSO_1              BUS 22
+ARB_GEN_1          BUS 24
+SRS_1              BUS 25
+PROBE	              BUS 33
+TERM9DWG           BUS 40
+SWITCH             BUS 41

@@ -1,0 +1,107 @@
+from    DCPS1A-HI	to	J1-1;
+from    DCPS1A-LO	to	J1-2; * or 34
+from    DCPS1A-SENHI	to	J1-3;
+from    DCPS1A-SENLO	to	J1-35;
+from    DCPS1B-HI	to	J1-1;
+from    DCPS1B-LO	to	J1-2; * or 34
+from    DCPS1B-SENHI	to	J1-3;
+from    DCPS1B-SENLO	to	J1-35;
+
+from    DCPS2A-HI	to	J1-4;
+from    DCPS2A-LO	to	J1-5; * or 37
+from    DCPS2A-SENHI	to	J1-6;
+from    DCPS2A-SENLO	to	J1-38;
+
+from    DCPS3A-HI	to	J1-7;
+from    DCPS3A-LO	to	J1-8; * or 40
+from    DCPS3A-SENHI	to	J1-9;
+from    DCPS3A-SENLO	to	J1-41;
+
+from    DCPS4A-HI	to	J1-10;
+from    DCPS4A-LO	to	J1-11; * or 43
+from    DCPS4A-SENHI	to	J1-12;
+from    DCPS4A-SENLO	to	J1-44;
+
+from    DCPS5A-HI	to	J1-13;
+from    DCPS5A-LO	to	J1-14; * or 46
+from    DCPS5A-SENHI	to	J1-15;
+from    DCPS5A-SENLO	to	J1-47;
+
+from    DCPS6A-HI	to	J1-16;
+from    DCPS6A-LO	to	J1-17; * or 49
+from    DCPS6A-SENHI	to	J1-18;
+from    DCPS6A-SENLO	to	J1-50;
+
+from    DCPS7A-HI	to	J1-19;
+from    DCPS7A-LO	to	J1-20; * or 52
+from    DCPS7A-SENHI	to	J1-21;
+from    DCPS7A-SENLO	to	J1-53;
+
+from    DCPS8A-HI	to	J1-22;
+from    DCPS8A-LO	to	J1-23; * or 55
+from    DCPS8A-SENHI	to	J1-24;
+from    DCPS8A-SENLO	to	J1-56;
+
+from    DCPS9A-HI	to	J1-25;
+from    DCPS9A-LO	to	J1-26; * or 58
+from    DCPS9A-SENHI	to	J1-27;
+from    DCPS9A-SENLO	to	J1-59;
+
+from    DCPS10A-HI	to	J1-28;
+from    DCPS10A-LO	to	J1-29; * or 61
+from    DCPS10A-SENHI	to	J1-30;
+from    DCPS10A-SENLO	to	J1-62;
+from    DCPS10B-HI	to	J1-28;
+from    DCPS10B-LO	to	J1-29; * or 61
+from    DCPS10B-SENHI	to	J1-30;
+from    DCPS10B-SENLO	to	J1-62;
+
+*sense pins used for parallel M/S tests
+from    DCPS_1MS-SENHI  to	J1-3;
+from    DCPS_1MS-SENLO  to      J1-35;
+from    DCPS_2MS-SENHI  to	J1-6;
+from    DCPS_2MS-SENLO  to      J1-38;
+from    DCPS_3MS-SENHI  to	J1-9;
+from    DCPS_3MS-SENLO  to      J1-41;
+from    DCPS_4MS-SENHI  to	J1-12;
+from    DCPS_4MS-SENLO  to      J1-44;
+from    DCPS_5MS-SENHI  to	J1-15;
+from    DCPS_5MS-SENLO  to      J1-47;
+from    DCPS_6MS-SENHI  to	J1-18;
+from    DCPS_6MS-SENLO  to      J1-50;
+from    DCPS_7MS-SENHI  to	J1-21;
+from    DCPS_7MS-SENLO  to      J1-53;
+from    DCPS_8MS-SENHI  to	J1-24;
+from    DCPS_8MS-SENLO  to      J1-56;
+from    DCPS_9MS-SENHI  to	J1-27;
+from    DCPS_9MS-SENLO  to      J1-59;
+
+from    DCPS_1MS-HI  	to	J1-1;
+from    DCPS_1MS-LO  	to      J1-2;
+from    DCPS_2MS-HI  	to	J1-4;
+from    DCPS_2MS-LO  	to      J1-5;
+from    DCPS_3MS-HI  	to	J1-7;
+from    DCPS_3MS-LO  	to      J1-8;
+from    DCPS_4MS-HI  	to	J1-10;
+from    DCPS_4MS-LO  	to      J1-11;
+from    DCPS_5MS-HI  	to	J1-13;
+from    DCPS_5MS-LO  	to      J1-14;
+from    DCPS_6MS-HI  	to	J1-16;
+from    DCPS_6MS-LO  	to      J1-17;
+from    DCPS_7MS-HI  	to	J1-19;
+from    DCPS_7MS-LO  	to      J1-20;
+from    DCPS_8MS-HI  	to	J1-22;
+from    DCPS_8MS-LO  	to      J1-23;
+from    DCPS_9MS-HI  	to	J1-25;
+from    DCPS_9MS-LO  	to      J1-26;
+
+from	DCPS_1SER-HI	to	J1-1;
+from	DCPS_1SER-LO	to	J1-2;
+from	DCPS_2SER-HI	to	J1-4;
+from	DCPS_2SER-LO	to	J1-5;
+from	DCPS_1SER-SENHI	to	J1-3;
+from	DCPS_1SER-SENLO	to	J1-35;
+from	DCPS_2SER-SENHI	to	J1-6;
+from	DCPS_2SER-SENLO	to	J1-38;
+
+	

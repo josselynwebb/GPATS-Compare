@@ -1,0 +1,953 @@
+\\**************************************************************************
+\\
+\\  Filename: modsdims
+\\  Version:  2.0
+\\  Purpose:  A source file used to build the TYX PAWS ATLAS lexical
+\\            database file LexDB.LEX.
+\\
+\\ VER   DATE     ENGINEER, ORGANIZATION, DR# (STR #): DESCRIPTION
+\\ ---   -------  --------------------------------------------------------------
+\\ 1.3   01Nov00  LMIS: Update for Electro-Optical additions.
+\\
+\\ 1.4   15Mar04  Tom Biggs, ManTech: Update to support EOV ATLAS Benchmark 
+\\                development (see ECO-3047-637).
+\\
+\\ 2.0   28Apr09 EADS:
+\\                 Baselined VIPER/T version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\********New version scheme to meet the System software version******************
+\\*  2.1.0.X   13MAR19  Update to bring to 1.3.2.0
+\\**************************************************************************
+
+print "Source File: modsdims";
+
+
+begin MODIFIERS	AC-COMP;				DIMS:	(NSD_DC) V; (NSD_DC) DB;
+												(NSD_DC) PC; A; 	end_unit;
+begin MODIFIERS	AC-COMP-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	ADD-FROM;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4; FILE;	   	end_unit;
+
+begin MODIFIERS ADDR-LINES                              DIMS:   LINES; end_unit;
+
+begin MODIFIERS	ADD-TO;					DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4; FILE;    	end_unit;
+begin MODIFIERS	AGE-RATE;				DIMS:	HZ/SEC;				end_unit;
+begin MODIFIERS	ALT;					DIMS:	M; IN; FT;			end_unit;
+begin MODIFIERS	ALT-RATE;				DIMS:	M/SEC; MACH;	
+												IN/SEC; FT/SEC;		end_unit;
+begin MODIFIERS	AM-COMP;				DIMS:	(NSD_DC) V; (NSD_DC) DB;
+								(NSD_DC) PC; (NSD_DC) HZ;	end_unit;
+begin MODIFIERS	AM-COUPL;				DIMS:	AC; DC;				end_unit;
+begin MODIFIERS	AM-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	AM-SHIFT;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	AM-SOURCE;				DIMS:	EXT; INT;			end_unit;
+begin MODIFIERS	AMPL-MOD-C;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	AMPL-MOD-F;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	ANGLE;					DIMS:	DEG;				end_unit;
+begin MODIFIERS	ANGLE-PHI;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	ANGLE-THETA;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	ANGLE-ACCEL;				DIMS:	DEG/SEC/SEC;		end_unit;
+begin MODIFIERS	ANGLE-ACCEL-X;				DIMS:	DEG/SEC/SEC;		end_unit;	
+begin MODIFIERS	ANGLE-ACCEL-Y;				DIMS:	DEG/SEC/SEC;	        end_unit;	
+begin MODIFIERS	ANGLE-ACCEL-Z;				DIMS:	DEG/SEC/SEC;		end_unit;	
+begin MODIFIERS	ANGLE-RATE;				DIMS:	DEG/SEC;			end_unit;	
+begin MODIFIERS	ANGLE-RATE-X;				DIMS:	DEG/SEC;			end_unit; 
+begin MODIFIERS	ANGLE-RATE-Y;				DIMS:	DEG/SEC;			end_unit; 
+begin MODIFIERS	ANGLE-RATE-Z;				DIMS:	DEG/SEC;			end_unit; 
+begin MODIFIERS	ANGLE-X;				DIMS:	DEG;				end_unit; 
+begin MODIFIERS	ANGLE-Y;				DIMS:	DEG;				end_unit; 
+begin MODIFIERS	ANGLE-Z;				DIMS:	DEG;				end_unit; 
+begin MODIFIERS	ANT-SPEED-DEV;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	ATTEN;					DIMS:	DB; PC;				end_unit;
+begin MODIFIERS	ATTENUATION;				DIMS:	X1; X10;			end_unit;
+
+begin MODIFIERS	ATMOS;					DIMS:	ARDC; ICAN;	                                                                ICAO; WADC;
+                                                                end_unit;
+
+begin MODIFIERS BACK-PORCH;                             DIMS:   SEC; LINES;
+                                                                HALF-LINES;
+                                                                end_unit;
+
+begin MODIFIERS	BANDWIDTH;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	BAROMETRIC-PRESS;			DIMS:	INHG; PA; MB; MMHG; end_unit;
+\\begin MODIFIERS BEAM-DETECTION-THRESHOLD;               DIMS:   DB;
+\\                end_unit;
+\\begin MODIFIERS	BIT;				DIMS:	PULSE-CODE;			end_unit;
+begin MODIFIERS	BIT-PERIOD;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	BIT-RATE;				DIMS:	BITS/SEC;			end_unit;
+begin MODIFIERS	BURST;					DIMS:	CYCLES;
+                end_unit;
+begin MODIFIERS	BURST-REP-RATE;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	BURST-DROOP;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	BUS-TIMEOUT;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	CAP;					DIMS:	FD;					end_unit;
+begin MODIFIERS	CAR-AMPL;				DIMS:	(NSD_DC) V; (NSD_DC) W; DB;
+												PC; (NSD_DC) DBM;	end_unit;
+begin MODIFIERS	CAR-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	CAR-HARMONICS;				DIMS:	(NSD_DC) DB; (NSD_DC) V;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	CAR-PHASE;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	CAR-RESID;				DIMS:	V;					end_unit;
+begin MODIFIERS	CONDUCTANCE;				DIMS:	S;					end_unit;
+begin MODIFIERS	COUPLING;				DIMS:	AC; DC;				end_unit;
+begin MODIFIERS	CLOCK-SOURCE;				DIMS:	INT; EXT;			end_unit;
+begin MODIFIERS	CREST-FACTOR				DIMS:	DB; PC;				end_unit;
+begin MODIFIERS	COMMAND-WORD;				DIMS:	SYNC; T-R; PARITY; LENGTH;  PULSE-CODE;			end_unit;
+begin MODIFIERS	COMPARE-CH;				DIMS:	CHAN1; CHAN2; 			end_unit;
+begin MODIFIERS	COMPARE-TO;				DIMS:	WMEM1; WMEM2; WMEM3; WMEM4; FILE;	end_unit;
+\\begin MODIFIERS COMMAND-WORD-BIT;			DIMS:	PULSE-CODE;			end_unit;
+begin MODIFIERS	COMPL;					DIMS:	V;					end_unit;
+begin MODIFIERS	COUNT;					DIMS:	TIMES;				end_unit;
+begin MODIFIERS	CURRENT;				DIMS:	A;					end_unit;
+begin MODIFIERS	AV-CURRENT;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-INST;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-P;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-PP;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-TRMS;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-LMT;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-ONE;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-QUIES;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-ZERO;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-P-POS;				DIMS:	A;					end_unit;
+begin MODIFIERS	CURRENT-P-NEG;				DIMS:	A;					end_unit;
+begin MODIFIERS CUTOFF-FREQ;                            DIMS:   CYCLES/MRAD;
+                        end_unit;
+begin MODIFIERS	CW-LEVEL;				DIMS:	V; W; PC; DB; DBM;	end_unit;
+\\begin MODIFIERS DATA-WORD;				DIMS:	SYNC; T-R; PARITY;
+\\												LENGTH;				end_unit;
+\\begin MODIFIERS DATA-WORD-BIT;			DIMS:	PULSE-CODE;			end_unit;
+begin MODIFIERS	DBL-INT;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	DC-OFFSET;				DIMS:	V; A;				end_unit;
+begin MODIFIERS	DE-EMPHASIS;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	DEBRIS-COUNT;				DIMS:	TIMES/L;			end_unit;
+begin MODIFIERS	DEBRIS-SIZE;				DIMS:	M; IN;	FT;			end_unit;
+begin MODIFIERS	DELAY;					DIMS:	SEC;				end_unit;
+begin MODIFIERS	DESTINATION;				DIMS:	FUNC1; FUNC2; 			end_unit;
+
+begin MODIFIERS DETECTOR-SCAN;                          DIMS:   IN-SCAN;
+                                                                X-SCAN;
+                                                                end_unit;
+
+begin MODIFIERS	DEV-PPOS;				DIMS:	(NSD_DC) PC;
+                                                                (NSD_DC) DB;
+                                                                (NSD_DC) HZ;
+                                                                end_unit;
+
+begin MODIFIERS	DEV-PNEG;				DIMS:	(NSD_DC) PC;
+                                                                (NSD_DC) DB;
+                                                                (NSD_DC) HZ;
+                                                                end_unit;
+
+begin MODIFIERS	DEWPOINT;				DIMS:	DEGC; DEGF; DEGK; 	end_unit;
+begin MODIFIERS DIFFERENTIAL-TEMP;              DIMS:   DEGC;
+                end_unit;
+begin MODIFIERS	DIFFERENTIATE;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4;	 end_unit;
+begin MODIFIERS DISPLAY;				DIMS:	(NSD_DC) ON; (NSD_DC OFF;
+																	end_unit;
+begin MODIFIERS	DISS-FACTOR;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	DISTANCE;				DIMS:	M; FT; IN;			end_unit;
+begin MODIFIERS	DISTANCE-R;				DIMS:	M; FT; IN;			end_unit;
+begin MODIFIERS	DISTANCE-X;				DIMS:	M; FT; IN;			end_unit;
+begin MODIFIERS	DISTANCE-Y;				DIMS:	M; FT; IN;			end_unit;
+begin MODIFIERS	DISTANCE-Z;				DIMS:	M; FT; IN;			end_unit;
+begin MODIFIERS	DISTORTION;				DIMS:	(NSD_DC) DB; (NSD_DC) V;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	DOMINANT-MOD-SIG;			DIMS:	HZ;					end_unit;
+begin MODIFIERS	DOPPLER-BANDWIDTH;			DIMS:	HZ; PC; DB;			end_unit;
+begin MODIFIERS	DOPPLER-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	DOPPLER-SHIFT;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	DROOP;					DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	DUTY-CYCLE;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	EFF;					DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	EFFICACY;				DIMS:	LM/W;				end_unit;
+begin MODIFIERS	END-LINE; 				DIMS:	LINES;				end_unit;
+begin MODIFIERS	END-UNIT; 				DIMS:	SEC;				end_unit;
+begin MODIFIERS	FALL-TIME;				DIMS:	SEC;				end_unit;
+
+begin MODIFIERS	FLUX-DENS;				DIMS:	T;					end_unit;
+begin MODIFIERS	FLUX-DENS-IN-PHASE;			DIMS:	T;					end_unit;
+begin MODIFIERS	FLUX-DENS-QUAD;				DIMS:	T;					end_unit;
+begin MODIFIERS FOCAL-LENGTH;                           DIMS:   M; IN; FT;
+                        end_unit;
+begin MODIFIERS	FM-COMP;				DIMS:	(NSD_DC) HZ;
+                                                                (NSD_DC) DB;
+                                                                (NSD_DC) PC;
+                                                                end_unit;
+
+begin MODIFIERS	FM-COUPL;				DIMS:	AC; DC;				end_unit;
+begin MODIFIERS	FM-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	FM-SOURCE;				DIMS:	EXT; INT;			end_unit;
+begin MODIFIERS	FORCE;					DIMS:	N;					end_unit;
+begin MODIFIERS	FORCE-RATE;				DIMS:	N/SEC;				end_unit;
+begin MODIFIERS FORMAT;                                 DIMS:   RS170; 
+                                                                RS343-675-1-1;
+                                                                RS343-675-4-3;
+                                                                RS343-729-1-1;
+                                                                RS343-729-4-3;
+                                                                RS343-875-1-1;
+                                                                RS343-875-4-3;
+                                                                RS343-945-1-1;
+                                                                RS343-945-4-3;
+                                                                RS343-1023-1-1;
+                                                                RS343-1023-4-3;
+                                                                INTERNAL1;
+                                                                INTERNAL2;
+                end_unit;
+begin MODIFIERS FRAME-COUNT;                            DIMS:   FRAMES;
+                end_unit;
+begin MODIFIERS	FREQ;					DIMS:	HZ; PPS;			end_unit;
+begin MODIFIERS	FREQ-SPAN;				DIMS:	HZ;				end_unit;
+begin MODIFIERS	FREQ-DEV;				DIMS:	(NSD_DC) PC; (NSD_DC) DB;
+									(NSD_DC) HZ;		end_unit;
+begin MODIFIERS	FREQ-ONE;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	FREQ-QUIES;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	FREQ-PAIRING;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	FREQ-WINDOW;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	FREQ-ZERO;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	FUEL-SUPPLY;				DIMS:	ON; OFF;			end_unit;
+begin MODIFIERS H-FIELD-OF-VIEW;                        DIMS:   DEG;
+                end_unit;
+begin MODIFIERS H-LOS-ALIGN-ERROR;                      DIMS:   DEG;
+                end_unit;
+begin MODIFIERS H-REFERENCE-ANGLE;                      DIMS:   DEG;
+                end_unit;
+begin MODIFIERS H-TARGET-ANGLE;                         DIMS:   DEG;
+                end_unit;
+begin MODIFIERS H-TARGET-OFFSET;                        DIMS:   DEG;
+                end_unit;
+\\ HARM-***-POWER & HARM-***-VOLTAGE modifiers added for RF_MEASAN 03082006
+begin MODIFIERS         HARM-1-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-2-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-3-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-4-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-5-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-6-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-7-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-8-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-9-POWER;                   DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-10-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-11-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-12-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-13-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-14-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-15-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-16-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-01-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-02-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-03-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-04-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-05-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-06-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-07-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-08-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-09-POWER;                  DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-001-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-002-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-003-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-004-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-005-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-006-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-007-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-008-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-009-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-010-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-011-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-012-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-013-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-014-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-015-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-016-POWER;                 DIMS:   (NSD_DC) DBM; (NSD_DC) W;  end_unit;
+begin MODIFIERS         HARM-1-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-2-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-3-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-4-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-5-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-6-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-7-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-8-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-9-VOLTAGE;                 DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-10-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-11-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-12-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-13-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-14-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-15-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-16-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-01-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-02-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-03-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-04-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-05-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-06-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-07-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-08-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-09-VOLTAGE;                DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-001-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-002-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-003-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-004-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-005-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-006-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-007-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-008-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-009-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-010-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-011-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-012-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-013-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-014-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-015-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS         HARM-016-VOLTAGE;               DIMS:   (NSD_DC) PC; (NSD_DC) V;     end_unit;
+begin MODIFIERS	HARMONICS;				DIMS:	(NSD_DC) DB; (NSD_DC) V;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	HARM-PHASE;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	HARM-POWER;				DIMS:	(NSD_DC) W; (NSD_DC) DBM;
+																	end_unit;
+begin MODIFIERS	HARM-VOLTAGE;				DIMS:	(NSD_DC) DB; (NSD_DC) V;
+												(NSD_DC) PC;		end_unit;
+begin MODIFIERS	HI-MOD-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	HUMIDITY;				DIMS:	KG/L;				end_unit;
+begin MODIFIERS	IAS;					DIMS:	M/SEC; IN/SEC; FT/SEC; MACH;
+																	end_unit;
+begin MODIFIERS	IDENT-SIG;				DIMS:	CSM; CSN;			end_unit;
+begin MODIFIERS	IDENT-SIG-EP;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	IDENT-SIG-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	IDENT-SIG-MOD;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	ILLUM;					DIMS:	LX;					end_unit;
+begin MODIFIERS	IND;					DIMS:	H;					end_unit;
+begin MODIFIERS	INTEGRATE;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4;	 end_unit;
+begin MODIFIERS	INT-JITTER;				DIMS:	SEC; DB; PC;				end_unit;
+begin MODIFIERS	INT-RATE;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	INTERRUPT-ACK-TIMEOUT;			DIMS:	SEC;				end_unit;
+begin MODIFIERS	INTERVAL;				DIMS:	SEC;					end_unit;
+begin MODIFIERS	INVALID-COMMAND-WORD;			DIMS:	SYNC; T-R; PARITY; LENGTH;
+												PULSE-CODE;			end_unit;
+\\begin MODIFIERS INVALID-COMMAND-WORD-BIT;		DIMS:	PULSE-CODE;		end_unit;
+\\begin MODIFIERS INVALID-DATA-WORD;			DIMS:	SYNC; T-R; PARITY; LENGTH;
+\\																	end_unit;
+\\begin MODIFIERS INVALID-DATA-WORD-BIT;		DIMS:	PULSE-CODE;		end_unit;
+begin MODIFIERS	INVALID-MESSAGE-GAP;			DIMS:	SEC;				end_unit;
+begin MODIFIERS	INVALID-ONE-AMPLITUDE;			DIMS:	BITS; DIGITS; CHAR; V;
+																	end_unit;
+begin MODIFIERS	INVALID-RESPONSE-TIME;			DIMS:	SEC;				end_unit;
+begin MODIFIERS	INVALID-STATUS-WORD;			DIMS:	SYNC; T-R; PARITY; LENGTH;
+												PULSE-CODE;			end_unit;
+\\begin MODIFIERS INVALID-STATUS-WORD-BIT; 		DIMS:	PULSE-CODE;		end_unit;
+begin MODIFIERS	INVALID-WORD-GAP;			DIMS:	BITS; DIGITS; CHAR; SEC;
+																	end_unit;
+begin MODIFIERS	INVALID-WORD-LENGTH;			DIMS:	BITS; DIGITS; CHAR;	end_unit;
+begin MODIFIERS	INVALID-ZERO-AMPLITUDE; 		DIMS:	BITS; DIGITS; CHAR; V;
+																	end_unit;
+begin MODIFIERS	INVALID-ZERO-CROSSING;			DIMS:	PC;					end_unit;
+begin MODIFIERS	ITERATE;				DIMS:	TIMES;				end_unit;
+\\begin MODIFIERS LEVEL-LOGIC-ONE;			DIMS:	V;				end_unit;
+\\begin MODIFIERS LEVEL-LOGIC-ZERO;			DIMS:	V;				end_unit;
+begin MODIFIERS	LOAD-FROM;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4; FUNC1; FUNC2; FILE;	end_unit;
+begin MODIFIERS	LOAD-TO;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4;	end_unit;
+begin MODIFIERS LINE;                                   DIMS:   LINES; 
+                end_unit;
+begin MODIFIERS LINES-PER-CHANNEL;                      DIMS:   LINES;
+                        end_unit;
+begin MODIFIERS	LO-MOD-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS   LOS-ALIGN-ERROR;              DIMS: DEG;				end_unit;
+begin MODIFIERS	LUM-FLUX;				DIMS:	LM;					end_unit;
+begin MODIFIERS	LUM-INT;				DIMS:	CD;					end_unit;
+begin MODIFIERS	LUM-TEMP;				DIMS:	DEGK; DEGC; DEGF; 	end_unit;
+begin MODIFIERS	LUMINANCE;				DIMS:	NT;					end_unit;
+begin MODIFIERS	MAG-BEARING;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	MAG-BEARING-RATE;			DIMS:	DEG/SEC;			end_unit; 
+begin MODIFIERS	MASS-FLOW;				DIMS:	KG/SEC;				end_unit;
+begin MODIFIERS	MAX-TIME;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	MEAN-MOD;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	MESSAGE-GAP;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	MINIMUM-SENSE-RATE;			DIMS:	WORDS/SEC;
+												BITS/SEC;			end_unit;
+begin MODIFIERS	MOD-AMPL;				DIMS:	(NSD_DC) V; (NSD_DC) DB;
+												(NSD_DC) PC;		end_unit;
+begin MODIFIERS	MOD-DIST;				DIMS:	(NSD_DC) DB; (NSD_DC) PC;
+												(NSD_DC) V; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	MOD-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	MOD-OFFSET;				DIMS:	V;					end_unit;
+begin MODIFIERS	MOD-PHASE;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	MOD-PNEG;				DIMS:	(NSD_DC) DB; (NSD_DC) PC;
+																	end_unit;
+begin MODIFIERS	MOD-PPOS;				DIMS:	(NSD_DC) DB; (NSD_DC) PC;
+																	end_unit;
+begin MODIFIERS	MOD-SOURCE;				DIMS:	INT; EXT;			end_unit;
+begin MODIFIERS	MULTP-FROM;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4;	 end_unit;
+begin MODIFIERS	MULTP-TO;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4;	 end_unit;
+begin MODIFIERS	NEG-PULSE-WIDTH;			DIMS:	SEC;  			end_unit;
+
+\\begin MODIFIERS	NEG-SLOPE;			DIMS:	V/SEC;				end_unit;
+begin MODIFIERS	NO-COMMAND-TIMEOUT;			DIMS:	SEC;				end_unit;
+begin MODIFIERS	NO-RESPONSE-TIMEOUT;			DIMS:	SEC;				end_unit;
+begin MODIFIERS	NOISE;					DIMS:	(NSD_DC) V; (NSD_DC) DB;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	NOISE-AV;				DIMS:	(NSD_DC) V; (NSD_DC) DB;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	NOISE-P;				DIMS:	(NSD_DC) V; (NSD_DC) DB;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	NOISE-PP;				DIMS:	(NSD_DC) V; (NSD_DC) DB;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	NOISE-TRMS;				DIMS:	(NSD_DC) V; (NSD_DC) DB;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	NOISE-AMPL-DENS;			DIMS:	V/HZ;				end_unit;
+begin MODIFIERS	NOISE-PWR-DENS;				DIMS:	W/HZ;				end_unit;
+begin MODIFIERS	NON-HARMONICS;				DIMS:	(NSD_DC) DB; (NSD_DC) V;
+												(NSD_DC) PC; A; (NSD_DC) W;
+												(NSD_DC) DBM;		end_unit;
+begin MODIFIERS	NON-LIN;				DIMS:	PC;	DB;				end_unit;
+begin MODIFIERS	ONE-AMPLITUDE;				DIMS:	BITS; DIGITS; CHAR; V;
+																	end_unit;
+begin MODIFIERS	OPER-TEMP;				DIMS:	DEGK; DEGC; DEGF; 	end_unit;
+begin MODIFIERS	OVERSHOOT;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	P-AMPL;					DIMS:	(NSD_DC) V; (NSD_DC) DB;  
+                                                            (NSD_DC) PC; (NSD_DC) W; (NSD_DC) DBM;	end_unit;
+begin MODIFIERS	PAC-COUPL;				DIMS:	AC; DC;				end_unit;
+begin MODIFIERS PARITY;					DIMS:	ODD; EVEN; MARK; NONE;		end_unit;
+begin MODIFIERS	P3-DEV;					DIMS:	SEC;				end_unit;
+begin MODIFIERS	P3-LEVEL;				DIMS:	DB; PC; W; DBM; 	end_unit;
+begin MODIFIERS	PAC-SOURCE;				DIMS:	EXT; INT;			end_unit;
+begin MODIFIERS	PAIR-DROOP;				DIMS:	DB; PC;				end_unit;
+begin MODIFIERS	PAIR-SPACING;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	PEAK-DEGEN;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS PEAK-DEV;				DIMS:	POS; NEG; AVE;			end_unit;
+begin MODIFIERS	PERIOD;					DIMS:	(NSD_DC) SEC;		end_unit;
+begin MODIFIERS	PHASE-ANGLE;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	PHASE-DEV;				DIMS:	DEG;				end_unit;
+begin MODIFIERS PHASE-DEV-PN;				DIMS:	DEG;				end_unit;
+begin MODIFIERS PHASE-DEV-PP;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	PHASE-JIT;				DIMS:	DEG; PC; DB;		end_unit;
+begin MODIFIERS	PHASE-PNEG;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	PHASE-PPOS;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	PHASE-SHIFT;			DIMS:	DEG;				end_unit;
+begin MODIFIERS	PLA;					DIMS:	DEG; PC; DB;		end_unit;
+begin MODIFIERS	PLA-RATE;				DIMS:	DEG/SEC; PC/SEC; DB/SEC;
+																	end_unit; 
+begin MODIFIERS	PM-COUPL;				DIMS:	AC; DC;				end_unit;
+begin MODIFIERS	PM-FREQ;				DIMS:	HZ;					end_unit;
+\\begin MODIFIERS	POS-SLOPE;			DIMS:	V/SEC;				end_unit;
+begin MODIFIERS	PM-SOURCE;				DIMS:	EXT; INT;			end_unit;
+begin MODIFIERS POLARIZE;				DIMS:	(NSD_DC) DEG;			end_unit;
+begin MODIFIERS	POS-PULSE-WIDTH;			DIMS:	SEC;  			end_unit;
+begin MODIFIERS	POWER;					DIMS:	(NSD_DC) W; (NSD_DC) DBM;
+																	end_unit;
+begin MODIFIERS	POWER-AV;				DIMS:	(NSD_DC) W; (NSD_DC) DBM;
+																	end_unit;
+begin MODIFIERS	POWER-P;				DIMS:	(NSD_DC) W; (NSD_DC) DBM;
+																	end_unit;
+begin MODIFIERS	POWER-DIFF;				DIMS:	DB; PC;				end_unit;
+begin MODIFIERS POWER-DENS;                             DIMS:   W/CM2; end_unit;
+begin MODIFIERS	PRESHOOT;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	PRESS-A;				DIMS:	INHG; PA; MB; MMHG;	end_unit;
+begin MODIFIERS	PRESS-G;				DIMS:	INHG; PA; MB; MMHG;	end_unit;
+begin MODIFIERS	PRESS-OSC-AMPL;				DIMS:	INHG; PA; MB; MMHG;	end_unit;
+begin MODIFIERS	PRESS-OSC-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	PRESS-RATE;				DIMS:	INHG/SEC; PA/SEC; MMHG/SEC;
+												MB/SEC;				end_unit;
+begin MODIFIERS	PRF;					DIMS:	HZ; PPS;			end_unit;
+begin MODIFIERS   PULSE-ENERGY;                 DIMS:  J;                     end_unit;
+begin MODIFIERS   PULSE-AMPL-STAB;              DIMS: PC;                     end_unit;
+begin MODIFIERS   PULSE-ENERGY-STAB;            DIMS: PC;                     end_unit;
+begin MODIFIERS   PULSE-PERIOD-STAB;            DIMS: PC;                     end_unit;
+begin MODIFIERS	PULSE-POSN;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	PULSE-SPECT-THRESHOLD;			DIMS:	V; W; PC; DB; DBM;	end_unit;
+begin MODIFIERS	PULSE-WIDTH;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	PWR-LMT;				DIMS:	W; DBM;				end_unit;
+begin MODIFIERS	Q;						DIMS:	DB;	PC;				end_unit;
+begin MODIFIERS	QUAD;					DIMS:	V;					end_unit;
+begin MODIFIERS	RADIAL;					DIMS:	DEG;				end_unit;
+begin MODIFIERS	RADIAL-RATE;				DIMS:	DEG/SEC;			end_unit; 
+begin MODIFIERS   RADIANCE                            DIMS:   UW/CM2/SR;                  end_unit;
+begin MODIFIERS   RADIANCE-START                      DIMS:   UW/CM2/SR;                  end_unit;
+begin MODIFIERS   RADIANCE-STOP                       DIMS:   UW/CM2/SR;                  end_unit;
+begin MODIFIERS   RADIANCE-INTERVAL                   DIMS:   UW/CM2/SR;                  end_unit;
+begin MODIFIERS	RAMP-NEG-SLOPE;				DIMS:	V/SEC;				end_unit;
+begin MODIFIERS	RAMP-POS-SLOPE;				DIMS:	V/SEC;				end_unit;
+begin MODIFIERS	RANGE-ERROR;			DIMS:	M				end_unit;
+begin MODIFIERS	RANGE-PULSE-ECHO;			DIMS:	SEC; M; IN;FT;		end_unit;
+begin MODIFIERS	RANGE-PULSE-DEV;			DIMS:	DB; PC				end_unit;
+begin MODIFIERS	REACTANCE;				DIMS:	OHM;				end_unit;
+begin MODIFIERS	REF-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	REF-POWER;				DIMS:	(NSD_DC) W; (NSD_DC) DBM;
+											(NSD_DC) DB; (NSD_DC) PC;	end_unit;
+begin MODIFIERS	REF-PHASE-FREQ;				DIMS:	HZ;					end_unit;
+begin MODIFIERS	REF-PULSES-DEV;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	REF-VOLT;				DIMS:	V;					end_unit;
+\\ added for TETS ref function of DMM  1/16/97 
+begin MODIFIERS	REF-RES;				DIMS:	OHM;			end_unit;
+begin MODIFIERS	REF-SOURCE;				DIMS:	INT; EXT;			end_unit;
+begin MODIFIERS	REL-BEARING;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	REL-BEARING-RATE;			DIMS:	DEG/SEC;			end_unit;
+begin MODIFIERS	RELATIVE-HUMIDITY;			DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	RELATIVE-WIND;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	REPLY-EFF;				DIMS:	DB; PC;				end_unit;
+begin MODIFIERS	RES;					DIMS:	OHM;				end_unit;
+begin MODIFIERS	RESOLUTION-BANDWIDTH;			DIMS:	HZ;					end_unit;
+begin MODIFIERS	RESPONSE-TIME;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	RINGING;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	RISE-TIME;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	ROTOR-SPEED;				DIMS:	DEG/SEC; PC; DB;	end_unit;
+begin MODIFIERS	ROUNDING;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS SAMPLE-AV;                              DIMS:   FRAMES;
+                end_unit;
+begin MODIFIERS	SAMPLE-SPACING;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SAMPLE-TIME;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SAMPLE-WIDTH;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SAVE-FROM;				DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4; FUNC1; FUNC2;	FILE; 	end_unit;
+begin MODIFIERS	SAVE-TO;				DIMS:	WMEM1; WMEM2; WMEM3; WMEM4; FILE;				end_unit;
+begin MODIFIERS	SENSE-DELAY;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SENSE-RATE;				DIMS:	WORDS/SEC;			end_unit;
+begin MODIFIERS SENSOR-FREQ;                            DIMS:   CYCLES/MRAD;
+                end_unit;
+begin MODIFIERS	SETTLE-TIME;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SHAFT-SPEED;				DIMS:	DEG/SEC; PC; DB;	end_unit;
+begin MODIFIERS SIG-NOISE;				DIMS:	(NSD_DC) PC; (NSD_DC) DB;
+																	end_unit;
+begin MODIFIERS SINAD;					DIMS:	DB;					end_unit;
+begin MODIFIERS	SKEW-TIME;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SLANT-RANGE;			DIMS:	M; IN; FT;			end_unit;
+begin MODIFIERS	SLANT-RANGE-ACCEL;		DIMS:	M/SEC/SEC; IN/SEC/SEC;
+												FT/SEC/SEC;			end_unit;
+begin MODIFIERS	SLANT-RANGE-RATE;		DIMS:	M/SEC; IN/SEC; FT/SEC;	
+								 									end_unit;
+begin MODIFIERS	SLS-DEV;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SLS-LEVEL;				DIMS:	DB; PC;				end_unit;
+begin MODIFIERS	SLEW-RATE;				DIMS:	INHG/SEC; PA/SEC; MB/SEC;
+												MMHG/SEC; V/SEC; 	end_unit;
+begin MODIFIERS	SMOOTH;					DIMS:	ON; OFF;			end_unit;
+begin MODIFIERS	SPACING;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SPEC-TEMP;				DIMS:	DEGK; DEGC; DEGF; 	end_unit;
+begin MODIFIERS	SPEED;					DIMS:	BITS/SEC;			end_unit;
+begin MODIFIERS	SQTR-DIST;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	SQTR-RATE;				DIMS:	HZ;					end_unit;
+
+begin MODIFIERS START-LINE;                     DIMS:   LINES;
+                end_unit;
+begin MODIFIERS START-UNIT;                     DIMS:   SEC;
+                end_unit;
+begin MODIFIERS	STATIC-PRESS-A;			DIMS:	PA; MB; INHG; MMHG;	end_unit;
+begin MODIFIERS	STATIC-PRESS-G;			DIMS:	PA; MB; INHG; MMHG;	end_unit;
+begin MODIFIERS	STATIC-PRESS-RATE;		DIMS:	PA/SEC; MB/SEC; INHG/SEC;
+												MMHG/SEC;			end_unit;
+begin MODIFIERS	STATIC-TEMP;			DIMS:	DEGK; DEGC; DEGF; 	end_unit;
+begin MODIFIERS	STATUS-WORD;			DIMS:	SYNC; T-R; PARITY; LENGTH;
+												PULSE-CODE;			end_unit;
+begin MODIFIERS	STIM-RATE;				DIMS:	WORDS/SEC;			end_unit;
+begin MODIFIERS STOP-BITS;			DIMS:	BITS;					end_unit;	\\ TETS II
+begin MODIFIERS	SUB-CAR-FREQ;			DIMS:	HZ;					end_unit;
+begin MODIFIERS	SUB-CAR-MOD;			DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	SUBTRACT-FROM;			DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4; FILE;	 end_unit;
+begin MODIFIERS	SUBTRACT-TO;			DIMS:	CHAN1; CHAN2; WMEM1; WMEM2; WMEM3; WMEM4; FILE;	 end_unit;
+begin MODIFIERS	SUSCEPTANCE;			DIMS:	S;					end_unit;
+begin MODIFIERS	SWEEP-TIME;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	SWR;					DIMS:	DB; PC;				end_unit;
+
+begin MODIFIERS TARGET-POLARITY;                        DIMS: WHITE;
+                                                              BLACK;
+                                                              end_unit;
+
+begin MODIFIERS	TARGET-RANGE;			DIMS:	FT; M; IN;			end_unit;
+begin MODIFIERS	TARGET-RANGE-RATE;		DIMS:	FT/SEC; M/SEC;
+												IN/SEC;				end_unit;
+begin MODIFIERS	TARGET-RANGE-ACCEL;		DIMS:	FT/SEC/SEC;	M/SEC/SEC;
+											IN/SEC/SEC;			end_unit;
+begin MODIFIERS	TAS;					DIMS:	M/SEC; IN/SEC; FT/SEC;
+												KT; MACH;			end_unit;
+begin MODIFIERS TARGET-THRESHOLD;               DIMS:   PC;
+                end_unit;
+begin MODIFIERS	TEMP;					DIMS:	DEGK; DEGC; DEGF; 	end_unit;
+begin MODIFIERS	TEMP-COEFF-CAP;			DIMS:	PC/DEGK; PC/DEGC; PC/DEGF;
+												DB/DEGK; DB/DEGC; DB/DEGF;
+								 									end_unit;
+begin MODIFIERS	TEMP-COEFF-CURRENT;		DIMS:	PC/DEGK; PC/DEGC; PC/DEGF;
+												DB/DEGK; DB/DEGC; DB/DEGF;
+								 									end_unit;
+begin MODIFIERS	TEMP-COEFF-IND;			DIMS:	PC/DEGK; PC/DEGC; PC/DEGF;
+												DB/DEGK; DB/DEGC; DB/DEGF;
+								 									end_unit;
+begin MODIFIERS	TEMP-COEFF-REACT;		DIMS:	PC/DEGK; PC/DEGC; PC/DEGF;
+												DB/DEGK; DB/DEGC; DB/DEGF;
+								 									end_unit;
+begin MODIFIERS	TEMP-COEFF-RES;			DIMS:	PC/DEGK; PC/DEGC; PC/DEGF;
+												DB/DEGK; DB/DEGC; DB/DEGF;
+								 									end_unit;
+begin MODIFIERS	TEMP-COEFF-VOLT;		DIMS:	PC/DEGK; PC/DEGC; PC/DEGF;
+												DB/DEGK; DB/DEGC; DB/DEGF;
+								 									end_unit;
+begin MODIFIERS	TEST-EQUIP-MONITOR;		DIMS:	STATUS; COMMAND; DATA;
+																	end_unit;
+begin MODIFIERS	TERMINATED;        		DIMS:	end_unit;
+begin MODIFIERS	TEST-EQUIP-IMP;			DIMS:	OHM;				end_unit;
+begin MODIFIERS	TEST-EQUIP-ROLE;		DIMS:	MASTER; SLAVE; MONITOR;
+																	end_unit;
+begin MODIFIERS	TEST-EQUIP-SIMULATE;	DIMS:	STATUS; COMMAND; DATA;
+																	end_unit;
+begin MODIFIERS	THRUST;					DIMS:	N;					end_unit;
+begin MODIFIERS	TIME;					DIMS:	SEC;				end_unit;
+begin MODIFIERS	TIME-ASYM;				DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	TIME-EVERY;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	TIME-UNTIL;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	TIME-WHEN;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	TIME-JIT;				DIMS:	SEC;				end_unit;
+begin MODIFIERS	TIMING-VALUE;				DIMS:	BITS/SEC;				end_unit;
+begin MODIFIERS	TORQUE;					DIMS:	N-M;				end_unit;
+begin MODIFIERS	TOTAL-PRESS-A;			DIMS:	PA; MB; INHG; MMHG;	end_unit;
+begin MODIFIERS	TOTAL-PRESS-G;			DIMS:	PA; MB; INHG; MMHG;	end_unit;
+begin MODIFIERS	TOTAL-PRESS-RATE;		DIMS:	PA/SEC; MB/SEC; INHG/SEC;
+												MMHG/SEC;			end_unit;
+begin MODIFIERS	TOTAL-TEMP;				DIMS:	DEGK; DEGC; DEGF; 	end_unit;
+begin MODIFIERS	TRIG;					DIMS:	V;					end_unit;
+begin MODIFIERS	TRIG-LEVEL;				DIMS:	V;					end_unit;
+begin MODIFIERS	TRIG-SLOPE;				DIMS:	POS; NEG;
+																	end_unit;
+begin MODIFIERS TRIGGER-MODE;                   DIMS:   INT; EXT; ALIGN; AUTO; LASR; 
+                end_unit;
+begin MODIFIERS	TRIG-SOURCE;			DIMS:	INT; EXT; CH1; CH2;
+												NORM; EXT1; EXT2;	end_unit;
+begin MODIFIERS	TRUE;					DIMS:	V;					end_unit;
+begin MODIFIERS	UNDERSHOOT;				DIMS:	PC; DB;				end_unit;
+
+begin MODIFIERS	UNIT;                         		DIMS:   SEC; end_unit;
+
+begin MODIFIERS UNITS-PER-LINE;                         DIMS:   SEC;
+                                                                PIXELS;
+                                                                end_unit;
+
+begin MODIFIERS	VIBRATION-ACCEL;		DIMS:	FT/SEC/SEC; M/SEC/SEC;
+												IN/SEC/SEC;			end_unit; 
+begin MODIFIERS V-FIELD-OF-VIEW;                DIMS:   DEG;
+                end_unit;
+begin MODIFIERS V-LOS-ALIGN-ERROR;              DIMS:   DEG;
+                end_unit;
+begin MODIFIERS V-REFERENCE-ANGLE;              DIMS:   DEG;
+                end_unit;
+begin MODIFIERS V-TARGET-ANGLE;                 DIMS:   DEG;
+                end_unit;
+begin MODIFIERS V-TARGET-OFFSET;                DIMS:   DEG;
+                end_unit;
+begin MODIFIERS	VIBRATION-AMPL-P;		DIMS:	FT; M; IN;			end_unit;
+begin MODIFIERS	VIBRATION-AMPL-PP;		DIMS:	FT; M; IN;			end_unit;
+begin MODIFIERS	VIBRATION-AMPL-TRMS;	DIMS:	FT; M; IN;			end_unit;
+begin MODIFIERS	VIBRATION-RATE;			DIMS:	FT/SEC; M/SEC; IN/SEC;
+																	end_unit;
+begin MODIFIERS	VIDEO-BANDWIDTH;		DIMS:	HZ;					end_unit;
+begin MODIFIERS	VOLT-LMT;				DIMS:	V;					end_unit;
+begin MODIFIERS VOLT-PER-DIV;			DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE;				DIMS:	(NSD_DC) V;			end_unit;
+begin MODIFIERS	AV-VOLTAGE;				DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-INST;			DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-ONE;			DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-P;				DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-P-POS;			DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-P-NEG;			DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-PP;				DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-QUIES;			DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-TRMS;			DIMS:	V;					end_unit;
+begin MODIFIERS	VOLTAGE-ZERO;			DIMS:	V;					end_unit;
+begin MODIFIERS	WAVE-LENGTH;			DIMS:	M; IN; FT;			end_unit;
+begin MODIFIERS	WIND-SPEED;				DIMS:	M/SEC; FT/SEC; IN/SEC;
+												KT; MACH;			end_unit;
+begin MODIFIERS	ZERO-INDEX;				DIMS:	DEG;				end_unit;
+begin MODIFIERS	VAR-PHASE-FREQ;			DIMS:	HZ;					end_unit;
+begin MODIFIERS	VAR-PHASE-MOD;			DIMS:	PC; DB;				end_unit;
+begin MODIFIERS	VOLUME-FLOW;			DIMS:	L/SEC;				end_unit;
+begin MODIFIERS	WORD-RATE;				DIMS:	WORDS/SEC;			end_unit;
+begin MODIFIERS	WORD-GAP;				DIMS:	BITS; DIGITS; CHAR; SEC;
+																	end_unit;
+begin MODIFIERS	WORD-LENGTH;			DIMS:	BITS; DIGITS; CHAR;	end_unit;
+begin MODIFIERS	ZERO-CROSSING;			DIMS:	PC;					end_unit;
+begin MODIFIERS	ZERO-AMPLITUDE;			DIMS:	BITS; V;			end_unit;
+
+begin REALDIMS COMMON-DIMS;
+        DIMS:
+			A;
+            BITS;
+			BITS/SEC;
+		    CD;
+			CHAR;
+            CYCLES;
+			DB;
+			DB/DEGC;
+            DB/DEGF;
+            DB/DEGK;
+			DB/SEC;
+			DBM; 
+            DBW; 
+            DBK;
+            DEG;
+			DEG/SEC;
+			DEG/SEC/SEC;
+			DEGC;
+			DEGF;
+			DEGK; 
+            DIGITS;
+            FD;
+			FT;
+			FT/SEC;
+			FT/SEC/SEC;
+			H;
+			HZ;
+			HZ/SEC;
+			IN;
+			IN/SEC;
+			IN/SEC/SEC;
+			INHG;
+			INHG/SEC;
+			KG/L;
+			KG/SEC;
+			KT;       
+			L;
+            L/SEC;
+			LM;
+			LM/W;
+			LX;    
+			M;
+			M/SEC;
+			M/SEC/SEC;
+			MACH;
+			MB;
+			MB/SEC;
+			MMHG;
+			MMHG/SEC;
+			N-M;
+            N;
+			N/SEC;
+			NT;
+			OCCURRENCES;
+            OHM;
+			PA;
+			PA/SEC;
+			PC;   
+			PC/DEGC;   
+			PC/DEGF;   
+			PC/DEGK;   
+			PC/SEC;   
+			S;
+            SEC;
+			T;
+            TIMES;
+			TIMES/L;
+			V;
+			V/FT;
+            V/HZ;
+			V/IN;
+            V/M;
+			V/SEC;
+            W;
+			W/HZ
+            WORDS/SEC;
+	end_unit;
+\***********************************************************************
+
+
+begin MODIFIERS TYPE;                   DIMS:   PARALLEL;
+						SERIAL-LSB-FIRST;
+						SERIAL-MSB-FIRST;
+								end_unit;
+
+begin MODIFIERS PULSE-CLASS;            DIMS:   HDB; MIP; RZ; NRZ; BIP; AMI;
+								end_unit;
+
+begin MODIFIERS EXCEPT AT EVERY;        DIMS:   CONSECUTIVE-OCCURRENCES;
+								end_unit;
+
+
+\\
+\\      EventMonitor
+\\
+begin MODIFIERS EVENT-OUT;                      DIMS:                   end_unit;
+begin MODIFIERS EVENT-AFTER-OCCURRENCES;        DIMS:                   end_unit;
+begin MODIFIERS EVENT-DELAY;                    DIMS:                   end_unit;
+begin MODIFIERS EVENT-EACH-OCCURRENCE;          DIMS:                   end_unit;
+begin MODIFIERS EVENT-FIRST-OCCURRENCE;         DIMS:                   end_unit;
+begin MODIFIERS EVENT-GATE-FROM;                DIMS:                   end_unit;
+begin MODIFIERS EVENT-GATE-TO;                  DIMS:                   end_unit;
+begin MODIFIERS EVENT-GATED-BY;                 DIMS:                   end_unit;
+begin MODIFIERS EVENT-SENSE;                    DIMS:                   end_unit;
+begin MODIFIERS EVENT-STIM;                     DIMS:                   end_unit;
+\\
+\\      EVENT-STROBE is an Alias for STROBE-TO-EVENT
+\\
+\\begin MODIFIERS EVENT-STROBE;                   DIMS:                   end_unit;
+\\
+\\      EVENT-SYNC is an Alias for SYNC
+\\
+\\begin MODIFIERS EVENT-SYNC;                     DIMS:                   end_unit;
+begin MODIFIERS EVENT-TIME-FROM;                DIMS:                   end_unit;
+begin MODIFIERS EVENT-TIME-TO;                  DIMS:                   end_unit;
+begin MODIFIERS EVENT-WHEN;                     DIMS:                   end_unit;
+
+begin MODIFIERS EVENT-SYNC-WORD;                DIMS:                   end_unit;
+begin MODIFIERS EVENT-SYNC-BIT;                 DIMS:                   end_unit;
+begin MODIFIERS EVENT-SYNC-FREQ;                DIMS:                   end_unit;
+
+begin MODIFIERS EVENT-AFTER-OCCURRENCES-VALUE;  DIMS:   OCCURRENCES;    end_unit;
+begin MODIFIERS EVENT-DELAY-VALUE;              DIMS:   SEC;            end_unit;
+begin MODIFIERS EVENT-EACH-OCCURRENCE-VALUE;    DIMS:   OCCURRENCES;    end_unit;
+begin MODIFIERS EVENT-FIRST-OCCURRENCE-VALUE;   DIMS:   OCCURRENCES;    end_unit;
+begin MODIFIERS EVENT-SLOPE;                    DIMS:   (NSD_DC)POS; (NSD_DC)NEG;       end_unit;
+
+
+\\
+\\      BusProtocol / Exchange
+\\
+begin MODIFIERS BUS-MODE;               DIMS:   CON-RT; CON-MODE;
+						TALKER-LISTENER;
+						ALL-LISTENER;
+						RT-CON; RT-RT;  end_unit;
+
+begin MODIFIERS BUS-SPEC;               DIMS:   MIL-1553A; MIL-1553B; CAN; MIC;
+						IEEE-488; CDDI; ETHERNET;
+						RS-232; RS-422; RS-485; MTS; AFAPD; TACFIRE; IDL;
+						ARINC-429;      end_unit;
+
+begin MODIFIERS STANDARD;               DIMS:   PRIMARY; REDUNDANT;
+								end_unit;
+
+begin MODIFIERS FAULT-TEST;             DIMS:   PRIMARY; REDUNDANT;
+								end_unit;
+
+
+\\
+\\	DO, SIMULTANEOUS
+\\
+begin MODIFIERS DO-SIMULTANEOUS;	DIMS:	ON; OFF;	end_unit;
+
+\\
+\\	DIG-SPEC (<define digital source/sensor>)
+\\
+begin MODIFIERS DIG-SPEC;			DIMS:				end_unit;
+
+\\
+\\	DO TIMED DIGITAL
+\\
+begin MODIFIERS DO-TIMED-DIGITAL;	DIMS:	ON; OFF;	end_unit;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\ NEW section (Electro-Optical Subsystem)
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+begin MODIFIERS AUTOCOLLIMATION-ERROR;	DIMS:	DEG;	end_unit;
+begin MODIFIERS X-AUTOCOLLIMATION-ERROR;	DIMS:	DEG;	end_unit;
+begin MODIFIERS Y-AUTOCOLLIMATION-ERROR;	DIMS:	DEG;	end_unit;
+\\ No dimension for GAMMA
+begin MODIFIERS H-SENSOR-RESOLUTION-MIN;	DIMS:	DEG;	end_unit;
+begin MODIFIERS INTENSITY-RATIO;		DIMS:	PC;	end_unit;
+begin MODIFIERS LST-REFERENCE-ANGLE;		DIMS:	DEG;	end_unit;
+begin MODIFIERS MIN-RESOLV-TEMP-DIFF;		DIMS:	DEGC;	end_unit;
+begin MODIFIERS MIN-RESOLV-CONTRAST;		DIMS:	UW/CM2/SR;	end_unit;
+begin MODIFIERS MTF-DIRECTION;			DIMS:	HORIZ;
+                                                        VERT;	end_unit;
+begin MODIFIERS PATTERN;			DIMS:	BAR;
+							BOX;	end_unit;
+begin MODIFIERS REFERENCE-MIRROR-SIZE;		DIMS:	IN2;	end_unit;
+begin MODIFIERS SENSOR-APERTURE;		DIMS:	FT;	end_unit;
+begin MODIFIERS TARGET-TYPE;                    DIMS:   TARG-OPNAPR;
+                                                        TARG-BRSGHT;
+                                                        TARG-PIESECTOR;
+                                                        TARG-4BAR5;
+                                                        TARG-4BAR267;
+                                                        TARG-4BAR383;
+                                                        TARG-4BAR15;
+                                                        TARG-4BAR33;
+                                                        TARG-DIAGLN;
+                                                        TARG-ETCHED;
+                                                        TARG-SPNPINHL;
+                                                        TARG-GRYSCL;
+                                                        TARG-TGTGRP07;
+                                                        TARG-TGTGRP1;
+                                                        TARG-TGTGRP2;
+                                                        TARG-CROSS17;
+                                                        TARG-4BAR10;
+                                                        TARG-4BAR66;
+                                                        TARG-SQUARE21;
+                                                        TARG-TVBS01;
+                                                        TARG-TVBS02;
+                                                        TARG-TVBS03;
+                                                        TARG-TVBS04;
+                                                        TARG-TVBS05;
+                                                        TARG-TVBS06;
+                                                        TARG-TVBS07;
+                                                        TARG-TVBS08;
+                                                        TARG-TVBS09;
+                                                        TARG-TVBS10;
+                                                        TARG-TVBS11;
+                                                        TARG-TVBS12;
+                                                        TARG-TVBS13;
+                                                        TARG-TVBS14;
+                                                        TARG-TVBS15;
+                                                        TARG-IRBS00;
+                                                        TARG-IRBS01;
+                                                        TARG-IRBS02;
+                                                        TARG-IRBS03;
+                                                        TARG-IRBS04;
+                                                        TARG-IRBS05;
+                                                        TARG-IRBS06;
+                                                        TARG-IRBS07;
+                                                        TARG-IRBS08;
+                                                        TARG-IRBS09;
+                                                        TARG-IRBS10;
+                                                end_unit;
+\\ No dimension for TEST-FREQ-COUNT
+begin MODIFIERS TEST-FIELD;			DIMS:	ODD;
+                                                        EVEN;
+                                                        BOTH;	end_unit;
+begin MODIFIERS TILT;                     DIMS: DEG;    end_unit;
+begin MODIFIERS TILT-AXIS;			DIMS:	HORIZ;
+                                                        VERT;	end_unit;
+begin MODIFIERS UNIFORMITY;			DIMS:	(NSD_DC) PC;	end_unit;
+begin MODIFIERS VIDEO-SYNC-TYPE;		DIMS:	COMPOSITE;
+							SEPARATE;
+								end_unit;
+begin MODIFIERS V-SENSOR-RESOLUTION-MIN;	DIMS:	DEG;	end_unit;
+\\
+begin MODIFIERS X-ANGLE-OF-REGARD;              DIMS:   DEG;    end_unit;
+\\
+begin MODIFIERS X-BORESIGHT-ANGLE;              DIMS:   DEG;    end_unit;
+\\
+begin MODIFIERS X-TARGET-ANGLE;                 DIMS:   DEG;    end_unit;
+\\
+\\
+begin MODIFIERS Y-ANGLE-OF-REGARD;              DIMS:   DEG;    end_unit;
+\\
+begin MODIFIERS Y-BORESIGHT-ANGLE;              DIMS:   DEG;    end_unit;
+\\
+begin MODIFIERS Y-TARGET-ANGLE;                 DIMS:   DEG;    end_unit;
+\\
+begin MODIFIERS AMBIENT-TEMP;                   DIMS:   DEGC;   end_unit;
+begin MODIFIERS BLACKBODY-TEMP;                 DIMS:   DEGC;   end_unit;
+\\
+begin MODIFIERS DIFF-TEMP-START;                DIMS:   DEGC;   end_unit;
+begin MODIFIERS DIFF-TEMP-STOP;                 DIMS:   DEGC;   end_unit;
+begin MODIFIERS DIFF-TEMP-INTERVAL;             DIMS:   DEGC;   end_unit;
+\\
+begin MODIFIERS NOISE-EQ-DIFF-TEMP;             DIMS:   DEGC;   end_unit;
+\\
+begin MODIFIERS DIFF-BORESIGHT-ANGLE;           DIMS:   DEG;    end_unit;
+\\
+begin MODIFIERS BORESIGHT-ANGLE;                DIMS:   DEG;    end_unit;
+\\
+begin MODIFIERS DIVERGENCE;                     DIMS:   DEG;    end_unit;
+begin MODIFIERS CAMERA-GAIN;				DIMS:	  V/UW/CM2/SR;	end_unit;
+begin MODIFIERS GRAY-SCALE-RESOLUTION;		DIMS:	  SHADES;	end_unit;
+begin MODIFIERS DYNAMIC-RANGE;                  DIMS:   DB;    end_unit;
+begin MODIFIERS RECEIVER-SENSITIVITY;		DIMS:	  W/CM2;	end_unit;
+begin MODIFIERS	LAST-PULSE-RANGE;			DIMS:	  M;		end_unit;
+begin MODIFIERS MAIN-BEAM-ATTEN                 DIMS:	  OD;		end_unit;
+\\begin MODIFIERS SATELLITE-BEAM-ATTEN            DIMS:	  OD;		end_unit;
+begin MODIFIERS DIFF-TEMP-ERROR;                DIMS:   DEGC;   end_unit;
+begin MODIFIERS TCP;	DIMS: end_unit;
+begin MODIFIERS UDP;	DIMS: end_unit;
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\ End of NEW section (Electro-Optical Subsystem)
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+

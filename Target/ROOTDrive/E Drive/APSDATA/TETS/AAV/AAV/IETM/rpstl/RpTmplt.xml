@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<!DOCTYPE IADSRPSTL [
+	<!ENTITY EmptyValue "[No Value]">
+]>
+
+<?Stylesheet href="Rpstl.sty"?>
+<?Title href="AAV_"?>
+<?Toolbar SHOWNO="N"?>
+<?TOCFile HREF="..\aav_.toc"?>
+<?UseODBCdatabase?>
+<?Domainfile href="..\aav_.lst"?>
+
+<IADSRPSTL>
+<contcls>
+<desc>
+
+<?FRAME ID="AAV_" TITLE="RPSTL: AAV_" IMAGE="&_RP_GRAPHIC_;"?>
+<?PUB TBLCOLOFFSET="4"?>
+<TABLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="c1"/>
+<TBODY>
+<ROW>
+<ENTRY SHADING="0,0,160"><w>AAV_</w>
+<w>AAV RPSTL</w></ENTRY>
+</ROW>
+</TBODY>
+</TGROUP>
+</TABLE>
+
+<?PUB TBLCOLOFFSET="4"?>
+<TABLE>
+<TGROUP COLS="2">
+<COLSPEC COLNAME="c1" COLWIDTH="25*"/>
+<COLSPEC COLNAME="c2" COLWIDTH="75*"/>
+<TBODY>
+<ROW>
+<ENTRY SHADING="0,0,160" NAMEST="c1" NAMEEND="c2"><w>SEARCH RESULTS</w></ENTRY>
+</ROW>
+<ROW>
+<ENTRY SHADING="233,233,233"><?HOTSPOT linktype="message" popup="1" href="Search criteria."?><EMPHASIS EMPH="B">Find</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>&_RP_CRITERIA_;</ENTRY>
+</ROW>
+
+<ROW ROWSEP="0">
+<ENTRY SHADING="233,233,233"><?HOTSPOT linktype="message" popup="1" href="Set of Item records that match the search criteria."?><EMPHASIS EMPH="B">Record</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+<?if test="$_RP_TOTRECS_ eq 1" datatype="Numeric"?>
+<graphic icon="Prev_off.bmp"/> 1 of 1 <graphic icon="Next_off.bmp"/>
+<?else?>
+<?HOTSPOT ICON="Prev_on.bmp" HREF="&_RP_PREVREC_;" LINKTYPE="rpstlrecord"?><?ENDHOTSPOT?> &_RP_CURREC_; of &_RP_TOTRECS_; 
+<?HOTSPOT ICON="Next_on.bmp" HREF="&_RP_NEXTREC_;" LINKTYPE="rpstlrecord"?><?ENDHOTSPOT?>    
+<?HOTSPOT HREF="" LINKTYPE="rpstlrecord"?>Select<?ENDHOTSPOT?>
+<?endif?>
+</ENTRY>
+</ROW>
+</TBODY>
+</TGROUP>
+</TABLE>
+
+<?PUB TBLCOLOFFSET="4"?>
+<TABLE>
+<TGROUP COLS="2">
+<COLSPEC COLNAME="c1" COLWIDTH="25*"/>
+<COLSPEC COLNAME="c2" COLWIDTH="75*"/>
+<TBODY>
+<ROW>
+<ENTRY SHADING="0,0,160" NAMEST="c1" NAMEEND="c2"><w>GROUP DATA</w></ENTRY>
+</ROW>
+<ROW>
+<ENTRY SHADING="233,233,233"><?HOTSPOT linktype="message" popup="1" href="Functional Group Code."?><EMPHASIS EMPH="B">FGN</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>&_RP_GROUP_;</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233"><?HOTSPOT linktype="message" popup="1" href="Description of the Functional Group."?><EMPHASIS EMPH="B">Group Desc</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>&_RP_GROUPDESC_;</ENTRY>
+</ROW>
+
+<ROW SHADING="0,0,160">
+<ENTRY NAMEST="c1" NAMEEND="c2"><w>ITEM DATA</w></ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Figure number containing the Item."?>
+<EMPHASIS EMPH="B">Figure</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+&_RP_FIGURE_;
+</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Item or Callout number."?>
+<EMPHASIS EMPH="B">Item</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+&_RP_ITEM_;
+<?if test="$_RP_MULTPARTS_ eq Y"?>
+<EMPHASIS COLOR="red">    (Multiple Parts)</EMPHASIS>
+<?endif?>
+</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Part Description and other supporting information."?>
+<EMPHASIS EMPH="B">Desc</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+&_RP_ITEMDESC_;
+</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Part Number of the Item."?>
+<EMPHASIS EMPH="B">Part No</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+&_RP_PARTNUM_;
+</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Commercial and Government Entity Code identifying the manufacturer supplying the item."?>
+<EMPHASIS EMPH="B">Cage</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+<?if test="$_RP_CAGEC_ ne $EmptyValue"?>
+&_RP_CAGEC_;
+<?endif?>
+</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="National Stock Number"?>
+<EMPHASIS EMPH="B">NSN</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+<?if test="$_RP_NSN_ ne $EmptyValue"?>
+&_RP_NSN_;
+<?endif?>
+</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Quantity shown in the figure and/or used in the functional group."?>
+<EMPHASIS EMPH="B">Qty</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+<?if test="$_RP_QTY_ ne $EmptyValue"?>
+&_RP_QTY_;
+<?endif?>
+</ENTRY>
+</ROW>
+
+<ROW SHADING="0,0,160">
+<ENTRY NAMEST="c1" NAMEEND="c2"><w>FIGURE &_RP_FIGURE_; SHEET DATA</w></ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Lists all sheets in the figure on which the item appears."?><EMPHASIS EMPH="B">Item on</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+<?if test="$_RP_ITEMONSHEETS_ ne $EmptyValue"?>
+Sheet(s) &_RP_ITEMONSHEETS_;
+<?endif?>
+</ENTRY>
+</ROW>
+
+<ROW>
+<ENTRY SHADING="233,233,233"><?HOTSPOT linktype="message" popup="1" href="Set of images that make up the current figure."?><EMPHASIS EMPH="B">Sheets</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+<?if test="$_RP_TOTSHEETS_ ne $EmptyValue"?>
+<?if test="$_RP_PREVSHEET_ eq $EmptyValue"?>
+<graphic icon="Prev_off.bmp"/> &_RP_CURSHEET_; of &_RP_TOTSHEETS_; <graphic icon="Next_off.bmp"/>
+<?else?>
+<?HOTSPOT ICON="Prev_on.bmp" HREF="&_RP_PREVSHEET_;" LINKTYPE="rpstlsheet"?><?ENDHOTSPOT?> &_RP_CURSHEET_; of &_RP_TOTSHEETS_; 
+<?HOTSPOT ICON="Next_on.bmp" HREF="&_RP_NEXTSHEET_;" LINKTYPE="rpstlsheet"?><?ENDHOTSPOT?>    
+<?HOTSPOT HREF="" LINKTYPE="rpstlsheet"?>Select<?ENDHOTSPOT?>
+<?endif?>
+<?endif?>
+</ENTRY>
+</ROW>
+<ROW>
+<ENTRY SHADING="233,233,233">
+<?HOTSPOT linktype="message" popup="1" href="Title or tracking number of the sheet."?><EMPHASIS EMPH="B">Sheet Title</EMPHASIS><?ENDHOTSPOT?></ENTRY>
+<ENTRY>
+<?if test="$_RP_GRTITLE_ ne $EmptyValue"?>
+&_RP_GRTITLE_;
+<?endif?>
+</ENTRY>
+</ROW>
+
+</TBODY>
+</TGROUP>
+</TABLE>
+
+</desc>
+</contcls>
+</IADSRPSTL>

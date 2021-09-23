@@ -1,0 +1,32 @@
+There are two sets of files: CEM side and Kernel side
+
+For each side there is a plugin.c and plugin.h
+
+CEM side:
+	-Add plugin.c and plugin.h to the source folder of the ATXML_API project
+	-Include plugin.h in AtXmlApi.cpp
+	-Register the plug in by adding the call to soap_register in the atxml_Initialize() 
+		function after the call to soap_init2()
+	-The register call is found below
+		soap_register_plugin(s_soap, plugin);
+
+Kernel side:
+	-Add plugin.c and plugin.h to the source folder of the CiclKernel project
+	-Include plugin.h in AtXmlInterfaceMt.cpp
+	-Register the plug in by adding the call to soap_register in the atxml_Initialize() 
+		function after the call to soap_init2()
+	-The register call is found below
+		soap_register_plugin(s_soap, plugin);
+
+Steps:
+
+1.  Add the plugin files
+2.  include the .h in the above mentioned classes
+3.  Register the plugin
+4.  Build/Compile the two projects
+5.  Copy CiclKernel.exe and AtXmlApi.dll
+6.  Add the new Dll and exe file to VIPER
+7.  After running the test the results can be found in c:/aps/data
+	There will be a file for each send and receive that occurs, 
+	the file will labeled as to if it is CEM or Kernel side.
+

@@ -1,0 +1,268 @@
+**************************************************************************
+************    HP E1445A (ARB_GEN) STATIC DESCRIPTION        ************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Arb_Gen.ddb
+*
+* INSTRUMENT  : Arbitrary Waveform Generator
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev ARB_GEN_1;
+  
+	begin ; ** event-monitor
+		event monitor (voltage) square wave;
+		cnx event-out ARB-EvArm;
+
+		control
+		{
+			event-out;
+			delay range 0.1 sec to 1000 sec;
+			event-slope pos, neg;	
+		}
+
+		begin FNC = 102; 		** External trig.
+			cnx hi ARB-StopTrigFsk;
+		end;
+
+	end;	** end event-monitor
+
+	begin using HPE1445A;
+
+		control
+		{
+			max-time range 0 sec to 1000 sec continuous;
+		}
+		cnx via ARB-Out,
+		div7-out ARB-OUT/7;
+		cnx event-sync ARB-EvArm;
+		cnx event-gated-by ARB-EvArm;
+
+			begin FNC=1; 		* sine wave
+
+				cnx via ARB-Out,
+				div7-out ARB-OUT/7;
+
+				control
+				{
+					freq range .01 hz to 10737418.24 hz continuous;
+					bandwidth 250000 hz, 10000000 hz;
+					event-sync;
+					event-gated-by;
+					freq-window range 0.01 hz to 10737418.24 hz continuous;
+					age-rate range 1 hz/sec to 3350 hz/sec continuous;
+					age-rate range -3350 hz/sec to 3350 hz/sec continuous;
+					period range .000000093132 sec to 100 sec continuous;
+					burst range 1 cycles to 65535 cycles continuous;
+				}
+
+				begin;
+					source ac signal;
+					control
+					{
+						voltage-pp range .32374 v to 10.2375 v continuous;
+						voltage-p range .16187 v to 5.11875 v continuous;
+						voltage range .11448 v to 3.62005 v continuous;
+						dc-offset range -5 v to 5 v continuous;
+						test-equip-imp 50 ohm, 75 ohm;
+					}
+				end;
+
+				begin;
+					source ac signal;
+					control
+					{
+						voltage-pp range .64748 v to 20.475 v continuous;
+						voltage-p range .32374 v to 10.2375 v continuous;
+						voltage range .22895 v to 7.24010 v continuous;
+						dc-offset range -10 v to 10 v continuous;
+						test-equip-imp 1 mohm;
+					}
+				end;
+
+			end;* sine wave
+
+		begin FNC=2; 		* square wave
+			source square wave;
+
+			control
+			{
+				freq range .0025 hz to 5368709.12 hz continuous;
+				bandwidth 250000 hz, 10000000 hz;
+				period range .0000008163 sec to 400 sec continuous; 
+				burst range 1 cycles to 65535 cycles continuous;
+				burst-rep-rate range 0 hz to 2625000 hz continuous;
+				event-slope pos, neg;	
+				event-sync;
+				event-gated-by;
+			}
+
+			begin;
+				control
+				{
+					voltage-pp range .32374 v to 10.2375 v continuous;
+					voltage-p range .16187 v to 5.11875 v continuous;
+					voltage range .11448 v to 3.62005 v continuous;
+					dc-offset range -5 v to 5 v continuous;
+					test-equip-imp 50 ohm, 75 ohm;
+				}
+			end;
+
+			begin;
+				control
+				{
+					voltage-pp range .64748 v to 20.475 v continuous;
+					voltage-p range .32374 v to 10.2375 v continuous;
+					voltage range .22895 v to 7.24010 v continuous;
+					dc-offset range -10 v to 10 v continuous;
+					test-equip-imp 1 mohm;
+				}
+			end;
+
+		end;* square wave
+
+		begin FNC=3; 		* ramp waveform
+			source ramp signal ;
+
+			control
+			{
+				freq range .0002 hz to 5368709.12 hz continuous;
+				bandwidth 250000 hz, 10000000 hz;
+				period range .0000008163 sec to 500 sec continuous; 
+				burst range 1 cycles to 65535 cycles continuous;
+				burst-rep-rate range 0 hz to 10500000 hz continuous;
+				event-slope pos, neg;	
+				event-sync;
+				event-gated-by;
+			}
+
+			begin;
+				control
+				{
+					voltage-pp range .32374 v to 10.2375 v continuous;
+					voltage-p range .16187 v to 5.11875 v continuous;
+					voltage range .11448 v to 3.62005 v continuous;
+					dc-offset range -5 v to 5 v continuous;
+					test-equip-imp 50 ohm, 75 ohm;
+				}
+			end;
+
+			begin;
+				control
+				{
+					voltage-pp range .64748 v to 20.475 v continuous;
+					voltage-p range .32374 v to 10.2375 v continuous;
+					voltage range .22895 v to 7.24010 v continuous;
+					dc-offset range -10 v to 10 v continuous;
+					test-equip-imp 1 mohm;
+				}
+			end;
+
+		end;* ramp waveform
+
+		begin FNC=4; 		* user waveform
+			source waveform;
+
+			control
+			{
+				stim range 4 to 262144 by 1;
+				sample-spacing 47 nsec to 100 sec continuous;
+				bandwidth 250000 hz, 10000000 hz;
+				event-sync;
+				event-gated-by;
+			}
+
+			begin;
+				control
+				{
+					voltage range -5 v to 5 v continuous;
+					dc-offset range -5 v to 5 v continuous;
+					test-equip-imp 50 ohm, 75 ohm;
+				}
+			end;
+
+			begin;
+				control
+				{
+					voltage range -10v to 10 v continuous;
+					dc-offset range -10 v to 10 v continuous;
+					test-equip-imp 1 mohm;
+				}
+			end;
+		end;* user waveform
+
+		begin FNC=6; 		* triangular waveform
+			source triangular wave signal;
+
+			control
+			{
+				freq range .0002 hz to 5368709.12 hz continuous;
+				bandwidth 250000 hz, 10000000 hz;
+				period range .0000008163 sec to 500 sec continuous; 
+				burst range 1 cycles to 65535 cycles continuous;
+				burst-rep-rate range 0 hz to 10500000 hz continuous;
+				event-slope pos, neg;	
+				event-sync;
+				event-gated-by;
+			}
+
+			begin;
+				control
+				{
+					voltage-pp range .32374 v to 10.2375 v continuous;
+					voltage-p range .16187 v to 5.11875 v continuous;
+					voltage range .11448 v to 3.62005 v continuous;
+					dc-offset range -5 v to 5 v continuous;
+					test-equip-imp 50 ohm, 75 ohm;
+				}
+			end;
+
+			begin;
+				control
+				{
+					voltage-pp range .64748 v to 20.475 v continuous;
+					voltage-p range .32374 v to 10.2375 v continuous;
+					voltage range .22895 v to 7.24010 v continuous;
+					dc-offset range -10 v to 10 v continuous;
+					test-equip-imp 1 mohm;
+				}
+			end;
+
+		end;* triangular waveform
+
+		begin FNC=7; 		* dc signal
+			source dc signal;
+
+			begin;
+				control
+				{
+					voltage range -5.12 v to 5.11875 v continuous;
+					test-equip-imp 50 ohm, 75 ohm;
+				}
+			end;
+
+			begin;
+				control
+				{
+					voltage range -10.24 v to 10.2375 v continuous;
+					test-equip-imp 1 mohm;
+				}
+			end;
+
+		end;* dc signal
+
+	end; *HPE1445A
+end; *end arb_gen

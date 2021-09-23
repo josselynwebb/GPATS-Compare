@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S01" LABEL="I"><?Pub Dtl?><?FRAME title="Chapter 3. Theory of Operation, Section I. Introduction" previous="./c2s03.ide!C2s03b" next="./c3s02.ide!C3s02"?>
+<?TOCENTRY TITLE="CHAPTER 3. THEORY OF OPERATION" TOCLEVEL="1"?>
+<?CHAPTERINFO LABEL="3" ID="C3" TITLE="THEORY OF OPERATION"?><?TOCENTRY TITLE="SECTION I. Introduction" TOCLEVEL="2" LABEL="I"?>
+<TITLE>SECTION I. Introduction</TITLE>
+<PARA0 ID="P3-1" LABEL="3.1"><?TOCENTRY TITLE="3.1 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This chapter contains the Theory of Operation for the LRUs and the CCAs of the DDM, the Controller C-10879/MSQ-115, and the AN/MIQ-1(V)3 Intercommunications Set which are being tested. The Theory of Operation for the LRUs and CCAs provides a general description of how the LRUs and CCAs operate in the AAV System. The Theory of Operation for the ITA provides a description of how the TPH provides access for the switching and routing of power, stimulus, and measurement signals between the test station and the UUT.</PARA></PARA0></SECTION>

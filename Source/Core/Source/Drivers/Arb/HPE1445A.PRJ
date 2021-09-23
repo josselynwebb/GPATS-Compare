@@ -1,0 +1,352 @@
+[Project Header]
+Version = 711
+Pathname = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.PRJ"
+CVI Dir = "/c/program files/national instruments/cvi71"
+IVI Standard Root Dir = "/C/Program Files/IVI"
+VXIplug&play Framework Dir = "/C/VXIPNP/winnt"
+Number of Files = 3
+Target Type = "Dynamic Link Library"
+Flags = 16
+
+[File 0001]
+File Type = "CSource"
+Res Id = 1
+Path Is Rel = True
+Path Rel To = "Project"
+Path Rel Path = "Hpe1445a.c"
+Path = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/Hpe1445a.c"
+Exclude = False
+Compile Into Object File = False
+Project Flags = 1048576
+Folder = "Source Files"
+
+[File 0002]
+File Type = "Function Panel"
+Res Id = 2
+Path Is Rel = True
+Path Rel To = "Project"
+Path Rel Path = "HPE1445A.FP"
+Path = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.FP"
+Exclude = False
+Project Flags = 0
+Folder = "Instrument Files"
+
+[File 0003]
+File Type = "Include"
+Res Id = 3
+Path Is Rel = True
+Path Rel To = "Project"
+Path Rel Path = "HPE1445A.H"
+Path = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.H"
+Exclude = False
+Project Flags = 0
+Folder = "Include Files"
+
+[Folders]
+User Interface Files Folder Not Added Yet = True
+Folder 0 = "Source Files"
+Folder 1 = "Instrument Files"
+Folder 2 = "Include Files"
+
+[Compiler Options]
+Default Calling Convention = "stdcall"
+Require Prototypes = True
+Require Return Values = True
+Enable Pointer Mismatch Warning = False
+Enable Unreachable Code Warning = False
+Enable Unreferenced Identifiers Warning = False
+Enable Assignment In Conditional Warning = False
+O Option Compatible With 5.0 = False
+Uninitialized Locals Compile Warning = "Conservative"
+
+[Run Options]
+Stack Size = 100000
+Image Base Address = 4194304
+
+[Compiler Defines]
+Compiler Defines = "/DWIN32_LEAN_AND_MEAN"
+
+[Create Executable]
+Executable File_Debug Is Rel = False
+Executable File_Debug = "Hpe1445a.dll"
+Executable File_Release Is Rel = False
+Executable File_Release = "Hpe1445a.dll"
+Icon File Is Rel = False
+Icon File = ""
+Application Title = ""
+Numeric File Version = "1,1,0,0"
+Numeric Prod Version = "1,1,0,0"
+Comments = ""
+Company Name = "ManTech Test Systems"
+File Version = "1.1"
+Legal Copyright = "Copyright ©  1998"
+Legal Trademarks = ""
+Private Build = ""
+Product Version = "1.1"
+Special Build = ""
+DLL Exports = "Include File Symbols"
+Export File1 = "Hpe1445a.h"
+DLL Import Library Choice = "Gen Libs For All Compilers"
+Use IVI Subdirectories for Import Libraries = False
+Use VXIPNP Subdirectories for Import Libraries = False
+Use Dflt Import Lib Base Name = True
+Where to Copy DLL = "Do not copy"
+Add Type Lib To DLL = True
+Include Type Lib Help Links = True
+Type Lib FP File Is Rel = True
+Type Lib FP File Rel To = "Project"
+Type Lib FP File Rel Path = "HPE1445A.FP"
+Type Lib FP File = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.FP"
+Type Lib Guid = "8294afaf-3563-4b1b-a784-bc3cd1dcd33c"
+Runtime Support = "Instrument Driver Support Only"
+Instrument Driver Support Only = True
+Embed Project .UIRs = False
+Generate Map File = False
+
+[External Compiler Support]
+UIR Callbacks File Option = 0
+Using LoadExternalModule = False
+Create Project Symbols File = True
+UIR Callbacks Obj File Is Rel = False
+UIR Callbacks Obj File = ""
+Project Symbols H File Is Rel = False
+Project Symbols H File = ""
+Project Symbols Obj File Is Rel = False
+Project Symbols Obj File = ""
+
+[Distribution Kit]
+Distribution Kit GUID = "{02F55409-013D-4525-B4B7-856A1B262211}"
+Installation Directory = "Hpe1445a"
+Installation Destination = 4
+Install Run-Time Engine = False
+Install RTE Privately = False
+Install Instrsup = False
+Install Instrsup Privately = False
+Install CVI_LVRT = False
+Install CVI_LVRT Privately = False
+Install Low-Level Support Driver = False
+Install ActiveX Container = False
+Media Size = 3
+kBytes Reserved on First Disk = 0
+Target Path Is Rel = True
+Target Path Rel To = "Project"
+Target Path Rel Path = ""
+Target Path = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb"
+Language = "English"
+Core Group Index = 5
+DLL Group Index = 6
+Redistribute DataSocket = 2
+Redistribute NIReports = 0
+Redistribute DDC = 0
+Redistribute CW3DGraph = 0
+Use Custom Script = False
+Run Executable After Setup Group Index = -1
+Run Executable After Setup File Index = -1
+Use Default Program Group Name = False
+Program Group Name = "Hpe1445a Instrument Driver"
+Use Default Installation Name = False
+Installation Name = "Hpe1445a Instrument Driver"
+Compatibility Warnings = 5
+
+[Distribution Kit File Group 001]
+Group Name = "Soft Front Panel Files"
+Destination Directory = "Application"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+
+[Distribution Kit File Group 002]
+Group Name = "Instrument Driver Files"
+Destination Directory = "Application"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "Hpe1445a.c"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/Hpe1445a.c"
+File 0002 Is Rel = True
+File 0002 Rel To = "Project"
+File 0002 Rel Path = "HPE1445A.DOC"
+File 0002 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.DOC"
+File 0003 Is Rel = True
+File 0003 Rel To = "Project"
+File 0003 Rel Path = "HPE1445A.FP"
+File 0003 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.FP"
+File 0004 Is Rel = True
+File 0004 Rel To = "Project"
+File 0004 Rel Path = "HPE1445A.HLP"
+File 0004 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.HLP"
+
+[Distribution Kit File Group 003]
+Group Name = "Include Files"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../include"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "HPE1445A.H"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.H"
+File 0002 Is Rel = True
+File 0002 Rel To = "Project"
+File 0002 Rel Path = "HPE1445A.BAS"
+File 0002 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/HPE1445A.BAS"
+
+[Distribution Kit File Group 004]
+Group Name = "Knowledge Base"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../../kbase"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "Hpe1445a.kb"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/Hpe1445a.kb"
+
+[Distribution Kit File Group 005]
+Group Name = "Instrument Driver DLL"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../bin"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Check Version"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "Hpe1445a_32.dll"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/Hpe1445a_32.dll"
+
+[Distribution Kit File Group 006]
+Group Name = "Instrument Driver Support DLL"
+Destination Directory = "Windows System"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Check Version"
+Register As ActiveX Servers = False
+File 0001 Is Rel = False
+File 0001 = "/c/WINDOWS/SYSTEM/instrsup.dll"
+
+[Distribution Kit File Group 007]
+Group Name = "Import Library (Borland)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/bc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "borland/Hpe1445a.lib"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/borland/Hpe1445a.lib"
+
+[Distribution Kit File Group 008]
+Group Name = "Import Library (Microsoft)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/msc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "MSVC/Hpe1445a.lib"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/MSVC/Hpe1445a.lib"
+
+[Distribution Kit File Group 009]
+Group Name = "Import Library (Symantec)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/sc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "symantec/Hpe1445a.lib"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/symantec/Hpe1445a.lib"
+
+[Distribution Kit File Group 010]
+Group Name = "Import Library (Watcom)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/wc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "watcom/Hpe1445a.lib"
+File 0001 = "/c/TEMP/TETSII/trunk/Source/Drivers/Arb/watcom/Hpe1445a.lib"
+
+[Distribution Kit File Group 011]
+Group Name = "_Files For First Disk_"
+Destination Directory = "Application"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "CVI"
+File 0001 Rel Path = "bin/vxipnp_c.bmp"
+File 0001 = "/c/Program Files/National Instruments/CVI71/bin/vxipnp_c.bmp"
+File 0002 Is Rel = True
+File 0002 Rel To = "CVI"
+File 0002 Rel Path = "bin/vxipnp_m.bmp"
+File 0002 = "/c/Program Files/National Instruments/CVI71/bin/vxipnp_m.bmp"
+
+[Distribution Kit Hardware Config]
+Include Hardware Config File = 0
+
+[Modules Forced Into Executable]
+Module 0001 Is Rel = False
+Module 0001 = "visa.lib"
+Module 0002 Is Rel = False
+Module 0002 = "Hpe1445a.c"
+
+[ActiveX Server Options]
+Specification File Is Rel = False
+Specification File = ""
+Source File Is Rel = False
+Source File = ""
+Include File Is Rel = False
+Include File = ""
+IDL File Is Rel = False
+IDL File = ""
+Register ActiveX Server = False
+

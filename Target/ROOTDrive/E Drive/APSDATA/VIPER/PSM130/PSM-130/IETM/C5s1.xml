@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?FRAME id='C5s1a' title='CHAPTER 5 - MAINTENANCE' next='.\C5s2.xml!C5S2a' previous='.\C4s12.xml!C4s12c'?>
+<?PUB TOCLEVEL="1" TEXT="CHAPTER 5 - MAINTENANCE"?>
+<chapter id="chapter5" label="CHAPTER 5" tocentry="1">
+<title>MAINTENANCE</title>
+<section>
+<?PUB TOCLEVEL="2" TEXT="Section I. Introduction."?>
+<title>Section I. Introduction.</title>
+<para0 id="p5-1" label="5-1" tocentry="2">
+<?PUB TOCLEVEL="3" TEXT="5-1 Introduction."?>
+<title>Introduction.</title>
+<para>The following sections will describe the Maintenance for the
+supported UUT's. Section I contains general introduction information.
+Section II covers Preventive Maintenance Checks and Services (PMCS).
+Section III covers Corrective Maintenance Instructions. Sections IV
+through XIV cover each UUT and ID being tested and provides links
+to the English Language Test Description (ELTD) documents.</para>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 1?>

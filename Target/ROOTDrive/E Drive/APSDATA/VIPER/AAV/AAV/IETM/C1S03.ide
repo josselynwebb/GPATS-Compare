@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C1S03" LABEL="III"><?Pub Dtl?><?FRAME title='1-3. Demolish to Prevent Enemy Use' previous='./c1s02.ide!C1S02b' NEXT='./C1S04.ide!C1S04'?><?TOCENTRY TITLE="SECTION III. Demolish to Prevent Enemy Use" TOCLEVEL="2" LABEL="III"?>
+<TITLE>SECTION III. Demolish to Prevent Enemy Use</TITLE>
+<PARA0 ID="P1-3" LABEL="1.3"><?TOCENTRY TITLE="1.3 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>When capture or abandonment of the APS to an enemy is imminent, the responsible unit commander must make the decision to either destroy the equipment or render it inoperative. Based on this decision, orders are issued which cover the desired extent of destruction.</PARA>
+<SUBPARA1 ID="P1-3.1" LABEL="1.3.1"><?TOCENTRY TITLE="1.3.1 Render the AN/PSM-115 APS Inoperative" TOCLEVEL="4"?>
+<TITLE>Render the AN/PSM-115 APS Inoperative</TITLE>
+<PARA>To render the APS inoperative, smash, demolish, or burn Test Program Hardware (TPH). Cut or burn the digital media associated with the APS.</PARA></SUBPARA1></PARA0></SECTION>

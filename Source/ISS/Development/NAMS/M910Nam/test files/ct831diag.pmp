@@ -1,0 +1,70 @@
+! This is the pinmap for the ONE CHANNEL CARD configuration!
+
+! Channels 0 thru 63 are on a single CCC1 channel card
+  		
+ XD0		40! bidirs
+ XD1  		41
+ XD2  		42
+ XD3 		43
+ XD4  		44
+ XD5  		45
+ XD6  		46
+ XD7  		47
+
+ XD0.	40! bidirs
+ XD1. 		41
+ XD2. 		42
+ XD3.		43
+ XD4. 		44
+ XD5. 		45
+ XD6. 		46
+ XD7. 		47
+
+ AD0  		0! bidirs
+ AD1  		1
+ AD2  		2
+ AD3  		3
+ AD4  		4
+ AD5  		5
+ AD6  		6
+ AD7 		7
+ 
+ AD0. 		0! bidirs
+ AD1. 		1
+ AD2. 		2
+ AD3. 		3
+ AD4. 		4
+ AD5. 		5
+ AD6. 		6
+ AD7.		7
+ 
+ A8  		8	! inputs
+ A9  		9
+ A10  		10
+ A11  		11
+ A12  		12
+ A13  		13
+ A14  		14
+ A15  		15
+
+			! signals below are all inputs
+			! except where noted
+ VTTON		29	
+ LEDON		23
+ RSTL		32
+ RESETOUT  	22
+ ALE  		39
+ WRL  		38
+ RDL  		37
+ IOM  		36
+ CLOCKOUT  	28
+ HLDA  		35
+ HOLD  		34	!output
+ EXTCLK  	33
+ OSCON  	21	!bidir
+ OSCON.  	21 
+ ADLTCHIN  	24
+ ROMENA  	31	!bidir
+ ROMENA.  	31 
+ ALEDIS  	26
+ WRITEROML  	30	!output

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="DDM-A2" LABEL="IV"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\SIGNAL_CONDITIONER_A2_CCA_5428551_5429427\TP_AAV_DDM_A2.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s04.ide!c4s04'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/DDM_A2/ASSY/DDM_A2_1.pic' ?><?BUTTON POS='4' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/DDM_A2/SCHEM/DDM_A2_Sch.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s04.ide!Table3-3'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s04.ide!c3s04'?><?FRAME ID="5-4a" TITLE="Chapter 5. Maintenance, Section IV. ELTD FOR SIGNAL CONDITIONER CCA, P/N 5429427 and P/N 5428551" previous="./DDM_A1.ide" next="./ddm_a3.ide"?><?TOCENTRY TITLE="SECTION IV. ELTD for the Signal Conditioner CCA, P/N 5429427 and P/N 5428551" TOCLEVEL="2" LABEL="IV"?>
+<TITLE>SECTION IV. ELTD for the Signal Conditioner CCA, P/N 5429427 and P/N 5428551</TITLE>
+<PARA0 ID="P5-4" LABEL="5.4"><?TOCENTRY TITLE="5.4 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the Signal Conditioner CCA, P/N 5429427 and P/N 5428551.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-SigCond-5428551.PDF"?>Signal Conditioner CCA ELTD<?endhotspot?></PARA></PARA0></SECTION>

@@ -1,0 +1,134 @@
+/*********************CH.1**************************/
+#define FNC_FREQ_AC_CH1				101
+#define FNC_PER_AC_CH1				102
+#define FNC_VPP_AC_CH1				103
+#define FNC_AV_VOLT_AC_CH1			104
+#define FNC_VOLT_P_AC_CH1			105
+#define FNC_VOLTAGE_AC_CH1			106
+
+#define FNC_VOLTAGE_DC_CH1			107
+
+#define FNC_VPP_PDC_CH1				108
+#define FNC_VP_POS_PDC_CH1			109
+#define FNC_VP_NEG_PDC_CH1			110
+#define FNC_PRF_PDC_CH1				111
+#define FNC_RT_PDC_CH1				112
+#define FNC_FT_PDC_CH1				113
+#define FNC_PW_PDC_CH1				114
+#define FNC_DTYCYC_PDC_CH1			115
+#define FNC_OVERSHOOT_PDC_CH1			116
+#define FNC_PRESHOOT_PDC_CH1			117
+#define FNC_NEG_PW_PDC_CH1			118
+#define FNC_POS_PW_PDC_CH1			119
+#define FNC_VOLT_P_PDC_CH1			120
+#define FNC_PER_PDC_CH1				121
+
+#define FNC_VPP_RAMP_CH1			122
+#define FNC_FREQ_RAMP_CH1			123
+#define FNC_RT_RAMP_CH1				124
+#define FNC_FT_RAMP_CH1				125
+#define FNC_VOLT_P_RAMP_CH1			126
+#define FNC_VP_POS_RAMP_CH1			127
+#define FNC_VP_NEG_RAMP_CH1			128
+#define FNC_PER_RAMP_CH1			129
+
+#define FNC_VPP_SQ_CH1				132
+#define FNC_FREQ_SQ_CH1				133
+#define FNC_RT_SQ_CH1				134
+#define FNC_FT_SQ_CH1				135
+#define FNC_DTYCYC_SQ_CH1			136
+#define FNC_VOLT_P_SQ_CH1			137
+#define FNC_VP_POS_SQ_CH1			138
+#define FNC_VP_NEG_SQ_CH1			139
+#define FNC_PER_SQ_CH1				140
+
+#define FNC_VPP_TRI_CH1				142
+#define FNC_FREQ_TRI_CH1			143
+#define FNC_RT_TRI_CH1				144
+#define FNC_FT_TRI_CH1				145
+#define FNC_DTYCYC_TRI_CH1			146
+#define FNC_VOLT_P_TRI_CH1			147
+#define FNC_VP_POS_TRI_CH1			148
+#define FNC_VP_NEG_TRI_CH1			149
+#define FNC_PER_TRI_CH1				150
+
+#define FNC_SAVE_WVFRM_CH1			152
+#define FNC_LOAD_WVFRM_CH1			153
+#define FNC_CMPR_WVFRM_CH1			154
+#define FNC_ADD_WVFRM_CH1			155
+#define FNC_SUBTRACT_WVFRM_CH1		156
+#define FNC_MULTIPLY_WVFRM_CH1		157
+#define FNC_DIFF_WVFRM_CH1			158
+#define FNC_INTEGRATE_WVFRM_CH1		159
+#define FNC_SAMPLE_WVFRM_CH1		160
+
+#define FNC_TIME_TI_CH1				163
+
+/*********************CH.2**************************/
+#define FNC_FREQ_AC_CH2				201
+#define FNC_PER_AC_CH2				202
+#define FNC_VPP_AC_CH2				203
+#define FNC_AV_VOLT_AC_CH2			204
+#define FNC_VOLT_P_AC_CH2			205
+#define FNC_VOLTAGE_AC_CH2			206
+
+#define FNC_VOLTAGE_DC_CH2			207
+
+#define FNC_VPP_PDC_CH2				208
+#define FNC_VP_POS_PDC_CH2			209
+#define FNC_VP_NEG_PDC_CH2			210
+#define FNC_PRF_PDC_CH2				211
+#define FNC_RT_PDC_CH2				212
+#define FNC_FT_PDC_CH2				213
+#define FNC_PW_PDC_CH2				214
+#define FNC_DTYCYC_PDC_CH2			215
+#define FNC_OVERSHOOT_PDC_CH2		216
+#define FNC_PRESHOOT_PDC_CH2		217
+#define FNC_NEG_PW_PDC_CH2			218
+#define FNC_POS_PW_PDC_CH2			219
+#define FNC_VOLT_P_PDC_CH2			220
+#define FNC_PER_PDC_CH2				221
+
+#define FNC_VPP_RAMP_CH2			222
+#define FNC_FREQ_RAMP_CH2			223
+#define FNC_RT_RAMP_CH2				224
+#define FNC_FT_RAMP_CH2				225
+#define FNC_VOLTAGE_RAMP_CH2			226
+#define FNC_VOLT_P_RAMP_CH2			227
+#define FNC_VP_POS_RAMP_CH2			228
+#define FNC_VP_NEG_RAMP_CH2			229
+#define FNC_PER_RAMP_CH2			230
+
+#define FNC_VPP_SQ_CH2				232
+#define FNC_FREQ_SQ_CH2				233
+#define FNC_RT_SQ_CH2				234
+#define FNC_FT_SQ_CH2				235
+#define FNC_DTYCYC_SQ_CH2			236
+#define FNC_VOLTAGE_SQ_CH2			237
+#define FNC_VOLT_P_SQ_CH2			238
+#define FNC_VP_POS_SQ_CH2			239
+#define FNC_VP_NEG_SQ_CH2			240
+#define FNC_PER_SQ_CH2				241
+
+#define FNC_VPP_TRI_CH2				242
+#define FNC_FREQ_TRI_CH2			243
+#define FNC_RT_TRI_CH2				244
+#define FNC_FT_TRI_CH2				245
+#define FNC_DTYCYC_TRI_CH2			246
+#define FNC_VOLTAGE_TRI_CH2			247
+#define FNC_VOLT_P_TRI_CH2			248
+#define FNC_VP_POS_TRI_CH2			249
+#define FNC_VP_NEG_TRI_CH2			250
+#define FNC_PER_TRI_CH2				251
+
+#define FNC_SAVE_WVFRM_CH2			252
+#define FNC_LOAD_WVFRM_CH2			253
+#define FNC_CMPR_WVFRM_CH2			254
+#define FNC_ADD_WVFRM_CH2			255
+#define FNC_SUBTRACT_WVFRM_CH2		256
+#define FNC_MULTIPLY_WVFRM_CH2		257
+#define FNC_DIFF_WVFRM_CH2			258
+#define FNC_INTEGRATE_WVFRM_CH2		259
+#define FNC_SAMPLE_WVFRM_CH2		260
+
+#define FNC_TIME_TI_CH2				263

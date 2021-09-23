@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY ddm-lru-1 SYSTEM "./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic" NDATA FAXTILE>
+<!ENTITY ddm-lru-fbd SYSTEM "./graphics/DDM_LRU/SCHEM/DDM_LRU_FBD.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S02" LABEL="II"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE . E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\DRIVER_DISPLAY_MODULE_LRU_5429249\TP_AAV_DDM_LRU.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic' ?><?BUTTON POS='3' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/DDM_LRU/SCHEM/DDM_LRU_FBD.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section II. DDM LRU, P/N 5429249" previous="./c3s01.ide!C3s01" image="./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic"?><?TOCENTRY TITLE="SECTION II. Theory of Operation for the DDM LRU, P/N 5429249" TOCLEVEL="2" LABEL="II"?>
+<TITLE>SECTION II. Theory of Operation for the DDM LRU, P/N 5429249</TITLE>
+<PARA0 ID="P3-2" LABEL="3.2"><?TOCENTRY TITLE="3.2 DDM Theory of Operation" TOCLEVEL="3"?>
+<TITLE>DDM Theory of Operation</TITLE>
+<CAUTION>
+<PARA>This Line Replaceable Unit contains components sensitive to damage by Electrostatic Discharge. Use precautionary procedures when touching, removing, or installing components.</PARA></CAUTION>
+<PARA>The following paragraphs will describe the Theory of Operation for the DDM LRU, P/N 5429249 and <?hotspot linktype="picture" href="./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic"?>Figure 3-1<?endhotspot?> provides the LRU layout.</PARA>
+<FIGURE ID="DDM-LRU-1" LABEL="3-1">
+<TITLE>DDM LRU Layout</TITLE><?hotspot linktype="picture" href="./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3112" LABEL="3.2.1"><?TOCENTRY TITLE="3.2.1 DDM Description" TOCLEVEL="4"?>
+<TITLE>DDM Description</TITLE>
+<PARA>The DDM's primary function is to receive sensor signals from the vehicle and modify the signals to be visually displayed by bar graphs or warning LEDs. The DDM has a BIT/BITE test called warning and lamp test. This test will illuminate all LEDs and all segments of the Bar graphs. Within the DDM, three CCAs perform the functions of supplying power, conditioning the input signals, and driving the Display bar graphs and LEDs.</PARA>
+<SUBPARA2 ID="GENC3113" LABEL="3.2.1.1"><?TOCENTRY TITLE="3.2.1.1 Power Supply CCA" TOCLEVEL="5"?>
+<TITLE>Power Supply CCA</TITLE>
+<PARA>The Power Supply CCA takes an input voltage of 28 VDC, which produces several voltages that are used by the Signal Conditioner CCA and the Display Board CCA. The voltages produced by the power supply are +5 VDC, +18 VDC, +12 VDC, +250 VDC, and -3.6 VDC.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3114" LABEL="3.2.1.2"><?TOCENTRY TITLE="3.2.1.2 Signal Conditioner CCA" TOCLEVEL="5"?>
+<TITLE>Signal Conditioner CCA</TITLE>
+<PARA>The Signal Conditioner CCA has many Op-Amps, transistor, and logic circuits that use a wide range of voltages provided via the Power Supply CCA. The Signal Conditioner CCA takes +28 VDC, +5 VDC, +12 VDC, +18 VDC, and -3.6 VDC.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3115" LABEL="3.2.1.3"><?TOCENTRY TITLE="3.2.1.3 Display Board CCA" TOCLEVEL="5"?>
+<TITLE>Display Board CCA</TITLE>
+<PARA>The Display Board CCA, consisting of more logic circuits and a little less Op-Amps or transistors, only uses +250 VDC for the bar graphs and +5 VDC for the rest of the circuits.</PARA></SUBPARA2></SUBPARA1>
+<SUBPARA1 ID="GENC3116" LABEL="3.2.2"><?TOCENTRY TITLE="3.2.2 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<PARA>The Power Supply PWB routes seven-sensor signals directly to the Signal Conditioner CCA. These signals are analyzed and modified to be used by the Display Board to illuminate segments of the display bars or illuminate the warning LEDs indicating one or more signals from the sensors are out of range. The warning LEDs are giving an early indication of a problem with the vehicle, such as temperature (over heating) or low oil pressure.</PARA></SUBPARA1>
+<SUBPARA1 ID="P3-2.1" LABEL="3.2.3"><?TOCENTRY TITLE="3.2.3 Functional Block Diagram" TOCLEVEL="4"?>
+<TITLE>Functional Block Diagram</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/DDM_LRU/SCHEM/DDM_LRU_FBD.pic"?>Figure 3-2<?endhotspot?> for the Functional Block Diagram (FBD) of the DDM LRU.</PARA>
+<FIGURE ID="DDM-LRU-FBD" LABEL="3-2">
+<TITLE>DDM LRU Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/DDM_LRU/SCHEM/DDM_LRU_FBD.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1>
+<SUBPARA1 ID="P3-2.2" LABEL="3.2.4"><?TOCENTRY TITLE="3.2.4 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><XREF XREFID="TABLE3-1" XIDTYPE="TABLE">Table 3-1</XREF> lists all repair parts available for the DDM LRU.</PARA><?FRAME id="c3s02a" title="Chapter 3. Theory of Operation, Section II. DDM LRU, P/N 5429249 Cont'd" next="./c3s03.ide!C3s03"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-1" LABEL="3-1"><?Pub Dtl?>
+<TITLE>Parts List for DDM LRU, P/N 5429249</TITLE>
+<TGROUP COLS="7">
+<COLSPEC COLNAME="COL1" COLWIDTH=".6in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".7in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.0in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="3.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL6" COLWIDTH="1.25in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY ALIGN="CENTER">Qty.</ENTRY>
+<ENTRY ALIGN="CENTER">Cage</ENTRY>
+<ENTRY ALIGN="CENTER">P/N</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY>
+<ENTRY ALIGN="CENTER">Reference Des.</ENTRY>
+<ENTRY ALIGN="CENTER">SMR Code</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS16995-19B</ENTRY>
+<ENTRY>SCREW, SOCKET CAP</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5429509</ENTRY>
+<ENTRY>LIGHT FILTER/COVER ASSEMBLY</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBFHH</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2600361</ENTRY>
+<ENTRY>COVER (P/O ITEM 2)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>0MLM6</ENTRY>
+<ENTRY>7001013</ENTRY>
+<ENTRY>LIGHT FILTER (P/O ITEM 2)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS21083N04</ENTRY>
+<ENTRY>NUT,SELF LOCKING</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5928805</ENTRY>
+<ENTRY>DISPLAY ASSEMBLY, LED</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5428412</ENTRY>
+<ENTRY>DISPLAY BOARD CCA</ENTRY>
+<ENTRY> A1</ENTRY>
+<ENTRY>PAFHD</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2600260</ENTRY>
+<ENTRY>CONNECTOR, STACKING</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5429427 5428551</ENTRY>
+<ENTRY>SIGNAL CONDITIONER CCA</ENTRY>
+<ENTRY> A2</ENTRY>
+<ENTRY>PAFHD</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>19207</ENTRY>
+<ENTRY>11601735-10</ENTRY>
+<ENTRY>PACKING, PREFORMED</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>12</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS16995-19B</ENTRY>
+<ENTRY>SCREW, SOCKET CAP</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5428737</ENTRY>
+<ENTRY>SPACER, DISPLAY PLATE</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>13</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>80205</ENTRY>
+<ENTRY>NAS119006P8L</ENTRY>
+<ENTRY>SCREW, SELF LOCKING</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>14</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2600635</ENTRY>
+<ENTRY>CASE</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>15</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>19207</ENTRY>
+<ENTRY>11601735-9</ENTRY>
+<ENTRY>PACKING, PREFORMED</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>16</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5429426</ENTRY>
+<ENTRY>HEATSINK</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>17</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5429442 6227570</ENTRY>
+<ENTRY>POWER SUPPLY CCA</ENTRY>
+<ENTRY>A3</ENTRY>
+<ENTRY>PAFHD</ENTRY></ROW>
+<ROW>
+<ENTRY>18</ENTRY>
+<ENTRY></ENTRY>
+<ENTRY></ENTRY>
+<ENTRY></ENTRY>
+<ENTRY>NUT, RETAINER (P/O ITEM 23)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>19</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS16995-26</ENTRY>
+<ENTRY>SCREW, SOCKET-HEAD</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>20</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS27183-41</ENTRY>
+<ENTRY>WASHER, FLAT</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>21</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2589942-78</ENTRY>
+<ENTRY>CONNECTOR, RECEPTACLE</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>22</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS29513-128</ENTRY>
+<ENTRY>PACKING, PREFORMED</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>23</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS35190-230</ENTRY>
+<ENTRY>SCREW, MACHINE</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>24</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>0MLM6</ENTRY>
+<ENTRY>7001122</ENTRY>
+<ENTRY>REAR COVER ASSEMBLY</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFDD</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA1></PARA0></SECTION>

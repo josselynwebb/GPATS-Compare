@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE IDXCLS [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?>
+<?TOCfile href=".\AAV_.toc"?>
+<?Indexfile href="./index.ide!TOC"?>
+<IDXCLS>
+<?FRAME ID="LOI" TITLE="LIST OF FIGURES" TOCLEVEL="1" NEXT="./lot.ide" previous="./aav_.ide!cover"?><TITLE>List of Figures</title><tocndx><para><hotspot linktype="picture" href="./graphics/fig1-1a.pic">Figure 1-1. AN/PSM-115 APS Contents</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic">Figure 3-1. DDM LRU Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_LRU/SCHEM/DDM_LRU_FBD.pic">Figure 3-2. DDM LRU Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_A1/ASSY/DDM_A1_1.pic">Figure 3-3. Display Board CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-4.pic">Figure 3-4. Display Board CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_A1/SCHEM/DDM_A1_SCH.pic">Figure 3-5. Display Board CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_A2/ASSY/DDM_A2_1.pic">Figure 3-6. Signal Conditioner CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-7.pic">Figure 3-7. Signal Conditioner CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_A2/SCHEM/DDM_A2_SCH.pic">Figure 3-8. Signal Conditioner CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_A3/ASSY/DDM_A3_1.pic">Figure 3-9. Power Supply CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-10.pic">Figure 3-10. Power Supply CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/DDM_A3/SCHEM/DDM_A3_SCH.pic">Figure 3-11. Power Supply CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_LRU/ASSY/CON_LRU_1.pic">Figure 3-12. Controller C-10879/MSQ-115 LRU Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic">Figure 3-13. Controller C-10879/MSQ-115 Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A4/ASSY/CON_A4_1.pic">Figure 3-14. 6802 Computer CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-15.pic">Figure 3-15. 6802 Computer CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A4/SCHEM/CON_A4_SCH_1.pic">Figure 3-16. 6802 Computer CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A3/ASSY/CON_A3_1.pic">Figure 3-17. Control Input/Output CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-18.pic">Figure 3-18. Control Input/Output CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A3/SCHEM/CON_A3_SCH_1.pic">Figure 3-19. Control Input/Output CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A6/ASSY/CON_A6_1.pic">Figure 3-20. DPCM Assembly CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-21.pic">Figure 3-21. DPCM Assembly CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A6/SCHEM/CON_A6_SCH_1.pic">Figure 3-22. DPCM Assembly CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A7/ASSY/CON_A7_1.pic">Figure 3-23. Conference Accumulator CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-24.pic">Figure 3-24. Conference Accumulator CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A7/SCHEM/CON_A7_SCH_1.pic">Figure 3-25. Conference Accumulator CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A1/ASSY/CON_A1_1.pic">Figure 3-26. CVSD Input/Output CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-27.pic">Figure 3-27. CVSD Input/Output CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/CON_A1/SCHEM/CON_A1_SCH_1.pic">Figure 3-28. CVSD Input/Output CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic">Figure 3-29. Intercommunications Set LRU Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_LRU/Schem/ICS_LRU_FBD.pic">Figure 3-30. Intercommunication Set LRU Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_A1/ASSY/ICS_A1_1.pic">Figure 3-31. CVSD Encoder/Decoder CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-32.pic">Figure 3-32. CVSD Encoder/Decoder CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_A1/SCHEM/ICS_A1_SCH_1.pic">Figure 3-33. CVSD Encoder/Decoder CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_A4/ASSY/ICS_A4_1.pic">Figure 3-34. Control Encode/Decode CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-35.pic">Figure 3-35. Control Encode/Decode CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_A4/SCHEM/ICS_A4_SCH_1.pic">Figure 3-36. Control Encode/Decode CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_A5/ASSY/ICS_A5_1.pic">Figure 3-37. Power Amplifier CCA Layout</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-38.pic">Figure 3-38. Power Amplifier CCA Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ICS_A5/SCHEM/ICS_A5_SCH_1.pic">Figure 3-39. Power Amplifier CCA Schematic Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-40.pic">Figure 3-40. TPH Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-41.pic">Figure 3-41. ITA Motherboard Functional Block Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-42.pic">Figure 3-42. Instrument Matrix</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-43.pic">Figure 3-43. UUT Matrices</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig3-44.pic">Figure 3-44. UUT Custom and PPU Wiring</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/ITA/SCHEM/ita_sch_1.pic">Figure 3-45. AAV ITA Wiring Diagram</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/tet_30.pic">Figure 4-1. ITA Installation</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-2.pic">Figure 4-2. Test Program Information DDM LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-3.pic">Figure 4-3. Nondetectable/Untested Faults DDM LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-4.pic">Figure 4-4. Test Program Main Menu DDM LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-5.pic">Figure 4-5. Test Program Information Display Board CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-6.pic">Figure 4-6. Nondetectable/Untested Faults Display Board CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-7.pic">Figure 4-7. Test Program Main Menu Display Board CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-8.pic">Figure 4-8. Test Program Information Signal Conditioner CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-9.pic">Figure 4-9. Nondetectable/Untested Faults Signal Conditioner CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-10.pic">Figure 4-10. Test Program Main Menu Signal Conditioner CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-11.pic">Figure 4-11. Test Program Information Power Supply CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-12.pic">Figure 4-12. Nondetectable/Untested Faults Power Supply CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-13.pic">Figure 4-13. Test Program Main Menu Power Supply CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-14.pic">Figure 4-14. Test Program Information Controller C-10879/MSQ-115 LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-15.pic">Figure 4-15. Nondetectable/Untested Faults Controller C-10879/MSQ-115 LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-16.pic">Figure 4-16. Test Program Main Menu Controller C-10879/MSQ-115 LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-17.pic">Figure 4-17. Test Program Information 6802 Computer CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-18.pic">Figure 4-18. Nondetectable/Untested Faults 6802 Computer CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-19.pic">Figure 4-19. Test Program Main Menu 6802 Computer CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-20.pic">Figure 4-20. Test Program Information Control Input/Output CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-21.pic">Figure 4-21. Nondetectable/Untested Faults Control Input/Output CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-22.pic">Figure 4-22. Test Program Main Menu Control Input/Output CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-23.pic">Figure 4-23. Test Program Information DPCM Assembly CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-24.pic">Figure 4-24. Nondetectable/Untested Faults DPCM Assembly CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-25.pic">Figure 4-25. Test Program Main Menu DPCM Assembly CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-26.pic">Figure 4-26. Test Program Information Conference Accumulator CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-27.pic">Figure 4-27. Nondetectable/Untested Faults Conference Accumulator CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-28.pic">Figure 4-28. Test Program Main Menu Conference Accumulator CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-29.pic">Figure 4-29. Test Program Information CVSD Input/Output CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-30.pic">Figure 4-30. Nondetectable/Untested Faults CVSD Input/Output CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-31.pic">Figure 4-31. Test Program Main Menu CVSD Input/Output CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-32.pic">Figure 4-32. Test Program Information Intercommunications Set LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-33.pic">Figure 4-33. Nondetectable/Untested Faults Intercommunications Set LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-34.pic">Figure 4-34. Test Program Main Menu Intercommunications Set LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-35.pic">Figure 4-35. Manual Intervention Locations Intercommunications Set LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-36.pic">Figure 4-36. Test Program Information CVSD Encoder/Decoder CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-37.pic">Figure 4-37. Nondetectable/Untested Faults CVSD Encoder/Decoder CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-38.pic">Figure 4-38. Test Program Main Menu CVSD Encoder/Decoder CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-39.pic">Figure 4-39. Test Program Main Menu CVSD Encoder/Decoder CCA Continued</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-40.pic">Figure 4-40. Cable Connections CVSD Encoder/Decoder CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-41.pic">Figure 4-41. Test Program Information Control Encode/Decode CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-42.pic">Figure 4-42. Nondetectable/Untested Faults Control Encode/Decode CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-43.pic">Figure 4-43. Test Program Main Menu Control Encode/Decode CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-44.pic">Figure 4-44. Test Program Information Power Amplifier CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-45.pic">Figure 4-45. Nondetectable/Untested Faults Power Amplifier CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-46.pic">Figure 4-46. Test Program Main Menu Power Amplifier CCA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-47.pic">Figure 4-47. Test Program Information AAV Interface Test Adapter</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-48a.pic">Figure 4-48. Test Program Information Interface Test Adapter Continued</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./graphics/fig4-49a.pic">Figure 4-49. Test Program Main Menu AAV Interface Test Adapter</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-1a.pic">Figure 6-1. Application Program Set, AN/PSM-115</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-2.pic">Figure 6-2. Case, Electrical-Electronic Test &#38; Measuring Equipment, AN/PSM-115</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-3.pic">Figure 6-3. Cable Assembly, Special Purpose, Electrical, Branched, W1</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-4.pic">Figure 6-4. Cable Assembly, Special Purpose, Electrical, Branched, W2</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-5.pic">Figure 6-5. Cable Assembly, Special Purpose, Electrical, Branched, W3</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-6.pic">Figure 6-6. Cable Assembly, Special Purpose, Electrical, Branched, W4</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-7.pic">Figure 6-7. Cable Assembly, Special Purpose, Electrical, W5</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-8.pic">Figure 6-8. Cable Assembly, Special Purpose, Electrical, Branched, W6</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-9.pic">Figure 6-9. Cable Assembly, Special Purpose, Electrical, W7</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-10.pic">Figure 6-10. Cable Assembly, Special Purpose, Electrical, W8</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-11.pic">Figure 6-11. Cable Assembly, Special Purpose, Electrical, W9</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-12.pic">Figure 6-12. Cable Assembly, Special Purpose, Electrical, Branched, W10</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-13a.pic">Figure 6-13. Fixture Assembly - AAV ITA</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-14.pic">Figure 6-14. Card Guide Assembly, 14/120 POS CCA, -1, -2</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-15.pic">Figure 6-15. Card Guide Assembly</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-16.pic">Figure 6-16. Support Assembly, LRU</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-17.pic">Figure 6-17. Consolidated Self-Test Adapter, A2 Assembly</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-18.pic">Figure 6-18. Extender Card Assembly - Electronic Test, 70 Pin To 70 Pin, A1</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-19.pic">Figure 6-19. Printed Wiring Assembly - Consolidated Self-Test Adapter, A2</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-20.pic">Figure 6-20. Printed Wiring Assembly - CP1 Self-Test Adapter, A3</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-21.pic">Figure 6-21. Printed Wiring Assembly - DDM Adapter, CP1</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-22.pic">Figure 6-22. Printed Wiring Assembly - Controller XA5 Adapter, CP2</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-23.pic">Figure 6-23. Shorting Plug, SP1</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-24.pic">Figure 6-24. Printed Wiring Assembly - 70 Pin Self-Test Adapter, A4</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-25.pic">Figure 6-25. Cable Assembly, Special Purpose, Electrical - 34 Conductor</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-26.pic">Figure 6-26. Cable Assembly, Special Purpose, Electrical, Branched, 1W1</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-27.pic">Figure 6-27. Cable Assembly, Special Purpose, Electrical, Branched, 1W2</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-28.pic">Figure 6-28. Cable Assembly, Special Purpose, Electrical, 1W3</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-29.pic">Figure 6-29. Cable Assembly, Special Purpose, Electrical, 1W4</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-30.pic">Figure 6-30. Cable Assembly, Special Purpose, Electrical, Branched, 1W5</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-31.pic">Figure 6-31. Cable Assembly, Special Purpose, Electrical, Branched, 1W6</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-32.pic">Figure 6-32. Cable Assembly, Special Purpose, Electrical, Branched, 1W7</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-33.pic">Figure 6-33. Cable Assembly, Special Purpose, Electrical, 1W8</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-34.pic">Figure 6-34. Cable Assembly, Special Purpose, Electrical, 1W9</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-35.pic">Figure 6-35. Cable Assembly, Special Purpose, Electrical, Branched - 1W10</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-36.pic">Figure 6-36. Cable Assembly, Radio Frequency</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-37.pic">Figure 6-37. Cable Assembly, Radio Frequency, Branched (1W206)</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-38.pic">Figure 6-38. Cable Assembly, Radio Frequency, Branched (1W207)</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-39.pic">Figure 6-39. Cable Assembly, Radio Frequency, Branched (1W208)</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-40.pic">Figure 6-40. Cable Assembly, Radio Frequency, Branched (1W209)</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-41.pic">Figure 6-41. Resistor Assembly - AAV ITA, A16</hotspot>
+</para>
+
+<para><hotspot linktype="picture" href="./rpstl/graphics/fig6-42.pic">Figure 6-42. Printed Wiring Assembly - AAV ITA, A1</hotspot>
+</para>
+
+</tocndx></idxcls>

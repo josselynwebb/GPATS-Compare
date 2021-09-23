@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY fig4-2 SYSTEM "./graphics/fig4-2.pic" NDATA FAXTILE>
+<!ENTITY fig4-3 SYSTEM "./graphics/fig4-3.pic" NDATA FAXTILE>
+<!ENTITY fig4-4 SYSTEM "./graphics/fig4-4.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S02" LABEL="II"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE . E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\DRIVER_DISPLAY_MODULE_LRU_5429249\TP_AAV_DDM_LRU.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s02.ide!c3s02'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./DDM_LRU.ide!ddm-lru'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/DDM_LRU/ASSY/DDM_LRU_1.pic' ?><?BUTTON POS='5' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/DDM_LRU/SCHEM/DDM_LRU_FBD.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section II. DDM LRU, P/N 5429249" previous="./c4s01.ide!c4s01c"?><?TOCENTRY TITLE="SECTION II. Test Program Instructions for the DDM LRU, P/N 5429249" TOCLEVEL="2" LABEL="II"?>
+<TITLE>SECTION II. Test Program Instructions for the DDM LRU, P/N 5429249</TITLE>
+<PARA0 ID="P4-2" LABEL="4.2"><?Pub Dtl?><?TOCENTRY TITLE="4.2 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the DDM LRU, P/N 5429249.</PARA>
+<SUBPARA1 ID="P4-2.1" LABEL="4.2.1"><?TOCENTRY TITLE="4.2.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-1" LABEL="4-1"><?Pub Dtl?>
+<TITLE>Test Station Instrumentation Required to Test the
+<BRK/> DDM LRU, P/N 5429249.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY>Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY>Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY>Digitizing Oscilloscope</ENTRY></ROW>
+<ROW>
+<ENTRY>Counter/Timer</ENTRY></ROW>
+<ROW>
+<ENTRY>Arbitrary Waveform Generator</ENTRY></ROW>
+<ROW>
+<ENTRY>Function Generator</ENTRY></ROW>
+<ROW>
+<ENTRY>LF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY>MF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY>Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-2.2" LABEL="4.2.2"><?TOCENTRY TITLE="4.2.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-2" LABEL="4-2"><?Pub Dtl?>
+<TITLE>TPS Equipment Required to test the DDM LRU, P/N 5429249.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in" ALIGN="CENTER"/>
+<SPANSPEC NAMEST="COL1" NAMEEND="COL3" SPANNAME="ALL"/>
+<THEAD>
+<ROW>
+<ENTRY>Nomenclature</ENTRY>
+<ENTRY>Part Number</ENTRY>
+<ENTRY>Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>AAV Interface Test Adapter</ENTRY>
+<ENTRY>P/N 05005A1000</ENTRY>
+<ENTRY>1</ENTRY></ROW>
+<ROW>
+<ENTRY>Cable Assembly, Special Purpose, Electrical, W8</ENTRY>
+<ENTRY>P/N 05005A0108</ENTRY>
+<ENTRY>1</ENTRY></ROW>
+<ROW>
+<ENTRY>Support Assembly, LRU</ENTRY>
+<ENTRY>P/N 05005A1013-1</ENTRY>
+<ENTRY>1</ENTRY></ROW>
+<ROW>
+<ENTRY>Support Assembly, LRU</ENTRY>
+<ENTRY>P/N 05005A1013-2</ENTRY>
+<ENTRY>1</ENTRY></ROW>
+<ROW>
+<ENTRY>Printed Wiring Assembly - DDM Adapter, CP1 *</ENTRY>
+<ENTRY>P/N 05005A1042</ENTRY>
+<ENTRY>1</ENTRY></ROW>
+<ROW>
+<ENTRY>Connector, Stacking, Electrical *</ENTRY>
+<ENTRY>P/N 2600260</ENTRY>
+<ENTRY>2</ENTRY></ROW>
+<ROW>
+<ENTRY>Spacer *</ENTRY>
+<ENTRY>P/N NAS43HT0-12</ENTRY>
+<ENTRY>6</ENTRY></ROW>
+<ROW>
+<ENTRY>Screw, Machine *</ENTRY>
+<ENTRY>P/N MS35190-230</ENTRY>
+<ENTRY>6</ENTRY></ROW>
+<ROW>
+<ENTRY SPANNAME="ALL">(* Required for diagnostic testing only.)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-2.3" LABEL="4.2.3"><?TOCENTRY TITLE="4.2.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s02b" title="Chapter 4. Test Program Instructions, Section II. DDM LRU, P/N 5429249 Cont'd"?>
+<SUBPARA1 ID="P4-2.4" LABEL="4.2.4"><?TOCENTRY TITLE="4.2.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<PARA>7/64 HEX AND 1/4 NUT DRIVER TOOLS. (Note: Required for diagnostic testing only.)</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-2.5" LABEL="4.2.5"><?TOCENTRY TITLE="4.2.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<CAUTION>
+<PARA>The UUT contains internal components that are subject to damage from electrostatic discharge (ESD). When handling the UUT, a grounded wrist strap must be used. <GRAPHIC BOARDNO="esd"/></PARA></CAUTION>
+<PARA>Refer to <EXTREF DOCNO="C2S02" XREFID="./C2S02.ide!P2-2.2.2" XIDTYPE="PARA">Paragraph 2.2.2.2, ESD Damage Prevention</EXTREF> for proper handling requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-2.6" LABEL="4.2.6"><?TOCENTRY TITLE="4.2.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>32.0 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-2.7" LABEL="4.2.7"><?TOCENTRY TITLE="4.2.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-2.8" LABEL="4.2.8"><?TOCENTRY TITLE="4.2.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<STEP1 ID="P4-2.81" LABEL="a">
+<PARA>Prior to executing the DDM LRU, P/N 5429249 Test Program, install ITA P/N 05005A1000 onto the test station receiver. </PARA></STEP1>
+<STEP1 ID="P4-2.82" LABEL="b">
+<PARA>Load the test program for the DDM LRU into the ATLAS Run-Time System (RTS). When the RTS State field of the RTS front panel displays 'READY', the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-2.83" LABEL="c">
+<PARA>***OPERATOR ACTION***: Initiate the test program by selecting 'Run' from the RTS 'Run' menu.</PARA></STEP1>
+<STEP1 ID="P4-2.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-2.pic"?>Figure 4-2<?endhotspot?>). 
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-2" LABEL="4-2">
+<TITLE>Test Program Information DDM LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-2.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-2.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-3.pic"?>Figure 4-3<?endhotspot?>) is displayed which identifies the UUT fault states which are non-detectable and untested by the test program. 
+<BRK/> ***OPERATOR ACTION*** Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-3" LABEL="4-3">
+<TITLE>Nondetectable/Untested Faults DDM LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-3.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-2.86" LABEL="f">
+<PARA>The test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-4.pic"?>Figure 4-4<?endhotspot?>) is displayed. From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-4) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM and (98) Exit Testing.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-4" LABEL="4-4">
+<TITLE>Test Program Main Menu DDM LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-4.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-2.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-2.88" LABEL="h">
+<PARA>The operator is instructed to install the UUT Support Assemblies onto the ITA.
+<BRK/> ***OPERATOR ACTION***: Install UUT Support Assemblies (P/N 05005A1013) onto the ITA top panel work surface using the knurled screws. (NOTE: Ensure the notches are facing outward. LRU LEFT SIDE: 05005A1013-1, LRU RIGHT SIDE: 05005A1013-2)</PARA></STEP1>
+<STEP1 ID="P4-2.810" LABEL="i">
+<PARA>The operator is instructed to connect cable W8 P/N 05005A0108, P1 Connector to connector J1 of the UUT and the operator is instructed to connect cable W8, P2 Connector to connector J5 of the ITA.
+<BRK/> ***OPERATOR ACTION***: Connect cable W8, P1 connector to J1 of the UUT. Connect cable W8, P2 connector, to J5 of the ITA.</PARA></STEP1>
+<STEP1 ID="P4-2.811" LABEL="j">
+<PARA>The operator is instructed to install the DDM LRU onto the ITA. 
+<BRK/> ***OPERATOR ACTION***: Install the UUT onto the Support Assemblies by inserting the Heat Sink into the notches on the supports (component side facing outward).</PARA></STEP1><?FRAME id="c4s02c" title="Chapter 4. Test Program Instructions, Section II. DDM LRU, P/N 5429249 Cont'd" NEXT="./c4s03.ide!c4s03"?>
+<STEP1 ID="C4S02C12" LABEL="k">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION*** Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S02C13" LABEL="l">
+<PARA>The display prompts the operator to enter the UUT serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S02C14" LABEL="m">
+<PARA>The display prompts the operator to enter the UUT revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S02C15" LABEL="n">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S02C16" LABEL="o">
+<PARA>The display prompts the operator to enter the Interface serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the ITA label, which is found on the upper, right corner of the right side and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S02C17" LABEL="p">
+<PARA>The display prompts the operator to verify the test setup and UUT are ready to begin testing.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-2.9" LABEL="4.2.9"><?TOCENTRY TITLE="4.2.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-2.91" LABEL="a">
+<PARA>Upon detection of a UUT failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION*** Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-2.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

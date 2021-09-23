@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='TOO' TYPE='frame' LINK='.\C3s12.xml!C3S12A' bitmap='n' DESC='Open Theory of Operation.'?>
+<?BUTTON POS='2' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-31_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='3' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='4' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='5' LABEL='UUT ELTD' TYPE='program' LINK=''./ELTD/14_ELTD_13020A1000_TPH.pdf'' bitmap='n' DESC='Open UUT English Language Test Description.'?>
+<?BUTTON POS='6' LABEL='ID ELTD' TYPE='program' LINK=''./ELTD/14_ELTD_13020A1000_TPH.pdf'' bitmap='n' DESC='Open ID English Language Test Description.'?>
+<?BUTTON POS='7' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\LAVA2_ID_13020A1000\TPS\TP_LAV_SRU_ID.OBJ"' bitmap='n' DESC='Select to launch TPH Self-Test TPS.'?>
+<?FRAME id='C4s12a' title='CHAPTER 4 - TEST PROGRAM INSTRUCTIONS' next='.\C4s12.xml!C4s12b' previous='.\C4s11.xml!C4s11c'?>
+<chapter>
+<section id="C4s12" label="Section XII." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section XII. TPH Self-Test."?>
+<title>TPH Self-Test.</title>
+<para0 id="p4-12" label="4-12" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="4-12 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs will describe the Test Program Instructions
+(TPI) for the Interface Device (ID) (P/N 13020A1000).</para>
+<para>Weapon System: LAV-25A2.</para>
+<subpara1 id="p4-12.1" label="4-12.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-12.1 Test Program Instructions."?>
+<title>Test Program Instructions.</title>
+<para>Required Equipment.</para>
+<para><?hotspot href="T4-12"?>Table 4-12<?endhotspot?> provides information
+on the equipment required to test the TPH Self-Test.</para>
+<para><?pub tablewidth="80%"?><table id="T4-12" tocentry="1">
+<title>Table 4-12. TPH Self-Test Required Equipment</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="977.00px"?>
+<colspec colname="1" colnum="1" colwidth="0.66*"/>
+<colspec colname="2" colnum="2" colwidth="0.59*"/>
+<colspec colname="4" colnum="3" colwidth="0.35*"/>
+<thead>
+<row>
+<entry align="center">Nomenclature</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">Quantity</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>VIPER/T or TETS-B ATE</entry>
+<entry align="center">AN/USM-717 or AN/USM-657B</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Interface Device</entry>
+<entry align="center">13020A1000</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Fixture Assembly, Holding</entry>
+<entry align="center">13020A9015</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Fixture Assembly, Self-Test</entry>
+<entry align="center">13020A6000</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W1 (CDA Logic A)</entry>
+<entry align="center">13020A7100</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W2 (CDA Logic B)</entry>
+<entry align="center">13020A7200</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W3 (CDA Grenade Relay)</entry>
+<entry align="center">13020A7300</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W4 (GCU Logic)</entry>
+<entry align="center">13020A7400</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W5 (GCU Power Drive)</entry>
+<entry align="center">13020A7500</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W6 (GTD Power Supply)</entry>
+<entry align="center">13020A7600</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W7 (GTD Stabilization System Processor)</entry>
+<entry align="center">13020A7700</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W8 (RS-422)</entry>
+<entry align="center">08014A3800</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W204</entry>
+<entry align="center">93006H6048</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (VIPER/T)</entry>
+<entry align="center">93006H9009</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (TETS-B)</entry>
+<entry align="center">93006A9007</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+<?FRAME id='C4s12b' title='CHAPTER 4 - Set-up Instructions (All Modules)' next='.\C4s12.xml!C4s12c' previous='.\C4s12.xml!C4s12a'?>
+<?PUB TOCLEVEL="4" TEXT="4-12.2 Set-up Instructions (All Modules)."?>
+<caution id="C4122">
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+</caution>
+<?ALERT id="cESD1" type="caution"?>
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+<?ENDALERT?>
+<subpara1 id="p4-12.2" label="4-12.2" tocentry="1">
+<title>Set-up Instructions (all modules).</title>
+<step1>
+<para>1. Open the AN/USM-717 or AN/USM-657B interface handle.</para>
+</step1>
+<step1>
+<para>2. Insert Interface Device (P/N 13020A1000) into the AN/USM-717
+or AN/USM-657B interface receiver.</para>
+</step1>
+<step1>
+<para>3. Close the AN/USM-717 or AN/USM-657B interface handle.</para>
+</step1>
+<step1>
+<para>4. Place Holding Fixture (P/N 13020A9015) on top of ID. Secure
+to holding cleat with thumb screw.</para>
+</step1>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.1 Instruction For Modules 1 - Steps 101 thru 180."?>
+<subpara2 id="p4-12.2.1" label="4-12.2.1" tocentry="1">
+<title>Instructions for Module 1 - Steps 101 thru 180.</title>
+<step1>
+<para>1. Connect the Analog Probe to P2 on the VIPER/T Primary Chassis.</para>
+</step1>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.2 Instructions for Module 1 - Step 181."?>
+</subpara2>
+<subpara2 id="p4-12.2.2" label="4-12.2.2" tocentry="1">
+<title>Instructions for Module 1 - Step 181.</title>
+<step1>
+<para>1. Ensure Analog Probe is set to 1x setting.</para>
+</step1>
+<step1>
+<para>2. Place probe tip in connector ID_J1B-14A.</para>
+</step1>
+<step1>
+<para>3. Press button on probe when ready to proceed.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.3 Instructions for Module 2 - Steps 201 thru 254."?>
+<subpara2 id="p4-12.2.3" label="4-12.2.3" tocentry="1">
+<title>Instructions for Module 2 - Steps 201 thru 254.</title>
+<step1>
+<para>1. Connect W1 P1 to ID_J1.</para>
+</step1>
+<step1>
+<para>2. Connect W1 P2 to Self-Test Fixture J1.</para>
+</step1>
+<step1>
+<para>3. Connect W1 P3 to Self-Test Fixture J2.</para>
+</step1>
+<step1>
+<para>4. Connect W1 P4 to Self-Test Fixture J3.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.4 Instructions for Module 3 - Steps 301 thru 335."?>
+<subpara2 id="p4-12.2.4" label="4-12.2.4" tocentry="1">
+<title>Instructions for Module 3 - Steps 301 thru 335.</title>
+<step1>
+<para>1. Connect W2 P1 to ID_J2.</para>
+</step1>
+<step1>
+<para>2. Connect W2 P2 to Self-Test Fixture J1.</para>
+</step1>
+<step1>
+<para>3. Ensure W2 P3 edge connector is inserted into slot of Self-Test
+Fixture first. Align W2 P3 with J3 then slide fixture towards W2 P3
+from left to right and verify W2 P3 is inserted into to Self-Test
+Fixture J3.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.5 Instructions for Module 3 - Steps 336 thru 351."?>
+<subpara2 id="p4-12.2.5" label="4-12.2.5" tocentry="1">
+<title>Instructions for Module 3 - Steps 336 thru 351.</title>
+<step1>
+<para>1. Unplug W2 P3 from Self-Test Fixture J3.</para>
+</step1>
+<step1>
+<para>2. Connect W2 P4 to Self-Test Fixture J4.</para>
+</step1>
+<step1>
+<para>3. Ensure W2 P4 edge connector is inserted into slot of TF first.
+Align W2 P4 with J4 then slide fixture towards W2 P4 from left to
+right and verify W2 P4 is inserted into to Self-Test Fixture J4.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.6 Instructions for Module 4 - Steps 401 thru 419."?>
+<subpara2 id="p4-12.2.6" label="4-12.2.6" tocentry="1">
+<title>Instructions for Module 4 - Steps 401 thru 419.</title>
+<step1>
+<para>1. Connect W3 P1 to ID_J1.</para>
+</step1>
+<step1>
+<para>2. Connect W3 P2 to Self-Test Fixture J2.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.7 Instructions for Module 5 - Steps 501 thru 541."?>
+<subpara2 id="p4-12.2.7" label="4-12.2.7" tocentry="1">
+<title>Instructions for Module 5 - Steps 501 thru 541.</title>
+<step1>
+<para>1. Ensure W4 P3 edge connector is inserted into slot as shown
+first. Align W4 P3 with Self-Test Fixture J6. Slide Self-Test Fixture
+towards W4 P3 from left to right to align with J6.</para>
+</step1>
+<step1>
+<para>2. Connect W4 P1 to ID_J2.</para>
+</step1>
+<step1>
+<para>3. Connect W4 P2 to Self-Test Fixture J5.</para>
+</step1>
+<step1>
+<para>4. Verify W4 P3 to Self-Test Fixture J6.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.8 Instructions for Module 6 - Steps 601 thru 614."?>
+<subpara2 id="p4-12.2.8" label="4-12.2.8" tocentry="1">
+<title>Instructions for Module 6 - Steps 601 thru 614.</title>
+<step1>
+<para>1. Connect W5 P1 to ID_J3.</para>
+</step1>
+<step1>
+<para>2. Extend contacts of W5 P2 and secure in place using both thumb
+screws. Do not over tighten.</para>
+</step1>
+<step1>
+<para>3. Connect W5 P2 to Self-Test Fixture J7.</para>
+</step1>
+<step1>
+<para>4. Ensure that each screw is secure, but do not over tighten.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.9 Instructions for Module 7 - Steps 701 thru 732."?>
+<subpara2 id="p4-12.2.9" label="4-12.2.9" tocentry="1">
+<title>Instructions for Module 7 - Steps 701 thru 732.</title>
+<step1>
+<para>1. Ensure W6 P3 edge connector is inserted into slot and align
+W6 P3 with Self-Test Fixture J6.</para>
+</step1>
+<step1>
+<para>2. Slide Self-Test Fixture towards W6 P3 from left to right
+aligned with J6.</para>
+</step1>
+<step1>
+<para>3. Connect W6 P1 to ID_J1.</para>
+</step1>
+<step1>
+<para>4. Connect W6 P2 to Self-Test Fixture J8.</para>
+</step1>
+<step1>
+<para>5. Verify W6 P3 to Self-Test Fixture J6.</para>
+</step1>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="4-12.2.10 Instructions for Module 8 - Steps 801 thru 865."?>
+<subpara2 id="p4-12.2.10" label="4-12.2.10" tocentry="1">
+<title>Instructions for Module 8 - Steps 801 thru 865.</title>
+<step1>
+<para>1. Rotate Test Fixture 180 degrees and re-install with J9 facing
+to the right.</para>
+</step1>
+<step1>
+<para>2. Connect W7 P1 to ID_J1.</para>
+</step1>
+<step1>
+<para>3. Connect W7 P2 to Self-Test Fixture J9.</para>
+</step1>
+<step1>
+<para>4. Connect W7 P3 to Self-Test Fixture J10.</para>
+</step1>
+<step1>
+<para>5. Connect W7 P4 to ATE BUS I/O.</para>
+</step1>
+<step1>
+<para>6. Connect W8 P1 to ATE ICJ6.</para>
+</step1>
+<step1>
+<para>7. Connect ATE W204 P2 to ID_J3.</para>
+</step1>
+<step1>
+<para>8. Connect W8 P2 to ID_J4.</para>
+</step1>
+<step1>
+<para>9. Connect ATE W204 P1 to ATE S/R I/O.</para>
+</step1>
+</subpara2>
+</subpara1>
+<?FRAME id='C4s12c' title='CHAPTER 4 - Disconnect Instructions' next='.\C5s1.xml!C5s1a' previous='.\C4s12.xml!C4s12b'?>
+<caution id="C4123">
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+</caution>
+<?ALERT id="cESD2" type="caution"?>
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+<?ENDALERT?>
+<subpara1 id="p4-12.3" label="4-12.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-12.3 Disconnect Instructions."?>
+<title>Disconnect Instructions.</title>
+<subpara2 id="p4-12.3.1" label="4-12.3.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.1 Disconnect Instructions for Module 1."?>
+<title>Disconnect Instructions for Module 1.</title>
+<step1>
+<para>1. Disconnect ATE Analog Probe.</para>
+</step1>
+</subpara2>
+<subpara2 id="p4-12.3.2" label="4-12.3.2" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.2 Disconnect Instructions for Module 2."?>
+<title>Disconnect Instructions for Module 2.</title>
+<step1>
+<para>1. Disconnect and remove cable W1 from ID and Self-Test Fixture.</para>
+</step1>
+</subpara2>
+<subpara2 id="p4-12.3.3" label="4-12.3.3" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.3 Disconnect Instructions for Module 3."?>
+<title>Disconnect Instructions for Module 3.</title>
+<step1>
+<para>1. Disconnect and remove cable W2 from ID and Self-Test Fixture.</para>
+</step1>
+</subpara2>
+<subpara2 id="p4-12.3.4" label="4-12.3.4" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.4 Disconnect Instructions for Module 4."?>
+<title>Disconnect Instructions for Module 4.</title>
+<step1>
+<para>1. Disconnect and remove cable W3 from ID and Self-Test Fixture.</para>
+</step1>
+</subpara2>
+<subpara2 id="p4-12.3.5" label="4-12.3.5" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.5 Disconnect Instructions for Module 5."?>
+<title>Disconnect Instructions for Module 5.</title>
+<step1>
+<para>1. Disconnect and remove cable W4 from ID and Self-Test Fixture.</para>
+</step1>
+</subpara2>
+<subpara2 id="p4-12.3.6" label="4-12.3.6" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.6 Disconnect Instructions for Module 6."?>
+<title>Disconnect Instructions for Module 6.</title>
+<step1>
+<para>1. Disconnect and remove cable W5 from ID and Self-Test Fixture.</para>
+</step1>
+</subpara2>
+<subpara2 id="p4-12.3.7" label="4-12.3.7" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.7 Disconnect Instructions for Module 7."?>
+<title>Disconnect Instructions for Module 7.</title>
+<step1>
+<para>1. Disconnect and remove cable W6 from ID and Self-Test Fixture.</para>
+</step1>
+</subpara2>
+<subpara2 id="p4-12.3.8" label="4-12.3.8" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-12.3.8 Disconnect Instructions for Module 8."?>
+<title>Disconnect Instructions for Module 8.</title>
+<step1>
+<para>1. Disconnect and remove cable W7, W8, and W204 from ID, ATE
+locations, and Self-Test Fixture.</para>
+</step1>
+</subpara2>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 6?>

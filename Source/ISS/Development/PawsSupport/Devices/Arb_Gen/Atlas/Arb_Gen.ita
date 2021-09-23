@@ -1,0 +1,5 @@
+from ARB_Out to J23-12;
+from ARB_EvArm to J23-10;
+from ARB_1Mohm to J23-12;
+from ARB_50Ohm to J23-12;
+from ARB_StopTrigFsk to J23-11;

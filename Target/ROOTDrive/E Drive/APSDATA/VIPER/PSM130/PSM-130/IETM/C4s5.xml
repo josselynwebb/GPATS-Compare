@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='TOO' TYPE='frame' LINK='.\C3s5.xml!C3S5A' bitmap='n' DESC='Open Theory of Operation.'?>
+<?BUTTON POS='2' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-11_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='3' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-12_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='4' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='5' LABEL='UUT ELTD' TYPE='program' LINK=''./ELTD/7_ELTD_7579575_011_CDA Grenade Relay.pdf'' bitmap='n' DESC='Open UUT English Language Test Description.'?>
+<?BUTTON POS='6' LABEL='ID ELTD' TYPE='program' LINK=''./ELTD/14_ELTD_13020A1000_TPH.pdf'' bitmap='n' DESC='Open ID English Language Test Description.'?>
+<?BUTTON POS='7' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Control Display Assy\CDA_Grenade Relay (7579575-011)\ TP_LAV_RELAY.OBJ"' bitmap='n' DESC='Select to launch CDA Grenade Relay TPS.'?>
+<?FRAME id='C4s5a' title='CHAPTER 4 - TEST PROGRAM INSTRUCTIONS' next='.\C4s6.xml!C4S6a' previous='.\C4s4.xml!C4s4a'?>
+<chapter>
+<section id="c4s5" label="Section V." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section V. CDA Grenade Relay."?>
+<title>CDA Grenade Relay.</title>
+<para0 id="p4-5" label="4-5" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="4-5 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs will describe the Test Program Instructions
+(TPI) for the Control Display Assembly (CDA) Grenade Relay (P/N 7579575-011).</para>
+<para>Weapon System: LAV-25A2.</para>
+<?ALERT id="cESD" type="caution"?>
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+<?ENDALERT?>
+<subpara1 id="p4-5.1" label="4-5.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-5.1 Test Program Instructions."?>
+<title>Test Program Instructions.</title>
+<para>Required Equipment.</para>
+<para><?hotspot href="T4-4"?>Table 4-4<?endhotspot?> provides information
+on the equipment required to test the CDA Grenade Relay circuit card.</para>
+<para><?pub tablewidth="80%"?><table id="T4-4" tocentry="1">
+<title>Table 4-4. CDA Grenade Relay Required Equipment</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="888.00px"?>
+<colspec colname="1" colnum="1" colwidth="0.74*"/>
+<colspec colname="2" colnum="2" colwidth="0.62*"/>
+<colspec colname="4" colnum="3" colwidth="0.24*"/>
+<thead>
+<row>
+<entry align="center">Nomenclature</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">Quantity</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>VIPER/T or TETS-B ATE</entry>
+<entry align="center">AN/USM-717 or AN/USM-657B</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Interface Device</entry>
+<entry align="center">13020A1000</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Fixture Assembly, Holding</entry>
+<entry align="center">13020A9015</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>CDA Grenade Relay </entry>
+<entry align="center">7579575-011</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W3</entry>
+<entry align="center">13020A7300</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (VIPER/T)</entry>
+<entry align="center">93006H9009</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (TETS-B)</entry>
+<entry align="center">93006A9007</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara1>
+<caution id="C452">
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+</caution>
+<subpara1 id="p4-5.2" label="4-5.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-5.2 Set-up Instructions."?>
+<title>Set-up Instructions.</title>
+<step1>
+<para>1. Open the ATE interface handle.</para>
+</step1>
+<step1>
+<para>2. Insert Interface Device (P/N 13020A1000) into the ATE interface
+receiver.</para>
+</step1>
+<step1>
+<para>3. Close the ATE interface handle. </para>
+</step1>
+<step1>
+<para>4. Place Holding Fixture (P/N 13020A9015) on top of ID. Secure
+to holding cleat with thumb screw.</para>
+</step1>
+<step1>
+<para>5. Loosen both top knobs so that the rail slides freely. Adjust
+position of rail so that the UUT will sit firmly on both lips. Secure
+both knobs to retain UUT.</para>
+</step1>
+<step1>
+<para>6. Connect W3 cable (P/N 13020A7300) P1 to ID J1.</para>
+</step1>
+<step1>
+<para>7. Connect W3 P2 to UUT J1.</para>
+</step1>
+</subpara1>
+<subpara1 id="p4-5.3" label="4-5.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-5.3 Disconnect Instructions."?>
+<title>Disconnect Instructions.</title>
+<step1>
+<para>1. Disconnect all cables from UUT if testing is complete.</para>
+</step1>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 6?>

@@ -1,0 +1,372 @@
+[Project Header]
+Version = 600
+Pathname Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Pathname Line0002 = "/Driver/Low-Level/APS6062.PRJ"
+CVI Dir = "/c/program files/national instruments/measurementstudio/cvi"
+VXIplug&play Framework Dir = "/C/VXIpnp/winnt"
+Number of Files = 3
+Target Type = "Dynamic Link Library"
+Flags = 16
+
+[File 0001]
+File Type = "CSource"
+Res Id = 2
+Path Is Rel = True
+Path Rel To = "Project"
+Path Rel Path = "APS6062.C"
+Path Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Path Line0002 = "/Driver/Low-Level/APS6062.C"
+Exclude = False
+Compile Into Object File = False
+Project Flags = 1048576
+
+[File 0002]
+File Type = "Function Panel"
+Res Id = 1
+Path Is Rel = True
+Path Rel To = "Project"
+Path Rel Path = "APS6062.FP"
+Path Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Path Line0002 = "/Driver/Low-Level/APS6062.FP"
+Exclude = False
+Project Flags = 0
+
+[File 0003]
+File Type = "Include"
+Res Id = 3
+Path Is Rel = True
+Path Rel To = "Project"
+Path Rel Path = "APS6062.H"
+Path Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Path Line0002 = "/Driver/Low-Level/APS6062.H"
+Exclude = False
+Project Flags = 0
+
+[Compiler Options]
+Default Calling Convention = "cdecl"
+Require Prototypes = True
+Require Return Values = True
+Enable Pointer Mismatch Warning = False
+Enable Unreachable Code Warning = False
+Enable Unreferenced Identifiers Warning = False
+Enable Assignment In Conditional Warning = False
+O Option Compatible With 5.0 = False
+Uninitialized Locals Compile Warning = "Conservative"
+
+[Run Options]
+Stack Size = 100000
+Image Base Address = 4194304
+
+[Compiler Defines]
+Compiler Defines = "/DWIN32_LEAN_AND_MEAN"
+
+[Create Executable]
+Executable File_Debug Is Rel = True
+Executable File_Debug Rel To = "Project"
+Executable File_Debug Rel Path = "APS6062.DLL"
+Executable File_Debug Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Executable File_Debug Line0002 = "/Driver/Low-Level/APS6062.DLL"
+Executable File_Release Is Rel = True
+Executable File_Release Rel To = "Project"
+Executable File_Release Rel Path = "APS6062.DLL"
+Executable File_Release Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Executable File_Release Line0002 = "/Driver/Low-Level/APS6062.DLL"
+Icon File Is Rel = False
+Icon File = ""
+Application Title = ""
+Numeric File Version = "1,1,0,0"
+Numeric Prod Version = "1,1,0,0"
+Comments = ""
+Company Name = "ManTech International"
+File Version = "1.1"
+Legal Copyright = "Copyright © ManTech International, 1997"
+Legal Trademarks = ""
+Private Build = ""
+Product Version = "1.1"
+Special Build = ""
+DLL Exports = "Include File Symbols"
+Export File1 = "aps6062.h"
+DLL Import Library Choice = "Gen Libs For All Compilers"
+Use VXIPNP Subdirectories for Import Libraries = False
+Use Dflt Import Lib Base Name = False
+Import Lib Base Name = "aps6062.lib"
+Where to Copy DLL = "Do not copy"
+Add Type Lib To DLL = True
+Include Type Lib Help Links = False
+Type Lib FP File Is Rel = True
+Type Lib FP File Rel To = "Project"
+Type Lib FP File Rel Path = "APS6062.FP"
+Type Lib FP File Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Type Lib FP File Line0002 = "/Driver/Low-Level/APS6062.FP"
+Type Lib Guid = ""
+Runtime Support = "Full Runtime Support"
+Instrument Driver Support Only = False
+
+[External Compiler Support]
+UIR Callbacks File Option = 0
+Using LoadExternalModule = False
+Create Project Symbols File = True
+UIR Callbacks Obj File Is Rel = False
+UIR Callbacks Obj File = ""
+Project Symbols H File Is Rel = False
+Project Symbols H File = ""
+Project Symbols Obj File Is Rel = False
+Project Symbols Obj File = ""
+
+[Distribution Kit]
+Distribution Kit GUID = "{261F5D53-24EF-430B-9AB5-B7C918D835A7}"
+Installation Directory = "aps6062"
+Installation Destination = 4
+Install Run-Time Engine = False
+Install RTE Privately = False
+Install Instrsup = False
+Install Instrsup Privately = False
+Install CVI_LVRT = False
+Install CVI_LVRT Privately = False
+Install Low-Level Support Driver = False
+Install ActiveX Container = False
+Media Size = 3
+kBytes Reserved on First Disk = 0
+Target Path Is Rel = True
+Target Path Rel To = "Project"
+Target Path Rel Path = ""
+Target Path Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Target Path Line0002 = "/Driver/Low-Level"
+Language = "English"
+Core Group Index = 5
+DLL Group Index = 6
+Project File 0001 Is Rel = True
+Project File 0001 Rel To = "Project"
+Project File 0001 Rel Path = "APS6062.DLL"
+Project File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+Project File 0001 Line0002 = "/Driver/Low-Level/APS6062.DLL"
+Redistribute DataSocket = 0
+Redistribute NIReports = 0
+Redistribute DCom95 = 0
+Use Custom Script = False
+Run Executable After Setup Group Index = -1
+Run Executable After Setup File Index = -1
+Use Default Program Group Name = False
+Program Group Name = "aps6062 Instrument Driver"
+Use Default Installation Name = False
+Installation Name = "aps6062 Instrument Driver"
+Compatibility Warnings = 5
+
+[Distribution Kit File Group 001]
+Group Name = "Soft Front Panel Files"
+Destination Directory = "Application"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+
+[Distribution Kit File Group 002]
+Group Name = "Instrument Driver Files"
+Destination Directory = "Application"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "APS6062.C"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/APS6062.C"
+File 0002 Is Rel = True
+File 0002 Rel To = "Project"
+File 0002 Rel Path = "aps6062.doc"
+File 0002 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0002 Line0002 = "/Driver/Low-Level/aps6062.doc"
+File 0003 Is Rel = True
+File 0003 Rel To = "Project"
+File 0003 Rel Path = "APS6062.FP"
+File 0003 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0003 Line0002 = "/Driver/Low-Level/APS6062.FP"
+File 0004 Is Rel = True
+File 0004 Rel To = "Project"
+File 0004 Rel Path = "APS6062.HLP"
+File 0004 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0004 Line0002 = "/Driver/Low-Level/APS6062.HLP"
+
+[Distribution Kit File Group 003]
+Group Name = "Include Files"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../include"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "APS6062.H"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/APS6062.H"
+File 0002 Is Rel = True
+File 0002 Rel To = "Project"
+File 0002 Rel Path = "APS6062.BAS"
+File 0002 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0002 Line0002 = "/Driver/Low-Level/APS6062.BAS"
+
+[Distribution Kit File Group 004]
+Group Name = "Knowledge Base"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../../kbase"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "aps6062.kb"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/aps6062.kb"
+
+[Distribution Kit File Group 005]
+Group Name = "Instrument Driver DLL"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../bin"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Check Version"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "aps6062_32.dll"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/aps6062_32.dll"
+File 0002 Is Rel = True
+File 0002 Rel To = "Project"
+File 0002 Rel Path = "APS6062.DLL"
+File 0002 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0002 Line0002 = "/Driver/Low-Level/APS6062.DLL"
+
+[Distribution Kit File Group 006]
+Group Name = "Instrument Driver Support DLL"
+Destination Directory = "Windows System"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Check Version"
+Register As ActiveX Servers = False
+File 0001 Is Rel = False
+File 0001 = "/c/WINDOWS/system/instrsup.dll"
+
+[Distribution Kit File Group 007]
+Group Name = "Import Library (Borland)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/bc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "BORLAND/APS6062.LIB"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/BORLAND/APS6062.LIB"
+
+[Distribution Kit File Group 008]
+Group Name = "Import Library (Microsoft)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/msc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "MSVC/APS6062.LIB"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/MSVC/APS6062.LIB"
+
+[Distribution Kit File Group 009]
+Group Name = "Import Library (Symantec)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/sc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "SYMANTEC/APS6062.LIB"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/SYMANTEC/APS6062.LIB"
+
+[Distribution Kit File Group 010]
+Group Name = "Import Library (Watcom)"
+Destination Directory = "Application"
+Use Relative Path = True
+Relative Path Is Rel = False
+Relative Path = "../lib/wc"
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "Project"
+File 0001 Rel Path = "WATCOM/APS6062.LIB"
+File 0001 Line0001 = "/c/ARC/DNT/TETS/CommonInterfaceControlLayer/Cicl_Devices/Pdu_Freedom01502/Vendor"
+File 0001 Line0002 = "/Driver/Low-Level/WATCOM/APS6062.LIB"
+
+[Distribution Kit File Group 011]
+Group Name = "_Files For First Disk_"
+Destination Directory = "Application"
+Use Relative Path = False
+Create Shortcuts = 0
+Install Icons = False
+Distribute Multiple Objects = False
+Replace Mode = "Always"
+Register As ActiveX Servers = False
+File 0001 Is Rel = True
+File 0001 Rel To = "CVI"
+File 0001 Rel Path = "bin/vxipnp_c.bmp"
+File 0001 = "/c/Program Files/National Instruments/MeasurementStudio/CVI/bin/vxipnp_c.bmp"
+File 0002 Is Rel = True
+File 0002 Rel To = "CVI"
+File 0002 Rel Path = "bin/vxipnp_m.bmp"
+File 0002 = "/c/Program Files/National Instruments/MeasurementStudio/CVI/bin/vxipnp_m.bmp"
+
+[Modules Forced Into Executable]
+Module 0001 Is Rel = False
+Module 0001 = "visa.lib"
+Module 0002 Is Rel = False
+Module 0002 = "aps6062.c"
+Module 0003 Is Rel = False
+Module 0003 = "kernel32.lib"
+
+[ActiveX Server Options]
+Specification File Is Rel = False
+Specification File = ""
+Source File Is Rel = False
+Source File = ""
+Include File Is Rel = False
+Include File = ""
+IDL File Is Rel = False
+IDL File = ""
+Register ActiveX Server = False
+

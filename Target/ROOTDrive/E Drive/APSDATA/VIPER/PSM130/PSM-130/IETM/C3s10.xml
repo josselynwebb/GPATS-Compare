@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-26_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='2' LABEL='UUT Sch' TYPE='pic' LINK='.\graphics\Fig3-27_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='3' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='4' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Gun Turret Drive Assy\GTD_Pwr_Supply _(7566131-121)\TP_LAV_GTD_PSU.OBJ"' bitmap='n' DESC='Select to launch GTD Power Supply TPS.'?>
+<?FRAME id='C3s10a' title='CHAPTER 3 - THEORY OF OPERATION.' next='.\C3s10.xml!C3S10b' previous='.\C3s9.xml!C3S9b'?>
+<chapter>
+<section id="c3s10" label="Section X." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section X. GTD Power Supply."?>
+<title>GTD Power Supply.</title>
+<para0 id="p3-10" label="3-10" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-10 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide information on the Theory of
+Operation for the GTD Power Supply. Part information is also provided
+in paragraph <?hotspot href="p3-10.2"?>3-10.2 Part Information<?endhotspot?>.</para>
+<subpara1 id="p3-10.1" label="3-10.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-10.1 Theory Of Operation."?>
+<title>Theory Of Operation.</title>
+<para>The GTD Power Supply contains two major functions: (1) a DC
+Power Supply (DCPS) and (2) an 800 Hz AC source generator for Turret
+positioning resolution. The DC/DC converter is a Switched Mode Power
+Supply that provides split rail +/- 15 VDC. This provides bias supply
+for many of the on-board control circuits (op amps), 800 Hz base transistor
+drive circuitry and some off-board devices. The 800 Hz Power Supply
+generates a 26 V sine wave oscillating at 800 Hz. This sine wave is
+distributed off-board to the shaft resolver armature coils for resolver
+turret angle calculations. The Power Supply incorporates fault protection
+and shutdown devices for over voltage and over current conditions. </para>
+<subpara2 id="p3-10.1.1" label="3-10.1.1" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-10.1.1 GTD Power Supply Equipment Description."?>
+<title>GTD Power Supply Equipment Description.</title>
+<para>The GTD Power Supply is a circuit card that measures 11-11/16&rdquo;
+x 8-9/16&rdquo;. It includes 3 transformers, one 40 pin connector,
+20 gold fingers, 3 power transistors mounted on a heatsink bar, and
+a number of resistors, capacitors, and DIP ICs.</para>
+</subpara2>
+<subpara2 id="p3-10.1.2" label="3-10.1.2" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-10.1.2 DCPS Description."?>
+<title>DCPS Description.</title>
+<para>Referring to schematic <?hotspot display="50%" linktype="picture" href="./graphics/Fig3-27_1.pic"?>Figure
+3-27. GTD Power Supply Schematic<?endhotspot?>, 28 volts nominal DC
+is supplied via J1 to pins J1-5 and J1-4 for DCPS and AC 800Hz power
+supply input source voltage. CR18 and CR17 provide blocking diode
+protection on the input side. L1, C21, and C22 are input filtering
+to reduce input power supply noise. CR19 and CR20 provide a path for
+current to flow during input disconnection. A control circuit for
+the DC/DC converter is centered around U8 (SG1525AJ) which provides
+the PWM control necessary to maintain proper regulation of the DCPS.
+Two bias paths for the control circuit (one through R44, CR21) and
+a feedback path through CR22 maintain bias on U8. The main switching
+transistor is Q6 (2N6756) and is driven by U8 pin 11. The Power Train
+for the DCPS is a fly back configuration and energy is stored in transformer/inductor
+T3. R57 and R56 are two redundant shunt paths that provide a monitor
+of the current passing through Q6. In the event of an overload condition,
+Q7 will turn on and provide a shutdown signal to U8 through CR26 and
+connection to pin 8 of U8. C25 and R48 set the switching frequency
+for U8 which is approximately 80kHz. VR4, 5, and 6 provide over voltage
+protection for the control circuit. C27 and R52 are snubber components
+which protect Q6 during switching. R45 and R46 set the feedback voltage
+ratio for use by U8 to achieve the appropriate regulation set point.
+The switched waveform is passed through T3 and CR23 and CR24 provide
+the current path to support the + and &ndash; 15 volt output voltage
+rails. C28, 29, 32-25 and L2 provide all necessary output stage filtering
+for the +/- 15 VDC outputs. </para>
+</subpara2>
+<?PUB TOCLEVEL="5" TEXT="3-10.1.3 800Hz AC Supply."?>
+<subpara2 id="p3-10.1.3" label="3-10.1.3">
+<title>800Hz AC Supply.</title>
+<para>The 800 Hz AC supply is a sinusoidal reference supply. The 800
+Hz source has three main functional sections: (1) 800 Hz output drive
+created by Q1, Q2, Q3 and Q4 along with surrounding components T1,
+diodes, T2 (output transformer) and associated output filter C10,
+(2) Oscillator reference voltage provided by U1, U2 and surrounding
+passives (R&rsquo;s and C&rsquo;s) and (3) Reference Voltage control
+and feedback and over voltage and over current shutdown circuits established
+via U3 &ndash; U7 and Q5.</para>
+<para>Q3 and Q4 control the main drive through +28 volts bias supplied
+via center tap of E2 connection at Transformer 2. The main reference
+source for the 800 Hz signal is created via a controlled Wein Bridge
+oscillator configuration at U1. Sinusoidal voltage at the output of
+U1 is passed through U2 which provides amplification and feedback
+control of the AC output through resistor network R8, R10-12 and C8.
+The sinusoidal reference signal is supplied to the base connections
+of Q1 and Q2 which provide a push/pull base drive through T1 to Q3
+and Q4. </para>
+<para>Feedback and control of the 800Hz AC output is provided via
+AC voltage feedback at R22 and R23. VR1 and VR2 offer protection against
+voltage surges. Two feedback paths exist to provide control; the first
+path was described in the previous paragraph and exists via connection
+through U2 and is described as a &ldquo;fast&rdquo; feedback path.
+The second path is via a &ldquo;longer term&rdquo; rms to DC converter
+which is created via U6. Feedback signal presented at R32 is full
+wave rectified via the configuration around U6 including CR13 and
+CR14. The Full wave rectified output of the AC source is filtered
+via U7 and associated feedback network and provides a negative voltage
+to the gate of the depletion mode FET (Q5). As the impedance of Q5
+increases (driven further into depletion due to higher output voltage),
+the output voltage of U1 pin 10 will decrease as well in correspondence
+and reduce the output voltage. As the output voltage decreases below
+an acceptable point, the RMS to DC converter (U6) will decrease and
+in doing so will increase the gate drive to Q5 thereby reducing its
+impedance and raising the level of the 800Hz reference U1. The Gate
+of Q5 will sit at about -2 volts during steady state conditions.</para>
+<para>Protection against over voltage on 28 volts input which could
+cause damage and excessive voltage is provided by U5 using sense resistors
+R28 and R29 as monitor divider points. If >37 volts is supplied via
+J1-4 input, U5 pin 5 threshold will exceed pin 4 which is held at
+&ndash; 5.0 volts via reference VR3 and will cause the output of U5
+to go high through CR16 and drive the output of U7 to the low rail
+cutting off the depletion mode FET Q5 and shutting down the AC output.</para>
+<para>Protection against over current on Q3 and Q4 is provided via
+sensing the voltage across shunt R21. U3 will switch when the voltage
+at pin 4 is > pin 5 (diode drop via CR11). At approximately 3.5 amperes
+through the path from either Q3 or Q4 to ground, U3 will pulse low
+and fire the monostable configuration (555) U4. Output of U4 will
+go high for several seconds shutting down the AC output via path through
+CR15 and U7 again causing Q5 to cut off and shut down oscillator U1.</para>
+<para>Monitor points are provided throughout the AC 800 Hz source
+for verifying the operation of the many control, protection, and reference
+signals.</para>
+</subpara2>
+</subpara1>
+<?FRAME label='C3s10b' title='CHAP. 3 - THEORY OF OPERATION,  SECT. X - GTD Power Supply' image=".\graphics\Fig3-25_1.pic" next='.\C3s11.xml!C3S11A' previous='.\C3s10.xml!C3S10a'?>
+<subpara1 id="p3-10.2" label="3-10.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-10.2 Part Information."?>
+<title>Part Information.</title>
+<para>The following provides part information for the GTD Power Supply.</para>
+<para>Refer to <?hotspot href="T3-9"?>Table 3-9<?endhotspot?> for
+part information.</para>
+<para><table id="T3-9">
+<title id="T3-9">Table 3-9. GTD Power Supply Part Information</title>
+<tgroup align="left" cols="5">
+<colspec colname="col1" colwidth="0.50*"/>
+<colspec colname="COL2" colwidth="0.60*"/>
+<colspec colname="COL3" colwidth="0.49*"/>
+<colspec colname="col4" colwidth="1.39*"/>
+<colspec colname="col5" colwidth="0.43*"/>
+<thead>
+<row>
+<entry align="center">Fig. 3-25 and Index Number</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">CAGEC</entry>
+<entry align="center">Description</entry>
+<entry align="center">Quantity (Qty)</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry align="center">7566131-121</entry>
+<entry align="center">13160</entry>
+<entry>Circuit Card Assembly, GTD Power Supply</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 3?>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE APPENDIX SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<APPENDIX ID="APPENB" LABEL="B"><?FRAME title="Appendix B. Acronym List" previous="./AppenA.IDE!appena"?><?TOCENTRY TITLE="APPENDIX B. Acronym List" TOCLEVEL="2" LABEL="B"?>
+<TITLE>APPENDIX B. Acronym List</TITLE>
+<PARA0 ID="PB-1" LABEL="B.1"><?TOCENTRY TITLE="B.1 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA><XREF XREFID="TABLEB-1" XIDTYPE="TABLE">Table B-1</XREF> provides a list of acronyms used throughout the IETM.</PARA>
+<TABLE HEADERROWS="1" ID="TABLEB-1" LABEL="B-1">
+<TITLE>Acronym List</TITLE>
+<TGROUP COLS="2">
+<COLSPEC COLNUM="1" COLNAME="COL1" COLWIDTH="1*" COLSEP="1" ROWSEP="1" ALIGN="CENTER"/>
+<COLSPEC COLNUM="2" COLNAME="COL2" COLWIDTH="3*" COLSEP="1" ROWSEP="1" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY COLNAME="COL1" COLSEP="1" ROWSEP="1" ALIGN="CENTER">TERM</ENTRY>
+<ENTRY COLNAME="COL2" COLSEP="1" ROWSEP="1" ALIGN="CENTER">DEFINITION</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>AAV</ENTRY>
+<ENTRY>Assault Amphibious Vehicle</ENTRY></ROW>
+<ROW>
+<ENTRY>ALU</ENTRY>
+<ENTRY>Arithmetic Logic Unit</ENTRY></ROW>
+<ROW>
+<ENTRY>APS</ENTRY>
+<ENTRY>Application Program Set</ENTRY></ROW>
+<ROW>
+<ENTRY>AR</ENTRY>
+<ENTRY>As Required</ENTRY></ROW>
+<ROW>
+<ENTRY>ATE</ENTRY>
+<ENTRY>Automatic Test Equipment</ENTRY></ROW>
+<ROW>
+<ENTRY>BA</ENTRY>
+<ENTRY>Bus Available</ENTRY></ROW>
+<ROW>
+<ENTRY>BIT</ENTRY>
+<ENTRY>Built In Test</ENTRY></ROW>
+<ROW>
+<ENTRY>CCAs</ENTRY>
+<ENTRY>Circuit Card Assemblies</ENTRY></ROW>
+<ROW>
+<ENTRY>CCRAM</ENTRY>
+<ENTRY>Cross Connect RAM</ENTRY></ROW>
+<ROW>
+<ENTRY>CVSD</ENTRY>
+<ENTRY>Continuous Variable Slope Delta</ENTRY></ROW>
+<ROW>
+<ENTRY>CW</ENTRY>
+<ENTRY>Clockwise</ENTRY></ROW>
+<ROW>
+<ENTRY>DDM</ENTRY>
+<ENTRY>Driver's Display Module</ENTRY></ROW>
+<ROW>
+<ENTRY>ELTD</ENTRY>
+<ENTRY>English Language Test Description</ENTRY></ROW>
+<ROW>
+<ENTRY>ESD</ENTRY>
+<ENTRY>Electrostatic Discharge</ENTRY></ROW>
+<ROW>
+<ENTRY>FBD</ENTRY>
+<ENTRY>Functional Block Diagram</ENTRY></ROW>
+<ROW>
+<ENTRY>GND</ENTRY>
+<ENTRY>Ground</ENTRY></ROW>
+<ROW>
+<ENTRY>IAW</ENTRY>
+<ENTRY>In Accordance With</ENTRY></ROW>
+<ROW>
+<ENTRY>ICS</ENTRY>
+<ENTRY>Intercommunication Set</ENTRY></ROW>
+<ROW>
+<ENTRY>IRQ</ENTRY>
+<ENTRY>Interrupt Request</ENTRY></ROW>
+<ROW>
+<ENTRY>ITA</ENTRY>
+<ENTRY>Interface Test Adapter</ENTRY></ROW>
+<ROW>
+<ENTRY>LRU</ENTRY>
+<ENTRY>Line Replaceable Unit</ENTRY></ROW>
+<ROW>
+<ENTRY>MSDS</ENTRY>
+<ENTRY>Material Safety Data Sheets</ENTRY></ROW>
+<ROW>
+<ENTRY>NMI</ENTRY>
+<ENTRY>Non-Maskable Interrupt</ENTRY></ROW>
+<ROW>
+<ENTRY>NSN</ENTRY>
+<ENTRY>National Stock Number</ENTRY></ROW>
+<ROW>
+<ENTRY>PROM</ENTRY>
+<ENTRY>Programmable Read-Only Memory</ENTRY></ROW>
+<ROW>
+<ENTRY>PTT</ENTRY>
+<ENTRY>Push To-Talk</ENTRY></ROW>
+<ROW>
+<ENTRY>PWM</ENTRY>
+<ENTRY>Pulse-Width Modulator</ENTRY></ROW>
+<ROW>
+<ENTRY>RAM</ENTRY>
+<ENTRY>Random Access Memory</ENTRY></ROW>
+<ROW>
+<ENTRY>RTS</ENTRY>
+<ENTRY>Run-Time System</ENTRY></ROW>
+<ROW>
+<ENTRY>RX</ENTRY>
+<ENTRY>Input Signal</ENTRY></ROW>
+<ROW>
+<ENTRY>SDO</ENTRY>
+<ENTRY>Serial Data Out</ENTRY></ROW>
+<ROW>
+<ENTRY>TMDE</ENTRY>
+<ENTRY>Test Measurement and Diagnostic Equipment</ENTRY></ROW>
+<ROW>
+<ENTRY>TPH</ENTRY>
+<ENTRY>Test Program Hardware</ENTRY></ROW>
+<ROW>
+<ENTRY>TPS</ENTRY>
+<ENTRY>Test Program Set</ENTRY></ROW>
+<ROW>
+<ENTRY>UUT</ENTRY>
+<ENTRY>Unit Under Test</ENTRY></ROW></TBODY></TGROUP></TABLE></PARA0></APPENDIX>

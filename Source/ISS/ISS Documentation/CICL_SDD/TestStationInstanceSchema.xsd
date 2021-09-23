@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by tmcquillen (Access Research Corporation) -->
+<xs:schema xmlns:c="http://www.ieee.org/ATML/2005/08/Common" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xs:import namespace="http://www.ieee.org/ATML/2005/08/Common" schemaLocation="Common.xsd"/>
+	<xs:complexType name="InstrumentAddressType">
+		<xs:all>
+			<xs:element name="InstrumentQueryID" type="xs:string" minOccurs="0"/>
+			<xs:element name="InstrumentTypeNumber" minOccurs="0"/>
+			<xs:element name="ControllerType" minOccurs="0"/>
+			<xs:element name="ControllerNumber" minOccurs="0"/>
+			<xs:element name="PrimaryAddress" type="xs:string" minOccurs="0"/>
+			<xs:element name="SecondaryAddress" type="xs:string" minOccurs="0"/>
+			<xs:element name="SubModuleAddress" type="xs:string" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+		<xs:simpleType name="ResourceUsage">
+		<xs:annotation>
+			<xs:documentation>Basic resource usage</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Power"/>
+			<xs:enumeration value="Source"/>
+			<xs:enumeration value="Sensor"/>
+			<xs:enumeration value="Switch"/>
+			<xs:enumeration value="Digital"/>
+			<xs:enumeration value="Bus"/>
+			<xs:enumeration value="I/O"/>
+		</xs:restriction>
+	</xs:simpleType>
+<xs:element name="TestStationInstance">
+		<xs:annotation>
+			<xs:documentation>Document the attributes and asset configuration of an instance of a Test Station</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PublicAssets">
+					<xs:annotation>
+						<xs:documentation>Register a Instrument Assets</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Asset" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Instrument Specifics</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="InstrumentNumber" type="xs:int"/>
+										<xs:element name="InstrumentName" type="xs:string"/>
+										<xs:element name="InstrumentDriver" type="xs:string"/>
+										<xs:element name="InstrumentAddress" type="InstrumentAddressType" minOccurs="0"/>
+										<xs:element name="ResourceType" type="ResourceUsage" minOccurs="0"/>
+										<xs:element name="SimulationLevel" type="xs:string" minOccurs="0"/>
+										<xs:element name="DebugLevel" type="xs:string" minOccurs="0"/>
+										<xs:sequence>
+											<xs:element name="PhysicalResources" minOccurs="0">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="PhysicalResource" maxOccurs="unbounded">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="ResourceID">
+																		<xs:annotation>
+																			<xs:documentation>Match TestStation ResourceID</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="ResourceName">
+																		<xs:annotation>
+																			<xs:documentation>Match TestStation ResourceName</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:choice minOccurs="0">
+																		<xs:element name="ResourceAddress"/>
+																		<xs:element name="InstrumentAddress" type="InstrumentAddressType"/>
+																	</xs:choice>
+																	<xs:element name="SimulationLevel" type="xs:string" minOccurs="0"/>
+																	<xs:element name="DebugLevel" type="xs:string" minOccurs="0"/>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="VirtualResources" minOccurs="0">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="VirtualResource" maxOccurs="unbounded">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="ResourceID">
+																		<xs:annotation>
+																			<xs:documentation>Match TestStation ResourceID</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="ResourceName">
+																		<xs:annotation>
+																			<xs:documentation>Match TestStation ResourceName</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="PhysicalResourceUsed">
+																		<xs:annotation>
+																			<xs:documentation>Blank separated list of Physical ResourceNames Used</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="SimulationLevel" type="xs:string" minOccurs="0"/>
+																	<xs:element name="DebugLevel" type="xs:string" minOccurs="0"/>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="designator" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

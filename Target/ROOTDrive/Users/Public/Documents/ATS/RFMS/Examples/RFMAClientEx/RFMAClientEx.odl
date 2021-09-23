@@ -1,0 +1,42 @@
+// RFMAClientEx.odl : type library source for RFMAClientEx.exe
+
+// This file will be processed by the MIDL compiler to produce the
+// type library (RFMAClientEx.tlb).
+
+[ uuid(28078CA7-15CC-4C10-A09A-8297D246E563), version(1.0) ]
+library RFMAClientEx
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+
+	//  Primary dispatch interface for CRFMAClientExDoc
+	
+	[ uuid(6DCBF7A0-DC33-4385-B363-5E9ED91295CC) ]
+	dispinterface IRFMAClientEx
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CRFMAClientExDlgAutoProxy)
+			//}}AFX_ODL_PROP
+			
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CRFMAClientExDlgAutoProxy)
+			//}}AFX_ODL_METHOD
+
+	};
+
+	//  Class information for CRFMAClientExDoc
+	
+	[ uuid(DFFFD96E-C381-4877-B963-AE3363066DB3) ]
+	coclass RFMAClientEx
+	{
+		[default] dispinterface IRFMAClientEx;
+	};
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

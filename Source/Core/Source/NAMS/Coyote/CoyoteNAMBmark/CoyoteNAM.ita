@@ -1,0 +1,27 @@
+*****************************************************************
+*                        POWER SUPPLIES                         *
+*****************************************************************
+* 
+*
+*** DCPS #1/2: EO +28 VDC 10 AMPS ***
+*----------------------------------------------------
+from EO_P28V-HI   to J1-1   ;   \\ PPU2-HI
+from EO_P28V-LO   to J1-2   ;   \\ PPU2-LO
+from EO_P28V-HI   to J1-4   ;   \\ PPU2-HI TO PPU3-HI
+from EO_P28V-LO   to J1-5   ;   \\ PPU2-LO TO PPU3-LO
+*
+*** DCPS #2 SENSE ***
+*----------------------------------------------------
+from EO_P28V-HIS  to J1-6   ;   \\ PPU3 HI-SENSE
+from EO_P28V-LOS  to J1-38  ;   \\ PPU3 LO-SENSE
+*
+*** DCPS #3: EO +15 VDC 5 AMPS ***
+*----------------------------------------------------
+from EO_P15V-HI   to J1-7   ;   \\ PPU3-HI
+from EO_P15V-HIS  to J1-9   ;   \\ PPU3 HI-SENSE
+from EO_P15V-LO   to J1-8   ;   \\ PPU3-LO
+from EO_P15V-LOS  to J1-41  ;   \\ PPU3 LO-SENSE
+*
+maxpathdepth = 5;
+*
+*list uut paths;

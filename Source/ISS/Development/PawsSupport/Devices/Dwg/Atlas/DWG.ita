@@ -1,0 +1,650 @@
+
+
+\LOGIC DATA (APPLY, MEASURE)
+
+from CHAN-00 to J6-25;
+from CHAN-01 to J6-26;
+from CHAN-02 to J6-27;
+from CHAN-03 to J6-28;
+from CHAN-04 to J6-29;
+from CHAN-05 to J6-30;
+from CHAN-06 to J6-31;
+from CHAN-07 to J6-32;
+
+from CHAN-08 to J6-80;
+from CHAN-09 to J6-82;
+from CHAN-10 to J6-84;
+from CHAN-11 to J6-86;
+from CHAN-12 to J6-88;
+from CHAN-13 to J6-90;
+from CHAN-14 to J6-92;
+from CHAN-15 to J6-94;
+
+from CHAN-16 to J6-24;
+from CHAN-17 to J6-23;
+from CHAN-18 to J6-22;
+from CHAN-19 to J6-21;
+from CHAN-20 to J6-20;
+from CHAN-21 to J6-19;
+from CHAN-22 to J6-18;
+from CHAN-23 to J6-17;
+from CHAN-24 to J6-16;
+from CHAN-25 to J6-15;
+from CHAN-26 to J6-14;
+from CHAN-27 to J6-13;
+from CHAN-28 to J6-12;
+from CHAN-29 to J6-11;
+from CHAN-30 to J6-10;
+from CHAN-31 to J6-09;
+from CHAN-32 to J6-08;
+from CHAN-33 to J6-07;
+from CHAN-34 to J6-06;
+from CHAN-35 to J6-05;
+from CHAN-36 to J6-04;
+from CHAN-37 to J6-03;
+from CHAN-38 to J6-02;
+from CHAN-39 to J6-01;
+
+from CHAN-40 to J7-56;
+from CHAN-41 to J7-55;
+from CHAN-42 to J7-54;
+from CHAN-43 to J7-53;
+from CHAN-44 to J7-52;
+from CHAN-45 to J7-51;
+from CHAN-46 to J7-50;
+from CHAN-47 to J7-49;
+from CHAN-48 to J7-48;
+from CHAN-49 to J7-47;
+from CHAN-50 to J7-46;
+from CHAN-51 to J7-45;
+from CHAN-52 to J7-44;
+from CHAN-53 to J7-43;
+from CHAN-54 to J7-42;
+from CHAN-55 to J7-41;
+from CHAN-56 to J7-40;
+from CHAN-57 to J7-39;
+from CHAN-58 to J7-38;
+from CHAN-59 to J7-37;
+from CHAN-60 to J7-36;
+from CHAN-61 to J7-35;
+from CHAN-62 to J7-34;
+from CHAN-63 to J7-33;
+*
+*\High Voltage
+*
+from CHAN-HV00 to J8-24;
+from CHAN-HV01 to J8-23;
+from CHAN-HV02 to J8-22;
+from CHAN-HV03 to J8-21;
+from CHAN-HV04 to J8-20;
+from CHAN-HV05 to J8-19;
+from CHAN-HV06 to J8-18;
+from CHAN-HV07 to J8-17;
+from CHAN-HV08 to J8-16;
+from CHAN-HV09 to J8-15;
+from CHAN-HV10 to J8-14;
+from CHAN-HV11 to J8-13;
+from CHAN-HV12 to J8-12;
+from CHAN-HV13 to J8-11;
+from CHAN-HV14 to J8-10;
+from CHAN-HV15 to J8-9;
+from CHAN-HV16 to J8-8;
+from CHAN-HV17 to J8-7;
+from CHAN-HV18 to J8-6;
+from CHAN-HV19 to J8-5;
+from CHAN-HV20 to J8-4;
+from CHAN-HV21 to J8-3;
+from CHAN-HV22 to J8-2;
+from CHAN-HV23 to J8-1;
+
+from CHAN-HV24 to J9-40;
+from CHAN-HV25 to J9-39;
+from CHAN-HV26 to J9-38;
+from CHAN-HV27 to J9-37;
+from CHAN-HV28 to J9-36;
+from CHAN-HV29 to J9-35;
+from CHAN-HV30 to J9-34;
+from CHAN-HV31 to J9-33;
+
+from  DWGEBE53 to DWGT3;
+from  DWGEBE51 to DWGT2;
+
+from CHAN-167 to J2-1;
+from CHAN-166 to J2-2;
+from CHAN-165 to J2-3;
+from CHAN-164 to J2-4;
+from CHAN-163 to J2-5;
+from CHAN-162 to J2-6;
+from CHAN-161 to J2-7;
+from CHAN-160 to J2-8;
+from CHAN-159 to J2-9;
+from CHAN-158 to J2-10;
+from CHAN-157 to J2-11;
+from CHAN-156 to J2-12;
+from CHAN-155 to J2-13;
+from CHAN-154 to J2-14;
+from CHAN-153 to J2-15;
+from CHAN-152 to J2-16;
+from CHAN-151 to J2-17;
+from CHAN-150 to J2-18;
+from CHAN-149 to J2-19;
+from CHAN-148 to J2-20;
+from CHAN-147 to J2-21;
+from CHAN-146 to J2-22;
+from CHAN-145 to J2-23;
+from CHAN-144 to J2-24;
+from CHAN-128 to J2-25;
+from CHAN-129 to J2-26;
+from CHAN-130 to J2-27;
+from CHAN-131 to J2-28;
+from CHAN-132 to J2-29;
+from CHAN-133 to J2-30;
+from CHAN-134 to J2-31;
+from CHAN-135 to J2-32;
+from CHAN-136 to J2-80;
+from CHAN-137 to J2-82;
+from CHAN-138 to J2-84;
+from CHAN-139 to J2-86;
+from CHAN-140 to J2-88;
+from CHAN-141 to J2-90;
+from CHAN-142 to J2-92;
+from CHAN-143 to J2-94;
+
+from CHAN-127 to J5-33;
+
+from CHAN-102 to J4-2;
+from CHAN-100 to J4-4;
+from CHAN-99 to J4-5;
+from CHAN-98 to J4-6;
+from CHAN-97  to J4-7;
+from CHAN-96  to J4-8;
+from CHAN-95  to J4-9;
+from CHAN-94  to J4-10;
+from CHAN-93  to J4-11;
+from CHAN-92  to J4-12;
+from CHAN-91  to J4-13;
+from CHAN-90  to J4-14;
+from CHAN-89  to J4-15;
+from CHAN-88  to J4-16;
+from CHAN-87  to J4-17;
+from CHAN-86  to J4-18;
+from CHAN-85  to J4-19;
+from CHAN-84  to J4-20;
+
+from CHAN-64  to J4-25;
+from CHAN-65  to J4-26;
+from CHAN-66  to J4-27;
+from CHAN-67  to J4-28;
+from CHAN-68  to J4-29;
+from CHAN-69  to J4-30;
+from CHAN-70  to J4-31;
+from CHAN-71  to J4-32;
+from CHAN-72  to J4-80;
+from CHAN-73  to J4-82;
+from CHAN-74  to J4-84;
+from CHAN-75  to J4-86;
+from CHAN-76  to J4-88;
+from CHAN-77  to J4-90;
+from CHAN-78  to J4-92;
+from CHAN-79  to J4-94;
+
+from CHAN-101  to J4-3;
+from CHAN-103  to J4-1;
+from CHAN-104  to J5-56;
+from CHAN-105  to J5-55;
+from CHAN-106  to J5-54;
+from CHAN-107  to J5-53;
+from CHAN-108  to J5-52;
+from CHAN-109  to J5-51;
+from CHAN-110  to J5-50;
+from CHAN-111  to J5-49;
+from CHAN-112  to J5-48;
+from CHAN-113  to J5-47;
+from CHAN-114  to J5-46;
+from CHAN-115  to J5-45;
+from CHAN-116  to J5-44;
+from CHAN-117  to J5-43;
+from CHAN-118  to J5-42;
+from CHAN-119  to J5-41;
+from CHAN-120  to J5-40;
+from CHAN-121  to J5-39;
+from CHAN-122  to J5-38;
+from CHAN-123  to J5-37;
+from CHAN-124  to J5-36;
+from CHAN-125  to J5-35;
+from CHAN-126  to J5-34;
+
+from CHAN-172  to J3-52;
+from CHAN-173  to J3-51;
+from CHAN-174  to J3-50;
+from CHAN-175  to J3-49;
+from CHAN-176  to J3-48;
+from CHAN-177  to J3-47;
+from CHAN-178  to J3-46;
+from CHAN-179  to J3-45;
+from CHAN-180  to J3-44;
+from CHAN-181  to J3-43;
+from CHAN-182  to J3-42;
+from CHAN-183  to J3-41;
+from CHAN-184  to J3-40;
+from CHAN-185  to J3-39;
+from CHAN-186  to J3-38;
+from CHAN-187  to J3-37;
+from CHAN-188  to J3-36;
+from CHAN-189  to J3-35;
+from CHAN-190  to J3-34;
+from CHAN-191  to J3-33;
+
+from CHAN-43 to J7-53;
+
+from CHAN-83 to J4-21;
+from CHAN-82 to J4-22;
+from CHAN-81 to J4-23;
+from CHAN-80 to J4-24;
+
+from CHAN-171 to J3-53;
+from CHAN-170 to J3-54;
+from CHAN-169 to J3-55;
+from CHAN-168 to J3-56;
+
+
+*** ID Identification **Debug *
+from ID_IDENT0 to J7-51    ;   \\ CH174  (n/c)
+from ID_IDENT1 to J7-52    ;   \\ CH173  (grounded)
+****ID Identification * tps connections  are **************
+*from ID_IDENT0 to J3-51    ;   \\ CH174  (n/c)
+*from ID_IDENT1 to J3-52    ;   \\ CH173  (grounded)
+********************************************************
+**** HV PIN CHECKS ****
+from J3_B20HV  to J8-24  ;   \\ UUT MATING CONNECTOR TO HV UB0
+from J3_B21HV  to J8-23  ;   \\ UUT MATING CONNECTOR TO HV UB1
+from J3_B22HV  to J8-22  ;   \\ UUT MATING CONNECTOR TO HV UB2
+
+
+
+******************************************
+* TEST POINT CONNECTOR PINS (FROM ID J5) *
+******************************************
+*
+from TP4     	to	J2-08 ;	\\ CH160 via J5-A01
+from TP5     	to	J2-09 ;	\\ CH159 via J5-A03
+from TP6     	to	J6-25 ;	\\ CH0   via J5-D04
+from TP7     	to	J2-14 ;	\\ CH154 via J5-A05
+from TP8     	to	J2-18 ;	\\ CH150 via J5-A07
+from TP9     	to	J5-48 ;	\\ CH112 via J5-C07
+from TP10    	to	J6-26 ;	\\ CH1   via J5-D08
+from TP11    	to	J2-19 ;	\\ CH149 via J5-A09
+from TP12    	to	J2-17 ;	\\ CH151 via J5-C09
+from TP13    	to	J3-55 ;	\\ CH169 via J5-D10
+from TP14    	to	J6-27 ;	\\ CH2   via J5-D12
+from TP15    	to	J6-28 ;	\\ CH3   via J5-D16
+from TP16    	to	J3-40 ;	\\ CH184 via J5-C19
+from TP17    	to	J6-29 ;	\\ CH4   via J5-D20
+from TP18    	to	J2-32 ;	\\ CH135 via J5-A21
+from TP19    	to	J6-84 ;	\\ CH10  via J5-D24
+from TP21    	to	J4-17 ;	\\ CH87  via J5-D26
+from TP22    	to	J6-86 ;	\\ CH11  via J5-D28
+from TP23    	to	J6-24 ;	\\ CH16  via J5-C31
+from TP24    	to	J3-34 ;	\\ CH190 via J5-A33
+from TP25    	to	J6-23 ;	\\ CH17  via J5-D36
+from TP26    	to	J3-36 ;	\\ CH188 via J5-A37
+from TP27    	to	J5-45 ;	\\ CH115 via J5-D38
+from TP28    	to	J3-37 ;	\\ CH187 via J5-A39
+from TP29    	to	J6-22 ;	\\ CH18  via J5-D40
+from TP30    	to	J3-38 ;	\\ CH186 via J5-A41
+from TP31    	to	J6-21 ;	\\ CH19  via J5-C43
+from TP32    	to	J5-49 ;	\\ CH111 via J5-D44
+from TP33    	to	J6-15 ;	\\ CH25  via J5-D48
+*
+******************************************
+* TEST POINT CONNECTOR PINS (FROM ID J4) *
+******************************************
+*
+from TP34    	to	J6-88 ;	\\ CH12  via J4-A01 S201-1,5
+from TP35    	to	J6-19 ;	\\ CH21  via J4-B02 S503-2,4
+from TP36    	to	J6-90 ;	\\ CH13  via J4-A03 S201-3,7
+from TP57    	to	J6-92 ;	\\ CH14  via J4-A05 S202-1,5
+from TP58    	to	J6-17 ;	\\ CH23  via J4-B06 S504-2,4
+from TP59    	to	J6-82 ;	\\ CH9   via J4-A07 S301-155,156
+from TP60    	to	J6-16 ;	\\ CH24  via J4-B08 S505-1,3
+from TP61    	to	J6-11 ;	\\ CH29  via J4-A09 S509-1,3
+from TP62    	to	J6-14 ;	\\ CH26  via J4-B10 S505-2,4
+from TP63    	to	J6-09 ;	\\ CH31  via J4-A11 S510-1,3
+from TP64    	to	J6-13 ;	\\ CH27  via J4-B12 S506-1,3
+from TP65    	to	J6-12 ;	\\ CH28  via J4-B14 S506-2,4
+from TP66    	to	J6-10 ;	\\ CH30  via J4-B16 S507-1,3
+from TP67    	to	J6-08 ;	\\ CH32  via J4-B18 S507-2,4
+from TP68    	to	J6-07 ;	\\ CH33  via J4-B20 S508-1,3
+from TP69    	to	J5-44 ;	\\ CH116 via J4-A25 S301-87,88
+from TP70    	to	J5-42 ;	\\ CH118 via J4-A27 S301-79,80
+from TP71    	to	J5-40 ;	\\ CH120 via J4-A29 S301-71,72
+from TP72    	to	J6-94 ;	\\ CH15  via J4-A39 S202-3,7
+from TP85    	to	J6-30 ;	\\ CH5   via J4-A41 S501-1,3
+from TP91    	to	J6-31 ;	\\ CH6   via J4-A43 S501-2,4
+from TP98    	to	J6-32 ;	\\ CH7   via J4-A45 S502-1,3
+from TP99    	to	J6-80 ;	\\ CH8   via J4-A47 S502-2,4
+from EZHOOK1 	to	J6-20 ;	\\ CH20  via J4-A49 S503-1,3
+*
+from ID-UB0     to J8-24; \\ LL0 DIRECTS FG TO PDU(U3)
+from ID-UB1     to J8-23; \\ LL0 DIRECTS UUT CLK TO PDU
+from ID-UB2     to J8-22; \\ PDU A0 (LSB OF PROG. DLY)
+from ID-UB3     to J8-21; \\ PDU A1
+from ID-UB4     to J8-20; \\ PDU A2
+from ID-UB5     to J8-19; \\ PDU A3
+from ID-UB6     to J8-18; \\ PDU A4
+from ID-UB7     to J8-17; \\ PDU A5
+from ID-UB8     to J8-16; \\ PDU A6
+from ID-UB9     to J8-15; \\ PDU A7 (MSB OF PROG. DLY)
+*
+from J2_C63  	to	J7-55 ;	\\ CH41
+from J2_C64  	to	J7-56 ;	\\ CH40
+from J2_C65  	to	J6-01 ;	\\ CH39
+from J2_C66  	to	J6-02 ;	\\ CH38
+from J2_C91  	to	J6-03 ;	\\ CH37
+from J2_C92  	to	J6-04 ;	\\ CH36
+from J2_C93  	to	J6-05 ;	\\ CH35
+from J2_C94  	to	J6-06 ;	\\ CH34
+** 
+* PCR 100
+*
+*from P1-2   to J6-10;	\\ H/W (tps is CH103 J4-2;) ch31
+*from P1-3   to J6-82;	\\ H/W (tps is CH100 J4-5 ) ch10
+*from P1-4   to J6-29;	\\ H/W (tps is CH99  J4-6;) ch5
+*from P1-5   to J7-52;	\\ H/W (tps is CH98  J4-7 ) ch45
+*from P1-6   to J6-15;	\\ H/W (tps is CH96  J4-9 ) ch26
+*from P1-7   to J6-11;	\\ H/W (tps is CH94  J4-11) ch30
+*from P1-9   to J6-17;	\\ H/W CH24
+*from P1-10  to J6-3;	\\ H/W (tps is CH92 J4-13;) ch38
+*from P1-12  to J6-1;	\\ H/W (tps is CH91 J4-14 ) ch40
+*from P1-13  to J6-9;	\\ H/W CH32
+*from P1-14  to J7-47;	\\ H/W (tps is CH90 J4-15 ) ch50
+*from P1-15  to J6-4;	\\ H/W CH37
+*from P1-16  to J6-86;	\\ H/W (tps is CH89 J4-16 ) ch12
+*from P1-17  to J7-45;	\\ H/W (tps is CH88 J4-17 ) ch52
+*from P1-18  to J6-19;	\\ H/W (tps is CH86 J4-19 ) ch22
+*from P1-19  to J6-16;	\\ H/W (tps is CH84 J4-21 ) ch25
+*from P1-20  to J6-88;	\\ H/W CH13
+*from P1-22D to J7-54;	\\ H/W CH43 
+*from P1-24  to J6-28;	\\ H/W CH4
+*from P1-25  to J6-26;	\\ H/W CH2
+*from P1-26  to J7-41 ;	\\ H/W (tps is CH105 J5-56 ) ch56
+*from P1-27  to J7-39;	\\ H/W (tps is CH83  J4-22 ) ch58
+*from P1-28  to J6-7;	\\ H/W (tps is CH108 J5-53 ) ch34 
+*from P1-29D to J7-53;	\\ H/W CH44 
+*from P1-34  to J6-2;	\\ H/W (tps is CH72 J4-32 ) ch39
+*from P1-35  to J7-38;	\\ H/W (tps is CH73 J4-80 ) ch59
+*from P1-36  to J6-84;	\\ H/W (tps is CH120 J5-41 ) ch11
+*from P1-37  to J6-94;	\\ H/W (tps is CH74  J4-82 ) ch16
+*from P1-38  to J6-92;	\\ H/W (tps is CH76  J4-86 ) ch15
+*from P1-41  to J6-90 ;	\\ H/W (tps is CH79  J4-92 ) ch14
+*from P1-45  to J6-32;	\\ H/W (tps is CH102  J4-3 ) ch8
+*from P1-46  to J6-24;	\\ H/W (tps is CH101 J4-4 ) ch17
+*from P1-47D to J7-51;   \\ H/W CH46 
+*from P1-48  to J6-12;	\\ H/W (tps is CH97 J4-8 ) ch29 
+*from P1-49  to J7-42;	\\ H/W (tps is CH95 J4-10) ch55 
+*from P1-50  to J7-56;	\\ H/W (tps is CH93 J4-12 ) ch41 
+*from P1-51D to J7-50;	\\ H/W CH47 
+*from P1-53  to J6-13;	\\ H/W CH28
+*from P1-55D to J7-48;   \\ H/W CH49 
+*from P1-56  to J6-8;	\\ H/W CH33
+*from P1-57  to J6-6;	\\ H/W CH35
+*from P1-64  to J6-80;	\\ H/W CH9
+*from P1-65  to J6-31;	\\ H/W CH7
+*from P1-66D to J7-46 ;  \\ H/W CH51 
+*from P1-67  to J6-27;	\\ H/W CH3
+*from P1-68  to J6-25;	\\ H/W CH1
+*from P1-69  to J6-23;	\\ H/W CH18
+*from P1-70  to J7-55;	\\ H/W (tps is CH82 J4-23 ) ch42 
+*from P1-78  to J7-35;	\\ H/W (tps is CH116 J5-45) ch62  
+*from P1-80D to J7-44;   \\ H/W CH53 
+*from P1-83D to J7-43;   \\ H/W CH54 
+*from P1-85  to J7-34;	\\ H/W (tps is CH80 J4-94 ) ch63 
+*from P1-88  to J7-33;	\\ H/W (tps is CH141 J2-88 ) ch64 
+*from P1-89  to J6-21;	\\ H/W CH20 
+*from P1-90  to J6-20;	\\ H/W CH21
+*from P1-92  to J7-49;	\\ H/W (tps is CH136 J2-32 )ch48 
+*from P1-94  to J6-18;	\\ H/W CH23
+*from P1-96  to J6-14;	\\ H/W CH27
+*from P1-97  to J6-12;	\\ H/W CH29
+*from P1-100 to J6-5;	\\ H/W CH36
+*from P1-108 to J6-30;	\\ H/W CH6
+*from P1-109D to J7-37;  \\ H/W CH60 
+*from P1-110D to J7-36;  \\ H/W CH61 
+*from P1-112 to J6-22;	\\ H/W CH19
+*
+** apply stim
+*
+from P1-2   to CHAN-00;  \\MSB 
+from P1-3   to CHAN-02;
+from P1-4   to CHAN-04;
+from P1-5   to CHAN-06;
+from P1-6   to CHAN-08;
+from P1-7   to CHAN-10;
+from P1-10  to CHAN-12;
+from P1-12  to CHAN-14;
+*
+from P1-13  to CHAN-16;
+from P1-14  to CHAN-17;
+from P1-15  to CHAN-18;
+from P1-16  to CHAN-19;
+from P1-22D to CHAN-20;
+from P1-24  to CHAN-21;
+from P1-26  to CHAN-22;
+from P1-27  to CHAN-23;
+*
+from P1-28  to CHAN-24;
+from P1-34  to CHAN-25;
+from P1-35  to CHAN-26;
+from P1-37  to CHAN-27;
+from P1-38  to CHAN-28;
+from P1-41  to CHAN-29;
+from P1-45  to CHAN-30;
+from P1-46  to CHAN-31;
+*
+from P1-48  to CHAN-32;
+from P1-49  to CHAN-33;
+from P1-50  to CHAN-34;
+from P1-51D to CHAN-35;
+from P1-64  to CHAN-36;
+from P1-65  to CHAN-37;
+from P1-67  to CHAN-38;
+from P1-68  to CHAN-39;  \\ LSB
+*
+**response
+*
+from P1-89  to CHAN-01;   \\MSB
+from P1-47D to CHAN-03;
+from P1-94  to CHAN-05;
+from P1-92  to CHAN-07;
+from P1-9   to CHAN-09;
+from P1-97  to CHAN-11;
+from P1-18  to CHAN-13;
+from P1-20  to CHAN-15;
+*
+from P1-56  to CHAN-40;
+from P1-17  to CHAN-41;
+from P1-57  to CHAN-42;
+from P1-19  to CHAN-43;
+from P1-66D to CHAN-44;
+from P1-25  to CHAN-45;
+from P1-70  to CHAN-46;
+from P1-112 to  CHAN-47;
+*
+from P1-29D to CHAN-48;
+from P1-36  to CHAN-49;
+from P1-78  to CHAN-50;
+from P1-80D to CHAN-51; 
+from P1-83D to CHAN-52;
+from P1-85  to CHAN-53;
+from P1-88  to CHAN-54;
+from P1-90  to CHAN-55;
+*
+from P1-96  to CHAN-56;
+from P1-55D to CHAN-57;
+from P1-100 to CHAN-58;
+from P1-53  to CHAN-59;
+from P1-108 to CHAN-60;
+from P1-109D to CHAN-61;
+from P1-69  to CHAN-62;
+from P1-110D to CHAN-63;  \\LSB
+*
+* pcr 100 cont.
+*
+*from P1-28  to J5-53;	\\ H/W CH108
+*from P1-42  to J4-1;	\\ H/W CH104
+*from P1-52  to J6-15;	\\ H/W CH26
+*from P1-53  to J6-13;	\\ H/W CH28
+*from P1-66D to J7-46 ;  \\ H/W CH51 SWITCHED S405-4
+*from P1-72  to J5-51;	\\ H/W CH110
+*from P1-73  to J4-26;	\\ H/W CH66
+*from P1-74  to J4-27;	\\ H/W CH67
+*from P1-75  to J4-29;	\\ H/W CH69
+*from P1-76  to J4-31;	\\ H/W CH71
+*from P1-77D to J7-45;   \\ H/W CH52 SWITCHED S606-3
+*from P1-78  to J5-45;	\\ H/W CH116
+*from P1-81  to J4-84;	\\ H/W CH75
+*from P1-82  to J5-38;	\\ H/W CH123
+*from P1-84  to J5-35;	\\ H/W CH126
+*from P1-93  to J6-19;	\\ H/W CH22
+*from P1-95  to J6-16;	\\ H/W CH25
+*from P1-98D to J7-39;   \\ H/W CH58 SWITCHED S609-3
+*from P1-99  to J6-7;	\\ H/W CH34
+*from P1-101 to J6-2;	\\ H/W CH39
+*from P1-103 to J6-94;	\\ H/W CH16
+*from P1-104 to J6-92;	\\ H/W CH15
+*from P1-105 to J6-90;	\\ H/W CH14
+*from P1-107 to J6-32;	\\ H/W CH8
+*from P1-111 to J6-24;	\\ H/W CH17
+*from P1-113 to J5-55;	\\ H/W CH106
+*from P1-114 to J5-54;	\\ H/W CH107
+*from P1-115 to J5-52;	\\ H/W CH109
+*from P1-116 to J5-50;	\\ H/W CH111
+*from P1-117 to J5-49;	\\ H/W CH112
+*from P1-118 to J5-48;	\\ H/W CH113
+*from P1-119 to J5-47;	\\ H/W CH114
+*from P1-120 to J5-46;	\\ H/W CH115
+*from P1-121 to J5-44;	\\ H/W CH117
+*from P1-122 to J5-42;	\\ H/W CH119
+*from P1-123 to J5-40;	\\ H/W CH121
+*from P1-124 to J5-39;	\\ H/W CH122
+*from P1-125 to J5-37;	\\ H/W CH124
+*from P1-126 to J5-36;	\\ H/W CH125
+*from P1-127 to J5-34;	\\ H/W CH127
+*from P1-128 to J5-33;	\\ H/W CH128
+* 
+from P111-28  to CHAN-143;	\\ H/W CH108
+from P111-42  to CHAN-144;	\\ H/W CH104
+from P111-52  to CHAN-145;		\\ H/W CH26
+from P111-53  to CHAN-146;		\\ H/W CH28
+from P111-66D to CHAN-147; 	\\ H/W CH51 SWITCHED S405-4
+from P111-72  to CHAN-148;	\\ H/W CH110
+from P111-73  to CHAN-149;		\\ H/W CH66
+from P111-74  to CHAN-150;		\\ H/W CH67
+from P111-75  to CHAN-151;		\\ H/W CH69
+from P111-76  to CHAN-152;  	\\ H/W CH71
+from P111-77D to CHAN-153;		\\ H/W CH52 SWITCHED S606-3
+from P111-78  to CHAN-154;	\\ H/W CH116
+from P111-79  to CHAN-155;	\\ H/W CH118
+from P111-81  to CHAN-156;		\\ H/W CH75
+from P111-82  to CHAN-157;	\\ H/W CH123
+from P111-84  to CHAN-158;	\\ H/W CH126
+from P111-93  to CHAN-159;		\\ H/W CH22
+from P111-95  to CHAN-160;		\\ H/W CH25
+from P111-98D to CHAN-161;  	\\ H/W CH58 SWITCHED S609-3
+from P111-99  to CHAN-162;		\\ H/W CH34
+from P111-101 to CHAN-163;		\\ H/W CH39
+from P111-103 to CHAN-164;		\\ H/W CH16
+from P111-104 to CHAN-165;		\\ H/W CH15
+from P111-105 to CHAN-166;		\\ H/W CH14
+from P111-107 to CHAN-167;		\\ H/W CH8
+from P111-111 to CHAN-128;	\\ H/W CH105
+from P111-113 to CHAN-129;	\\ H/W CH106
+from P111-114 to CHAN-130;	\\ H/W CH107
+from P111-115 to CHAN-131;	\\ H/W CH109
+from P111-116 to CHAN-132;	\\ H/W CH111
+from P111-117 to CHAN-133;	\\ H/W CH112
+from P111-118 to CHAN-134;	\\ H/W CH113
+from P111-119 to CHAN-135;	\\ H/W CH114
+from P111-120 to CHAN-136;	\\ H/W CH115
+from P111-121 to CHAN-137;	\\ H/W CH117
+from P111-122 to CHAN-138;	\\ H/W CH119
+from P111-123 to CHAN-139;	\\ H/W CH121
+from P111-124 to CHAN-140;	\\ H/W CH122
+from P111-125 to CHAN-141;	\\ H/W CH124
+from P111-126 to CHAN-142;	\\ H/W CH125
+from P111-127 to CHAN-143;	\\ H/W CH127
+from P111-128 to CHAN-127;	\\ H/W CH128
+* 
+from P1-86F   to J1-1  ;  \\ DC1-HI +5VCD                     
+from P1-86S  to J1-3  ;  \\ DC1-SHI +5VDC SENSE
+from P1-44F   to J1-2  ;  \\ DC1-LO +5VDC RTN
+from P1-44S  to J1-35 ;  \\ DC1-SLO +5VDC RTN SENSE
+*
+from P1-51F   to J1-4;  \\ UUT TO S401-1
+from P1-51S  to J1-6  ;  \\ DC2-SHI -12 VDC SENSE       
+from P1-1F    to J1-5  ;  \\ DC2-LO -5 VDC RTN
+from P1-1S   to J1-38 ;  \\ DC2-SLO -5 VDC RTN SENSE
+*
+from P1-22F   to J1-7;  \\ UUT TO S403-1
+from P1-22S  to J1-9  ;  \\ DC3-SHI -5 VDC SENSE
+from P1-1AF    to J1-8  ;  \\ DC3-LO -5 VDC RTN
+from P1-1AS   to J1-41 ;  \\ DC3-SLO -5 VDC RTN SENSE
+*
+from P1-29F   to J1-10;  \\ UUT TO S402-1
+from P1-29S  to J1-12 ;  \\ DC4-SHI +12 VDC SENSE
+from P1-1BF    to J1-11  ;  \\ DC4-LO -5 VDC RTN
+from P1-1BS   to J1-44 ;  \\ DC4-SLO -5 VDC RTN SENSE
+*
+* pcr 98
+from J2_C91  	to	J6-03 ;	\\ CH37
+from J2_C92  	to	J6-04 ;	\\ CH36
+from J2_C93  	to	J6-05 ;	\\ CH35
+from J2_C94  	to	J6-06 ;	\\ CH34
+from J2_C63  	to	J7-55 ;	\\ CH41
+from J2_C64  	to	J7-56 ;	\\ CH40
+from J2_C65  	to	J6-01 ;	\\ CH39
+from J2_C66  	to	J6-02 ;	\\ CH38
+*
+* pcr 99 
+from J3-33   to ITA_HI   ;
+*
+from J3-41   to ITA7  	;
+from J3-40   to ITA6	;
+from J3-39   to ITA5	;
+from J3-38   to ITA4	;
+from J3-37   to ITA3	;
+from J3-36   to ITA2	;
+from J3-35   to ITA1	;
+from J3-34   to ITA0	;
+*
+from J2-15   to ID_P1-222 ;   \\ DTS CH153 
+from J2-14   to ID_P1-223 ;   \\ DTS CH154
+from J2-13   to ID_P1-224 ;   \\ DTS CH155
+from J2-12   to ID_P1-225 ;   \\ DTS CH156
+from J2-11   to ID_P1-226 ;   \\ DTS CH157
+from J2-10   to ID_P1-227 ;   \\ DTS CH158
+from J2-9    to ID_P1-228 ;   \\ DTS CH159
+*
+from CHAN-H00 to J5-24;
+from CHAN-H01 to J5-23;
+from CHAN-H02 to J5-22;
+from CHAN-H03 to J5-21;
+from CHAN-H04 to J5-20;
+from CHAN-H05 to J5-19;
+from CHAN-H06 to J5-18;
+from CHAN-H07 to J5-17;
+from CHAN-H08 to J5-16;
+from CHAN-H09 to J5-15;
+from CHAN-H10 to J5-14;
+from CHAN-H11 to J5-13;
+from CHAN-H12 to J5-12;
+from CHAN-H13 to J5-11;
+from CHAN-H14 to J5-10;
+from CHAN-H15 to J5-9;
+**
+from CT-STRT   to J19-18; \\ H/W CH55 (PDC CAL)
+from DTS-CH55   to J7-42; \\ H/W CH55 (PDC CAL)
+from CT-STOP    to J19-19; \\ H/W CH41 (PDC CAL)
+from DTS-CH41   to J7-56; \\ H/W CH41 (PDC CAL)
+from ID-PDCOUT1 to J19-19; \\ PDC OUTPUT TO CNTR CH 2 (CT-IN2)
+*

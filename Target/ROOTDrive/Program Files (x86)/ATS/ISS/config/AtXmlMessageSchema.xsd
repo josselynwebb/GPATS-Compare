@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by tmcquillen (Access Research Corporation) -->
+<xs:schema xmlns:c="http://www.ieee.org/ATML/2005/08/Common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:stdbsc="STDBSC" xmlns:tsf="USER_TSF" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xs:import namespace="http://www.ieee.org/ATML/2005/08/Common" schemaLocation="Common.xsd"/>
+	<xs:simpleType name="AtXmlCallbackType">
+		<xs:annotation>
+			<xs:documentation>AtXml Callback Type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ATXML_STOP_TE_ACTION"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AtXmlCallbackReason">
+		<xs:annotation>
+			<xs:documentation>AtXml Callback Reason used by Invoke</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ATXML_TE_ACTION_HALT"/>
+			<xs:enumeration value="ATXML_TE_ACTION_RESET"/>
+			<xs:enumeration value="ATXML_TE_ACTION_EXIT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AtXmlSignalAction">
+		<xs:annotation>
+			<xs:documentation>AtXml Action specifying the use of signal snippet information</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Apply"/>
+			<xs:enumeration value="Remove"/>
+			<xs:enumeration value="Measure"/>
+			<xs:enumeration value="Read"/>
+			<xs:enumeration value="Reset"/>
+			<xs:enumeration value="Setup"/>
+			<xs:enumeration value="Identify"/>
+			<xs:enumeration value="Connect"/>
+			<xs:enumeration value="Enable"/>
+			<xs:enumeration value="Disable"/>
+			<xs:enumeration value="Fetch"/>
+			<xs:enumeration value="Disconnect"/>
+			<xs:enumeration value="Identify"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AtXmlResourceType">
+		<xs:annotation>
+			<xs:documentation>AtXml Basic resource usage</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Power"/>
+			<xs:enumeration value="Source"/>
+			<xs:enumeration value="Sensor"/>
+			<xs:enumeration value="Switch"/>
+			<xs:enumeration value="Load"/>
+			<xs:enumeration value="Digital"/>
+			<xs:enumeration value="Bus"/>
+			<xs:enumeration value="I/O"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SignalExtensionType">
+		<xs:sequence>
+			<xs:any namespace="STDBSC STDTSF" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AtXmlAllocationType">
+		<xs:attribute name="signalID" type="xs:string" default=""/>
+		<xs:attribute name="signalName" type="xs:string" default=""/>
+		<xs:attribute name="resourceID" type="xs:string" default=""/>
+		<xs:attribute name="resourceName" type="xs:string" use="required"/>
+		<xs:attribute name="stationInstrumentName" type="xs:string" use="required"/>
+		<xs:attribute name="stationResourceName" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="AtXmlResetResourceType">
+		<xs:attribute name="sequenceNumber" type="xs:integer" use="required"/>
+		<xs:attribute name="signalID" type="xs:string" default=""/>
+		<xs:attribute name="signalName" type="xs:string" default=""/>
+		<xs:attribute name="resourceID" type="xs:string" default=""/>
+		<xs:attribute name="resourceName" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="AtXmlAvailabilityValues">
+		<xs:annotation>
+			<xs:documentation>AtXml Availability values</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Available"/>
+			<xs:enumeration value="FailedST"/>
+			<xs:enumeration value="FailedIST"/>
+			<xs:enumeration value="CalExpired"/>
+			<xs:enumeration value="NoResponse"/>
+			<xs:enumeration value="NotFound"/>
+			<xs:enumeration value="Simulated"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AtXmlAvailabilityType">
+		<xs:attribute name="signalID" type="xs:string" default=""/>
+		<xs:attribute name="signalName" type="xs:string" default=""/>
+		<xs:attribute name="resourceID" type="xs:string" default=""/>
+		<xs:attribute name="resourceName" type="xs:string" default=""/>
+		<xs:attribute name="availability" type="AtXmlAvailabilityValues"/>
+	</xs:complexType>
+	<xs:simpleType name="AtXmlAllocatedToValues">
+		<xs:annotation>
+			<xs:documentation>AtXml Allocated To Client Type Values</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TestProgram"/>
+			<xs:enumeration value="SoftFrontPanel"/>
+			<xs:enumeration value="SelfTestProgram"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AtXmlInstrumentStatusType">
+		<xs:attribute name="signalID" type="xs:string" default=""/>
+		<xs:attribute name="signalName" type="xs:string" default=""/>
+		<xs:attribute name="resourceID" type="xs:string" default=""/>
+		<xs:attribute name="resourceName" type="xs:string" use="required"/>
+		<xs:attribute name="stationInstrumentName" type="xs:string" use="optional"/>
+		<xs:attribute name="stationResourceName" type="xs:string" use="optional"/>
+		<xs:attribute name="availability" type="AtXmlAvailabilityValues" use="required"/>
+		<xs:attribute name="allocatedTo" type="AtXmlAllocatedToValues" use="optional"/>
+		<xs:attribute name="lastCalibrationDate" type="xs:string" use="optional"/>
+		<xs:attribute name="lastSelfTestTpsDate" type="xs:string" use="optional"/>
+		<xs:attribute name="lastSelfTestTpsStatus" type="xs:string" use="optional"/>
+		<xs:attribute name="lastInstrumentSelfTestDate" type="xs:string" use="optional"/>
+		<xs:attribute name="lastInstrumentSelfTestStatus" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="AtXmlDataArray">
+		<xs:attribute name="arrayValues" type="xs:string" use="required"/>
+		<xs:attribute name="unit" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="AtXmlValuePair">
+		<xs:sequence>
+			<xs:element name="Attribute" type="xs:string"/>
+			<xs:choice>
+				<xs:element name="Value" type="c:Value"/>
+				<xs:element name="RealArray" type="AtXmlDataArray"/>
+				<xs:element name="IntegerArray" type="AtXmlDataArray"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AtXmlInstrumentCommands">
+		<xs:sequence>
+			<xs:element name="Commands" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExpectedResponseString" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="DelayInSeconds"/>
+					<xs:attribute name="MaxLength" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AtXmlParameterType">
+		<xs:annotation>
+			<xs:documentation>AtXml Driver Function Parameter Type Values</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Void"/>
+			<xs:enumeration value="Handle"/>
+			<xs:enumeration value="SrcStrPtr"/>
+			<xs:enumeration value="RetStrPtr"/>
+			<xs:enumeration value="SrcDbl"/>
+			<xs:enumeration value="SrcDblPtr"/>
+			<xs:enumeration value="RetDbl"/>
+			<xs:enumeration value="RetDblPtr"/>
+			<xs:enumeration value="SrcFlt"/>
+			<xs:enumeration value="SrcFltPtr"/>
+			<xs:enumeration value="RetFlt"/>
+			<xs:enumeration value="RetFltPtr"/>
+			<xs:enumeration value="SrcUInt8"/>
+			<xs:enumeration value="SrcUInt8Ptr"/>
+			<xs:enumeration value="SrcInt8"/>
+			<xs:enumeration value="SrcInt8Ptr"/>
+			<xs:enumeration value="RetUInt8"/>
+			<xs:enumeration value="RetUInt8Ptr"/>
+			<xs:enumeration value="RetInt8"/>
+			<xs:enumeration value="RetInt8Ptr"/>
+			<xs:enumeration value="SrcUInt16"/>
+			<xs:enumeration value="SrcUInt16Ptr"/>
+			<xs:enumeration value="SrcInt16"/>
+			<xs:enumeration value="SrcInt16Ptr"/>
+			<xs:enumeration value="RetUInt16"/>
+			<xs:enumeration value="RetUInt16Ptr"/>
+			<xs:enumeration value="RetInt16"/>
+			<xs:enumeration value="RetInt16Ptr"/>
+			<xs:enumeration value="SrcUInt32"/>
+			<xs:enumeration value="SrcUInt32Ptr"/>
+			<xs:enumeration value="SrcInt32"/>
+			<xs:enumeration value="SrcInt32Ptr"/>
+			<xs:enumeration value="RetUInt32"/>
+			<xs:enumeration value="RetUInt32Ptr"/>
+			<xs:enumeration value="RetInt32"/>
+			<xs:enumeration value="RetInt32Ptr"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AtXmlDriverParameters">
+		<xs:sequence>
+			<xs:element name="FunctionName" type="xs:string"/>
+			<xs:element name="Parameter" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="ParamNumber" type="xs:integer" use="required"/>
+					<xs:attribute name="ParamType" type="AtXmlParameterType" use="required"/>
+					<xs:attribute name="Value" type="xs:string"/>
+					<xs:attribute name="Size" type="xs:int"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AtXmlMessages">
+		<xs:annotation>
+			<xs:documentation>Message Schemas for the Station Controller / Test Executive Communication</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="AtXmlCallbackRegistered">
+					<xs:annotation>
+						<xs:documentation>Register a callback function</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Callback" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>Callback Function Name</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CallbackType" type="AtXmlCallbackType">
+								<xs:annotation>
+									<xs:documentation>Callback Type Enum Value</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlCallbackInvoke">
+					<xs:annotation>
+						<xs:documentation>Invoke a callback function</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Callback" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>Callback Function Name</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CallbackReason" type="AtXmlCallbackReason">
+								<xs:annotation>
+									<xs:documentation>Callback Type Enum Value</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlSignalDescription">
+					<xs:annotation>
+						<xs:documentation>Send Station Controller a signal description</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="SignalAction" type="AtXmlSignalAction">
+								<xs:annotation>
+									<xs:documentation>Signal Action from TD or TPL</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SignalResourceName" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Signal Resource Name From TD or TSFLIB Mandatory for now</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:choice>
+								<xs:element name="SignalSnippet" type="SignalExtensionType">
+									<xs:annotation>
+										<xs:documentation>Signal Snippet should validate with 1641STDBCS</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="Connection">
+									<xs:complexType>
+										<xs:attribute name="name" type="xs:string"/>
+										<xs:attribute name="path" type="xs:string"/>
+										<xs:attribute name="from" type="xs:string"/>
+										<xs:attribute name="to" type="xs:string"/>
+										<xs:attribute name="via" type="xs:string"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlResponse">
+					<xs:annotation>
+						<xs:documentation>All enclusive API response XML</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ErrStatus">
+								<xs:annotation>
+									<xs:documentation>Status code and error message text if applicable</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="moduleName" type="xs:string" use="required"/>
+									<xs:attribute name="leadText" type="xs:string" use="required"/>
+									<xs:attribute name="errCode" type="xs:int" use="required"/>
+									<xs:attribute name="errText" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="DebugMessage">
+								<xs:annotation>
+									<xs:documentation>Send a debug message</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="dbgLevel" type="xs:int" use="required"/>
+									<xs:attribute name="moduleName" type="xs:string" use="required"/>
+									<xs:attribute name="message" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ReturnData">
+								<xs:annotation>
+									<xs:documentation>Provide a method for returning data</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ValuePair" type="AtXmlValuePair" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Availability">
+								<xs:annotation>
+									<xs:documentation>Provide a method for manual allocation based on signal or resource name</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ResourceAvailability" type="AtXmlAvailabilityType" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Assign a resource to a device</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="TestStationStatus">
+								<xs:annotation>
+									<xs:documentation>Data retrieved for TestStationStatus  based on signal or resource name</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ResourceStatus" type="AtXmlInstrumentStatusType" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Instrument Status</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlTestRequirements">
+					<xs:annotation>
+						<xs:documentation>Provide Test Requirements for allocation</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ResourceRequirement" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>ATML Requirements/Capabilities for Allocation</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ResourceType" type="AtXmlResourceType">
+											<xs:annotation>
+												<xs:documentation>Basic Use</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="SignalResourceName" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Signal Resource Name From TD or TSFLIB</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="SignalSnippet" type="SignalExtensionType" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Signal Snippet should validate with 1641STDBCS</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlAllocation">
+					<xs:annotation>
+						<xs:documentation>Provide a method for manual allocation based on signal or resource name</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="AllcationAssignment" type="AtXmlAllocationType" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Assign a resource to a device</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlRemoveSequence">
+					<xs:annotation>
+						<xs:documentation>Provide a remove/reset sequence based on signal or resource name</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="RemoveDynamic">
+								<xs:annotation>
+									<xs:documentation>Assign a reset sequence dynamically (Last On First Off</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RemoveAssignment" type="AtXmlResetResourceType" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Assign a reset sequence to a resource</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlIssueIst">
+					<xs:annotation>
+						<xs:documentation>Provide a method to issue self test commands</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="SignalResourceName" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>Signal Resource Name From TD or TSFLIB Mandatory for now</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Level" type="xs:integer" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Instrument Self Test Level / Mode</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlIssueInstrumentCommands">
+					<xs:annotation>
+						<xs:documentation>Provide a method to send native insturment commands to a resource</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="SignalResourceName" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Signal Resource Name From TD or TSFLIB Mandatory for now</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="InstrumentCommands" type="AtXmlInstrumentCommands" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Instrument command string</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AtXmlDriverFunctionCall">
+					<xs:annotation>
+						<xs:documentation>Provide a method to send Driver Function Calls to a resource</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="SignalResourceName" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>Signal Resource Name From TD or TSFLIB Mandatory for now</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SignalChannelName" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Signal Resource Name From TD or TSFLIB Mandatory for now</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="DriverFunctionCall" type="AtXmlDriverParameters">
+								<xs:annotation>
+									<xs:documentation>Driver Function Call Parameters</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Stylesheet href='.\styles\RPSTL.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<body>
+<?FRAME label='C6s1a' title='CHAPTER 6. RPSTL.' next='.\C6s1.ide!C6s1b' previous='.\C5s14.xml!C5s14a'?>
+<chapter id="chapter6" label="CHAPTER 6" tocentry="1">
+<?PUB TOCLEVEL="1" TEXT="CHAPTER 6 - RPSTL"?>
+<title>Repair Parts And Special Tools List (RPSTL)</title>
+<section id="c6s1" label="Section I." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section I. Introduction."?>
+<title>Introduction.</title>
+<?PUB TOCLEVEL="3" TEXT="6-1. Introduction."?>
+<para0 id="p6-1" label="6-1" tocentry="3">
+<title>Introduction.</title>
+<para>This chapter provides the Repair Parts And Special Tools List
+(RPSTL) for the AN/PSM-130 APS.</para>
+</para0>
+<?PUB TOCLEVEL="4" TEXT="6-1.1 Application Program Set, AN/PSM-130 Figures."?>
+<subpara1 id="p6-1.1" label="6-1.1" tocentry="4">
+<title>Application Program Set, AN/PSM-130 Figures.</title>
+<para>The following list contains the RPSTL figures for the Application
+Program Set AN/PSM-130. <randlist>
+<item>
+<para><?hotspot href="C6S1b"?>Figure 6-1. <?endhotspot?>Application
+Program Set AN/PSM-130 Assembly.</para>
+</item>
+<item>
+<para><?hotspot href="C6S1c"?>Figure 6-2. <?endhotspot?>Application
+Program Set AN/PSM-130 Interface Device Assembly.</para>
+</item>
+<item>
+<para><?hotspot href="C6S1e"?>Figure 6-3. <?endhotspot?>Application
+Program Set AN/PSM-130 Test Fixture Assembly.</para>
+</item>
+<item>
+<para><?hotspot href="C6S1f"?>Figure 6-4. <?endhotspot?>Application
+Program Set AN/PSM-130 Holding Fixture Assembly.</para>
+</item>
+<item>
+<para><?hotspot href="C6S1g"?>Figure 6-5. <?endhotspot?>Application
+Program Set AN/PSM-130 Bulk Items.</para>
+</item>
+</randlist> </para>
+</subpara1><?Pub Caret -2?>
+<?FRAME label='C6s1b' title='CHAPTER 6. RPSTL. - Figure 6-1. Application Program Set AN/PSM-130 Assembly.' next='.\C6s1.ide!C6s1c' previous='.\C6s1.ide!C6s1a'?>
+<subpara1 id="p6-2.1" tocentry="1">
+<para> <graphic boardno=".\RPSTL\graphics\1_1.pic" reprodep="600"
+reprowid="800"/></para>
+</subpara1>
+<?FRAME label='C6s1c' title='CHAPTER 6. RPSTL. - Figure 6-2. Application Program Set AN/PSM-130 Interface Device Assembly (Sheet 1 of 2).' next='.\C6s1.ide!C6s1d' previous='.\C6s1.ide!C6s1b'?>
+<subpara1 id="p6-2.1" tocentry="1">
+<para> <graphic boardno=".\RPSTL\graphics\2_1.pic" reprodep="600"
+reprowid="800"/></para>
+</subpara1>
+<?FRAME label='C6s1d' title='CHAPTER 6. RPSTL. - Figure 6-2. Application Program Set AN/PSM-130 Interface Device Assembly (Sheet 2 of 2).' next='.\C6s1.ide!C6s1e' previous='.\C6s1.ide!C6s1c'?>
+<subpara1 id="p6-2.1" tocentry="1">
+<para> <graphic boardno=".\RPSTL\graphics\2_2.pic" reprodep="600"
+reprowid="800"/></para>
+</subpara1>
+<?FRAME label='C6s1e' title='CHAPTER 6. RPSTL. - Figure 6-3. Application Program Set AN/PSM-130 Test Fixture Assembly.' next='.\C6s1.ide!C6s1f' previous='.\C6s1.ide!C6s1d'?>
+<subpara1 id="p6-2.1" tocentry="1">
+<para> <graphic boardno=".\RPSTL\graphics\3_1.pic" reprodep="600"
+reprowid="800"/></para>
+</subpara1>
+<?FRAME label='C6s1f' title='CHAPTER 6. RPSTL. - Figure 6-4. Application Program Set AN/PSM-130 Holding Fixture Assembly.' next='.\C6s1.ide!C6s1g' previous='.\C6s1.ide!C6s1e'?>
+<subpara1 id="p6-2.1" tocentry="1">
+<para> <graphic boardno=".\RPSTL\graphics\4_1.pic" reprodep="600"
+reprowid="800"/></para>
+</subpara1>
+<?FRAME label='C6s1g' title='CHAPTER 6. RPSTL. - Figure 6-5. Application Program Set AN/PSM-130 Bulk Items.' next='.\App_A.xml!A1s1a' previous='.\C6s1.ide!C6s1f'?>
+<subpara1 id="p6-2.1" tocentry="1">
+<para> <graphic boardno=".\RPSTL\graphics\5_1.pic" reprodep="600"
+reprowid="800"/></para>
+</subpara1>
+</section>
+</chapter>
+</body>

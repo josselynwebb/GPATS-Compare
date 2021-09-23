@@ -1,0 +1,787 @@
+********************************************************************************
+*
+* FILENAME    : Cntr.ddb
+*
+* INSTRUMENT  : Counter/Timer
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : TETS
+*
+*                             Function Number Map
+*
+*   FNC
+* CH1 CH2 Signal
+* ------- ------
+*   1 101 sensor (freq) ac signal
+*   2 102 sensor (period) ac signal
+*   3 103 sensor (freq-ratio) ac signal
+*   4     sensor (rise-time) pulsed dc
+*   5     sensor (fall-time) pulsed dc
+*   6 106 sensor (pulse-width) pulsed dc
+*   7 107 sensor (period) pulsed dc
+*   8 108 sensor (prf) pulsed dc
+*   9 109 sensor (neg-pulse-width) pulsed dc
+*  10 110 sensor (pos-pulse-width) pulsed dc
+*  11     sensor (count) events
+*  12     sensor (count) events (ch1 by ch2)
+*  13 113 event monitor (voltage) pulsed dc -- pos slope
+*  14 114 event monitor (voltage) pulsed dc -- neg slope
+*  15 115 sensor (phase-angle) ac signal
+*  16     sensor (rise-time) square wave
+*  17     sensor (fall-time) square wave
+*  18 118 sensor (period) square wave
+*  19 119 sensor (freq) square wave
+*  20     sensor (rise-time) ramp signal
+*  21     sensor (fall-time) ramp signal
+*  22 122 sensor (period) ramp signal
+*  23 123 sensor (freq) ramp signal
+*  24     sensor (rise-time) triangular wave signal
+*  25     sensor (fall-time) triangular wave signal
+*  26 126 sensor (period) triangular wave signal
+*  27 127 sensor (freq) triangular wave signal
+*     213 event monitor (voltage) pulsed dc -- pos slope on Ch1
+*     214 event monitor (voltage) pulsed dc -- neg slope on Ch1
+*
+* Time Interval
+*   130   sensor (time) time interval
+*
+* Arm Port
+*   131   event monitor (voltage) dc signal -- START CT-Arm
+*   132   event monitor (voltage) dc signal -- STOP CT-Arm
+*   133   event monitor (voltage) dc signal -- START TTLTrig0
+*   134   event monitor (voltage) dc signal -- STOP TTLTrig0
+*   135   event monitor (voltage) dc signal -- START TTLTrig1
+*   136   event monitor (voltage) dc signal -- STOP TTLTrig1
+*   137   event monitor (voltage) dc signal -- START TTLTrig2
+*   138   event monitor (voltage) dc signal -- STOP TTLTrig2
+*   139   event monitor (voltage) dc signal -- START TTLTrig3
+*   140   event monitor (voltage) dc signal -- STOP TTLTrig3
+*   141   event monitor (voltage) dc signal -- START TTLTrig4
+*   142   event monitor (voltage) dc signal -- STOP TTLTrig4
+*   143   event monitor (voltage) dc signal -- START TTLTrig5
+*   144   event monitor (voltage) dc signal -- STOP TTLTrig5
+*   145   event monitor (voltage) dc signal -- START TTLTrig6
+*   146   event monitor (voltage) dc signal -- STOP TTLTrig6
+*   147   event monitor (voltage) dc signal -- START TTLTrig7
+*   148   event monitor (voltage) dc signal -- STOP TTLTrig7
+*
+* Counter-Trigger
+* 150 152 event monitor (voltage) pulsed dc -- pos slope
+* 151 153 event monitor (voltage) pulsed dc -- neg slope
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---  -------  ------------------------------------------  -------------------
+*  1.0  14FEB06  Initial Release                             EADS
+*  1.1  23MAR09  Added FNC 213 & 214 for stop time interval
+*                on A, added unique port names for FNC 130
+*                time interval measurement event-time-from
+*                and event-time-to                           EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  2.1   29MAY09 Rolled back code prior to v1.1 to fix error caused by update
+*  2.2   31JUL09 Modified ranges for Voltage, Voltage-P and 
+*                Voltage-PP to enable backward compatability 
+*                of leagacy TPS at recomendation of DME.     EADS
+*  2.3   28JUL10 Added functions for event monitor on CH2 
+*                using CH1 input ports for COMM mode time
+*                interval measurements.                      EADS
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+
+begin dev CNTR_1;
+
+	begin using cntr-ch1;
+		cnx via CT-In1;
+		cnx hi CT-In1;
+		cnx event-gate-from CT-EvArm;
+		cnx event-gate-to CT-EvArm;
+		cnx event-strobe event-port;
+		control
+		{
+			coupling ac, dc;
+			voltage range .1 v to 100 v continuous;
+			max-time range 0 sec to 2000 sec continuous;
+			test-equip-imp 50 ohm, 1000000 ohm;
+			pos-slope;
+			neg-slope;
+			event-gate-from;
+			event-gate-to;
+			strobe-to-event;
+		}
+
+		begin;  *ac signal
+			control
+			{
+				freq range .001 hz to 200000000 hz continuous;
+				voltage-p range .1 v to 100 v continuous;
+				voltage-pp range .1 v to 100 v continuous;
+				period range .000000005 sec to 1000 sec continuous;
+				freq-ratio range .00000000001 to 100000000000 continuous;
+				dc-offset range -100 v to 100 v continuous;
+				phase-angle range 0 deg to 359.9 deg;
+			}
+
+			begin FNC=1;  *freq
+				sensor (freq) ac signal;
+			end;
+
+			begin FNC=2;  *period
+				sensor (period) ac signal;
+			end;
+
+			begin FNC=3;  *ratio
+				cnx-ref via CT-In2;
+				sensor (freq-ratio) ac signal;
+			end;
+
+			begin FNC=15;  *phase angle
+				cnx-ref via CT-In2;
+				sensor (phase-angle) ac signal;
+			end;
+
+		end; *ac signal
+
+		begin;  *pulsed dc
+			control
+			{
+				rise-time range .000000015 sec to .001 sec continuous; **Changed per ECP4 Change 4
+				fall-time range .000000015 sec to .001 sec continuous; **25 APR 00 by M.E.
+				pulse-width range .000000005 sec to .001 sec continuous;
+				neg-pulse-width range .000000005 sec to .001 sec continuous;
+				pos-pulse-width range .000000005 sec to .001 sec continuous;
+				period range .000000005 sec to 1000 sec continuous;
+				voltage-p range .1 v to 100 v continuous;
+				duty-cycle range 0 pc to 100 pc continuous;
+				dc-offset range -100 v to 100 v continuous;
+				prf range .001 hz to 200000000 hz continuous;
+			}
+
+			begin FNC=4;  *risetime
+				sensor (rise-time) pulsed dc;
+			end;
+
+			begin FNC=5;  *falltime
+				sensor (fall-time) pulsed dc;
+			end;
+
+			begin FNC=6;  *pulsewidth
+				sensor (pulse-width) pulsed dc;
+			end;
+
+			begin FNC=7;  *period
+				sensor (period) pulsed dc;
+			end;
+
+			begin FNC=8;  *prf
+				sensor (prf) pulsed dc;
+			end;
+
+			begin FNC=9;  *pulsewidth
+				sensor (neg-pulse-width) pulsed dc;
+			end;
+
+			begin FNC=10;  *pulsewidth
+				sensor (pos-pulse-width) pulsed dc;
+			end;
+		end; *pulsed dc
+
+		begin; *count (totalize)
+			sensor (count) events;
+			control
+			{
+				voltage-p range .1 v to 100 v continuous;
+				voltage-pp range .1 v to 100 v continuous;
+				time range 0 sec to 5 sec continuous;
+				count range 0 times to 999999999999 times continuous;
+				pos-slope,neg-slope;
+				trig range -102 v to 102 v continuous;
+			}
+
+			* "normally" count (ungated) cannot be distinguished from
+			* count In1 by In2 (gated) because gate-in is considered by
+			* PAWS to be optional, but undocumented/unguaranteed
+			* behavior is that allocation happens from the top down so
+			* putting 11 (with no cnx) before 12 (to be allocated first
+			* if no cnx exists) solves the problem
+
+			begin FNC=11;  
+				*count (totalize)
+			end;
+
+			begin FNC=12;  
+				*count (totalize) 1 by 2
+				cnx gate-in CT-In2;
+			end;
+		end; *count (totalize)
+
+		begin; *events for time interval A
+			event monitor (voltage) pulsed dc;
+			cnx event-out CT-EvA;
+			* cnx event-out cntr-event-port;
+
+			control
+			{
+				event-out;
+				voltage range .1 v to 100 v continuous;
+				prf range 0 hz to 200000000 hz continuous;
+				settle-time .001 sec to 99.999 sec continuous;
+			}
+
+			begin FNC=13;  *events for interval A pos slope
+				cnx hi CT-In1;
+				control
+				{
+					event-slope pos;
+				}
+			end;
+
+			begin FNC=14;  *time interval A neg slope
+				cnx hi CT-In1;
+				control
+				{
+					event-slope neg;
+				}
+			end;
+		end; *events for time interval A
+
+		begin;  *squarewave
+			control
+			{
+				rise-time range .000000015 sec to .001 sec continuous; **Changed per ECP4 Change 4
+				fall-time range .000000015 sec to .001 sec continuous; **25 APR 00 by M.E.
+				period range .000000005 sec to 1000 sec continuous;
+				voltage-p range .1 v to 100 v continuous;
+				voltage-pp range .2 v to 200 v continuous;
+				duty-cycle range 0 pc to 100 pc continuous;
+				dc-offset range -100 v to 100 v continuous;
+				freq range .001 hz to 200000000 hz continuous;
+			}
+
+			begin FNC=16;  *risetime
+				sensor (rise-time) square wave;
+			end;
+
+			begin FNC=17;  *falltime
+				sensor (fall-time) square wave;
+			end;
+
+			begin FNC=18;  *period
+				sensor (period) square wave;
+			end;
+
+			begin FNC=19;  *frequency
+				sensor (freq) square wave;
+			end;
+
+		end; *squarewave
+
+		begin;  *ramp signal
+			control
+			{
+				rise-time range .000000015 sec to .001 sec continuous; **Changed per ECP4 Change 4
+				fall-time range .000000015 sec to .001 sec continuous; **25 APR 00 by M.E.
+				period range .000000005 sec to 1000 sec continuous;
+				voltage-p range .1 v to 100 v continuous;
+				voltage-pp range .1 v to 100 v continuous;
+				dc-offset range -100 v to 100 v continuous;
+				freq range .001 hz to 200000000 hz continuous;
+			}
+
+			begin FNC=20;  *risetime
+				sensor (rise-time) ramp signal;
+			end;
+
+			begin FNC=21;  *falltime
+				sensor (fall-time) ramp signal;
+			end;
+
+			begin FNC=22;  *period
+				sensor (period) ramp signal;
+			end;
+
+			begin FNC=23;  *frequency
+				sensor (freq) ramp signal;
+			end;
+		end; *ramp signal
+
+		begin;  *triangular wave signal
+			control
+			{
+				rise-time range .000000015 sec to .001 sec continuous; **Changed per ECP4 Change 4
+				fall-time range .000000015 sec to .001 sec continuous; **25 APR 00 by M.E.
+				period range .000000005 sec to 1000 sec continuous;
+				voltage-p range .1 v to 100 v continuous;
+				voltage-pp range .1 v to 100 v continuous;
+				dc-offset range -100 v to 100 v continuous;
+				freq range .001 hz to 200000000 hz continuous;
+			}
+
+			begin FNC=24;  *risetime
+				sensor (rise-time) triangular wave signal;
+			end;
+
+			begin FNC=25;  *falltime
+				sensor (fall-time) triangular wave signal;
+			end;
+
+			begin FNC=26;  *period
+				sensor (period) triangular wave signal;
+			end;
+
+			begin FNC=27;  *freq
+				sensor (freq) triangular wave signal;
+			end;
+		end; *triangular wave signal
+	end; * cntr-ch1
+
+	begin using cntr-ch2;
+		begin; ** using channel 2 input port
+			cnx via CT-In2;
+			cnx hi CT-In2;
+
+			cnx event-gate-from CT-EvArm;
+			cnx event-gate-to CT-EvArm;
+			cnx event-strobe event-port;
+			control
+			{
+				coupling ac, dc;
+				voltage range .1 v to 100 v continuous;
+				test-equip-imp 50 ohm, 1000000 ohm;
+				max-time range 0 sec to 2000 sec continuous;
+				pos-slope;
+				neg-slope;
+				event-gate-from;
+				event-gate-to;
+				strobe-to-event;
+			}
+
+			begin;  *ac signal
+				control
+				{
+					freq range .001 hz to 100000000 hz continuous;
+					voltage-p range .1 v to 100 v continuous;
+					voltage-pp range .1 v to 100 v continuous;
+					period range .00000001 sec to 1000 sec continuous; **Changed per ECP4 Change 5 16MAY00 by ME
+					freq-ratio range .00000000001  to 100000000000 continuous;
+					dc-offset range -100 v to 100 v continuous;
+					phase-angle range 0 deg to 359.9 deg;
+				}
+
+				begin FNC=101;  *freq
+					sensor (freq) ac signal;
+				end;
+
+				begin FNC=102;  *period
+					sensor (period) ac signal;
+				end;
+
+				begin FNC=103;  *ratio
+					cnx-ref via CT-In1;
+					sensor(freq-ratio) ac signal;
+				end;
+
+				begin FNC=115;  *phase angle
+					cnx-ref via CT-In1;
+					sensor (phase-angle) ac signal;
+				end;
+
+			end; *ac signal
+
+			begin;  *pulsed dc
+				control
+				{
+					rise-time range .000000015 sec to .001 sec continuous; **Changed per ECP4 Change 4
+					fall-time range .000000015 sec to .001 sec continuous; **25 APR 00 by M.E.
+					pulse-width range .000000005 sec to .001 sec continuous;
+					neg-pulse-width range .000000005 sec to .001 sec continuous;
+					pos-pulse-width range .000000005 sec to .001 sec continuous;
+					period range .00000001 sec to 1000 sec continuous; **Changed per ECP4 Change 5 16MAY00 by ME
+					voltage-p range .1 v to 100 v continuous;
+					duty-cycle range 0 pc to 100 pc continuous;
+					dc-offset range -100 v to 100 v continuous;
+					prf range .001 hz to 100000000 hz continuous;
+				}
+
+				begin FNC=106;  *pulsewidth
+					sensor (pulse-width) pulsed dc;
+				end;
+
+				begin FNC=107;  *period
+					sensor (period) pulsed dc;
+				end;
+
+				begin FNC=108;  *prf
+					sensor (prf) pulsed dc;
+				end;
+
+				begin FNC=109;  *pulsewidth
+					sensor (neg-pulse-width) pulsed dc;
+				end;
+
+				begin FNC=110;  *pulsewidth
+					sensor (pos-pulse-width) pulsed dc;
+				end;
+
+			end; *pulsed dc
+
+			**    begin FNC=112;  *count (totalize) 2 by 1
+			**      cnx gate-in CT-In1;
+			**      sensor (count) events;
+			**      control
+			**      {
+			**        voltage range .1 v to 100 v continuous;
+			**        time range 0 sec to 5 sec continuous;
+			**        count range 0 times to 999999999999 times continuous;
+			**        pos-slope,neg-slope;
+			**        trig range -102 v to 102 v continuous;
+			**      }
+			**    end; *count (totalize) 2 by 1
+
+			begin; *events for Time interval B
+				event monitor (voltage) pulsed dc;
+				cnx event-out CT-EvB;
+				*cnx event-out cntr-event-port;
+
+				control
+				{
+					event-out;
+					voltage range .1 v to 100 v continuous;
+					prf 0 hz to 200000000 hz continuous;
+					settle-time .001 sec to 10 sec continuous;
+				}
+
+				begin FNC=113;  *time interval B pos slope
+					cnx hi CT-In2;
+					control
+					{
+						event-slope pos;
+					}
+				end;
+
+				begin FNC=114;  *time interval B neg slope
+					cnx hi CT-In2;
+					control
+					{
+						event-slope neg;
+					}
+				end;
+			end; *events for Time interval B
+
+			begin;  *squarewave
+				control
+				{
+					period range .00000001 sec to 1000 sec continuous;
+					voltage-p range .1 v to 100 v continuous;
+					voltage-pp range .1 v to 100 v continuous;
+					dc-offset range -100 v to 100 v continuous;
+					freq range .001 hz to 100000000 hz continuous;
+				}
+
+				begin FNC=118;  *period
+					sensor (period) square wave;
+				end;
+
+				begin FNC=119;  *frequency
+					sensor (freq) square wave;
+				end;
+			end; *squarewave
+
+			begin;  *ramp signal
+				control
+				{
+					period range .00000001 sec to 1000 sec continuous;
+					voltage-p range .1 v to 100 v continuous;
+					voltage-pp range .1 v to 100 v continuous;
+					dc-offset range -100 v to 100 v continuous;
+					freq range .001 hz to 100000000 hz continuous;
+				}
+
+				begin FNC=122;  *period
+					sensor (period) ramp signal;
+				end;
+
+				begin FNC=123;  *frequency
+					sensor (freq) ramp signal;
+				end;
+			end; *ramp signal
+
+			begin;  *triangular wave signal
+				control
+				{
+					period range .00000001 sec to 1000 sec continuous;
+					voltage-p range .1 v to 100 v continuous;
+					voltage-pp range .1 v to 100 v continuous;
+					dc-offset range -100 v to 100 v continuous;
+					freq range .001 hz to 100000000 hz continuous;
+				}
+
+				begin FNC=126;  *period
+					sensor (period) triangular wave signal;
+				end;
+
+				begin FNC=127;  *frequency
+					sensor (freq) triangular wave signal;
+				end;
+			end; *triangular wave signal
+		end; ** end using channel 2 port
+		
+		begin; ** Time interval using Ch1 input 
+			event monitor (voltage) pulsed dc;
+			cnx hi CT-In1;
+			cnx event-out CT-EvB;
+
+			control
+			{
+				coupling ac, dc;
+				voltage range .1 v to 100 v continuous;
+				test-equip-imp 50 ohm, 1000000 ohm;
+				max-time range 0 sec to 2000 sec continuous;
+				event-out;
+				voltage range .1 v to 100 v continuous;
+				prf 0 hz to 200000000 hz continuous;
+				settle-time .001 sec to 10 sec continuous;
+			}
+
+			begin FNC=213;  *time interval B pos slope
+				control
+				{
+					event-slope pos;
+				}
+			end;
+
+			begin FNC=214;  *time interval B neg slope
+				control
+				{
+					event-slope neg;
+				}
+			end;
+		end; ** end using events with channel 1 input for channel B
+	end; *cntr-ch2
+
+	begin FNC=130 using cntrTI; *time interval
+		sensor (time) time interval;
+		cnx event-time-from CT-EvA,
+		event-time-to CT-EvB;
+		control
+		{
+			time range .000000001 sec to 1000 sec continuous;
+			event-time-from;
+			event-time-to;
+			max-time range 0 sec to 2000 sec continuous;
+		}
+	end;
+
+	begin; *gating
+		control
+		{
+			voltage range 0 v to 50 v continuous;
+			pos-slope;
+			neg-slope;
+		}
+
+		begin; * events for arming - arm port
+			event monitor (voltage) dc signal;
+			cnx event-out CT-EvArm;
+			control
+			{
+				event-out;
+				voltage range 0 v to 50 v continuous;
+			}
+
+			begin FNC=131 using cntr-arm-start;  *ARMING
+				cnx GATE-START-IN CT-Arm;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=132 using cntr-arm-stop;  *ARMING
+				cnx GATE-STOP-IN CT-Arm;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=133 using cntr-ttl0-start;  *ARMING
+				cnx GATE-START-IN TTLTrig0;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=134 using cntr-ttl0-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig0;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=135 using cntr-ttl1-start;  *ARMING
+				cnx GATE-START-IN TTLTrig1;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=136 using cntr-ttl1-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig1;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=137 using cntr-ttl2-start;  *ARMING
+				cnx GATE-START-IN TTLTrig2;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=138 using cntr-ttl2-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig2;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=139 using cntr-ttl3-start;  *ARMING
+				cnx GATE-START-IN TTLTrig3;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=140 using cntr-ttl3-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig3;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=141 using cntr-ttl4-start;  *ARMING
+				cnx GATE-START-IN TTLTrig4;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=142 using cntr-ttl4-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig4;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=143 using cntr-ttl5-start;  *ARMING
+				cnx GATE-START-IN TTLTrig5;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=144 using cntr-ttl5-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig5;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=145 using cntr-ttl6-start;  *ARMING
+				cnx GATE-START-IN TTLTrig6;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=146 using cntr-ttl6-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig6;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=147 using cntr-ttl7-start;  *ARMING
+				cnx GATE-START-IN TTLTrig7;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+
+			begin FNC=148 using cntr-ttl7-stop;  *ARMING
+				cnx GATE-STOP-IN TTLTrig7;
+				control
+				{
+					event-slope pos,neg;
+				}
+			end;
+		end;* events for arming - arm port
+	end; *gating
+
+	begin using counter-trigger; *events for trigger on ch1
+		event monitor (voltage) pulsed dc;
+		cnx event-out event-port;
+		control
+		{
+			event-indicator;
+			event-out;
+			voltage range 0 v to 50 v;
+		}
+
+		begin FNC=150; * event for pos trigger on ch1
+			cnx hi CT-In1;
+			control
+			{
+				prf range 0 hz to 150000000 hz continuous;
+				event-slope pos;
+			}
+		end;
+
+		begin FNC=151; * event for neg trigger on ch1
+			cnx hi CT-In1;
+			control
+			{
+				prf range 0 hz to 150000000 hz continuous;
+				event-slope neg;
+			}
+		end;
+
+		begin FNC=152; * event for pos trigger on ch2
+			cnx hi CT-In2;
+			control
+			{
+				prf range 0 hz to 100000000 hz continuous;
+				event-slope pos;
+			}
+		end;
+
+		begin FNC=153;  * event for neg trigger on ch2
+			cnx hi CT-In2;
+			control
+			{
+				prf range 0 hz to 100000000 hz continuous;
+				event-slope neg;
+			}
+		end;
+
+	end; *events for trigger on ch1
+end; *end CNTR_1

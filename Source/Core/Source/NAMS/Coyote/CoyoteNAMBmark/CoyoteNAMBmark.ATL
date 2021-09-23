@@ -1,0 +1,123 @@
+ 000100	BEGIN, ATLAS PROGRAM 'NAM-COYOTE'			      $
+C*********************************************************************$
+C   BENCH MARK TO TEST THE COMMON EO NON-ATLAS MODULE.                $
+C*********************************************************************$
+C								      $
+C********************** INCLUDES ************************$
+C						         $
+ 000105	INCLUDE, NON-ATLAS MODULE 'COYOTENAM'	   	 $	
+C							 $	         
+C							 $
+C**************** DECLARE LOCAL VARIABLES ***************$
+C							 $
+ 000400	DECLARE, VARIABLE, 
+            'XML' IS STRING (256) OF CHAR;
+ 	    'EO-ERROR-CODE' IS INTEGER;
+ 	    'EO-RETURN-STRING' IS STRING (256) OF CHAR  $
+
+ 000410 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+        DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+        DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$ 
+        DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+        DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$ 
+
+ 000600 DECLARE, VARIABLE, 'RETURN_STATUS' IS INTEGER $
+
+ 000700 DECLARE, VARIABLE, 'RETURN_STRING' IS STRING (499) OF CHAR  $
+C                                                                   $
+C ******************************************************************$
+C * PROCEDURE: CLRSCR				    	          **$
+C ******************************************************************$
+ 001630 DEFINE, 'CLRSCR', PROCEDURE                                 $
+ 001640 OUTPUT, C' \LF\\LF\\LF\\LF\\LF\\LF\\LF\ \LF\
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\'          $
+ 001650 END, 'CLRSCR'                                               $
+C*******************************************************************$
+C**		     START PROGRAM EXECUTION    	          **$
+C*******************************************************************$
+C**							          **$
+C*************** COYOTE SOFTWARE EXECUTION TEST ********************$
+E002000 OUTPUT, C'COYOTE ATLAS Module Benchmark	\LF\'   $
+
+     10 OUTPUT, 
+          C'OPERATOR ACTION\LF\',
+          C'-------------------------------------------------------\LF\',
+          C'1. Attach the VEO2 power cable W300 (93006G7300) to the\LF\',
+          C'   VEO2 J2 connector and to the VIPER/T PDU J7 connector.\LF\',
+          C'2. Attach the VEO2 Ethernet cable W301 (93006G7350) between\LF\',
+          C'   VEO2 J1 and VIPER/T docking station J16 connectors.\LF\',
+          C'\LF\',
+          C'Press Enter when ready.\LF\'                             $
+     15 INPUT, GO-NOGO                                               $
+C $
+C         *** VIPER/T POWER TO EO USING PPU 3 *** $
+        APPLY, DC SIGNAL,
+          VOLTAGE 15 V, CURRENT-LMT 5 A,
+          CNX HI EO_P15V-HI LO EO_P15V-LO
+              SENSE-HI EO_P15V-HIS SENSE-LO EO_P15V-LOS $
+C $
+C         *** VIPER/T POWER TO EO USING PPU 1,2 *** $
+        APPLY, DC SIGNAL,
+          VOLTAGE 28 V, CURRENT-LMT 10 A,
+          CNX HI EO_P28V-HI LO EO_P28V-LO
+              SENSE-HI EO_P28V-HIS SENSE-LO EO_P28V-LOS $
+
+     20 OUTPUT, C'WAITING 2.5 MINUTES FOR WARMUP'                    $
+     25 WAIT FOR, 150 SEC                                            $
+
+B $
+ 005000 OUTPUT,
+	 C'\LF\ ',
+         C'            Test Menu	    \LF\',
+         C' --------------------------------\LF\',
+         C' COYOTE NAM EXECUTION      1	\LF\',
+         C' Exit                      0	\LF\',
+	 C'                             \LF\',
+         C' Enter a selection           \LF\'
+         $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+
+     10 INPUT,  INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'  Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          GO TO, STEP 010000 $
+        END, IF $
+				
+C $
+     OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 005000 $
+
+B $
+ 10000 OUTPUT, C' \LF\ \LF\',
+         C'************* OPERATOR INFORMATION ***********',
+         C'\LF\ \LF\',
+         C'  RUNNING COYOTE BENCHMARK',
+         C' \LF\ \LF\' $
+
+C 		     						    $
+C**************** PASS ARGUMENTS AND RETURN ERROR CODE *************$
+C							            $
+
+ 16000 PERFORM, 'COYOTENAM' ('EO-ERROR-CODE', 'EO-RETURN-STRING')   $
+
+ 17000 IF, ('EO-ERROR-CODE' EQ 0), THEN				    $
+           OUTPUT, C'COYOTENAM TEST WAS SUCCESSFUL.'                $
+     	ELSE							    $
+	   OUTPUT, C'ERROR CODE: ', 'EO-ERROR-CODE'	            $
+           OUTPUT, C'ERROR DESCRIPTION: ', 'EO-RETURN-STRING'       $
+        END, IF                                                     $
+
+    15 INPUT, GO-NOGO                                               $
+
+       GO TO, STEP 005000 $
+
+ 999900	 TERMINATE, ATLAS PROGRAM 'NAM-COYOTE'               	    $

@@ -1,0 +1,17 @@
+PAWS Resource Allocator - Version 20140218 (1.40.03)
+DeviceDB:        Thu May 18 11:10:30 2017
+SwitchDB:        Thu May 18 11:10:31 2017
+1: Macro Data 1816 Words (INFO)
+
+Signals           --- 2
+Concurrent Pairs  --- 1
+Assignments:
+
+    User         --- 0
+    Exclusive    --- 2
+    Resolved     --- 0
+    Total        --- 2
+
+Total ERROR  --- 0
+Total WARN   --- 0
+Total INFO   --- 1

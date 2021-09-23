@@ -1,0 +1,102 @@
+ 000001 BEGIN, ATLAS PROGRAM 'UUT' $
+C $
+        INCLUDE, NON-ATLAS MODULE
+          'VEO2NAM' $
+C $
+C	*** NAM VARIABLES *** $
+C       *** ACTION        *** $
+C       *** INT_OPTION    *** $
+C       *** FLT_OPTION    *** $
+C       *** INT_RETURN    *** $
+C       *** STR_RETURN    *** $
+C       ********************* $
+C       *** For help, enter NAM executable names at command line with no arguments $
+C $
+ 000010 DECLARE, VARIABLE,
+          'ACTION'     IS STRING (20) OF CHAR INITIAL = C'';
+          'INT_OPTION' IS INTEGER             INITIAL = -1;
+          'FLT_OPTION' IS DECIMAL             INITIAL = 0.0;
+          'INT_RETURN' IS INTEGER             INITIAL = -1;
+          'STR_RETURN' IS STRING (255) OF CHAR INITIAL = C'' $
+C $
+E000100 OUTPUT, C'Start of ATLAS Program\LF\' $
+        OUTPUT, C'Executing VEO2NAM...\LF\' $
+        OUTPUT, C'- Getting BIT Status' $
+C$  
+        CALCULATE, 'ACTION' = C'BIT_GET' $
+C $
+        PERFORM, 'VEO2NAM'('ACTION', 'INT_OPTION', 'INT_RETURN') $
+        OUTPUT, C'Results\LF\' $
+        OUTPUT, C'   BIT Status: ', 'INT_RETURN', C'\LF\' $
+C       ************************************************ $
+        OUTPUT, C'- Getting Status Byte' $
+C $
+        CALCULATE, 'ACTION' = C'STATUS_GET' $
+C $
+        PERFORM, 'VEO2NAM'('ACTION', 'INT_OPTION', 'INT_RETURN') $
+        OUTPUT, C'Results\LF\' $
+        OUTPUT, C'   STATUS Byte: ', 'INT_RETURN', C'\LF\' $
+C       ************************************************ $
+        OUTPUT, C'- Getting VEO2 Part Number' $
+C $
+        CALCULATE, 'ACTION' = C'PARTNUM_GET' $
+C $
+        PERFORM, 'VEO2NAM'('ACTION', 'INT_OPTION', 'STR_RETURN') $
+        OUTPUT, C'Results\LF\' $
+        OUTPUT, C'   Part Number: ', 'STR_RETURN', C'\LF\' $
+C       ************************************************ $
+        OUTPUT, C'- Getting VEO2 Serial Number' $
+C $
+        CALCULATE, 'ACTION' = C'SERNUM_GET' $
+C $
+        PERFORM, 'VEO2NAM'('ACTION', 'INT_OPTION', 'STR_RETURN') $
+        OUTPUT, C'Results\LF\' $
+        OUTPUT, C'   Serial Number: ', 'STR_RETURN', C'\LF\' $
+C       ************************************************ $ 
+        OUTPUT, C'- Setting VEO2 System Configuration to Visible' $
+C $
+        CALCULATE, 
+          'ACTION' = C'MODE_SET',
+          'INT_OPTION' = 3 $
+C $
+        PERFORM, 'VEO2NAM'('ACTION', 'INT_OPTION', 'INT_RETURN') $
+        OUTPUT, C'Results\LF\' $
+        IF, 'INT_RETURN' EQ 0, THEN $
+          OUTPUT, C'   STATUS:  Success\LF\' $
+        ELSE $
+          OUTPUT, C'   STATUS:  Failed\LF\' $
+        END, IF $
+C       ************************************************ $
+        OUTPUT, C'- Setting VEO2 Sensor Stage to Camera' $
+C $
+        CALCULATE, 
+          'ACTION' = C'SENSOR_SET',
+          'INT_OPTION' = 3 $
+C $
+        PERFORM, 'VEO2NAM'('ACTION', 'INT_OPTION', 'INT_RETURN') $
+        OUTPUT, C'Results\LF\' $
+        IF, 'INT_RETURN' EQ 0, THEN $
+          OUTPUT, C'   STATUS:  Success\LF\' $
+        ELSE $
+          OUTPUT, C'   STATUS:  Failed\LF\' $
+        END, IF $
+C       ************************************************ $
+        OUTPUT, C'- Setting VEO2 Visible Source Radiance to 3500 uW/sr/cm2' $
+C $
+        CALCULATE, 
+          'ACTION' = C'LIGHT_RAD_SET',
+          'FLT_OPTION' = 3500 $
+C $
+        PERFORM, 'VEO2NAM'('ACTION', 'FLT_OPTION', 'INT_RETURN') $
+        OUTPUT, C'Results\LF\' $
+        IF, 'INT_RETURN' EQ 0, THEN $
+          OUTPUT, C'   STATUS:  Success\LF\' $
+        ELSE $
+          OUTPUT, C'   STATUS:  Failed\LF\' $
+        END, IF $
+C       ************************************************ $
+
+        OUTPUT, C'Demonstration Complete\LF\' $
+        OUTPUT, C'End of ATLAS Program' $
+C $
+ 999999 TERMINATE, ATLAS PROGRAM 'UUT' $

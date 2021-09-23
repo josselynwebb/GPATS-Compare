@@ -1,0 +1,4278 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'Dso Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemDso.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+C **************************************************************
+  * REVISION HISTORY:
+  *
+  * REV#       CHANGES						AUTHOR
+  * 1.1.0.0:  Initial Release
+  * 1.1.0.1:  Following changes were made:			M.Hendricksen, EADS North America Defense
+  *	    - Ramp (Rise/Fall Time) changed the expected value from 
+  *		80uS to 700uS.  700uS was original value in pre-release
+  *		versions and was mistakenly changed in Initial Release version
+  *             Also implemented instructions for Fall-Time and clarified
+  *             instructions for both.
+  *	    - Square Wave (Vpp, Vpk, Vpk-pos, and Vp-neg) changed the
+  *             max range value to be double the actual value not 4 times
+  *             the actual value.
+  *	    - Square Wave Trigger (Test # 80,000 and 81,020) changed
+  *           	the instructions to input a 3 Vpp trigger signal not
+  *		1.5Vpp. 1.5vpp is not large enough to trigger signal.
+  *	    - Waveform (Sample) Test.  Changed the sample time to represent
+  *         	more data points and reworded the test instructions.
+  * 1.2.0.1 - Added test for Multiple measurments.		M.Hendricksen EADS
+  **************************************************************$
+C$
+C	REQUIRE, 'PRINTER', I-O DEVICE,
+        	CAPABILITY,
+			LINE-LENGTH 80 CHAR $
+C			PAGE-SIZE 25 LINES $
+
+C Time Interval $
+        IDENTIFY, EVENT 'TRIG-CH1' AS (VOLTAGE), PULSED DC,      
+		EQ 1.5 V,
+		INCREASING,
+	   CNX VIA j1-1		$ 
+        IDENTIFY, EVENT 'TRIG-CH2' AS (VOLTAGE), PULSED DC,      
+		EQ 1.5 V,
+		DECREASING,
+	   CNX VIA j1-2		$ 
+        IDENTIFY, EVENT 'TRIG-EXT' AS (VOLTAGE), PULSED DC,      
+		EQ 1.5 V,
+                INCREASING,
+                DELAY 0.00000004 SEC,
+	   CNX VIA j1-3		$ 
+        
+	IDENTIFY, EVENT 'START_EP1.5' AS (VOLTAGE), DC SIGNAL,      
+		EQ 1.5 V,
+		INCREASING,
+	   CNX VIA j1-1		$ 
+	IDENTIFY, EVENT 'START_EN1.5' AS (VOLTAGE), DC SIGNAL,      
+		EQ 1.5 V,
+		DECREASING,
+	   CNX VIA j1-2		$ 
+
+        IDENTIFY, EVENT 'STOP_EP1.5' AS (VOLTAGE), DC SIGNAL,      
+		EQ 1.5 V,
+		INCREASING,
+	   CNX VIA j1-1	$ 
+
+	IDENTIFY, EVENT 'STOP_EN1.5' AS (VOLTAGE), DC SIGNAL,      
+		EQ 1.5 V,
+		INCREASING,
+	   CNX VIA j1-2	$ 
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+	DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-VOLTS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MEAS-FREQ' IS DECIMAL	$
+        DECLARE, VARIABLE, 'PERIOD' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MEAS-PERIOD' IS DECIMAL	$
+        DECLARE, VARIABLE, 'PRF' IS DECIMAL		$
+        DECLARE, VARIABLE, 'RISE-TIME' IS DECIMAL		$
+        DECLARE, VARIABLE, 'FALL-TIME' IS DECIMAL		$
+        DECLARE, VARIABLE, 'PULSE-WIDTH' IS DECIMAL		$
+        DECLARE, VARIABLE, 'POS-PULSE-WIDTH' IS DECIMAL		$
+        DECLARE, VARIABLE, 'NEG-PULSE-WIDTH' IS DECIMAL		$
+        DECLARE, VARIABLE, 'SAMPLE-TIME' IS DECIMAL		$
+        DECLARE, VARIABLE, 'OVERSHOOT' IS DECIMAL		$
+        DECLARE, VARIABLE, 'PRESHOOT' IS DECIMAL		$
+        DECLARE, VARIABLE, 'DUTY-CYCLE' IS DECIMAL		$
+ 	DECLARE, VARIABLE, 'MEAS-D-CYCLE' IS DECIMAL		$		
+        DECLARE, VARIABLE, 'VOLTAGE' IS DECIMAL			$
+        DECLARE, VARIABLE, 'VOLTAGE-PP' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MEAS-VOLT-PP' IS DECIMAL		$
+        DECLARE, VARIABLE, 'VOLTAGE-P' IS DECIMAL		$
+        DECLARE, VARIABLE, 'AV-VOLTAGE' IS DECIMAL		$
+        DECLARE, VARIABLE, 'OFFSET' IS DECIMAL		$
+        DECLARE, VARIABLE, 'MEASURED', 'MVAL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MAX-T' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'FAIL-FLAG', 'IDX' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+        DECLARE, VARIABLE, 'SAMPLES-S' IS ARRAY (1 THRU 8000) OF DECIMAL $
+        DECLARE, VARIABLE, 'SAMPLES-L' IS ARRAY (1 THRU 8000) OF DECIMAL $
+        DECLARE, VARIABLE, 'BANDWIDTH' IS DECIMAL	$
+        DECLARE, VARIABLE, 'FREQ-WINDOW' IS DECIMAL	$
+        DECLARE, VARIABLE, 'SAMPLE-COUNT' IS DECIMAL	$
+        DECLARE, VARIABLE, 'VOLTAGE-P-POS' IS DECIMAL	$
+        DECLARE, VARIABLE, 'VOLTAGE-P-NEG' IS DECIMAL	$
+        DECLARE, VARIABLE, 'TRIG-LEVEL' IS DECIMAL	$
+        DECLARE, VARIABLE, 'MATHADD' IS ARRAY (1 THRU 8000) OF DECIMAL $
+        DECLARE, VARIABLE, 'MATHSUB' IS ARRAY (1 THRU 8000) OF DECIMAL $
+        DECLARE, VARIABLE, 'MATHMUL' IS ARRAY (1 THRU 8000) OF DECIMAL $
+        DECLARE, VARIABLE, 'MATHINT' IS ARRAY (1 THRU 8000) OF DECIMAL $
+        DECLARE, VARIABLE, 'MATHDIF' IS ARRAY (1 THRU 8000) OF DECIMAL $
+C $
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, CONSTANT, 'CONTINUE' IS
+         C' Press TRUE to continue '
+          $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test
+	'
+        $
+C $
+C        DEFINE, 'RESULTS-MSG', MESSAGE,
+            UL   ()
+              MV ()
+            LL   () $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, 
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+      C'Dso ATLAS Driver Benchmark\LF\',
+      C'Date/Time:','DATE-TIME' $
+	
+	OUTPUT, TO 'PRINTER', 
+      C'Dso ATLAS Driver Benchmark\LF\',
+      C'Date/Time:', 'DATE-TIME', C'\LF\' $
+
+B $
+ 001005 OUTPUT, 
+        C'           Test Menu
+          --------------------------------
+          Run All Tests                  1
+          Ch.1 Tests                     2
+          Ch.2 Tests                     3
+          Trigger Tests-Ch.2, Ext        4
+	  Multiple Measurments	         5
+          Exit                           0
+
+          Enter a selection'
+        $
+
+	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001015 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 090000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 080000 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 100000 $
+        END, IF $
+
+	OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001005 $
+
+B $
+ 001015  OUTPUT, 
+        C'        Ch.1 Test Menu          \LF\',
+        C'--------------------------------\LF\',
+        C'Main Menu                      1\LF\',
+        C'AC Signal Tests                2\LF\',
+        C'DC Signal Tests                3\LF\',
+        C'Pulsed DC Signal Tests         4\LF\',
+        C'Ramp Signal Tests              5\LF\',
+        C'Square Wave Tests              6\LF\',
+        C'Triangular Wave Tests          7\LF\',
+        C'Waveform Tests                 8\LF\',
+        C'Time Interval Tests            9\LF\',
+        C'Exit                           0\LF\',
+        C'                                \LF\',
+        C'Enter a selection               \LF\'
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     20 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001105 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 040000 $
+        END, IF $
+        IF, 'CHOICE' EQ 6, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050000 $
+        END, IF $
+        IF, 'CHOICE' EQ 7, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060000 $
+        END, IF $
+        IF, 'CHOICE' EQ 8, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 070000 $
+        END, IF $
+        IF, 'CHOICE' EQ 9, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 085000 $
+        END, IF $
+
+     25 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001005 $
+
+C $
+
+C *******************************************************************
+C * AC SIGNAL Tests
+C ******************************************************************* $
+B $
+ 001105  OUTPUT, 
+        C'       AC Signal Tests Menu     \LF\',
+        C'--------------------------------\LF\',
+        C'Measure Freq, Period           1\LF\',
+        C'Measure Vpp, Vp, V, V-av       2\LF\',
+        C'Main Menu                      3\LF\',
+        C'Exit                           0\LF\',
+        C'                                \LF\',
+        C'Enter a selection               \LF\',
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+        
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001105 $
+
+C *******************************************************************
+C * AC SIGNAL (FREQ) Test
+C ******************************************************************* $
+B $
+
+ 010000	OUTPUT, TO 'PRINTER', 
+         C'AC SIGNAL [Freq]
+          ------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+
+     05 OUTPUT,
+        C'          AC SIGNAL Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an AC SIGNAL of 5Vpp at 1KHz  \LF\',
+        C'with 2V DC-OFFSET to the input port 1 \LF\',
+        C'of the DSO. All AC Signal tests should\LF\',
+        C'be done with a 50 Ohm terminating     \LF\',
+	C'resistor.                             \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT , 
+        C' AC SIGNAL [Freq]
+          ------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010050 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = ('FREQ') * 1.1 $
+        CALCULATE, 'VER-LL' = ('FREQ') * 0.9 $
+C        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+
+C $
+	ENABLE, EVENT 'TRIG-CH1' $
+     20 VERIFY, (FREQ INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL' HZ LL 'VER-LL' HZ,
+           FREQ MAX 2E3 HZ,
+           VOLTAGE-P 5 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           COUPLING AC,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           STROBE-TO-EVENT 'TRIG-CH1' MAX-TIME 0.1 SEC,
+           FREQ-WINDOW RANGE 451 HZ to 3000000 HZ,
+           CNX VIA DSO-TEST-HI  $
+	DISABLE, EVENT 'TRIG-CH1' $
+C $
+	CALCULATE, 'TESTNO' = 10020 $
+        PERFORM, 'RESULTS' $
+
+C $
+C $
+C *******************************************************************
+C * AC SIGNAL (PERIOD) Test
+C ******************************************************************* $
+B $
+     50	OUTPUT,
+         C'  AC Signal [PERIOD] 
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  AC Signal [PERIOD]
+          ----------------------\LF\'
+        $
+        OUTPUT, 'CONTINUE' $
+     52 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010099 $
+        END, IF $
+
+	CALCULATE, 'PERIOD' = 1E-3  $
+        CALCULATE, 'VER-UL' = ('PERIOD') * 1.1 $
+        CALCULATE, 'VER-LL' = ('PERIOD') * 0.9 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+
+     55 VERIFY, (PERIOD INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           PERIOD MAX .0005 SEC,
+           VOLTAGE-P 5 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           FREQ-WINDOW RANGE 450 HZ to 30000000 HZ,
+	   TRIG-LEVEL 1.5 RANGE -310 V TO 310 V,
+           TRIG-SLOPE POS,
+        CNX VIA DSO-TEST-HI   $
+C $
+
+    	CALCULATE, 'TESTNO' = 010055 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 010100 $
+        END, IF $
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001105 $
+	ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+
+        GO TO, STEP 001105 $
+
+C $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE-PP) Test
+C ******************************************************************* $
+B $
+ 010100	OUTPUT, TO 'PRINTER', 
+         C'  AC Signal [VOLTAGE-PP]
+          -------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          AC SIGNAL Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an AC SIGNAL of 5Vpp at 1KHz  \LF\',
+        C'with 2V DC-OFFSET to the input port 1 \LF\',
+        C'of the DSO. All AC Signal tests should\LF\',
+        C'be done with a 50 Ohm terminating     \LF\',
+	C'resistor.                             \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT,
+         C'  AC Signal [VOLTAGE-PP] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010200 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-PP' = 5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-PP') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-PP') * 0.9 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+
+     30 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           FREQ MAX 2E3 HZ,
+           VOLTAGE-PP MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           FREQ-WINDOW RANGE 450 HZ to 30000000 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 010130$
+        PERFORM, 'RESULTS' $
+
+C $
+
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE-P) Test
+C ******************************************************************* $
+
+ 010200	OUTPUT,
+         C'  AC Signal [VOLTAGE-P] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  AC Signal [VOLTAGE-P]
+          -------------------------\LF\'
+        $
+
+     25 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010300 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-P' = 2.5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P') * 0.9 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+
+     30 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,           
+	   VOLTAGE-P MAX 20 V,
+           FREQ MAX 2E3 HZ,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           FREQ-WINDOW RANGE 450 HZ to 30000000 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 010230$
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE) [Probe x10] Test
+C ******************************************************************* $
+
+ 010300	OUTPUT,
+         C'  AC Signal Voltage-PP [Probe x10] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  AC Signal Voltage-PP [Probe x10]
+          -------------------------\LF\'
+        $
+
+     25 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010400 $
+        END, IF $
+
+
+	CALCULATE, 'VOLTAGE-P' = 25 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P') * 0.9 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+
+     30 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           FREQ MAX 2E3 HZ,
+           VOLTAGE-P MAX 50 V,
+	   VOLTAGE MAX 10 V,
+           COUPLING AC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $       
+
+    	CALCULATE, 'TESTNO' = 010330$
+        PERFORM, 'RESULTS' $
+
+C $
+
+C *******************************************************************
+C * AC SIGNAL (AV-VOLTAGE) Test
+C ******************************************************************* $
+
+ 010400	OUTPUT,
+         C'  AC Signal [AV-VOLTAGE] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  AC Signal [AV-VOLTAGE]
+          -------------------------\LF\'
+        $
+
+     25 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010499 $
+        END, IF $
+
+	CALCULATE, 'AV-VOLTAGE' = 2.5/1.4142 $
+        CALCULATE, 'VER-UL' = ('AV-VOLTAGE') * 1.1 $
+        CALCULATE, 'VER-LL' = ('AV-VOLTAGE') * 0.9 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+
+     30 VERIFY, (AV-VOLTAGE INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           FREQ MAX 2E3 HZ,
+           AV-VOLTAGE MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30000000 HZ,
+	   SAMPLE-COUNT 50,
+           FREQ-WINDOW 'FREQ-WINDOW' RANGE 450 HZ to 30000000 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 010430$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001105 $
+	ELSE $ 
+            GO TO, STEP 010100 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C *******************************************************************
+C * DC SIGNAL (VOLTAGES) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020000 CALCULATE, 'AC-VOLTS-P'    = 1 $
+        CALCULATE, 'DC-VOLTS'      = 5 $
+        CALCULATE, 'FREQ'          = 1000 $
+        CALCULATE, 'MAX-T'         = 5 $
+        CALCULATE, 'SAMPLE-COUNT'  = 999 $
+        CALCULATE, 'TRIG-LEVEL'    = 5 $
+B $
+     05 OUTPUT,
+        C'      DC SIGNAL [VOLTAGES] Test        \LF\',
+        C'---------------------------------------\LF\',
+        C'Prepare a 2 V DC SIGNAL on input port 1\LF\',
+        C'without a 50 Ohm terminating resistor   \LF\',
+	C'                                       \LF\',
+        C'T - Ready to test.                     \LF\',
+        C'F - Skip test.                         \LF\',
+          $
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020099 $
+        END, IF $
+C $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'VER-UL' = ('DC-VOLTS') * 1.1  $
+        CALCULATE, 'VER-LL' = ('DC-VOLTS') * 0.9  $
+        CALCULATE, 'SAMPLE-COUNT' = 10 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'TRIG-LEVEL'  = 1.5 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+C $
+B $
+    20 VERIFY, (VOLTAGE INTO 'MEASUREMENT'), DC SIGNAL, 
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE MAX 5 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+	   TEST-EQUIP-IMP 50 OHM,
+           COUPLING DC,	   
+           CNX VIA DSO-TEST-HI   $
+
+        OUTPUT,
+         C'  DC [Voltage], Ranged, non-Triggered 
+          --------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+         C'  DC [Voltage], Ranged, non-Triggered 
+          --------------------------------------\LF\'
+        $
+C $
+        CALCULATE, 'TESTNO' = 20020$
+        PERFORM, 'RESULTS' $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001015 $
+	ELSE $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C *******************************************************************
+C * PULSED DC TESTS
+C ******************************************************************* $
+B $
+ 030000 OUTPUT, 
+        C'      Pulsed DC Tests Menu       \LF\',
+        C'---------------------------------\LF\',
+        C'Measure Prf, Period             1\LF\',
+        C'Measure Vpp, Vp, Vp-pos, Vp-neg 2\LF\',
+        C'Measure Rise-time, Fall-time    3\LF\',
+        C'Measure PW, Pos-PW, Neg-PW      4\LF\',
+        C'Measure Duty-cycle              5\LF\',
+        C'Measure Overshoot, Preshoot     6\LF\',
+        C'Main Menu                       7\LF\',
+        C'Exit                            0\LF\',
+        C'                                 \LF\',
+        C'Enter a selection                \LF\',
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030300 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030700 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030900 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 031200 $
+        END, IF $
+        IF, 'CHOICE' EQ 6, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 031300 $
+        END, IF $
+        IF, 'CHOICE' EQ 7, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+        
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 030000 $
+
+
+C *******************************************************************
+C * PULSED DC [PRF] Test
+C ******************************************************************* $
+B $
+
+ 030100	OUTPUT, TO 'PRINTER', 
+         C' PULSED DC SIGNAL [Prf]
+          ------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P'      = 2.5 $
+        CALCULATE, 'DC-VOLTS'        = 0 $
+        CALCULATE, 'PRF'             = 1000 $
+        CALCULATE, 'MAX-T'           = 5 $
+	CALCULATE, 'VOLTAGE-P'       = 5 $
+	CALCULATE, 'PERIOD'          = 1 $
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+
+     05 OUTPUT,
+        C'          PULSED DC Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at\LF\',
+        C'1KHz with 2.5V DC-OFFSET to input port 1\LF\',
+        C'of the DSO. All Pulsed DC Signal      \LF\',
+        C'tests should be done with a 50 Ohm    \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+        $
+
+	OUTPUT , 
+        C' PULSED DC SIGNAL [Prf]
+          ------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030200 $
+        END, IF $
+C $
+        CALCULATE, 'PERIOD'= .001 $
+        CALCULATE, 'VOLTAGE-P'= 10 $
+        CALCULATE, 'VER-UL' = ('PRF') * 1.1 $
+        CALCULATE, 'VER-LL' = ('PRF') * 0.9 $
+
+     30 VERIFY, (PRF INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' HZ LL 'VER-LL' HZ,
+           PRF MAX 2E3 HZ,
+           DC-OFFSET 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+	CALCULATE, 'TESTNO' = 030130 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+C $
+C *******************************************************************
+C * PULSED DC (PERIOD) Test
+C ******************************************************************* $
+
+ 030200	OUTPUT,
+         C'  PULSED DC [PERIOD] 
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  PULSED DC [PERIOD]
+          ----------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030299 $
+        END, IF $
+
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+        CALCULATE, 'DC-VOLTS'        = 0 $
+	 CALCULATE, 'MAX-T'           = 5 $
+        CALCULATE, 'VOLTAGE-P'= 10 $
+        CALCULATE, 'VER-UL' = ('PERIOD') * 1.1 $
+        CALCULATE, 'VER-LL' = ('PERIOD') * 0.9 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           PERIOD MAX .002 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 1 V TO 50 V,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 030230$
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $
+            GO TO, STEP 030100 $
+        END, IF $
+C $
+        GO TO, STEP 030300 $
+
+C $
+C $
+C *******************************************************************
+C * PULSED DC [VOLTAGE-PP] Test
+C ******************************************************************* $
+B $
+
+ 030300	OUTPUT, TO 'PRINTER', 
+         C' PULSED DC SIGNAL [Voltage-PP]
+          -------------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'PRF'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+
+     05 OUTPUT,
+        C'          PULSED DC Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at	\LF\',
+        C'1KHz with 2.5V DC-OFFSET to input port 1\LF\',
+        C'of the DSO. All Pulsed DC Signal      \LF\',
+        C'tests should be done with a 50 Ohm    \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+        $
+
+	OUTPUT , 
+        C' PULSED DC SIGNAL [Voltage-PP]
+          ------------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030400 $
+        END, IF $
+C $
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+ 
+        CALCULATE, 'VOLTAGE-PP'=5 $
+        CALCULATE, 'VOLTAGE-P'=10 $
+        CALCULATE, 'PERIOD'=.001 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-PP') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-PP') * 0.9 $
+
+     30 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 10 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+        
+    	CALCULATE, 'TESTNO' = 030330$
+        PERFORM, 'RESULTS' $
+
+C $
+C *******************************************************************
+C * PULSED DC (VOLTAGE-P) Test
+C ******************************************************************* $
+
+ 030400	OUTPUT,
+         C'  Pulsed DC [VOLTAGE-P] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [VOLTAGE-P]
+          -------------------------\LF\'
+        $
+
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030500 $
+        END, IF $
+
+
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+
+	CALCULATE, 'VOLTAGE-P' = 5 $
+        CALCULATE, 'PERIOD'=.001 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P') * 0.9 $
+
+     30 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P MAX 10 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 030430$
+        PERFORM, 'RESULTS' $
+
+C $
+C $
+C *******************************************************************
+C * PULSED DC (VOLTAGE-P-POS) Test
+C ******************************************************************* $
+
+ 030500	OUTPUT,
+         C'  PULSED DC [VOLTAGE-P-POS] 
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  PULSED DC [VOLTAGE-P-POS]
+          ----------------------\LF\'
+        $
+
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030600 $
+        END, IF $
+
+      	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+
+        CALCULATE, 'VOLTAGE-P-POS'=5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P-POS') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P-POS') * 0.9 $
+
+     30 VERIFY, (VOLTAGE-P-POS INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' V LL 'VER-LL' V,
+           VOLTAGE-P-POS MAX 10 V,
+           PERIOD .001 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 030530$
+        PERFORM, 'RESULTS' $
+
+C $
+C *******************************************************************
+C * PULSED DC (VOLTAGE-P-NEG) Test
+C ******************************************************************* $
+
+ 030600	OUTPUT,
+         C'  PULSED DC [VOLTAGE-P-NEG] 
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  PULSED DC [VOLTAGE-P-NEG]
+          ----------------------\LF\'
+        $
+
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030699 $
+        END, IF $
+
+      	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+
+        CALCULATE, 'VOLTAGE-P-NEG'=0 $
+        CALCULATE, 'VER-UL' = 1.1 $
+        CALCULATE, 'VER-LL' = -0.9 $
+
+     30 VERIFY, (VOLTAGE-P-NEG INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' V LL 'VER-LL' V,
+           VOLTAGE-P-NEG MAX 10 V,
+           PERIOD.001 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 030630$
+        PERFORM, 'RESULTS' $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030700 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $
+            GO TO, STEP 030300 $
+        END, IF $
+C $
+C $
+C *******************************************************************
+C * PULSED DC (RISE-TIME) Test
+C ******************************************************************* $
+B $
+ 030700	OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [RISE-TIME]
+          -------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          PULSED DC Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an PULSED DC SIGNAL of 5Vpp at\LF\',
+        C'1KHz with 0 V DC-OFFSET 20% LEADING EDGE\LF\',
+	C'20% FALLING EDGE to input port 1	\LF\',
+        C'of the DSO. All Pulsed DC Signal      \LF\',
+        C'tests should be done with a 50 Ohm    \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+        $
+
+	OUTPUT,
+         C'  Pulsed DC [RISE-TIME] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030800 $
+        END, IF $
+
+     	 CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+
+	CALCULATE, 'RISE-TIME' = 165E-6 $
+        CALCULATE, 'VOLTAGE-P' = 5 $
+        CALCULATE, 'PERIOD' = .001 $
+        CALCULATE, 'VER-UL' = ('RISE-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('RISE-TIME') * 0.9 $
+
+     30 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           RISE-TIME MAX .00005 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 030730 $
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * PULSED DC (FALL-TIME) Test
+C ******************************************************************* $
+
+ 030800	OUTPUT,
+         C'  Pulsed DC [FALL-TIME] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [FALL-TIME]
+          -------------------------\LF\'
+        $
+
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030899 $
+        END, IF $
+	CALCULATE, 'POS-PULSE-WIDTH' = 1 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+      	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'FALL-TIME' = 165E-6 $
+        CALCULATE, 'PERIOD' = .001 $
+        CALCULATE, 'VOLTAGE-P' = 5 $
+	CALCULATE, 'VER-UL' = ('FALL-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('FALL-TIME') * 0.9 $
+
+     30 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           FALL-TIME MAX .00005 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 030830 $
+        PERFORM, 'RESULTS' $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030900 $
+        END, IF $
+
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $
+            GO TO, STEP 030700 $
+        END, IF $
+C $
+
+C *******************************************************************
+C * PULSED DC (PULSE-WIDTH) Test
+C ******************************************************************* $
+B $
+ 030900	OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [PULSE-WIDTH]
+          -------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          PULSED DC Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at\LF\',
+        C'1KHz with 2.5V DC-OFFSET to input port 1\LF\',
+        C'of the DSO. All Pulsed DC Signal      \LF\',
+        C'tests should be done with a 50 Ohm    \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+        $
+
+	OUTPUT,
+         C'  Pulsed DC [PULSE-WIDTH] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031000 $
+        END, IF $
+
+	CALCULATE, 'POS-PULSE-WIDTH' = .0005 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = .0005 $
+     	 CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'PULSE-WIDTH' = .0005 $
+        CALCULATE, 'VOLTAGE-P' = 10 $
+        CALCULATE, 'PERIOD' = .001 $
+        CALCULATE, 'VER-UL' = ('PULSE-WIDTH') * 1.1 $
+        CALCULATE, 'VER-LL' = ('PULSE-WIDTH') * 0.9 $
+
+     30 VERIFY, (PULSE-WIDTH INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           PULSE-WIDTH MAX .0002 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 030930 $
+        PERFORM, 'RESULTS' $
+
+C $
+C *******************************************************************
+C * PULSED DC (POS-PULSE-WIDTH) Test
+C ******************************************************************* $
+
+ 031000	OUTPUT,
+         C'  Pulsed DC [POS-PULSE-WIDTH] 
+          -------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [POS-PULSE-WIDTH]
+          -------------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031100 $
+        END, IF $
+
+	CALCULATE, 'NEG-PULSE-WIDTH' = 1 $
+     	 CALCULATE, 'DC-VOLTS'   = 0 $
+	CALCULATE, 'PERIOD' = .001 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'POS-PULSE-WIDTH' = .0005 $
+        CALCULATE, 'VER-UL' = ('POS-PULSE-WIDTH') * 1.1 $
+        CALCULATE, 'VER-LL' = ('POS-PULSE-WIDTH') * 0.9 $
+
+     30 VERIFY, (POS-PULSE-WIDTH INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           POS-PULSE-WIDTH MAX .0002 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 031030 $
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * PULSED DC (NEG-PULSE-WIDTH) Test
+C ******************************************************************* $
+
+ 031100	OUTPUT,
+         C'  Pulsed DC [NEG-PULSE-WIDTH] 
+          -------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [NEG-PULSE-WIDTH]
+          -------------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031199 $
+        END, IF $
+	
+	CALCULATE, 'DC-VOLTS'   = 0 $
+	CALCULATE, 'PERIOD' = .001 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'POS-PULSE-WIDTH' = .0005 $
+	CALCULATE, 'PERIOD' = .001 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = .0005 $
+        CALCULATE, 'VER-UL' = ('NEG-PULSE-WIDTH') * 1.1 $
+        CALCULATE, 'VER-LL' = ('NEG-PULSE-WIDTH') * 0.9 $
+
+     30 VERIFY, (NEG-PULSE-WIDTH INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           NEG-PULSE-WIDTH MAX .0002 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 031130 $
+        PERFORM, 'RESULTS' $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 031200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $
+            GO TO, STEP 030900 $
+        END, IF $
+C $
+
+C *******************************************************************
+C * PULSED DC (DUTY-CYCLE) Test
+C ******************************************************************* $
+B $
+ 031200	OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [DUTY-CYCLE]
+          -------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          PULSED DC Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at\LF\',
+        C'1KHz with 2.5V DC-OFFSET to input port 1\LF\',
+        C'of the DSO. All Pulsed DC Signal      \LF\',
+        C'tests should be done with a 50 Ohm    \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+        $
+
+	OUTPUT,
+         C'  Pulsed DC [DUTY-CYCLE] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031299 $
+        END, IF $
+
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'DUTY-CYCLE' = 50 $
+        CALCULATE, 'VOLTAGE-P' = 10 $
+	CALCULATE, 'PERIOD' = .001 $
+        CALCULATE, 'VER-UL' = ('DUTY-CYCLE') + .5 $
+        CALCULATE, 'VER-LL' = ('DUTY-CYCLE') - .5 $
+	CALCULATE, 'POS-PULSE-WIDTH' = .0005 $
+	CALCULATE, 'NEG-PULSE-WIDTH' = .0005 $
+
+     30 VERIFY, (DUTY-CYCLE INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' PC LL 'VER-LL' PC,
+           DUTY-CYCLE MAX 100 PC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 031230 $
+        PERFORM, 'RESULTS' $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 031300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $
+            GO TO, STEP 031200 $
+        END, IF $
+C $
+C $
+C *******************************************************************
+C * PULSED DC (OVERSHOOT) Test
+C ******************************************************************* $
+B $
+ 031300	OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [OVERSHOOT]
+          -------------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          PULSED DC Test              \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at\LF\',
+        C'1KHz with 2.5V DC-OFFSET to input port 1\LF\',
+        C'of the DSO. All Pulsed DC Signal      \LF\',
+        C'tests should be done with a 50 Ohm    \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+        $
+	
+	OUTPUT,
+         C'  Pulsed DC [OVERSHOOT] 
+          -------------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031400 $
+        END, IF $
+
+	CALCULATE, 'OVERSHOOT' = 5 $
+        CALCULATE, 'VOLTAGE-P' = 20 $
+        CALCULATE, 'PERIOD' = .001 $
+        CALCULATE, 'VER-UL' = 10 $
+        CALCULATE, 'VER-LL' = 0 $
+
+     30 VERIFY, (OVERSHOOT INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' PC LL 'VER-LL' PC,
+           OVERSHOOT MAX 100 PC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 031330 $
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * PULSED DC (PRESHOOT) Test
+C ******************************************************************* $
+
+ 031400	OUTPUT,
+         C'  Pulsed DC [PRESHOOT] 
+          -------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Pulsed DC [PRESHOOT]
+          -------------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031499 $
+        END, IF $
+
+	CALCULATE, 'PRESHOOT' = 5 $
+        CALCULATE, 'VER-UL' = 10 $
+        CALCULATE, 'VER-LL' = 0 $
+
+     30 VERIFY, (PRESHOOT INTO 'MEASUREMENT'), PULSED DC,
+	   UL 'VER-UL' PC LL 'VER-LL' PC,
+           PRESHOOT MAX 100 PC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           POS-PULSE-WIDTH 'POS-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           NEG-PULSE-WIDTH 'NEG-PULSE-WIDTH' RANGE .00000001 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 031430 $
+        PERFORM, 'RESULTS' $
+C $
+C ******************$
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 040100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $
+            GO TO, STEP 031300 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ***************************************************************$
+C      RAMP SIGNAL TESTS                                         $
+C ***************************************************************$
+
+B $
+ 040000 OUTPUT, 
+        C'      Ramp Signal Tests Menu     \LF\',
+        C'---------------------------------\LF\',
+        C'Measure Freq, Period            1\LF\',
+        C'Measure Vpp, Vp, Vp-pos, Vp-neg 2\LF\',
+        C'Measure Rise-time, Fall-time    3\LF\',
+        C'Main Menu                       4\LF\',
+        C'Exit                            0\LF\',
+        C'                                 \LF\',
+        C'Enter a selection                \LF\',
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 040100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 040300 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 040700 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+        
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 040000 $
+
+C *******************************************************************
+C * RAMP SIGNAL [FREQ] Test
+C ******************************************************************* $
+B $
+
+ 040100	OUTPUT, TO 'PRINTER', 
+         C' RAMP SIGNAL SIGNAL [Freq]
+          ---------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P'    = 2.5  $
+        CALCULATE, 'DC-VOLTS'      = 0    $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+        CALCULATE, 'VOLTAGE-P'     = 10   $
+        CALCULATE, 'VOLTAGE-P-POS' = 20   $
+	CALCULATE, 'VOLTAGE-P-NEG' = 20   $
+	CALCULATE, 'PERIOD'        = .001 $
+	CALCULATE, 'BANDWIDTH'     = 1000 $
+        CALCULATE, 'FREQ'          = 1000 $
+
+     05 OUTPUT,
+        C'          RAMP SIGNAL Test            \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an RAMP SIGNAL of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. All Ramp Tests should be  \LF\',
+        C'done using a 50 Ohm terminating       \LF\',
+	C'resistor.                             \LF\', 
+	C'                                      \LF\', 
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT , 
+        C' RAMP SIGNAL SIGNAL [Freq]
+          --------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040200 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = ('FREQ') * 1.1 $
+        CALCULATE, 'VER-LL' = ('FREQ') * 0.9 $
+C $
+     30 VERIFY, (FREQ INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL' HZ LL 'VER-LL' HZ,
+           FREQ MAX 2E3 HZ,
+           DC-OFFSET 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $
+	CALCULATE, 'TESTNO' = 040130 $
+        PERFORM, 'RESULTS' $
+
+C $
+C $
+
+C *******************************************************************
+C * RAMP SIGNAL (PERIOD) Test
+C ******************************************************************* $
+
+ 040200	OUTPUT,
+         C'  RAMP SIGNAL [PERIOD] 
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  RAMP SIGNAL [PERIOD]
+          ----------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040299 $
+        END, IF $
+
+        CALCULATE, 'VER-UL' = ('PERIOD') * 1.1 $
+        CALCULATE, 'VER-LL' = ('PERIOD') * 0.9 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           PERIOD MAX .002 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 040230$
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 040300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040000 $
+	ELSE $
+            GO TO, STEP 040100 $
+        END, IF $
+C $
+C $
+C *******************************************************************
+C * RAMP SIGNAL [VOLTAGE-PP] Test
+C ******************************************************************* $
+B $
+
+ 040300	OUTPUT, TO 'PRINTER', 
+         C' RAMP SIGNAL SIGNAL [Voltage-PP]
+          -------------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'PERIOD'        = .001 $
+
+     05 OUTPUT,
+        C'          RAMP SIGNAL Test            \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an RAMP SIGNAL of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. All Ramp Tests should be  \LF\',
+        C'done using a 50 Ohm terminating       \LF\',
+	C'resistor.                             \LF\', 
+	C'                                      \LF\', 
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT , 
+        C' RAMP SIGNAL SIGNAL [Voltage-PP]
+          ------------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040400 $
+        END, IF $
+C $
+        CALCULATE, 'VOLTAGE-PP' = 5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-PP') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-PP') * 0.9 $
+C $
+     30 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $     
+    	CALCULATE, 'TESTNO' = 040330$
+        PERFORM, 'RESULTS' $
+
+C $
+C *******************************************************************
+C * RAMP SIGNAL (VOLTAGE-P) Test
+C ******************************************************************* $
+
+ 040400	OUTPUT,
+         C'  Ramp Signal [VOLTAGE-P] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Ramp Signal [VOLTAGE-P]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040500 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-P' = 2.5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P') * 0.9 $
+	CALCULATE, 'PERIOD'        = .001 $
+
+     30 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P MAX 10 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30e+6 HZ,  
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 040430$
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * RAMP SIGNAL (VOLTAGE-P-POS) Test
+C ******************************************************************* $
+
+ 040500	OUTPUT,
+         C'  Ramp Signal [VOLTAGE-P-POS] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Ramp Signal [VOLTAGE-P-POS]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040600 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P-POS') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P-POS') * 0.9 $
+	CALCULATE, 'PERIOD'        = .001 $
+
+     30 VERIFY, (VOLTAGE-P-POS INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P-POS MAX 10 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 040530$
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * RAMP SIGNAL (VOLTAGE-P-NEG) Test
+C ******************************************************************* $
+
+ 040600	OUTPUT,
+         C'  Ramp Signal [VOLTAGE-P-NEG] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Ramp Signal [VOLTAGE-P-NEG]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040699 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P-NEG') * 0.9 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P-NEG') * 1.1 $
+	CALCULATE, 'PERIOD'        = .001 $
+
+     30 VERIFY, (VOLTAGE-P-NEG INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P-NEG MAX 10 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 040630$
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 040700 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040000 $
+	ELSE $
+            GO TO, STEP 040300 $
+        END, IF $
+C $
+C *******************************************************************
+C * RAMP SIGNAL (RISE-TIME) Test
+C ******************************************************************* $
+B $
+ 040700	OUTPUT, TO 'PRINTER', 
+         C'  Ramp Signal [RISE-TIME]
+          -------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          RAMP SIGNAL (Rise-Time)Test \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an RAMP SIGNAL of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. If you can set Leading Edge\LF\',
+	C'make sure to set it to 99.9%.         \LF\',
+	C'All Ramp Tests should be  		\LF\',
+        C'done using a 50 Ohm terminating       \LF\',
+	C'resistor.                             \LF\', 
+	C'                                      \LF\', 
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT,
+         C'  Ramp Signal [RISE-TIME] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040800 $
+        END, IF $
+
+	CALCULATE, 'BANDWIDTH'     = 1000 $
+	CALCULATE, 'MAX-T'     = 5 $
+        CALCULATE, 'FREQ'          = 1000 $
+	CALCULATE, 'DC-VOLTS'     = 0 $
+	CALCULATE, 'RISE-TIME' = .0007 $
+        CALCULATE, 'VER-UL' = ('RISE-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('RISE-TIME') * 0.9 $
+	CALCULATE, 'PERIOD'        = .001 $
+	CALCULATE, 'VOLTAGE-P'  = 2.5 $
+
+     30 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           RISE-TIME MAX .0005 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 040730 $
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * RAMP SIGNAL (FALL-TIME) Test
+C ******************************************************************* $
+
+ 040800	
+	OUTPUT, TO 'PRINTER', 
+         C'  Ramp Signal [FALL-TIME]
+          -------------------------\LF\'
+        $
+       OUTPUT,
+	C'\LF\, \LF\',
+        C'          RAMP SIGNAL (Fall-Time)Test \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an RAMP SIGNAL of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. If you can set Trailing Edge\LF\',
+	C'make sure to set it to 99.9%.         \LF\',
+	C'All Ramp Tests should be  		\LF\',
+        C'done using a 50 Ohm terminating       \LF\',
+	C'resistor.                             \LF\', 
+	C'                                      \LF\', 
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040899 $
+        END, IF $
+
+C   FALL TIME DETERMINED USING SFP $
+	CALCULATE, 'FALL-TIME' = .0007 $
+        CALCULATE, 'VER-UL' = ('FALL-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('FALL-TIME') * 0.9 $
+	CALCULATE, 'PERIOD'        = .001 $
+	CALCULATE, 'BANDWIDTH'     = 1000 $
+	CALCULATE, 'MAX-T'     = 5 $
+        CALCULATE, 'FREQ'          = 1000 $
+	CALCULATE, 'DC-VOLTS'     = 0 $
+
+     30 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), RAMP SIGNAL,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           FALL-TIME MAX .0005 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+	OUTPUT,
+         C'  Ramp Signal [FALL-TIME] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Ramp Signal [FALL-TIME]
+          -------------------------\LF\'
+        $
+
+    	CALCULATE, 'TESTNO' = 040830 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040000 $
+	ELSE $
+            GO TO, STEP 040700 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ***************************************************************$
+C      SQUARE WAVE TESTS                                         $
+C ***************************************************************$
+B $
+ 050000 OUTPUT, 
+        C'     Square Wave Tests Menu      \LF\',
+        C'---------------------------------\LF\',
+        C'Measure Freq, Period            1\LF\',
+        C'Measure Vpp, Vp, Vp-pos, Vp-neg 2\LF\',
+        C'Measure Rise-time, Fall-time    3\LF\',
+        C'Measure Duty-cycle              4\LF\',
+        C'Main Menu                       5\LF\',
+        C'Exit                            0\LF\',
+        C'                                 \LF\',
+        C'Enter a selection                \LF\',
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050300 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050700 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050900 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+        
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 050000 $
+
+C *******************************************************************
+C * SQUARE WAVE [FREQ] Test
+C ******************************************************************* $
+B $
+
+ 050100	OUTPUT, TO 'PRINTER', 
+         C' SQUARE WAVE SIGNAL [Freq]
+          ---------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'DC-VOLTS'      = 0    $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+        CALCULATE, 'VOLTAGE-P'     = 2.5  $
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5  $
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+	CALCULATE, 'PERIOD'        = .001 $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+        
+      05 OUTPUT,
+        C'          SQUARE WAVE Test            \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. All Square Wave tests     \LF\',
+        C'should be done using a 50 Ohm         \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT , 
+        C' SQUARE WAVE SIGNAL [Freq]
+          --------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050200 $
+        END, IF $
+C $
+        CALCULATE, 'FREQ'=1000 $
+        CALCULATE, 'VER-UL' = ('FREQ') * 1.1 $
+        CALCULATE, 'VER-LL' = ('FREQ') * 0.9 $
+C $
+     20 VERIFY, (FREQ INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL' HZ LL 'VER-LL' HZ,
+           FREQ MAX 2E3 HZ,
+           DC-OFFSET 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0 V to 50 V,
+           BANDWIDTH 'BANDWIDTH'RANGE 450 HZ to 30E6 HZ,
+           PRESHOOT 'PRESHOOT' RANGE 0 PC to 100 PC,
+           OVERSHOOT 'OVERSHOOT' RANGE 0 PC to 100 PC,
+           CNX VIA DSO-TEST-HI   $ 
+C $
+	CALCULATE, 'TESTNO' = 050120 $
+        PERFORM, 'RESULTS' $
+C $
+C *******************************************************************
+C * SQUARE WAVE (PERIOD) Test
+C ******************************************************************* $
+
+ 050200	OUTPUT,
+         C'  SQUARE WAVE [PERIOD] 
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  SQUARE WAVE [PERIOD]
+          ----------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050299 $
+        END, IF $
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'DC-VOLTS'      = 0    $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+        CALCULATE, 'VOLTAGE-P'     = 2.5  $
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5  $
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+        CALCULATE, 'PERIOD'=.001 $
+        CALCULATE, 'VER-UL' = ('PERIOD') * 1.1 $
+        CALCULATE, 'VER-LL' = ('PERIOD') * 0.9 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           PERIOD MAX.001 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           BANDWIDTH RANGE 450 HZ to 30E6 HZ,
+           PRESHOOT 'PRESHOOT' RANGE 0 PC to 100 PC,
+           OVERSHOOT 'OVERSHOOT' RANGE 0 PC to 100 PC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 050230$
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050000 $
+	ELSE $
+            GO TO, STEP 050100 $
+        END, IF $
+C $
+C $
+C *******************************************************************
+C * SQUARE WAVE [VOLTAGE-PP] Test
+C ******************************************************************* $
+B $
+
+ 050300	OUTPUT, TO 'PRINTER', 
+         C' SQUARE WAVE SIGNAL [Voltage-PP]
+          -------------------------------\LF\'
+        $
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'DC-VOLTS'      = 0    $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+        CALCULATE, 'VOLTAGE-P'     = 2.5  $
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5  $
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+	CALCULATE, 'PERIOD'        = .001 $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+
+      05 OUTPUT,
+        C'          SQUARE WAVE Test            \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. All Square Wave tests     \LF\',
+        C'should be done using a 50 Ohm         \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT , 
+        C' SQUARE WAVE SIGNAL [Voltage-PP]
+          ------------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050400 $
+        END, IF $
+C $
+        CALCULATE, 'VOLTAGE-PP'=5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-PP') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-PP') * 0.9 $
+C $
+     20 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 10 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V, 
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30E6 HZ,
+           PRESHOOT 'PRESHOOT' RANGE 0 PC to 100 PC,
+           OVERSHOOT 'OVERSHOOT' RANGE 0 PC to 100 PC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 050320$
+        PERFORM, 'RESULTS' $
+C $
+C *******************************************************************
+C * SQUARE WAVE (VOLTAGE-P) Test
+C ******************************************************************* $
+
+ 050400	OUTPUT,
+         C'  Square Wave [VOLTAGE-P] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Square Wave [VOLTAGE-P]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050500 $
+        END, IF $
+
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5  $
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+
+	CALCULATE, 'VOLTAGE-P' = 2.5 $
+        CALCULATE, 'PERIOD' = .001 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P') * 0.9 $
+
+     30 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P MAX 5 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC, 
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30E6 HZ,
+           PRESHOOT 'PRESHOOT' RANGE 0 PC to 100 PC,
+           OVERSHOOT 'OVERSHOOT' RANGE 0 PC to 100 PC,
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 050430$
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * SQUARE WAVE (VOLTAGE-P-POS) Test
+C ******************************************************************* $
+
+ 050500	OUTPUT,
+         C'  Square Wave [VOLTAGE-P-POS] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Square Wave [VOLTAGE-P-POS]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050600 $
+        END, IF $
+
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+        CALCULATE, 'VOLTAGE-P'     = 2.5  $
+	CALCULATE, 'PERIOD'        = .001 $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P-POS') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P-POS') * 0.9 $
+
+
+     30 VERIFY, (VOLTAGE-P-POS INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P-POS MAX 5 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+C $
+    	CALCULATE, 'TESTNO' = 050530$
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * SQUARE WAVE (VOLTAGE-P-NEG) Test
+C ******************************************************************* $
+
+ 050600	OUTPUT,
+         C'  Square Wave [VOLTAGE-P-NEG] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Square Wave [VOLTAGE-P-NEG]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050699 $
+        END, IF $
+
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+        CALCULATE, 'VOLTAGE-P'     = 2.5  $
+	CALCULATE, 'PERIOD'        = .001 $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P-NEG') * 0.9 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P-NEG') * 1.1 $
+
+     30 VERIFY, (VOLTAGE-P-NEG INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P-NEG MAX 5 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC, 
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 050630$
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050700 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050000 $
+	ELSE $
+            GO TO, STEP 050300 $
+        END, IF $
+C $
+C *******************************************************************
+C * SQUARE WAVE (RISE-TIME) Test
+C ******************************************************************* $
+B $
+ 050700	OUTPUT, TO 'PRINTER', 
+         C'  Square Wave [RISE-TIME]
+          -------------------------\LF\'
+        $
+
+      05 OUTPUT,
+        C'          SQUARE WAVE Test            \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. All Square Wave tests     \LF\',
+        C'should be done using a 50 Ohm         \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT,
+         C'  Square Wave [RISE-TIME] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050800 $
+        END, IF $
+
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+
+	CALCULATE, 'RISE-TIME' = .000001 $
+        CALCULATE, 'PERIOD' = .0002 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'VOLTAGE-P' = 10 $
+        CALCULATE, 'VER-UL' = ('RISE-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('RISE-TIME') * 0.9 $
+
+     30 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           RISE-TIME MAX .0004 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC, 
+           CNX VIA DSO-TEST-HI   $
+C $
+    	CALCULATE, 'TESTNO' = 050730 $
+        PERFORM, 'RESULTS' $
+
+C *******************************************************************
+C * SQUARE WAVE (FALL-TIME) Test
+C ******************************************************************* $
+
+ 050800	OUTPUT,
+         C'  Square Wave [FALL-TIME] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  Square Wave [FALL-TIME]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050899 $
+        END, IF $
+
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+
+	CALCULATE, 'FALL-TIME' = .000001 $
+        CALCULATE, 'PERIOD' = .0002 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'VOLTAGE-P' = 10 $
+        CALCULATE, 'VER-UL' = ('FALL-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('FALL-TIME') * 0.9 $
+
+     30 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           FALL-TIME MAX .0004 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V, 
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           CNX VIA DSO-TEST-HI   $
+C $      
+    	CALCULATE, 'TESTNO' = 050830 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050900 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050000 $
+	ELSE $
+            GO TO, STEP 050700 $
+        END, IF $
+
+C *******************************************************************
+C * SQUARE WAVE (DUTY-CYCLE) Test
+C ******************************************************************* $
+B $
+ 050900	OUTPUT, TO 'PRINTER', 
+         C'  Square Wave [DUTY-CYCLE]
+          -------------------------\LF\'
+        $
+
+      05 OUTPUT,
+        C'          SQUARE WAVE Test            \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to input port 1     \LF\',
+        C'of the DSO. All Square Wave tests     \LF\',
+        C'should be done using a 50 Ohm         \LF\',
+	C'terminating resistor.                 \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT,
+         C'  Square Wave [DUTY-CYCLE] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050999 $
+        END, IF $
+
+	CALCULATE, 'AC-VOLTS-P'    = 5  $
+        CALCULATE, 'DC-VOLTS'      = 0    $
+        CALCULATE, 'PRF'           = 1000 $
+        CALCULATE, 'MAX-T'         = 5    $
+        CALCULATE, 'VOLTAGE-P'     = 2.5  $
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5  $
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+	CALCULATE, 'BANDWIDTH'     = 500  $
+	CALCULATE, 'PRESHOOT'      = 50   $
+	CALCULATE, 'OVERSHOOT'     = 50   $
+
+	CALCULATE, 'DUTY-CYCLE' = 50 $
+        CALCULATE, 'VOLTAGE-P' = 10 $
+        CALCULATE, 'PERIOD' = .0010 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'VER-UL' = ('DUTY-CYCLE') + 2.5 $
+        CALCULATE, 'VER-LL' = ('DUTY-CYCLE') - 2.5 $
+
+     30 VERIFY, (DUTY-CYCLE INTO 'MEASUREMENT'), SQUARE WAVE,
+	   UL 'VER-UL' PC LL 'VER-LL' PC,
+           DUTY-CYCLE MAX 100 PC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 V to 50 V,
+           VOLTAGE-P-POS 'VOLTAGE-P-POS' RANGE 0 V to 40 V,
+           VOLTAGE-P-NEG 'VOLTAGE-P-NEG' RANGE 0 V to 40 V, 
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30E6 HZ,
+           PRESHOOT 'PRESHOOT' RANGE 0 PC to 100 PC,
+           OVERSHOOT 'OVERSHOOT' RANGE 0 PC to 100 PC,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 051230 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050000 $
+	ELSE $
+            GO TO, STEP 050900 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ***************************************************************$
+C      TRIANGULAR WAVE TESTS                                     $
+C ***************************************************************$
+B $
+ 060000 OUTPUT, 
+        C'   Triangular Wave Tests Menu    \LF\',
+        C'---------------------------------\LF\',
+        C'Measure Freq, Period            1\LF\',
+        C'Measure Vpp, Vp, Vp-pos, Vp-neg 2\LF\',
+        C'Measure Rise-time, Fall-time    3\LF\',
+        C'Measure Duty-cycle              4\LF\',
+        C'Main Menu                       5\LF\',
+        C'Exit                            0\LF\',
+        C'                                 \LF\',
+        C'Enter a selection                \LF\',
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060300 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060700 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060900 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+        
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 060000 $
+
+C *******************************************************************
+C * TRIANGULAR WAVE [FREQ] Test
+C ******************************************************************* $
+B $
+
+ 060100	OUTPUT, TO 'PRINTER', 
+         C' TRIANGULAR WAVE SIGNAL [Freq]
+          ---------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'PRF'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'VOLTAGE-P'      = 2.5 $
+	CALCULATE, 'VOLTAGE-P-POS'      = 2.5 $
+	CALCULATE, 'VOLTAGE-P-NEG'      = -2.5 $
+	CALCULATE, 'PERIOD'      = .001 $
+	CALCULATE, 'BANDWIDTH'      = 500 $
+	CALCULATE, 'PULSE-WIDTH'      = 1 $
+
+     05 OUTPUT,
+        C'          TRIANGULAR WAVE Test            \LF\',
+        C'------------------------------------------\LF\',
+        C'Prepare an TRIANGULAR WAVE of 5Vpp at 1KHz\LF\', 
+        C'with 0V DC-OFFSET to input port 1         \LF\',
+        C'of the DSO. All Triangular Wave tests     \LF\',
+        C'should be done using a 50 Ohm             \LF\',
+	C'terminating resistor.                     \LF\',
+	C'                                          \LF\',
+        C'T - Ready to test.                        \LF\',
+        C'F - Skip test.                            \LF\',
+        $
+
+	OUTPUT , 
+        C' TRIANGULAR WAVE SIGNAL [Freq]
+          --------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060200 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 1000 * 1.1 $
+        CALCULATE, 'VER-LL' = 1000 * 0.9 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+
+     30 VERIFY, (FREQ INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL' HZ LL 'VER-LL' HZ,
+           FREQ MAX 2E3 HZ,
+           DC-OFFSET 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+	   VOLTAGE-P 'VOLTAGE-P' RANGE 0 v to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+C $
+	CALCULATE, 'TESTNO' = 060130 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+C $
+C $
+
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL (PERIOD) Test
+C ******************************************************************* $
+
+ 060200	OUTPUT,
+         C'  TRIANGULAR WAVE SIGNAL [PERIOD] 
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  TRIANGULAR WAVE SIGNAL [PERIOD]
+          ----------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060299 $
+        END, IF $
+
+        CALCULATE, 'VER-UL' = ('PERIOD') * 1.1 $
+        CALCULATE, 'VER-LL' = ('PERIOD') * 0.9 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+
+     30 VERIFY, (PERIOD INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           PERIOD MAX .002 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 v to 50 V,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 060230$
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 060000 $
+	ELSE $
+            GO TO, STEP 060100 $
+        END, IF $
+C $
+C $
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL [VOLTAGE-PP] Test
+C ******************************************************************* $
+B $
+
+ 060300	OUTPUT, TO 'PRINTER', 
+         C' TRIANGULAR WAVE SIGNAL SIGNAL [Voltage-PP]
+          -------------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'PERIOD'     = .001 $
+        CALCULATE, 'MAX-T'      = 5 $
+
+     05 OUTPUT,
+        C'          TRIANGULAR WAVE Test            \LF\',
+        C'------------------------------------------\LF\',
+        C'Prepare an TRIANGULAR WAVE of 5Vpp at 1KHz\LF\', 
+        C'with 0V DC-OFFSET to input port 1         \LF\',
+        C'of the DSO. All Triangular Wave tests     \LF\',
+        C'should be done using a 50 Ohm             \LF\',
+	C'terminating resistor.                     \LF\',
+	C'                                          \LF\',
+        C'T - Ready to test.                        \LF\',
+        C'F - Skip test.                            \LF\',
+        $
+
+	OUTPUT , 
+        C' TRIANGULAR WAVE SIGNAL SIGNAL [Voltage-PP]
+          ------------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060400 $
+        END, IF $
+C $
+        CALCULATE, 'VOLTAGE-PP' = 5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-PP') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-PP') * 0.9 $
+
+    30 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 060330$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+
+C $
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL (VOLTAGE-P) Test
+C ******************************************************************* $
+
+ 060400	OUTPUT,
+         C'  TRIANGULAR WAVE SIGNAL [VOLTAGE-P] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  TRIANGULAR WAVE SIGNAL [VOLTAGE-P]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060500 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-P' = 2.5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P') * 0.9 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+
+     30 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+   	CALCULATE, 'TESTNO' = 060430$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL (VOLTAGE-P-POS) Test
+C ******************************************************************* $
+
+ 060500	OUTPUT,
+         C'  TRIANGULAR WAVE SIGNAL [VOLTAGE-P-POS] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  TRIANGULAR WAVE SIGNAL [VOLTAGE-P-POS]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060600 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-P-POS' = 2.5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P-POS') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P-POS') * 0.9 $
+	CALCULATE, 'PERIOD' = .0005 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+        
+
+     30 VERIFY, (VOLTAGE-P-POS INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P-POS MAX 5 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+
+    	CALCULATE, 'TESTNO' = 060530$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL (VOLTAGE-P-NEG) Test
+C ******************************************************************* $
+
+ 060600	OUTPUT,
+         C'  TRIANGULAR WAVE SIGNAL [VOLTAGE-P-NEG] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  TRIANGULAR WAVE SIGNAL [VOLTAGE-P-NEG]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060699 $
+        END, IF $
+
+	CALCULATE, 'VOLTAGE-P-NEG' = -2.5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-P-NEG') * 0.9 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-P-NEG') * 1.1 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+
+     30 VERIFY, (VOLTAGE-P-NEG INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P-NEG MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 060630$
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060700 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 060000 $
+	ELSE $
+            GO TO, STEP 060300 $
+        END, IF $
+C $
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL (RISE-TIME) Test
+C ******************************************************************* $
+B $
+ 060700	OUTPUT, TO 'PRINTER', 
+         C'  TRIANGULAR WAVE SIGNAL [RISE-TIME]
+          -------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          TRIANGULAR WAVE Test            \LF\',
+        C'------------------------------------------\LF\',
+        C'Prepare an TRIANGULAR WAVE of 5Vpp at 1KHz\LF\', 
+        C'with 0V DC-OFFSET to input port 1         \LF\',
+        C'of the DSO. All Triangular Wave tests     \LF\',
+        C'should be done using a 50 Ohm             \LF\',
+	C'terminating resistor.                     \LF\',
+	C'                                          \LF\',
+        C'T - Ready to test.                        \LF\',
+        C'F - Skip test.                            \LF\',
+        $
+
+	OUTPUT,
+         C'  TRIANGULAR WAVE SIGNAL [RISE-TIME] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060800 $
+        END, IF $
+
+	CALCULATE, 'RISE-TIME' = .0004 $
+        CALCULATE, 'VOLTAGE-P' = 5 $
+        CALCULATE, 'VER-UL' = ('RISE-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('RISE-TIME') * 0.9 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+
+     30 VERIFY, (RISE-TIME INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           RISE-TIME MAX .0005 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 v to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 060730 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL (FALL-TIME) Test
+C ******************************************************************* $
+
+ 060800	OUTPUT,
+         C'  TRIANGULAR WAVE SIGNAL [FALL-TIME] 
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  TRIANGULAR WAVE SIGNAL [FALL-TIME]
+          -------------------------\LF\'
+        $
+
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060899 $
+        END, IF $
+
+	CALCULATE, 'FALL-TIME' = .0004 $
+        CALCULATE, 'VOLTAGE-P' = 5 $
+        CALCULATE, 'VER-UL' = ('FALL-TIME') * 1.1 $
+        CALCULATE, 'VER-LL' = ('FALL-TIME') * 0.9 $
+	CALCULATE, 'DC-VOLTS'   = 0 $
+
+     30 VERIFY, (FALL-TIME INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL,
+	   UL 'VER-UL' SEC LL 'VER-LL' SEC,
+           FALL-TIME MAX .0005 SEC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 v to 50 V,
+           PERIOD 'PERIOD' RANGE 50E-9 SEC to 50 SEC,
+           BANDWIDTH RANGE 450 HZ to 30e+6 HZ,
+           CNX VIA DSO-TEST-HI   $
+       
+    	CALCULATE, 'TESTNO' = 060830 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060900 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 060000 $
+	ELSE $
+            GO TO, STEP 060700 $
+        END, IF $
+
+C *******************************************************************
+C * TRIANGULAR WAVE SIGNAL (DUTY-CYCLE) Test
+C ******************************************************************* $
+B $
+ 060900	OUTPUT, TO 'PRINTER', 
+         C'  TRIANGULAR WAVE SIGNAL [DUTY-CYCLE]
+          -------------------------\LF\'
+        $
+
+     05 OUTPUT,
+        C'          TRIANGULAR WAVE Test            \LF\',
+        C'------------------------------------------\LF\',
+        C'Prepare an TRIANGULAR WAVE of 5Vpp at 1KHz\LF\', 
+        C'with 0V DC-OFFSET to input port 1         \LF\',
+        C'of the DSO. All Triangular Wave tests     \LF\',
+        C'should be done using a 50 Ohm             \LF\',
+	C'terminating resistor.                     \LF\',
+	C'                                          \LF\',
+        C'T - Ready to test.                        \LF\',
+        C'F - Skip test.                            \LF\',
+        $
+
+	OUTPUT,
+         C'  TRIANGULAR WAVE SIGNAL [DUTY-CYCLE] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060999 $
+        END, IF $
+
+	CALCULATE, 'DUTY-CYCLE' = 50 $
+        CALCULATE, 'VER-UL' = ('DUTY-CYCLE') + 2.5 $
+        CALCULATE, 'VER-LL' = ('DUTY-CYCLE') - 2.5 $
+
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'PRF'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'VOLTAGE-P'      = 2.5 $
+	CALCULATE, 'VOLTAGE-P-POS'      = 2.5 $
+	CALCULATE, 'VOLTAGE-P-NEG'      = -2.5 $
+	CALCULATE, 'PERIOD'      = .001 $
+	CALCULATE, 'BANDWIDTH'      = 500 $
+
+CJW commented out as it is not supported. DUTY-CYCLE of a Triangle is 50 %
+     30 VERIFY, (DUTY-CYCLE INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL, 
+           UL 'VER-UL' PC LL 'VER-LL' PC,
+           DUTY-CYCLE MAX 100 PC,
+           PERIOD .001 SEC,
+           VOLTAGE-P 'VOLTAGE-P' RANGE 0 v to 50 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 060930 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 070100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 060000 $
+	ELSE $
+            GO TO, STEP 060900 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ***************************************************************$
+C      WAVEFORM TESTS                                            $
+C ***************************************************************$
+B $
+ 070000 OUTPUT, 
+        C'      Waveform Tests Menu        \LF\',
+        C'---------------------------------\LF\',
+        C'Readback Save-Wave              1\LF\',
+        C'Readback Compare-Wave           2\LF\',
+        C'Readback Math                   3\LF\',
+        C'Readback Sample                 4\LF\',
+        C'Main Menu                       5\LF\',
+        C'Exit                            0\LF\',
+        C'                                 \LF\',
+        C'Enter a selection                \LF\',
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 070100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 070300 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 070400 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 070900 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001015 $
+        END, IF $      
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 070000 $
+
+C *******************************************************************
+C * WAVEFORM (SAVE-WAVE) Test
+C ******************************************************************* $
+B $
+ 070100	OUTPUT,
+         C'  WAVEFORM [SAVE-WAVE]
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  WAVEFORM [SAVE-WAVE]
+          -------------------------\LF\'
+        $
+
+	OUTPUT,
+        C'       SAVE/LOAD Test  \LF\',
+        C'-------------------------------------------------\LF\',
+        C'Prepare an SINE WAVE SIGNAL of 5Vpp at 1KHz\LF\',
+        C'with 0V DC-OFFSET to the input 1 port            \LF\',
+        C'of the DSO. This test should be performed using  \LF\',
+	C'a 50 Ohm terminating resistor.                   \LF\',  
+	C'                                                 \LF\',  
+        C'T - Ready to test.                               \LF\',
+        C'F - Skip test.                                   \LF\',
+          $
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070199 $
+        END, IF $
+
+	CALCULATE, 'MAX-T' = 10      $
+        CALCULATE, 'VOLTAGE-PP' = 40 $
+        CALCULATE, 'OFFSET' = 0 $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+        
+     30 MEASURE, (SAVE-WAVE INTO 'SAMPLES-S'), WAVEFORM,
+           SAVE-WAVE MAX 8000,
+           SAVE-FROM CHAN1,
+           SAVE-TO WMEM1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+     35 MEASURE, (LOAD-WAVE INTO 'SAMPLES-L'), WAVEFORM,
+           LOAD-WAVE MAX 8000,
+           LOAD-FROM WMEM1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+	FOR, 'IDX' = 1 THRU 100, THEN $
+     
+            IF, 'SAMPLES-S'('IDX') EQ 'SAMPLES-L'('IDX'), THEN $ 
+	    	OUTPUT,
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-S'('IDX'), C' V\LF\' 
+			$
+		OUTPUT, TO 'PRINTER',
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-S'('IDX'), C' V\LF\'
+			$
+	    ELSE $
+		OUTPUT,
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		OUTPUT, TO 'PRINTER',
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+
+
+    	CALCULATE, 'TESTNO' = 030130 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 070300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 070000 $
+	ELSE $
+            GO TO, STEP 070100 $
+        END, IF $
+
+C *******************************************************************
+C * WAVEFORM (COMPARE-WAVE) Test
+C ******************************************************************* $
+B $
+ 070300	OUTPUT,
+         C'  WAVEFORM [COMPARE-WAVE]
+          -------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  WAVEFORM [COMPARE-WAVE]
+          -------------------------\LF\'
+        $
+
+	OUTPUT,
+        C'       COMPARE Test  \LF\',
+        C'-------------------------------------------------\LF\',
+        C'Prepare an SINE WAVE SIGNAL of 5Vpp at 1KHz      \LF\',
+        C'with 0V DC-OFFSET to the input 1 port of the DSO.\LF\',
+ 	C'This test should be performed using a 50 Ohm     \LF\',  
+ 	C'terminating resistor.                            \LF\',  
+        C'Also, verify there is no cabling or signal being \LF\',
+        C'supplied to input 2 port.                        \LF\',
+	C'                                                 \LF\',  
+        C'T - Ready to test.                               \LF\',
+        C'F - Skip test.                                   \LF\',
+          $
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070399 $
+        END, IF $
+
+	CALCULATE, 'MAX-T' = 10      $
+        CALCULATE, 'VOLTAGE-PP' = 40 $
+        CALCULATE, 'OFFSET' = 0 $
+
+	MEASURE, (SAVE-WAVE INTO 'SAMPLES-S'), WAVEFORM,
+           SAVE-WAVE MAX 8000,
+           SAVE-FROM CHAN1,
+           SAVE-TO WMEM1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $        
+
+     30 MEASURE, (COMPARE-WAVE INTO 'SAMPLES-L'), WAVEFORM,
+           COMPARE-WAVE MAX 8000,
+           COMPARE-CH CHAN2,
+           COMPARE-TO WMEM1,
+           ALLOWANCE 1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO_2-TEST-HI   $
+
+	FOR, 'IDX' = 1 THRU 20, THEN $
+     
+            IF, (((('SAMPLES-S'('IDX') GT 1) OR ('SAMPLES-S'('IDX') LT -1)) AND ('SAMPLES-L'('IDX') EQ 0)) OR ((('SAMPLES-S'('IDX') LE 1) AND ('SAMPLES-S'('IDX') GE -1)) AND ('SAMPLES-L'('IDX') EQ 1))), THEN $ 
+	    	OUTPUT,
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-L'('IDX'), C'\LF\' 
+			$
+		OUTPUT, TO 'PRINTER',
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-L'('IDX'), C'\LF\'
+			$
+	    ELSE $
+		OUTPUT,
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		OUTPUT, TO 'PRINTER',
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+
+  	CALCULATE, 'TESTNO' = 070330 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 070400 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 070000 $
+	ELSE $
+            GO TO, STEP 070300 $
+        END, IF $
+
+C *******************************************************************
+C * WAVEFORM (MATH)-ADDITION Test
+C ******************************************************************* $
+B $
+ 070400	OUTPUT,
+         C'  WAVEFORM [MATH]-ADDITION
+          ----------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  WAVEFORM [MATH]-ADDITION
+          ----------------------------\LF\'
+        $
+
+	OUTPUT,
+        C'       ADDITION Test  \LF\',
+        C'-------------------------------------------------\LF\',
+        C'Prepare an SINE WAVE SIGNAL of 5Vpp at 1KHz      \LF\',
+        C'with 0V DC-OFFSET to the input 1 port of the DSO.\LF\',
+ 	C'This test should be performed using a 50 Ohm     \LF\',  
+ 	C'terminating resistor.                            \LF\',  
+	C'                                                 \LF\',  
+        C'T - Ready to test.                               \LF\',
+        C'F - Skip test.                                   \LF\',
+          $
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070500 $
+        END, IF $
+
+	CALCULATE, 'MAX-T' = 10      $
+        CALCULATE, 'VOLTAGE-PP' = 40 $
+        CALCULATE, 'OFFSET' = 0 $ 
+
+	MEASURE, (SAVE-WAVE INTO 'SAMPLES-S'), WAVEFORM,
+           SAVE-WAVE MAX 8000,
+           SAVE-FROM CHAN1,
+           SAVE-TO WMEM1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $        
+
+     30 MEASURE, (MATH INTO 'SAMPLES-L'), WAVEFORM,
+           MATH MAX 8000,
+           ADD-FROM WMEM1,
+           ADD-TO WMEM1,
+           DESTINATION FUNC1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+
+	FOR, 'IDX' = 1 THRU 100, THEN $
+	    CALCULATE, 'VER-UL' = 2*'SAMPLES-S'('IDX') + .000001 $
+	    CALCULATE, 'VER-LL' = 2*'SAMPLES-S'('IDX') - .000001 $
+     
+            IF, ('SAMPLES-L'('IDX') LE 'VER-UL') AND ('SAMPLES-L'('IDX') GE 'VER-LL') , THEN $ 
+	    	OUTPUT,
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-S'('IDX'), C' V\LF\' 
+			$
+		OUTPUT, TO 'PRINTER',
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-S'('IDX'), C' V\LF\'
+			$
+	    ELSE $
+		OUTPUT,
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 2*'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		OUTPUT, TO 'PRINTER',
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 2*'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+
+	CALCULATE, 'VER-UL' = 0 $
+	CALCULATE, 'VER-LL' = 0 $
+
+    	CALCULATE, 'TESTNO' = 070430 $
+        PERFORM, 'RESULTS' $
+        
+C *******************************************************************
+C * WAVEFORM (MATH)-SUBTRACTION Test
+C ******************************************************************* $
+B $
+ 070500	OUTPUT,
+         C'  WAVEFORM [MATH]-SUBTRACTION
+          ----------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  WAVEFORM [MATH]-SUBTRACTION
+          ----------------------------\LF\'
+        $
+
+	OUTPUT,
+        C'       WAVEFORM [MATH]-SUBTRACTION Test  \LF\',
+        C'-------------------------------------------------\LF\',
+        C'Prepare an SINE WAVE SIGNAL of 5Vpp at 1KHz      \LF\',
+        C'with 0V DC-OFFSET to the input 1 port of the DSO.\LF\',
+ 	C'This test should be performed using a 50 Ohm     \LF\',  
+ 	C'terminating resistor.                            \LF\',  
+	C'                                                 \LF\',  
+        C'T - Ready to test.                               \LF\',
+        C'F - Skip test.                                   \LF\',
+          $
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070600 $
+        END, IF $
+
+	CALCULATE, 'MAX-T' = 10      $
+        CALCULATE, 'VOLTAGE-PP' = 40 $
+        CALCULATE, 'OFFSET' = 0 $
+        
+	MEASURE, (SAVE-WAVE INTO 'SAMPLES-S'), WAVEFORM,
+           SAVE-WAVE MAX 8000,
+           SAVE-FROM CHAN1,
+           SAVE-TO WMEM1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $        
+
+     30 MEASURE, (MATH INTO 'SAMPLES-L'), WAVEFORM,
+           MATH MAX 8000,
+           SUBTRACT-FROM WMEM1,
+           SUBTRACT-TO WMEM1,
+           DESTINATION FUNC2,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $
+
+	CALCULATE, 'VER-UL' = 0 + .000001 $
+	CALCULATE, 'VER-LL' = 0 - .000001 $
+
+	FOR, 'IDX' = 1 THRU 40, THEN $
+   
+            IF, ('SAMPLES-L'('IDX') LE 'VER-UL') AND ('SAMPLES-L'('IDX') GE 'VER-LL') , THEN $ 
+	    	OUTPUT,
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-L'('IDX'), C' V\LF\' 
+			$
+		OUTPUT, TO 'PRINTER',
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-L'('IDX'), C' V\LF\'
+			$
+	    ELSE $
+		OUTPUT,
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-L'('IDX'), C' IS NOT EQUAL TO 0 \LF\'
+			$
+		OUTPUT, TO 'PRINTER',
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-L'('IDX'), C' IS NOT EQUAL TO 0 \LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+
+	CALCULATE, 'VER-UL' = 0 $
+	CALCULATE, 'VER-LL' = 0 $
+
+    	CALCULATE, 'TESTNO' = 070530 $
+        PERFORM, 'RESULTS' $
+        
+C *******************************************************************
+C * WAVEFORM (MATH)-MULTIPLICATION Test
+C ******************************************************************* $
+B $
+ 070600	OUTPUT,
+         C'  WAVEFORM [MATH]-MULTIPLICATION
+          ----------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  WAVEFORM [MATH]-MULTIPLICATION
+          ----------------------------------\LF\'
+        $
+
+	OUTPUT,
+        C'       WAVEFORM [MATH]-MULTIPLICATION Test  \LF\',
+        C'-------------------------------------------------\LF\',
+        C'Prepare an SINE WAVE SIGNAL of 1Vpp at 1KHz      \LF\',
+        C'with 0V DC-OFFSET to the input 1 port of the DSO.\LF\',
+ 	C'This test should be performed using a 50 Ohm     \LF\',  
+ 	C'terminating resistor.                            \LF\',  
+	C'                                                 \LF\',  
+        C'T - Ready to test.                               \LF\',
+        C'F - Skip test.                                   \LF\',
+          $
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070699 $
+        END, IF $
+
+	CALCULATE, 'MAX-T' = 10      $
+        CALCULATE, 'VOLTAGE-PP' = 40 $
+        CALCULATE, 'OFFSET' = 0 $       
+
+	MEASURE, (SAVE-WAVE INTO 'SAMPLES-S'), WAVEFORM,
+           SAVE-WAVE MAX 8000,
+           SAVE-FROM CHAN1,
+           SAVE-TO WMEM2,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $        
+
+     30 MEASURE, (MATH INTO 'SAMPLES-L'), WAVEFORM,
+           MATH MAX 8000,
+           MULTP-FROM WMEM2,
+           MULTP-TO WMEM2,
+           DESTINATION FUNC1,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $        
+
+	FOR, 'IDX' = 1 THRU 100, THEN $
+	    CALCULATE, 'VER-UL' = 'SAMPLES-S'('IDX')*'SAMPLES-S'('IDX') + .000001 $
+	    CALCULATE, 'VER-LL' = 'SAMPLES-S'('IDX')*'SAMPLES-S'('IDX') - .000001 $
+     
+            IF, ('SAMPLES-L'('IDX') LE 'VER-UL') AND ('SAMPLES-L'('IDX') GE 'VER-LL') , THEN $ 
+	    	OUTPUT,
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-L'('IDX'), C' V\LF\' 
+			$
+		OUTPUT, TO 'PRINTER',
+                	C' Sample ', 'IDX', C' Passed! - ', 'SAMPLES-L'('IDX'), C' V\LF\'
+			$
+	    ELSE $
+		OUTPUT,
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-S'('IDX')*'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		OUTPUT, TO 'PRINTER',
+			C' Sample ', 'IDX', C' Failed!\LF\',
+			C' ', 'SAMPLES-S'('IDX')*'SAMPLES-S'('IDX'), C' IS NOT EQUAL TO ',  'SAMPLES-L'('IDX'), C'\LF\'
+			$
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+
+	CALCULATE, 'VER-UL' = 0 $
+	CALCULATE, 'VER-LL' = 0 $
+
+    	CALCULATE, 'TESTNO' = 070630 $
+        PERFORM, 'RESULTS' $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 070900 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 070000 $
+	ELSE $
+            GO TO, STEP 070400 $
+        END, IF $
+
+C *******************************************************************
+C * WAVEFORM (SAMPLE)- Test
+C ******************************************************************* $
+B $
+ 070900	OUTPUT,
+         C'  WAVEFORM [SAMPLE]
+          ----------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER', 
+         C'  WAVEFORM [SAMPLE]
+          ----------------------\LF\'
+        $
+
+	OUTPUT,
+        C'   WAVEFORM [SAMPLE] Test  \LF\',
+        C'-------------------------------------------------\LF\',
+        C'Prepare an SINE WAVE SIGNAL of 5Vpp at 1KHz      \LF\',
+        C'with 0V DC-OFFSET to the input 1 port of the DSO.\LF\',
+ 	C'This test should be performed using a 50 Ohm     \LF\',  
+ 	C'terminating resistor.                            \LF\',  
+	C'                                                 \LF\',  
+        C'T - Ready to test.                               \LF\',
+        C'F - Skip test.                                   \LF\',
+          $
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070999 $
+        END, IF $
+
+	CALCULATE, 'MAX-T' = 10      $
+        CALCULATE, 'VOLTAGE-PP' = 10 $
+        CALCULATE, 'OFFSET' = 0 $
+        CALCULATE, 'SAMPLE-TIME' = .5 $
+	CALCULATE, 'VER-UL' = 0 $
+	CALCULATE, 'VER-LL' = 0 $
+
+     30 MEASURE, (SAMPLE INTO 'SAMPLES-L'), WAVEFORM,
+           SAMPLE MAX 8000,
+           SAMPLE-TIME 'SAMPLE-TIME' RANGE 160E-9 SEC TO 800 SEC,
+           VOLTAGE-PP MAX 'VOLTAGE-PP' RANGE 0 V TO 40 V,
+           DC-OFFSET 'OFFSET'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX VIA DSO-TEST-HI   $
+           OUTPUT, C'\LF\',
+		C' SAMPLE ARRAY CONTENTS \LF\' $
+        FOR, 'IDX' = 1 THRU 100, THEN $
+            CALCULATE, 'MVAL' = 'SAMPLES-L'('IDX') $
+            OUTPUT, C'\LF\',
+		C'    (','IDX',C':','MVAL':5:2,C')' $
+        END, FOR $ 
+
+	OUTPUT,
+        C'Verify data points represent the varying data    \LF\',
+	C'data points of the input signal.		   \LF\',
+	C'                                                 \LF\',  
+        C'T - Test Passed                                  \LF\',
+        C'F - Test Failed                         \LF\',
+          $
+	INPUT, GO-NOGO $
+
+  	CALCULATE, 'TESTNO' = 070930 $
+        PERFORM, 'RESULTS' $
+ 
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 080000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 070000 $
+	ELSE $
+            GO TO, STEP 070900 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C *******************************************************************
+C * TRIGGER TESTS-- External, Internal, Ch.1, Ch.2
+C ******************************************************************* $
+C $
+B $
+ 080000 OUTPUT,
+        C' AC SIGNAL with external trigger Test \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an AC SIGNAL of 5Vpp at 1KHz  \LF\',
+        C'with 2V DC-OFFSET to the input port 1 \LF\',
+        C'of the DSO. All AC Signal tests should\LF\',
+        C'be done with a 50 Ohm terminating     \LF\',
+	C'resistor.                             \LF\',
+	C'                                      \LF\',
+          $
+
+	OUTPUT, 
+	C'APPLY A 4 Vpp SQUARE WAVE TRIGGER SIGNAL 	\LF\',
+        C'to the external trigger port               \LF\',
+        C'                                           \LF\',
+        C'T - Ready to test.                         \LF\',
+        C'F - Skip test.                             \LF\',
+        C'                                           \LF\',
+          $
+
+      5 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 081020 $
+        END, IF $
+C                                                                                   $
+     20 ENABLE, EVENT 'TRIG-EXT'                                                $
+C $
+	CALCULATE, 'VOLTAGE-PP' = 5 $
+        CALCULATE, 'VER-UL' = ('VOLTAGE-PP') * 1.1 $
+        CALCULATE, 'VER-LL' = ('VOLTAGE-PP') * 0.9 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+
+     30 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           FREQ MAX 2E3 HZ,
+           VOLTAGE-PP MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           FREQ-WINDOW RANGE 450 HZ to 30000000 HZ,
+           STROBE-TO-EVENT 'TRIG-EXT' MAX-TIME 10 SEC,
+           CNX VIA X19-1   $
+
+     50 DISABLE, EVENT 'TRIG-EXT'                                               $
+C $
+  	CALCULATE, 'TESTNO' = 080030 $
+        PERFORM, 'RESULTS' $
+
+C                                                                                   $
+ 081020 OUTPUT, 
+	C'APPLY A 4 Vpp SQUARE WAVE TRIGGER SIGNAL \LF\',
+        C'to Port 2 of the DSO                       \LF\',
+        C'                                           \LF\',
+        C'T - Ready to test.                         \LF\',
+        C'F - Skip test.                             \LF\',
+        C'                                           \LF\',
+          $                                                            $
+C                                                                                   $
+     30 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 081099 $
+        END, IF $
+C                                                                                   $
+     50 ENABLE, EVENT 'TRIG-CH2'                                                $
+C                                                                                   $
+     60 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           FREQ MAX 2E3 HZ,
+           VOLTAGE-PP MAX 20 V,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           FREQ-WINDOW RANGE 450 HZ to 30000000 HZ,
+           STROBE-TO-EVENT 'TRIG-CH2' MAX-TIME 10 SEC,
+           CNX VIA X19-1   $
+
+     70     DISABLE, EVENT 'TRIG-CH2'                                               $
+C                                                                                   $
+  	CALCULATE, 'TESTNO' = 081060 $
+        PERFORM, 'RESULTS' $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 085000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 080000 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C *******************************************************************
+C * TIME INTERVAL (TIME)- Test
+C ******************************************************************* $
+C $
+B $
+ 085000 CALCULATE, 'MAX-T'      = 5 $
+	CALCULATE, 'PERIOD'   = .001 $
+	CALCULATE, 'PULSE-WIDTH' = 500E-6 $
+
+
+     05 OUTPUT,
+           C'        Time Interval Tests \LF\',
+           C'  --------------------------------------\LF\', 
+           C'Prepare a TIME INTERVAL Test of 5Vpp\LF\',  
+           C'Pulse DC signal at 1KHz, PULSE-WIDTH', 'PULSE-WIDTH', C' sec,\LF\',  
+           C'with no DC-OFFSET into CHANNEL 1 and CHANNEL 2 of the DSO.\LF\',
+	   C'\LF\', 
+           C'T - Ready to test.\LF\', 
+           C'F - Skip test. \LF\',
+          $
+     08 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 085099 $
+        END, IF $
+C $
+	CALCULATE, 'VER-UL' = 'PERIOD'*1.3 $
+        CALCULATE, 'VER-LL' = 'PERIOD'*.7	 $
+C $
+C $
+        ENABLE, EVENT 'START_EP1.5', 'STOP_EN1.5' $
+     30	VERIFY, (TIME INTO 'MEASUREMENT'), TIME INTERVAL, 
+           UL 'VER-UL'SEC LL 'VER-LL'SEC,
+           TIME MAX .002 SEC,
+           FROM 'START_EP1.5' TO 'STOP_EN1.5',
+           MAX-TIME 10 SEC	$  
+        DISABLE, EVENT 'START_EP1.5', 'STOP_EN1.5' $  
+c .00001 SEC, $  
+C $
+	CALCULATE, 'TESTNO' = 085030 $
+        PERFORM, 'RESULTS' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 090000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001015 $
+	ELSE $ 
+            GO TO, STEP 085000 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE-PP) Test on Channel 2
+C ******************************************************************* $
+B $
+ 090000	OUTPUT, TO 'PRINTER', 
+         C'  AC Signal [VOLTAGE]
+          -------------------------\LF\'
+        $
+
+        CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'FREQ'       = 2000 $
+        CALCULATE, 'MAX-T'      = 5 $
+        CALCULATE, 'BANDWIDTH'  = 5000 $ 
+        CALCULATE, 'FREQ-WINDOW'  = 500 $
+	CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+
+	CALCULATE, 'VOLTAGE-PP' = 5 $
+        CALCULATE, 'VER-UL' = ('AC-VOLTS-RMS') * 1.1 $
+        CALCULATE, 'VER-LL' = ('AC-VOLTS-RMS') * 0.9 $
+
+	OUTPUT,
+        C'          AC SIGNAL [VOLTAGE] Test \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an AC SIGNAL of 5Vpp at 1KHz  \LF\',
+        C'with 0V DC-OFFSET to the input port 2 \LF\',
+        C'of the DSO. All AC Signal tests should\LF\',
+        C'be done with a 50 Ohm terminating     \LF\',
+	C'resistor.                             \LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+
+	OUTPUT,
+         C'  AC Signal [VOLTAGE] 
+          -------------------------\LF\'
+        $
+        
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 090099 $
+        END, IF $
+
+     30 VERIFY, (VOLTAGE INTO 'MEASUREMENT'), AC SIGNAL,
+	   UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE MAX 1 V,
+           VOLTAGE-PP MAX 10 V,
+	   FREQ MAX 2E3 HZ, 
+           COUPLING AC,
+           DC-OFFSET MAX 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30000000 HZ,
+           FREQ-WINDOW 'FREQ-WINDOW' RANGE 450 HZ to 30000000 HZ,
+           CNX VIA DSO_2-TEST-HI   $
+
+    	CALCULATE, 'TESTNO' = 090030$
+        PERFORM, 'RESULTS' $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 900000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 090000 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C *******************************************************************
+C * SQUARE WAVE MULTIPLE MEASURMENTS
+C ******************************************************************* $
+B $
+ 100000	OUTPUT, TO 'PRINTER', 
+         C' SQUARE WAVE [MULTIPLE MEASURMENTS]
+          -------------------------------------------\LF\'
+        $
+
+ 	CALCULATE, 'BANDWIDTH'     = 500  $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 5 $
+ 	CALCULATE, 'DUTY-CYCLE'	= 50 $
+	CALCULATE, 'VOLTAGE-PP' = 5 $
+ 	CALCULATE, 'PERIOD' = 1 / 'FREQ' $
+
+	OUTPUT,
+        C'  SQUARE WAVE [MULTIPLE MEASUREMENTS] Test     \LF\',
+        C'--------------------------------------\LF\',
+        C'Prepare an SQUARE WAVE of 5Vpp at 1KHz \LF\',
+        C'with 0V DC-OFFSET and 50% Duty Cycle	 \LF\',
+	C'to the input port 1 of the DSO.	 \LF\',
+	C'					\LF\',
+	C'This test will measure VPP, Frequency,\LF\',
+	C'Period, and Duty-Cycle.		\LF\',
+	C'					\LF\',
+	C'NOTE: All Signal tests should be  	\LF\',
+        C'done using a 50 Ohm terminating resistor\LF\',
+	C'                                      \LF\',
+        C'T - Ready to test.                    \LF\',
+        C'F - Skip test.                        \LF\',
+          $
+       
+     10 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 100499 $
+        END, IF $
+
+	CALCULATE, 'VER-UL' = 'VOLTAGE-PP' * 1.1 $
+	CALCULATE, 'VER-LL' = 'VOLTAGE-PP' * 0.9 $
+
+CJW added period $
+     30 VERIFY, (VOLTAGE-PP INTO 'MEAS-VOLT-PP', FREQ INTO 'MEAS-FREQ',
+		PERIOD INTO 'MEAS-PERIOD', DUTY-CYCLE INTO 'MEAS-D-CYCLE'), 
+	   SQUARE WAVE, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 10 V,
+	   FREQ MAX 200000000 HZ,
+           PERIOD MAX 5.0 SEC,
+	   DUTY-CYCLE RANGE 0 PC TO 100 PC, 
+           DC-OFFSET 'DC-VOLTS'  RANGE -250 V TO 250 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           BANDWIDTH 'BANDWIDTH' RANGE 450 HZ to 30000000 HZ,
+           CNX VIA DSO-TEST-HI   $
+
+	CALCULATE, 'MEASUREMENT' = 'MEAS-VOLT-PP' $
+
+	OUTPUT,
+         C' \LF\\LF\ SQUARE WAVE MULTIPLE MEASUREMENTS [VOLTAGE-PP] 
+          ---------------------------------------------------\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+         C'  SQUARE WAVE MULTIPLE MEASUREMENTS [VOLTAGE-PP] 
+          ---------------------------------------------------\LF\'
+        $
+
+    	CALCULATE, 'TESTNO' = 100100$
+        PERFORM, 'RESULTS' $
+
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'MI' $
+
+C        ****** FREQ *********************** $
+
+	CALCULATE, 'VER-UL' = 'FREQ' * 1.1 $
+	CALCULATE, 'VER-LL' = 'FREQ' * 0.9 $
+
+	CALCULATE, 'MEASUREMENT' = 'MEAS-FREQ' $
+
+	OUTPUT,
+         C'\LF\\LF\  SQUARE WAVE MULTIPLE MEASUREMENTS [FREQUENCY] 
+          ---------------------------------------------------\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+         C'\LF\\LF\  SQUARE WAVE MULTIPLE MEASUREMENTS [FREQUENCY] 
+          ---------------------------------------------------\LF\'
+        $
+    	CALCULATE, 'TESTNO' = 100200$
+        PERFORM, 'RESULTS' $
+
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'MI' $
+
+C        ****** RISE-TIME *********************** $
+
+	CALCULATE, 'VER-UL' = 'PERIOD' * 1.1 $
+	CALCULATE, 'VER-LL' = 'PERIOD' * 0.9 $
+
+	CALCULATE, 'MEASUREMENT' = 'MEAS-PERIOD' $
+
+	OUTPUT,
+         C'\LF\\LF\  SQUARE WAVE MULTIPLE MEASUREMENTS [PERIOD] 
+          ---------------------------------------------------\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+         C'\LF\\LF\  SQUARE WAVE MULTIPLE MEASUREMENTS [PERIOD] 
+          ---------------------------------------------------\LF\'
+        $
+    	CALCULATE, 'TESTNO' = 100300$
+        PERFORM, 'RESULTS' $
+
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'MI' $
+
+
+C        ****** DUTY-CYCLE *********************** $
+	
+	CALCULATE, 'VER-UL' = 'DUTY-CYCLE' * 1.1 $
+	CALCULATE, 'VER-LL' = 'DUTY-CYCLE' * 0.9 $
+
+	CALCULATE, 'MEASUREMENT' = 'MEAS-D-CYCLE' $
+
+	OUTPUT,
+         C'\LF\\LF\  SQUARE WAVE MULTIPLE MEASUREMENTS [DUTY-CYCLE] 
+          ---------------------------------------------------\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+         C'\LF\\LF\  SQUARE WAVE MULTIPLE MEASUREMENTS [DUTY-CYCLE] 
+          ---------------------------------------------------\LF\'
+        $
+    	CALCULATE, 'TESTNO' = 100400$
+        PERFORM, 'RESULTS' $
+
+
+B $
+    100499 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 900000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 100000 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+B $
+ 900000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+        C'--------------------------------------\LF\',
+        C' END - END TEST\LF\',
+        C'    PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'\LF\', 
+          C'--------------------------------------\LF\',
+         C'END - END TEST\LF\',
+         C'   PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\',
+        C'--------------------------------------\LF\',
+        C' END - END TEST \LF\',
+        C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+       C' --------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	 C'\LF\',  
+        C'--------------------------------------\LF\',
+         C'END - END TEST\LF\ ',
+         C'FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+
+        END, IF  $
+ 900100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+B $
+ 999999 TERMINATE, ATLAS PROGRAM 'Dso Benchmark' $

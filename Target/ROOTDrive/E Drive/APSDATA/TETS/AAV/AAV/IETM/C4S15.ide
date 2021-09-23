@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY fig4-44 SYSTEM "./graphics/fig4-44.pic" NDATA FAXTILE>
+<!ENTITY fig4-45 SYSTEM "./graphics/fig4-45.pic" NDATA FAXTILE>
+<!ENTITY fig4-46 SYSTEM "./graphics/fig4-46.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S15" LABEL="XV"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\POWER_AMPLIFIER_A5_CCA_2618547-1\TP_AAV_ICS_A5.OBJ' ?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s15.ide!c3s15'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./ICS_A5.ide!5-15A'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ICS_A5/ASSY/ICS_A5_1.PIC'?><?BUTTON POS='5' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/ICS_A5/SCHEM/ICS_A5_SCH_1.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section XV. Power Amplifier CCA, P/N 2618547-1" previous="./c4s14.ide!c4s14c"?><?TOCENTRY TITLE="SECTION XV. Test Program Instructions for the Power Amplifier CCA, P/N 2618547-1" TOCLEVEL="2" LABEL="XV"?>
+<TITLE>SECTION XV. Test Program Instructions for the Power Amplifier CCA, P/N 2618547-1</TITLE>
+<PARA0 ID="P4-15" LABEL="4.15"><?TOCENTRY TITLE="4.15 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the Power Amplifier CCA, P/N 2618547-1.</PARA>
+<SUBPARA1 ID="P4-15.1" LABEL="4.15.1"><?TOCENTRY TITLE="4.15.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-27" LABEL="4-27">
+<TITLE>Test Station Instrumentation Required to Test
+<BRK/> the Power Amplifier CCA, P/N 2618547-1.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digitizing Oscilloscope</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Arbitrary Waveform Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">LF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-15.2" LABEL="4.15.2"><?TOCENTRY TITLE="4.15.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-28" LABEL="4-28">
+<TITLE>TPS Equipment Required to Test the
+<BRK/> Power Amplifier CCA, P/N 2618547-1.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.5in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">Part Number</ENTRY>
+<ENTRY ALIGN="CENTER">Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">AAV Interface Test Adapter</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1000</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, W7</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0107</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly, 14/120 Pos CCA</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1008-1</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly, 14/120 Pos CCA</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1008-2</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-15.3" LABEL="4.15.3"><?TOCENTRY TITLE="4.15.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s15b" title="Chapter 4. Test Program Instructions, Section XV. Power Amplifier CCA, P/N 2618547-1 Cont'd"?>
+<SUBPARA1 ID="P4-15.4" LABEL="4.15.4"><?TOCENTRY TITLE="4.15.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-15.5" LABEL="4.15.5"><?TOCENTRY TITLE="4.15.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<CAUTION>
+<PARA>The UUT contains components that are subject to damage from electrostatic discharge (ESD). When handling the UUT, a grounded wrist strap must be used. <GRAPHIC BOARDNO="esd"/></PARA></CAUTION>
+<PARA>The UUT contains components that are subject to damage from ESD. When handling the UUT, a grounded wrist strap must be used. Refer to <EXTREF DOCNO="C2S02" XREFID="./C2S02.ide!P2-2.2.2" XIDTYPE="PARA">Paragraph 2.2.2.2, ESD Damage Prevention</EXTREF> for proper handling requirements.<GRAPHIC BOARDNO="esd"/></PARA></SUBPARA1>
+<SUBPARA1 ID="P4-15.6" LABEL="4.15.6"><?TOCENTRY TITLE="4.15.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>3.0 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-15.7" LABEL="4.15.7"><?TOCENTRY TITLE="4.15.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-15.8" LABEL="4.15.8"><?TOCENTRY TITLE="4.15.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<STEP1 ID="P4-15.81" LABEL="a">
+<PARA>Prior to executing the Power Amplifier CCA, P/N 2618547-1 Test Program, install ITA P/N 05005A1000 onto the test station receiver. </PARA></STEP1>
+<STEP1 ID="P4-15.82" LABEL="b">
+<PARA>Load the test program for the Power Amplifier CCA into the ATLAS RTS. When the RTS State field of the RTS front panel displays 'READY', the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-15.83" LABEL="c">
+<PARA>***OPERATOR ACTION***: Initiate the test program by selecting 'Run' from the RTS 'Run' menu.</PARA></STEP1>
+<STEP1 ID="P4-15.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-44.pic"?>Figure 4-44<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-44" LABEL="4-44">
+<TITLE>Test Program Information Power Amplifier CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-44.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-15.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-45.pic"?>Figure 4-45<?endhotspot?>) is displayed which identifies the UUT fault states which are non-detectable and untested by the test program.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-45" LABEL="4-45">
+<TITLE>Nondetectable/Untested Faults Power Amplifier CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-45.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-15.86" LABEL="f">
+<PARA>The test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-46.pic"?>Figure 4-46<?endhotspot?>) is displayed. From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-2) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM and (98) Exit Testing.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-46" LABEL="4-46">
+<TITLE>Test Program Main Menu Power Amplifier CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-46.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-15.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-15.88" LABEL="h">
+<PARA>The operator is instructed to install the UUT Card Guide Assemblies onto the ITA.
+<BRK/> ***OPERATOR ACTION***: Install Card Guide Assemblies (P/N 05005A1008-1 and -2) onto the mounting points adjacent to ITA J8.</PARA></STEP1>
+<STEP1 ID="P4-15.89" LABEL="i">
+<PARA>The operator is instructed to install the UUT connector P1 into the ITA connector J8.
+<BRK/> ***OPERATOR ACTION***: Install UUT P1 into ITA connector J8.</PARA></STEP1>
+<STEP1 ID="P4-15.810" LABEL="j">
+<PARA>The operator is instructed to connect P/N 05005A0107, Cable W7-P1 to ITA-J5 and W7-P2 to UUT-P6.</PARA></STEP1><?FRAME id="c4s15c" title="Chapter 4. Test Program Instructions, Section XV. Power Amplifier CCA, P/N 2618547-1 Cont'd" next="./c4s16.ide!c4s16"?>
+<STEP1 ID="C4S15C11" LABEL="k">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION***: Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S15C12" LABEL="l">
+<PARA>The display prompts the operator to enter the UUT serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S15C13" LABEL="m">
+<PARA>The display prompts the operator to enter the UUT revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S15C14" LABEL="n">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S15C15" LABEL="o">
+<PARA>The display prompts the operator to enter the Interface serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the ITA label, which is found on the upper, right corner of the right side and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S15C16" LABEL="p">
+<PARA>The display prompts the operator to verify the test setup and UUT are ready to begin testing.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-15.9" LABEL="4.15.9"><?TOCENTRY TITLE="4.15.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-15.91" LABEL="a">
+<PARA>Upon detection of a UUT failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-15.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

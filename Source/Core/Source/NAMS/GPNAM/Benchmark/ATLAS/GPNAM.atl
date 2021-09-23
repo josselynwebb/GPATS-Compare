@@ -1,0 +1,1257 @@
+ 000001 BEGIN, ATLAS PROGRAM 'GP-NAM' $
+C $
+C       MAXIMUM CHARACTERS FOR NAM NAME IS APPARENTLY 16 $
+C $
+        INCLUDE, NON-ATLAS MODULE 
+          'C:\APS\DATA\TEMP',
+          'GPNAM' $
+C $
+        DECLARE, CONSTANT,
+          'TPS_VERSION'     IS C'1.0.2.0';
+          'DEPENDS'         IS C'GPConcur, FaultFilePrint, Iadsviewer';
+          'NAM_NAME'        IS C'GENERAL PURPOSE NAM (GPNAM)';
+          'FILE_VERSION'    IS C'1.1.0.0';
+          'PROD_VERSION'    IS C'1.1.0.0';
+          'LOGLOCATION'     IS C'C:\APS\DATA\';
+          'FAULT_FILE'      IS C'FAULT-FILE';
+          'BAT_FILE'        IS C'TEMP.BAT';
+          'NIC_CONFIG'      IS C'NIC-CONFIG';
+          'OPT_PRINT'       IS 1;
+          'OPT_CLEANUP'     IS 2;
+          'OPT_INS_FAULT'   IS 3;
+          'OPT_CONFIG'      IS 4;
+          'OPT_RESET'       IS 5;
+          'OPT_ADD_INFO'    IS 6;
+          'OPT_PING'        IS 7;
+          'OPT_COMPNAME'    IS 8;
+          'OPT_WD'          IS 9;
+          'LOCAL_PORT'      IS C'Local Area Connection';
+          'LOCAL_IP_RESET'  IS C'DHCP';
+          'GIG1_PORT'       IS C'GIGABIT1';
+          'GIG1_IP_RESET'   IS C'192.168.0.1';
+          'GIG1_GATE_RESET' IS C'192.168.0.2';
+          'GIG2_PORT'       IS C'GIGABIT2';
+          'GIG2_IP_RESET'   IS C'192.168.200.1';
+          'GIG2_GATE_RESET' IS C'192.168.200.2';
+          'GIG4_PORT'       IS C'GIGABIT4';
+          'GIG4_IP_RESET'   IS C'DHCP';
+          'DEF_MASK'        IS C'255.255.255.0';
+          'DEFAULT'         IS C'\ESC\[m';
+          'RED'             IS C'\ESC\[31m';
+          'GREEN'           IS C'\ESC\[32m';
+          'BLUE'            IS C'\ESC\[34m';
+          'B_WHITE'         IS C'\ESC\[47m' $
+
+C $
+        DECLARE, VARIABLE,
+          'TARGET_IP'          IS STRING (15) OF CHAR INITIAL = C'192.168.1.2';
+          'TARGET_MASK'        IS STRING (15) OF CHAR INITIAL = C'255.255.255.0';
+          'TARGET_GATE'        IS STRING (15) OF CHAR INITIAL = C'192.168.1.1';
+          'STAT'               IS BOOLEAN             INITIAL = FALSE;
+          'PRINT_FAULT_STAT'   IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'CLEAN_UP_STAT'      IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'INSERT_FAULTS_STAT' IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'PING_STAT'          IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'IP_SET_STAT'        IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'IP_RESET_STAT'      IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'ADD_INFO_STAT'      IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'COMP_NAME_STAT'     IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'WORK_DIR_STAT'      IS STRING (30) OF CHAR INITIAL = C'NOT RUN';
+          'EXIT'               IS BOOLEAN             INITIAL = FALSE $
+C $
+C         ************************************************** $
+C         ***                CLS PROCEDURE               *** $
+C         ************************************************** $
+C $
+          DEFINE, 'CLS', PROCEDURE $
+C $
+            OUTPUT, C'\ESC\[2J' $
+            OUTPUT, C'\ESC\[u' $
+C $
+          END, 'CLS' $
+C $
+C         ************************************************** $
+C         ***          CREATE_FILE PROCEDURE             *** $
+C         ************************************************** $
+C $
+          DEFINE, 'CREATE_FILE', PROCEDURE(
+            'FILE_NAME' IS STRING (499) OF CHAR, 
+            'LINE_1' IS STRING (499) OF CHAR) $
+C $
+            DECLARE, VARIABLE, 'TXT_FILE' IS FILE OF TEXT $
+C $
+            ENABLE, OUTPUT NEW 'FILE_NAME', VIA 'TXT_FILE' $
+C $
+            OUTPUT, TO 'TXT_FILE', 'LINE_1' $
+C $
+            DISABLE, 'TXT_FILE' $
+C $
+          END, 'CREATE_FILE' $
+C $
+C         ************************************************** $
+C         ***           WRITE_FILE PROCEDURE             *** $
+C         ************************************************** $
+C $
+          DEFINE, 'WRITE_FILE', PROCEDURE(
+            'FILE_NAME' IS STRING (499) OF CHAR, 
+            'LINE_1'    IS STRING (2) OF CHAR,
+            'APPEND'    IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE, 
+              'TXT_FILE' IS FILE OF UNTYPED;
+              'SZ'       IS INTEGER INITIAL = 0;
+              'CNT'      IS INTEGER INITIAL = 2;
+              'TEMP_STR' IS STRING (499) OF CHAR $
+C $
+            IF, 'APPEND' EQ TRUE, THEN $
+              ENABLE, I-O OLD 'FILE_NAME', VIA 'TXT_FILE' $
+              OUTPUT, TO 'TXT_FILE', 'LINE_1' $
+            ELSE $
+              ENABLE, OUTPUT TO NEW 'FILE_NAME', VIA 'TXT_FILE' $
+              OUTPUT, TO 'TXT_FILE', 'LINE_1' $
+            END, IF $
+C $
+            DISABLE, 'TXT_FILE' $
+C $
+          END, 'WRITE_FILE' $
+C $
+C         ************************************************** $
+C         ***          GET_RETURN PROCEDURE              *** $
+C         ************************************************** $
+C $
+          DEFINE, 'GET_RETURN', PROCEDURE('FILE_NAME' IS STRING (499) OF CHAR)
+            RESULT('RETURN_STRING' IS STRING (499) OF CHAR) $
+C $
+            DECLARE, VARIABLE, 
+              'TXT_FILE' IS FILE OF TEXT;
+              'TEMP_STR' IS STRING (499) OF CHAR  INITIAL = C'';
+              'CNT'      IS INTEGER               INITIAL = -1;
+              'X'        IS INTEGER               INITIAL = 0;
+              'INT_VAL'  IS INTEGER               INITIAL = 0 $
+C $
+            ENABLE, I-O OLD 'FILE_NAME', VIA 'TXT_FILE' $
+C $
+            CALCULATE, 'CNT' = SIZE('TXT_FILE') $
+C $
+            WHILE, (NOT EOF('TXT_FILE')) AND ('CNT' GT 1), THEN $
+              CALCULATE, 'TEMP_STR' = C'' $
+C $
+              INPUT, FROM 'TXT_FILE', INTO 'TEMP_STR' $
+C $
+              CALCULATE, 
+                'CNT'     = 'CNT' - LEN('TEMP_STR') - 1 $
+C                'INT_VAL' = INT(DEC(BNR,BITS(ASCII7,'TEMP_STR'(1)),7)) $
+C $
+              IF, ('TEMP_STR' NE C'') AND ('TEMP_STR' GE C' ') AND ('TEMP_STR' LE C'~'), THEN $
+                CALCULATE, 'RETURN_STRING' = 'RETURN_STRING' & 'TEMP_STR' $
+              END, IF $
+            END, WHILE $
+C $
+C            OUTPUT, C'\LF\*** IGNORE THE WARNING TEXT ABOVE, ATLAS EOF FUNCTION DOES NOT WORK ***\LF\' $
+            DISABLE, 'TXT_FILE' $
+C $
+          END, 'GET_RETURN' $
+C $
+C         ************************************************** $
+C         ***          GET_STR_VALUE PROCEDURE           *** $
+C         ************************************************** $
+C $
+          DEFINE, 'GET_STR_VALUE', PROCEDURE('INP_STR' IS STRING (499) OF CHAR, 'DELIM' IS STRING (5) OF CHAR)
+            RESULT('VALUE' IS STRING (499) OF CHAR) $
+C $
+            DECLARE, VARIABLE, 
+              'INDX'     IS INTEGER INITIAL = -1;
+              'LNGTH'    IS INTEGER INITIAL = -1 $
+C $
+            CALCULATE, 'LNGTH' = LEN('VALUE') $
+            CALCULATE, 'INDX' = LOCN('DELIM', 'VALUE') + 1 $
+            CALCULATE, 'VALUE' = COPY('VALUE','INDX','LNGTH') $
+C $
+          END, 'GET_STR_VALUE' $
+C $
+C         ************************************************** $
+C         ***         GET_DHCP_STATUS PROCEDURE          *** $
+C         ************************************************** $
+C $
+          DEFINE, 'GET_DHCP_STATUS', PROCEDURE('PORT' IS STRING (30) OF CHAR)
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'ARG1'    IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG2'    IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG3'    IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG4'    IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG5'    IS STRING ( 99) OF CHAR INITIAL = C'';
+              'CMD'     IS STRING (499) OF CHAR INITIAL = C'';
+              'RETURN'  IS STRING (499) OF CHAR INITIAL = C'';
+              'FILE_SZ' IS INTEGER              INITIAL = -1 $
+C $
+            CALCULATE, 
+              'SUCCESS' = FALSE,
+              'EXIT' = FALSE $
+C $
+            OUTPUT, C'- CHECKING','PORT', C'FOR DHCP Status' $
+C $
+C           CREATE BATCH FILE TO RUN $
+            CALCULATE,
+              'ARG1' = C'NIC ',
+              'ARG2' = C'WHERE "MACAddress!=null AND NetConnectionID=' & CHAR(ASCII7,B'0100111') & 'PORT' & CHAR(ASCII7,B'0100111') & C'" ',
+              'ARG3' = C'GET ',
+              'ARG4' = C'DeviceID ',
+              'ARG5' = C'/value>' & 'LOGLOCATION' & 'NIC_CONFIG' & C' 2>&1',
+              'CMD'  = C'WMIC ' & 'ARG1' & 'ARG2' & 'ARG3' & 'ARG4' & 'ARG5' $
+C $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & 'BAT_FILE', 'CMD') $
+C $
+C           CLEAR ARG VARIABLES $
+            CALCULATE, 
+              'CMD'  = C'',
+              'ARG1' = C'',
+              'ARG2' = C'',
+              'ARG3' = C'',
+              'ARG4' = C'',
+              'ARG5' = C'' $
+C $
+            WAIT FOR, 2 SEC $
+C           CREATE BLANK OUTPUT FILE TO PREVENT ENDLESS LOOP IN CASE OF BATCH FAILURE $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & 'NIC_CONFIG', C'') $
+            WAIT FOR, 1 SEC $
+C $
+C           EXECUTE BATCH FILE $
+            PERFORM, 'C:\APS\DATA\TEMP' $
+            WAIT FOR, 3 SEC $
+C $
+C           GET RETURN VALUE FROM BATCH SCRIPT (NETWORK DEVICE ID) $
+            PERFORM, 'GET_RETURN'('LOGLOCATION' & 'NIC_CONFIG')
+              RESULT('RETURN') $
+            WAIT FOR, 1 SEC $
+C $
+            IF, LOCN(C'ERROR', 'RETURN') NE 0, THEN $
+              OUTPUT, C'ERROR OCCURRED ATTEMPTING TO RETRIEVE DEVICE ID FOR ','PORT' $
+              CALCULATE, 'EXIT' = TRUE $
+              LEAVE, 'GET_DHCP_STATUS' $
+            ELSE $
+              IF, LOCN(C'Available.', 'RETURN') NE 0, THEN $
+                OUTPUT, C'NETWORK ADAPTER', 'PORT', C'NOT FOUND' $
+                CALCULATE, 'EXIT' = TRUE $
+                LEAVE, 'GET_DHCP_STATUS' $
+              END, IF $
+            END, IF $
+C $
+C           GET DEVICE ID FROM RETURN VALUE AND USE IT IN NICCONFIG QUERY TO GET DHCP STATUS $
+            PERFORM, 'GET_STR_VALUE'('RETURN',C'=')
+              RESULT('RETURN') $
+C $
+            CALCULATE, 'FILE_SZ' = LEN('RETURN') $
+            IF, ('FILE_SZ' LT 1) OR ('RETURN' EQ C'') OR ('RETURN' EQ C' '), THEN $
+              OUTPUT, C'UNABLE TO LOCATE','PORT',C'ON THIS SYSTEM' $
+              LEAVE, 'GET_DHCP_STATUS' $
+            END, IF $
+C $
+            CALCULATE,
+              'ARG1' = C'NICConfig ',
+              'ARG2' = C'WHERE "Index=',
+              'ARG3' = 'RETURN' & C'" GET ',
+              'ARG4' = C'DHCPEnabled ',
+              'ARG5' = C'/value>' & 'LOGLOCATION' & 'NIC_CONFIG' & C' 2>&1' $
+            CALCULATE,
+              'CMD'    = C'WMIC ' & 'ARG1' & 'ARG2' & 'ARG3' & 'ARG4' & 'ARG5',
+              'RETURN' = C'' $
+C $
+C           CREATE BATCH FILE TO RUN $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & 'BAT_FILE', 'CMD') $
+C           CREATE BLANK OUTPUT FILE TO PREVENT ENDLESS LOOP IN CASE OF BATCH FAILURE $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & 'NIC_CONFIG', C'') $
+            WAIT FOR, 2 SEC $
+C           EXECUTE BATCH FILE $
+            PERFORM, 'C:\APS\DATA\TEMP' $
+C           OUTPUT, C'BATCH SCRIPT RUN: ','STATUS' $
+            WAIT FOR, 3 SEC $
+C           GET RETURN VALUE FROM BATCH SCRIPT (NETWORK DEVICE ID) $
+            PERFORM, 'GET_RETURN'('LOGLOCATION' & 'NIC_CONFIG')
+              RESULT('RETURN') $
+            WAIT FOR, 1 SEC $
+C           OUTPUT, 'RETURN' $
+C $
+            CALCULATE, 'FILE_SZ' = LEN('RETURN') $
+            IF, ('FILE_SZ' LT 15) OR ('RETURN' EQ C'') OR ('RETURN' EQ C' '), THEN $
+              OUTPUT, C'UNABLE TO GET DHCP STATUS FOR','PORT' $
+              LEAVE, 'GET_DHCP_STATUS' $
+            END, IF $
+C $
+            IF, 'RETURN' EQ C'DHCPEnabled=TRUE', THEN $
+              CALCULATE, 'SUCCESS' = TRUE $
+            END, IF $  
+C $
+          END, 'GET_DHCP_STATUS' $
+C $
+C         ************************************************** $
+C         ***             GET_IP PROCEDURE               *** $
+C         ************************************************** $
+C $
+          DEFINE, 'GET_IP', PROCEDURE('PORT' IS STRING (30) OF CHAR)
+            RESULT('IP' IS STRING (15) OF CHAR,'SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'ARG1'   IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG2'   IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG3'   IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG4'   IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG5'   IS STRING ( 99) OF CHAR INITIAL = C'';
+              'CMD'    IS STRING (499) OF CHAR INITIAL = C'';
+              'RETURN' IS STRING (499) OF CHAR INITIAL = C'' $
+C $
+            CALCULATE, 
+              'IP'     = C'',
+              'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'- CHECKING','PORT', C'FOR IP ADDRESS ASSIGNMENT' $
+C $
+C           CREATE BATCH FILE TO RUN $
+            CALCULATE,
+              'ARG1' = C'FOR /F "tokens=5" %%a in (',
+              'ARG2' = CHAR(ASCII7,B'0100111') & C'NETSH Interface IP SHOW IPAddress "',
+              'ARG3' = 'PORT',
+              'ARG4' = C'" Level^=Normal ^| Find /I "Manual"',
+              'ARG5' = CHAR(ASCII7,B'0100111') & C') DO ( ECHO %%a >' & 'LOGLOCATION' & 'NIC_CONFIG' & C' 2>&1 )',
+              'CMD'  = C'SETLOCAL ENABLEDELAYEDEXPANSION\LF\' & 'ARG1' & 'ARG2' & 'ARG3' & 'ARG4' & 'ARG5' $
+C $
+C           FOR /F "tokens=5" %%a in ('netsh interface ip show ipaddress Ethernet level^=normal ^| find /I "Manual"') do ( echo %%a >C:\APS\DATA\NIC-CONFIG 2>&1 ) $
+C $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & 'BAT_FILE', 'CMD') $
+C $
+C           CLEAR ARG VARIABLES $
+            CALCULATE, 
+              'CMD'  = C'',
+              'ARG1' = C'',
+              'ARG2' = C'',
+              'ARG3' = C'',
+              'ARG4' = C'',
+              'ARG5' = C'' $
+C $
+            WAIT FOR, 2 SEC $
+C           CREATE BLANK OUTPUT FILE TO PREVENT ENDLESS LOOP IN CASE OF BATCH FAILURE $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & 'NIC_CONFIG', C'') $
+            WAIT FOR, 1 SEC $
+C $
+C           EXECUTE BATCH FILE $
+            PERFORM, 'C:\APS\DATA\TEMP' $
+            WAIT FOR, 3 SEC $
+C $
+C           APPEND A STRING TO END OF FILE TO PREVENT ERRORS ON READ RELATED TO CR $
+C            PERFORM, 'WRITE_FILE'('LOGLOCATION' & 'NIC_CONFIG',C'\0',TRUE) $
+C $
+C           GET RETURN VALUE FROM BATCH SCRIPT (IP ADDRESS) $
+            PERFORM, 'GET_RETURN'('LOGLOCATION' & 'NIC_CONFIG')
+              RESULT('RETURN') $
+            WAIT FOR, 1 SEC $
+C $
+            CALCULATE, 'IP' = COPY('RETURN',1,15) $
+C $
+            IF, (LEN('IP') LT 7) OR ('IP' EQ C'') OR ('IP' EQ C' '), THEN $
+              OUTPUT, C'UNABLE TO DETERMINE IP ADDRESS FOR', 'PORT', 
+                      C'\LF\(This condition may be caused by an unconnected port',
+                      C'\LF\ or a non-existing DHCP server)' $
+            ELSE $
+              CALCULATE, 'SUCCESS' = TRUE $
+            END, IF $
+C $
+          END, 'GET_IP' $
+C $
+C         ************************************************** $
+C         ***          PRINT_FAULTS PROCEDURE            *** $
+C         ************************************************** $
+C $
+          DEFINE, 'PRINT_FAULTS', PROCEDURE
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'OPTION' IS INTEGER             INITIAL = 'OPT_PRINT';
+              'YES_NO' IS STRING ( 3) OF CHAR INITIAL = C'' $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'EXECUTING FAULT FILE PRINTER...' $
+C $
+            PERFORM, 'GPNAM'('OPTION') $
+C $
+            WAIT FOR, 5 SEC $
+C $
+            WHILE, ('YES_NO' NE C'Y') AND ('YES_NO' NE C'N'), THEN $ 
+              PERFORM, 'CLS' $
+              OUTPUT, C'DID FAULT FILE VIEWER EXECUTE?' $
+              OUTPUT, C'' $
+              OUTPUT, C'' $
+              OUTPUT, C'          (Y / N)' $
+              OUTPUT, C'' $
+C $
+              INPUT, INTO 'YES_NO' $
+C $
+              IF, 'YES_NO' EQ C'y', THEN $
+                CALCULATE, 
+                  'YES_NO' = C'Y' $
+              ELSE $
+                IF, 'YES_NO' EQ C'n', THEN $
+                  CALCULATE, 'YES_NO' = C'N' $
+                END, IF $
+              END, IF $
+C $
+            END, WHILE $
+C $
+            IF, 'YES_NO' EQ C'Y', THEN $
+              CALCULATE, 'SUCCESS' = TRUE $
+            END, IF $
+C $
+            PERFORM, 'CLS' $
+C $
+          END, 'PRINT_FAULTS' $
+C $
+C         ************************************************** $
+C         ***         FAULT_CLEANUP PROCEDURE            *** $
+C         ************************************************** $
+C $
+          DEFINE, 'FAULT_CLEANUP', PROCEDURE
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'OPTION' IS INTEGER INITIAL = 'OPT_CLEANUP';
+              'YES_NO' IS STRING ( 3) OF CHAR INITIAL = C'' $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'EXECUTING FAULT FILE CLEANUP...' $
+C $
+            PERFORM, 'GPNAM'('OPTION') $
+C $
+            WAIT FOR, 5 SEC $
+C $
+            WHILE, ('YES_NO' NE C'Y') AND ('YES_NO' NE C'N'), THEN $ 
+              PERFORM, 'CLS' $
+              OUTPUT, C'DID FAULT FILE CLEANUP EXECUTE WITHOUT ERROR?' $
+              OUTPUT, C'' $
+              OUTPUT, C'' $
+              OUTPUT, C'          (Y / N)' $
+              OUTPUT, C'' $
+C $
+              INPUT, INTO 'YES_NO' $
+C $
+              IF, 'YES_NO' EQ C'y', THEN $
+                CALCULATE, 
+                  'YES_NO' = C'Y' $
+              ELSE $
+                IF, 'YES_NO' EQ C'n', THEN $
+                  CALCULATE, 'YES_NO' = C'N' $
+                END, IF $
+              END, IF $
+C $
+            END, WHILE $
+C $
+            IF, 'YES_NO' EQ C'Y', THEN $
+              CALCULATE, 'SUCCESS' = TRUE $
+            END, IF $
+C $
+            PERFORM, 'CLS' $
+C $
+          END, 'FAULT_CLEANUP' $
+C $
+C         ************************************************** $
+C         ***              PING PROCEDURE                *** $
+C         ************************************************** $
+C $
+          DEFINE, 'PING', PROCEDURE('PING_IP' IS STRING (15) OF CHAR)
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'OPTION'    IS INTEGER INITIAL = 'OPT_PING';
+              'PING_NUM'  IS INTEGER INITIAL = 4;
+              'PING_MAX'  IS INTEGER INITIAL = -1;
+              'PING_MIN'  IS INTEGER INITIAL = -1;
+              'PING_AVG'  IS INTEGER INITIAL = -1;
+              'DROP_PKTS' IS INTEGER INITIAL = -1;
+              'RCVD_PKTS' IS INTEGER INITIAL = -1 $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'- PINGING HOST ', 'PING_IP', C'(','PING_NUM', C') TIMES\LF\' $
+            PERFORM, 'GPNAM'('OPTION', 'PING_IP', 'PING_NUM', 'PING_MAX', 'PING_MIN', 'PING_AVG', 'DROP_PKTS', 'RCVD_PKTS') $
+C $
+            IF, 'RCVD_PKTS' EQ -1, THEN $
+C             GPNAM DID NOT EXECUTE CORRECTLY $
+              OUTPUT, C'ERROR:  GPNAM did not receive all return values' $
+            ELSE $
+              OUTPUT, C'PING RESULTS:' $
+              OUTPUT, C'' $
+              OUTPUT, C'Round Trip Times (ms)' $
+              OUTPUT, C'' $
+              OUTPUT, C'Max - ', 'PING_MAX' $
+              OUTPUT, C'Min - ', 'PING_MIN' $
+              OUTPUT, C'Avg - ', 'PING_AVG' $
+              OUTPUT, C'' $
+              OUTPUT, C'Packet Transmission' $
+              OUTPUT, C'' $
+              OUTPUT, C'Dropped  - ', 'DROP_PKTS' $
+              OUTPUT, C'Received - ', 'RCVD_PKTS' $
+C $
+              IF, 'RCVD_PKTS' GT 0, THEN $
+                CALCULATE, 'SUCCESS' = TRUE $
+              END, IF $
+            END, IF $
+C $
+            IF, 'RCVD_PKTS' GT 0, THEN $
+              CALCULATE, 'SUCCESS' = TRUE $
+            END, IF $
+C $
+          END, 'PING' $
+C $
+C         ************************************************** $
+C         ***             IP_SET PROCEDURE               *** $
+C         ************************************************** $
+C $
+          DEFINE, 'IP_SET', PROCEDURE(
+            'IP'       IS STRING (15) OF CHAR,
+            'PORT_NAM' IS STRING (30) OF CHAR,
+            'MASK'     IS STRING (15) OF CHAR,
+            'GATEWAY'  IS STRING (15) OF CHAR)
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE, 
+              'OPTION'    IS INTEGER             INITIAL = 'OPT_CONFIG';
+              'NEW_IP'    IS STRING (15) OF CHAR INITIAL = C'NO IP ISSUED';
+              'TEMP_STAT' IS BOOLEAN             INITIAL = FALSE $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'- CONFIGURING ', 'PORT_NAM', C' WITH THE FOLLOWING PARAMETERS:' $
+            OUTPUT, C'' $
+            OUTPUT, C'  ADDRESS ALLOCATION -  STATIC' $
+            OUTPUT, C'  IP ADDRESS VALUE   - ','IP' $
+            OUTPUT, C'  SUB-NET MASK       - ','MASK' $
+            OUTPUT, C'  GATEWAY            - ','GATEWAY' $
+            OUTPUT, C'' $
+            PERFORM, 'GPNAM'('OPTION', 'IP', 'PORT_NAM', 'MASK', 'GATEWAY') $
+C $
+            OUTPUT, C'- ALLOWING TIME FOR CONFIGURATION CHANGES' $
+            WAIT FOR, 5 SEC $
+C $
+            OUTPUT, C'- VERIFYING STATIC IP ADDRESS CHANGE\LF\' $
+C            PERFORM, 'PING'('IP')
+              RESULT('STAT') $
+            PERFORM, 'GET_IP'('PORT_NAM')
+              RESULT('NEW_IP','TEMP_STAT') $
+            OUTPUT, C'- CONFIGURED IP:  ','NEW_IP' $
+C $
+            IF, 'NEW_IP' EQ 'IP', THEN $
+              CALCULATE, 'SUCCESS' = 'TRUE' $
+            END, IF $
+C $
+            OUTPUT, C'' $
+C $
+          END, 'IP_SET' $
+C $
+C         ************************************************** $
+C         ***             IP_RESET PROCEDURE             *** $
+C         ************************************************** $
+C $
+          DEFINE, 'IP_RESET', PROCEDURE('PORT_NAM' IS STRING (30) OF CHAR)
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE, 
+              'OPTION'    IS INTEGER              INITIAL = 'OPT_RESET';
+              'ARG1'      IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG2'      IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG3'      IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG4'      IS STRING (100) OF CHAR INITIAL = C'';
+              'ARG5'      IS STRING ( 99) OF CHAR INITIAL = C'';
+              'CMD'       IS STRING (499) OF CHAR INITIAL = C'';
+              'RETURN'    IS STRING (499) OF CHAR INITIAL = C'';
+              'STATUS'    IS INTEGER              INITIAL = -9;
+              'TEMP_STAT' IS BOOLEAN              INITIAL = FALSE $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+C           GET CURRENT STATUS OF PORT $
+C           CHECK FOR DHCP USING WMIC $
+            PERFORM, 'GET_DHCP_STATUS'('PORT_NAM')
+              RESULT('SUCCESS') $
+C $
+C           IF NETWORK ADAPTER WAS NOT FOUND $
+            IF, 'EXIT' EQ TRUE, THEN $
+              LEAVE, 'IP_RESET' $
+            END, IF $
+C $
+            IF, 'SUCCESS' EQ TRUE, THEN $
+              OUTPUT, C'- DHCP IS ENABLED' $
+            ELSE $
+              OUTPUT, C'- DHCP IS DISABLED' $
+            END, IF $
+C $
+            PERFORM, 'GET_IP'('PORT_NAM')
+              RESULT('RETURN','TEMP_STAT') $
+            OUTPUT, C'- CURRENT IP:  ','RETURN' $
+C $
+            IF, LOCN('LOCAL_PORT','PORT_NAM') NE 0, THEN $
+              IF, 'SUCCESS' EQ TRUE, THEN $
+                OUTPUT, C'-', 'PORT_NAM', C'IS ALREADY CONFIGURED FOR DCHCP' $
+                OUTPUT, C'  TEST ABORTING...' $
+                LEAVE, 'IP_RESET' $
+              END, IF $
+            ELSE $
+              IF, LOCN('GIG1_PORT','PORT_NAM') NE 0, THEN $
+
+              ELSE $
+                IF, LOCN('GIG2_PORT','PORT_NAM') NE 0, THEN $
+                
+                ELSE $
+                  IF, LOCN('GIG4_PORT','PORT_NAM') NE 0, THEN $
+C                   CHECK FOR DHCP USING WMIC $
+                    PERFORM, 'GET_DHCP_STATUS'('PORT_NAM')
+                      RESULT('SUCCESS') $
+C $
+                    IF, 'SUCCESS' EQ TRUE, THEN $
+                      OUTPUT, C'-', 'PORT_NAM', C'IS ALREADY CONFIGURED FOR DCHCP' $
+                      OUTPUT, C'  TEST ABORTING...' $
+                      LEAVE, 'IP_RESET' $
+                    END, IF $
+                  END, IF 'GIGABIT4' $
+                END, IF 'GIGABIT2' $
+              END, IF 'GIGABIT1' $
+            END, IF 'LOCAL' $
+C $
+            OUTPUT, C'- RESETTING ', 'PORT_NAM' $
+            OUTPUT, C'' $
+C $
+            PERFORM, 'GPNAM'('OPTION', 'PORT_NAM') $
+C $
+            OUTPUT, C'- ALLOWING TIME FOR CONFIGURATION CHANGES' $
+            WAIT FOR, 5 SEC $
+C $
+            OUTPUT, C'- VERIFYING CHANGES\LF\' $
+C $
+C           CHECK FOR DHCP USING WMIC $
+            PERFORM, 'GET_DHCP_STATUS'('PORT_NAM')
+              RESULT('SUCCESS') $
+
+            IF, LOCN('LOCAL_PORT','PORT_NAM') NE 0, THEN $
+              IF, 'SUCCESS' EQ TRUE, THEN $
+                OUTPUT, C'- DHCP IS ENABLED' $
+              ELSE $
+                OUTPUT, C'- DHCP IS DISABLED' $
+              END, IF $
+            ELSE $
+              IF, LOCN('GIG1_PORT','PORT_NAM') NE 0, THEN $
+C               CHECK IP ADDRESS $
+                PERFORM, 'PING'('GIG1_IP_RESET')
+                  RESULT('STAT') $
+              ELSE $
+                IF, LOCN('GIG2_PORT','PORT_NAM') NE 0, THEN $
+C                 CHECK IP ADDRESS $
+                  PERFORM, 'PING'('GIG2_IP_RESET')
+                    RESULT('STAT') $
+                ELSE $
+                  IF, LOCN('GIG4_PORT','PORT_NAM') NE 0, THEN $
+C                   CHECK FOR DHCP USING WMIC $
+                    PERFORM, 'GET_DHCP_STATUS'('PORT_NAM')
+                      RESULT('SUCCESS') $
+                  END, IF 'GIGABIT4' $
+                END, IF 'GIGABIT2' $
+              END, IF 'GIGABIT1' $
+            END, IF 'LOCAL AREA CONNECTION' $
+
+            PERFORM, 'GET_IP'('PORT_NAM')
+              RESULT('RETURN','TEMP_STAT') $
+            OUTPUT, C'- NEW IP:  ','RETURN' $
+C $
+            OUTPUT, C'' $
+C $
+          END, 'IP_RESET' $
+C $
+C         ************************************************** $
+C         ***           INSERT_FAULT PROCEDURE           *** $
+C         ************************************************** $
+C $
+          DEFINE, 'INSERT_FAULT', PROCEDURE
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'OPTION'   IS INTEGER              INITIAL = 'OPT_INS_FAULT';
+              'TEMP_STR' IS STRING (499) OF CHAR INITIAL = C'';
+              'VERIFY'   IS STRING ( 50) OF CHAR INITIAL = C'Guided_detectedPCOF:DIAGNOSEDFAULTGPNamTestMessage' $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'- CREATING FAULT FILE' $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & 'FAULT_FILE', C'Guided_detected\CR\\LF\PCOF:\CR\\LF\') $
+C $
+            OUTPUT, C'- INSERTING DIAGNOSTICS INTO', 'FAULT_FILE' $
+            PERFORM, 'GPNAM'('OPTION') $
+C $
+            WAIT FOR, 1 SEC $
+            OUTPUT, C'- VERIFYING CHANGES TO', 'FAULT_FILE', C'\LF\' $
+C $
+            PERFORM, 'GET_RETURN'('LOGLOCATION' & 'FAULT_FILE')
+              RESULT('TEMP_STR') $
+C $
+C           ALL NON-PRINTING CHARS INCLUDING LF CR ARE STRIPPED IN 'GET_RETURN' $
+            IF, LOCN('VERIFY', 'TEMP_STR') NE 0, THEN $
+              CALCULATE, 'SUCCESS' = TRUE $
+            END, IF $
+C $
+          END, 'INSERT_FAULT' $
+C $
+C         ************************************************** $
+C         ***             ADD_INFO PROCEDURE             *** $
+C         ************************************************** $
+C $
+          DEFINE, 'ADD_INFO', PROCEDURE
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE, 
+              'OPTION' IS INTEGER INITIAL = 'OPT_ADD_INFO';
+              'LOG_FILE' IS FILE OF TEXT;
+              'TEMP_STR' IS STRING (499) OF CHAR INITIAL = C'';
+              'COMMENT'  IS STRING ( 50) OF CHAR INITIAL = C'Guided Probe\LF\DIAGNOSED FAULT\LF\GPNamTestMessage';
+              'VERIFY'   IS STRING ( 50) OF CHAR INITIAL = C'GuidedProbeDIAGNOSEDFAULTGPNamTestMessage' $
+C $
+            OUTPUT, C'- CREATING EMPTY m910nam.dia FILE' $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & C'm910nam.dia', C' ') $
+C $
+            OUTPUT, C'- CREATING EMPTY m910nam.ide FILE' $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & C'm910nam.ide', C' ') $
+C $
+            OUTPUT, C'- CREATING EMPTY m910nam.xml FILE' $
+            PERFORM, 'CREATE_FILE'('LOGLOCATION' & C'm910nam.xml', C' ') $
+C $
+            OUTPUT, C'- ADDING COMMENT: ', 'COMMENT', C'\LF\' $
+            OUTPUT, C'' $
+            OUTPUT, C'' $
+            OUTPUT, C'  TO m910nam.dia FILE\LF\' $
+            PERFORM, 'GPNAM'('OPTION', 'COMMENT') $
+C $
+            WAIT FOR, 1 SEC $
+            OUTPUT, C'- VERIFYING CHANGES TO m910nam.dia\LF\' $
+C $
+            PERFORM, 'GET_RETURN'('LOGLOCATION' & C'm910nam.dia')
+            RESULT('TEMP_STR') $
+C $
+C           ALL NON-PRINTING CHARS INCLUDING LF CR ARE STRIPPED IN 'GET_RETURN' $
+            IF, LOCN('VERIFY', 'TEMP_STR') NE 0, THEN $
+              CALCULATE, 'SUCCESS' = TRUE $
+            END, IF $
+C $
+          END, 'ADD_INFO' $
+C $
+C         ************************************************** $
+C         ***           GET_HOSTNAME PROCEDURE           *** $
+C         ************************************************** $
+C $
+          DEFINE, 'GET_HOSTNAME', PROCEDURE('HOST' IS STRING (15) OF CHAR)
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'OPTION' IS INTEGER INITIAL = 'OPT_COMPNAME';
+              'STAT'   IS INTEGER INITIAL = -1 $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'' $
+            OUTPUT, C'- CHECKING LOCAL HOST NAME\LF\' $
+            PERFORM, 'GPNAM'('OPTION','HOST', 'STAT') $
+C $
+            WAIT FOR, 1 SEC $
+C $
+            IF, 'STAT' EQ 1, THEN $
+              CALCULATE, 'SUCCESS' = TRUE $
+              OUTPUT, C'- HOSTNAME CONFIRMED TO CONTAIN (', 'HOST', C')' $
+            ELSE $
+              OUTPUT, C'- HOSTNAME DOES NOT CONTAIN (','HOST', C')' $
+            END, IF $
+C $
+            OUTPUT, C'' $
+C $
+          END, 'GET_HOSTNAME' $
+C $
+C         ************************************************** $
+C         ***              GET_WD PROCEDURE              *** $
+C         ************************************************** $
+C $
+          DEFINE, 'GET_WD', PROCEDURE
+            RESULT('SUCCESS' IS BOOLEAN) $
+C $
+            DECLARE, VARIABLE,
+              'OPTION' IS INTEGER          INITIAL = 'OPT_WD'; 
+              'WD' IS STRING (499) OF CHAR INITIAL = C'' $
+C $
+            CALCULATE, 'SUCCESS' = FALSE $
+C $
+            OUTPUT, C'- GETTING WORKING DIRECTORY NAME\LF\' $
+            PERFORM, 'GPNAM'('OPTION','WD') $
+C $
+            WAIT FOR, 1 SEC $
+C $
+            IF, ('WD' NE C'') AND ('WD' NE C' '), THEN $
+              OUTPUT, C'- IDENTIFIED WORKING DIRECTORY AS: \LF\\LF\','WD' $
+              CALCULATE, 'SUCCESS' = TRUE $
+            ELSE $
+              OUTPUT, 'WD' $
+              OUTPUT, C'- UNABLE TO IDENTIFY WORKING DIRECTORY' $
+            END, IF $
+C $
+            OUTPUT, C'' $
+C $
+          END, 'GET_WD' $
+C $
+C         **************************************************** $
+C         ***                DISPLAY MENU                  *** $
+C         **************************************************** $
+C $
+          DEFINE, 'DISPLAY_MENU', PROCEDURE $
+C $
+            DECLARE, CONSTANT, 'EXIT' IS C'0' $
+C $
+            DECLARE, VARIABLE, 
+              'MENU_SELECTION'  IS STRING ( 1) OF CHAR INITIAL = C'';
+              'TARGET_IP'       IS STRING (15) OF CHAR INITIAL = C'192.168.1.2';
+              'DESIRED_IP'      IS STRING (15) OF CHAR INITIAL = C'192.168.1.2';
+              'DESIRED_PORT'    IS STRING (30) OF CHAR INITIAL = C'Local Area Connection';
+              'DESIRED_MASK'    IS STRING (15) OF CHAR INITIAL = C'255.255.255.0';
+              'DESIRED_GATE'    IS STRING (15) OF CHAR INITIAL = C'192.168.1.1';
+              'DESIRED_COMMENT' IS STRING (80) OF CHAR INITIAL = C'';
+              'DESIRED_SYS'     IS STRING (15) OF CHAR INITIAL = C'';
+              'PORT_SELECTION'  IS STRING ( 1) OF CHAR INITIAL = C'';
+              'SYS_SELECTION'   IS STRING ( 1) OF CHAR INITIAL = C'' $
+C $
+            CALCULATE, 
+              'PRINT_FAULT_STAT'   = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'PING_STAT'          = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'IP_SET_STAT'        = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'IP_RESET_STAT'      = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'CLEAN_UP_STAT'      = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'INSERT_FAULTS_STAT' = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'ADD_INFO_STAT'      = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'COMP_NAME_STAT'     = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT',
+              'WORK_DIR_STAT'      = 'BLUE' & 'B_WHITE' & C'NOT RUN' & 'DEFAULT' $
+C $
+B $
+ 000050       WHILE, 'MENU_SELECTION' NE 'EXIT', THEN $
+              PERFORM, 'CLS' $
+              OUTPUT, C'                                 NAM FUNCTIONAL TESTS ( v.','TPS_VERSION',C')' $
+              OUTPUT, C'' $
+              OUTPUT, C'' $
+              OUTPUT, C'NON ATLAS MODULE: ', 'NAM_NAME' $
+              OUTPUT, C'    FILE VERSION: ', 'FILE_VERSION' $
+              OUTPUT, C' PRODUCT VERSION: ', 'PROD_VERSION' $
+              OUTPUT, C'' $
+              OUTPUT, C'    DEPENDENCIES: ', 'DEPENDS' $
+              OUTPUT, C'' $
+              OUTPUT, C'' $
+              OUTPUT, C'SELECTION    TEST NAME           DESCRIPTION                                TEST STATUS' $
+              OUTPUT, C'---------    ---------------     ---------------------------------------    -----------' $
+              OUTPUT, C'(1)          PRINT FAULTS        PRINT FAULT FILE                          ', 'PRINT_FAULT_STAT' $
+              OUTPUT, C'(2)          CLEAN UP            FAULT FILE CLEAN-UP                       ', 'CLEAN_UP_STAT' $
+              OUTPUT, C'(3)          LOG DIAG FAULTS     INSERT M910 DIAGNOSTICS INTO FAULT FILE   ', 'INSERT_FAULTS_STAT' $
+              OUTPUT, C'(4)          SET IP              SET STATIC IP ADDRESS                     ', 'IP_SET_STAT' $
+              OUTPUT, C'(5)          RESET IP            RESET IP ADDRESS TO DEFAULT               ', 'IP_RESET_STAT' $
+              OUTPUT, C'(6)          ADDITIONAL INFO     INSERT ADDITIONAL INFO INTO M910 XML/IDE  ', 'ADD_INFO_STAT' $
+              OUTPUT, C'(7)          PING                PING TARGET IP ADDRESS                    ', 'PING_STAT' $
+              OUTPUT, C'(8)          COMPUTER NAME       VERIFY LOCAL HOST NAME                    ', 'COMP_NAME_STAT' $
+              OUTPUT, C'(9)          WORKING DIR         GET CURRENT WORKING DIRECTORY NAME        ', 'WORK_DIR_STAT' $
+              OUTPUT, C'' $
+              OUTPUT, C'(0) - EXIT' $
+              OUTPUT, C'' $
+              OUTPUT, C'ENTER A VALUE CORRESPONDING TO ONE OF THE OPTIONS LISTED ABOVE' $
+              OUTPUT, C'' $
+              INPUT, INTO 'MENU_SELECTION' $
+C $
+              IF, 'MENU_SELECTION' EQ C'0', THEN $
+                LEAVE, 'DISPLAY_MENU' $
+              ELSE $
+C               *********************************************** $
+C               ***            PRINT FAULT FILE             *** $
+C               *********************************************** $
+C $
+                IF, 'MENU_SELECTION' EQ C'1', THEN $
+                  CALCULATE, 'STAT' = FALSE $
+                  PERFORM, 'CLS' $
+C $
+                  PERFORM, 'PRINT_FAULTS'
+                    RESULT('STAT') $
+C $
+                  IF, 'STAT' EQ TRUE, THEN $
+                    OUTPUT, C'FAULT FILE PRINTER WAS SUCCESSFUL' $
+                    CALCULATE, 'PRINT_FAULT_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                  ELSE $
+                    OUTPUT, C'FAULT FILE PRINTER FAILED' $
+                    CALCULATE, 'PRINT_FAULT_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                  END, IF $
+C $
+                  OUTPUT, C'' $
+                  OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                  INPUT, GO-NOGO $
+
+                ELSE $
+C                 *********************************************** $
+C                 ***           FAULT FILE CLEANUP            *** $
+C                 *********************************************** $
+C $
+                  IF, 'MENU_SELECTION' EQ C'2', THEN $
+                    CALCULATE, 'STAT' = FALSE $
+                    PERFORM, 'CLS' $
+C $
+                    PERFORM, 'FAULT_CLEANUP'
+                      RESULT('STAT') $
+C $
+                    IF, 'STAT' EQ TRUE, THEN $
+                      OUTPUT, C'FAULT FILE CLEANUP WAS SUCCESSFUL' $
+                      CALCULATE, 'CLEAN_UP_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                    ELSE $
+                      OUTPUT, C'FAULT FILE CLEANUP FAILED' $
+                      CALCULATE, 'CLEAN_UP_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                    END, IF $
+C $
+                    OUTPUT, C'' $
+                    OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                    INPUT, GO-NOGO $
+
+                  ELSE $
+C                   *********************************************** $
+C                   ***              FAULT_INSERT               *** $
+C                   *********************************************** $
+C $
+                    IF, 'MENU_SELECTION' EQ C'3', THEN $
+                      PERFORM, 'CLS' $
+C $
+                      IF, 'ADD_INFO_STAT' NE 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT', THEN $
+                        OUTPUT, C'MUST RUN TEST #6 BEFORE RUNNING THIS TEST\LF\' $
+                        INPUT, GO-NOGO $
+                        GO TO, STEP 000050 $
+                      END, IF $
+C $
+                      CALCULATE, 'STAT' = FALSE $
+C $
+                      PERFORM,'INSERT_FAULT'
+                        RESULT('STAT') $
+C $
+                      OUTPUT, C'' $
+C $
+                      IF, 'STAT' EQ TRUE, THEN $
+                        OUTPUT, C'FAULT FILE INSERTION WAS SUCCESSFUL' $
+                        CALCULATE, 'INSERT_FAULTS_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                      ELSE $
+                        OUTPUT, C'FAULT FILE INSERTION FAILED' $
+                        CALCULATE, 'INSERT_FAULTS_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                      END, IF $
+C $
+                      OUTPUT, C'' $
+                      OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                      INPUT, GO-NOGO $
+C $
+                    ELSE $
+C                     *********************************************** $
+C                     ***              SET IP ADDRESS             *** $
+C                     *********************************************** $
+C $
+                      IF, 'MENU_SELECTION' EQ C'4', THEN $
+                        CALCULATE, 'STAT' = FALSE $
+                        PERFORM, 'CLS' $
+                        OUTPUT, C'ENTER THE DESIRED STATIC IP ADDRESS' $
+                        OUTPUT, C'  (i.e. 192.168.1.1)' $
+                        OUTPUT, C'' $
+                        INPUT, INTO 'DESIRED_IP' $
+                        CALCULATE, 'DESIRED_IP' = COPY('DESIRED_IP', 1,15) $
+C $
+                        WHILE, ('PORT_SELECTION' NE C'1') AND 
+                               ('PORT_SELECTION' NE C'2') AND 
+                               ('PORT_SELECTION' NE C'3') AND 
+                               ('PORT_SELECTION' NE C'4'), THEN $
+                          CALCULATE, 'STAT' = FALSE $
+                          PERFORM, 'CLS' $
+C $
+                          OUTPUT, C'ENTER THE NUMBER CORRESPONDING TO THE PORT TO BE CONFIGURED' $
+                          OUTPUT, C'' $
+                          OUTPUT, C'' $
+                          OUTPUT, C'(1) Local Area Connection' $
+                          OUTPUT, C'' $
+                          OUTPUT, C'(2) GIGABIT1' $
+                          OUTPUT, C'' $
+                          OUTPUT, C'(3) GIGABIT2' $
+                          OUTPUT, C'' $
+                          OUTPUT, C'(4) GIGABIT4' $
+                          INPUT, INTO 'PORT_SELECTION' $
+                        END, WHILE $
+C $
+                        IF, 'PORT_SELECTION' EQ C'1', THEN $
+                          CALCULATE, 'DESIRED_PORT' = 'LOCAL_PORT' $
+                        ELSE $
+                          IF, 'PORT_SELECTION' EQ C'2', THEN $
+                            CALCULATE, 'DESIRED_PORT' = 'GIG1_PORT' $
+                          ELSE $
+                            IF, 'PORT_SELECTION' EQ C'3', THEN $
+                              CALCULATE, 'DESIRED_PORT' = 'GIG2_PORT' $
+                            ELSE $
+                              IF, 'PORT_SELECTION' EQ C'4', THEN $
+                                CALCULATE, 'DESIRED_PORT' = 'GIG4_PORT' $
+                              END, IF '4' $
+                            END, IF '3' $
+                          END, IF '2' $
+                        END, IF '1' $
+C $
+C                        OUTPUT, C'ENTER THE PORT NAME TO CONFIGURE' $
+C                        OUTPUT, C'  (i.e. Local Area Connection, GIGABIT1, GIGABIT2)' $
+C                        OUTPUT, C'' $
+C                        INPUT, INTO 'DESIRED_PORT' $
+C                        CALCULATE, 'DESIRED_PORT' = COPY('DESIRED_PORT', 1,30) $
+C $
+                        OUTPUT, C'\LF\ENTER THE DESIRED SUB-NET MASK' $
+                        OUTPUT, C'  (i.e. 255.255.255.0)' $
+                        OUTPUT, C'' $
+                        INPUT, INTO 'DESIRED_MASK' $
+                        CALCULATE, 'DESIRED_MASK' = COPY('DESIRED_MASK', 1,15) $
+C $
+                        OUTPUT, C'ENTER THE DESIRED GATEWAY' $
+                        OUTPUT, C'  (i.e. 192.168.1.1)' $
+                        OUTPUT, C'' $
+                        INPUT, INTO 'DESIRED_GATE' $
+                        CALCULATE, 'DESIRED_GATE' = COPY('DESIRED_GATE', 1,15) $
+C $
+                        PERFORM, 'IP_SET'('DESIRED_IP', 'DESIRED_PORT', 'DESIRED_MASK', 'DESIRED_GATE')
+                          RESULT('STAT') $
+C $
+                        OUTPUT, C'' $
+C $
+                        IF, 'STAT' EQ TRUE, THEN $
+                          OUTPUT, C'NETWORK PORT CONFIG WAS SUCCESSFUL' $
+                          CALCULATE, 'IP_SET_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                        ELSE $
+                          OUTPUT, C'NETWORK PORT CONFIG FAILED' $
+                          CALCULATE, 'IP_SET_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                        END, IF $
+C $
+                        OUTPUT, C'' $
+                        OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                        INPUT, GO-NOGO $
+C $
+C $                     CALCULATE, 'PORT_SELECTION' = C'' $
+                      ELSE $
+C                       *********************************************** $
+C                       ***              RESET IP ADDRESS           *** $
+C                       *********************************************** $
+C $
+                        IF, 'MENU_SELECTION' EQ C'5', THEN $
+                          WHILE, ('PORT_SELECTION' NE C'1') AND 
+                                 ('PORT_SELECTION' NE C'2') AND 
+                                 ('PORT_SELECTION' NE C'3') AND 
+                                 ('PORT_SELECTION' NE C'4'), THEN $
+                            CALCULATE, 'STAT' = FALSE $
+                            PERFORM, 'CLS' $
+C $
+                            OUTPUT, C'ENTER THE NUMBER CORRESPONDING TO THE PORT TO BE CONFIGURED' $
+                            OUTPUT, C'' $
+                            OUTPUT, C'' $
+                            OUTPUT, C'(1) Local Area Connection' $
+                            OUTPUT, C'' $
+                            OUTPUT, C'(2) GIGABIT1' $
+                            OUTPUT, C'' $
+                            OUTPUT, C'(3) GIGABIT2' $
+                            OUTPUT, C'' $
+                            OUTPUT, C'(4) GIGABIT4' $
+                            INPUT, INTO 'PORT_SELECTION' $
+                          END, WHILE $
+C $
+                          IF, 'PORT_SELECTION' EQ C'1', THEN $
+                            CALCULATE, 'DESIRED_PORT' = 'LOCAL_PORT' $
+                          ELSE $
+                            IF, 'PORT_SELECTION' EQ C'2', THEN $
+                              CALCULATE, 'DESIRED_PORT' = 'GIG1_PORT' $
+                            ELSE $
+                              IF, 'PORT_SELECTION' EQ C'3', THEN $
+                                CALCULATE, 'DESIRED_PORT' = 'GIG2_PORT' $
+                              ELSE $
+                                IF, 'PORT_SELECTION' EQ C'4', THEN $
+                                  CALCULATE, 'DESIRED_PORT' = 'GIG4_PORT' $
+                                END, IF '4' $
+                              END, IF '3' $
+                            END, IF '2' $
+                          END, IF '1' $
+C $
+                          PERFORM, 'CLS' $
+                          PERFORM, 'IP_RESET'('DESIRED_PORT')
+                            RESULT('STAT') $
+C $
+                          OUTPUT, C'' $
+C $
+                          IF, 'STAT' EQ TRUE, THEN $
+                            OUTPUT, C'NETWORK PORT CONFIG WAS SUCCESSFUL' $
+                            CALCULATE, 'IP_RESET_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                          ELSE $
+                            OUTPUT, C'NETWORK PORT CONFIG FAILED' $
+                            CALCULATE, 'IP_RESET_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                          END, IF $
+C $
+                          OUTPUT, C'' $
+                          OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                          INPUT, GO-NOGO $
+C $
+                          CALCULATE, 'PORT_SELECTION' = C'' $
+C $
+                        ELSE $
+C                         *********************************************** $
+C                         ***              ADDITIONAL INFO            *** $
+C                         *********************************************** $
+C $
+                          IF, 'MENU_SELECTION' EQ C'6', THEN $
+                            CALCULATE, 'STAT' = FALSE $
+                            PERFORM, 'CLS' $
+C                            OUTPUT, C'ENTER A COMMENT TO APPEND TO FAULT-FILE' $
+C                            OUTPUT, C'   (UP TO 80 CHARACTERS)' $
+C                            OUTPUT, C'' $
+C                            INPUT, INTO 'DESIRED_COMMENT' $
+                            PERFORM, 'ADD_INFO'
+                              RESULT('STAT') $
+C $
+                            OUTPUT, C'' $
+C $
+                            IF, 'STAT' EQ TRUE, THEN $
+                              OUTPUT, C'ADDITIONAL COMMENTS APPENDED SUCCESSFULLY' $
+                              CALCULATE, 'ADD_INFO_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                            ELSE $
+                              OUTPUT, C'APPENDING OF ADDITIONAL COMMENTS FAILED' $
+                              CALCULATE, 'ADD_INFO_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                            END, IF $
+C $
+                            OUTPUT, C'' $
+                            OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                            INPUT, GO-NOGO $
+                          ELSE $
+C                           *********************************************** $
+C                           ***                  PING                   *** $
+C                           *********************************************** $
+C $
+                            IF, 'MENU_SELECTION' EQ C'7', THEN $
+                              CALCULATE, 'STAT' = FALSE $
+                              PERFORM, 'CLS' $
+                              OUTPUT, C'ENTER AN IP ADDRESS TO PING' $
+                              OUTPUT, C'  (i.e. 192.168.1.1)' $
+                              OUTPUT, C'' $
+                              INPUT, INTO 'TARGET_IP' $
+                              PERFORM, 'PING'('TARGET_IP')
+                                RESULT('STAT') $
+C $
+                              OUTPUT, C'' $
+C $
+                              IF, 'STAT' EQ TRUE, THEN $
+                                OUTPUT, C'- PING OPERATION PASSED' $
+                                CALCULATE, 'PING_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                              ELSE $
+                                OUTPUT, C'- PING OPERATION FAILED' $
+                                CALCULATE, 'PING_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                              END, IF $
+C $
+                              OUTPUT, C'' $
+                              OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                              INPUT, GO-NOGO $
+                            ELSE $
+C                             *********************************************** $
+C                             ***              GET HOST NAME              *** $
+C                             *********************************************** $
+C $
+                              IF, 'MENU_SELECTION' EQ C'8', THEN $
+                                WHILE, ('SYS_SELECTION' NE C'1') AND 
+                                       ('SYS_SELECTION' NE C'2') AND 
+                                       ('SYS_SELECTION' NE C'3'), THEN $
+                                  CALCULATE, 'STAT' = FALSE $
+                                  PERFORM, 'CLS' $
+C $
+                                  OUTPUT, C'ENTER THE NUMBER CORRESPONDING TO THIS ATE TYPE' $
+                                  OUTPUT, C'' $
+                                  OUTPUT, C'' $
+                                  OUTPUT, C'(1) AN/USM-657 (TETS)' $
+                                  OUTPUT, C'' $
+                                  OUTPUT, C'(2) AN/USM-717 (VIPER)' $
+                                  OUTPUT, C'' $
+                                  OUTPUT, C'(3) GPATS' $
+                                  INPUT, INTO 'SYS_SELECTION' $
+                                END, WHILE $
+C $
+                                IF, 'SYS_SELECTION' EQ C'1', THEN $
+                                  CALCULATE, 'DESIRED_SYS' = C'TETS' $
+                                ELSE $
+                                  IF, 'SYS_SELECTION' EQ C'2', THEN $
+                                    CALCULATE, 'DESIRED_SYS' = C'VIPER' $
+                                  ELSE $
+                                    IF, 'SYS_SELECTION' EQ C'3', THEN $
+                                      CALCULATE, 'DESIRED_SYS' = C'GPATS' $
+                                    END, IF '3' $
+                                  END, IF '2' $
+                                END, IF '1' $
+C $
+                                PERFORM, 'CLS' $
+                                PERFORM, 'GET_HOSTNAME'('DESIRED_SYS')
+                                  RESULT('STAT') $
+C $
+                                OUTPUT, C'' $
+C $
+                                IF, 'STAT' EQ TRUE, THEN $
+                                  OUTPUT, C'- LOCAL HOST NAME RETRIEVAL WAS SUCCESSFUL' $
+                                  CALCULATE, 'COMP_NAME_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                                ELSE $
+                                  OUTPUT, C'- LOCAL HOST NAME RETRIEVAL FAILED' $
+                                  CALCULATE, 'COMP_NAME_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                                END, IF $
+C $
+                                OUTPUT, C'' $
+                                OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                                INPUT, GO-NOGO $
+C $
+                                CALCULATE, 'SYS_SELECTION' = C'' $
+C $
+                              ELSE $
+C                               *********************************************** $
+C                               ***        GET WORKING DIRECTORY NAME       *** $
+C                               *********************************************** $
+C $
+                                IF, 'MENU_SELECTION' EQ C'9', THEN $
+                                  CALCULATE, 'STAT' = FALSE $
+                                  PERFORM, 'CLS' $
+                                  PERFORM, 'GET_WD'
+                                    RESULT('STAT') $
+C $
+                                  OUTPUT, C'' $
+C $
+                                  IF, 'STAT' EQ TRUE, THEN $
+                                    OUTPUT, C'- WORKING DIRECTORY NAME RETRIEVAL WAS SUCCESSFUL' $
+                                    CALCULATE, 'WORK_DIR_STAT' = 'GREEN' & 'B_WHITE' & C'PASSED' & 'DEFAULT' $
+                                  ELSE $
+                                    OUTPUT, C'- WORKING DIRECTORY NAME RETRIEVAL FAILED' $
+                                    CALCULATE, 'WORK_DIR_STAT' = 'RED' & 'B_WHITE' & C'FAILED' & 'DEFAULT' $
+                                  END, IF $
+C $
+                                  OUTPUT, C'' $
+                                  OUTPUT, 'BLUE', 'B_WHITE', C'*** AS OF VERSION', 'PROD_VERSION', C'THIS FUNCTION STRIPS THE LAST CHARACTER IN THE PATH RETURNED ***', 'DEFAULT' $
+                                  OUTPUT, C'' $
+                                  OUTPUT, C'PRESS ENTER/RETURN TO CONTINUE' $
+                                  INPUT, GO-NOGO $                               
+                                END, IF '9' $
+                              END, IF '8' $
+                            END, IF '7' $
+                          END, IF '6' $
+                        END, IF '5' $
+                      END, IF '4' $
+                    END, IF '3' $
+                  END, IF '2' $
+                END, IF '1' $
+              END, IF '0' $
+C $
+            END, WHILE $
+C $
+          END, 'DISPLAY_MENU' $  
+C $
+C         **************************************************** $
+C         ***                    MAIN                      *** $
+C         **************************************************** $
+C $
+E000100   PERFORM, 'DISPLAY_MENU' $
+C $
+          PERFORM, 'CLS' $
+          OUTPUT, C'TEST ENDED' $
+C $
+ 999999 TERMINATE, ATLAS PROGRAM 'GP-NAM' $

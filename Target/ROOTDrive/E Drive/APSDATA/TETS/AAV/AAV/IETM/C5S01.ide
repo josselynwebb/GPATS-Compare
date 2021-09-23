@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C5S01" LABEL="I"><?Pub Dtl?><?FRAME TITLE="Chapter 5. Maintenance, Section I. Preventive Maintenance" ID="c5s01" previous="./c4s16.ide!C4S16c"?>
+<?TOCENTRY TITLE="CHAPTER 5. MAINTENANCE" TOCLEVEL="1"?>
+<?CHAPTERINFO LABEL="5" ID="C5" TITLE="MAINTENANCE"?><?TOCENTRY TITLE="SECTION I. Preventive Maintenance" TOCLEVEL="2" LABEL="I"?>
+<TITLE>SECTION I. Preventive Maintenance</TITLE>
+<PARA0 ID="P5-1" LABEL="5.1"><?TOCENTRY TITLE="5.1 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This chapter provides preventive maintenance instructions for the test station AAV TPS APS. Preventive maintenance consists of inspection and scheduled maintenance checks and services.</PARA>
+<SUBPARA1 ID="P5-1.1" LABEL="5.1.1"><?TOCENTRY TITLE="5.1.1 Operational Checkout" TOCLEVEL="4"?>
+<TITLE>Operational Checkout</TITLE>
+<PARA>Perform the self test procedures of <EXTREF DOCNO="C4S16" XREFID="./C4S16.ide!C4S16" XIDTYPE="SECTION">Chapter 4, Section XVI</EXTREF> to check out the APS hardware. Troubleshooting procedures are contained in <EXTREF DOCNO="ITA" XREFID="./ITA.ide!ITA" XIDTYPE="SECTION">Section XVI</EXTREF> of this chapter and provide additional procedures to isolate failures in the APS hardware.</PARA></SUBPARA1>
+<SUBPARA1 ID="P5-1.2" LABEL="5.1.2"><?TOCENTRY TITLE="5.1.2 Inspection" TOCLEVEL="4"?>
+<TITLE>Inspection</TITLE>
+<PARA>Inspection procedures are necessary to ensure continued operation of the APS. Visually inspect all electrical and mechanical parts In Accordance With (IAW) <XREF XREFID="TABLE5-1" XIDTYPE="TABLE">Table 5-1</XREF>. Inspection includes visual inspection for damage upon initial receipt, at scheduled intervals, or prior to storage for more than 30 days.  Perform the following inspections.</PARA>
+<STEP1 ID="GENC5828" LABEL="a">
+<PARA>Visually inspect the ITA for any damage that may have occurred during shipping and handling. Inspect the ITA per <XREF XREFID="TABLE5-1" XIDTYPE="TABLE">Table 5-1</XREF>.</PARA></STEP1>
+<STEP1 ID="GENC5829" LABEL="b">
+<PARA>Inspect the cable assemblies per <XREF XREFID="TABLE5-1" XIDTYPE="TABLE">Table 5-1</XREF>.</PARA></STEP1>
+<STEP1 ID="GENC5830" LABEL="c">
+<PARA>Inspect the self test boards per <XREF XREFID="TABLE5-1" XIDTYPE="TABLE">Table 5-1</XREF>.</PARA></STEP1>
+<STEP1 ID="GENC5831" LABEL="d">
+<PARA>Inspect the printed circuit card guides per <XREF XREFID="TABLE5-1" XIDTYPE="TABLE">Table 5-1</XREF>.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P5-1.3" LABEL="5.1.3"><?TOCENTRY TITLE="5.1.3 Consumable Materials" TOCLEVEL="4"?>
+<TITLE>Consumable Materials</TITLE>
+<PARA>See <XREF XREFID="TABLE5-2" XIDTYPE="TABLE">Table 5-2</XREF> for a list of consumable materials for cleaning and repair of the APS hardware.  Consumable materials are expendable items and supplies consumed during component maintenance. Use of authorized alternate parts is approved unless the restriction "NO SUBSTITUTIONS AUTHORIZED"; appears in the "SPECIFICATION OR PN"; column.</PARA></SUBPARA1>
+<SUBPARA1 ID="P5-1.4" LABEL="5.1.4"><?TOCENTRY TITLE="5.1.4 Specific Cleaning Procedures" TOCLEVEL="4"?>
+<TITLE>Specific Cleaning Procedures</TITLE>
+<PARA>The APS hardware should be kept clean for optimum performance of components. Refer to <XREF XREFID="TABLE5-2" XIDTYPE="TABLE">Table 5-2</XREF> for cleaning agents and materials used in the following procedures.  General cleaning procedures and corrosion preventive treatments are contained in NAVAIR 16-1-540.</PARA>
+<SUBPARA2 ID="P5-1.4.1" LABEL="5.1.4.1"><?TOCENTRY TITLE="5.1.4.1 Painted Surfaces" TOCLEVEL="5"?>
+<TITLE>Painted Surfaces</TITLE>
+<PARA>Clean painted surfaces as follows:</PARA>
+<STEP1 ID="GENC5835" LABEL="a">
+<PARA>Clean structural surfaces with a cheesecloth <XREF XREFID="TABLE5-2-4" XIDTYPE="TABLE">4, Table 5-2</XREF> dampened in a solution of mild detergent <XREF XREFID="TABLE5-2-8" XIDTYPE="TABLE">8, Table 5-2</XREF>.</PARA></STEP1>
+<STEP1 ID="GENC5836" LABEL="b">
+<PARA>Wipe surface dry with cheesecloth <XREF XREFID="TABLE5-2-4" XIDTYPE="TABLE">4, Table 5-2</XREF>.</PARA></STEP1></SUBPARA2>
+<SUBPARA2 ID="P5-1.4.2" LABEL="5.1.4.2"><?TOCENTRY TITLE="5.1.4.2 Structural Surfaces" TOCLEVEL="5"?>
+<TITLE>Structural Surfaces</TITLE>
+<PARA>Clean structural surfaces as follows:</PARA>
+<STEP1 ID="GENC5838" LABEL="a">
+<PARA>Clean structural surfaces with cleaning compound <XREF XREFID="TABLE5-2-6" XIDTYPE="TABLE">6, Table 5-2</XREF>. If necessary, use a brush <XREF XREFID="TABLE5-2-3" XIDTYPE="TABLE">3, Table 5-2</XREF> to remove caked dirt.</PARA></STEP1>
+<STEP1 ID="GENC5839" LABEL="b">
+<WARNING>
+<PARA>Use of compressed air for cleaning can create an environment of propelled foreign particles that may enter the eyes.  Air pressure for cleaning surfaces shall not exceed 30 psi.  Eye protection shall be worn.</PARA></WARNING>
+<PARA>Dry all parts with compressed air at 30 psi or less.</PARA></STEP1></SUBPARA2>
+<SUBPARA2 ID="P5-1.4.3" LABEL="5.1.4.3"><?TOCENTRY TITLE="5.1.4.3 Connectors" TOCLEVEL="5"?>
+<TITLE>Connectors</TITLE>
+<WARNING>
+<PARA>Use of compressed air for cleaning connectors can create an environment of propelled foreign particles that may enter the eyes.  Air pressure should not exceed 15 psi.  Eye protection shall be worn.</PARA></WARNING>
+<PARA>Clean connectors as follows:</PARA>
+<STEP1 ID="GENC5841" LABEL="a">
+<PARA>Using compressed air at 15 psi, blow dust and metal particles out of connector.</PARA></STEP1>
+<STEP1 ID="GENC5842" LABEL="b">
+<WARNING>
+<PARA>ISOPROPYL ALCOHOL, TT-I-735 GRADE A,  Flammable liquid and vapor.  May cause eye, skin and respiratory irritation.  Keep away from heat, sparks, and flame. Keep container closed. Use only with adequate ventilation.  Avoid contact with eyes, skin and clothing.  Wash thoroughly after handling.  Avoid breathing dust (vapor, mist, gas).</PARA></WARNING>
+<PARA>If contamination is still present, apply alcohol <XREF XREFID="TABLE5-2-1" XIDTYPE="TABLE">1, Table 5-2</XREF> with acid swabbing brush <XREF XREFID="TABLE5-2-2" XIDTYPE="TABLE">2, Table 5-2</XREF>.</PARA></STEP1>
+<STEP1 ID="GENC5843" LABEL="c">
+<PARA>Wipe excess alcohol with cleaning cloth <XREF XREFID="TABLE5-2-5" XIDTYPE="TABLE">5, Table 5-2</XREF>.</PARA></STEP1></SUBPARA2></SUBPARA1>
+<SUBPARA1 ID="P5-1.5" LABEL="5.1.5"><?TOCENTRY TITLE="5.1.5 Surface Repair/Corrosion Control" TOCLEVEL="4"?>
+<TITLE>Surface Repair/Corrosion Control</TITLE>
+<WARNING>
+<PARA>EPOXY PRIMER, MIL-P-85582TY1C2,  Flammable liquid and vapor.  May cause allergic respiratory reaction.  May cause eye, skin and respiratory irritation.  Contains material which can cause cancer.  Keep away from heat, sparks, and flame. Keep container closed.  Use only with adequate ventilation.  Do not breathe dust (vapor, mist, gas).  Avoid contact with eyes, skin and clothing.  Wash thoroughly after handling.</PARA></WARNING>
+<WARNING>
+<PARA>POLYURETHANE PAINT, MIL-C-85285 TYPE2,  Flammable liquid and vapor.  May cause allergic respiratory and skin reaction.  May cause eye, skin and respiratory irritation.  Keep away from heat, sparks, and flame. Keep container closed.  Use only with adequate ventilation. Do not breathe dust (vapor, mist, gas). Wash thoroughly after handling.  Avoid contact with eyes, skin and clothing.</PARA></WARNING>
+<PARA>Prepare ITA surfaces IAW NAVAIR 16-1-540 and prime and paint <XREF XREFID="TABLE5-2-10" XIDTYPE="TABLE">10, Table 5-2</XREF> and <XREF XREFID="TABLE5-2-11" XIDTYPE="TABLE">11, Table 5-2</XREF> as required. For clear coat areas, use colorless coating <XREF XREFID="TABLE5-2-7" XIDTYPE="TABLE">7, Table 5-2</XREF>.</PARA></SUBPARA1><?FRAME TITLE="Chapter 5. Maintenance, Section I. Preventive Maintenance Cont'd" ID="c5s01a"?>
+<TABLE FRAME="ALL" ORIENT="PORT" HEADERROWS="1" ID="TABLE5-1" LABEL="5-1">
+<TITLE>Inspection</TITLE>
+<TGROUP COLS="5">
+<COLSPEC COLNUM="1" COLNAME="COL1" COLWIDTH="45pt" COLSEP="1" ROWSEP="1" ALIGN="CENTER"/>
+<COLSPEC COLNUM="2" COLNAME="COL2" COLWIDTH="75pt" COLSEP="1" ROWSEP="1" ALIGN="CENTER"/>
+<COLSPEC COLNUM="3" COLNAME="COL3" COLWIDTH="90pt" COLSEP="1" ROWSEP="1"/>
+<COLSPEC COLNUM="4" COLNAME="COL4" COLWIDTH="201pt" COLSEP="1" ROWSEP="1"/>
+<COLSPEC COLNUM="5" COLNAME="COL5" COLWIDTH="110pt" COLSEP="1" ROWSEP="1"/>
+<THEAD>
+<ROW>
+<ENTRY COLNAME="COL1" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY COLNAME="COL2" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Interval</ENTRY>
+<ENTRY COLNAME="COL3" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Inspection Item</ENTRY>
+<ENTRY COLNAME="COL4" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Possible Defects</ENTRY>
+<ENTRY COLNAME="COL5" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Corrective Action</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>30 days</ENTRY>
+<ENTRY>Wiring</ENTRY>
+<ENTRY>Cut or burned insulation, exposed conductors and shielding, kinks, and abrupt bends.</ENTRY>
+<ENTRY>Repair or replace.</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>30 days</ENTRY>
+<ENTRY>Connectors</ENTRY>
+<ENTRY>Missing or damaged pins, loose housings and clamps, or exposed conductors.</ENTRY>
+<ENTRY>Repair or replace.</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>30 days</ENTRY>
+<ENTRY>Hardware</ENTRY>
+<ENTRY>Incorrect screw lengths, stripped threads, missing screws, nuts, bolts, or washers.</ENTRY>
+<ENTRY>Replace.</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>30 days</ENTRY>
+<ENTRY>Markings and decals</ENTRY>
+<ENTRY>Missing, incorrect, or illegible.</ENTRY>
+<ENTRY>Replace.</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>30 days</ENTRY>
+<ENTRY>General equipment</ENTRY>
+<ENTRY>Dented, bent, dirty, scratched, worn or marred.</ENTRY>
+<ENTRY>Repair, clean, or touch up.</ENTRY></ROW></TBODY></TGROUP></TABLE><?FRAME TITLE="Chapter 5. Maintenance Cont'd" ID="c5s01b" NEXT="./DDM_LRU.ide!DDM-LRU"?>
+<TABLE FRAME="ALL" ORIENT="PORT" HEADERROWS="1" ID="TABLE5-2" LABEL="5-2">
+<TITLE>Consumable Materials</TITLE>
+<TGROUP COLS="5">
+<COLSPEC COLNUM="1" COLNAME="COL1" COLWIDTH="45pt" COLSEP="1" ROWSEP="1" ALIGN="CENTER"/>
+<COLSPEC COLNUM="2" COLNAME="COL2" COLWIDTH="125pt" COLSEP="1" ROWSEP="1"/>
+<COLSPEC COLNUM="3" COLNAME="COL3" COLWIDTH="130pt" COLSEP="1" ROWSEP="1"/>
+<COLSPEC COLNUM="4" COLNAME="COL4" COLWIDTH="45pt" COLSEP="1" ROWSEP="1" ALIGN="CENTER"/>
+<COLSPEC COLNUM="5" COLNAME="COL5" COLWIDTH="210pt" COLSEP="1" ROWSEP="1"/>
+<THEAD>
+<ROW>
+<ENTRY COLNAME="COL1" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY COLNAME="COL2" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY COLNAME="COL3" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Specification or PN</ENTRY>
+<ENTRY COLNAME="COL4" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Cage</ENTRY>
+<ENTRY COLNAME="COL5" COLSEP="1" ROWSEP="1" ALIGN="CENTER">Use</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ID="TABLE5-2-1">1</ENTRY>
+<ENTRY>Alcohol, Isopropyl</ENTRY>
+<ENTRY>TT-I-735 GRADE A</ENTRY>
+<ENTRY>81348</ENTRY>
+<ENTRY>To clean surfaces.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-2">2</ENTRY>
+<ENTRY>Brush, Acid Swabbing</ENTRY>
+<ENTRY>H-B-643, TYPE II</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>To clean connectors.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-3">3</ENTRY>
+<ENTRY>Brush, paint, Metal Bound</ENTRY>
+<ENTRY>H-B-695</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>To remove dirt.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-4">4</ENTRY>
+<ENTRY>Cheesecloth</ENTRY>
+<ENTRY>CCC-C-440 TY1CL1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>For general cleaning.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-5">5</ENTRY>
+<ENTRY>Cloth, Cleaning</ENTRY>
+<ENTRY>CCC-C-46 TY1CL4</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>For general cleaning</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-6">6</ENTRY>
+<ENTRY>Compound, Cleaning</ENTRY>
+<ENTRY>MIL-C-87936A TYPE 1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>To clean external surfaces.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-7">7</ENTRY>
+<ENTRY>Coating, Chemical</ENTRY>
+<ENTRY>MIL-C-5541E</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>Protective finish for ITA.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-8">8</ENTRY>
+<ENTRY>Detergent, Synthetic, Nonionic</ENTRY>
+<ENTRY>MIL-D-16791</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>To clean painted surfaces.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-9">9</ENTRY>
+<ENTRY>Insulation Tape</ENTRY>
+<ENTRY>MIL-I-46852C, TYPE II</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>To build-up cables.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-10">10</ENTRY>
+<ENTRY>Primer, Epoxy</ENTRY>
+<ENTRY>MIL-P-85582 TYPE I, CLASS 2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>Apply one coat of primer, MIL-P-85582, epoxy-primer, type I, class 2 in accordance with MIL-F-18264.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-11">11</ENTRY>
+<ENTRY>Paint, Polyurethane</ENTRY>
+<ENTRY>MIL-C-85285 TYPE II</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>Apply one coat of paint, MIL-P-85285, Polyurethane, type II, Fed-STD-595 color no. 37038 in accordance with MIL-F-18264.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-12">12</ENTRY>
+<ENTRY>Primer, Adhesive</ENTRY>
+<ENTRY>DC1200</ENTRY>
+<ENTRY>71984</ENTRY>
+<ENTRY>Used to facilitate adhesive bond.</ENTRY></ROW>
+<ROW>
+<ENTRY ID="TABLE5-2-13">13</ENTRY>
+<ENTRY>Conductive Adhesive</ENTRY>
+<ENTRY>020-1200</ENTRY>
+<ENTRY>27565</ENTRY>
+<ENTRY>Use for conductive bonding.</ENTRY></ROW></TBODY></TGROUP></TABLE></PARA0></SECTION>

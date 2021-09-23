@@ -1,0 +1,4 @@
+maxpathdepth = 20;
+
+*	(OSCILLOSCOPE)	
+FROM X19-1 TO J19-1;

@@ -1,0 +1,995 @@
+ 000100 BEGIN, ATLAS MODULE 'VEO-2 PHASE-II LASER BENCHMARK'           $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 001000 DECLARE, EXTERNAL, VARIABLE, 'FAIL-CNT'  IS INTEGER            $
+     05 DECLARE, EXTERNAL, VARIABLE, 'ETE TEST'  IS BOOLEAN            $
+     10 DECLARE, VARIABLE, 'TESTNO' IS INTEGER                         $
+     15 DECLARE, VARIABLE, 'UUT-HORIZ-FOV' IS DECIMAL                  $
+     20 DECLARE, VARIABLE, 'UUT-VERT-FOV'  IS DECIMAL                  $
+     25 DECLARE, VARIABLE, 'ULIM' IS DECIMAL                           $
+     30 DECLARE, VARIABLE, 'LLIM' IS DECIMAL                           $
+     35 DECLARE, VARIABLE, 'MVAL' IS DECIMAL                           $
+     40 DECLARE, VARIABLE, 'MIODATA' IS ARRAY(1 THRU 512) OF DECIMAL   $
+     45 DECLARE, VARIABLE, 'X-ALIGN-ERROR' IS DECIMAL                  $
+     50 DECLARE, VARIABLE, 'Y-ALIGN-ERROR' IS DECIMAL                  $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'RESULTS'                                             * $
+C ******************************************************************** $
+C                                                                      $
+ 002000 DEFINE, 'RESULTS', EXTERNAL, PROCEDURE ('TEST' IS INTEGER,
+                                                'MVAL' IS DECIMAL,
+                                                'ULIM' IS DECIMAL,
+                                                'LLIM' IS DECIMAL)     $
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'CLRSCR'                                              * $
+C ******************************************************************** $
+C                                                                      $
+ 002100 DEFINE, 'CLRSCR', EXTERNAL, PROCEDURE                          $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'CALL VIDEO-GEN'                                      * $
+C ******************************************************************** $
+C                                                                      $
+ 002200 DEFINE, 'SETUP VIDEO-GEN', EXTERNAL,
+          PROCEDURE('ARG' IS STRING(10) OF CHAR)                       $
+     99 END, 'SETUP VIDEO-GEN'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'LASER TARGET RETURN SOURCE'                         * $
+C ******************************************************************** $
+C                                                                      $
+ 030000 DEFINE, 'LASER TARGET RETURN SOURCE', PROCEDURE                $
+C                                                                      $
+     05   OUTPUT, C'LASER TARGET RETURN TEST 030000'                   $
+     10   CALCULATE, 'TESTNO' = 030000,
+                     'ULIM' = 1,
+                     'LLIM' = 1                                        $
+C                                                                      $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Open a telnet session by selecting Start>>Run \LF\',
+            C'    "cmd" to open a command window.               \LF\',
+            C' 2. Open a telnet session to the VEO2 by entering \LF\',
+            C'    "telnet 192.168.200.160 7788"                 \LF\',
+            C'\LF\',
+            C'Press Enter to continue.'                                $
+C                                                                      $
+     20   INPUT, GO-NOGO                                               $
+C                                                                      $
+     25   SETUP, LASER TARGET RETURN,
+            WAVE-LENGTH 1.540 UM,
+            TRIGGER-MODE LASR,
+            TARGET-RANGE 1200.0 M,
+            LAST-PULSE-RANGE 1280.0 M,
+            MAX-TIME 10 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     30   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxsel".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     35   INPUT, INTO 'MVAL'                                           $
+     40   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 030100   OUTPUT, C'LASER TARGET RETURN TRIGGER MODE TEST 030100'      $
+     05   CALCULATE, 'TESTNO' = 030100,
+                     'ULIM'   = 1,
+                     'LLIM'   = 1                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxtrg".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 030200   OUTPUT, C'LASER TARGET RETURN TARGET RANGE TEST 030200'      $
+     05   CALCULATE, 'TESTNO' = 030200,
+                     'ULIM'   = 1205.0,
+                     'LLIM'   = 1195.0                                 $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqa".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+C mxrat returns 0.000000 $
+ 030300   OUTPUT, C'LASER TARGET RETURN LAST PULSE RANGE TEST 030300'  $
+     05   CALCULATE, 'TESTNO' = 030300,
+                     'ULIM'   = 260.0,
+                     'LLIM'   = 240.0                                  $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqb".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LASER TARGET RETURN,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 030400   OUTPUT, C'LASER TARGET RETURN WAVE LENGTH TEST 030400'       $
+     05   CALCULATE, 'TESTNO' = 030400,
+                     'ULIM' = 2,
+                     'LLIM' = 2                                        $
+     10   SETUP, LASER TARGET RETURN,
+            WAVE-LENGTH 1.570 UM,
+            TRIGGER-MODE AUTO,
+            PERIOD 0.075 SEC,
+            TARGET-RANGE 3000.0 M,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxsel".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     20   INPUT, INTO 'MVAL'                                           $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 030500   OUTPUT, C'LASER TARGET RETURN TRIGGER MODE TEST 030500'      $
+     05   CALCULATE, 'TESTNO' = 030500,
+                     'ULIM'   = 0,
+                     'LLIM'   = 0                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxtrg".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 030600   OUTPUT, C'LASER TARGET RETURN PERIOD TEST 030600'            $
+     05   CALCULATE, 'TESTNO' = 030600,
+                     'ULIM'   = 80.0,
+                     'LLIM'   = 70.0                                   $ 
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxper".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 030700   OUTPUT, C'LASER TARGET RETURN TARGET RANGE TEST 030700'      $
+     05   CALCULATE, 'TESTNO' = 030700,
+                     'ULIM'   = 3005.0,
+                     'LLIM'   = 2995.0                                 $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqa".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     25   RESET, LASER TARGET RETURN,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 030800   OUTPUT, 
+            C'LASER TARGET RETURN 1640 NM WAVE LENGTH TEST 030800'     $
+     05   CALCULATE, 'TESTNO' = 030800,
+                     'ULIM' = 0,
+                     'LLIM' = 0                                        $
+     10   SETUP, LASER TARGET RETURN,
+            WAVE-LENGTH 1.064 UM,
+            TRIGGER-MODE AUTO,
+            TARGET-RANGE 9900.0 M,
+            LAST-PULSE-RANGE 10000.0 M,
+            MAX-TIME 60.0 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxsel".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     20   INPUT, INTO 'MVAL'                                           $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 030900   OUTPUT, C'LASER TARGET RETURN TRIGGER MODE TEST 030800'      $
+     05   CALCULATE, 'TESTNO' = 030900,
+                     'ULIM'   = 0,
+                     'LLIM'   = 0                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxtrg".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 031000   OUTPUT, C'LASER TARGET RETURN PERIOD TEST 031000'            $
+     05   CALCULATE, 'TESTNO' = 031000,
+                     'ULIM'   = 51.0,
+                     'LLIM'   = 49.0                                   $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxper".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     25   RESET, LASER TARGET RETURN,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     30   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Close the telnet session by typing "quit".    \LF\',
+            C'    close the command window by typing "exit".    \LF\',
+            C'\LF\',
+            C'Press Enter to continue.\LF\'                            $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 031099 END, 'LASER TARGET RETURN SOURCE'                              $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'PULSE ENERGY STABILITY'                             * $
+C ******************************************************************** $
+C                                                                      $
+ 032000 DEFINE, 'PULSE ENERGY STABILITY', PROCEDURE                    $
+C                                                                      $
+     05   OUTPUT, C'LASER PULSE ENERGY STABILITY TEST 032000'          $
+     10   CALCULATE, 'TESTNO' = 032000,
+                     'ULIM'   = 100.0,
+                     'LLIM'   =   0.0                                  $
+C                                                                      $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Setup the VIPERT function generator for an    \LF\',
+            C'    exponential decay pulse with the following    \LF\',
+            C'    characteristics:                              \LF\',
+            C'      PRF          : 1 KHz                        \LF\',
+            C'      Decay        : -60                          \LF\',
+            C'      Amplitude    : 500 mV                       \LF\',
+            C' 2. Apply pulse train to DSO channel 1 input.     \LF\',
+            C' 3. IrWindows will display a dialog indicating    \LF\',
+            C'    it it safe to fire laser. Click OK when dialog\LF\',
+            C'    appears.                                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     20   INPUT, GO-NOGO                                               $
+C                                                                      $
+     25   MEASURE, (PULSE-ENERGY-STAB INTO 'MVAL'), LASER,
+            PULSE-ENERGY-STAB MAX 100.0 PC,
+            POWER-P 127.0E-6 W,
+            WAVE-LENGTH 1.540 UM,
+            SAMPLE-COUNT 5,
+            SAMPLE-TIME 1.0E-3 SEC,
+            TRIG-SOURCE CH1,
+            TRIG-SLOPE POS,
+            TRIG-LEVEL 0.05 V,
+            CNX VIA SCOPE-CH1                                          $
+C                                                                      $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     35   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Reset the waveform generator and disconnect   \LF\',
+            C'    from the DSO.                                 \LF\',       
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     40   INPUT, GO-NOGO                                               $
+C                                                                      $
+          OUTPUT, C'FIRE LASER FOR FAST DETECTOR SETTINGS'             $
+          INPUT, GO-NOGO $
+          MEASURE, (PULSE-WIDTH INTO 'MVAL'), LASER,
+            PULSE-WIDTH MAX 40.0E-9 SEC,
+            POWER-P 127.0E-6 W,
+            WAVE-LENGTH 1.540 UM,
+            SAMPLE-COUNT 5,
+            SAMPLE-TIME 500.0E-9 SEC,
+            TRIG-SOURCE CH1,
+            TRIG-SLOPE POS,
+            TRIG-LEVEL 0.2 V,
+            CNX VIA SCOPE-CH1                                          $
+          INPUT, GO-NOGO $
+ 032099 END, 'PULSE ENERGY STABILITY'                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'PULSE AMPLITUDE STABILITY'                          * $
+C ******************************************************************** $
+C                                                                      $
+ 032400 DEFINE, 'PULSE AMPLITUDE STABILITY', PROCEDURE                 $
+C                                                                      $
+     05   OUTPUT, C'LASER PULSE AMPLITUDE STABILITY TEST 032400'       $
+     10   CALCULATE, 'TESTNO' = 032400,
+                     'ULIM'   = 100.0,
+                     'LLIM'   =   0.0                                  $
+C                                                                      $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Setup the VIPERT function generator for an    \LF\',
+            C'    exponential decay pulse with the following    \LF\',
+            C'    characteristics:                              \LF\',
+            C'      PRF          : 1 KHz                        \LF\',
+            C'      Decay        : -60                          \LF\',
+            C'      Amplitude    : 500 mV                       \LF\',
+            C' 2. Apply pulse train to DSO channel 1 input.     \LF\',
+            C' 3. IrWindows will display a dialog indicating    \LF\',
+            C'    it it safe to fire laser. Click OK when dialog\LF\',
+            C'    appears.                                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     20   INPUT, GO-NOGO                                               $
+C                                                                      $
+     25   MEASURE, (PULSE-AMPL-STAB INTO 'MVAL'), LASER,
+            PULSE-AMPL-STAB MAX 100 PC,
+            POWER-P 127.0E-6 W,
+            WAVE-LENGTH 1.540 UM,
+            SAMPLE-COUNT 5,
+            SAMPLE-TIME 0.5E-6 SEC,
+            TRIG-SOURCE CH1,
+            TRIG-SLOPE POS,
+            TRIG-LEVEL 0.2 V,
+            CNX VIA SCOPE-CH1                                          $
+C                                                                      $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     35   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Reset the waveform generator and disconnect   \LF\',
+            C'    from the DSO.                                 \LF\',       
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     40   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 032499 END, 'PULSE AMPLITUDE STABILITY'                               $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'PULSE PERIOD STABILITY'                             * $
+C ******************************************************************** $
+C                                                                      $
+ 032600 DEFINE, 'PULSE PERIOD STABILITY', PROCEDURE                    $
+C                                                                      $
+     05   OUTPUT, C'LASER PULSE PERIOD STABILITY TEST 032600'          $
+     10   CALCULATE, 'TESTNO' = 032600,
+                     'ULIM'   = 100.0,
+                     'LLIM'   =   0.0                                  $
+C                                                                      $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Setup a waveform generator to produce a pulse \LF\',
+            C'    train with the following characteristics:     \LF\',
+            C'      PRF          : 15 Hz                        \LF\',
+            C'      Pulse Width  : 20 NSEC                      \LF\',
+            C'      Amplitude    : 400 mV                       \LF\',
+            C' 2. Apply pulse train to CTR channel 1 input.     \LF\',
+            C' 3. IrWindows will display a dialog indicating    \LF\',
+            C'    it it safe to fire laser. Click OK when dialog\LF\',
+            C'    appears.                                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     20   INPUT, GO-NOGO                                               $
+C                                                                      $
+     25   MEASURE, (PULSE-PERIOD-STAB INTO 'MVAL'), LASER,
+            PULSE-PERIOD-STAB MAX 100 PC,
+            SAMPLE-COUNT 10,
+            DELAY 0.256 SEC,
+            TRIG-LEVEL 0.365 V,
+            WAVE-LENGTH 1.540 UM,
+            POWER-P 127E-6 W,
+            CNX VIA CTR-CH1                                            $
+C                                                                      $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     35   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Reset the waveform generator and disconnect   \LF\',
+            C'    from the CTR.                                 \LF\',       
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     40   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 032699 END, 'PULSE PERIOD STABILITY'                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'BORESIGHT'                                          * $
+C ******************************************************************** $
+C                                                                      $
+ 032800 DEFINE, 'BORESIGHT', PROCEDURE                                 $
+C                                                                      $
+     05   OUTPUT, 
+            C'LASER BORESIGHT - TEST 032800'                           $
+     10   CALCULATE, 'TESTNO' = 032800,
+                     'ULIM'   = 15.0,
+                     'LLIM'   = -15.0                                  $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Open a telnet session by selecting Start>>Run \LF\',
+            C'    "cmd" to open a command window.               \LF\',
+            C' 2. Open a telnet session to the VEO2 by entering \LF\',
+            C'    "telnet 192.168.200.160 7788"                 \LF\',
+            C' 3. Send command xsel1                            \LF\',
+            C' 4. Send command xctest1                          \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     20   INPUT, GO-NOGO                                               $
+C                                                                      $
+     25   MEASURE, (BORESIGHT-ANGLE INTO 'MIODATA'), LASER,
+            BORESIGHT-ANGLE MAX 5.0 DEG,
+            X-AUTOCOLLIMATION-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            Y-AUTOCOLLIMATION-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            INTENSITY-RATIO 50.0 PC,
+            TRIGGER-MODE INT,
+            TGT-COORDINATE-TOP     20,
+            TGT-COORDINATE-LEFT    20,
+            TGT-COORDINATE-BOTTOM 236,
+            TGT-COORDINATE-RIGHT  281,
+            CNX VIA LASER-CAMERA                                       $
+C                                                                      $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(1), 'ULIM', 'LLIM')   $
+     35   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(2), 'ULIM', 'LLIM')   $
+C                                                                      $
+     40   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send command xctest0                          \LF\',
+            C' 2. Close the telnet session by typing "quit".    \LF\',
+            C'    close the command window by typing "exit".    \LF\',
+            C'\LF\',
+            C'Press Enter to continue.\LF\'                            $
+     45   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 032899 END, 'BORESIGHT'                                               $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'BEAM DIVERGENCE'                                    * $
+C ******************************************************************** $
+C                                                                      $
+ 033000 DEFINE, 'BEAM DIVERGENCE', PROCEDURE                           $
+C                                                                      $
+     05   OUTPUT, C'LASER BEAM DIVERGENCE - TEST 033000'               $
+     10   CALCULATE, 'TESTNO' = 033000,
+                     'ULIM'   = 1.0,
+                     'LLIM'   = -1.0                                   $
+C                                                                      $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Open a telnet session by selecting Start>>Run \LF\',
+            C'    "cmd" to open a command window.               \LF\',
+            C' 2. Open a telnet session to the VEO2 by entering \LF\',
+            C'    "telnet 192.168.200.160 7788"                 \LF\',
+            C' 3. Send command wc1                              \LF\',
+            C' 4. Send command we2                              \LF\',
+            C' 5. Send command xsel1                            \LF\',
+            C' 6. Send command cpwr1                            \LF\',
+            C' 7. Send command xctest1                          \LF\',
+            C' 8. When prompted to turn the laser off send the  \LF\',
+            C'    command xctest0                               \LF\',
+            C' 9. When prompted to turn the laser on send the   \LF\',
+            C'    command xctest1                               \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     20   INPUT, GO-NOGO                                               $
+C                                                                      $
+     25   MEASURE, (DIVERGENCE INTO 'MVAL'), LASER,
+            DIVERGENCE MAX 0.01 DEG,
+            SAMPLE-AV 1 FRAMES,
+            TRIGGER-MODE INT,
+            TGT-COORDINATE-TOP     40,
+            TGT-COORDINATE-LEFT    36,
+            TGT-COORDINATE-BOTTOM 223,
+            TGT-COORDINATE-RIGHT  244,
+            CNX VIA LASER-CAMERA                                       $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     35   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send command xctest0                          \LF\',
+            C' 2. Send command cpwr0                            \LF\',
+            C' 3. Close the telnet session by typing "quit".    \LF\',
+            C'    close the command window by typing "exit".    \LF\',
+            C'\LF\',
+            C'Press Enter to continue.\LF\'                            $
+     40   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 033199 END, 'BEAM DIVERGENCE'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'RECEIVER SENSITIVITY'                               * $
+C ******************************************************************** $
+C                                                                      $
+ 033400 DEFINE, 'RECEIVER SENSITIVITY', PROCEDURE                      $
+C                                                                      $
+     05   OUTPUT,
+            C'LASER RECEIVER SENSITIVITY - LASER SELECT - TEST 033400' $
+C                                                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Open a telnet session by selecting Start>>Run \LF\',
+            C'    "cmd" to open a command window.               \LF\',
+            C' 2. Open a telnet session to the VEO2 by entering \LF\',
+            C'    "telnet 192.168.200.160 7788"                 \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     15   INPUT, GO-NOGO                                               $
+     20   CALCULATE, 'TESTNO' = 033400,
+                     'ULIM'   = 1475.0,
+                     'LLIM'   = 1275.0                                 $
+C                                                                      $
+     25   SETUP, (RECEIVER-SENSITIVITY), LASER,
+            RECEIVER-SENSITIVITY RANGE 1.0E-10 W/CM2 TO 1.0E-6 W/CM2,
+            WAVE-LENGTH 1.540 UM,
+            TARGET-RANGE 1375.0 M,
+            RANGE-ERROR 100.0 M,
+            INTENSITY-RATIO 50 PC,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+     30   INITIATE, (RECEIVER-SENSITIVITY), LASER,
+            RECEIVER-SENSITIVITY RANGE 1.0E-10 W/CM2 TO 1.0E-6 W/CM2,
+            WAVE-LENGTH 1.540 UM,
+            TARGET-RANGE 1375.0 M,
+            RANGE-ERROR 100.0 M,
+            INTENSITY-RATIO 50 PC,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     35   OUTPUT, 
+            C'LASER RECEIVER SENSITIVITY - TARGET RANGE - TEST 033500' $
+     40   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqa".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     45   INPUT, INTO 'MVAL'                                           $
+     50   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 033500   OUTPUT, 
+            C'LASER RECEIVER SENSITIVITY - TRIGGER - TEST 033500'      $
+     05   CALCULATE, 'TESTNO' = 033500,
+                     'ULIM'   = 0.0,
+                     'LLIM'   = 0.0                                    $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxtrg".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     30   FETCH, (RECEIVER-SENSITIVITY INTO 'MVAL'), LASER,
+            RECEIVER-SENSITIVITY RANGE 1.0E-10 W/CM2 TO 1.0E-6 W/CM2,
+            WAVE-LENGTH 1.540 UM,
+            TARGET-RANGE 1375.0 M,
+            RANGE-ERROR 100.0 M,
+            INTENSITY-RATIO 50 PC,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+     40   REMOVE, (RECEIVER-SENSITIVITY), LASER,
+            RECEIVER-SENSITIVITY RANGE 1.0E-10 W/CM2 TO 1.0E-6 W/CM2,
+            WAVE-LENGTH 1.540 UM,
+            TARGET-RANGE 1375.0 M,
+            RANGE-ERROR 100.0 M,
+            INTENSITY-RATIO 50 PC,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 033600   CALCULATE, 'TESTNO' = 033600,
+                     'ULIM'   = 5490.0,
+                     'LLIM'   = 5090.0                                 $
+     05   SETUP, (RECEIVER-SENSITIVITY), LASER,
+            RECEIVER-SENSITIVITY RANGE 1.0E-10 W/CM2 TO 1.0E-6 W/CM2,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 30.0E-9 SEC,
+            TARGET-RANGE 5290 M,
+            RANGE-ERROR 200 M,
+            INTENSITY-RATIO 50 PC,
+            TEST-POINT-COUNT 3,
+            CNX VIA ATMOSPHERE                                         $
+     25   INITIATE, (RECEIVER-SENSITIVITY), LASER,
+            RECEIVER-SENSITIVITY RANGE 1.0E-10 W/CM2 TO 1.0E-6 W/CM2,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 30.0E-9 SEC,
+            TARGET-RANGE 5290 M,
+            RANGE-ERROR 200 M,
+            INTENSITY-RATIO 50 PC,
+            TEST-POINT-COUNT 3,
+            CNX VIA ATMOSPHERE                                         $
+     30   OUTPUT, 
+            C'LASER RECEIVER SENSITIVITY - TARGET RANGE - TEST 033900' $
+     35   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqa".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     40   INPUT, INTO 'MVAL'                                           $
+     45   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 033700   OUTPUT, 
+            C'LASER RECEIVER SENSITIVITY - TRIGGER - TEST 032700'      $
+     05   CALCULATE, 'TESTNO' = 033700,
+                     'ULIM'   = 0.0,
+                     'LLIM'   = 0.0                                    $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxtrg".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     25   REMOVE, (RECEIVER-SENSITIVITY), LASER,
+            RECEIVER-SENSITIVITY RANGE 1.0E-10 W/CM2 TO 1.0E-6 W/CM2,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 30.0E-9 SEC,
+            TARGET-RANGE 5290 M,
+            RANGE-ERROR 200 M,
+            INTENSITY-RATIO 50 PC,
+            TEST-POINT-COUNT 3,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     30   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Close the telnet session by typing "quit".    \LF\',
+            C'    close the command window by typing "exit".    \LF\',
+            C'\LF\',
+            C'Press Enter to continue.\LF\'                            $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 033799 END, 'RECEIVER SENSITIVIY'                                     $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'RANGE ACCURACY'                                     * $
+C ******************************************************************** $
+C                                                                      $
+ 034000 DEFINE, 'RANGE ACCURACY', PROCEDURE                            $
+C                                                                      $
+     05   OUTPUT, C'LASER RANGE ACCURACY - DIODE SELECT - TEST 034000' $
+C                                                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Open a telnet session by selecting Start>>Run \LF\',
+            C'    "cmd" to open a command window.               \LF\',
+            C' 2. Open a telnet session to the VEO2 by entering \LF\',
+            C'    "telnet 192.168.200.160 7788"                 \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     15   INPUT, GO-NOGO                                               $
+     20   CALCULATE, 'TESTNO' = 034000,
+                     'ULIM'   = 0,
+                     'LLIM'   = 0                                      $
+C                                                                      $
+     25   SETUP, (RANGE-ERROR), LASER,
+            RANGE-ERROR MAX 100 M,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 2100.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 2250.0 M,
+            CNX VIA ATMOSPHERE                                         $
+     30   INITIATE, (RANGE-ERROR), LASER,
+            RANGE-ERROR MAX 100 M,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 2100.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 2250.0 M,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     35   OUTPUT, 
+            C'LASER RANGE ACCURACY - TRIGGER - TEST 034000'            $
+     40   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxtrg".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     45   INPUT, INTO 'MVAL'                                           $
+     50   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034100   OUTPUT, 
+            C'LASER RANGE ACCURACY - SIM RANGE - TEST 034100'          $
+     05   CALCULATE, 'TESTNO' = 034100,
+                     'ULIM'   = 2200.0,
+                     'LLIM'   = 2000.0                                 $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqa".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034200   OUTPUT, 
+            C'LASER RANGE ACCURACY - 2ND PULSE DELAY - TEST 034200'    $
+     05   CALCULATE, 'TESTNO' = 034200,
+                     'ULIM'   = 600.0,
+                     'LLIM'   = 500.0                                  $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqb".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034300   OUTPUT, 
+            C'LASER RANGE ACCURACY - PULSE WIDTH - TEST 034300'        $
+     05   CALCULATE, 'TESTNO' = 034300,
+                     'ULIM'   = 11.0,
+                     'LLIM'   =  9.0                                   $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxpwa".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034400   OUTPUT, 
+            C'LASER RANGE ACCURACY - PULSE WIDTH 2 - TEST 034400'      $
+     05   CALCULATE, 'TESTNO' = 034400,
+                     'ULIM'   = 11.0,
+                     'LLIM'   =  9.0                                   $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxpwb".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     30   FETCH, (RANGE-ERROR INTO 'MVAL'), LASER,
+            RANGE-ERROR MAX 100 M,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 2100.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 2250.0 M,
+            CNX VIA ATMOSPHERE                                         $
+     35   REMOVE, (RANGE-ERROR), LASER,
+            RANGE-ERROR MAX 100 M,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 2100.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 2250.0 M,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 034500   SETUP, (RANGE-ERROR), LASER,
+            RANGE-ERROR MAX 250 M,
+            WAVE-LENGTH 1.064 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 7260.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 7305.0 M,
+            CNX VIA ATMOSPHERE                                         $
+     05   INITIATE, (RANGE-ERROR), LASER,
+            RANGE-ERROR MAX 250 M,
+            WAVE-LENGTH 1.064 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 7260.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 7305.0 M,
+            CNX VIA ATMOSPHERE                                         $
+     10   OUTPUT, 
+            C'LASER RANGE ACCURACY - TRIGGER - TEST 034500'            $
+     15   CALCULATE, 'TESTNO' = 034500,
+                     'ULIM' = 0,
+                     'LLIM' = 0                                        $
+     20   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxtrg".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     25   INPUT, INTO 'MVAL'                                           $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034600   OUTPUT, 
+            C'LASER RANGE ACCURACY - SIM RANGE - TEST 034600'          $
+     05   CALCULATE, 'TESTNO' = 034400,
+                     'ULIM'   = 7510.0,
+                     'LLIM'   = 7010.0                                 $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqa".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034700   OUTPUT, 
+            C'LASER RANGE ACCURACY - 2ND PULSE DELAY - TEST 034700'    $
+     05   CALCULATE, 'TESTNO' = 034700,
+                     'ULIM'   = 165.0,
+                     'LLIM'   = 155.0                                  $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxqb".               \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034800   OUTPUT, 
+            C'LASER RANGE ACCURACY - PULSE WIDTH - TEST 034800'        $
+     05   CALCULATE, 'TESTNO' = 034800,
+                     'ULIM'   = 21.0,
+                     'LLIM'   = 19.0                                   $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxpwa".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 034900   OUTPUT, 
+            C'LASER RANGE ACCURACY - PULSE WIDTH 2 - TEST 034900'      $
+     05   CALCULATE, 'TESTNO' = 034900,
+                     'ULIM'   = 21.0,
+                     'LLIM'   = 19.0                                   $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Send the telnet command "mxpwb".              \LF\',
+            C'\LF\',
+            C'Enter the return value.\LF\'                             $
+     15   INPUT, INTO 'MVAL'                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     25   FETCH, (RANGE-ERROR INTO 'MVAL'), LASER,
+            RANGE-ERROR MAX 250 M,
+            WAVE-LENGTH 1.064 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 7260.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 7305.0 M,
+            CNX VIA ATMOSPHERE                                         $
+     30   REMOVE, (RANGE-ERROR), LASER,
+            RANGE-ERROR MAX 250 M,
+            WAVE-LENGTH 1.064 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TARGET-RANGE 7260.0 M,
+            INTENSITY-RATIO 50 PC,
+            LAST-PULSE-RANGE 7305.0 M,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     35   OUTPUT, 
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Close the telnet session by typing "quit".    \LF\',
+            C'    close the command window by typing "exit".    \LF\',
+            C'\LF\',
+            C'Press Enter to continue.\LF\'                            $
+     40   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 034999 END, 'RANGE ACCURACY'                                          $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : 'LASER TESTS'                                        * $
+C ******************************************************************** $
+C                                                                      $
+ 100000 DEFINE, 'LASER PHASE-II TESTS', GLOBAL, PROCEDURE              $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'CHOICE' IS INTEGER                       $
+C                                                                      $
+     10   CALCULATE, 'UUT-HORIZ-FOV' = 0.041,
+                     'UUT-VERT-FOV'  = 0.033                           $
+     15   IF, 'ETE TEST', THEN                                         $
+     20     GO TO, STEP 100900                                         $
+     25   END, IF                                                      $
+B                                                                      $
+     30   OUTPUT, 
+          C'                  LASER Test Menu\LF\',
+          C'----------------------------------------------------\LF\',
+          C'Laser Target Return Source                         1\LF\',
+          C'Pulse Energy Stability Measurement                 2\LF\',
+          C'Pulse Amplitude Stability Measurement              3\LF\',
+          C'Pulse Period Stability Measurement                 4\LF\',
+          C'Boresight Measurement                              5\LF\',
+          C'Beam Divergence Measurement                        6\LF\',
+          C'Receiver Sensitivity Measurement                   7\LF\',
+          C'Range Accuracy Measurement                         8\LF\',
+          C'All LASER Measurements                             9\LF\',
+          C'Return to Main Menu                                0\LF\',
+          C'\LF\',
+          C'Enter a Selection:'                                        $
+     35   INPUT, INTO 'CHOICE'                                         $
+     40   IF, 'CHOICE' EQ 0, THEN                                      $
+     45     GO TO, STEP 199999                                         $
+     50   END, IF                                                      $
+C                                                                      $
+ 100100   IF, 'CHOICE' EQ 1, THEN                                      $
+     05     PERFORM, 'LASER TARGET RETURN SOURCE'                      $
+     10   END, IF                                                      $
+C                                                                      $
+ 100200   IF, 'CHOICE' EQ 2, THEN                                      $
+     05     PERFORM, 'PULSE ENERGY STABILITY'                          $
+     10   END, IF                                                      $
+C                                                                      $
+ 100300   IF, 'CHOICE' EQ 3, THEN                                      $
+     05     PERFORM, 'PULSE AMPLITUDE STABILITY'                       $
+     10   END, IF                                                      $
+C                                                                      $
+ 100400   IF, 'CHOICE' EQ 4, THEN                                      $
+     05     PERFORM, 'PULSE PERIOD STABILITY'                          $
+     10   END, IF                                                      $
+C                                                                      $
+ 100500   IF, 'CHOICE' EQ 5, THEN                                      $
+     05     PERFORM, 'BORESIGHT'                                       $
+     10   END, IF                                                      $
+C                                                                      $
+ 100600   IF, 'CHOICE' EQ 6, THEN                                      $
+     05     PERFORM, 'BEAM DIVERGENCE'                                 $
+     10   END, IF                                                      $
+C                                                                      $
+ 100700   IF, 'CHOICE' EQ 7, THEN                                      $
+     05     PERFORM, 'RECEIVER SENSITIVITY'                            $
+     10   END, IF                                                      $
+C                                                                      $
+ 100800   IF, 'CHOICE' EQ 8, THEN                                      $
+     05     PERFORM, 'RANGE ACCURACY'                                  $
+     10   END, IF                                                      $
+B                                                                      $
+ 100900   IF, 'CHOICE' EQ 9, THEN                                      $
+     05     PERFORM, 'LASER TARGET RETURN SOURCE'                      $
+     10     PERFORM, 'PULSE ENERGY STABILITY'                          $
+     15     PERFORM, 'PULSE AMPLITUDE STABILITY'                       $
+     20     PERFORM, 'PULSE PERIOD STABILITY'                          $
+     25     PERFORM, 'BORESIGHT'                                       $
+     30     PERFORM, 'BEAM DIVERGENCE'                                 $
+     35     PERFORM, 'RECEIVER SENSITIVITY'                            $
+     40     PERFORM, 'RANGE ACCURACY'                                  $
+     45   END, IF                                                      $
+C                                                                      $
+ 101000   GO TO, STEP 100030                                           $
+B                                                                      $
+ 199999 END, 'LASER PHASE-II TESTS'                                    $
+C                                                                      $
+ 999999 TERMINATE, ATLAS MODULE 'VEO-2 PHASE-II LASER BENCHMARK'       $

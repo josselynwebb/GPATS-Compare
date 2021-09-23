@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY fig3-38 SYSTEM "./graphics/fig3-38.pic" NDATA FAXTILE>
+<!ENTITY ics-a5-1 SYSTEM "./graphics/ICS_A5/ASSY/ICS_A5_1.pic" NDATA FAXTILE>
+<!ENTITY ics-a5-sch-1 SYSTEM "./graphics/ICS_A5/SCHEM/ICS_A5_SCH_1.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S15" LABEL="XV"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\POWER_AMPLIFIER_A5_CCA_2618547-1\TP_AAV_ICS_A5.OBJ' ?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ICS_A5/ASSY/ICS_A5_1.PIC'?><?BUTTON POS='3' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/ICS_A5/SCHEM/ICS_A5_SCH_1.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section XV. Power Amplifier CCA, P/N 2618547-1" previous="./c3s14.ide!C3S14a" IMAGE="./graphics/ICS_A5/ASSY/ICS_A5_1.pic"?><?TOCENTRY TITLE="SECTION XV. Theory of Operation for the Power Amplifier CCA, P/N 2618547-1" TOCLEVEL="2" LABEL="XV"?>
+<TITLE>SECTION XV. Theory of Operation for the Power Amplifier CCA, P/N 2618547-1</TITLE>
+<PARA0 ID="P3-15" LABEL="3.15"><?TOCENTRY TITLE="3.15 Power Amplifier Theory of Operation" TOCLEVEL="3"?>
+<TITLE>Power Amplifier Theory of Operation</TITLE>
+<CAUTION>
+<PARA>This Circuit Card Assembly contains components sensitive to damage by Electrostatic Discharge. Use precautionary procedures when touching, removing, or installing components.</PARA></CAUTION>
+<PARA>The following paragraphs will describe the Theory of Operation for the Power Amplifier CCA, P/N 2618547-1. <?hotspot linktype="picture" href="./graphics/ICS_A5/ASSY/ICS_A5_1.pic"?>Figure 3-37<?endhotspot?> provides the CCA Layout.</PARA>
+<FIGURE ID="ICS-A5-1" LABEL="3-37">
+<TITLE>Power Amplifier CCA Layout</TITLE><?hotspot linktype="picture" href="./graphics/ICS_A5/ASSY/ICS_A5_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3270" LABEL="3.15.1"><?TOCENTRY TITLE="3.15.1 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/fig3-38.pic"?>Figure 3-38<?endhotspot?>, the functional block diagram, as necessary while reading this section.</PARA>
+<FIGURE ID="FIG3-38" LABEL="3-38">
+<TITLE>Power Amplifier CCA Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/fig3-38.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<PARA>Audio signals from the high-level single-ended CVSD decoder output are coupled via the volume control into U1, the power amplifier IC. This device is operated with a voltage gain of 2 only, to minimize noise pickup between the CVSD card and the power amplifier. Transformer T1 provides a step-up from the 7.5-ohm amplifier impedance and the 600-ohm headset load, and also provides isolation. The amplifier provides up to 45 volts P-P into a 600-ohm resistive load and also provides isolation. The amplifier provides up to 45 volts P-P into a 600-ohm resistive load, with about 4 volts P-P of drive.</PARA>
+<SUBPARA2 ID="GENC3272" LABEL="3.15.1.1"><?TOCENTRY TITLE="3.15.1.1 Series Shunt Regulator" TOCLEVEL="5"?>
+<TITLE>Series Shunt Regulator</TITLE>
+<PARA>A series shunt regulator (Q-1-Q-4 and associated circuits) provides regulation of the 15-volt DC power source to 12 volts for U1. This regulator is designed to eliminate variation of the 15-volt supply current with audio signal level variations.</PARA></SUBPARA2>
+<SUBPARA2 ID="GENC3273" LABEL="3.15.1.2"><?TOCENTRY TITLE="3.15.1.2 Dimmers" TOCLEVEL="5"?>
+<TITLE>Dimmers</TITLE>
+<PARA>Input to the dimmer is through L1, which provides tempest isolation of the dimmer and lamp circuitry. U2 is an adjustable series regulator driving an external post transistor. By adjusting the external pot, the regulator output is changed providing a continuous variable voltage from 18 VDC to 5 VDC for drive to the front panel indicator lamps.</PARA></SUBPARA2></SUBPARA1>
+<SUBPARA1 ID="P3-15.1" LABEL="3.15.2"><?TOCENTRY TITLE="3.15.2 Schematic" TOCLEVEL="4"?>
+<TITLE>Schematic</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/ICS_A5/SCHEM/ICS_A5_SCH_1.pic"?>Figure 3-39<?endhotspot?> for the schematic diagram for the Power Amplifier CCA.</PARA>
+<FIGURE ID="ICS-A5-SCH-1" LABEL="3-39">
+<TITLE>Power Amplifier CCA Schematic Diagram</TITLE><?hotspot linktype="picture" href="./graphics/ICS_A5/SCHEM/ICS_A5_SCH_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1>
+<SUBPARA1 ID="P3-15.2" LABEL="3.15.3"><?TOCENTRY TITLE="3.15.3 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><XREF XREFID="TABLE3-16" XIDTYPE="TABLE">Table 3-18</XREF> lists all repair parts available for the Power Amplifier CCA.</PARA><?FRAME id="c3s15a" title="Chapter 3. Theory of Operation, Section XV. Power Amplifier CCA, P/N 2618547-1 Cont'd" next="./c3s16.ide!c3s16"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-16" LABEL="3-18">
+<TITLE>Parts List for Power Amplifier CCA, P/N 2618547-1</TITLE>
+<TGROUP COLS="7">
+<COLSPEC COLNAME="COL1" COLWIDTH=".6in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.1in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="1.8in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL6" COLWIDTH="1.25in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY ALIGN="CENTER">Qty.</ENTRY>
+<ENTRY ALIGN="CENTER">Cage</ENTRY>
+<ENTRY ALIGN="CENTER">P/N</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY>
+<ENTRY ALIGN="CENTER">Reference Des.</ENTRY>
+<ENTRY ALIGN="CENTER">SMR Code</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618548-1</ENTRY>
+<ENTRY>PWB, PA/DCC</ENTRY>
+<ENTRY>0</ENTRY>
+<ENTRY>XAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G123JS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618756-3</ENTRY>
+<ENTRY>Transformer</ENTRY>
+<ENTRY>T15</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1593</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C1,C2,C6,C11</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/01-2265</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C7</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G332KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R8,R5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G393KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R3,R4</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/01-2255</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C10</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RWR81S1R00FR</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R7</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G183KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R2</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1300</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/ 01-2779</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C3</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>13</ENTRY>
+<ENTRY>10</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>333-0605-000</ENTRY>
+<ENTRY>Nut, Self-locking</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>14</ENTRY>
+<ENTRY>18</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer, Fiat</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>15</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-16</ENTRY>
+<ENTRY>Screw, Machine</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>16</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618739</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>17</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435274-003</ENTRY>
+<ENTRY>Sheet, Thermal Conductive</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>18</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>JANTX2N3792</ENTRY>
+<ENTRY>Transistor</ENTRY>
+<ENTRY>Q4</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>19</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435274-001</ENTRY>
+<ENTRY>Sheet, Thermal Conductive</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>20</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS77068-1</ENTRY>
+<ENTRY>Lug, Terminal</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>21</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-17</ENTRY>
+<ENTRY>Screw, Machine</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>22</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618740</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U2</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>23</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435274-004</ENTRY>
+<ENTRY>Sheet, Thermal Conductive</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>24</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G472JS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R15</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>25</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618598</ENTRY>
+<ENTRY>Handle, Extractor</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>26</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/01-2257</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C9</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>27</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS16562-199</ENTRY>
+<ENTRY>Pin, Spring</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>28</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618715-2</ENTRY>
+<ENTRY>Contact, Electrical, .025 Square</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>29</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618670-1</ENTRY>
+<ENTRY>Cable Assembly</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>30</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS18130-2</ENTRY>
+<ENTRY>Coil, Radio Frequency</ENTRY>
+<ENTRY>L1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>31</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/01-3076</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C8</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>32</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G151KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R13</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>33</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>JANTX1N9438</ENTRY>
+<ENTRY>Diode</ENTRY>
+<ENTRY>CR1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>34</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618755</ENTRY>
+<ENTRY>Wire, 26 AWG (.2 Feet)</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>35</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>JANTX2N3741</ENTRY>
+<ENTRY>Transistor</ENTRY>
+<ENTRY>Q3</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>36</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>53711</ENTRY>
+<ENTRY>5435274-002</ENTRY>
+<ENTRY>Sheet, Thermal Conductive</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>37</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618702</ENTRY>
+<ENTRY>Retainer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>38</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M55302/57-A14Y</ENTRY>
+<ENTRY>Connector, 14 Pin</ENTRY>
+<ENTRY>P1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>39</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>JANTX2N3763</ENTRY>
+<ENTRY>Transistor</ENTRY>
+<ENTRY>Q2</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>40</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G222JS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R12</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>41</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G123KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R10</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>42</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G103KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>Q1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>43</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>JANTX2N3810</ENTRY>
+<ENTRY>Transistor</ENTRY>
+<ENTRY>Q1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>44</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RWR81S3R83FR</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R6</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>45</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G102KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R14</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>46</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1526</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C4</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>47</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RWR89S5R11FR</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R14</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>48</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618733</ENTRY>
+<ENTRY>Filter</ENTRY>
+<ENTRY>FL1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>49</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51957-15</ENTRY>
+<ENTRY>Screw, Machine</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA1></PARA0></SECTION>

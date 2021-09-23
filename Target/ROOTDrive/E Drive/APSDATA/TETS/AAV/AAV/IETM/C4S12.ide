@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY fig4-32 SYSTEM "./graphics/fig4-32.pic" NDATA FAXTILE>
+<!ENTITY fig4-33 SYSTEM "./graphics/fig4-33.pic" NDATA FAXTILE>
+<!ENTITY fig4-34 SYSTEM "./graphics/fig4-34.pic" NDATA FAXTILE>
+<!ENTITY fig4-35 SYSTEM "./graphics/fig4-35.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S12" LABEL="XII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\INTERCOMMUNICATION_SET_LRU_ANMIQ-1\TP_AAV_ICS_LRU.OBJ' ?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s12.ide!c3s12'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./ICS_LRU.ide!5-12a'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic' ?><?BUTTON POS='5' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/ICS_LRU/SCHEM/ICS_LRU_fbd.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section XII. Test Program Instructions for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3" previous="./c4s11.ide!c4s11c"?><?TOCENTRY TITLE="SECTION XII. Test Program Instructions for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3" TOCLEVEL="2" LABEL="XII"?>
+<TITLE>SECTION XII. Test Program Instructions for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3</TITLE>
+<PARA0 ID="P4-12" LABEL="4.12"><?TOCENTRY TITLE="4.12 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3.</PARA>
+<SUBPARA1 ID="P4-12.1" LABEL="4.12.1"><?TOCENTRY TITLE="4.12.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-21" LABEL="4-21"><?Pub Dtl?>
+<TITLE>Test Station Instrumentation Required to Test the
+<BRK/> Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5.5in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digitizing Oscilloscope</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Arbitrary Waveform Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Function Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">LF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">MF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Test System</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-12.2" LABEL="4.12.2"><?TOCENTRY TITLE="4.12.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-22" LABEL="4-22"><?Pub Dtl?>
+<TITLE>TPS Equipment Required to Test the
+<BRK/> Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3.5in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.5in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in"/>
+<SPANSPEC NAMEST="COL1" NAMEEND="COL3" SPANNAME="ALL"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">Part Number</ENTRY>
+<ENTRY ALIGN="CENTER">Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">AAV Interface Test Adapter</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1000</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W6</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0106</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Extender Card Assembly, Electronic Test - 70 Pin to 70 Pin, A1*</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1033</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY SPANNAME="ALL">(* Required for diagnostic testing only.)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-12.3" LABEL="4.12.3"><?TOCENTRY TITLE="4.12.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s12b" title="Chapter 4. Test Program Instructions, Section XII. Test Program Instructions for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3 Cont'd"?>
+<SUBPARA1 ID="P4-12.4" LABEL="4.12.4"><?TOCENTRY TITLE="4.12.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-12.5" LABEL="4.12.5"><?TOCENTRY TITLE="4.12.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<CAUTION>
+<PARA>The UUT contains internal components that are subject to damage from electrostatic discharge (ESD). When handling the UUT, a grounded wrist strap must be used. <GRAPHIC BOARDNO="esd"/></PARA></CAUTION>
+<PARA>Refer to <EXTREF DOCNO="C2S02" XREFID="./C2S02.ide!P2-2.2.2" XIDTYPE="PARA">Paragraph 2.2.2.2, ESD Damage Prevention</EXTREF> for proper handling requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-12.6" LABEL="4.12.6"><?TOCENTRY TITLE="4.12.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>21.0 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-12.7" LABEL="4.12.7"><?TOCENTRY TITLE="4.12.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-12.8" LABEL="4.12.8"><?TOCENTRY TITLE="4.12.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<STEP1 ID="P4-12.81" LABEL="a">
+<PARA>Prior to executing the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3 Test Program, install ITA P/N 05005A1000 onto the test station receiver. </PARA></STEP1>
+<STEP1 ID="P4-12.82" LABEL="b">
+<PARA>Load the test program for the Intercommunications Set LRU into the ATLAS RTS. When the RTS State field of the RTS front panel displays 'READY', the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-12.83" LABEL="c">
+<PARA>***OPERATOR ACTION***: Initiate the test program by selecting 'Run' from the RTS 'Run' menu.</PARA></STEP1>
+<STEP1 ID="P4-12.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-32.pic"?>Figure 4-32<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-32" LABEL="4-32">
+<TITLE>Test Program Information Intercommunications Set LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-32.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-12.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-33.pic"?>Figure 4-33<?endhotspot?>) is displayed which identifies the UUT fault states which are non-detectable and untested by the test program.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-33" LABEL="4-33">
+<TITLE>Nondetectable/Untested Faults Intercommunications Set LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-33.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-12.86" LABEL="f">
+<PARA>The test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-34.pic"?>Figure 4-34<?endhotspot?>) is displayed. From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-5) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM and (98) Exit Testing.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-34" LABEL="4-34">
+<TITLE>Test Program Main Menu Intercommunications Set LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-34.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-12.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-12.88" LABEL="h">
+<PARA>The operator is instructed to install the Intercommunications Set LRU onto a flat work surface for testing.
+<BRK/> ***OPERATOR ACTION***: Place the UUT onto an appropriate work surface. The UUT is positioned with the front panel controls/indicators facing outward.</PARA></STEP1>
+<STEP1 ID="P4-12.89" LABEL="i">
+<PARA>The operator is instructed to connect cable W6 P/N 05005A0106, from ITA J3 to the UUT external I/O connectors.
+<BRK/> ***OPERATOR ACTION***: Connect W6 cable as follows: W6-P1 to UUT-J1 (Left-Side Panel); W6-P2 to UUT-J2 (Left-Side Panel); W6-P3 to UUT-J3 (Left-Side Panel); W6-P4 to UUT-J4 (Front Panel); W6-P5 to UUT-J5 (Front Panel); W6-P6 to ITA-J3 (Front Panel).</PARA></STEP1><?FRAME id="c4s12c" title="Chapter 4. Test Program Instructions, Section XII. Test Program Instructions for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3 Cont'd" next="./c4s13.ide!c4s13"?>
+<STEP1 ID="C4S12C10" LABEL="j">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION***: Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S12C11" LABEL="k">
+<PARA>The display prompts the operator to enter the UUT serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT identification plate (located below the front panel switch/indicators) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S12C12" LABEL="l">
+<PARA>The display prompts the operator to enter the UUT revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S12C13" LABEL="m">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S12C14" LABEL="n">
+<PARA>The display prompts the operator to enter the Interface serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the ITA label, which is found on the upper, right corner of the right side and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S12C15" LABEL="o">
+<PARA>The display prompts the operator to verify the test setup and UUT are ready to begin testing.</PARA></STEP1>
+<STEP1 ID="C4S12C16" LABEL="p">
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/fig4-35.pic"?>Figure 4-35<?endhotspot?>. Performance testing of the Intercommunications Set LRU requires operator manual-intervention to verify the ON/OFF states of front panel indicators (A,C), adjust the BRIGHTNESS control (B), adjust the VOLUME control (D), and momentarily depress switch/indicators (C).</PARA></STEP1>
+<FIGURE ID="FIG4-35" LABEL="4-35">
+<TITLE>Manual Intervention Locations Intercommunications Set LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-35.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1>
+<SUBPARA1 ID="P4-12.9" LABEL="4.12.9"><?TOCENTRY TITLE="4.12.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-12.91" LABEL="a">
+<PARA>Upon detection of a UUT failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-12.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY fig6-10 SYSTEM "./rpstl/graphics/fig6-10.pic" NDATA FAXTILE>
+<!ENTITY fig6-11 SYSTEM "./rpstl/graphics/fig6-11.pic" NDATA FAXTILE>
+<!ENTITY fig6-12 SYSTEM "./rpstl/graphics/fig6-12.pic" NDATA FAXTILE>
+<!ENTITY fig6-13a SYSTEM "./rpstl/graphics/fig6-13a.pic" NDATA FAXTILE>
+<!ENTITY fig6-14 SYSTEM "./rpstl/graphics/fig6-14.pic" NDATA FAXTILE>
+<!ENTITY fig6-15 SYSTEM "./rpstl/graphics/fig6-15.pic" NDATA FAXTILE>
+<!ENTITY fig6-16 SYSTEM "./rpstl/graphics/fig6-16.pic" NDATA FAXTILE>
+<!ENTITY fig6-17 SYSTEM "./rpstl/graphics/fig6-17.pic" NDATA FAXTILE>
+<!ENTITY fig6-18 SYSTEM "./rpstl/graphics/fig6-18.pic" NDATA FAXTILE>
+<!ENTITY fig6-19 SYSTEM "./rpstl/graphics/fig6-19.pic" NDATA FAXTILE>
+<!ENTITY fig6-1a SYSTEM "./rpstl/graphics/fig6-1a.pic" NDATA FAXTILE>
+<!ENTITY fig6-2 SYSTEM "./rpstl/graphics/fig6-2.pic" NDATA FAXTILE>
+<!ENTITY fig6-20 SYSTEM "./rpstl/graphics/fig6-20.pic" NDATA FAXTILE>
+<!ENTITY fig6-21 SYSTEM "./rpstl/graphics/fig6-21.pic" NDATA FAXTILE>
+<!ENTITY fig6-22 SYSTEM "./rpstl/graphics/fig6-22.pic" NDATA FAXTILE>
+<!ENTITY fig6-23 SYSTEM "./rpstl/graphics/fig6-23.pic" NDATA FAXTILE>
+<!ENTITY fig6-24 SYSTEM "./rpstl/graphics/fig6-24.pic" NDATA FAXTILE>
+<!ENTITY fig6-25 SYSTEM "./rpstl/graphics/fig6-25.pic" NDATA FAXTILE>
+<!ENTITY fig6-26 SYSTEM "./rpstl/graphics/fig6-26.pic" NDATA FAXTILE>
+<!ENTITY fig6-27 SYSTEM "./rpstl/graphics/fig6-27.pic" NDATA FAXTILE>
+<!ENTITY fig6-28 SYSTEM "./rpstl/graphics/fig6-28.pic" NDATA FAXTILE>
+<!ENTITY fig6-29 SYSTEM "./rpstl/graphics/fig6-29.pic" NDATA FAXTILE>
+<!ENTITY fig6-3 SYSTEM "./rpstl/graphics/fig6-3.pic" NDATA FAXTILE>
+<!ENTITY fig6-30 SYSTEM "./rpstl/graphics/fig6-30.pic" NDATA FAXTILE>
+<!ENTITY fig6-31 SYSTEM "./rpstl/graphics/fig6-31.pic" NDATA FAXTILE>
+<!ENTITY fig6-32 SYSTEM "./rpstl/graphics/fig6-32.pic" NDATA FAXTILE>
+<!ENTITY fig6-33 SYSTEM "./rpstl/graphics/fig6-33.pic" NDATA FAXTILE>
+<!ENTITY fig6-34 SYSTEM "./rpstl/graphics/fig6-34.pic" NDATA FAXTILE>
+<!ENTITY fig6-35 SYSTEM "./rpstl/graphics/fig6-35.pic" NDATA FAXTILE>
+<!ENTITY fig6-36 SYSTEM "./rpstl/graphics/fig6-36.pic" NDATA FAXTILE>
+<!ENTITY fig6-37 SYSTEM "./rpstl/graphics/fig6-37.pic" NDATA FAXTILE>
+<!ENTITY fig6-38 SYSTEM "./rpstl/graphics/fig6-38.pic" NDATA FAXTILE>
+<!ENTITY fig6-39 SYSTEM "./rpstl/graphics/fig6-39.pic" NDATA FAXTILE>
+<!ENTITY fig6-4 SYSTEM "./rpstl/graphics/fig6-4.pic" NDATA FAXTILE>
+<!ENTITY fig6-40 SYSTEM "./rpstl/graphics/fig6-40.pic" NDATA FAXTILE>
+<!ENTITY fig6-41 SYSTEM "./rpstl/graphics/fig6-41.pic" NDATA FAXTILE>
+<!ENTITY fig6-42 SYSTEM "./rpstl/graphics/fig6-42.pic" NDATA FAXTILE>
+<!ENTITY fig6-5 SYSTEM "./rpstl/graphics/fig6-5.pic" NDATA FAXTILE>
+<!ENTITY fig6-6 SYSTEM "./rpstl/graphics/fig6-6.pic" NDATA FAXTILE>
+<!ENTITY fig6-7 SYSTEM "./rpstl/graphics/fig6-7.pic" NDATA FAXTILE>
+<!ENTITY fig6-8 SYSTEM "./rpstl/graphics/fig6-8.pic" NDATA FAXTILE>
+<!ENTITY fig6-9 SYSTEM "./rpstl/graphics/fig6-9.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C6S01" LABEL="I"><?FRAME ID="chap6" TITLE="Chapter 6. Repair Parts, Section I. Introduction" previous="./ITA.ide!5-16p5" next="./appenA.ide!appena"?>
+<?TOCENTRY TITLE="CHAPTER 6. REPAIR PARTS" TOCLEVEL="1"?>
+<?CHAPTERINFO LABEL="6" ID="C6" TITLE="REPAIR PARTS"?><?TOCENTRY TITLE="SECTION I. Introduction" TOCLEVEL="2" LABEL="I"?>
+<TITLE>SECTION I. Introduction</TITLE>
+<PARA0 ID="P6-1" LABEL="6.1"><?TOCENTRY TITLE="6.1 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This chapter is separated into individual Repair Parts and Special Tools Lists (RPSTLs) for the AN/PSM-115 APS, which supports the Driver's Display Module, Controller C-10879/MSQ-115 and AN/MIQ-1 Assault Amphibious Vehicle's (AAV). Each RPSTL is viewable in two forms. Selecting a figure below will provide the user a graphical interface. The graphical interface is oriented by type of item, using the figures to guide through the repair parts list. The RPSTL search interface will provide an interface that guides the user through the repair parts list by the reference number such as NSN, Part Number, CAGE Code, and alike. The RPSTL search interface is accessible by selecting the SEARCH button on the toolbar and then choosing the RPSTL tab.</PARA>
+<SUBPARA1 ID="P6-1.1" LABEL="6.1.1"><?TOCENTRY TITLE="6.1.1 Graphical Interface" TOCLEVEL="4"?>
+<TITLE>Graphical Interface</TITLE>
+<PARA>Click on hotspots below to view graphical representation.</PARA>
+<FIGURE ID="FIG6-1" LABEL="6-1"><?tocentry title="Figure 6-1. Application Program Set, AN/PSM-115" toclevel="5"?>
+<TITLE>Application Program Set, AN/PSM-115</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-1a.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-2" LABEL="6-2"><?tocentry title="Figure 6-2. Case, Electrical-Electronic Test & Measuring Equipment, AN/PSM-115" toclevel="5"?>
+<TITLE>Case, Electrical-Electronic Test &#38; Measuring Equipment, AN/PSM-115</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-2.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-3" LABEL="6-3"><?tocentry title="Figure 6-3. Cable Assembly, Special Purpose, Electrical, Branched, W1" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W1</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-3.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-4" LABEL="6-4"><?tocentry title="Figure 6-4. Cable Assembly, Special Purpose, Electrical, Branched, W2" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W2</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-4.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-5" LABEL="6-5"><?tocentry title="Figure 6-5. Cable Assembly, Special Purpose, Electrical, Branched, W3" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W3</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-5.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-6" LABEL="6-6"><?tocentry title="Figure 6-6. Cable Assembly, Special Purpose, Electrical, Branched, W4" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W4</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-6.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-7" LABEL="6-7"><?tocentry title="Figure 6-7. Cable Assembly, Special Purpose, Electrical, W5" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W5</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-7.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-8" LABEL="6-8"><?tocentry title="Figure 6-8. Cable Assembly, Special Purpose, Electrical, Branched, W6" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W6</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-8.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-9" LABEL="6-9"><?tocentry title="Figure 6-9. Cable Assembly, Special Purpose, Electrical, W7" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W7</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-9.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-10" LABEL="6-10"><?tocentry title="Figure 6-10. Cable Assembly, Special Purpose, Electrical, W8" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W8</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-10.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-11" LABEL="6-11"><?tocentry title="Figure 6-11. Cable Assembly, Special Purpose, Electrical, W9" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W9</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-11.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-12" LABEL="6-12"><?tocentry title="Figure 6-12. Cable Assembly, Special Purpose, Electrical, Branched, W10" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W10</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-12.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-13" LABEL="6-13"><?tocentry title="Figure 6-13. Fixture Assembly - AAV ITA" toclevel="5"?>
+<TITLE>Fixture Assembly - AAV ITA</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-13a.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-14" LABEL="6-14"><?tocentry title="Figure 6-14. Card Guide Assembly, 14/120 POS CCA, -1, -2" toclevel="5"?>
+<TITLE>Card Guide Assembly, 14/120 POS CCA, -1, -2</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-14.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-15" LABEL="6-15"><?tocentry title="Figure 6-15. Card Guide Assembly" toclevel="5"?>
+<TITLE>Card Guide Assembly</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-15.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-16" LABEL="6-16"><?tocentry title="Figure 6-16. Support Assembly, LRU" toclevel="5"?>
+<TITLE>Support Assembly, LRU</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-16.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-17" LABEL="6-17"><?tocentry title="Figure 6-17. Consolidated Self-Test Adapter, A2 Assembly" toclevel="5"?>
+<TITLE>Consolidated Self-Test Adapter, A2 Assembly</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-17.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-18" LABEL="6-18"><?tocentry title="Figure 6-18. Extender Card Assembly - Electronic Test, 70 Pin To 70 Pin, A1" toclevel="5"?>
+<TITLE>Extender Card Assembly - Electronic Test, 70 Pin To 70 Pin, A1</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-18.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-19" LABEL="6-19"><?tocentry title="Figure 6-19. Printed Wiring Assembly - Consolidated Self-Test Adapter, A2" toclevel="5"?>
+<TITLE>Printed Wiring Assembly - Consolidated Self-Test Adapter, A2</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-19.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-20" LABEL="6-20"><?tocentry title="Figure 6-20. Printed Wiring Assembly - CP1 Self-Test Adapter, A3" toclevel="5"?>
+<TITLE>Printed Wiring Assembly - CP1 Self-Test Adapter, A3</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-20.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-21" LABEL="6-21"><?tocentry title="Figure 6-21. Printed Wiring Assembly - DDM Adapter, CP1" toclevel="5"?>
+<TITLE>Printed Wiring Assembly - DDM Adapter, CP1</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-21.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-22" LABEL="6-22"><?tocentry title="Figure 6-22. Printed Wiring Assembly - Controller XA5 Adapter, CP" toclevel="5"?>
+<TITLE>Printed Wiring Assembly - Controller XA5 Adapter, CP2</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-22.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-23" LABEL="6-23"><?tocentry title="Figure 6-23. Shorting Plug, SP1" toclevel="5"?>
+<TITLE>Shorting Plug, SP1</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-23.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-24" LABEL="6-24"><?tocentry title="Figure 6-24. Printed Wiring Assembly - 70 Pin Self-Test Adapter, A4" toclevel="5"?>
+<TITLE>Printed Wiring Assembly - 70 Pin Self-Test Adapter, A4</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-24.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-25" LABEL="6-25"><?tocentry title="Figure 6-25. Cable Assembly, Special Purpose, Electrical - 34 Conductor" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical - 34 Conductor</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-25.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-26" LABEL="6-26"><?tocentry title="Figure 6-26. Cable Assembly, Special Purpose, Electrical, Branched, 1W1" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, 1W1</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-26.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-27" LABEL="6-27"><?tocentry title="Figure 6-27. Cable Assembly, Special Purpose, Electrical, Branched, 1W2" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, 1W2</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-27.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-28" LABEL="6-28"><?tocentry title="Figure 6-28. Cable Assembly, Special Purpose, Electrical, 1W3" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, 1W3</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-28.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-29" LABEL="6-29"><?tocentry title="Figure 6-29. Cable Assembly, Special Purpose, Electrical, 1W4" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, 1W4</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-29.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-30" LABEL="6-30"><?tocentry title="Figure 6-30. Cable Assembly, Special Purpose, Electrical, Branched, 1W5" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, 1W5</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-30.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-31" LABEL="6-31"><?tocentry title="Figure 6-31. Cable Assembly, Special Purpose, Electrical, Branched, 1W6" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, 1W6</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-31.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-32" LABEL="6-32"><?tocentry title="Figure 6-32. Cable Assembly, Special Purpose, Electrical, Branched, 1W7" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, 1W7</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-32.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-33" LABEL="6-33"><?tocentry title="Figure 6-33. Cable Assembly, Special Purpose, Electrical, 1W8" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, 1W8</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-33.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-34" LABEL="6-34"><?tocentry title="Figure 6-34. Cable Assembly, Special Purpose, Electrical, 1W9" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, 1W9</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-34.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-35" LABEL="6-35"><?tocentry title="Figure 6-35. Cable Assembly, Special Purpose, Electrical, Branched - 1W10" toclevel="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched - 1W10</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-35.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-36" LABEL="6-36"><?tocentry title="Figure 6-36. Cable Assembly, Radio Frequency" toclevel="5"?>
+<TITLE>Cable Assembly, Radio Frequency</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-36.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-37" LABEL="6-37"><?tocentry title="Figure 6-37. Cable Assembly, Radio Frequency, Branched (1W206)" toclevel="5"?>
+<TITLE>Cable Assembly, Radio Frequency, Branched (1W206)</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-37.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-38" LABEL="6-38"><?tocentry title="Figure 6-38. Cable Assembly, Radio Frequency, Branched (1W207)" toclevel="5"?>
+<TITLE>Cable Assembly, Radio Frequency, Branched (1W207)</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-38.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-39" LABEL="6-39"><?tocentry title="Figure 6-39. Cable Assembly, Radio Frequency, Branched (1W208)" toclevel="5"?>
+<TITLE>Cable Assembly, Radio Frequency, Branched (1W208)</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-39.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-40" LABEL="6-40"><?tocentry title="Figure 6-40. Cable Assembly, Radio Frequency, Branched (1W209)" toclevel="5"?>
+<TITLE>Cable Assembly, Radio Frequency, Branched (1W209)</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-40.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-41" LABEL="6-41"><?tocentry title="Figure 6-41. Resistor Assembly - AAV ITA, A16" toclevel="5"?>
+<TITLE>Resistor Assembly - AAV ITA, A16</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-41.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG6-42" LABEL="6-42"><?tocentry title="Figure 6-42. Printed Wiring Assembly - AAV ITA, A1" toclevel="5"?>
+<TITLE>Printed Wiring Assembly - AAV ITA, A1</TITLE><?hotspot linktype="picture" href="./rpstl/graphics/fig6-42.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1></PARA0></SECTION>

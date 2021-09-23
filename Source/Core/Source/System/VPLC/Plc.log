@@ -1,0 +1,22 @@
+Line 79: Class Threed.SSPanel of control SSPanel1 was not a loaded control class.
+Line 149: Class Threed.SSCommand of control sscSwitch was not a loaded control class.
+Line 175: Class Threed.SSCommand of control sscSwitch was not a loaded control class.
+Line 85: The property name _Version in SSPanel1 is invalid.
+Line 86: The property name _ExtentX in SSPanel1 is invalid.
+Line 87: The property name _ExtentY in SSPanel1 is invalid.
+Line 88: The property name _StockProps in SSPanel1 is invalid.
+Line 98: The property name BevelOuter in SSPanel1 is invalid.
+Line 156: The property name _Version in sscSwitch is invalid.
+Line 157: The property name _ExtentX in sscSwitch is invalid.
+Line 158: The property name _ExtentY in sscSwitch is invalid.
+Line 159: The property name _StockProps in sscSwitch is invalid.
+Line 170: The property name BevelWidth in sscSwitch is invalid.
+Line 171: The property name Outline in sscSwitch is invalid.
+Line 149: Property Picture in sscSwitch could not be set.
+Line 183: The property name _Version in sscSwitch is invalid.
+Line 184: The property name _ExtentX in sscSwitch is invalid.
+Line 185: The property name _ExtentY in sscSwitch is invalid.
+Line 186: The property name _StockProps in sscSwitch is invalid.
+Line 197: The property name BevelWidth in sscSwitch is invalid.
+Line 198: The property name Outline in sscSwitch is invalid.
+Line 175: Property Picture in sscSwitch could not be set.

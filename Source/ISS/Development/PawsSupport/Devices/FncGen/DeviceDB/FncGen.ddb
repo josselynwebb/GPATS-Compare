@@ -1,0 +1,367 @@
+**************************************************************************
+************     Racal 3152A/B (FUNC_GEN) STATIC DESCRIPTION       *******
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : FncGen.ddb
+*
+* INSTRUMENT  : Function Generator
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                		 AUTHOR
+*  ---      -------       ------------------------------------------           		 -------------------
+*  1.0   16SEP05  Initial Release                                 		 EADS
+*  2.0   27APR09  Baselined VIPER/T version number	   	 EADS
+*                         per DME PCR VSYS-450 based on USMC comment
+*  2.1   28JUL09  Added BANDWIDTH modifier to PULSED DC         EADS
+*  2.2   19APR17  Constrained EVENT-DELAY & EXPONENT to support 3152B    ATS
+*  2.3   25APR17  Changed STIM memory size to 261144                     CJW
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev FUNC_GEN_1;
+
+	begin ; ** event-monitor
+		event monitor (voltage) square wave;
+		cnx event-out FG-EvArm;     
+		control
+		{
+			event-out;
+			delay range 15 usec to 20 sec;
+			event-delay range 15 usec to 20 sec;
+			event-slope pos, neg;	
+		}
+
+		begin FNC = 102; 		** External trigg.
+			cnx hi FG-Trig;
+		end;
+
+		begin FNC = 103; 		** Gated mode.from
+			cnx gate-start-in FG-Trig;
+		end; 
+
+		begin FNC = 104; 		** Dummy function need for Gated mode.to
+			cnx gate-stop-in FG-Trig;
+		end; 
+
+	end;	** end event-monitor
+
+	begin using FGEN_SIGNAL; 
+		begin;	
+			cnx hi FG-Out;
+			cnx via FG-Out;
+			cnx event-gate-from	FG-EvArm,
+			event-gate-to	FG-EvArm;
+			cnx event-sync FG-EvArm;
+			cnx event-strobe Event-Port;
+			cnx event-each-occurrence FG-EvArm;
+			cnx event-gated-by FG-EvArm;
+			control
+			{
+				max-time range 0 sec to 1000 sec continuous;
+				event-gate-from;
+				event-gate-to;
+				event-sync;
+				strobe-to-event;
+				event-slope pos, neg;
+				event-out;
+				event-delay range 15 usec to 20 sec;
+				event-each-occurrence;
+				event-gated-by;
+				test-equip-imp 50 ohm;
+			}
+
+			begin FNC= 1;		* ac signal for sine
+				source ac signal;	
+				control
+				{
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					freq range .000100 hz to 50000000 hz continuous;
+					voltage range 3.54 mv to 5.66 v continuous;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 20 nsec to 10000 sec;
+				}
+			end;
+
+			begin FNC=2; 		* square wave
+				source square wave;
+				control
+				{
+					freq  range .000100 hz to 50000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					duty-cycle range 1 pc to 99 pc continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 20 nsec to 10000 sec;
+				}
+			end;
+
+			begin FNC=3; 		* triangle wave signal
+				source triangular wave signal;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC=4; 		* ramp signal
+				source ramp signal;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					rise-time range 10 nsec to 4950 sec continuous;
+					fall-time range 10 nsec to 4950 sec continuous;
+					ramp-neg-slope range .00000202 v/sec to 1600000000 v/sec;
+					ramp-pos-slope range .00000202 v/sec to 1600000000 v/sec;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC=5; 		* pulsed dc
+				source pulsed dc;
+				control
+				{
+					prf range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					duty-cycle range 1 pc to 99 pc continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					rise-time range 1 usec to 9900 sec continuous;
+					fall-time range 1 usec to 9900 sec continuous;
+					pulse-width range 1 usec to 9900 sec continuous;
+					voltage-p range 0.005 v to 8 v continuous;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC=6; 		* sinc wave
+				source sinc wave;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC=7; 		* exponential pulse wave
+				source exponential pulse wave;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					exponent range -100 to 100 continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					period range 100 usec to 10000 sec;
+					prf range 0.0001 hz to 1 mhz continuous; * burst-rep-rate
+				}
+			end;
+
+			begin FNC=8; 		* dc signal
+				source dc signal;
+				control
+				{
+					voltage range -8.0 v to 8.0 v continuous;
+				}
+			end;
+
+			begin FNC=9; 		* waveform
+				source waveform;
+				control
+				{
+					voltage range 0.00354 v to 5.66 v continuous;
+					dc-offset range -7.19 v to 7.19 v;
+					stim range 10 to 261144;
+					sample-spacing range .000000010 sec to 10 sec;
+				}
+			end;
+		end;
+
+		begin; 
+			cnx sync-out FG-Sync;
+			cnx event-gate-from	FG-EvArm,
+			event-gate-to	FG-EvArm;
+			cnx event-strobe Event-Port;
+			cnx event-each-occurrence FG-EvArm;
+			cnx event-gated-by FG-EvArm;
+			cnx hi FG-Out;
+			cnx via FG-Out;
+
+			control
+			{
+				max-time range 0 sec to 1000 sec continuous;
+				event-gate-from;
+				event-gate-to;
+				event-sync;
+				strobe-to-event;
+				event-slope pos, neg;
+				event-out;
+				event-delay range 15 usec to 20 sec;
+				event-each-occurrence;
+				event-gated-by;
+				test-equip-imp 50 ohm;
+			}
+
+			begin FNC = 21;		* ac signal for sine with sync-out
+				source ac signal;	
+				cnx event-sync FG-EvArm;
+				control
+				{
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					freq range .000100 hz to 50000000 hz continuous;
+					voltage range 0.00354 v to 5.66 v continuous;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					period range 20 nsec to 10000 sec;
+				}
+			end;
+
+			begin FNC = 22; 		* square wave with sync-out
+				source square wave;
+				control
+				{
+					freq  range .000100 hz to 50000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					duty-cycle range 1 pc to 99 pc continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 20 nsec to 10000 sec;
+				}
+			end;
+
+			begin FNC = 23; 		* triangle wave signal with sync-out
+				source triangular wave signal;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC = 24; 		* ramp signal with sync-out
+				source ramp signal;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					rise-time range 10 nsec to 4950 sec continuous;
+					fall-time range 10 nsec to 4950 sec continuous;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					burst-rep-rate .001001 hz to 16667 hz;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC = 25; 		* pulsed dc with sync-out
+				source pulsed dc;
+				control
+				{
+					prf range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					duty-cycle range 1 pc to 99 pc continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					rise-time range 1 usec to 9900 sec continuous;
+					fall-time range 1 usec to 9900 sec continuous;
+					pulse-width range 1 usec to 9900 sec continuous;
+					voltage-p range 0.005 v to 8 v continuous;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC = 26; 		* sinc wave with sync-out
+				source sinc wave;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					period range 100 usec to 10000 sec;
+				}
+			end;
+
+			begin FNC = 27; 		* exponential pulse wave with sync-out
+				source exponential pulse wave;
+				control
+				{
+					freq range .000100 hz to 1000000 hz continuous;
+					voltage-pp range .01 v to 16 v continuous;
+					dc-offset range -7.19 v to 7.19 v continuous;
+					exponent range -100 to 100 continuous;
+					bandwidth 20 mhz, 25 mhz, 50 mhz;
+					voltage-p range 0.005 v to 8 v continuous;
+					burst range 4 cycles to 100 cycles;
+					period range 100 usec to 10000 sec;
+					prf range 0.0001 hz to 1 mhz continuous;
+				}
+			end;
+
+			begin FNC = 28; 		* dc signal with sync-out
+				source dc signal;
+				control
+				{
+					voltage range -8.0 v to 8.0 v continuous;
+				}
+			end;
+
+			begin FNC=29; 		* waveform with sync-out
+				source waveform;
+				control
+				{
+					voltage range 0.00354 v to 5.66 v continuous;
+					dc-offset range -7.19 v to 7.19 v;
+					stim range 10 to 261144;
+					sample-spacing range .000000010 sec to 10 sec;
+				}
+			end;
+		end;*end func_gen with sync-out
+	end; ** test
+end; *end func_gen

@@ -1,0 +1,11 @@
+
+ EXPORTS
+
+  readPLCFile_if
+  savePLCData_if
+  setPLCPathData_if
+  getPLCData_if
+  exportToExcel_if
+  exportSplinesToExcel_if
+  getError_if
+

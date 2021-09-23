@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C2S02" LABEL="II"><?Pub Dtl?><?FRAME title="Chapter 2. Safety Precautions, Section II. General Safety Summary" previous="./c2s01.ide!C2s01"?><?TOCENTRY TITLE="SECTION II. General Safety Summary" TOCLEVEL="2" LABEL="II"?>
+<TITLE>SECTION II. General Safety Summary</TITLE>
+<PARA0 ID="P2-2" LABEL="2.2"><?TOCENTRY TITLE="2.2 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs will provide a general safety summary for this APS.</PARA>
+<SUBPARA1 ID="P2-2.1" LABEL="2.2.1"><?TOCENTRY TITLE="2.2.1 Electrical Current" TOCLEVEL="4"?>
+<TITLE>Electrical Current</TITLE>
+<PARA>Electrical current sufficient to cause death or injury to personnel is present throughout the equipment used for operation and maintenance of the APS. All personnel must be aware of the measures required to prevent and treat electrocution.</PARA>
+<SUBPARA2 ID="P2-2.1.1" LABEL="2.2.1.1"><?TOCENTRY TITLE="2.2.1.1 Emergency Procedures for Victims of Electrical Shock" TOCLEVEL="5"?>
+<TITLE>Emergency Procedures for Victims of Electrical Shock</TITLE>
+<PARA>If someone becomes the victim of electrical shock, perform the following step-by-step procedures:</PARA>
+<STEP1 ID="GENC268" LABEL="a">
+<PARA>Do not try to pull or grab the individual.</PARA></STEP1>
+<STEP1 ID="GENC269" LABEL="b">
+<PARA>Turn off electrical power. If electrical power cannot be turned off, use a wooden pole, a rope, or some other insulating material to pull, push, or lift the person to safety.</PARA></STEP1>
+<STEP1 ID="GENC270" LABEL="c">
+<PARA>Send for help as soon as possible.</PARA></STEP1>
+<STEP1 ID="GENC271" LABEL="d">
+<PARA>After injured person is free of contact with the source of electrical shock, move the person a short distance away and check breathing and pulse.</PARA></STEP1>
+<STEP1 ID="GENC272" LABEL="e">
+<PARA>If the person has stopped breathing, immediately start artificial resuscitation. If the person does not have a pulse, immediately start Cardiopulmonary Resuscitation.</PARA></STEP1></SUBPARA2></SUBPARA1><?FRAME label='c2s02b' title="Chapter 2. Safety Precautions, Section II. General Safety Summary Cont'd" next="./c2s03.ide!C2S03"?>
+<SUBPARA1 ID="P2-2.2" LABEL="2.2.2"><?TOCENTRY TITLE="2.2.2 Electromagnetic Radiation Hazards and Precautions" TOCLEVEL="4"?>
+<TITLE>Electromagnetic Radiation Hazards and Precautions</TITLE>
+<PARA>Equipment that uses electronic components can experience problems ranging from occasional breakdowns and degraded performance to complete failure. A major cause of these problems can be traced to Electrostatic Discharge (ESD). Electrostatic Discharge is the release of static electricity caused by the rapid transfer of static electrical charge between bodies of different electrical potential. Ensure that proper precautions are taken whenever and wherever sensitive devices are to be handled.</PARA>
+<SUBPARA2 ID="P2-2.2.1" LABEL="2.2.2.1"><?TOCENTRY TITLE="2.2.2.1 Symbol" TOCLEVEL="5"?>
+<TITLE>Symbol</TITLE>
+<PARA>All maintenance actions described in this manual which could result in damage to parts will be identified by the symbol. The symbol requires that all sensitive parts be handled in accordance with management procedures described in TM 9999-15/1, Electrostatic Discharge Awareness, and TM 9405-15, Electrostatic Discharge Management. The symbol is illustrated below:
+<BRK/> <GRAPHIC BOARDNO="esd"/></PARA></SUBPARA2>
+<SUBPARA2 ID="P2-2.2.2" LABEL="2.2.2.2"><?TOCENTRY TITLE="2.2.2.2 ESD Damage Prevention" TOCLEVEL="5"?>
+<TITLE>ESD Damage Prevention</TITLE>
+<PARA>When handling sensitive equipment or parts, perform the following steps to prevent damage:</PARA>
+<STEP1 ID="GENC276" LABEL="a">
+<PARA>Attach personnel ground strap to wrist and chassis ground prior to removing sensitive equipment.</PARA></STEP1>
+<STEP1 ID="GENC277" LABEL="b">
+<PARA>Store circuit cards in approved protective packaging immediately upon removal from the equipment.</PARA></STEP1>
+<STEP1 ID="GENC278" LABEL="c">
+<PARA>Use an ESD workstation for troubleshooting any item.</PARA></STEP1>
+<STEP1 ID="GENC279" LABEL="d">
+<PARA>Inspect the protective packaging of all replacement items for indications of damage to packaging during shipment.</PARA></STEP1>
+<STEP1 ID="GENC280" LABEL="e">
+<PARA>Ground the package prior to the removal of the item.</PARA></STEP1>
+<STEP1 ID="GENC281" LABEL="f">
+<PARA>Install replacement items immediately upon removal from protective packaging.</PARA></STEP1></SUBPARA2></SUBPARA1></PARA0></SECTION>

@@ -1,0 +1,37 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: VidDisplayNAM - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Release/Version.res" /d "NDEBUG" "C:\Documents and Settings\jessg\Desktop\Releases\SSC_v104.00\Source\Core\Source\System\EO_Video\VidDisplayNAM\Version.rc"" 
+Creating temporary file "C:\DOCUME~1\jessg\LOCALS~1\Temp\RSP7856.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Release/VidDisplayNAM.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Documents and Settings\jessg\Desktop\Releases\SSC_v104.00\Source\Core\Source\System\EO_Video\VidDisplayNAM\VidDisplayNAM.c"
+]
+Creating command line "cl.exe @C:\DOCUME~1\jessg\LOCALS~1\Temp\RSP7856.tmp" 
+Creating temporary file "C:\DOCUME~1\jessg\LOCALS~1\Temp\RSP7857.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"Release/VidDisplayNAM.pdb" /machine:I386 /out:".\release\VidDisplayNAM.exe" 
+".\Release\VidDisplayNAM.obj"
+".\Release\Version.res"
+".\Visa32.lib"
+".\Nam.lib"
+]
+Creating command line "link.exe @C:\DOCUME~1\jessg\LOCALS~1\Temp\RSP7857.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+VidDisplayNAM.c
+Linking...
+
+
+
+<h3>Results</h3>
+VidDisplayNAM.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

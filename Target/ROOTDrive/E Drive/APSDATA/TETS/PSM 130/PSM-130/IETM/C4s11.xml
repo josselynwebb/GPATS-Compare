@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='TOO' TYPE='frame' LINK='.\C3s11.xml!C3S11A' bitmap='n' DESC='Open Theory of Operation.'?>
+<?BUTTON POS='2' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-29_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='3' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-30_0.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='4' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='5' LABEL='UUT ELTD' TYPE='program' LINK=''./ELTD/13_ELTD_16102218_061_GTD SSP.pdf'' bitmap='n' DESC='Open UUT English Language Test Description.'?>
+<?BUTTON POS='6' LABEL='ID ELTD' TYPE='program' LINK=''./ELTD/14_ELTD_13020A1000_TPH.pdf'' bitmap='n' DESC='Open ID English Language Test Description.'?>
+<?BUTTON POS='7' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Gun Turret Drive Assy\GTD_SSP_LRU (16102218-061)\TP_LAV_GTD_SSP.OBJ" bitmap='n' DESC='Select to launch GTD Stabilization System Processor TPS.'?>
+<?FRAME id='C4s11a' title='CHAPTER 4 - TEST PROGRAM INSTRUCTIONS' next='.\C4s11.xml!C4s11b' previous='.\C4s10.xml!C4S10a'?>
+<chapter>
+<section id="C4s11" label="Section XI." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section XI.  GTD Stabilization System Processor."?>
+<title>GTD Stabilization System Processor.</title>
+<para0 id="p4-11" label="4-11" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="4-11 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs will describe the Test Program Instructions
+(TPI) for the Gun Turret Drive (GTD) Stabilization System Processor
+(P/N 16102218-061). The GTD testing is divided into one of two tests:</para>
+<para><table frame="none">
+<tgroup cols="1">
+<?PubTbl tgroup dispwid="510.00px"?>
+<colspec colname="col1"/>
+<tbody>
+<row>
+<entry rowsep="0"><?hotspot href="p4-11.1"?>VIPER/T Test Program Instructions<?endhotspot?></entry>
+</row>
+<row>
+<entry><?hotspot href="p4-11.2"?>TETS-B Test Program Instructions<?endhotspot?></entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+<?FRAME id='C4s11b' title='CHAP. 4 - VIPER/T TEST PROGRAM INSTRUCTIONS' next='.\C4s11.xml!C4s11c' previous='.\C4s11.xml!C4s11a'?>
+<subpara1 id="p4-11.1" label="4-11.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-11.1 VIPER/T Test Program Instructions."?>
+<title>VIPER/T Test Program Instructions.</title>
+<para>Required Equipment.</para>
+<para><?hotspot href="T4-10"?>Table 4-10<?endhotspot?> provides information
+on the equipment required to test VIPER/T.</para>
+<para> <?pub tablewidth="80%"?> <table id="T4-10" tocentry="1">
+<title>Table 4-10. GTD Stabilization System Processor, VIPER/T Required
+Equipment</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="1251.00px"?>
+<colspec colname="1" colnum="1" colwidth="0.70*"/>
+<colspec colname="2" colnum="2" colwidth="0.52*"/>
+<colspec colname="4" colnum="3" colwidth="0.37*"/>
+<thead>
+<row>
+<entry align="center">Nomenclature</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">Quantity</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>VIPER/T ATE</entry>
+<entry align="center">AN/USM-717</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>ATE W204 Cable</entry>
+<entry align="center">93006H6048</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Interface Device</entry>
+<entry align="center">13020A1000</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Fixture Assembly, Holding</entry>
+<entry align="center">13020A9015</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>GTD Stabilization System Processor</entry>
+<entry align="center">16102218-061</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W7</entry>
+<entry align="center">13020A7700</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W8 (RS-422)</entry>
+<entry align="center">08014A3800</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (VIPER/T)</entry>
+<entry align="center">93006H9009</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara1>
+<caution id="C4111">
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+</caution>
+<?ALERT id="cESD1" type="caution"?>
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+<?ENDALERT?>
+<subpara1 id="p4-11.1.1" label="4-11.1.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-11.1.1 Set-up Instructions."?>
+<title>Set-up Instructions.</title>
+<step1>
+<para>1. Open the ATE interface handle.</para>
+</step1>
+<step1>
+<para>2. Insert Interface Device (P/N 13020A1000) into the ATE interface
+receiver.</para>
+</step1>
+<step1>
+<para>3. Close the ATE interface handle.</para>
+</step1>
+<step1>
+<para>4. Place Holding Fixture (P/N 13020A9015) on top of ID. Secure
+to holding cleat with thumb screw.</para>
+</step1>
+<step1>
+<para>5. Loosen both top knobs so that the rail slides freely. Adjust
+position of rail so that the UUT will sit firmly on both lips. Secure
+both knobs to retain UUT.</para>
+</step1>
+<step1>
+<para>6. Connect W7 (P/N 13020A7700) P1 to ID J1.</para>
+</step1>
+<step1>
+<para>7. Connect W7 P2 to UUT J1.</para>
+</step1>
+<step1>
+<para>8 Connect W7 P3 to UUT J2.</para>
+</step1>
+<step1>
+<para>9. Connect W7 P4 to ATE Secondary Chassis 1A2 BUS I/O.</para>
+</step1>
+<step1>
+<para>10. Connect W8 (P/N 08014A3800) P1 to ATE Instrument Controller
+1A5J6.</para>
+</step1>
+<note>
+<para>DO NOT connect W8 P2 until prompted to do so after Safe To Turn
+On.</para>
+</note>
+<step1>
+<para>11. Connect ATE W204 (P/N 93006H6048) P1 to ATE Secondary Chassis
+1A2 S/R IO.</para>
+</step1>
+<step1>
+<para>12. Connect ATE W204 cable P2 to ID J3.</para>
+</step1>
+</subpara1>
+<subpara1 id="p4-11.1.2" label="4-11.1.2" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-11.1.2 Successful Completion of Safe To Turn On Instructions."?>
+<title>Successful Completion of Safe To Turn On Instructions.</title>
+<step1>
+<para>1. Ensure W8 P1 is connected to Instrument Controller 1A5 J6.</para>
+</step1>
+<step1>
+<para>2. Connect W8 P2 to ID J4 now.</para>
+</step1>
+</subpara1>
+<subpara1 id="p4-11.1.3" label="4-11.1.3" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-11.1.3 Disconnect Instructions."?>
+<title>Disconnect Instructions.</title>
+<step1>
+<para>1. Disconnect all cables from UUT if testing is complete.</para>
+</step1>
+</subpara1>
+<?FRAME id='C4s11c' title='CHAP. 4 - TETS-B TEST PROGRAM INSTRUCTIONS' next='.\C4s12.xml!C4s12a' previous='.\C4s11.xml!C4s11b'?>
+<subpara1 id="p4-11.2" label="4-11.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-11.2 TETS-B Test Program Instructions."?>
+<title>TETS-B Test Program Instructions.</title>
+<para>Required Equipment.</para>
+<para><?hotspot href="T4-11"?>Table 4-11<?endhotspot?> provides information
+on the equipment required to test TETS-B.</para>
+<para><table id="T4-11" tocentry="1">
+<title>Table 4-11. GTD Stabilization System Processor, TETS-B Required
+Equipment</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="853.00px"?>
+<colspec colname="1" colnum="1" colwidth="0.65*"/>
+<colspec colname="2" colnum="2" colwidth="0.50*"/>
+<colspec colname="4" colnum="3" colwidth="0.43*"/>
+<thead>
+<row>
+<entry align="center">Nomenclature</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">Quantity</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>TETS-B ATE</entry>
+<entry align="center">AN/USM-657B</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>ATE W204 Cable</entry>
+<entry align="center">93006H6048</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Interface Device</entry>
+<entry align="center">13020A1000</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Fixture Assembly, Holding</entry>
+<entry align="center">13020A9015</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>GTD Stabilization System Processor</entry>
+<entry align="center">16102218-061</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W7</entry>
+<entry align="center">13020A7700</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W8 (RS-422)</entry>
+<entry align="center">08014A3800</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (TETS-B)</entry>
+<entry align="center">93006A9007</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara1>
+<caution id="C4112">
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+</caution>
+<?ALERT id="cESD2" type="caution"?>
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+<?ENDALERT?>
+<subpara1 id="p4-11.2.1" label="4-11.2.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-11.2.1 Set-up Instructions."?>
+<title>Set-up Instructions.</title>
+<step1>
+<para>1. Open the ATE interface handle.</para>
+</step1>
+<step1>
+<para>2. Insert Interface Device (P/N 13020A1000) into the ATE interface
+receiver.</para>
+</step1>
+<step1>
+<para>3. Close the ATE interface handle.</para>
+</step1>
+<step1>
+<para>4. Place Holding Fixture (P/N 13020A9015) on top of ID. Secure
+to holding cleat with thumb screw.</para>
+</step1>
+<step1>
+<para>5. Loosen both top knobs so that the rail slides freely. Adjust
+position of rail so that the UUT will sit firmly on both lips. Secure
+both knobs to retain UUT.</para>
+</step1>
+<step1>
+<para>6. Connect W7 (P/N 13020A7700) P1 to ID J1.</para>
+</step1>
+<step1>
+<para>7. Connect W7 P2 to UUT J1.</para>
+</step1>
+<step1>
+<para>8. Connect W7 P3 to UUT J2.</para>
+</step1>
+<note>
+<para>Leave W7 P4 unattached. This connector is for use with the VIPER/T
+only.</para>
+</note>
+<step1>
+<para>9. Connect W8 (P/N 08014A3800) P1 to ATE Instrument Controller
+1A5J6.</para>
+</step1>
+<note>
+<para>DO NOT connect W8 P2 until prompted to do so after Safe To Turn
+On.</para>
+</note>
+<step1>
+<para>10. Connect ATE W204 (P/N 93006H6048) P1 to ATE Secondary Chassis
+1A2 S/R IO.</para>
+</step1>
+<step1>
+<para>11. Connect ATE W204 P2 to ID J3.</para>
+</step1>
+</subpara1>
+<subpara1 id="p4-11.2.2" label="4-11.2.2" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-11.2.2 Successful Completion of Safe To Turn On Instructions."?>
+<title>Successful Completion of Safe To Turn On Instructions.</title>
+<step1>
+<para>1. Ensure W8 P1 is connected to Instrument Controller 1A5 J6.</para>
+</step1>
+<step1>
+<para>2. Connect W8 P2 to ID J4 now.</para>
+</step1>
+</subpara1>
+<subpara1 id="p4-11.2.3" label="4-11.2.3" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="4-11.2.3 Disconnect Instructions:"?>
+<title>Disconnect Instructions.</title>
+<step1>
+<para>1. Disconnect all cables from UUT if testing is complete.</para>
+</step1>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 6?>

@@ -1,0 +1,4332 @@
+*  $HEADER$
+*
+********************************************************************************
+*
+* FILENAME  :  Devicedb.ddb
+* REVISION  :  5.0
+* DESCRIPTION: Device Database for TETS - ManTech
+*  
+********************************************************************************
+*
+*                 SOURCE REVISION HISTORY
+*
+*  VER   DATE     DESCRIPTION                                AUTHOR
+*  ---   ----     -----------------------------------------  -------------------
+*  4.0   08JUN99  Initial Release                            F. Saracevic, TYX Corp
+*  4.1   27JUL99  Removed TRIG-LEVEL and TRIG-SLOPE,         F. Saracevic, TYX Corp
+*	                changed trig range in the counter 
+*                 from (-10.2 V to 10.2 V) to (-102 V to 102 V)
+*                 because attenuation is handled with the 
+*                 modifier voltage and range for trig needed
+*                 to be increased by 10 times, totalize 2x1 is
+*                 commented out
+*  4.2   01Mar00  Changed the DC Voltage Range for Scope     Y. Shikarpuri, TYX Corp
+*  4.3   25APR00  Changed the Counter-Timer Pulsed DC        M. Eckart, MTSI
+*                 RISE-TIME and FALL-TIME upper  
+*                 limits from 1000 to .001 sec and the PERIOD
+*                 lower limits on CH2 from .000000005 sec to
+*                 .00000001. 
+*  4.4a  03MAR00  Electro Optics Initial Release             Y. Shikarpuri, TYX
+*        02MAY00                                             G. Geathers,  LMIS
+*        15MAY00  Incorported Geather's comments.            D. Hobner, LMIS	
+*        09JUN00  Added y&x-boresight-angle to divergence
+*                 laser (FNC 42)                             Y. Shikarpuri, TYX
+*        14JUL00  Replaced Ref with Radiance for the noun
+*                 video signal.                              Y. Shikarpuri, TYX
+*        06SEP00  Merging ECP3 and EO ddbs                   C. Grard, TYX
+*
+*  4.4b  13SEPT00 Changed all REF-VOLT range in DMM from     Q.Nguyen, MTSI
+*                 (0 v to 360 v) to (-360 v to 360 v) 
+*                 Changed all DC-OFFSET range in DMM from
+*                 (-5 v to 5 v) to (-300 v to 300 v).
+*                 Changed Freq range for both AC signal      Q.Nguyen, MTSI
+*                 channel 1&2 in Scope from (0.02 Hz to
+*                 250000000 Hz)to(0.02 Hz to
+*                 200000000 Hz).
+*                 Changed volatge-zero range from            Q.Nguyen, MTSI
+*                 (-2v to 5 v) to 0 v and volatge-one
+*                 range from (-2 v to 5 v) to 5 v for High
+*                 voltage utility pins (SCAN-HI) under
+*                 "Dev DWG"
+*
+*  VER   DATE     DESCRIPTION
+*  ---   ----     --------------------------------------------------------------
+*  4.5            ECO-564, used with WCEM 5.0
+*        07JUN01  J. Hill:
+*                 Combined 4.4 versions, 4.4a for EO, 4.4b for Release 7.0.
+*        07JUN01  J. Joiner, MTSI, DR 193 (STR 638):
+*                 Changed the Master/Slave portion of the DCPS. Originally the
+*                 functions were embedded causing only 1 M/S group to be
+*                 allocated. Now multiple M/S groups can be allocated due to
+*                 functions no longer being embedded.
+*        11OCT01  J.Joiner, MTSI, DR 22 (STR 565):
+*                 Added SAMPLE-COUNT, TRIG-LEVEL, TRIG-SLOPE modifiers to 
+*                 Scope AC Signal, Pulsed DC, Ramp Signal, Square Wave and
+*                 Triangular Wave Signal for both channels so that the scope
+*                 averaging can be invoked.
+*
+*  VER   DATE     DESCRIPTION
+*  ---   ----     --------------------------------------------------------------
+*  4.6            ECO-3047-635, used with WCEM 5.2
+*	 31JUL03  N.Sazonov	
+*				  DR188/DR305: Modified values of sample and sample-time 
+*				  for FNC 120 and FNC 220 of section DIG_SCOPE. This 
+*				  would allow user to enter 16x the sample-time for the 
+*				  8000 acquisition, while the WCEM will divide the time by 
+*				  16 and use it for 500 point acquisition.
+*	 05AUG03  J. Hill, DR 235
+*                 Removed WAVEFORM, PERIOD modifier from FNC's 120 and 220 of
+*                 DIG_SCOPE section.
+*	 05AUG03  J. Hill, DR 303 and ECO-TETS-076
+*                 Changed lower range of rate for RF Measurement Analyzer AM
+*                 measurements from 10Hz to 20Hz. Also changed upper limit
+*				  from 220e3 to 100e3 to match CPM, SDD and cal test.
+*	 05AUG03  J. Hill, DR 187 (STR 620)
+*                 Changed DMM External trigger event monitor to allow negative
+*                 slope only, which is all the hardware allows.
+*	 08SEP03  N.Sazonov, DR185 (STR 618)
+*				  Changed the range of REPEAT and WORD-COUNT in FNC 10, FNC 17,
+*				  and FNC 22 from 999 to 32767.
+*	 09SEP03  N.Sazonov	
+*				  Self-Initiated: Added STROBE-TO-EVENT noun to FNC 120 and 
+*				  FNC 220, to allow triggering when using those functions.
+*
+*  VER   DATE     DESCRIPTION
+*  ---   ----     --------------------------------------------------------------
+*  5.0   01APR04  ECO-3047-650, used with WCEM 6.0
+*                 T. Biggs: ELECTRO OPTICS STATIC DESCRIPTION
+*                 Modified ELC_OPT section to comply with TETS EOV performance
+*                 specification and SBIR CEM_IRWIN_INTERFACE.DLL API call 
+*                 functional requirements.
+********************************************************************************
+*
+configuration USMC/TETS Version 1.00;
+*****   Built-In Function Definitions   *****
+
+def, fnc, ConcatenateStrings            ==  1;
+def, fnc, CompareStrings                ==  2;
+def, fnc, CopyString                    ==  3;
+def, fnc, InsertLeadingCharacters       ==  4;
+def, fnc, InsertTrailingCharacters      ==  5;
+def, fnc, IntegerToNumericString        ==  6;
+def, fnc, LowerCaseToUpperCase          ==  7;
+def, fnc, RemoveLeadingWhiteSpace       ==  8;
+def, fnc, RemoveTrailingWhiteSpace      ==  9;
+def, fnc, ReverseString                 == 10;
+def, fnc, SetFieldWidth                 == 11;
+def, fnc, UpperCaseToLowerCase          == 12;
+def, fnc, InterfaceClear                == 13;
+def, fnc, SetBusDeviceTimeout           == 14;
+def, fnc, WriteCommandString            == 15;
+def, fnc, WriteDataString               == 16;
+def, fnc, GetFunctionReturn             == 17;
+def, fnc, Print                         == 18;
+def, fnc, Abort                         == 19;
+def, fnc, Stop                          == 20;
+def, fnc, AppendString                  == 21;
+def, fnc, ParseCharacters               == 22;
+def, fnc, ParseDecimalString            == 23;
+def, fnc, ParseNumericString            == 24;
+def, fnc, GetBusControllerListenAddress == 25;
+def, fnc, GetBusControllerTalkAddress   == 26;
+def, fnc, GetBusDeviceListenAddress     == 27;
+def, fnc, GetBusDeviceName              == 28;
+def, fnc, GetBusDeviceTalkAddress       == 29;
+def, fnc, SetBusDeviceNumber            == 30;
+def, fnc, SetEoiLineFlag                == 31;
+def, fnc, TalkToBusDevice               == 32;
+def, fnc, DecimalStringToFloat          == 33;
+def, fnc, FloatToDecimalString          == 34;
+def, fnc, NumericStringToInteger        == 35;
+def, fnc, SetDecimalPointFlag           == 36;
+def, fnc, SetExponentIndicator          == 37;
+def, fnc, SetExponentSignFlag           == 38;
+def, fnc, SetExponentWidth              == 39;
+def, fnc, SetFractionWidth              == 40;
+def, fnc, SetIntegerWidth               == 41;
+def, fnc, SetNumberSignFlag             == 42;
+def, fnc, ListenToBusDevice             == 43;
+def, fnc, ReadDataString                == 44;
+def, fnc, Display                       == 45;
+def, fnc, GetPathCount                  == 46;
+def, fnc, GetPathData                   == 47;
+def, fnc, IndirectPathCount             == 48;
+def, fnc, IndirectPathToDirect          == 49;
+def, fnc, ReadBinary                    == 50;
+def, fnc, WriteBinary                   == 51;
+def, fnc, HexStringToDigital            == 52;
+def, fnc, DigitalToHexString            == 53;
+def, fnc, SetGPIOControlWord            == 54;
+def, fnc, FTalk                         == 55;
+def, fnc, SetClearFlag                  == 56;
+def, fnc, SetGetChecksum                == 57;
+def, fnc, CheckSRQLine                  == 58;
+def, fnc, WriteToGPIO                   == 91;
+def, fnc, ReadFromGPIO                  == 92;
+def, fnc, TalkVXI                       == 93;
+def, fnc, ListenVXI                     == 94;
+def, fnc, ReadSTB                       == 95;
+
+**************************************************************************
+*****   RESERVED Name Macros to Perform IPC Initialization/Termination
+**************************************************************************
+def, mac, URGENTQUIT();
+{
+   Display("Entered URGENTQUIT\n");
+   Stop();
+   STATUS;
+   enable 8 URGENTQUIT;
+}
+**************************************************************************
+**************************************************************************
+def, mac, RESETALL();
+{
+   SETDEVICE(<SYS_RESET>);
+   TalkToBusDevice("FNC DCS VOLT :CH0\r\n");
+}
+**************************************************************************
+**************************************************************************
+def, mac, TERMINATE();
+{
+   disable 8;
+   SETDEVICE(<SYS_TERM>);
+   TalkToBusDevice("FNC DCS VOLT :CH0\r\n");
+   STATUS;
+}
+**************************************************************************
+**************************************************************************
+def, mac, INITIALIZE();
+   txt  buf 80;
+{
+   enable 8 URGENTQUIT;
+   SETDEVICE(<SYS_INIT>);
+   TalkToBusDevice("FNC DCS VOLT :CH0\r\n");
+   STATUS;
+}
+**************************************************************************
+**************************************************************************
+begin dev SHT;
+   source short;
+end;
+**************************************************************************
+**************************************************************************
+begin dev SYS_INIT;
+  begin FNC = 0;
+  end;
+end;
+**************************************************************************
+**************************************************************************
+begin dev SYS_TERM;
+  begin FNC = 0;
+  end;
+end;
+**************************************************************************
+**************************************************************************
+begin dev SYS_RESET;
+  begin FNC = 0;
+  end;
+end;
+**************************************************************************
+************   	        (SWITCH_1) STATIC DESCRIPTION         ************
+**************************************************************************
+begin dev SWITCH_1;
+  source short;
+end;
+**************************************************************************
+************   	          (DWG) STATIC DESCRIPTION            ************
+**************************************************************************
+begin dev DWG;
+
+  ** Digital configuration
+  begin FNC = 1;
+    function digital configuration;
+    cnx hi DWGX;
+    cnx event-sense DWGCSE;
+    cnx event-stim  DWGCST;
+    control
+      {
+        stim-rate   range 8 kwords/sec to 25000        kwords/sec;
+        sense-rate  range 8 kwords/sec to 25000        kwords/sec;   
+        sense-delay range 0 sec        to     0.131072 msec;
+        max-time    range 0 sec        to   100        sec;   ** TBD
+        iterate     max   262144 times;
+        do-timed-digital on,off;
+        event-sense;
+        event-stim;
+      }
+  end;
+
+  ** Stimulate static Logic Data
+  begin FNC = 10;
+    function logic data;
+    cnx hi DWGX;
+    control
+      {
+        type          parallel;
+        stim          range  1     to 32767;
+        voltage-zero  range -2 v   to     5 v;
+        voltage-one   range -2 v   to     5 v;
+        voltage-quies range -2 v   to     5 v;
+        fall-time     range  0 sec to     1 sec;
+        rise-time     range  0 sec to     1 sec;
+        stim-zero;
+        stim-one;
+        stim-hiz;
+        illegal-state-indicator;
+        level-logic-zero  voltage range  -2 v   to     5 v;
+        level-logic-one   voltage range  -2 v   to     5 v;
+        repeat range 1 to 32767;  
+      }
+  end;
+
+  ** Sense static Logic Data
+  begin FNC = 17;
+    cnx hi DWGX;
+    function-value logic data;
+    control
+      {
+        type          parallel;
+        value         range    0    to  32767;
+        hiz           range    0    to  32767;
+        voltage-zero  range -2 v    to      5 v;
+        voltage-one   range -2 v    to      5 v;
+        voltage-quies range -2 v    to      5 v;
+        current-one   range -10 ma  to     10 ma;   ** TBD
+        current-zero  range -10 ma  to     10 ma;   ** TBD
+        word-count    max 32767;
+        fault-count   1;
+      }
+  end;
+
+  ** Prove static Logic Data
+  begin FNC = 22;
+    cnx hi DWGX;
+    function-value logic data;
+    control
+      {
+        type          parallel;
+        value         range  0    to  32767;
+        hiz           range  0    to  32767;
+        ref           range  0    to  32767;
+        mask-one      range  0    to  32767;
+        mask-zero     range  0    to  32767;
+        save-comp     range  0    to  32767;
+        error         range  0    to  32767;
+        error-index   range  0    to  32767;
+        fault-count   1;
+        word-count    max 32767;
+        voltage-zero  range -2 v    to      5 v;
+        voltage-one   range -2 v    to      5 v;
+        voltage-quies range -2 v    to      5 v;
+        current-one   range -10 ma  to     10 ma;   ** TBD
+        current-zero  range -10 ma  to     10 ma;   ** TBD
+      }
+  end;
+
+  ** Apply static Logic Data (regular channels)
+  begin FNC = 11;
+
+    source logic data;
+    cnx hi DS-HI;
+    control
+    {
+      voltage-zero range -2 v to 5 v;
+      voltage-one  range -2 v to 5 v;
+      value        range  0   to 192;
+    }
+  end;
+
+  ** Measure static Logic Data (regular channels)
+  begin FNC = 12;
+
+    sensor (value) logic data;
+    cnx hi DS-HI;
+    control
+    {
+      voltage-zero range -2 v to 5 v;
+      voltage-one  range -2 v to 5 v;
+      value        range  1   to 32768;
+    }
+  end;
+
+  ** Apply static Logic Data (regular channels)
+  begin FNC = 31;
+
+    source logic data;
+    cnx hi SCAN-HI;
+    control
+    {
+      voltage-zero 0 v;  ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+      voltage-one  5 v;  ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+      value        range  0   to 32;    ** !! TBD
+    }
+  end;
+
+  ** Measure static Logic Data (regular channels)
+  begin FNC = 32;
+
+    sensor (value) logic data;
+    cnx hi SCAN-HI;
+    control
+    {
+      voltage-zero range 0 v to 10.235 v;   ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+      voltage-one  range 0 v to 10.235 v;   ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+      value        range  1   to 32768; ** !! TBD
+    }
+  end;
+
+  *********** Events ********************
+  
+  ** Event based event (EBE) calling TBE or SBE (2 layers)
+  begin FNC = 51;
+    event monitor (event-delay-value) event;
+    cnx event-out   DWGEBE51;
+    cnx event-delay DWGT2;
+    control
+      {
+        event-out;
+        event-delay;
+        event-delay-value  range 0.0 sec to 10.0 sec;  ** TBD 
+      }
+  end;
+
+  ** Event based event (EBE) calling EVE (3 layers)
+  begin FNC = 52;
+    event monitor (event-delay-value) event;
+    cnx event-out   DWGEBE52;
+    cnx event-delay DWGE3;
+    control
+      {
+        event-out;
+        event-delay;
+        event-delay-value  range 0.0 sec to 10.0 sec;  ** TBD 
+      }
+  end;
+
+  ** Event based event (EBE) calling TBE or SBE (3 layers)
+  begin FNC = 53;
+    event monitor (event-delay-value) event;
+    cnx event-out   DWGEBE53;
+    cnx event-delay DWGT3;
+    control
+      {
+        event-out;
+        event-delay;
+        event-delay-value  range 0.0 sec to 10.0 sec;  ** TBD 
+      }
+  end;
+
+  ** Timer based event (TBE) (2 layer)
+  begin FNC = 62;
+    event monitor (time) timer;
+    cnx event-out   DWGTBE62;
+    control
+      {
+        event-out;
+        time range 0 sec to 100 sec;  ** TBD
+      }
+  end;
+
+  ** Signal based event (SBE) (2 layer)
+  begin FNC = 72;
+    event monitor (voltage) square wave;
+    cnx event-out DWGSBE72;
+    cnx hi;
+    control
+      {
+        event-out;
+        voltage    range -2 v to 5 v;
+        period     range 0 sec to 100 sec;  ** TBD
+      }
+  end;
+
+  ** Timer based event (TBE) (3 layer)
+  begin FNC = 63;
+    event monitor (time) timer;
+    cnx event-out   DWGTBE63;
+    control
+      {
+        event-out;
+        time range 0 sec to 100 sec;  ** TBD
+      }
+  end;
+
+  ** Signal based event (SBE) (3 layer)
+  begin FNC = 73;
+    event monitor (voltage) square wave;
+    cnx event-out DWGSBE73;
+    cnx hi;
+    control
+      {
+        event-out;
+        voltage    range -2 v to 5 v;
+        period     range 0 sec to 100 sec;  ** TBD
+      }
+  end;
+
+  ** Timer
+  begin FNC = 80;
+    timer (time) timer;
+    control
+      {
+        time range 0 to 100 sec;  ** TBD
+      }
+  end;
+
+end; ** dev DWG
+**************************************************************************
+************    HP E1445A (ARB_GEN) STATIC DESCRIPTION        ************
+**************************************************************************
+begin dev ARB_GEN;
+  
+  begin ; ** event-monitor
+   event monitor (voltage) square wave;
+     cnx event-out ARB-EvArm;
+     
+     control
+      {
+        event-out;
+        delay range 0.1 sec to 1000 sec;
+        event-slope pos, neg;	
+      }
+
+     begin FNC = 102; 		** External trigg.
+      cnx hi ARB-StopTrigFsk;
+     end;
+
+  end;	** end event-monitor
+
+  begin using HPE1445A;
+
+    control
+      {
+        max-time range 0 sec to 1000 sec continuous;
+      }
+    cnx via ARB-Out,
+	div7-out ARB-OUT/7;
+    cnx event-sync ARB-EvArm;
+
+    begin FNC=1; 		* sine wave
+      source ac signal;
+
+	control
+      	{
+            freq range .01 hz to 10737418.24 hz continuous;
+            bandwidth 250000 hz, 10000000 hz;
+            event-sync;
+	    freq-window range 0.01 hz to 10737418.24 hz continuous;
+	    age-rate range 1 hz/sec to 3350 hz/sec continuous;
+      	}
+
+	begin;
+ 	  control
+          {
+            voltage-pp range .32374 v to 10.2375 v continuous;
+            dc-offset range -5 v to 5 v continuous;
+            test-equip-imp 50 ohm, 75 ohm;
+          }
+	end;
+
+	begin;
+          control
+          {
+            voltage-pp range .64748 v to 20.475 v continuous;
+            dc-offset range -10 v to 10 v continuous;
+            test-equip-imp 1 mohm;
+          }
+	end;
+
+    end;
+
+    begin FNC=2; 		* square wave
+      source square wave;
+
+	control
+      	{
+            freq range .0025 hz to 5368709.12 hz continuous;
+            bandwidth 250000 hz, 10000000 hz;
+            event-slope pos, neg;	
+            event-sync;
+	}
+
+	begin;
+          control
+          {
+            voltage-pp range .32374 v to 10.2375 v continuous;
+            dc-offset range -5 v to 5 v continuous;
+            test-equip-imp 50 ohm, 75 ohm;
+          }
+	end;
+
+	begin;
+          control
+          {
+            voltage-pp range .64748 v to 20.475 v continuous;
+            dc-offset range -10 v to 10 v continuous;
+            test-equip-imp 1 mohm;
+          }
+	end;
+
+    end;
+
+    begin FNC=3; 		* ramp waveform
+      source ramp signal ;
+
+	control
+      	{
+            freq range .0002 hz to 5368709.12 hz continuous;
+            bandwidth 250000 hz, 10000000 hz;
+            event-slope pos, neg;	
+            event-sync;
+	}
+
+	begin;
+          control
+          {
+            voltage-pp range .32374 v to 10.2375 v continuous;
+            dc-offset range -5 v to 5 v continuous;
+            test-equip-imp 50 ohm, 75 ohm;
+          }
+	end;
+
+	begin;
+          control
+          {
+            voltage-pp range .64748 v to 20.475 v continuous;
+            dc-offset range -10 v to 10 v continuous;
+            test-equip-imp 1 mohm;
+          }
+	end;
+
+    end;
+
+    begin FNC=4; 		* user waveform
+      source waveform;
+
+      control
+        {
+           stim range 4 to 262144 by 1;
+           sample-spacing 47 nsec to 100 sec continuous;
+           bandwidth 250000 hz, 10000000 hz;
+           event-sync;
+        }
+
+	begin;
+          control
+          {
+            dc-offset range -5 v to 5 v continuous;
+            test-equip-imp 50 ohm, 75 ohm;
+          }
+	end;
+
+	begin;
+          control
+          {
+            dc-offset range -10 v to 10 v continuous;
+            test-equip-imp 1 mohm;
+          }
+	end;
+    end;
+
+    begin FNC=6; 		* triangular waveform
+      source triangular wave signal;
+
+	control
+      	{
+            freq range .0002 hz to 5368709.12 hz continuous;
+            bandwidth 250000 hz, 10000000 hz;
+            event-slope pos, neg;	
+            event-sync;
+	}
+
+	begin;
+          control
+          {
+            voltage-pp range .32374 v to 10.2375 v continuous;
+            dc-offset range -5 v to 5 v continuous;
+            test-equip-imp 50 ohm, 75 ohm;
+          }
+	end;
+
+	begin;
+          control
+          {
+            voltage-pp range .64748 v to 20.475 v continuous;
+            dc-offset range -10 v to 10 v continuous;
+            test-equip-imp 1 mohm;
+          }
+	end;
+
+    end;
+
+    begin FNC=7; 		* dc signal
+      source dc signal;
+
+	begin;
+          control
+          {
+            voltage range -5.12 v to 5.11875 v continuous;
+            test-equip-imp 50 ohm, 75 ohm;
+          }
+	end;
+
+	begin;
+          control
+          {
+            voltage range -10.24 v to 10.2375 v continuous;
+            test-equip-imp 1 mohm;
+          }
+	end;
+
+    end;
+
+  end;
+end; *end arb_gen
+**************************************************************************
+************  HP E1420B (COUNTER-TIMER) STATIC DESCRIPTION    ************
+**************************************************************************
+begin dev COUNTER_TIMER;
+
+  begin using cntr-ch1;
+    cnx via CT-In1;
+    cnx hi CT-In1;
+    cnx event-gate-from CT-EvArm;
+    cnx event-gate-to CT-EvArm;
+    cnx event-strobe event-port;
+    control
+    {
+      coupling ac, dc;
+      voltage range .1 v to 100 v continuous;
+      test-equip-imp 50 ohm, 1000000 ohm;
+      pos-slope;
+      neg-slope;
+      event-gate-from;
+      event-gate-to;
+      strobe-to-event;
+    }
+
+    begin;  *ac signal
+      control
+      {
+        freq range .001 hz to 200000000 hz continuous;
+        period range .000000005 sec to 1000 sec continuous;
+        freq-ratio range .00000000001 to 100000000000 continuous;
+	phase-angle range 0 deg to 359.9 deg;
+      }
+  
+      begin FNC=1;  *freq
+        sensor (freq) ac signal ;
+      end;
+    
+      begin FNC=2;  *period
+        sensor (period) ac signal;
+      end;
+ 
+      begin FNC=3;  *ratio
+        cnx-ref via CT-In2;
+        sensor (freq-ratio) ac signal;
+      end;
+
+      begin FNC=15;  *phase angle
+        cnx-ref via CT-In2;
+        sensor (phase-angle) ac signal;
+      end;
+
+    end; *ac signal
+
+    begin;  *pulsed dc
+      control
+      {
+        rise-time range .000000015 sec to .001 sec continuous; **Changed per ECP4 Change 4 
+        fall-time range .000000015 sec to .001 sec continuous; **25 APR 00 by M.E.
+        pulse-width range .000000005 sec to .001 sec continuous;
+	neg-pulse-width range .000000005 sec to .001 sec continuous;
+	pos-pulse-width range .000000005 sec to .001 sec continuous;
+        period range .000000005 sec to 1000 sec continuous;
+        voltage-p range .1 v to 100 v continuous;
+        prf range .001 hz to 200000000 hz continuous;
+      }
+
+      begin FNC=4;  *risetime
+        sensor (rise-time) pulsed dc;
+      end;
+
+      begin FNC=5;  *falltime
+        sensor (fall-time) pulsed dc;
+      end;
+  
+      begin FNC=6;  *pulsewidth
+        sensor (pulse-width) pulsed dc ;  
+      end;
+
+      begin FNC=7;  *period
+        sensor (period) pulsed dc;
+      end;
+
+      begin FNC=8;  *prf
+        sensor (prf) pulsed dc;
+      end;
+
+      begin FNC=9;  *pulsewidth
+        sensor (neg-pulse-width) pulsed dc ;  
+      end;
+
+      begin FNC=10;  *pulsewidth
+        sensor (pos-pulse-width) pulsed dc ;  
+      end;
+    end; *pulsed dc
+    
+    begin; *count (totalize)
+      sensor (count) events;
+      control
+      {
+        voltage range .1 v to 100 v continuous;
+        time range 0 sec to 5 sec continuous;
+        count range 0 times to 999999999999 times continuous;
+        pos-slope,neg-slope;
+        trig range -102 v to 102 v continuous;
+      }
+
+      ** begin FNC=11;  *count (totalize)
+      ** end;
+
+      begin FNC=12;  *count (totalize) 1 by 2
+        cnx gate-in CT-In2;
+      end;
+    end; *count (totalize)
+
+    begin; *events for time interval A
+      event monitor (voltage) pulsed dc;
+      cnx event-out CT-EvA;
+      * cnx event-out cntr-event-port  ;
+
+      control
+      {
+        event-out;
+        voltage range .1 v to 100 v continuous;
+        prf range 0 hz to 200000000 hz continuous;
+        settle-time .001 sec to 99.999 sec continuous;
+      }
+
+      begin FNC=13;  *events for interval A pos slope
+        cnx hi CT-In1;
+        control
+        {
+          event-slope pos;
+        }
+      end;
+
+      begin FNC=14;  *time interval A neg slope
+      cnx hi CT-In1;
+        control
+        {
+          event-slope neg;
+        }
+      end;
+    end; *events for time interval A
+  end; * channel A
+
+  begin using cntr-ch2;
+    cnx via CT-In2;
+    cnx hi CT-In2;
+
+    cnx event-gate-from CT-EvArm;
+    cnx event-gate-to CT-EvArm;
+    cnx event-strobe event-port;
+    control
+    {
+      coupling ac, dc;
+      voltage range .1 v to 100 v continuous;
+      test-equip-imp 50 ohm, 1000000 ohm;
+      pos-slope;
+      neg-slope;
+      event-gate-from;
+      event-gate-to;
+      strobe-to-event;
+    }
+
+    begin;  *ac signal
+      control
+      {
+        freq range .001 hz to 100000000 hz continuous;
+        period range .00000001 sec to 1000 sec continuous; **Changed per ECP4 Change 5 16MAY00 by ME
+        freq-ratio range .00000000001  to 100000000000 continuous;
+	phase-angle range 0 deg to 359.9 deg;
+      }  
+
+      begin FNC=101;  *freq
+        sensor (freq) ac signal;
+      end;
+      
+      begin FNC=102;  *period
+        sensor (period) ac signal;
+      end;
+
+      begin FNC=103;  *ratio
+        cnx-ref via CT-In1;
+        sensor(freq-ratio)ac signal;  
+      end;
+
+      begin FNC=115;  *phase angle
+        cnx-ref via CT-In1;
+        sensor (phase-angle) ac signal;
+      end;
+
+
+    end; *ac signal
+
+    begin;  *pulsed dc  
+      control
+      {
+	  rise-time range .000000015 sec to .001 sec continuous; **Changed per ECP4 Change 4 
+        fall-time range .000000015 sec to .001 sec continuous; **25 APR 00 by M.E.
+        pulse-width range .000000005 sec to .001 sec continuous;
+	neg-pulse-width range .000000005 sec to .001 sec continuous;
+	pos-pulse-width range .000000005 sec to .001 sec continuous;
+        period range .00000001 sec to 1000 sec continuous; **Changed per ECP4 Change 5 16MAY00 by ME
+        voltage-p range .1 v to 100 v continuous;
+        prf range .001 hz to 100000000 hz continuous;
+      }
+
+      begin FNC=104;  *pulsewidth
+        sensor (pulse-width) pulsed dc ;
+      end;
+
+      begin FNC=105;  *period
+        sensor (period) pulsed dc;
+      end;
+    
+      begin FNC=106;  *prf
+        sensor (prf) pulsed dc;
+      end;
+
+      begin FNC=109;  *pulsewidth
+        sensor (neg-pulse-width) pulsed dc ;
+      end;
+
+      begin FNC=110;  *pulsewidth
+        sensor (pos-pulse-width) pulsed dc ;
+      end;
+
+    end; *pulsed dc
+
+ **   begin FNC=112;  *count (totalize) 2 by 1
+ **     cnx gate-in CT-In1;
+ **     sensor (count) events;
+ **     control
+ **     {
+ **	voltage range .1 v to 100 v continuous;
+ **        time range 0 sec to 5 sec continuous;
+ **        count range 0 times to 999999999999 times continuous;
+ **        pos-slope,neg-slope;
+ **        trig range -102 v to 102 v continuous;
+ **      }
+ **   end; *count (totalize) 2 by 1
+
+    begin; *events for Time interval B
+      event monitor (voltage) pulsed dc;
+      cnx event-out CT-EvB;
+      *cnx event-out cntr-event-port;
+
+      control
+      {
+        event-out;
+        voltage range .1 v to 100 v continuous;
+        prf 0 hz to 200000000 hz continuous;
+        settle-time .001 sec to 10 sec continuous;
+      }
+
+      begin FNC=113;  *time interval B pos slope
+      cnx hi CT-In2;
+        control
+        {
+          event-slope pos;
+        }
+      end;
+
+      begin FNC=114;  *time interval B neg slope
+      cnx hi CT-In2;
+        control
+        {
+          event-slope neg;
+        }
+      end;
+    end; *events for Time interval B
+  end; *channel B
+
+  begin FNC=120 using cntrTI; *time interval
+    sensor (time) time interval;
+    cnx event-time-from CT-EvA,
+    event-time-to CT-EvB;
+    control
+    {
+      time range .000000001 sec to 1000 sec continuous;
+      event-time-from;
+      event-time-to;
+      max-time range 0 sec to 2000 sec continuous;
+    }
+  end;
+
+  begin;
+    control
+    {
+      voltage range 0 v to 50 v continuous;
+      pos-slope;
+      neg-slope;
+    }
+
+    begin; * events for arming - arm port
+      event monitor (voltage) dc signal;
+      cnx  event-out CT-EvArm  ;
+      control
+      {
+        event-out;
+        voltage range 0 v to 50 v continuous;
+      }
+
+      begin FNC=121 using cntr-arm-start;  *ARMING
+        cnx GATE-START-IN CT-Arm;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=122 using cntr-arm-stop;  *ARMING
+        cnx GATE-STOP-IN CT-Arm ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=123 using cntr-ttl0-start;  *ARMING
+        cnx GATE-START-IN TTLTrig0;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=124 using cntr-ttl0-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig0 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=125 using cntr-ttl1-start;  *ARMING
+        cnx GATE-START-IN TTLTrig1;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=126 using cntr-ttl1-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig1 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=127 using cntr-ttl2-start;  *ARMING
+        cnx GATE-START-IN TTLTrig2;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=128 using cntr-ttl2-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig2 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=129 using cntr-ttl3-start;  *ARMING
+        cnx GATE-START-IN TTLTrig3;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=130 using cntr-ttl3-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig3 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=131using cntr-ttl4-start;  *ARMING
+        cnx GATE-START-IN TTLTrig4;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=132 using cntr-ttl4-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig4 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=133 using cntr-ttl5-start;  *ARMING
+        cnx GATE-START-IN TTLTrig5;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=134 using cntr-ttl5-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig5 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=135 using cntr-ttl6-start;  *ARMING
+        cnx GATE-START-IN TTLTrig6;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=136 using cntr-ttl6-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig6 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=137 using cntr-ttl7-start;  *ARMING
+      cnx GATE-START-IN TTLTrig7;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+
+      begin FNC=138 using cntr-ttl7-stop;  *ARMING
+        cnx GATE-STOP-IN TTLTrig7 ;
+        control
+        {
+          event-slope pos,neg;
+        }
+      end;
+    end;
+  end;
+
+  begin using counter-trigger; *events for trigger on ch1
+    event monitor (voltage) pulsed dc;
+    cnx event-out event-port;
+    control
+    {
+      event-indicator;
+      event-out;
+      voltage range 0 v to 50 v;
+    }
+
+    begin FNC = 140; * event for pos trigger on ch1
+      cnx hi CT-In1;
+      control
+      {
+        prf range 0 hz to 150000000 hz continuous;
+        event-slope pos;
+      }  
+    end;
+
+    begin FNC = 141; * event for neg trigger on ch1
+      cnx hi CT-In1;
+      control
+      {
+        prf range 0 hz to 150000000 hz continuous;
+        event-slope neg;
+      }  
+    end;
+
+    begin FNC = 142; * event for pos trigger on ch2
+      cnx hi CT-In2;
+      control
+      {
+        prf range 0 hz to 100000000 hz continuous;
+        event-slope pos;
+      }  
+    end;
+
+    begin FNC = 143;  * event for neg trigger on ch2
+      cnx hi CT-In2;
+      control
+      {
+        prf range 0 hz to 100000000 hz continuous;
+        event-slope neg;
+      }  
+    end;
+
+  end; *events for trigger on ch1
+end; *end counter_timer
+**************************************************************************
+************    AEGIS 7081-PDU (DCP) STATIC DESCRIPTION       ************
+**************************************************************************
+begin dev DCP;
+  begin;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+      	volt-lmt range -40 v to 40 v continuous;
+      	current range 1 a to 5 a continuous;
+      	current-lmt range 0 a to 5 a continuous;
+    }
+
+    begin FNC = 1 using DCP-1; * dc_ps_one
+      source dc signal;
+      cnx hi DC1-Hi, lo DC1-Lo, sense-hi DC1-SHi, sense-lo DC1-SLo;
+    end;
+
+    begin FNC = 2 using DCP-2; * dc_ps_two
+      source dc signal;
+      cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+    end;
+
+    begin FNC = 3 using DCP-3; * dc_ps three
+      source dc signal;
+      cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+    end;
+
+    begin FNC = 4 using DCP-4; * dc_ps_four
+      source dc signal;
+      cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+    end;
+
+    begin FNC = 5 using DCP-5; * dc_ps_five
+      source dc signal;
+      cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+    end;
+
+    begin FNC = 6 using DCP-6; * dc_ps_six
+      source dc signal;
+      cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+    end;
+
+    begin FNC = 7 using DCP-7; * dc_ps seven
+      source dc signal;
+      cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+    end;
+
+    begin FNC = 8 using DCP-8; * dc_ps_eight
+      source dc signal;
+      cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+    end;
+
+    begin FNC = 9 using DCP-9; * dc_ps_nine
+      source dc signal;
+      cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+    end;
+  end;
+
+  begin FNC = 10 using DCP-10; * dc_ps_ten
+    source dc signal;
+    control
+    {
+      	voltage range -65 v to 65 v continuous;
+      	volt-lmt range -65 v to 65 v continuous;
+      	current range 1 a to 5 a continuous;
+      	current-lmt range 0 a to 5 a continuous;
+    }
+    cnx hi DC10-Hi, lo DC10-Lo, sense-hi DC10-SHi, sense-lo DC10-SLo;
+  end;
+
+  begin using DC8Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+
+    begin FNC = 108 using DCP-8, DCP-9; 	* dc_ps_eight master, 9 slave
+      control
+      {
+        current-lmt range 5.0001 a to 10 a continuous;
+      }
+      cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+    end;  
+  end;
+
+  begin using DC7Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+    begin FNC = 17;    
+      begin using DCP-7, DCP-8;			* slaves power supply 7 with 8
+        control
+        {
+             current-lmt range 5.0001 a to 10 a continuous;
+        }
+        cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+      end;
+
+      begin using DCP-7, DCP-8, DCP-9;		* slaves power supply 7 with 8, 9
+        control
+        {
+             current-lmt range 10.0001 a to 15 a continuous;
+        }
+        cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+      end;
+    end;
+  end;
+
+  begin using DC6Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+
+    begin FNC = 16; 
+      begin using DCP-6, DCP-7;			* slaves power supply 6 with 7
+        control
+        {
+             current-lmt range 5.0001 a to 10 a continuous;
+        }
+        cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+      end;
+
+      begin using DCP-6, DCP-7, DCP-8;          * slaves power supply 6 with 7, 8
+        control
+        {
+             current-lmt range 10.0001 a to 15 a continuous;
+        }
+        cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+      end;
+
+      begin using DCP-6, DCP-7, DCP-8, DCP-9;   * slaves power supply 6 with 7, 8, 9
+        control
+        {
+             current-lmt range 15.0001 a to 20 a continuous;
+        }
+        cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+      end;
+    end;
+  end;
+
+  begin using DC5Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+
+    begin FNC=15;
+      begin using DCP-5, DCP-6; 		* slaves power supply 5 with 6
+        control
+        {
+             current-lmt range 5.0001 a to 10 a continuous;
+        }
+        cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+      end;
+
+      begin using DCP-5, DCP-6, DCP-7; 		* slaves power supply 5 with 6, 7
+        control
+        {
+             current-lmt range 10.0001 a to 15 a continuous;
+        }
+        cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+      end;
+
+      begin using DCP-5, DCP-6, DCP-7, DCP-8;   * slaves power supply 5 with 6, 7, 8
+        control
+        {
+             current-lmt range 15.0001 a to 20 a continuous;
+        }
+        cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+      end;
+
+      begin using DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;       * slaves power supply 5 with 6, 7, 8, 9
+        control
+        {
+             current-lmt range 20.0001 a to 25 a continuous;
+        }
+        cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+      end;
+    end;
+  end;
+
+  begin using DC4Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+
+    begin FNC=14;
+      begin using DCP-4, DCP-5;  		* slaves power supply 4 with 5
+        control
+        {
+             current-lmt range 5.0001 a to 10 a continuous;
+        }
+        cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+      end;
+
+      begin using DCP-4, DCP-5, DCP-6;       	* slaves power supply 4 with 5, 6
+        control
+        {
+             current-lmt range 10.0001 a to 15 a continuous;
+        }
+        cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+      end;
+
+      begin using DCP-4, DCP-5, DCP-6, DCP-7;   * slaves power supply 4 with 5, 6, 7
+        control
+        {
+             current-lmt range 15.0001 a to 20 a continuous;
+        }
+        cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+      end;
+
+      begin using DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;         * slaves power supply 4 with 5, 6, 7, 8
+        control
+        {
+             current-lmt range 20.0001 a to 25 a continuous;
+        }
+        cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+      end;
+
+      begin using DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;  * slaves power supply 4 with 5, 6, 7, 8, 9
+        control
+        {
+             current-lmt range 25.0001 a to 30 a continuous;
+        }
+        cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+      end;
+    end;
+  end;
+
+  begin using DC3Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+
+    begin FNC=13;
+      begin using DCP-3, DCP-4;  			* slaves power supply 3 with 4
+        control
+        {
+             current-lmt range 5.0001 a to 10 a continuous;
+        }
+        cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+      end;
+
+      begin using DCP-3, DCP-4, DCP-5;		         * slaves power supply 3 with 4, 5
+        control
+        {
+             current-lmt range 10.0001 a to 15 a continuous;
+        }
+        cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+      end;
+
+      begin using DCP-3, DCP-4, DCP-5, DCP-6;    	 * slaves power supply 3 with 4, 5, 6
+        control
+        {
+              current-lmt range 15.0001 a to 20 a continuous;
+        }
+        cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+      end;
+
+      begin using DCP-3, DCP-4, DCP-5, DCP-6, DCP-7;     * slaves power supply 3 with 4, 5, 6, 7
+        control
+        {
+             current-lmt range 20.0001 a to 25 a continuous;
+        }
+        cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+      end;
+
+      begin using DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;         * slaves power supply 3 with 4, 5, 6, 7, 8
+        control
+        {
+             current-lmt range 25.0001 a to 30 a continuous;
+        }
+        cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+      end;
+
+      begin using DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;  * slaves power supply 3 with 4, 5, 6, 7, 8, 9
+        control
+        {
+             current-lmt range 30.0001 a to 35 a continuous;
+        }
+        cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+      end;
+    end;  
+  end;
+
+  begin using DC2Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+
+    begin FNC=12;
+      begin using DCP-2, DCP-3; 			* slaves power supply 2 with 3
+        control
+        {
+             current-lmt range 5.0001 a to 10 a continuous;
+        }
+        cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+      end;
+
+      begin using DCP-2, DCP-3, DCP-4;			* slaves power supply 2 with 3, 4
+        control
+        {
+             current-lmt range 10.0001 a to 15 a continuous;
+        }
+        cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+      end;
+
+      begin using DCP-2, DCP-3, DCP-4, DCP-5;  		* slaves power supply 2 with 3, 4, 5
+        control
+        {
+             current-lmt range 15.0001 a to 20 a continuous;
+        }
+        cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+      end;
+
+      begin using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6;  	* slaves power supply 2 with 3, 4, 5, 6
+        control
+        {
+             current-lmt range 20.0001 a to 25 a continuous;
+        }
+        cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+      end;
+
+      begin using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7;  		* slaves power supply 2 with 3, 4, 5, 6, 7
+        control
+        {
+             current-lmt range 25.0001 a to 30 a continuous;
+        }
+        cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+      end;
+
+      begin using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;  * slaves power supply 2 with 3, 4, 5, 6, 7, 8
+        control
+        {
+             current-lmt range 30.0001 a to 35 a continuous;
+        }
+        cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+      end;
+
+      begin using DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;  * slaves power supply 2 with 3, 4, 5, 6, 7, 8, 9
+        control
+        {
+             current-lmt range 35.0001 a to 40 a continuous;
+        }
+        cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+      end;
+    end;  
+  end;
+
+  begin using DC1Master;	* any supply master, adjacent slave, sense lines define master
+    source dc signal;
+    control
+    {
+      	voltage range -40 v to 40 v continuous;
+    }
+
+    begin FNC=11;
+      begin using DCP-1, DCP-2;  		* slaves power supply 1 with 2
+        control
+        {
+             current-lmt range 5.0001 a to 10 a continuous;
+        }
+        cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+      end;
+
+      begin using DCP-1, DCP-2, DCP-3;        	* slaves power supply 1 with 2, 3
+        control
+        {
+             current-lmt range 10.0001 a to 15 a continuous;
+        }
+        cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+      end;
+
+      begin using DCP-1, DCP-2, DCP-3, DCP-4;  	* slaves power supply 1 with 2, 3, 4
+        control
+        {
+             current-lmt range 15.0001 a to 20 a continuous;
+        }
+        cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+      end;
+
+      begin using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5; 		* slaves power supply 1 with 2, 3, 4, 5
+        control
+        {
+             current-lmt range 20.0001 a to 25 a continuous;
+        }
+        cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+      end;
+
+      begin using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6;     * slaves power supply 1 with 2, 3, 4, 5, 6
+        control
+        {
+             current-lmt range 25.0001 a to 30 a continuous;
+        }
+        cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+      end;
+
+      begin using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7; 		* slaves power supply 1 with 2, 3, 4, 5, 6, 7
+        control
+        {
+             current-lmt range 30.0001 a to 35 a continuous;
+        }
+        cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+      end;
+
+      begin using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8;       * slaves power supply 1 with 2, 3, 4, 5, 6, 7, 8
+        control
+        {
+             current-lmt range 35.0001 a to 40 a continuous;
+        }
+        cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+      end;
+
+      begin using DCP-1, DCP-2, DCP-3, DCP-4, DCP-5, DCP-6, DCP-7, DCP-8, DCP-9;* slaves power supply 1 with 2, 3, 4, 5, 6, 7, 8, 9
+        control
+        {
+             current-lmt range 40.0001 a to 45 a continuous;
+        }
+        cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+      end;
+    end;  
+  end;
+
+  begin FNC=110;		* readback of voltage at the output for dcp1	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC1-Hi, lo DC1-Lo, sense-hi DC1-SHi, sense-lo DC1-SLo;
+  end;
+
+  begin FNC=111;		* readback of current at the output for dcp1
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC1-Hi, lo DC1-Lo, sense-hi DC1-SHi, sense-lo DC1-SLo;
+  end;
+
+  begin FNC=120;		* readback of voltage at the output for dcp2	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+  end;
+
+  begin FNC=121;		* readback of current at the output for dcp2
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC2-Hi, lo DC2-Lo, sense-hi DC2-SHi, sense-lo DC2-SLo;
+  end;
+
+  begin FNC=130;		* readback of voltage at the output for dcp3	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+  end;
+
+  begin FNC=131;		* readback of current at the output for dcp3
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC3-Hi, lo DC3-Lo, sense-hi DC3-SHi, sense-lo DC3-SLo;
+  end;
+
+  begin FNC=140;		* readback of voltage at the output for dcp4	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+  end;
+
+  begin FNC=141;		* readback of current at the output for dcp4
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC4-Hi, lo DC4-Lo, sense-hi DC4-SHi, sense-lo DC4-SLo;
+  end;
+
+  begin FNC=150;		* readback of voltage at the output for dcp5	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+  end;
+
+  begin FNC=151;		* readback of current at the output for dcp5
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC5-Hi, lo DC5-Lo, sense-hi DC5-SHi, sense-lo DC5-SLo;
+  end;
+
+  begin FNC=160;		* readback of voltage at the output for dcp6	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+  end;
+
+  begin FNC=161;		* readback of current at the output for dcp6
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC6-Hi, lo DC6-Lo, sense-hi DC6-SHi, sense-lo DC6-SLo;
+  end;
+
+  begin FNC=170;		* readback of voltage at the output for dcp7	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+  end;
+
+  begin FNC=171;		* readback of current at the output for dcp7
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC7-Hi, lo DC7-Lo, sense-hi DC7-SHi, sense-lo DC7-SLo;
+  end;
+
+  begin FNC=180;		* readback of voltage at the output for dcp8
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+     cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+  end;
+
+  begin FNC=181;		* readback of current at the output for dcp8
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+     cnx hi DC8-Hi, lo DC8-Lo, sense-hi DC8-SHi, sense-lo DC8-SLo;
+  end;
+
+  begin FNC=190;		* readback of voltage at the output for dcp9	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -40 v to 40 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+  end;
+
+  begin FNC=191;		* readback of current at the output for dcp9
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC9-Hi, lo DC9-Lo, sense-hi DC9-SHi, sense-lo DC9-SLo;
+  end;
+
+  begin FNC=200;		* readback of voltage at the output for dcp10	
+    sensor (voltage) dc signal;
+    control
+    {
+     voltage range -65 v to 65 v continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC10-Hi, lo DC10-Lo, sense-hi DC10-SHi, sense-lo DC10-SLo;
+  end;
+
+  begin FNC=201;		* readback of current at the output for dcp10
+    sensor (current) dc signal;
+    control
+    {
+     current range 0 a to 5 a continuous;
+     max-time 0 sec to 1000 sec continuous;
+    }
+    cnx hi DC10-Hi, lo DC10-Lo, sense-hi DC10-SHi, sense-lo DC10-SLo;
+  end;
+
+end;
+**************************************************************************
+************    HP E1428A (DIG_SCOPE) STATIC DESCRIPTION      ************
+**************************************************************************
+begin dev DIG_SCOPE;
+
+  control
+  {
+    coupling ac, dc;
+    voltage range 0 v to 50 v continuous;
+    test-equip-imp 50 ohm, 1000000 ohm;
+  }
+
+  begin using scope-ch1;
+ 
+    cnx via DSO-In1;
+    cnx event-strobe event-port;
+    
+    begin;  *ac signal  
+      control
+      {
+        dc-offset range -250 v to 250 v continuous;
+        voltage-pp range 0 v to 40 v continuous;
+        av-voltage range 0 v to 40 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        freq-window range 450 hz to 30000000 hz continuous;
+        period range .00000001 sec to 50 sec;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+          
+      begin FNC=101;  *freq
+        sensor (freq) ac signal;
+      end;
+    
+      begin FNC=102;  *period
+        sensor (period) ac signal;
+      end;
+  
+      begin FNC=103;  *voltage-pp
+        sensor (voltage-pp) ac signal;
+      end;
+  
+      begin FNC=117;  *av-voltage
+        sensor (av-voltage) ac signal;
+      control
+      {
+        sample-count range 0 to 2048 continuous;
+      }
+      end;
+    end; *end ac signal
+
+    begin;  *dc signal  
+      control
+      {
+        voltage range -40 v to 40 v continuous;
+        strobe-to-event;
+      }
+          
+      begin FNC=104;  *voltage
+        sensor (voltage) dc signal;
+      end;
+    
+    end; *end dc signal
+
+    begin;  *pulsed dc  
+      control
+      {
+        voltage-pp range 0 v to 40 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        prf range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        pulse-width range .00000001 sec to 50 sec continuous;
+        neg-pulse-width range .00000001 sec to 50 sec continuous;
+        pos-pulse-width range .00000001 sec to 50 sec continuous;
+        duty-cycle range 0 pc to 100 pc;
+        overshoot range 0 pc to 100 pc;
+        preshoot range 0 pc to 100 pc;
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=107;  *voltage-pp
+        sensor (voltage-pp) pulsed dc;
+      end;
+
+      begin FNC=108;  *voltage-p-pos
+        sensor (voltage-p-pos) pulsed dc;
+      end;
+
+      begin FNC=109;  *voltage-p-neg
+        sensor (voltage-p-neg) pulsed dc;
+      end;
+  
+      begin FNC=110;  *prf
+        sensor (prf) pulsed dc ;
+      end;
+
+      begin FNC=111;  *risetime
+        sensor (rise-time) pulsed dc;
+      end;
+
+      begin FNC=112;  *falltime
+        sensor (fall-time) pulsed dc;
+      end;
+
+      begin FNC=113;  *pulsewidth
+        sensor (pulse-width) pulsed dc;
+      end;
+
+      begin FNC=114;  *duty cycle
+        sensor (duty-cycle) pulsed dc;
+      end;
+
+      begin FNC=115;  *overshoot
+        sensor (overshoot) pulsed dc;
+      end;
+
+      begin FNC=116;  *preshoot
+        sensor (preshoot) pulsed dc;
+      end;
+
+      begin FNC=118;  *pulsewidth
+        sensor (neg-pulse-width) pulsed dc;
+      end;
+
+      begin FNC=119;  *pulsewidth
+        sensor (pos-pulse-width) pulsed dc;
+      end;
+
+    end; *end pulsed dc
+
+****************************************************************************
+** For future reference if Cem Wizard needs to be changed for scope only,
+** remove the code from here down to the next line of stars and then after 
+** the change, paste this code back. (Same thing applies to channel 2)
+****************************************************************************
+   begin;  *ramp signal  
+      control
+      {
+        voltage-pp range 0 v to 40 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=107;  *voltage-pp
+        sensor (voltage-pp) ramp signal;
+      end;
+
+      begin FNC=110;  *frequency
+        sensor (freq) ramp signal ;
+      end;
+
+      begin FNC=111;  *risetime
+        sensor (rise-time) ramp signal;
+      end;
+
+      begin FNC=112;  *falltime
+        sensor (fall-time) ramp signal;
+      end;
+
+    end; *end ramp signal
+
+    begin;  *square wave  
+      control
+      {
+        voltage-pp range 0 v to 40 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        pulse-width range .00000001 sec to 50 sec continuous;
+        duty-cycle range 0 pc to 100 pc;
+        overshoot range 0 pc to 100 pc;
+        preshoot range 0 pc to 100 pc;
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=107;  *voltage-pp
+        sensor (voltage-pp) square wave;
+      end;
+
+      begin FNC=110;  *frequency
+        sensor (freq) square wave ;
+      end;
+
+      begin FNC=111;  *risetime
+        sensor (rise-time) square wave;
+      end;
+
+      begin FNC=112;  *falltime
+        sensor (fall-time) square wave;
+      end;
+
+      begin FNC=114;  *duty cycle
+        sensor (duty-cycle) square wave;
+      end;
+
+    end; *end square wave
+
+    begin;  *triangular wave signal
+      control
+      {
+        voltage-pp range 0 v to 40 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        pulse-width range .00000001 sec to 50 sec continuous;
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=107;  *voltage-pp
+        sensor (voltage-pp) triangular wave signal;
+      end;
+
+      begin FNC=110;  *frequency
+        sensor (freq) triangular wave signal;
+      end;
+
+      begin FNC=111;  *risetime
+        sensor (rise-time) triangular wave signal;
+      end;
+
+      begin FNC=112;  *falltime
+        sensor (fall-time) triangular wave signal;
+      end;
+
+      begin FNC=114;  *duty cycle
+        sensor (duty-cycle) triangular wave signal;
+      end;
+
+    end; *end triangular wave signal
+****************************************************************************
+
+    begin;  *Save, Load, and Compare  
+      control
+      {
+        save-wave;
+	load-wave;
+	compare-wave;
+	strobe-to-event;
+      }
+          
+      begin FNC=130;  *save-waveform
+        sensor (save-wave) waveform;
+      	control
+      	{
+	      save-wave max 8000;
+	      save-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+	      save-to wmem1,wmem2,wmem3,wmem4;
+      	}      
+      end;
+    
+      begin FNC=131;  *load-waveform
+        sensor (load-wave) waveform;
+      	control
+      	{
+	      load-wave max 8000;
+	      load-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+      	}      
+
+      end;
+  
+      begin FNC=132;  *compare-waveform
+        sensor (compare-wave) waveform;
+      	control
+      	{
+	      compare-wave max 8000;
+	      compare-ch chan1,chan2;
+	      compare-to wmem1,wmem2,wmem3,wmem4;
+	      allowance range 0 to 8;
+      	}      
+      end;
+  
+    end; *Save, Load, and Compare  
+
+    begin;  *Math Function 
+      control
+      {
+        math;
+	strobe-to-event;
+      }
+          
+      begin FNC=133;  *add-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      add-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      add-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  	func1,func2;
+	  }
+      end;
+
+      begin FNC=134;  *subtract-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      subtract-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      subtract-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  	func1,func2;
+	  }
+      end;
+
+      begin FNC=135;  *multiply-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      multp-from   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      multp-to     chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  	func1,func2;
+	  }
+      end;
+
+      begin FNC=136;  *differentiate-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      differentiate	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  	func1,func2;
+	  }
+      end;
+
+      begin FNC=137;  *integrate-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      integrate		chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  	func1,func2;
+	  }
+      end;
+   
+    end; *Math Function  
+
+    begin FNC=120;  *waveform for digitizing
+      sensor(sample)waveform;
+      control
+      {
+        dc-offset range -250 v to 250 v continuous;
+        voltage-pp range 0 v to 40 v continuous;
+        sample max 8000;
+        sample-time range 0.00000016 sec to 800 sec continuous;
+        resp max 8000;
+		strobe-to-event;
+      }
+    end;
+    
+    begin;
+      control
+      {
+        voltage range 0 v to 50 v;
+        event-slope pos, neg;
+      }
+
+      begin; *events for delay
+        event monitor (voltage) dc signal;
+        cnx event-out DSO-Ev1;
+        control
+        {
+          event-out;
+          voltage range 0 v to 50 v;
+        }
+
+        begin FNC=121 using from-channel-1;  *event for time interval
+          cnx FROM DSO-In1;
+          control
+          {
+            event-slope pos, neg;
+          }
+          end;
+
+        begin FNC=122 using to-channel-1;  *event for time interval
+          cnx TO DSO-In1;
+          control
+          {
+            event-slope pos, neg;
+          }
+        end;
+
+      end; *end events for delay
+    end;
+  end; *end scope-ch1
+
+  begin using scope-ch2;
+    cnx via DSO-In2;
+    cnx event-strobe event-port;
+
+    begin;  *ac signal  
+      control
+      {
+	dc-offset range -250 v to 250 v continuous;
+        voltage-pp range 0 v to 40 v continuous;
+        av-voltage range 0 v to 40 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        freq-window range 450 hz to 30000000 hz continuous;
+        period range .00000001 sec to 50 sec;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+          
+      begin FNC=201;  *freq
+        sensor (freq) ac signal;
+      end;
+    
+      begin FNC=202;  *period
+        sensor (period) ac signal;
+      end;
+  
+      begin FNC=203;  *voltage-pp
+        sensor (voltage-pp) ac signal;
+      end;
+  
+      begin FNC=217;  *av-voltage
+        sensor (av-voltage) ac signal;
+      control
+      {
+        sample-count range 0 to 2048 continuous;
+      }
+      end;
+    end; *end ac signal
+
+   begin;  *dc signal  
+      control
+      {
+        voltage range -40 v to 40 v continuous;
+        strobe-to-event;
+      }
+          
+      begin FNC=204;  *voltage
+        sensor (voltage) dc signal;
+      end;
+    
+    end; *end dc signal
+
+    begin;  *pulsed dc  
+      control
+      {
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        voltage-pp range 0 v to 40 v continuous;
+        prf range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        pulse-width range .00000001 sec to 50 sec continuous;
+	neg-pulse-width range .00000001 sec to 50 sec continuous;
+	pos-pulse-width range .00000001 sec to 50 sec continuous;
+        overshoot range 0 pc to 100 pc;
+        preshoot range 0 pc to 100 pc;
+        duty-cycle range 0 pc to 100 pc;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=207;  *voltage-pp
+        sensor (voltage-pp) pulsed dc;
+      end;
+
+      begin FNC=208;  *voltage-p-pos
+        sensor (voltage-p-pos) pulsed dc;
+      end;
+
+      begin FNC=209;  *voltage-p-neg
+        sensor (voltage-p-neg) pulsed dc;
+      end;
+  
+      begin FNC=210;  *prf
+        sensor (prf) pulsed dc ;
+      end;
+
+      begin FNC=211;  *risetime
+        sensor (rise-time) pulsed dc;
+      end;
+
+      begin FNC=212;  *falltime
+        sensor (fall-time) pulsed dc;
+      end;
+
+      begin FNC=213;  *pulsewidth
+        sensor (pulse-width) pulsed dc;
+      end;
+
+      begin FNC=214;  *duty cycle
+        sensor (duty-cycle) pulsed dc;
+      end;
+
+       begin FNC=215;  *overshoot
+        sensor (overshoot) pulsed dc;
+      end;
+
+      begin FNC=216;  *preshoot
+        sensor (preshoot) pulsed dc;
+      end;
+
+      begin FNC=218;  *pulsewidth
+        sensor (neg-pulse-width) pulsed dc;
+      end;
+
+      begin FNC=219;  *pulsewidth
+        sensor (pos-pulse-width) pulsed dc;
+      end;
+
+   end; *end pulsed dc
+
+****************************************************************************
+** For future reference if Cem Wizard needs to be changed for scope only,
+** remove the code from here down to the next line of stars and then after 
+** the change, paste this code back. (Same thing applies to channel 1)
+****************************************************************************
+   begin;  *ramp signal  
+      control
+      {
+        voltage-pp range 0 v to 40 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=207;  *voltage-pp
+        sensor (voltage-pp) ramp signal;
+      end;
+
+      begin FNC=210;  *frequency
+        sensor (freq) ramp signal ;
+      end;
+
+      begin FNC=211;  *risetime
+        sensor (rise-time) ramp signal;
+      end;
+
+      begin FNC=212;  *falltime
+        sensor (fall-time) ramp signal;
+      end;
+
+    end; *end ramp signal
+
+    begin;  *square wave  
+      control
+      {
+        voltage-pp range 0 v to 40 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        pulse-width range .00000001 sec to 50 sec continuous;
+        duty-cycle range 0 pc to 100 pc;
+        overshoot range 0 pc to 100 pc;
+        preshoot range 0 pc to 100 pc;
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=207;  *voltage-pp
+        sensor (voltage-pp) square wave;
+      end;
+
+      begin FNC=210;  *frequency
+        sensor (freq) square wave ;
+      end;
+
+      begin FNC=211;  *risetime
+        sensor (rise-time) square wave;
+      end;
+
+      begin FNC=212;  *falltime
+        sensor (fall-time) square wave;
+      end;
+
+      begin FNC=214;  *duty cycle
+        sensor (duty-cycle) square wave;
+      end;
+
+    end; *end square wave
+
+    begin;  *triangular wave signal
+      control
+      {
+        voltage-pp range 0 v to 40 v continuous;
+        voltage-p range 0 v to 50 v continuous;
+        dc-offset range -250 v to 250 v continuous;
+        freq range .02 hz to 200000000 hz continuous;
+        rise-time range .000000012 sec to 40 sec continuous;
+        fall-time range .000000012 sec to 40 sec continuous;
+        pulse-width range .00000001 sec to 50 sec continuous;
+        voltage-p-pos range 0 v to 40 v continuous;
+        voltage-p-neg range 0 v to 40 v continuous;
+        sample-count range 1 to 2048 continuous;
+        trig-level range -310 v to 310 v continuous;
+        trig-slope pos, neg;
+        strobe-to-event;
+      }
+
+      begin FNC=207;  *voltage-pp
+        sensor (voltage-pp) triangular wave signal;
+      end;
+
+      begin FNC=210;  *frequency
+        sensor (freq) triangular wave signal;
+      end;
+
+      begin FNC=211;  *risetime
+        sensor (rise-time) triangular wave signal;
+      end;
+
+      begin FNC=212;  *falltime
+        sensor (fall-time) triangular wave signal;
+      end;
+
+      begin FNC=214;  *duty cycle
+        sensor (duty-cycle) triangular wave signal;
+      end;
+
+    end; *end triangular wave signal
+****************************************************************************
+
+    begin;  *Save, Load, and Compare  
+      control
+      {
+        save-wave;
+	load-wave;
+	compare-wave;
+	strobe-to-event;
+      }
+          
+      begin FNC=230;  *save-waveform
+        sensor (save-wave) waveform;
+      	control
+      	{
+	      save-wave max 8000;
+	      save-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+	      save-to wmem1,wmem2,wmem3,wmem4;
+      	}      
+      end;
+    
+      begin FNC=231;  *load-waveform
+        sensor (load-wave) waveform;
+      	control
+      	{
+	      load-wave max 8000;
+	      load-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+      	}      
+
+      end;
+  
+      begin FNC=232;  *compare-waveform
+        sensor (compare-wave) waveform;
+      	control
+      	{
+	      compare-wave max 8000;
+	      compare-ch chan1,chan2;
+	      compare-to wmem1,wmem2,wmem3,wmem4;
+	      allowance range 0 to 8;
+      	}      
+      end;
+  
+    end; *Save, Load, and Compare  
+
+    begin;  *Math Function 
+      control
+      {
+        math;
+	strobe-to-event;
+      }
+          
+      begin FNC=233;  *add-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      add-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      add-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  	func1,func2;
+	  }
+      end;
+
+      begin FNC=234;  *subtract-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      subtract-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      subtract-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  	func1,func2;
+	  }
+      end;
+
+      begin FNC=235;  *multiply-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      multp-from   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      multp-to     chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  func1,func2;
+	  }
+      end;
+
+      begin FNC=236;  *differentiate-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      differentiate   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination     func1,func2;
+	  }
+      end;
+
+      begin FNC=237;  *integrate-waveform
+        sensor (math) waveform;
+	  control
+	  {
+	      math max 8000;
+	      integrate	   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+	      destination  func1,func2;
+	  }
+      end;
+   
+    end; *Math Function
+
+    begin FNC=220;  *waveform for digitizing
+      sensor(sample)waveform;
+      control
+      {
+        dc-offset range -250 v to 250 v continuous;
+        voltage-pp range 0 v to 40 v continuous;
+        sample max 8000;
+        sample-time range 0.00000016 sec to 800 sec continuous;
+        resp max 8000;
+		strobe-to-event;
+      }
+    end;
+
+    begin;
+      control
+      {
+        voltage range 0 v to 50 v;
+        event-slope pos, neg;
+      }
+      
+       begin; *events for delay
+        event monitor (voltage) dc signal;
+        cnx event-out DSO-Ev2;
+        control
+        {
+          event-out;
+          voltage range 0 v to 50 v;
+        }
+
+        begin FNC=221 using from-channel-2;  *event for ti
+          cnx FROM DSO-In2;
+          control
+          {
+            event-slope pos, neg;
+          }
+        end;
+
+        begin FNC=222 using to-channel-2;  *event for ti
+          cnx TO DSO-In2;
+          control
+          {
+            event-slope pos, neg;
+          }
+        end;
+      end; *end events for delay
+    end;
+  end; *end scope-ch2
+
+
+  begin using scope-trigger;   * events for trigger on ch1
+    event monitor (voltage) pulsed dc;
+    cnx event-out event-port;
+    control
+    {
+      event-indicator;
+      event-out;
+      voltage range 0 v to 50 v;
+      event-slope pos,neg;
+      prf range 0 hz to 200000000 hz continuous;
+    }
+
+    begin FNC = 11 using trigger-ch1; * event for trigger on ch1
+      cnx via DSO-In1;
+    end;
+
+    begin FNC = 12 using trigger-ch2; * event for trigger on ch2
+      cnx via DSO-In2;
+    end;
+
+    begin FNC = 13 using trigger-ext; * event for trigger on ext
+      cnx via DSO-TrigIn;
+    end;
+
+    begin FNC = 14 using trigger-int; * event for setting internal trig-lev and slope
+      cnx via DSO-TrigOut;
+    end;
+
+  end; *end scope-trigger
+end; *end dig_scope
+**************************************************************************
+************    HP E1412A (DMM) STATIC DESCRIPTION     *******************
+**************************************************************************
+begin dev DMM;
+
+    begin; ** event-monitor
+      control
+      {
+   	 		event-out;
+	 		sample-count range 1 to 50000;
+ 	 		delay range 0 sec to 3600 sec;
+ 	 		event-slope neg;
+      }
+
+      cnx event-out DMM-es;
+
+      begin FNC = 202; ** External trigg.
+	  	cnx hi DMM-Trig; ** Double check DMM-Trig.
+      	event monitor (voltage) ac signal;
+      end; ** External trigg.
+
+    end; ** event-monitor
+
+
+   begin;
+   control
+    {
+     strobe-to-event;
+    }    
+    cnx hi DMM-Hi, lo DMM-Lo;
+
+   	begin; ** DC Voltage Measurement
+     		sensor(voltage)dc signal;
+     		control
+     		{
+       		voltage range -300 v to 300 v continuous;
+       		ref-volt -360 v to 360 v continuous;
+     		}
+     		begin FNC = 1;
+        	  cnx event-strobe event-port;
+     		end;
+     		begin FNC = 101;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** DC Voltage Measurement
+
+   	begin; ** AC Voltage Measurement
+     		sensor(voltage)ac signal;
+     		control
+       		{
+       		voltage range 0 v to 300 v continuous;
+      		ref-volt range -360 v to 360 v continuous;
+      		bandwidth 3 hz to 300 khz;
+       		dc-offset range -300 v to 300 v;
+       		}
+     		begin FNC = 2;
+       		  cnx event-strobe event-port;
+     		end;
+     		begin FNC = 102;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** AC Voltage Measurement
+
+   	begin; ** Impedance Measurement
+     		sensor(res)impedance;
+     		control
+       		{
+       		res range .000100 ohm to 100000000 ohm continuous;
+       		ref-res range 0 ohm to 120000000 ohm continuous;
+       		}
+     		begin FNC = 3;
+        	  cnx event-strobe event-port;
+     		end;
+     		begin FNC = 103;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** Impedance Measurement
+
+   	begin; ** AC Frequency Measurement
+     		sensor (freq) ac signal;
+     		control
+       		{
+        	freq range 3.0 hz to 300.0 khz continuous;
+       	 	voltage range 0 v to 300.0 v continuous;
+        	dc-offset range -300 v to 300 v;
+       		}
+     		begin FNC = 4;
+        	  cnx event-strobe event-port;
+     		end;
+     		begin FNC = 104;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** AC Frequency Measurement
+ 
+   	begin; ** AC Current Measurement
+     		sensor (current) ac signal;
+     		control
+       		{
+        	current range 0.0 a to 3.0 a continuous;
+        	voltage range 0 v to 300.0 v continuous;
+        	dc-offset range -300 v to 300 v;
+        	freq range 3.0 hz to 300 khz continuous;
+        	bandwidth 3 hz to 300 khz;
+       		}
+     		begin FNC = 5;
+        	  cnx event-strobe event-port;
+     		end;
+     		begin FNC = 105;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** AC Current Measurement
+  
+   	begin; ** DC Current Measurement
+     		sensor (current) dc signal;
+     		control
+       		{
+        	current range 0 a to 3.0 a;
+        	voltage range -300.0 v to +300.0 v continuous;
+       		}
+     		begin FNC = 6;
+        	  cnx event-strobe event-port;
+     		end;
+     		begin FNC = 106;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** DC Current Measurement
+
+   	begin; ** Period Measurement
+     		sensor (period) ac signal;
+     		control
+       		{
+        	period range 3.33 usec to .333 sec continuous;
+        	dc-offset range -300 v to 300 v;
+        	voltage range 0 v to 300.0 v continuous;
+       		}
+     		begin FNC = 7;
+        	  cnx event-strobe event-port;
+     		end;
+     		begin FNC = 107;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** Period Measurement
+
+   	begin; ** DC Voltage Ratio Measurement
+     		sensor (voltage-ratio) dc signal;
+     		control
+       		{
+        	voltage-ratio  range 0 to 3000;
+        	voltage range -300.0 v to 300.0 v continuous;
+        	ref-volt -360 v to 360 v continuous;
+       		}
+
+     		begin FNC = 8;
+        	  cnx event-strobe event-port ;
+     		end;
+     		begin FNC = 108;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** DC Voltage Ratio Measurement
+
+   	begin; ** DC Voltage Average Measurement
+     		sensor (av-voltage) dc signal;
+     		control
+       		{
+        	av-voltage range -300.0 v to 300.0 v continuous;
+        	voltage range -300.0 v to 300.0 v continuous;
+        	sample-count range 1 to 50000;
+        	ref-volt -360 v to 360 v continuous;
+       		}
+     		begin FNC = 9;
+        	  cnx event-strobe event-port ;
+     		end;
+     		begin FNC = 109;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** DC Voltage Average Measurement
+
+   	begin; ** AC Voltage Average Measurement
+     		sensor (av-voltage) ac signal;
+     		control
+       		{
+        	av-voltage range 0 v to 300.0 v continuous;
+        	voltage range 0 v to 300.0 v continuous;
+        	dc-offset range -300 v to 300 v;
+        	sample-count range 1 to 50000;
+        	ref-volt 0 v to 360 v continuous;
+       		}
+     		begin FNC = 10;
+        	  cnx event-strobe event-port ;
+     		end;
+     		begin FNC = 110;
+	 	  cnx event-strobe DMM-es;
+     		end;
+   	end; ** AC Voltage Average Measurement
+
+   	begin; ** DC Current Average Measurement
+     		sensor (av-current) dc signal;
+     		control
+        	{
+        	av-current range 0.0 a to 3.0 a continuous;
+        	voltage range -300 v to 300.0 v continuous;
+        	sample-count range 1 to 50000;
+        	ref-volt -360 v to 360 v continuous;
+       		}
+     		begin FNC = 11;
+        	  cnx event-strobe event-port ;
+     		end;
+     		begin FNC = 111;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** DC Current Average Measurement
+
+   	begin; ** AC Current Average Measurement
+     		sensor (av-current) ac signal;
+     		control
+       		{
+        	av-current range 0.0 a to 3.0 a continuous;
+        	voltage range 0 v to 300.0 v continuous;
+        	dc-offset range -300 v to 300 v;
+        	sample-count range 1 to 50000;
+        	ref-volt -360 v to 360 v continuous;
+       		}
+     		begin FNC = 12;
+        	  cnx event-strobe event-port ;
+     		end;
+     		begin FNC = 112;
+		  cnx event-strobe DMM-es;
+     		end;
+   	end; ** AC Current Average Measurement
+
+   end;
+
+end; *end dmm
+**************************************************************************
+************     	(PROBE) STATIC DESCRIPTION            ************
+**************************************************************************
+begin dev PROBE;
+  cnx event-out event-port;
+  control
+    {
+    max-time range 0 sec to 1000 sec continuous;
+    event-indicator;
+    event-out;
+    }
+
+  begin FNC = 1;
+    event monitor (manual-intervention) event;
+  end;
+end;
+**************************************************************************
+************      RI3152 (FUNC_GEN) STATIC DESCRIPTION        ************
+**************************************************************************
+begin dev FUNC_GEN;
+
+  begin ; ** event-monitor
+   event monitor (voltage) square wave;
+     cnx event-out FG-EvArm;     
+     control
+      {
+      event-out;
+      delay range 0.1 sec to 1000 sec;
+      event-slope pos, neg;	
+      }
+
+     begin FNC = 102; 		** External trigg.
+      cnx hi FG-Trig;
+     end;
+
+     begin FNC = 103; 		** Gated mode.from
+      cnx gate-start-in FG-Trig;
+     end; 
+
+     begin FNC = 104; 		** Dummy function need for Gated mode.to
+      cnx gate-stop-in FG-Trig;
+     end; 
+
+  end;	** end event-monitor
+
+  begin; 	
+    cnx hi FG-Out;
+    cnx via FG-Out;
+    cnx event-gate-from	FG-EvArm,
+        event-gate-to	FG-EvArm;
+    cnx event-sync FG-EvArm;
+    control
+     {
+       max-time range 0 sec to 1000 sec continuous;
+       event-gate-from;
+       event-gate-to;
+       event-sync;
+     }
+
+    begin FNC= 1;		* ac signal for sine
+      source ac signal;	
+        control
+        {
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          freq range .000100 hz to 50000000 hz continuous;
+        }
+    end;
+
+    begin FNC=2; 		* square wave
+      source square wave;
+        control
+        {
+          freq  range .000100 hz to 50000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          duty-cycle range 1 pc to 99 pc continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC=3; 		* triangle wave signal
+      source triangular wave signal;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC=4; 		* ramp signal
+      source ramp signal;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+          rise-time range 10 nsec to 4950 sec continuous;
+          fall-time range 10 nsec to 4950 sec continuous;
+        }
+    end;
+
+    begin FNC=5; 		* pulsed dc
+      source pulsed dc;
+        control
+        {
+          prf range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          duty-cycle range 1 pc to 99 pc continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+          rise-time range 1 usec to 9900 sec continuous;
+          fall-time range 1 usec to 9900 sec continuous;
+	  pulse-width range 1 usec to 9900 sec continuous;
+        }
+    end;
+
+    begin FNC=6; 		* sinc wave
+      source sinc wave;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC=7; 		* exponential pulse wave
+      source exponential pulse wave;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          exponent range -200 to 200 continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC=8; 		* dc signal
+      source dc signal;
+        control
+        {
+          voltage range -8.0 v to 8.0 v continuous;
+        }
+    end;
+  end;
+
+  begin; 
+    cnx sync-out FG-Sync;
+    cnx event-gate-from	FG-EvArm,
+        event-gate-to	FG-EvArm;
+    cnx hi FG-Out;
+    cnx via FG-Out;
+
+    control
+     {
+        max-time range 0 sec to 1000 sec continuous;
+   	event-gate-from;
+	event-gate-to;
+	event-sync;
+     }
+
+    begin FNC = 21;		* ac signal for sine with sync-out
+      source ac signal;	
+ 	cnx event-sync FG-EvArm;
+        control
+        {
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          freq range .000100 hz to 50000000 hz continuous;
+        }
+    end;
+
+    begin FNC = 22; 		* square wave with sync-out
+      source square wave;
+        control
+        {
+          freq  range .000100 hz to 50000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          duty-cycle range 1 pc to 99 pc continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC = 23; 		* triangle wave signal with sync-out
+      source triangular wave signal;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC = 24; 		* ramp signal with sync-out
+      source ramp signal;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+          rise-time range 10 nsec to 4950 sec continuous;
+          fall-time range 10 nsec to 4950 sec continuous;
+        }
+    end;
+
+    begin FNC = 25; 		* pulsed dc with sync-out
+      source pulsed dc;
+        control
+        {
+          prf range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          duty-cycle range 1 pc to 99 pc continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+          rise-time range 1 usec to 9900 sec continuous;
+          fall-time range 1 usec to 9900 sec continuous;
+	  pulse-width range 1 usec to 9900 sec continuous;
+      }
+    end;
+
+    begin FNC = 26; 		* sinc wave with sync-out
+      source sinc wave;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC = 27; 		* exponential pulse wave with sync-out
+      source exponential pulse wave;
+        control
+        {
+          freq range .000100 hz to 1000000 hz continuous;
+          voltage-pp range .01 v to 16 v continuous;
+          dc-offset range -7.19 v to 7.19 v continuous;
+          exponent range -200 to 200 continuous;
+          bandwidth 20 mhz, 25 mhz, 50 mhz;
+        }
+    end;
+
+    begin FNC = 28; 		* dc signal with sync-out
+      source dc signal;
+        control
+        {
+          voltage range -8.0 v to 8.0 v continuous;
+        }
+    end;
+  end;*end func_gen with sync-out
+end; *end func_gen
+**************************************************************************
+************     	(RF_MEASAN) STATIC DESCRIPTION        ************
+**************************************************************************
+begin dev RF_MEASAN using SPECAN;
+  cnx hi RFMeas-In;
+  cnx via RFMeas-In;
+
+  begin FNC=1; * FM signal
+    sensor (freq-dev) fm signal;
+    control
+      {
+      power range -37 dbm to 25 dbm continuous;
+      car-freq range 200000 hz to 8500000000 hz continuous;
+      freq-dev range 0 khz to 500 khz continuous;
+      mod-freq range 20 hz to 200000 hz continuous;
+      noise range 0 pc to 100 pc continuous;
+      peak-dev pos, neg, ave;
+      }
+  end;
+
+  begin FNC=2;
+    sensor (mod-ampl) am signal;
+    control
+      {
+      power range -37 dbm to 25 dbm continuous;
+      car-freq range 100000 hz to 8500000000 hz continuous;
+      mod-ampl range 0 pc to 99.9 pc continuous;
+      mod-freq range 20 hz to 100000 hz continuous;
+      peak-dev pos, neg, ave;
+      }
+  end;
+
+  begin FNC=3;
+    sensor (phase-dev) pm signal;
+    control
+      {
+      power range -37 dbm to 25 dbm continuous;
+      car-freq range 200000 hz to 8500000000 hz continuous;
+      phase-dev range 0 deg to 28647 deg continuous;
+      mod-freq range 20 hz to 100000 hz continuous;
+      peak-dev pos, neg, ave;
+      }
+  end;
+  
+  begin FNC=4; *ac signal
+    sensor (freq) ac signal;
+    control
+      {
+      power range -26 dbm to 25 dbm continuous;
+      freq range 100000 hz to 8500000000 hz continuous;
+      }
+  end;
+
+  begin; *pulsed AC
+    control
+      {
+      power range -26 dbm to 25 dbm continuous;  
+      pulse-width range .00000005 sec to 1000 sec continuous;
+      prf range .001 hz to 4000000 hz continuous;
+      period range .00000025 sec to 1000 sec continuous;
+      car-freq range 10000000 hz to 8500000000 hz continuous;
+      mod-freq range .001 hz to 4000000 hz continuous;
+      }
+
+    begin FNC=5;
+      sensor (period) pulsed ac;
+    end;
+
+    begin FNC=6;
+      sensor (pulse-width) pulsed ac ;
+    end;
+
+    begin FNC=7;
+      sensor (prf) pulsed ac;
+    end;
+  end;
+end; *end RF_MEASAN
+**************************************************************************
+************     HP E1416A (RF_PWR) STATIC DESCRIPTION        ************
+**************************************************************************
+begin dev RF_PWR;
+  begin using hpe1416a;
+    control
+      {
+      freq range 10 mhz to 8500 mhz;
+      }
+    cnx via RFPM-In;
+
+*   Functions 1-4 are for the HP 8481 D, 5-8 are for the HP8481A
+
+    begin FNC=1;
+      sensor (power) ac signal;
+      control
+        {
+        power range 0.0001 mw to 10 uw  continuous;
+        }
+    end;
+
+    begin FNC=2;
+      sensor (power) ac signal;
+      control
+        {
+        power range -70 dbm to -20 dbm  continuous;
+        }
+    end;
+
+    begin FNC=3;
+      sensor (ref-power) ac signal;
+      control
+        {
+        ref-power range 0 pc to 100 pc continuous;
+        power range 0.0001 mw to 10 uw  continuous;
+        }
+    end;
+
+    begin FNC=4;
+      sensor (ref-power) ac signal;
+      control
+        {
+        ref-power range -70 db to -20 db continuous;
+        power range -70 dbm to -20 dbm  continuous;
+        }
+    end;
+
+    begin FNC=5;
+      sensor (power) ac signal;
+      control
+        {
+        power range 1 uw to 100 mw  continuous;
+        }
+    end;
+
+    begin FNC=6;
+      sensor (power) ac signal;
+      control
+        {
+        power range -30 dbm to 20 dbm  continuous;
+        }
+    end;
+
+    begin FNC=7;
+      sensor (ref-power) ac signal;
+      control
+        {
+        ref-power range 0 pc to 100 pc continuous;
+        power range 1 uw to 100 mw  continuous;
+        }
+    end;
+
+    begin FNC=8;
+      sensor (ref-power) ac signal;
+      control
+        {
+        ref-power range -30 db to 20 db continuous;
+        power range -30 dbm to 20 dbm  continuous;
+        }
+    end;
+  end;
+end; *end RF_PWR
+**************************************************************************
+************     GT 50008A (RF_GEN) STATIC DESCRIPTION        ************
+**************************************************************************
+begin dev RF_GEN;
+  cnx via RFStim-Out;
+
+  begin FNC = 0;
+    source ac signal;
+    control
+      {
+      power range -90 dbm to 10 dbm continuous;
+      freq range 10 mhz to 8500 mhz continuous;
+      freq-window range 10 mhz to 8500 mhz continuous;
+      age-rate range 10000000 hz/sec to 8490000000 hz/sec continuous;
+      }
+  end;
+
+  begin FNC = 1;
+    source fm signal;
+    control
+      {
+      car-ampl -90 dbm to 10 dbm continuous;
+      car-freq range 10 mhz to 8500 mhz continuous;
+      }
+  end;
+
+  begin FNC = 2;
+    source am signal;
+    control
+      {
+      car-ampl -90 dbm to 10 dbm continuous;
+      car-freq range 10 mhz to 8500 mhz continuous;
+      mod-ampl range 0 pc to 90 pc continuous;
+      }
+
+  end;
+
+  begin FNC = 3;
+    source pulsed ac;
+    control
+      {
+      power range -90 dbm to 10 dbm continuous;
+      car-freq range 10 mhz to 8500 mhz continuous;
+      pulse-width range 0.00000005 sec to 1000 sec continuous;
+      }
+  end;
+end; *end RF_GEN
+**************************************************************************
+************      BU65550 (DDC1553) STATIC DESCRIPTION        ************
+**************************************************************************
+begin dev DDC1553 using BU65550;
+
+  cnx true DDC1553b-hi, compl DDC1553b-lo;
+
+  begin FNC=1;
+    function bus protocol;
+    control
+      {
+      bus-spec mil-1553b;
+      standard primary;
+      max-time range 0 sec to 10 sec continuous;
+      proceed;
+      test-equip-role master, monitor, slave;
+      wait;
+      proceed;
+      }
+  end;
+
+  begin FNC=2;  ** Bus Monitor Mode
+    function exchange;
+    control
+      {
+      bus-mode con-rt,
+               rt-con,
+               con-mode;
+      test-equip-role monitor;
+      uut-talker max 0;
+      }
+  end;
+
+  begin FNC=3;  ** Bus Controller Mode 
+    function exchange;
+    control
+      {
+      bus-mode con-rt,
+               rt-con,
+               con-mode;
+      test-equip-role master;
+      test-equip-talker max 0;
+      uut-talker max 1;
+      test-equip-listener max 0;
+      uut-listener range 0 to 3;
+      data max 32;
+      command max 2;
+      delay range 0 usec to 65535 usec;
+      }
+  end;
+
+  begin FNC=4;  ** Remote Terminal Mode
+    function exchange;
+    control
+      {
+      bus-mode con-rt,
+               rt-con,
+               con-mode;
+      test-equip-role slave;
+      test-equip-listener max 33;
+      test-equip-talker max 33;
+      uut-listener max 33;
+      uut-talker max 33;
+      data max 32;
+      status max 2;
+
+      }
+  end;
+
+end; *end DDC1553
+
+********************************************************************************
+************        ELECTRO OPTICS STATIC DESCRIPTION         ******************
+********************************************************************************
+*** Used with:    TETS System Software ...... Ver. 10.0 & above              ***
+***               WCEM ...................... Ver. 6.0 & above               ***
+***               Lexical Database .......... Ver. 1.4 & above               ***
+***               Switch Database ........... Ver. 4.4 & above               ***
+********************************************************************************
+begin dev ELC_OPT;
+
+  ******************************************************************************
+  ************			  Begin INFRARED  		    ************
+  ******************************************************************************
+  begin;   ** EO Tests - Infrared
+    cnx via VIDEO-IN;
+    control 
+    { 
+       sample-av range 1 frames to 128 frames;       
+       format rs343-675-1-1, rs343-675-4-3, rs343-729-1-1, rs343-729-4-3,
+              rs343-875-1-1, rs343-875-4-3, rs343-945-1-1, rs343-945-4-3,
+              rs343-1023-1-1, rs343-1023-4-3, rs170;
+    }
+
+    begin FNC = 1;
+      sensor(modulation-transfer-function) infrared;
+    	control
+    	{
+		  modulation-transfer-function range 0 to 1;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          differential-temp range -15.0 degc to 35.0 degc by 0.001 degc;
+          mtf-freq-points 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024;
+          mtf-direction vert, horiz;
+	  filter range 0 to 100 by 1;
+	  wave-length range 3.0 um to 5.0 um;
+	  wave-length range 8.0 um to 12.0 um;
+    	}
+    end;
+
+    begin FNC = 2;
+      sensor(los-align-error) infrared;
+        control
+        {
+		  los-align-error range -1.5708 rad to 1.5708 rad;
+          intensity-ratio range 0.0 to 99.0 pc;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          v-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          differential-temp range 0.001 degc to 35.0 degc continuous;
+          target-type tets-brsght, tets-opnapr, tets-pinmtx;
+        }
+    end;
+
+    begin FNC = 3;
+      sensor(chan-integrity) infrared;
+    	control
+    	{
+		  chan-integrity range 0 to 1024;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-angle range 1e-9 rad to 0.024 rad continuous;
+          v-target-angle range 1e-9 rad to 0.024 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+	  noise-eq-diff-temp range 0.0 degc to 10.0 degc by 0.001 degc;
+          differential-temp range -15.0 degc to 35.0 degc by 0.001 degc;
+	  lines-per-channel range 1 lines to 100 lines by 1 lines;
+	  first-active-line range -100 to 100 by 1;
+    	}
+    end;
+
+    begin FNC = 5;
+      sensor(distortion) infrared;
+    	control
+    	{
+		  distortion range 0.0 pc to 100.0 pc;
+          h-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          v-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          h-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          v-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          differential-temp range 0.001 degc to 35.0 degc continuous;
+    	}
+    end;
+
+    begin FNC = 7;
+      sensor(noise-eq-diff-temp) infrared;
+    	control
+    	{
+		  noise-eq-diff-temp range -10 degc to 10 degc;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-offset range -1.5708 rad to 1.5708 rad;
+          v-target-offset range -1.5708 rad to 1.5708 rad;
+          h-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          v-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          differential-temp range -10.0 degc to 10.0 degc by 0.001 degc;
+          diff-temp-start range -10.0 degc to 10.0 degc by 0.001 degc;
+          diff-temp-stop range -10.0 degc to 10.0 degc by 0.001 degc;
+          diff-temp-interval range 0.001 degc to 20.0 degc by 0.001 degc;
+          target-type tets-4bar33, tets-4bar62, tets-rectangle, tets-opnapr, tets-piesector;
+    	}
+    end;
+
+    begin FNC = 9;
+      sensor(tilt) infrared;
+    	control
+    	{
+	 	  tilt range -0.7854 rad to 0.7854 rad;
+          h-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          v-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          h-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          v-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          differential-temp range 0.001 degc to 35.0 degc continuous;
+        }
+    end;
+
+    begin FNC = 10;
+      sensor(uniformity) infrared;
+    	control
+    	{
+          uniformity range 0.0 pc to 100.0 pc;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-angle range 1e-9 rad to 0.029 rad continuous;
+          v-target-angle range 1e-9 rad to 0.025 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          differential-temp range -15.0 degc to 35.0 degc by 0.001 degc;
+    	}
+    end;
+
+    begin FNC = 11;
+      sensor(chan-crosstalk) infrared;
+    	control
+     	{
+		  chan-crosstalk range 0 to 1024;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-angle range 1e-9 rad to 0.024 rad continuous;
+          v-target-angle range 1e-9 rad to 0.024 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          differential-temp range -15.0 degc to 35.0 degc by 0.001 degc;
+	  lines-per-channel range 1 lines to 100 lines by 1 lines;
+	  first-active-line range -100 to 100 by 1;
+	}
+    end;
+
+  end;	** end EO Tests - Infrared
+
+  *** MANUAL TESTS - Infrared ***
+  begin;
+    cnx via ATMOSPHERE;
+
+    begin FNC = 6;
+      sensor(min-resolv-temp-diff) infrared;
+    	control
+    	{
+		  min-resolv-temp-diff range 0.001 degc to 15.0 degc;
+          target-data range 1 to 8;              * 2-dimensional array (2 X 8 max)
+          test-point-count 1,2,3,4,5,6,7,8;
+    	}
+    end;
+
+  end;	** MANUAL TESTS - Infrared
+
+  begin;   ** IR Temperature Measurements
+    cnx via ATMOSPHERE;
+
+    control 
+    { 
+       max-time range 0.0  sec to 30 sec;
+    } 
+
+    begin FNC = 16;
+      sensor(differential-temp) infrared;
+    	control
+    	{
+	  differential-temp range -15.0 degc to 35.0 degc;
+    	}
+    end;
+
+    begin FNC = 17;
+      sensor(ambient-temp) infrared;
+    	control
+    	{
+	  ambient-temp range 10.0 degc to 60.0 degc;
+    	}
+    end;
+
+    begin FNC = 18;
+      sensor(blackbody-temp) infrared;
+    	control
+    	{
+	  blackbody-temp range 10.0 degc to 60.0 degc;
+    	}
+    end;
+
+  end;   ** end IR Temperature Measurements
+  ******************************************************************************
+  ************		      Begin LIGHT (Visible)	            ************
+  ******************************************************************************
+  begin;	
+    cnx via VIDEO-IN;
+    control 
+    { 
+       sample-av range 1 frames to 128 frames;       
+       format rs343-675-1-1, rs343-675-4-3, rs343-729-1-1, rs343-729-4-3,
+              rs343-875-1-1, rs343-875-4-3, rs343-945-1-1, rs343-945-4-3,
+              rs343-1023-1-1, rs343-1023-4-3, rs170;
+    } 
+                
+    begin FNC = 21;
+      sensor(los-align-error) light;
+    	control
+    	{
+		  los-align-error range -1.5708 rad to 1.5708 rad;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          v-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          radiance range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          intensity-ratio range 0.0 to 99.0 pc;
+          target-type tets-brsght, tets-opnapr, tets-pinmtx;
+        }
+    end;
+
+    begin FNC = 23;
+      sensor(distortion) light;
+    	control
+    	{
+		  distortion range 0.0 pc to 100.0 pc;
+          h-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          v-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          h-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          v-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          radiance range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+      	}
+    end;
+
+    begin FNC = 25;
+      sensor(modulation-transfer-function) light;
+    	control
+    	{
+		  modulation-transfer-function range 0 to 1;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          radiance range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          mtf-freq-points 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024;
+          mtf-direction vert, horiz;
+	  filter range 0 to 100 by 1;
+      	}
+    end;
+
+    begin FNC = 26;     *Gain Test: AGC OFF  (FNC #35 is AGC TEST) 
+      sensor(camera-gain) light;
+    	control
+    	{
+              camera-gain range 0.0 v/uw/cm2/sr to 10.0 v/uw/cm2/sr;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-angle range 1e-9 rad to 0.029 rad continuous;
+          v-target-angle range 1e-9 rad to 0.025 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          radiance-start range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          radiance-stop range 21.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          radiance-interval range 1.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          target-type tets-opnapr;
+      	}
+    end;
+
+    begin FNC = 27;
+      sensor(tilt) light;
+    	control
+    	{
+	 	     tilt range -0.7854 rad to 0.7854 rad;
+          h-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          v-field-of-view range 0.0085 rad to 3.1416 rad continuous;
+          h-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          v-target-angle range 0.0085 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          radiance range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+      	}
+    end;
+
+    begin FNC = 28;
+      sensor(uniformity) light;
+    	control
+    	{
+               uniformity range 0.0 pc to 100.0 pc;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-angle range 1e-9 rad to 0.029 rad continuous;
+          v-target-angle range 1e-9 rad to 0.025 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          radiance range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+      	}
+    end;
+
+    begin FNC = 29;
+      sensor(gray-scale-resolution) light;
+    	control
+    	{
+             gray-scale-resolution range 0 shades to 256 shades;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          v-target-angle range 1e-9 rad to 3.1416 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          radiance range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+      	}
+    end;
+
+    begin FNC = 33;
+      sensor(dynamic-range) light;
+    	control
+    	{
+            dynamic-range range 0.0 db to 1000.0 db;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          h-target-angle range 1e-9 rad to 0.029 rad continuous;
+          v-target-angle range 1e-9 rad to 0.025 rad continuous;
+          tgt-coordinate-left range 0 to 1254 by 1 ;
+          tgt-coordinate-top range 0 to 942 by 1;       
+          tgt-coordinate-right range 0 to 1254 by 1;
+          tgt-coordinate-bottom range 0 to 942 by 1;
+          radiance-start range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          radiance-stop range 21.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          radiance-interval range 1.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+      	}
+    end;
+
+    begin FNC = 35;     *Gain Test: AGC ON  (FNC #26 is non-AGC TEST)
+      sensor(camera-gain) light;
+    	control
+    	{
+              camera-gain range 0.0 v/uw/cm2/sr to 10.0 v/uw/cm2/sr;
+          intensity-ratio 0 pc, 10 pc, 20 pc, 30 pc, 40 pc, 50 pc, 60 pc, 70 pc, 80 pc, 90 pc;
+          h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+          h-los-align-error range -1.5708 rad to 1.5708 rad;
+          v-los-align-error range -1.5708 rad to 1.5708 rad;  
+          radiance-start range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          radiance-stop range 21.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          radiance-interval range 1.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+          target-type tets-gryscl10;
+      	}
+    end;
+
+  end;	** end light 
+
+  *** MANUAL LIGHT TESTS ***
+  begin;
+    cnx via ATMOSPHERE;
+
+      begin FNC = 20;
+        sensor(min-resolv-contrast) light;
+    	  control
+    	    {
+	      min-resolv-contrast range 20 to 20000 uw/cm2/sr;
+          target-data range 1 to 8;              * 2-dimensional array (2 X 8 max)
+          test-point-count 1,2,3,4,5,6,7,8;
+       	    }
+      end;
+
+  end;	** MANUAL TESTS
+
+  ******************************************************************************
+  ************		Begin ALTA (Laser Module) Tests	            ************
+  ******************************************************************************
+  begin;	
+    
+    begin using laser-category-1;
+
+      cnx via LASER-CAMERA;
+      control
+      {
+         sample-av range 1 frames to 128 frames;       	    *Image_Num_Frames
+         delay range 0.0 sec to 6.553 sec by .000002 sec;   *Camera_Delay_Time
+         sample-time range 19.0e-6 sec to 0.0331 sec;	    *Camera_Integration_Time
+         trigger-mode int, ext;				    *Camera_Trigger
+         tgt-coordinate-left range 0 to 639 by 1 ;
+         tgt-coordinate-top range 0 to 479 by 1;       
+         tgt-coordinate-right range 0 to 639 by 1;
+         tgt-coordinate-bottom range 0 to 479 by 1;
+      }
+
+      begin FNC = 40;
+        sensor(diff-boresight-angle) laser;
+          control
+          {
+		  diff-boresight-angle range -1.5708 rad to 1.5708 rad;
+            h-los-align-error range -1.5708 rad to 1.5708 rad;
+            v-los-align-error range -1.5708 rad to 1.5708 rad;  
+            x-boresight-angle range -1.5708 rad to 1.5708 rad;
+            y-boresight-angle range -1.5708 rad to 1.5708 rad;
+            intensity-ratio range 0.0 to 99.0 pc;
+          }
+      end;
+
+      begin FNC = 41;
+        sensor(boresight-angle) laser;
+    	  control
+     	  {
+		 boresight-angle range -1.5708 rad to 1.5708 rad;
+            intensity-ratio range 0.0 to 99.0 pc;
+            x-autocollimation-error range -1.0 rad to 1.0 rad;
+            y-autocollimation-error range -1.0 rad to 1.0 rad;
+    	  }
+      end;
+
+      begin FNC = 42;
+        sensor(divergence) laser;
+    	  control
+     	  {
+		 divergence range 0.00012 rad to 0.001 rad;
+    	  }
+      end;
+
+      begin FNC = 43;
+        sensor(satellite-beam) laser;
+    	  control
+     	  {
+		 satellite-beam range 0 to 1024;
+            beam-detection-threshold range 0.001 db to 28.0 db;
+	    satellite-beam-atten range 0 od to 10 od;
+	    main-beam-atten range 0 od to 10 od;
+     	  }
+      end;
+
+    end;	** End laser-category-1 Tests
+
+    begin using laser-category-2;
+
+      cnx via ATMOSPHERE;
+      control
+      {
+         wave-length 1.064 um, 1.54 um, 1.57 um;                   *ARM_Diode_Selection
+         target-range range 15.0 m to 40000.0 m;	           *ARM_First_Pulse_Range
+         pulse-width range 20.0e-9 sec to 150.0e-9 sec continuous; *ARM_Pulse_Width
+      }
+
+      begin FNC = 44;
+        sensor(receiver-sensitivity) laser;
+    	  control
+     	  {
+	       receiver-sensitivity range 1.0E-10 w/cm2 to 5.0E-6 w/cm2;
+	     range-error range 1 m to 10000 m;
+	     test-point-count 1 to 17 by 1;
+   	  }
+      end;
+
+      begin FNC = 45;
+        sensor(range-error) laser;
+    	  control
+     	  {
+	 	  range-error range 0 m to 40000 m;
+             power-dens range 1.0E-10 w/cm2 to 5.0E-6 w/cm2;           *ARM_Diode_Amplitude
+             last-pulse-range range 19.5 m to 40000.0 m;	       *ARM_Second_Pulse_Range
+   	  }
+      end;
+
+    end;	** End laser-category-2 Tests
+
+	*****************************************************************
+	********  IR/VIS Boresight/ORL Measurements using ALTA   ********
+	*****************************************************************
+    begin using alta-ir-vis-boresight;
+
+      cnx via VIDEO-IN;
+      control 
+      { 
+         h-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+         v-field-of-view range 1e-9 rad to 3.1416 rad continuous;
+         h-target-angle range 1e-9 rad to 3.1416 rad continuous;
+         v-target-angle range 1e-9 rad to 3.1416 rad continuous;
+         h-target-offset range -1.5708 rad to 1.5708 rad;
+         v-target-offset range -1.5708 rad to 1.5708 rad;
+         tgt-coordinate-left range 0 to 1254 by 1 ;
+         tgt-coordinate-top range 0 to 942 by 1;       
+         tgt-coordinate-right range 0 to 1254 by 1;
+         tgt-coordinate-bottom range 0 to 942 by 1;
+         intensity-ratio range 0.0 to 99.0 pc;
+         sample-av range 1 frames to 128 frames;       
+         format rs343-675-1-1, rs343-675-4-3, rs343-729-1-1, rs343-729-4-3,
+                rs343-875-1-1, rs343-875-4-3, rs343-945-1-1, rs343-945-4-3,
+                rs343-1023-1-1, rs343-1023-4-3, rs170;
+      } 
+                
+      begin FNC = 50;
+        sensor(diff-boresight-angle) infrared;
+          control
+          {
+	  	      diff-boresight-angle range -1.5708 rad to 1.5708 rad;
+            x-boresight-angle range -1.5708 rad to 1.5708 rad;
+            y-boresight-angle range -1.5708 rad to 1.5708 rad;
+            h-los-align-error range -1.5708 rad to 1.5708 rad;
+            v-los-align-error range -1.5708 rad to 1.5708 rad;  
+	    settle-time 0.0 sec to 600.0 sec;
+            target-type tets-irbs00, tets-irbs01, tets-irbs02, tets-irbs03, tets-irbs04,
+                        tets-irbs05, tets-irbs06, tets-irbs07, tets-irbs08, tets-irbs09,
+                        tets-irbs10;
+          }
+      end;
+
+      begin FNC = 51;
+        sensor(diff-boresight-angle) light;
+          control
+          {
+	  	  diff-boresight-angle range -1.5708 rad to 1.5708 rad;
+            x-boresight-angle range -1.5708 rad to 1.5708 rad;
+            y-boresight-angle range -1.5708 rad to 1.5708 rad;
+            h-los-align-error range -1.5708 rad to 1.5708 rad;
+            v-los-align-error range -1.5708 rad to 1.5708 rad;  
+            target-type tets-tvbs01, tets-tvbs02, tets-tvbs03, tets-tvbs04, tets-tvbs05,
+                        tets-tvbs06, tets-tvbs07, tets-tvbs08, tets-tvbs09, tets-tvbs10,
+                        tets-tvbs11, tets-tvbs12, tets-tvbs13, tets-tvbs14, tets-tvbs15;
+          }
+      end;
+
+      begin FNC = 52;
+        sensor(los-align-error) infrared;
+          control
+          {
+		    los-align-error range -1.5708 rad to 1.5708 rad;
+            x-autocollimation-error range -1.0 rad to 1.0 rad;
+            y-autocollimation-error range -1.0 rad to 1.0 rad;
+	    settle-time 0.0 sec to 600.0 sec;
+            target-type tets-irbs00, tets-irbs01, tets-irbs02, tets-irbs03, tets-irbs04,
+                        tets-irbs05, tets-irbs06, tets-irbs07, tets-irbs08, tets-irbs09,
+                        tets-irbs10;
+          }
+      end;
+
+      begin FNC = 53;
+        sensor(los-align-error) light;
+      	  control
+    	  {
+	 	    los-align-error range -1.5708 rad to 1.5708 rad;
+            x-autocollimation-error range -1.0 rad to 1.0 rad;
+            y-autocollimation-error range -1.0 rad to 1.0 rad;
+            target-type tets-tvbs01, tets-tvbs02, tets-tvbs03, tets-tvbs04, tets-tvbs05,
+                        tets-tvbs06, tets-tvbs07, tets-tvbs08, tets-tvbs09, tets-tvbs10,
+                        tets-tvbs11, tets-tvbs12, tets-tvbs13, tets-tvbs14, tets-tvbs15;
+          }
+      end;
+
+    end;	** End IR/VIS Boresight/ORL Measurements
+
+	*****************************************************************
+	********      Autocollimation Measurement - LASER        ********
+	*****************************************************************
+    begin using laser-autocollimation;
+
+      cnx via LASER-CAMERA;
+
+      begin FNC = 54;
+        sensor(autocollimation-error) laser;
+          control
+          {
+	      autocollimation-error range -1.0 rad to 1.0 rad;
+            intensity-ratio range 0.0 to 99.0 pc;
+            sample-av range 1 frames to 128 frames;       	     *Image_Num_Frames
+            delay range 0.0 sec to 6.553 sec by .000002 sec;	     *Camera_Delay_Time
+            sample-time range 19.0e-6 sec to 0.0331 sec;	     *Camera_Integration_Time
+            trigger-mode int, ext, lasr;			     *Camera_Trigger
+            wave-length 1.064 um, 1.54 um, 1.57 um;
+            pulse-width 150.0e-9 sec, 2.4e-6 sec, 38.4e-6 sec, 614.4e-6 sec;
+            pulse-atten range 0 to 4095 by 1;
+          }
+      end;
+    end;	** End Autocollimation Measurements
+
+	*****************************************************************
+	********      Pulse Energy Measurements - LASER          ********
+	*****************************************************************
+    begin using laser-dso-ch1;
+ 
+      cnx via DSO-In1;
+      control
+      {
+	*SC_Input_Channel = 1
+        sample-count range 1 to 128 by 1;		    *SC_Number_Measurements
+        trig-level range -6.0 v to 6.0 v continuous;	    *SC_Trigger_Level
+        trig-source ch2, ext, int;			    *SC_Trigger_Source
+        trig-slope pos, neg;				    *SC_Trigger_Slope
+        sample-time 500e-9 sec, 1e-6 sec, 5e-6 sec, 10e-6 sec, 50e-6 sec, 100e-6 sec, 500e-6 sec, 1e-3 sec; *SC_Timebase
+        main-beam-atten range 0 od to 10 od;
+        wave-length 1.064 um, 1.54 um, 1.57 um;
+        power-p range 0.02 w to 20.0e6 w continuous;           *SC_Input_Range
+      }
+
+      begin FNC = 80;
+        sensor (pulse-ampl-stab) laser;		*Amplitude_Instability (3)
+        control
+          {
+	    pulse-ampl-stab range 0.0 pc to 100.0 pc;
+          }
+      end;
+
+      begin FNC = 81;
+        sensor (pulse-energy) laser;		*Average_Energy (2)
+        control
+          {
+	    pulse-energy range 0.003 j to 0.300 j;
+          }
+      end;
+
+      begin FNC = 82;
+        sensor (pulse-width) laser;		*Average_Pulse_Width (6)
+        control
+          {
+	    pulse-width range 4.0 nsec to 70.0 nsec;
+          }
+      end;
+
+      begin FNC = 83;
+        sensor (power-p) laser;			*Average_Amplitude (3)
+      end;
+
+      begin FNC = 84;
+        sensor (pulse-energy-stab) laser;	*Energy_Instability (1)
+        control
+          {
+	    pulse-energy-stab range 0.0 pc to 100.0 pc;
+          }
+      end;
+
+    end;	*laser-scope-ch1
+
+    begin using laser-dso-ch2;
+ 
+      cnx via DSO-In2;
+      control
+      {
+	*SC_Input_Channel = 2
+        sample-count range 1 to 128 by 1;		    *SC_Number_Measurements
+        trig-level range -6.0 v to 6.0 v continuous;	    *SC_Trigger_Level
+        trig-source ch1, ext, int;			    *SC_Trigger_Source
+        trig-slope pos, neg;				    *SC_Trigger_Slope
+        sample-time 500e-9 sec, 1e-6 sec, 5e-6 sec, 10e-6 sec, 50e-6 sec, 100e-6 sec, 500e-6 sec, 1e-3 sec; *SC_Timebase
+        main-beam-atten range 0 od to 10 od;
+        wave-length 1.064 um, 1.54 um, 1.57 um;
+        power-p range 0.02 w to 20.0e6 w continuous;           *SC_Input_Range
+      }
+
+      begin FNC = 85;
+        sensor (pulse-energy) laser;		*Average_Energy (2)
+        control
+          {
+	    pulse-energy range 0.003 j to 0.300 j;
+          }
+      end;
+
+      begin FNC = 86;
+        sensor (pulse-width) laser;		*Average_Pulse_Width (6)
+        control
+          {
+	    pulse-width range 4.0 nsec to 70.0 nsec;
+          }
+      end;
+
+      begin FNC = 87;
+        sensor (power-p) laser;			*Average_Amplitude (4)
+      end;
+
+      begin FNC = 88;
+        sensor (pulse-energy-stab) laser;	*Energy_Instability (1)
+        control
+          {
+	    pulse-energy-stab range 0.0 pc to 100.0 pc;
+          }
+      end;
+
+      begin FNC = 89;
+        sensor (pulse-ampl-stab) laser;		*Amplitude_Instability (3)
+        control
+          {
+	    pulse-ampl-stab range 0.0 pc to 100.0 pc;
+          }
+      end;
+
+    end;	*laser-scope-ch2
+
+	*****************************************************************
+	********      Pulse Repitition Measurements - LASER      ********
+	*****************************************************************
+
+    begin using laser-cntr-ch1;
+
+      cnx via CT-In1;
+      control
+       {
+         sample-count range 1 to 128 by 1;		    *TC_Number_Measurements
+         trig-level range 0.0 v to 1.0 v continuous;	    *TC_Trigger_Level
+         delay range 0.0 sec to 1.0 sec by 0.001 sec;	    *TC_Delay
+	 power-p range 0.02 w to 20.0e6 w continuous;      
+         main-beam-atten range 0 od to 10 od;
+         wave-length 1.064 um, 1.54 um, 1.57 um;
+       }
+
+      begin FNC = 90;
+        sensor (pulse-period-stab) laser;		    *Period_Instability (1)
+        control
+          {
+	    pulse-period-stab range 0.0 pc to 100.0 pc;
+          }
+      end;
+
+      begin FNC = 91;
+        sensor (prf) laser;				    *Average_Period (2)
+        control
+          {
+	    prf range 8.0 pps to 25.0 pps;
+          }
+      end;
+
+    end;	*laser-cntr-ch1
+
+  end;	    ** end laser
+
+  ******************************************************************************
+  ************		        begin sources  	                    ************
+  ******************************************************************************
+  begin; ** begin sources
+
+    cnx via ATMOSPHERE;
+
+    begin FNC = 101; ** infrared source 
+      source infrared;
+      control
+       {
+         max-time range 0.0 sec to 380.0 sec;
+         differential-temp range -15.0 degc to 35.0 degc by 0.001 degc;
+         diff-temp-error range 0.005 degc to 5.0 degc by 0.001 degc;
+         target-type tets-opnapr, tets-4bar33, tets-4bar62, tets-4bar12, 
+                     tets-4bar40, tets-rectangle, tets-diagln,
+       	             tets-brsght, tets-pinmtx, tets-piesector;
+       }
+    end; 
+
+    begin FNC = 102; ** visible light source 
+      source light;
+      control
+       {
+         max-time range 0.0 sec to 180.0 sec;
+         radiance range 20.0 uw/cm2/sr to 20000.0 uw/cm2/sr by 1.0 uw/cm2/sr;
+         angle-rate range 0.0 rads/sec to 3.0 rads/sec by 0.5 rads/sec;
+         target-type tets-opnapr, tets-spnpinhl, tets-tgtgrp07, tets-tgtgrp12, 
+                     tets-tgtgrp3, tets-etched, tets-brsght, tets-pinmtx,  
+            	     tets-piesector, tets-gryscl10;
+       }
+    end; 
+
+    begin FNC = 103; ** laser target return source 
+      source laser target return;
+      control
+       {
+         max-time range 0.0 sec to 360.0 sec;
+         wave-length 1.064 um, 1.54 um, 1.57 um;
+         target-range range 15.0 m to 40000.0 m;
+         last-pulse-range range 19.5 m to 40000.0 m;
+         trigger-mode lasr, auto;
+         period range 50.0 msec to 125.0 msec continuous;
+         pulse-width range 20.0e-9 sec to 150.0e-9 sec continuous;
+         power-dens range 5.0E-10 w/cm2 to 5.0E-6 w/cm2;
+       }
+    end; 
+
+    begin FNC = 104; ** Modulated (Chopped Light) Source
+      source modulated signal;
+      control
+       {
+         max-time range 0.0 sec to 60.0 sec;
+         position 0, 1;
+         freq range -1 hz to 10000 hz by 1 hz;
+       }
+    end; 
+
+    begin FNC = 105; ** ALTA IR Boresight Source
+      source multi-sensor-infrared;
+      control
+       {
+         settle-time 0.0 sec to 600.0 sec;
+         target-type tets-irbs00, tets-irbs01, tets-irbs02, tets-irbs03, tets-irbs04,
+                     tets-irbs05, tets-irbs06, tets-irbs07, tets-irbs08, tets-irbs09,
+                     tets-irbs10;
+       }
+    end; 
+
+    begin FNC = 106; ** ALTA Visible (LED) Boresight Source
+      source multi-sensor-light;
+      control
+       {
+         max-time range 0.0 sec to 10.0 sec;
+         target-type tets-tvbs01, tets-tvbs02, tets-tvbs03, tets-tvbs04, tets-tvbs05,
+                     tets-tvbs06, tets-tvbs07, tets-tvbs08, tets-tvbs09, tets-tvbs10,
+                     tets-tvbs11, tets-tvbs12, tets-tvbs13, tets-tvbs14, tets-tvbs15;
+       }
+    end; 
+
+    begin FNC = 107; ** Puts ALTA in AUTOCOLLIMATION mode with camera controls
+      source laser;
+      control
+       {
+         max-time range 0.0 sec to 60.0 sec;
+	 *** ALTA Laser Controls ***
+         wave-length 1.064 um, 1.54 um, 1.57 um;
+         pulse-width 150.0e-9 sec, 2.4e-6 sec, 38.4e-6 sec, 614.4e-6 sec;
+         pulse-atten range 0 to 4095 by 1;
+	 *** ALTA NIR Camera Controls ***
+         delay range 0.0 sec to 6.553 sec by .000002 sec;
+         sample-time range 17.9e-6 sec to 0.0333 sec;
+         trigger-mode int, ext, lasr;
+       }
+      end;
+
+  end;   *** end of sources 
+
+end;  ** Electro Optics
+
+**************************************************************************
+************       END ELECTRO OPTICS STATIC DESCRIPTION        **********
+**************************************************************************

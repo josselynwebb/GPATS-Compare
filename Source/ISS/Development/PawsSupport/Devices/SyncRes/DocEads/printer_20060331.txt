@@ -1,0 +1,129 @@
+       Srs ATLAS Driver Benchmark
+ Date/Time: Fri Mar 31 16:27:27 2006 
+
+ SRS 1 SYNCHRO SIMULATOR, SINGLE SPEED, NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 111000          TRUE                 GO                 FALSE                 P 
+
+ SRS 1/2 SYNCHRO SIMULATOR, MULTI-SPEED, NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 112000          TRUE                 GO                 FALSE                 P 
+
+ SRS 1 SYNCHRO INDICATOR [ANGLE], SINGLE SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 121200    .330000000000000E+03      .300004200000000E+03     .270000000000000E+03            P 
+
+ SRS 1 SYNCHRO INDICATOR [ANGLE-RATE], SINGLE SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 121300    .283800000000000E+03      .258000000000000E+03     .232200000000000E+03            P 
+
+ SRS 1 SYNCHRO INDICATOR [ANGLE], MULTI-SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 122200    .275000000000000E+03      .250000000000000E+03     .225000000000000E+03            P 
+
+ SRS 1 SYNCHRO INDICATOR [ANGLE-RATE], MULTI-SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 122300    .283800000000000E+03      .258000000000000E+03     .232200000000000E+03            P 
+
+ SRS 1 RESOLVER SIMULATOR, SINGLE SPEED, NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 131000          TRUE                 GO                 FALSE                 P 
+
+ SRS 1 RESOLVER SIMULATOR, MULTI-SPEED, NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 132000          TRUE                 GO                 FALSE                 P 
+
+ SRS 1 RESOLVER INDICATOR [ANGLE], SINGLE SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 141200    .165000000000000E+03      .150002000000000E+03     .135000000000000E+03            P 
+
+ SRS 1 RESOLVER INDICATOR [ANGLE-RATE], SINGLE SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 141300    .550000000000000E+02      .500000000000000E+02     .450000000000000E+02            P 
+
+ SRS 1 RESOLVER INDICATOR [ANGLE], MULTI-SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 141200    .165000000000000E+03      .150002000000000E+03     .135000000000000E+03            P 
+
+ SRS 1 RESOLVER INDICATOR [ANGLE-RATE], MULTI-SPEED,
+   NON-TRIGGERED
+ -----------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 142300    .550000000000000E+02      .499000000000000E+02     .450000000000000E+02            P 
+
+ SRS 2 SYNCHRO INDICATOR [ANGLE-RATE], SINGLE-SPEED,
+   TRIGGERED
+ -----------------------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 200000          TRUE                 GO                 FALSE                 P 
+
+ --------------------------------------
+  END - END TEST                       
+     PASSED                            
+ --------------------------------------
+

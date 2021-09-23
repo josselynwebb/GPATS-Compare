@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-31_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='2' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='3' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='4' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\LAVA2_ID_13020A1000\TPS\TP_LAV_SRU_ID.OBJ"' bitmap='n' DESC='Select to launch TPH Self-Test TPS.'?>
+<?FRAME id='C3s12a' title='CHAPTER 3 - THEORY OF OPERATION.' next='.\C3s12.xml!C3S12b' previous='.\C3s11.xml!C3S11b'?>
+<chapter>
+<section id="c3s12" label="Section XII." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section XII. TPH Self-Test."?>
+<title>TPH Self-Test.</title>
+<para0 id="p3-12" label="3-12" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-12 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide information on the Theory of
+Operation for the TPH Self-Test. UUT information is provided in paragraph <?hotspot href="p3-12.2"?>3-12.2
+UUT List<?endhotspot?>.</para>
+<subpara1 id="p3-12.1" label="3-12.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-12.1 Theory Of Operation."?>
+<title>Theory Of Operation.</title>
+<para>TPH Self-Test is performed using a self-test fixture that provides
+signal loopback. The Interface Device (ID) tests each aspect of the
+TPH and permits each cable to be installed at specific points during
+the self-test to ensure all components of the TPH are operating as
+required.</para>
+<subpara2 id="p3-12.1.1" label="3-12.1.1" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-12.1.1 TPH Equipment Description."?>
+<title>TPH Equipment Description.</title>
+<para>The AN/PSM-130 Interface Device, self-test fixture, and the
+W1-W8 cables are designed to interface with the 10 Unit Under Test
+(UUTs) listed in <?hotspot href="T3-11"?>Table 3-11<?endhotspot?>
+to the ATE receiver. The ID and Test Fixture provides interconnection
+and distribution of the ATE assets to each of the SRUs via cables
+W1-W8 and W204 (ATE cable). The external self-test fixture provides
+the necessary interconnect to support the self-test of the TPH hardware.</para>
+<para>The ID is a metal enclosure measuring approximately 16 inches
+by 10 inches by 6.5 inches high. The ID contains a printed circuit
+board assembly that holds the UUT interface circuitry, Unit Under
+Test (UUT) load resistors, and connectors.</para>
+</subpara2>
+</subpara1>
+<?FRAME id='C3s12b' title='CHAP. 3 - THEORY OF OPERATION,  SECT. XII - TPH Self-Test' next='.\C4s1.xml!C4S1a' previous='.\C3s12.xml!c3s12a'?>
+<subpara1 id="p3-12.2" label="3-12.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-12.2 Unit Under Test (UUT) List."?>
+<title>Unit Under Test (UUT) List.</title>
+<para>The following provides UUT Information.</para>
+<para>Refer to <?hotspot href="T3-11"?>Table 3-11<?endhotspot?>.</para>
+<para><table id="T3-11">
+<title>Table 3-11. Unit Under Test (UUT) Information</title>
+<tgroup cols="4">
+<?PubTbl tgroup dispwid="898.00px"?>
+<colspec colname="col1" colwidth="0.42*"/>
+<colspec colname="col2" colwidth="1.21*"/>
+<colspec colname="col3" colwidth="0.72*"/>
+<colspec colname="col4" colwidth="0.69*"/>
+<thead>
+<row>
+<entry align="center">ITEM #</entry>
+<entry align="center">Nomenclature (UUT)</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">Weapon System</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry>CDA Logic, CCA</entry>
+<entry align="center">16104813-011</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">2</entry>
+<entry>CDA Control Logic A, CCA</entry>
+<entry align="center">16101157-021</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">3</entry>
+<entry>CDA Control Logic B, CCA</entry>
+<entry align="center">7566139-121</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">4</entry>
+<entry>CDA Grenade Relay, CCA</entry>
+<entry align="center">7579575-011</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">5</entry>
+<entry>GCU Gun Control Logic A1, CCA</entry>
+<entry align="center">7575335-011</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">6</entry>
+<entry>GCU Power Drive A2, CCA</entry>
+<entry align="center">7566394-011</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">7</entry>
+<entry>GCU Gun Control Logic A1, SLEP, CCA</entry>
+<entry align="center">00004A2206-1</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">8</entry>
+<entry>GCU Power Drive A2 SLEP, CCA</entry>
+<entry align="center">00004A2205-1</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">9</entry>
+<entry>GTD Power Supply, CCA</entry>
+<entry align="center">7566131-121</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+<row>
+<entry align="center">10</entry>
+<entry>GTD Stabilization System, CCA</entry>
+<entry align="center">16102218-061</entry>
+<entry align="center">LAV-25A2</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 3?>

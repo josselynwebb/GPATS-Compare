@@ -1,0 +1,115 @@
+\\**************************************************************************
+\\static char	*sccsid = "@(#)generate	1.1	4/25/94";
+\\
+\\***********************************************************************
+\\ File: dims      Version: @(#)generate	1.1  Date: 4/25/94
+\\      *********************************************************       \\
+\\      *********************************************************       \\
+\\      *********************************************************       \\
+print "Source File: generate";
+
+\\
+\\      The following generate statements cause the token tables to be
+\\      created
+\\
+	generate VERBS.token
+		 NOUNS.token
+		 PORTS.token
+		 MODULETYPE.token
+		 PSEUDO.token
+		 REALDIMS.token;
+
+	assign item.RULE_MI = MODRULE;          \\ Modifier Rule for Compiler
+	assign item.RULE_NI = NOUNRULE;         \\ Noun Rule for Compiler
+
+	assign item.TTAB_V = VERBS.token;
+	assign item.TTAB_N = NOUNS.token;
+	assign item.TTAB_P = PORTS.token;
+	assign item.TTAB_MT = MODULETYPE.token;
+	assign item.TTAB_PN = PSEUDO.token;
+	assign item.TTAB_D = REALDIMS.token;
+
+
+	assign item.VER_VT = VERBS.token.VERIFY;
+	assign item.MON_VT = VERBS.token.MONITOR;
+
+	assign item.SUBSET = PAWSIEEE7161989;
+
+print "TOKEN TABLES";
+print "VERBS           :" item.TTAB_V;
+print "NOUNS           :" item.TTAB_N;
+print "PORTS           :" item.TTAB_P;
+print "REAL DIMS       :" item.TTAB_D;
+print "SWITCH MODULES  :" item.TTAB_MT;
+print "PSEUDO NOUNS    :" item.TTAB_PN;
+
+\\
+\\      The following generate statements cause the CIIL tables to be
+\\      created
+
+	generate DIMS.ciil
+		 MODIFIERS.ciil
+		 NOUNS.ciil
+		 VERBS.ciil
+		 MODULETYPE.ciil
+		 DIMPF.ciil;
+
+	assign item.CTAB_V  = VERBS.ciil;
+	assign item.CTAB_N  = NOUNS.ciil;
+	assign item.CTAB_M  = MODIFIERS.ciil;
+	assign item.CTAB_D  = DIMS.ciil;
+	assign item.CTAB_MT = MODULETYPE.ciil;
+	assign item.CTAB_DP = DIMPF.ciil;
+
+
+print "CIIL TABLES";
+print "VERBS            :" item.CTAB_V;
+print "NOUNS            :" item.CTAB_N;
+print "PORTS            :" item.CTAB_P;
+print "DIMENSIONS       :" item.CTAB_D;
+print "MODIFIERS        :" item.CTAB_M;
+print "SWITCH MODULES   :" item.CTAB_MT;
+print "DIMENSION PREFIX :" item.CTAB_DP;
+
+\\
+\\The following assign statements cause the respective va's of the structure
+\\ entries in the global symtab to be saved.
+
+	assign item.STAB_V = VERBS;
+	assign item.STAB_N = NOUNS;
+	assign item.STAB_M = MODIFIERS;
+	assign item.STAB_P = PORTS;
+	assign item.STAB_D = DIMS;
+	assign item.STAB_MT= MODULETYPE;
+
+
+\\      The list statment causes a formatted printout of both the token
+\\      CIIL tables.
+
+\\list;
+
+\\
+\\ Additional bus parameters for ESTABLISH, BUS PROTOCOL
+	assign item.(ADD_BUS_PARAMETER + 0) = MODIFIERS.token.BIT-RATE;
+	assign item.(ADD_BUS_PARAMETER + 1) = MODIFIERS.token.STOP-BITS;
+	assign item.(ADD_BUS_PARAMETER + 2) = MODIFIERS.token.PARITY;
+	assign item.(ADD_BUS_PARAMETER + 3) = MODIFIERS.token.TERMINATED;
+	assign item.(ADD_BUS_PARAMETER + 4) = MODIFIERS.token.TCP;
+	assign item.(ADD_BUS_PARAMETER + 5) = MODIFIERS.token.UDP;
+	assign item.(ADD_BUS_PARAMETER + 6) = MODIFIERS.token.TIMING-VALUE;
+	assign item.(ADD_BUS_PARAMETER + 7) = MODIFIERS.token.THREE-SAMPLES;
+	assign item.(ADD_BUS_PARAMETER + 8) = MODIFIERS.token.SINGLE-FILTER;
+	assign item.(ADD_BUS_PARAMETER + 9) = MODIFIERS.token.ACCEPTANCE-CODE;
+	assign item.(ADD_BUS_PARAMETER + 10) = MODIFIERS.token.ACCEPTANCE-MASK;
+	assign item.(ADD_BUS_PARAMETER + 11) = MODIFIERS.token.BUS-TIMEOUT;
+	assign item.(ADD_BUS_PARAMETER + 12) = MODIFIERS.token.NO-COMMAND-TIMEOUT;
+	assign item.(ADD_BUS_PARAMETER + 13) = MODIFIERS.token.NO-RESPONSE-TIMEOUT;
+	assign item.(ADD_BUS_PARAMETER + 14) = MODIFIERS.token.INTERRUPT-ACK-TIMEOUT;
+	assign item.(ADD_BUS_PARAMETER + 15) = MODIFIERS.token.BASE-VECTOR;
+	assign item.(ADD_BUS_PARAMETER + 16) = MODIFIERS.token.ADDRESS-REG;
+	assign item.(ADD_BUS_PARAMETER + 17) = 0;
+
+\\***********************************************************************
+
+
+

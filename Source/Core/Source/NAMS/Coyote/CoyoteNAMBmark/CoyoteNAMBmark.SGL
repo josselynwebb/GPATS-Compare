@@ -1,0 +1,42 @@
+================================================================
+[CoyoteNAMBmark] 59: SIGNAL:S2
+source dc signal
+        control current-lmt
+            +.1000000000E+02a
+        control voltage
+            +.2800000000E+02v
+        CNX
+             hi [DC2-Hi]
+                      EO_P28V-HI
+             lo [DC2-Lo]
+                      EO_P28V-LO
+             sense-hi [DC2-SHi]
+                     EO_P28V-HIS
+             sense-lo [DC2-SLo]
+                     EO_P28V-LOS
+
+
+        CONCURRENT SIGNALS
+        S1
+Assigned:   Device  '          DCP_1' FNC = 12 
+================================================================
+[CoyoteNAMBmark] 53: SIGNAL:S1
+source dc signal
+        control current-lmt
+            +.5000000000E+01a
+        control voltage
+            +.1500000000E+02v
+        CNX
+             hi [DC3-Hi]
+                      EO_P15V-HI
+             lo [DC3-Lo]
+                      EO_P15V-LO
+             sense-hi [DC3-SHi]
+                     EO_P15V-HIS
+             sense-lo [DC3-SLo]
+                     EO_P15V-LOS
+
+
+        CONCURRENT SIGNALS
+        S2
+Assigned:   Device  '          DCP_1' FNC = 3 

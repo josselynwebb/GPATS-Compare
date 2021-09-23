@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="DDM-A1" LABEL="III"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\DRIVERS_DISPLAY_A1_CCA_5428412\TP_AAV_DDM_A1.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s03.ide!c4s03'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/DDM_A1/ASSY/DDM_A1_1.pic' ?><?BUTTON POS='4' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/DDM_A1/SCHEM/DDM_A1_SCH.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s03.ide!Table3-2'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s03.ide!c3s03'?><?FRAME ID="5-3a" TITLE="Chapter 5. Maintenance, Section III. ELTD FOR DISPLAY BOARD CCA, P/N 5428412" previous="./DDM_LRU.ide" next="./ddm_a2.ide"?><?TOCENTRY TITLE="SECTION III. ELTD for the Display Board CCA, P/N 5428412" TOCLEVEL="2" LABEL="III"?>
+<TITLE>SECTION III. ELTD for the Display Board CCA, P/N 5428412</TITLE>
+<PARA0 ID="P5-3" LABEL="5.3"><?TOCENTRY TITLE="5.3 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the Display Board CCA, P/N 5428412.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-DisplayBd-5428412.PDF"?>Display Board CCA ELTD<?endhotspot?></PARA></PARA0></SECTION>

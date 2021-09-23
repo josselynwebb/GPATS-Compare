@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY ESD_basic_symbol SYSTEM "GRAPHICS/ESD_basic_symbol.jpg" NDATA jpg>
+]>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?FRAME id='C2s1a' title='CHAPTER 2 - SAFETY PRECAUTIONS' previous='.\C1s1.xml!C1s2N'?>
+<?PUB TOCLEVEL="1" TEXT="CHAPTER 2 - SAFETY PRECAUTIONS"?>
+<chapter id="chapter2" label="CHAPTER 2" tocentry="1">
+<title>SAFETY PRECAUTIONS</title>
+<?PUB TOCLEVEL="2" TEXT="Section I. Introduction."?>
+<section id="c2s1" label="Section I. Introduction.">
+<para0 id="p2-1" label="2-1" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="2-1 Introduction."?>
+<title>Introduction.</title>
+<?ALERT id="w212" type="warning"?>
+<para><emphasis emph="b">Warning</emphasis> statements highlight an
+essential operating or maintenance procedure, practice, condition,
+statement, etc., which if not strictly observed, could result in injury
+or death of personnel.</para>
+<?ENDALERT?>
+<?ALERT id="c212" type="caution"?>
+<para><emphasis emph="b">Caution</emphasis> statements highlight an
+essential operating or maintenance procedure, practice, condition,
+statement, etc., which, if not strictly observed, could result in
+damage or destruction of equipment.</para>
+<?ENDALERT?>
+<para>This chapter contains information on safety precautions for
+the APS. Section I contains general information on Safety Responsibilities
+and Notifications. Section II contains a General Safety Summary. Section
+III contains Maintenance Safety Precautions.</para>
+<para>Personnel who use or perform maintenance on the APS must be
+familiar with the contents of this document. Safety considerations
+fall into two categories: personnel safety and equipment safety. Basic
+safety requirements and concepts are discussed in System Safety Program
+Requirements, MIL-STD-882E. Specific precautions, based on design
+features of the APS, are presented in the paragraphs below.</para>
+<subpara1 id="p2-1.1" label="2-1.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-1.1 Safety Responsibilities."?>
+<title>Safety Responsibilities.</title>
+<para>Ultimately, individuals are responsible for their own safety,
+the safety of others working on or near the system, and the safe operation
+of the equipment. The processes and procedures described in this manual
+require compliance with standard safety precautions. The technician
+must adhere to the procedures, recommendations, warnings, and cautions
+provided to ensure the safe use, handling, storage, and disposal of
+components. This section provides general safety precautions and instructions
+that must be applied during maintenance of the APS to ensure personal
+safety and health and the protection of Government property. (Portions
+of this chapter are repeated elsewhere in this manual for reinforcement.)</para>
+</subpara1>
+<subpara1 id="p2-1.2" label="2-1.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-1.2 Safety Notations - Warnings, Cautions And Notes."?>
+<title>Safety Notations - Warnings, Cautions And Notes.</title>
+<para>Warning, Caution, and Note statements have been strategically
+placed throughout the text. These statements are considered essential
+to the protection of personnel or equipment and property and are placed
+prior to the procedures to which they apply. A warning or caution
+applies each time the related step is repeated. Before starting any
+task, review the warnings, cautions, or notes included in the text
+for that task. Warning, Caution, and Note statements are set apart
+from standard text content (as illustrated below) and immediately
+precede the paragraphs or steps to which they apply.</para>
+</subpara1>
+<para><warning id="w212">
+<para><emphasis emph="b">Warning</emphasis> statements highlight an
+essential operating or maintenance procedure, practice, condition,
+statement, etc., which if not strictly observed, could result in injury
+or death of personnel. 		</para>
+</warning> </para>
+<para><caution id="c212">
+<para><emphasis emph="b">Caution</emphasis> statements highlight an
+essential operating or maintenance procedure, practice, condition,
+statement, etc., which, if not strictly observed, could result in
+damage or destruction of equipment.</para>
+</caution></para>
+<para> <note>
+<para><emphasis emph="b">Note</emphasis> statements highlight an essential
+operating or maintenance procedure, condition, or statement.</para>
+</note> </para>
+</para0>
+</section>
+<?FRAME id='C2s2b' title='CHAPTER 2 - SAFETY PRECAUTIONS'?>
+<?PUB TOCLEVEL="2" TEXT="Section II. General Safety Summary."?>
+<section id="c2s2" label="Section II." tocentry="1">
+<title>General Safety Summary.</title>
+<para0 id="p2-2" label="2-2" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="2-2 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs will provide a general safety summary
+for this APS.</para>
+<subpara1 id="p2-2.1" label="2-2.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-2.1 Electrical Current."?>
+<title>Electrical Current.</title>
+<para>Electrical current sufficient to cause death or injury to personnel
+is present throughout the equipment used for maintenance of the APS.
+All personnel must be aware of the measures required to prevent and
+treat electrocution.</para>
+<subpara2 id="p2-2.1.1" label="2-2.1.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="2-2.1.1 Emergency Procedures For Victims Of Electrical Shock."?>
+<title>Emergency Procedures For Victims Of Electrical Shock.</title>
+<para>If someone becomes the victim of electrical shock, perform the
+following step-by-step procedures:</para>
+<step1 label="Step 1. ">
+<para>Do not try to pull or grab the individual.</para>
+</step1>
+<step1 label="Step 2. ">
+<para>Turn off electrical power. If electrical power cannot be turned
+off, use a wooden pole, a rope, or some other insulating material
+to pull, push, or lift the person to safety.</para>
+</step1>
+<step1 label="Step 3. ">
+<para>Send for help as soon as possible.</para>
+</step1>
+<step1 label="Step 4. ">
+<para>After injured person is free of contact with the source of electrical
+shock, move the person a short distance away and check breathing and
+pulse.</para>
+</step1>
+<step1 label="Step 5. ">
+<para>If the person has stopped breathing, immediately start artificial
+resuscitation. If the person does not have a pulse, immediately start
+Cardiopulmonary Resuscitation.</para>
+</step1>
+</subpara2>
+</subpara1>
+<subpara1 id="p2-2.2" label="2-2.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-2.2 ESD Hazards And Precautions."?>
+<title>ESD Hazards And Precautions.</title>
+<para>Equipment that uses electronic components can experience problems
+ranging from occasional breakdowns and degraded performance to complete
+failure. A major cause of these problems can be traced to Electrostatic
+Discharge. Electrostatic Discharge is the release of static electricity
+caused by the rapid transfer of static electrical charge between bodies
+of different electrical potential. Ensure that proper precautions
+are taken whenever and wherever sensitive devices are to be handled.</para>
+<subpara2 id="p2-2.2.1" label="2-2.2.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="2-2.2.1 ESD Awareness, Management And Symbol."?>
+<title>ESD Awareness, Management And Symbol.</title>
+<para>All maintenance actions described in this manual could result
+in damage to parts. All sensitive parts must be handled in accordance
+with management procedures described in TM 9999-15/1, Electrostatic
+Discharge Awareness, and TM 9999-15/2, Electrostatic Discharge Management.</para>
+<para>All sensitive components should display the ESD symbol. Select
+"<?hotspot display="50%" linktype="picture" href="./graphics/Fig2-1_1.pic"?>Figure
+2-1. Basic ESD Symbol.<?endhotspot?>" to view the symbol used to identify
+all components that can be effected by electrostatic discharge.</para>
+</subpara2>
+<subpara2 id="p2-2.2.2" label="2-2.2.2" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="2-2.2.2 ESD Damage Prevention."?>
+<title>ESD Damage Prevention.</title>
+<para>When handling sensitive equipment or parts, perform the following
+steps to prevent damage:</para>
+<step1 label="Step 1.">
+<para>Attach personnel ground strap to wrist and chassis ground prior
+to removing sensitive equipment.</para>
+</step1>
+<step1 label="Step 2.">
+<para>Store circuit cards in approved protective packaging immediately
+upon removal from the equipment.</para>
+</step1>
+<step1 label="Step 3.">
+<para>Use an ESD workstation for troubleshooting any item.</para>
+</step1>
+<step1 label="Step 4.">
+<para>Inspect the protective packaging of all replacement items for
+indications of damage to packaging during shipment.</para>
+</step1>
+<step1 label="Step 5.">
+<para>Ground the package prior to the removal of the item.</para>
+</step1>
+<step1 label="Step 6.">
+<para>Install replacement items immediately upon removal from protective
+packaging.</para>
+</step1>
+</subpara2>
+</subpara1>
+</para0>
+</section>
+<?FRAME id='C2s3c' title='CHAPTER 2 - SAFETY PRECAUTIONS' next='.\C3s1.xml!C3S1a'?>
+<?PUB TOCLEVEL="2" TEXT="Section III. Maintenance Safety Guidelines."?>
+<section id="c2s3" label="Section III." tocentry="1">
+<title>Maintenance Safety Guidelines.</title>
+<para0 id="p2-3" label="2-3" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="2-3 Introduction."?>
+<title>Introduction.</title>
+<para>The following section provides a summary of the operational
+maintenance safety for the APS.</para>
+<subpara1 id="p2-3.1" label="2-3.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.1 General Maintenance Safety Guidelines."?>
+<title>General Maintenance Safety Guidelines.</title>
+<para>The following paragraphs provide general maintenance safety
+guidelines:</para>
+<step1 label="(a)">
+<para>Allow only qualified maintenance personnel to perform corrective
+maintenance actions on electronic equipment and components.</para>
+</step1>
+<step1 label="(b)">
+<para>During corrective maintenance or repairs on electronic equipment
+or components, under no circumstances should any person service or
+adjust the equipment except in the presence of someone who is capable
+of rendering aid.</para>
+</step1>
+<step1 label="(c)">
+<para>Ensure that all internal and external grounds are properly connected
+before energizing shop equipment.</para>
+</step1>
+</subpara1>
+<subpara1 id="p2-3.2" label="2-3.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.2 Personal Maintenance Safety Guidelines."?>
+<title>Personal Maintenance Safety Guidelines.</title>
+<para>The following paragraphs provide personal safety guidelines:</para>
+<step1 label="(a)">
+<para>Do not wear loose or floppy clothing, rings, wrist watches,
+and/or any other conductive material.</para>
+</step1>
+<step1 label="(b)">
+<para>Keep all metal objects clear of any energized device.</para>
+</step1>
+</subpara1>
+<subpara1 id="p2-3.3" label="2-3.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.3 Hand Tool And Test Equipment Maintenance Safety Guidelines."?>
+<title>Hand Tool And Test Equipment Maintenance Safety Guidelines.</title>
+<para>The following paragraphs describe the APS hand tool and test
+equipment maintenance safety guidelines:</para>
+<step1 label="(a)">
+<para>Use tools with insulated handles, grips, or bodies when working
+on electronic equipment.</para>
+</step1>
+<step1 label="(b)">
+<para>Use only AC grounding type (3-prong) tools, test equipment,
+or extension power cords.</para>
+</step1>
+<step1 label="(c)">
+<para>Discharge all capacitors before taking any measurements on any
+de-energized equipment.</para>
+</step1>
+</subpara1>
+<subpara1 id="p2-3.4" label="2-3.4" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.4 Handling Chemical Agent Safety Guidelines."?>
+<title>Handling Chemical Agent Safety Guidelines.</title>
+<para>The following paragraphs provide chemical agent safety guidelines:</para>
+<step1 label="(a)">
+<para>Ensure working area is adequately ventilated when using chemicals.</para>
+</step1>
+<step1 label="(b)">
+<para>Use the correct type of chemical for the correct application
+on a specific equipment.</para>
+</step1>
+<step1 label="(c)">
+<para>Use only approved chemical agents or materials. Do not use unauthorized
+chemical agents or materials to clean or repair equipment items.</para>
+</step1>
+<step1 label="(d)">
+<para>Do not use flammable solvents, such as gasoline, benzene, ether,
+or like substances, as cleaning solvents for electronic parts or components.</para>
+</step1>
+<step1 label="(e)">
+<para>Do not use carbon tetrachloride as a cleaning solvent.</para>
+</step1>
+<step1 label="(f)">
+<para>When using cleaning solvents or chemical washes, allow the equipment
+to cool before applying the solvent. Never apply a cleaning solvent
+to internal parts of energized equipment.</para>
+</step1>
+</subpara1>
+<subpara1 id="p2-3.5" label="2-3.5" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.5 Do Not Service Alone."?>
+<title>Do Not Service Alone.</title>
+<para>Do not attempt internal service or adjustment unless another
+person capable of rendering aid and resuscitation is present.</para>
+</subpara1>
+<subpara1 id="p2-3.6" label="2-3.6" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.6 Keep Away From Live Circuits."?>
+<title>Keep Away From Live Circuits.</title>
+<para>Operating personnel must at all times observe safety regulations.
+Do not replace components inside the equipment with the voltage supply
+turned on. Under certain conditions, dangerous potentials may exist
+when the power control is in the off position due to charges retained
+by capacitors. To avoid injuries, always remove power from, discharge,
+and ground a circuit before touching it. Adhere to all lock out/tag
+out requirements.</para>
+</subpara1>
+<subpara1 id="p2-3.7" label="2-3.7" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.7 Resuscitation."?>
+<title>Resuscitation.</title>
+<para>Personnel working with or near high voltages or hazardous materials
+shall be trained in modern methods of resuscitation.</para>
+</subpara1>
+<subpara1 id="p2-3.8" label="2-3.8" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.8 Flammable Liquids."?>
+<title>Flammable Liquids.</title>
+<para>When flammable liquids are used in compartments containing non-operating
+equipment, be sure that there is sufficient ventilation to avoid any
+accumulation of fumes and that all fumes are cleared before the equipment
+is energized. When flammable cleaners and primers are being applied,
+approved explosion-proof lights, blowers, and other equipment shall
+be used. Ensure that firefighting equipment is readily available and
+in working order.</para>
+</subpara1>
+<subpara1 id="p2-3.9" label="2-3.9" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.9 Chemicals/Cleaners."?>
+<title>Chemicals/Cleaners.</title>
+<para>Keep in approved safety containers and in minimum quantities.
+Some cleaners/chemicals may have an effect on skin, eyes, and respiratory
+tract. Observe manufacturer WARNING labels, Safety Data Sheets (SDS),
+and current safety directives for proper handling and disposal of
+cleaners/chemicals and soiled clothing. Use only in authorized areas.
+Unless otherwise indicated in the text, use as described in this publication
+should not result in any immediate health concerns. Consult the local
+Bio-environmental Engineer for specific protective equipment and ventilation
+requirements.</para>
+</subpara1>
+<subpara1 id="p2-3.10" label="2-3.10" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.10 Personal Protective Equipment."?>
+<title>Personal Protective Equipment.</title>
+<para>Wear protective clothing/equipment (gloves, apron, eye protection,
+etc.) approved for the materials and tools being used. Contact supervisor
+for guidance. If necessary, the local Bio-environmental Engineer should
+be contacted for guidance.</para>
+</subpara1>
+<subpara1 id="p2-3.11" label="2-3.11" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.11 Soldering."?>
+<title>Soldering.</title>
+<para>Personnel shall use eye protection when soldering. Soldering
+irons are hot; use proper precautions to prevent burns. Avoid fumes
+generated by soldering. Good general ventilation is normally adequate.</para>
+</subpara1>
+<subpara1 id="p2-3.12" label="2-3.12" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="2-3.12 Do Not Wear Jewelry."?>
+<title>Do Not Wear Jewelry.</title>
+<para>Remove rings, watches, and other metallic objects which may
+cause shock or burn hazards. Snagged finger rings have caused many
+serious injuries. Remove finger rings during all periods of maintenance.</para>
+</subpara1>
+</para0>
+</section><?Pub Caret -2?>
+</chapter>
+</body>

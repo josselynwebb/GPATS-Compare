@@ -1,0 +1,937 @@
+ 000100 BEGIN, ATLAS MODULE 'VEO-2 PHASE-II IR BENCHMARK'              $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 000800 DECLARE, CONSTANT, 'CHSIZE' IS 110                             $
+     05 DECLARE, CONSTANT, 'DEGTORAD' IS 57.29577951                   $
+C                                                                      $
+ 000900 DECLARE, TYPE, 'CHANDATA' IS ARRAY(1 THRU 'CHSIZE') OF INTEGER $
+C                                                                      $
+ 001000 DECLARE, EXTERNAL, VARIABLE, 'FAIL-CNT'  IS INTEGER            $
+     05 DECLARE, EXTERNAL, VARIABLE, 'ETE TEST'  IS BOOLEAN            $
+     10 DECLARE, VARIABLE, 'TESTNO' IS INTEGER                         $
+     15 DECLARE, VARIABLE, 'UUT-HORIZ-FOV' IS DECIMAL                  $
+     20 DECLARE, VARIABLE, 'UUT-VERT-FOV'  IS DECIMAL                  $
+     25 DECLARE, VARIABLE, 'ULIM' IS DECIMAL                           $
+     30 DECLARE, VARIABLE, 'LLIM' IS DECIMAL                           $
+     35 DECLARE, VARIABLE, 'MVAL' IS DECIMAL                           $
+     40 DECLARE, VARIABLE, 'MIODATA' IS ARRAY(1 THRU 512) OF DECIMAL   $
+     45 DECLARE, VARIABLE, 'X-ALIGN-ERROR' IS DECIMAL                  $
+     50 DECLARE, VARIABLE, 'Y-ALIGN-ERROR' IS DECIMAL                  $
+     55 DECLARE, VARIABLE, 'SYNTAX' IS BOOLEAN INITIAL = FALSE         $
+     60 DECLARE, VARIABLE, 'TEST-STEPS' IS 
+            ARRAY(1 THRU 2, 1 THRU 5) OF DECIMAL                       $
+     65 DECLARE, VARIABLE, 'XYDATA' IS ARRAY(1 THRU 2) OF DECIMAL      $
+     70 DECLARE, VARIABLE, 'CHANVAL' IS 'CHANDATA'                     $
+     75 DECLARE, VARIABLE, 'CHANEXP' IS 'CHANDATA'                     $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 002000 DEFINE, 'RESULTS', EXTERNAL, PROCEDURE ('TEST' IS INTEGER,
+                                                'MVAL' IS DECIMAL,
+                                                'ULIM' IS DECIMAL,
+                                                'LLIM' IS DECIMAL)     $
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                                * $
+C ******************************************************************** $
+C                                                                      $
+ 002100 DEFINE, 'CLRSCR', EXTERNAL, PROCEDURE                          $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'CALL VIDEO-GEN                                       * $
+C ******************************************************************** $
+C                                                                      $
+ 002200 DEFINE, 'SETUP VIDEO-GEN', EXTERNAL,
+          PROCEDURE('ARG' IS STRING(10) OF CHAR)                       $
+     99 END, 'SETUP VIDEO-GEN'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : PROC-CHAN-DATA                                       * $
+C * PURPOSE   : Process channel data from Channel Integrity test     * $
+C ******************************************************************** $
+C                                                                      $
+ 002400 DEFINE, 'PROC-CHAN-DATA', PROCEDURE('TNO' IS INTEGER,
+                                            'DATA' IS 'CHANDATA',
+                                            'MASK' IS 'CHANDATA')      $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'I' IS INTEGER                            $
+     10   DECLARE, VARIABLE, 'RSLT' IS STRING(4) OF CHAR               $
+     15   DECLARE, VARIABLE, 'TMP1' IS STRING(16) OF BIT               $
+     20   DECLARE, VARIABLE, 'TMP2' IS STRING(16) OF BIT               $
+     25   DECLARE, VARIABLE, 'CHAN' IS INTEGER                         $
+     30   DECLARE, VARIABLE, 'TEST' IS INTEGER                         $
+C                                                                      $
+     35     OUTPUT,
+              C'Number of channels : ', 'DATA'(1), C'\LF\',
+              C'First Channel      : ', 'DATA'(2), C'\LF\\LF\',
+              C' TEST   CHAN     REFERENCE      ', 
+              C'   MEAS VALUE     RESULT'                              $
+     40     OUTPUT,
+              C'------  ----  ----------------  ', 
+              C'----------------  ------'                              $
+     45   FOR, 'I' = 1 THRU 'DATA'(1), THEN                            $
+     50     CALCULATE, 'TMP1' = DIG(BNR, 'DATA'('I'+2), 16, 0),
+                       'TMP2' = DIG(BNR, 'MASK'('I'), 16, 0),
+                       'TEST' = 'TNO' + 'I',
+                       'CHAN' = 'I'                                    $
+     55     IF, 'TMP1' XOR 'TMP2' NE X'0000', THEN                     $
+     60       CALCULATE, 'RSLT' = C'NOGO'                              $
+     65     ELSE                                                       $
+     70       CALCULATE, 'RSLT' = C' GO '                              $
+     75     END, IF                                                    $
+     80     OUTPUT, 'TEST':6, C' ', 'CHAN':4, C'  ',
+              'TMP2':BINARY 16, C'  ', 'TMP1':BINARY 16, C' ',
+              'RSLT'                                                   $
+     85   END, FOR                                                     $
+     90   OUTPUT, C'\LF\'                                              $
+C                                                                      $
+ 002499 END, 'PROC-CHAN-DATA'                                          $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : CLEARCHANDATA                                        * $
+C ******************************************************************** $
+C                                                                      $
+ 002600 DEFINE, 'CLEAREXPECTED', PROCEDURE                             $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'I' IS INTEGER                            $
+C                                                                      $
+     10   FOR, 'I' = 1 THRU 'CHSIZE', THEN                             $
+     15     CALCULATE, 'CHANEXP'('I') = 0                              $
+     20   END, FOR                                                     $
+C                                                                      $
+ 002699 END, 'CLEAREXPECTED'                                           $                       
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : MULTI-SENSOR INFRARED BORESIGHT TEST                 * $
+C ******************************************************************** $
+C                                                                      $
+ 010000 DEFINE, 'MULTI-SENSOR IR SOURCE', PROCEDURE                    $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010100 - TARGET IRBS00                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010100   OUTPUT, 
+          C'MULTI-SENSOR IR TEST 0101 - TARGET IRBS00'                 $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010100                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS00,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS00,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010200 - TARGET IRBS01                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010200   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0102 - TARGET IRBS01'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010200                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS01,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS01,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010300 - TARGET IRBS02                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010300   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0103 - TARGET IRBS02'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010300                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS02,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS02,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010400 - TARGET IRBS03                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010400   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0104 - TARGET IRBS03'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010400                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS03,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS03,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010500 - TARGET IRBS04                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010500   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0105 - TARGET IRBS04'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010500                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS04,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS04,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010600 - TARGET IRBS05                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010600   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0106 - TARGET IRBS05'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010600                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS05,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS05,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010700 - TARGET IRBS01                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010700   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0107 - TARGET IRBS06'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010700                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS06,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS06,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010800 - TARGET IRBS07                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010800   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0108 - TARGET IRBS07'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010800                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS07,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS07,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 010900 - TARGET IRBS08                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 010900   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0109 - TARGET IRBS08'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010900                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS08,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS08,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 011000 - TARGET IRBS09                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 011000   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0110 - TARGET IRBS09'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 011000                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS09,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS09,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 011100 - TARGET IRBS10                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 011100   OUTPUT, 
+            C'MULTI-SENSOR IR TEST 0111 - TARGET IRBS10'               $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 011100                                 $
+     10   SETUP, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS10,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.                          \LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-INFRARED,
+            TARGET-TYPE TARG-IRBS10,
+            SETTLE-TIME 5 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 011999 END, 'MULTI-SENSOR IR SOURCE'                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : GEOMETRIC FIDELITY DISTORTION TEST                   * $
+C ******************************************************************** $
+C                                                                      $
+ 012000 DEFINE, 'GEOMETRIC FIDELITY DISTORTION', PROCEDURE             $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'IDX' IS INTEGER                          $
+     10   DECLARE, VARIABLE, 'POSITIONS' IS ARRAY(1 THRU 18) OF 
+              DECIMAL                                                  $
+C                                                                      $
+     15   OUTPUT, C'GEOMETRIC FIDELITY DISTORTION TEST 0121'           $
+C                                                                      $
+     20   CALCULATE, 'POSITIONS'(1) = 0.0,
+                     'POSITIONS'(2) = 0.0,
+                     'POSITIONS'(3) = -0.310,
+                     'POSITIONS'(4) = -0.230,
+                     'POSITIONS'(5) = 0.0,
+                     'POSITIONS'(6) = -0.230,
+                     'POSITIONS'(7) = 0.310,
+                     'POSITIONS'(8) = -0.230,
+                     'POSITIONS'(9) = -0.310,
+                     'POSITIONS'(10) = 0.0,
+                     'POSITIONS'(11) = 0.310,
+                     'POSITIONS'(12) = 0.0,
+                     'POSITIONS'(13) = -0.310,
+                     'POSITIONS'(14) = 0.230,
+                     'POSITIONS'(15) = 0.0,
+                     'POSITIONS'(16) = 0.230,
+                     'POSITIONS'(17) = 0.310,
+                     'POSITIONS'(18) = 0.230                           $
+C $
+ 012100   OUTPUT, 
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect the Video Test Generator [VTG] to the \LF\',
+            C'    video input on the VIPER/T docking station.   \LF\',
+            C' 2. Set the VTG video pattern to Dist1.           \LF\',
+            C' 3. Each time the driver prompts for position,    \LF\',
+            C'    index to the next Dist display, Dist1, Dist2  \LF\',
+            C'    etc., leaving the display on Dist1 for the    \LF\',
+            C'    first measurement.                            \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     05   INPUT, GO-NOGO                                               $
+     10   CALCULATE, 'ULIM' = 5.0,
+                     'LLIM' = 0,
+                     'TESTNO' = 012100                                 $
+     15   MEASURE, (DISTORTION INTO 'MVAL'), INFRARED,
+            DISTORTION MAX 5.0 PC,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            DISTORTION-POSITIONS 'POSITIONS' MAX 18,
+            DIST-POS-COUNT 9,
+            DIFFERENTIAL-TEMP 5.0 DEGC,
+            H-FIELD-OF-VIEW 0.640 RAD,
+            V-FIELD-OF-VIEW 0.480 RAD,
+            TGT-COORDINATE-TOP    0,
+            TGT-COORDINATE-LEFT   0,
+            TGT-COORDINATE-BOTTOM 479,
+            TGT-COORDINATE-RIGHT  639,
+            CNX VIA VIDEO-IN                                           $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     25   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Disconnect Video Test Generator [VTG] from the\LF\',
+            C'    VIPER/T docking station.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+C                                                                      $
+ 012999 END, 'GEOMETRIC FIDELITY DISTORTION'                           $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : NOISE EQUIVALENT DIFFERENTIAL TEMPERATURE TEST       * $
+C ******************************************************************** $
+C                                                                      $
+ 013000 DEFINE, 'NOISE EQUIVALENT DIFFERENTIAL TEMP', PROCEDURE        $
+C                                                                      $
+     05   OUTPUT, C'NOISE EQUIVALENT DIFFERENTIAL TEMP TEST 0130'      $
+C                                                                      $
+ 013100   OUTPUT, 
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect the Video Test Generator [VTG] to the \LF\',
+            C'    video input on the VIPER/T docking station.   \LF\',
+            C' 2. Set the VTG video pattern to SiTF2.           \LF\',
+            C' 3. After 90 seconds, change pattern to SiTF10.   \LF\',
+            C' 4. CEM Error issued is due to top being above    \LF\',
+            C'    target. Set this way to get a reading as image\LF\',
+            C'    is noise free and returns 0.0. Ignore error.  \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     05   INPUT, GO-NOGO                                               $
+     10   CALCULATE, 'ULIM' = 3.9,
+                     'LLIM' = 0,
+                     'TESTNO' = 013100                                 $
+     15   MEASURE, (NOISE-EQ-DIFF-TEMP INTO 'MVAL'), INFRARED,
+            NOISE-EQ-DIFF-TEMP MAX 10.0 DEGC,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            H-FIELD-OF-VIEW 0.034907 RAD,
+            V-FIELD-OF-VIEW 0.026180 RAD,
+            TGT-COORDINATE-TOP  222,
+            TGT-COORDINATE-LEFT 232,
+            TGT-COORDINATE-BOTTOM 276,
+            TGT-COORDINATE-RIGHT 288,
+            DIFF-TEMP-INTERVAL 10.0 DEGC,
+            DIFF-TEMP-START -5.0 DEGC,
+            DIFF-TEMP-STOP 5.0 DEGC,
+            DIFFERENTIAL-TEMP 10.0 DEGC,
+            TARGET-TYPE TARG-PIESECTOR,
+            CNX VIA VID-OUT                                            $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     25   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Disconnect Video Test Generator [VTG] from the\LF\',
+            C'    VIPER/T docking station.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     30   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 013999 END, 'NOISE EQUIVALENT DIFFERENTIAL TEMP'                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : IMAGE UNIFORMITY TEST                                * $
+C ******************************************************************** $
+C                                                                      $
+ 014000 DEFINE, 'IMAGE UNIFORMITY', PROCEDURE                          $
+C                                                                      $
+ 014100   OUTPUT, C'IMAGE UNIFORMITY TEST 0141'                        $
+     05   OUTPUT, 
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect the Video Test Generator [VTG] to the \LF\',
+            C'    video input on the VIPER/T docking station.   \LF\',
+            C' 2. Set the VTG video pattern to Uniform1.        \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     10   INPUT, GO-NOGO                                               $
+     15   CALCULATE, 'ULIM' = 5.0,
+                     'LLIM' = 0,
+                     'TESTNO' = 014100                                 $
+C                                                                      $
+     20   MEASURE, (UNIFORMITY INTO 'MVAL'), INFRARED,
+            UNIFORMITY MAX 1.0 PC,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 10.0 DEGC,
+            H-FIELD-OF-VIEW 0.69813 RAD,
+            V-FIELD-OF-VIEW 0.52360 RAD,
+            TGT-COORDINATE-TOP    2,
+            TGT-COORDINATE-LEFT   2,
+            TGT-COORDINATE-BOTTOM 319,
+            TGT-COORDINATE-RIGHT  239,
+            CNX VIA UUT-VIDEO-IN                                       $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 014200   OUTPUT, C'IMAGE UNIFORMITY TEST 0142'                        $
+     05   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect the Video Test Generator [VTG] to the \LF\',
+            C'    video input on the VIPER/T docking station.   \LF\',
+            C' 2. Set the VTG video pattern to Uniform2.        \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     10   INPUT, GO-NOGO                                               $
+     15   CALCULATE, 'ULIM' = 5.0,
+                     'LLIM' = 0,
+                     'TESTNO' = 014200                                 $
+C                                                                      $
+     20   MEASURE, (UNIFORMITY INTO 'MVAL'), INFRARED,
+            UNIFORMITY MAX 1.0 PC,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 10.0 DEGC,
+            H-FIELD-OF-VIEW 0.69813 RAD,
+            V-FIELD-OF-VIEW 0.52360 RAD,
+            TGT-COORDINATE-TOP    2,
+            TGT-COORDINATE-LEFT   2,
+            TGT-COORDINATE-BOTTOM 319,
+            TGT-COORDINATE-RIGHT  239,
+            CNX VIA UUT-VIDEO-IN                                       $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     30   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Disconnect Video Test Generator [VTG] from the\LF\',
+            C'    VIPER/T docking station.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 014999 END, 'IMAGE UNIFORMITY'                                        $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : CHANNEL INTEGRITY TEST                               * $
+C ******************************************************************** $
+C                                                                      $
+ 015000 DEFINE, 'CHANNEL INTEGRITY', PROCEDURE                         $
+C                                                                      $
+ 015100   OUTPUT, C'CHANNEL INTEGRITY TEST 0150 - NORMAL'              $
+     05   OUTPUT,  
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect the Video Test Generator [VTG] to the \LF\',
+            C'    video input on the VIPER/T docking station.   \LF\',
+            C' 2. Set the VTG video pattern to VChanIn1.        \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     10   INPUT, GO-NOGO                                               $
+     15   CALCULATE, 'ULIM' = 1.0,
+                     'LLIM' = 0,
+                     'TESTNO' = 015000                                 $
+     20   PERFORM, 'CLEAREXPECTED'                                     $
+C                                                                      $
+     25   MEASURE, (CHAN-INTEGRITY INTO 'CHANVAL'), INFRARED,
+            CHAN-INTEGRITY MAX 10,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.069813 RAD,
+            V-FIELD-OF-VIEW 0.052360 RAD,
+            TGT-COORDINATE-TOP    0,
+            TGT-COORDINATE-LEFT   0,
+            TGT-COORDINATE-BOTTOM 479,
+            TGT-COORDINATE-RIGHT  639,
+            FIRST-ACTIVE-LINE 1,
+            LINES-PER-CHANNEL 6 LINES,
+            NOISE-EQ-DIFF-TEMP 0.025 DEGC,
+            CNX VIA UUT-VIDEO-IN                                       $
+     30   PERFORM, 'PROC-CHAN-DATA'('TESTNO', 'CHANVAL', 'CHANEXP')    $
+C                                                                      $
+ 015200   OUTPUT, 
+            C'CHANNEL INTEGRITY TEST 0152 -\LF\',
+            C'CHANNEL 31, 51, 71 DEAD'                                 $
+     05   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Set the VTG video pattern to ChanInt2.        \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     10   INPUT, GO-NOGO                                               $
+     15   PERFORM, 'CLEAREXPECTED'                                     $
+     20   CALCULATE, 'ULIM' = 1.0,
+                     'LLIM' = 0,
+                     'CHANEXP'(31) = INT(DEC(BNR, X'000F',16)),
+                     'CHANEXP'(51) = INT(DEC(BNR, X'000F',16)),
+                     'CHANEXP'(71) = INT(DEC(BNR, X'000F',16)),
+                     'TESTNO' = 015200                                 $
+C                                                                      $
+     25   MEASURE, (CHAN-INTEGRITY INTO 'CHANVAL'), INFRARED,
+            CHAN-INTEGRITY MAX 10,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.069813 RAD,
+            V-FIELD-OF-VIEW 0.052360 RAD,
+            TGT-COORDINATE-TOP    0,
+            TGT-COORDINATE-LEFT   0,
+            TGT-COORDINATE-BOTTOM 479,
+            TGT-COORDINATE-RIGHT  639,
+            FIRST-ACTIVE-LINE 1,
+            LINES-PER-CHANNEL 6 LINES,
+            NOISE-EQ-DIFF-TEMP 0.025 DEGC,
+            CNX VIA UUT-VIDEO-IN                                       $
+     30   PERFORM, 'PROC-CHAN-DATA'('TESTNO', 'CHANVAL', 'CHANEXP')    $
+C                                                                      $
+ 015400   OUTPUT, 
+            C'CHANNEL INTEGRITY TEST 0154\LF\',
+            C'STRAPPED CHANNELS 51/52 AND 71/72'                       $
+     05   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Set the VTG video pattern to ChanInt3.        \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     10   INPUT, GO-NOGO                                               $
+     15   PERFORM, 'CLEAREXPECTED'                                     $
+     20   CALCULATE, 'ULIM' = 1.0,
+                     'LLIM' = 0,
+                     'CHANEXP'(51) = INT(DEC(BNR, X'0F00', 16)),
+                     'CHANEXP'(52) = INT(DEC(BNR, X'0F00', 16)),
+                     'CHANEXP'(71) = INT(DEC(BNR, X'0F00', 16)),
+                     'CHANEXP'(72) = INT(DEC(BNR, X'0F00', 16)),
+                     'TESTNO' = 015400                                 $
+C                                                                      $
+     25   MEASURE, (CHAN-INTEGRITY INTO 'CHANVAL'), INFRARED,
+            CHAN-INTEGRITY MAX 10,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.069813 RAD,
+            V-FIELD-OF-VIEW 0.052360 RAD,
+            TGT-COORDINATE-TOP    0,
+            TGT-COORDINATE-LEFT   0,
+            TGT-COORDINATE-BOTTOM 479,
+            TGT-COORDINATE-RIGHT  639,
+            FIRST-ACTIVE-LINE 1,
+            LINES-PER-CHANNEL 6 LINES,
+            NOISE-EQ-DIFF-TEMP 0.025 DEGC,
+            CNX VIA UUT-VIDEO-IN                                       $
+     30   PERFORM, 'PROC-CHAN-DATA'('TESTNO', 'CHANVAL', 'CHANEXP')    $
+C                                                                      $
+ 015600   OUTPUT, 
+            C'CHANNEL INTEGRITY TEST 0156 - ', 
+            C'STRAPPED CHANNEL 11 NOISY'                               $
+     05   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Set the VTG video pattern to ChanInt4.        \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $  
+     10   INPUT, GO-NOGO                                               $
+     15   PERFORM, 'CLEAREXPECTED'                                     $
+     20   CALCULATE, 'ULIM' = 1.0,
+                     'LLIM' = 0,
+                     'CHANEXP'(11) = INT(DEC(BNR, X'00F0', 16)),
+                     'TESTNO' = 015600                                 $
+C                                                                      $
+     25   MEASURE, (CHAN-INTEGRITY INTO 'CHANVAL'), INFRARED,
+            CHAN-INTEGRITY MAX 10,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.069813 RAD,
+            V-FIELD-OF-VIEW 0.052360 RAD,
+            TGT-COORDINATE-TOP    0,
+            TGT-COORDINATE-LEFT   0,
+            TGT-COORDINATE-BOTTOM 479,
+            TGT-COORDINATE-RIGHT  639,
+            FIRST-ACTIVE-LINE 1,
+            LINES-PER-CHANNEL 6 LINES,
+            NOISE-EQ-DIFF-TEMP 0.025 DEGC,
+            CNX VIA UUT-VIDEO-IN                                       $
+     30   PERFORM, 'PROC-CHAN-DATA'('TESTNO', 'CHANVAL', 'CHANEXP')    $
+C                                                                      $
+ 016100   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Disconnect Video Test Generator [VTG] from the\LF\',
+            C'    VIPER/T docking station.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     05   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 016999 END, 'CHANNEL INTEGRITY'                                       $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : BORESIGHT TEST                                       * $
+C ******************************************************************** $
+C                                                                      $
+ 017000 DEFINE, 'BORESIGHT IR', PROCEDURE                              $
+C                                                                      $
+ 017100   OUTPUT, C'IR BORESIGHT TEST 017100'                          $
+     05   CALCULATE, 'TESTNO' = 017100,
+                     'ULIM'   = 0.6,
+                     'LLIM'   = -0.6                                   $
+C                                                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect Video Test Generator [VTG] to VEO-2.  \LF\',
+            C' 2. Load file ORL2 into VTG.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     15   INPUT, GO-NOGO                                               $
+     20   MEASURE, (LOS-ALIGN-ERROR INTO 'MIODATA'), INFRARED,
+            LOS-ALIGN-ERROR MAX 1.0 DEG,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            TARGET-TYPE TARG-BRSGHT,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.020 RAD,
+            V-FIELD-OF-VIEW 0.010 RAD,
+            TGT-COORDINATE-TOP     0,
+            TGT-COORDINATE-LEFT    0,
+            TGT-COORDINATE-BOTTOM 50,
+            TGT-COORDINATE-RIGHT  50,
+            INTENSITY-RATIO 50.0 PC,
+            CNX VIA UUT-VIDEO-IN                                       $
+     25   CALCULATE, 'X-ALIGN-ERROR' = 'MIODATA'(1) / 'DEGTORAD',
+                     'Y-ALIGN-ERROR' = 'MIODATA'(2) / 'DEGTORAD'       $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(1), 'ULIM', 'LLIM')   $
+     35   CALCULATE, 'TESTNO' = 017200                                 $
+     40   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(2), 'ULIM', 'LLIM')   $
+C                                                                      $
+ 017200   OUTPUT, C'DIFF-BORESIGHT-ANGLE TEST 0172'                    $
+     05   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect Video Test Generator [VTG] to VEO-2.  \LF\',
+            C' 2. Load file ORL2 into VTG.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     10   INPUT, GO-NOGO                                               $
+     15   CALCULATE, 'TESTNO' = 017200,
+                     'ULIM'   = 0.6,
+                     'LLIM'   = -0.6                                   $
+     20   MEASURE, (DIFF-BORESIGHT-ANGLE INTO 'MIODATA'), INFRARED,
+            DIFF-BORESIGHT-ANGLE MAX 1.0 DEG,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            INTENSITY-RATIO 50 PC,
+            H-FIELD-OF-VIEW 0.020 RAD,
+            V-FIELD-OF-VIEW 0.010 RAD,
+            TGT-COORDINATE-TOP     0,
+            TGT-COORDINATE-LEFT    0,
+            TGT-COORDINATE-BOTTOM 50,
+            TGT-COORDINATE-RIGHT  50,
+            X-BORESIGHT-ANGLE 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            Y-BORESIGHT-ANGLE 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            TARGET-TYPE TARG-IRBS05,
+            CNX VIA UUT-VIDEO-IN                                       $            
+     25   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(1), 'ULIM', 'LLIM')   $
+     30   CALCULATE, 'TESTNO' = 017200                                 $
+     35   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(2), 'ULIM', 'LLIM')   $
+C                                                                      $
+ 017900   OUTPUT,                      
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Disconnect Video Test Generator [VTG] from the\LF\',
+            C'    VIPER/T docking station.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     05   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 017999 END, 'BORESIGHT IR'                                            $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'IR TESTS'                                            * $
+C ******************************************************************** $
+C                                                                      $
+ 100000 DEFINE, 'IR PHASE-II TESTS', GLOBAL, PROCEDURE                 $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'CHOICE' IS INTEGER                       $
+C                                                                      $
+     10   CALCULATE, 'UUT-HORIZ-FOV' = 0.041,
+                     'UUT-VERT-FOV'  = 0.033                           $
+     15   IF, 'ETE TEST', THEN                                         $
+     20     GO TO, STEP 100700                                         $
+     25   END, IF                                                      $
+B                                                                      $
+     30   OUTPUT, 
+          C'                  INFRARED Test Menu\LF\',
+          C'----------------------------------------------------\LF\',
+          C'Multi-Sensor IR Source                             1\LF\',
+          C'Geometric Fidelity Distortion Measurement          2\LF\',
+          C'Noise Equivalent Differential Temp Measurement     3\LF\',
+          C'Image Uniformity Measurement                       4\LF\',
+          C'Channel Integrity Measurement                      5\LF\',
+          C'Boresight IR Measurement                           6\LF\',
+          C'All INFRARED Measurements                          7\LF\',
+          C'Return to Main Menu                                0\LF\',
+          C'\LF\',
+          C'Enter a Selection:'                                        $
+     35   INPUT, INTO 'CHOICE'                                         $
+     40   IF, 'CHOICE' EQ 0, THEN                                      $
+     45     GO TO, STEP 199999                                         $
+     50   END, IF                                                      $
+C                                                                      $
+ 100100   IF, 'CHOICE' EQ 1, THEN                                      $
+     05     PERFORM, 'MULTI-SENSOR IR SOURCE'                          $
+     10   END, IF                                                      $
+C                                                                      $
+ 100200   IF, 'CHOICE' EQ 2, THEN                                      $
+     05     PERFORM, 'GEOMETRIC FIDELITY DISTORTION'                   $
+     10   END, IF                                                      $
+C                                                                      $
+ 100300   IF, 'CHOICE' EQ 3, THEN                                      $
+     05     PERFORM, 'NOISE EQUIVALENT DIFFERENTIAL TEMP'              $
+     10   END, IF                                                      $
+C                                                                      $
+ 100400   IF, 'CHOICE' EQ 4, THEN                                      $
+     05     PERFORM, 'IMAGE UNIFORMITY'                                $
+     10   END, IF                                                      $
+C                                                                      $
+ 100500   IF, 'CHOICE' EQ 5, THEN                                      $
+     05     PERFORM, 'CHANNEL INTEGRITY'                               $
+     10   END, IF                                                      $
+C                                                                      $
+ 100600   IF, 'CHOICE' EQ 6, THEN                                      $
+     05     PERFORM, 'BORESIGHT IR'                                    $
+     10   END, IF                                                      $
+B                                                                      $
+ 100700   IF, 'CHOICE' EQ 7, THEN                                      $
+     05     PERFORM, 'MULTI-SENSOR IR SOURCE'                          $
+     10     PERFORM, 'GEOMETRIC FIDELITY DISTORTION'                   $
+     15     PERFORM, 'NOISE EQUIVALENT DIFFERENTIAL TEMP'              $
+     20     PERFORM, 'IMAGE UNIFORMITY'                                $
+     25     PERFORM, 'CHANNEL INTEGRITY'                               $
+     30     PERFORM, 'BORESIGHT IR'                                    $
+     35   END, IF                                                      $
+C                                                                      $
+ 100800   GO TO, STEP 100030                                           $
+B                                                                      $
+ 199999 END, 'IR PHASE-II TESTS'                                       $
+C                                                                      $
+ 999999 TERMINATE, ATLAS MODULE 'VEO-2 PHASE-II IR BENCHMARK'          $

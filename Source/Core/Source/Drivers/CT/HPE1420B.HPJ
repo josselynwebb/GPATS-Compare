@@ -1,0 +1,7 @@
+[options]
+title=HPE1420B Universal Counter (VISA) Help
+warning=3
+[files]
+Hpe1420b.rtf
+[map]
+#include <Hpe1420b.whh>

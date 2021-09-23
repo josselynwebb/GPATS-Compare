@@ -1,0 +1,89 @@
+********************************************************************************
+*
+* FILENAME    : Common.ddb 
+*
+* INSTRUMENT  : Common Macros Etc.
+* 
+* ATLAS Subset: PAWS-89 (IEEE716.89)
+*
+* PROJECT     : General
+*
+*
+*                 SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   12Dec05      Initial Release                              T.G.McQuillen
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  2.1   11JUN09  Update version number per DME PCR VSYS-450
+*                         based on USMC comment
+*  2.2   28JUL09  Update version number per DME PCR VSYS-450
+*                         based on USMC comment
+*  2.3   31JUL09  Update version number per DME PCR VSYS-450
+*                         based on USMC comment
+*  2.4   19APR17  Update for GPATS-CIC Common Instrument Controller, Astronics
+*
+*  3.0   28JUN17  Updated for GPATS CIC/VIPERT/TETS
+********************************************************************************
+def, fnc, Disp   ==      45;     ** Display
+dcl     {
+     int    MIMaxTime;
+    }
+
+
+def, mac, InxMIEvent(T);
+dec     T;      ** MAX-TIME
+    {
+     MIMaxTime = T + 0.5;                   ** Save MAX-TIME
+     'manual-intervention' = FALSE;         ** Clear RTS MANUAL-INTERVENTION
+
+     ** Strobe to event only call INX not FTH, so wait here
+     while (('manual-intervention' == FALSE) &&
+        (MIMaxTime > 0))
+        {
+         MIMaxTime = MIMaxTime - 1;
+         SETDELAY  = 1;
+        }
+     'manual-intervention' = TRUE;         ** Clear RTS MANUAL-INTERVENTION
+
+     * Disp("Input <MANUAL-INTERVENTION> (MAX-TIME = ", MIMaxTime, " SEC)\n");
+    }
+
+
+def, mac, FthMIEvent(@ R);
+bln     R;      ** EVENT-INDICATOR
+    {
+     R = 'manual-intervention';
+    }
+
+*begin dev PROBE;
+*  cnx event-out event-port;
+*  control
+*    {
+*    max-time range 0 sec to 1000 sec continuous;
+*    event-indicator;
+*    event-out;
+*    }
+
+*  begin FNC = 1;
+*    event monitor (manual-intervention) event;
+*  end;
+*end;
+
+begin DEV PROBE;
+   begin;
+    cnx event-out event-port;
+
+    init    InxMIEvent(max-time : 0);
+    fetch   FthMIEvent(event-indicator result);
+
+        event monitor (manual-intervention) event;
+    control {
+         event-out;
+         event-indicator;
+         max-time max 3000 sec;
+        }
+    end;
+end;
+

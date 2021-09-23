@@ -1,0 +1,198 @@
+**************************************************************************
+************  SLS7404 (RS232/RS422/RS485) STATIC DESCRIPTION  ************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Bus_PciSerial.ddb
+*
+* INSTRUMENT  : Data Bus
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  2.1   19APR17  Updated for GPATS-CIC Common Instrument Controller
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev PCISERIAL_1 using SLS7404;
+
+	begin; ** RS 422 COM-1
+		cnx true ICRS422-TXD-HI, compl ICRS422-TXD-LO;
+
+		begin FNC=1;	** DO and ESTABLISH
+			function bus protocol;
+			control
+			{
+				bus-spec rs-422;
+				standard primary;
+				max-time range 0 sec to 20 sec continuous;
+				proceed;
+				wait;
+				bit-rate 110 bits/sec to 115200 bits/sec;
+				word-length 5 bits to 8 bits;      
+				parity odd, even, mark, none;
+				stop-bits range 1 bits to 2 bits;
+			}
+		end;
+
+		begin FNC=2;  ** DEFINE
+			function exchange;
+			control
+			{
+				bus-mode talker-listener,
+				all-listener;
+				test-equip-talker max 1;
+				uut-talker max 1;
+				test-equip-listener max 1;
+				uut-listener max 1;
+				data max 65536;
+				delay range 0 sec to 10 sec;
+			}
+		end;
+	end;	* END RS422 COM_1
+
+	begin; ** RS 232 COM-2
+		cnx hi ICRS232-NTXD, lo ICRS232-GND;
+
+		begin FNC=3;	** DO and ESTABLISH
+			function bus protocol;
+			control
+			{
+				bus-spec rs-232;
+				standard primary;
+				max-time range 0 sec to 20 sec continuous;
+				proceed;
+				wait;
+				bit-rate 110 bits/sec to 115200 bits/sec;
+				word-length 5 bits to 8 bits;
+				parity odd, even, mark, none;
+				stop-bits range 1 bits to 2 bits;
+			}
+		end;
+
+		begin FNC=4;  ** DEFINE TX
+			function exchange;
+			control
+			{
+				bus-mode talker-listener,
+				all-listener;
+				test-equip-talker max 1;
+				uut-talker max 1;
+				test-equip-listener max 1;
+				uut-listener max 1;
+				data max 65536;
+				delay range 0 sec to 10 sec;
+			}
+		end;
+	end;	* END RS232 COM_2
+
+	begin; ** RS-485 COM-3
+		cnx true ICPSRS485-TX-HI, compl ICPSRS485-TX-LO;
+		begin FNC=5;	** DO and ESTABLISH - RS485
+			function bus protocol;
+			control
+			{
+				bus-spec rs-485;
+				standard primary;
+				bit-rate range 110 bits/sec to 115200 bits/sec;
+				parity odd, even, none;
+				stop-bits 1 bits, 1.5 bits, 2 bits;
+				word-length 5 bits to 8 bits;
+				proceed;
+				wait;
+				max-time range 0 sec to 20 sec continuous;
+			}
+		end;
+		
+		begin FNC=6;  ** DEFINE
+			function exchange;
+			control
+			{
+				bus-mode talker-listener,
+				all-listener;
+				test-equip-talker max 1;
+				uut-talker max 1;
+				test-equip-listener max 1;
+				uut-listener max 1;
+				data max 32;
+				delay range 0 usec to 65535 usec;
+			}
+		end;
+	end; ** end RS-485 COM_3
+
+	begin; ** begin RS-422 COM_4
+		cnx true ICPSRS422-TX-HI, compl ICPSRS422-TX-LO;
+		begin FNC=7;	** DO and ESTABLISH - RS422
+			function bus protocol;
+			control
+			{
+				bus-spec rs-422;
+				standard primary;
+				bit-rate range 110 bits/sec to 115200 bits/sec;
+				parity odd, even, none;
+				stop-bits 1 bits, 1.5 bits, 2 bits;
+				word-length 5 bits to 8 bits;
+				proceed;
+				wait;
+				max-time range 0 sec to 20 sec continuous;
+			}
+		end;
+		
+		begin FNC=8;  ** DEFINE
+			function exchange;
+			control
+			{
+				bus-mode talker-listener,
+				all-listener;
+				test-equip-talker max 1;
+				uut-talker max 1;
+				test-equip-listener max 1;
+				uut-listener max 1;
+				data max 32;
+				delay range 0 usec to 65535 usec;
+			}
+		end;
+	end; ** end RS-422 COM_4
+
+	begin; ** RS 232 COM_5
+		cnx hi ICPSRS232-TD, lo ICPSRS232-GND;
+		begin FNC=9;	** DO and ESTABLISH - RS232
+			function bus protocol;
+			control
+			{
+				bus-spec rs-232;
+				standard primary;
+				bit-rate range 110 bits/sec to 115200 bits/sec;
+				parity odd, even, none;
+				stop-bits 1 bits, 1.5 bits, 2 bits;
+				word-length 5 bits to 8 bits;
+				proceed;
+				wait;
+				max-time range 0 sec to 20 sec continuous;
+			}
+		end;
+		
+		begin FNC=10;  ** DEFINE
+			function exchange;
+			control
+			{
+				bus-mode talker-listener,
+				all-listener;
+				test-equip-talker max 1;
+				uut-talker max 1;
+				test-equip-listener max 1;
+				uut-listener max 1;
+				data max 32;
+				delay range 0 usec to 65535 usec;
+				}
+		end;
+	end; ** end RS-232 COM_5
+end; ** PCI_Serial

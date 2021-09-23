@@ -1,0 +1,124 @@
+\\**************************************************************************
+\\
+\\  Filename: nouns
+\\  Version:  2.0
+\\  Purpose:  A source file used to build the TYX PAWS ATLAS lexical
+\\            database file LexDB.LEX.
+\\
+\\ VER   DATE     ENGINEER, ORGANIZATION, DR# (STR #): DESCRIPTION
+\\ ---   -------  --------------------------------------------------------------
+\\ 1.3   01Nov00  LMIS:
+\\                Update for Electro-Optical additions.
+\\
+\\ 2.0   28Apr09 EADS:
+\\                 Baselined VIPER/T version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\
+\\**************************************************************************
+\\**************************************************************************
+\\static char	*sccsid = "@(#)nouns	1.4	10/17/94";
+\\
+\\***********************************************************************
+\\ File: nouns      Version: 1.4  Date: 10/17/94
+\***********************************************************************
+
+print "Source File: nouns";
+
+\\
+\\      The definition of all of the nouns follow together with
+\\      their attributes.
+\\
+	constant;       NOUNRULE == 014;
+
+define PSEUDO lexrule = NOUNRULE tables 1 = num 2 = type 3 = sub;
+
+	COMMON MODIFIERS;
+
+end_unit;
+
+
+define NOUNS lexrule=NOUNRULE   string=3 tables 1=num 2=type 3=sub;
+
+	AC SIGNAL                       "ACS";
+	ADF                             "ADF";
+        AM SIGNAL                       "AMS";
+	AMBIENT CONDITIONS              "AMB";
+	ATC                             "ATC";
+	BUS PROTOCOL                    "BUS";
+	BUTTON				"BUT";  
+        COMPLEX SIGNAL			"CLX"; 	\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA 
+    	DC SIGNAL                       "DCS";
+	(DIG_NC)
+		{
+		 DIGITAL TEST           "DGT";  \\ To Keep FLOW Happy
+		 DIGITAL CONFIGURATION  "DCF";
+                 LOGIC CONTROL          "LCL";
+		 LOGIC DATA             "LDT";
+		 LOGIC LOAD             "LLD";
+		 LOGIC REFERENCE        "LRF";
+		}
+	DISPLACEMENT                    "DIS";
+	DME                             "DME";
+	DOPPLER                         "DOP";
+	(GND_NC)
+		{
+		 EARTH                  "EAR";
+		 SHORT                  "SHT";
+		 COMMON                 "COM";
+		}
+
+	EM FIELD                        "EMF";
+	EVENT                           "EVT";
+	EVENTS				"EVS";
+	EXCHANGE = PROTOCOL             "EXC";
+	EXPONENTIAL PULSE WAVE		"EPW";		\\added for TETS-ECP3 3/8/99 fs
+        FLUID SIGNAL                    "FLU";
+	FM SIGNAL                       "FMS";
+	HEAT                            "HEA";
+	IFF                             "IFF";
+        ILS                             "ILS";
+	IMPEDANCE                       "IMP";
+	INFRARED			"INF";
+	LASER				"LAS";
+	LASER TARGET RETURN		"LTR";
+	LIGHT                           "LGT";
+	MANOMETRIC                      "MAN";
+        MODULATED SIGNAL		"MDS";
+\\        MESSAGE                         "MSG";
+        MULTI-SENSOR-INFRARED           "MIF";
+        MULTI-SENSOR-LIGHT              "MIL";
+	PAM                             "PAM";
+	PM SIGNAL                       "PMS";
+	PULSED AC                       "PAC";
+	(PLS_NC)
+		{
+		 PULSED AC TRAIN        "PAT";
+		 PULSED DC TRAIN        "PDT";
+		}
+        PULSED DC                       "PDC";
+	PULSED DOPPLER                  "PDP";
+	RADAR SIGNAL                    "RDS";
+        RAMP SIGNAL                     "RPS";
+	RANDOM NOISE                    "RDN";
+	RESOLVER                        "RSL";
+	ROTATION                        "RTN";
+	SINC WAVE			"SIN";		\\added for TETS-ECP3 3/8/99 fs
+	SIMULTANEOUS                    "SIM";
+        SQUARE WAVE                     "SQW";
+	STEP SIGNAL                     "STS";
+	STEPPER MOTOR                   "STM";
+        SUP CAR SIGNAL                  "SCS";
+	SYNCHRO                         "SYN";
+	TACAN                           "TAC";
+	TIME INTERVAL                   "TMI";
+	TIMED DIGITAL                   "TDG";
+	TIMER                           "TMR";
+        TRIANGULAR WAVE SIGNAL          "TRI";
+	TURBINE ENGINE DATA             "TED";
+	VIBRATION                       "VBR";
+	VIDEO SIGNAL                    "VID";
+        VOR                             "VOR";
+	WAVEFORM                        "WAV";
+	end_unit;
+
+\***********************************************************************

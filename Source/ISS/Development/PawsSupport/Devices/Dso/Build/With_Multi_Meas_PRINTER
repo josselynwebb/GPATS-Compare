@@ -1,0 +1,1208 @@
+ Dso ATLAS Driver Benchmark
+ Date/Time: Tue Jan 16 14:50:57 2007 
+
+ AC SIGNAL [Freq]
+          ------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10020    .110000000000000E+04      .100400000000000E+04     .900000000000000E+03            P 
+   AC Signal [PERIOD]
+          ----------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10055    .110000000000000E-02      .100000000000000E-02     .900000000000000E-03            P 
+   AC Signal [VOLTAGE-PP]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10130    .550000000000000E+01      .517280000000000E+01     .450000000000000E+01            P 
+   AC Signal [VOLTAGE-P]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10230    .275000000000000E+01      .270725000000000E+01     .225000000000000E+01            P 
+   AC Signal Voltage-PP [Probe x10]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10330    .275000000000000E+02      .252435000000000E+02     .225000000000000E+02            P 
+   AC Signal [AV-VOLTAGE]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 10430    .194456229670485E+01      .176950000000000E+01     .159100551548579E+01            P 
+   DC [Voltage], Ranged, non-Triggered 
+          --------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 20020    .220000000000000E+01      .204320000000000E+01     .180000000000000E+01            P 
+  PULSED DC SIGNAL [Prf]
+          ------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30130    .110000000000000E+04      .100000000000000E+04     .900000000000000E+03            P 
+   PULSED DC [PERIOD]
+          ----------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30230    .110000000000000E-02      .100000000000000E-02     .900000000000000E-03            P 
+  PULSED DC SIGNAL [Voltage-PP]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30330    .550000000000000E+01      .533320000000000E+01     .450000000000000E+01            P 
+   Pulsed DC [VOLTAGE-P]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30430    .550000000000000E+01      .533320000000000E+01     .450000000000000E+01            P 
+   PULSED DC [VOLTAGE-P-POS]
+          ----------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30530    .550000000000000E+01      .526490000000000E+01     .450000000000000E+01            P 
+   PULSED DC [VOLTAGE-P-NEG]
+          ----------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30630    .110000000000000E+01      -.312500000000000E-01     -.900000000000000E+00            P 
+   Pulsed DC [RISE-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30730    .181500000000000E-03      .161000000000000E-03     .148500000000000E-03            P 
+   Pulsed DC [FALL-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30830    .181500000000000E-03      .160600000000000E-03     .148500000000000E-03            P 
+   Pulsed DC [PULSE-WIDTH]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 30930    .550000000000000E-03      .500000000000000E-03     .450000000000000E-03            P 
+   Pulsed DC [POS-PULSE-WIDTH]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 31030    .550000000000000E-03      .500000000000000E-03     .450000000000000E-03            P 
+   Pulsed DC [NEG-PULSE-WIDTH]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 31130    .550000000000000E-03      .500000000000000E-03     .450000000000000E-03            P 
+   Pulsed DC [DUTY-CYCLE]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 31230    .505000000000000E+02      .500000000000000E+02     .495000000000000E+02            P 
+   Pulsed DC [OVERSHOOT]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 31330    .100000000000000E+02      .555560000000000E+01     .000000000000000E+00            P 
+   Pulsed DC [PRESHOOT]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 31430    .100000000000000E+02      .277780000000000E+01     .000000000000000E+00            P 
+  RAMP SIGNAL SIGNAL [Freq]
+          ---------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40130    .110000000000000E+04      .100000000000000E+04     .900000000000000E+03            P 
+   RAMP SIGNAL [PERIOD]
+          ----------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40230    .110000000000000E-02      .100000000000000E-02     .900000000000000E-03            P 
+  RAMP SIGNAL SIGNAL [Voltage-PP]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40330    .550000000000000E+01      .519650000000000E+01     .450000000000000E+01            P 
+   Ramp Signal [VOLTAGE-P]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40430    .275000000000000E+01      .259825000000000E+01     .225000000000000E+01            P 
+   Ramp Signal [VOLTAGE-P-POS]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40530    .275000000000000E+01      .266660000000000E+01     .225000000000000E+01            P 
+   Ramp Signal [VOLTAGE-P-NEG]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40630    -.225000000000000E+01      -.246150000000000E+01     -.275000000000000E+01            P 
+   Ramp Signal [RISE-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40730    .770000000000000E-03      .698000000000000E-03     .630000000000000E-03            P 
+   Ramp Signal [FALL-TIME]
+          -------------------------
+
+   Ramp Signal [FALL-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 40830    .770000000000000E-03      .694000000000000E-03     .630000000000000E-03            P 
+  SQUARE WAVE SIGNAL [Freq]
+          ---------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50120    .110000000000000E+04      .100000000000000E+04     .900000000000000E+03            P 
+   SQUARE WAVE [PERIOD]
+          ----------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50230    .110000000000000E-02      .100000000000000E-02     .900000000000000E-03            P 
+  SQUARE WAVE SIGNAL [Voltage-PP]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50320    .550000000000000E+01      .528200000000000E+01     .450000000000000E+01            P 
+   Square Wave [VOLTAGE-P]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50430    .275000000000000E+01      .264100000000000E+01     .225000000000000E+01            P 
+   Square Wave [VOLTAGE-P-POS]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50530    .275000000000000E+01      .252990000000000E+01     .225000000000000E+01            P 
+   Square Wave [VOLTAGE-P-NEG]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50630    -.225000000000000E+01      -.259820000000000E+01     -.275000000000000E+01            P 
+   Square Wave [RISE-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50730    .110000000000000E-05      .100000000000000E-05     .900000000000000E-06            P 
+   Square Wave [FALL-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 50830    .110000000000000E-05      .100000000000000E-05     .900000000000000E-06            P 
+   Square Wave [DUTY-CYCLE]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 51230    .525000000000000E+02      .500000000000000E+02     .475000000000000E+02            P 
+  TRIANGULAR WAVE SIGNAL [Freq]
+          ---------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60130    .110000000000000E+04      .100000000000000E+04     .900000000000000E+03            P 
+   TRIANGULAR WAVE SIGNAL [PERIOD]
+          ----------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60230    .110000000000000E-02      .100000000000000E-02     .900000000000000E-03            P 
+  TRIANGULAR WAVE SIGNAL SIGNAL [Voltage-PP]
+          -------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60330    .550000000000000E+01      .512810000000000E+01     .450000000000000E+01            P 
+   TRIANGULAR WAVE SIGNAL [VOLTAGE-P]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60430    .275000000000000E+01      .266600000000000E+01     .225000000000000E+01            P 
+   TRIANGULAR WAVE SIGNAL [VOLTAGE-P-POS]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60530    .275000000000000E+01      .246150000000000E+01     .225000000000000E+01            P 
+   TRIANGULAR WAVE SIGNAL [VOLTAGE-P-NEG]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60630    -.225000000000000E+01      -.246090000000000E+01     -.275000000000000E+01            P 
+   TRIANGULAR WAVE SIGNAL [RISE-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60730    .440000000000000E-03      .410000000000000E-03     .360000000000000E-03            P 
+   TRIANGULAR WAVE SIGNAL [FALL-TIME]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60830    .440000000000000E-03      .406000000000000E-03     .360000000000000E-03            P 
+   TRIANGULAR WAVE SIGNAL [DUTY-CYCLE]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 60930    .525000000000000E+02      .502010000000000E+02     .475000000000000E+02            P 
+   WAVEFORM [SAVE-WAVE]
+          -------------------------
+
+  Sample  1  Passed! -  .312499200000000E-01  V
+
+  Sample  2  Passed! -  .781248000000000E-01  V
+
+  Sample  3  Passed! -  .937497600000000E-01  V
+
+  Sample  4  Passed! -  .109374700000000E+00  V
+
+  Sample  5  Passed! -  .156249600000000E+00  V
+
+  Sample  6  Passed! -  .171874600000000E+00  V
+
+  Sample  7  Passed! -  .203124500000000E+00  V
+
+  Sample  8  Passed! -  .249999400000000E+00  V
+
+  Sample  9  Passed! -  .265624300000000E+00  V
+
+  Sample  10  Passed! -  .312499200000000E+00  V
+
+  Sample  11  Passed! -  .328124200000000E+00  V
+
+  Sample  12  Passed! -  .374999000000000E+00  V
+
+  Sample  13  Passed! -  .406249000000000E+00  V
+
+  Sample  14  Passed! -  .437498900000000E+00  V
+
+  Sample  15  Passed! -  .499998700000000E+00  V
+
+  Sample  16  Passed! -  .484373800000000E+00  V
+
+  Sample  17  Passed! -  .531248600000000E+00  V
+
+  Sample  18  Passed! -  .546873600000000E+00  V
+
+  Sample  19  Passed! -  .593748500000000E+00  V
+
+  Sample  20  Passed! -  .624998400000000E+00  V
+
+  Sample  21  Passed! -  .640623400000000E+00  V
+
+  Sample  22  Passed! -  .671873300000000E+00  V
+
+  Sample  23  Passed! -  .703123200000000E+00  V
+
+  Sample  24  Passed! -  .734373100000000E+00  V
+
+  Sample  25  Passed! -  .749998100000000E+00  V
+
+  Sample  26  Passed! -  .828122900000000E+00  V
+
+  Sample  27  Passed! -  .812497900000000E+00  V
+
+  Sample  28  Passed! -  .859372800000000E+00  V
+
+  Sample  29  Passed! -  .859372800000000E+00  V
+
+  Sample  30  Passed! -  .921872600000000E+00  V
+
+  Sample  31  Passed! -  .921872600000000E+00  V
+
+  Sample  32  Passed! -  .968747500000000E+00  V
+
+  Sample  33  Passed! -  .999997400000000E+00  V
+
+  Sample  34  Passed! -  .104687200000000E+01  V
+
+  Sample  35  Passed! -  .104687200000000E+01  V
+
+  Sample  36  Passed! -  .109374700000000E+01  V
+
+  Sample  37  Passed! -  .114062200000000E+01  V
+
+  Sample  38  Passed! -  .117187200000000E+01  V
+
+  Sample  39  Passed! -  .115624700000000E+01  V
+
+  Sample  40  Passed! -  .120312200000000E+01  V
+
+  Sample  41  Passed! -  .124999700000000E+01  V
+
+  Sample  42  Passed! -  .126562200000000E+01  V
+
+  Sample  43  Passed! -  .128124700000000E+01  V
+
+  Sample  44  Passed! -  .131249700000000E+01  V
+
+  Sample  45  Passed! -  .132812200000000E+01  V
+
+  Sample  46  Passed! -  .134374700000000E+01  V
+
+  Sample  47  Passed! -  .140624600000000E+01  V
+
+  Sample  48  Passed! -  .139062100000000E+01  V
+
+  Sample  49  Passed! -  .145312100000000E+01  V
+
+  Sample  50  Passed! -  .146874600000000E+01  V
+
+  Sample  51  Passed! -  .149999600000000E+01  V
+
+  Sample  52  Passed! -  .149999600000000E+01  V
+
+  Sample  53  Passed! -  .153124600000000E+01  V
+
+  Sample  54  Passed! -  .156249600000000E+01  V
+
+  Sample  55  Passed! -  .157812100000000E+01  V
+
+  Sample  56  Passed! -  .159374600000000E+01  V
+
+  Sample  57  Passed! -  .165624600000000E+01  V
+
+  Sample  58  Passed! -  .168749600000000E+01  V
+
+  Sample  59  Passed! -  .168749600000000E+01  V
+
+  Sample  60  Passed! -  .168749600000000E+01  V
+
+  Sample  61  Passed! -  .171874600000000E+01  V
+
+  Sample  62  Passed! -  .176562000000000E+01  V
+
+  Sample  63  Passed! -  .178124500000000E+01  V
+
+  Sample  64  Passed! -  .179687000000000E+01  V
+
+  Sample  65  Passed! -  .181249500000000E+01  V
+
+  Sample  66  Passed! -  .184374500000000E+01  V
+
+  Sample  67  Passed! -  .184374500000000E+01  V
+
+  Sample  68  Passed! -  .189062000000000E+01  V
+
+  Sample  69  Passed! -  .190624500000000E+01  V
+
+  Sample  70  Passed! -  .192187000000000E+01  V
+
+  Sample  71  Passed! -  .192187000000000E+01  V
+
+  Sample  72  Passed! -  .196874500000000E+01  V
+
+  Sample  73  Passed! -  .196874500000000E+01  V
+
+  Sample  74  Passed! -  .198437000000000E+01  V
+
+  Sample  75  Passed! -  .198437000000000E+01  V
+
+  Sample  76  Passed! -  .198437000000000E+01  V
+
+  Sample  77  Passed! -  .198437000000000E+01  V
+
+  Sample  78  Passed! -  .198437000000000E+01  V
+
+  Sample  79  Passed! -  .198437000000000E+01  V
+
+  Sample  80  Passed! -  .198437000000000E+01  V
+
+  Sample  81  Passed! -  .198437000000000E+01  V
+
+  Sample  82  Passed! -  .198437000000000E+01  V
+
+  Sample  83  Passed! -  .198437000000000E+01  V
+
+  Sample  84  Passed! -  .198437000000000E+01  V
+
+  Sample  85  Passed! -  .198437000000000E+01  V
+
+  Sample  86  Passed! -  .198437000000000E+01  V
+
+  Sample  87  Passed! -  .198437000000000E+01  V
+
+  Sample  88  Passed! -  .198437000000000E+01  V
+
+  Sample  89  Passed! -  .198437000000000E+01  V
+
+  Sample  90  Passed! -  .198437000000000E+01  V
+
+  Sample  91  Passed! -  .198437000000000E+01  V
+
+  Sample  92  Passed! -  .198437000000000E+01  V
+
+  Sample  93  Passed! -  .198437000000000E+01  V
+
+  Sample  94  Passed! -  .198437000000000E+01  V
+
+  Sample  95  Passed! -  .198437000000000E+01  V
+
+  Sample  96  Passed! -  .198437000000000E+01  V
+
+  Sample  97  Passed! -  .198437000000000E+01  V
+
+  Sample  98  Passed! -  .198437000000000E+01  V
+
+  Sample  99  Passed! -  .198437000000000E+01  V
+
+  Sample  100  Passed! -  .198437000000000E+01  V
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 30130      TRUE      GO       FALSE    P 
+   WAVEFORM [COMPARE-WAVE]
+          -------------------------
+
+  Sample  1  Passed! -  .100000000000000E+01 
+
+  Sample  2  Passed! -  .100000000000000E+01 
+
+  Sample  3  Passed! -  .100000000000000E+01 
+
+  Sample  4  Passed! -  .100000000000000E+01 
+
+  Sample  5  Passed! -  .100000000000000E+01 
+
+  Sample  6  Passed! -  .100000000000000E+01 
+
+  Sample  7  Passed! -  .100000000000000E+01 
+
+  Sample  8  Passed! -  .100000000000000E+01 
+
+  Sample  9  Passed! -  .100000000000000E+01 
+
+  Sample  10  Passed! -  .100000000000000E+01 
+
+  Sample  11  Passed! -  .100000000000000E+01 
+
+  Sample  12  Passed! -  .100000000000000E+01 
+
+  Sample  13  Passed! -  .100000000000000E+01 
+
+  Sample  14  Passed! -  .100000000000000E+01 
+
+  Sample  15  Passed! -  .100000000000000E+01 
+
+  Sample  16  Passed! -  .100000000000000E+01 
+
+  Sample  17  Passed! -  .100000000000000E+01 
+
+  Sample  18  Passed! -  .100000000000000E+01 
+
+  Sample  19  Passed! -  .100000000000000E+01 
+
+  Sample  20  Passed! -  .100000000000000E+01 
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 70330      TRUE      GO       FALSE    P 
+   WAVEFORM [MATH]-ADDITION
+          ----------------------------
+
+  Sample  1  Passed! -  .156249600000000E-01  V
+
+  Sample  2  Passed! -  .624998400000000E-01  V
+
+  Sample  3  Passed! -  .624998400000000E-01  V
+
+  Sample  4  Passed! -  .124999700000000E+00  V
+
+  Sample  5  Passed! -  .140624600000000E+00  V
+
+  Sample  6  Passed! -  .171874600000000E+00  V
+
+  Sample  7  Passed! -  .203124500000000E+00  V
+
+  Sample  8  Passed! -  .234374400000000E+00  V
+
+  Sample  9  Passed! -  .265624300000000E+00  V
+
+  Sample  10  Passed! -  .312499200000000E+00  V
+
+  Sample  11  Passed! -  .343749100000000E+00  V
+
+  Sample  12  Passed! -  .406249000000000E+00  V
+
+  Sample  13  Passed! -  .374999000000000E+00  V
+
+  Sample  14  Passed! -  .421873900000000E+00  V
+
+  Sample  15  Passed! -  .468748800000000E+00  V
+
+  Sample  16  Passed! -  .484373800000000E+00  V
+
+  Sample  17  Passed! -  .546873600000000E+00  V
+
+  Sample  18  Passed! -  .546873600000000E+00  V
+
+  Sample  19  Passed! -  .593748500000000E+00  V
+
+  Sample  20  Passed! -  .609373400000000E+00  V
+
+  Sample  21  Passed! -  .656248300000000E+00  V
+
+  Sample  22  Passed! -  .703123200000000E+00  V
+
+  Sample  23  Passed! -  .718748200000000E+00  V
+
+  Sample  24  Passed! -  .765623000000000E+00  V
+
+  Sample  25  Passed! -  .765623000000000E+00  V
+
+  Sample  26  Passed! -  .828122900000000E+00  V
+
+  Sample  27  Passed! -  .828122900000000E+00  V
+
+  Sample  28  Passed! -  .859372800000000E+00  V
+
+  Sample  29  Passed! -  .874997800000000E+00  V
+
+  Sample  30  Passed! -  .906247700000000E+00  V
+
+  Sample  31  Passed! -  .937497600000000E+00  V
+
+  Sample  32  Passed! -  .968747500000000E+00  V
+
+  Sample  33  Passed! -  .984372500000000E+00  V
+
+  Sample  34  Passed! -  .103124700000000E+01  V
+
+  Sample  35  Passed! -  .106249700000000E+01  V
+
+  Sample  36  Passed! -  .107812200000000E+01  V
+
+  Sample  37  Passed! -  .110937200000000E+01  V
+
+  Sample  38  Passed! -  .112499700000000E+01  V
+
+  Sample  39  Passed! -  .117187200000000E+01  V
+
+  Sample  40  Passed! -  .117187200000000E+01  V
+
+  Sample  41  Passed! -  .123437200000000E+01  V
+
+  Sample  42  Passed! -  .124999700000000E+01  V
+
+  Sample  43  Passed! -  .126562200000000E+01  V
+
+  Sample  44  Passed! -  .131249700000000E+01  V
+
+  Sample  45  Passed! -  .131249700000000E+01  V
+
+  Sample  46  Passed! -  .132812200000000E+01  V
+
+  Sample  47  Passed! -  .139062100000000E+01  V
+
+  Sample  48  Passed! -  .142187100000000E+01  V
+
+  Sample  49  Passed! -  .142187100000000E+01  V
+
+  Sample  50  Passed! -  .145312100000000E+01  V
+
+  Sample  51  Passed! -  .148437100000000E+01  V
+
+  Sample  52  Passed! -  .149999600000000E+01  V
+
+  Sample  53  Passed! -  .153124600000000E+01  V
+
+  Sample  54  Passed! -  .154687100000000E+01  V
+
+  Sample  55  Passed! -  .156249600000000E+01  V
+
+  Sample  56  Passed! -  .160937100000000E+01  V
+
+  Sample  57  Passed! -  .165624600000000E+01  V
+
+  Sample  58  Passed! -  .167187100000000E+01  V
+
+  Sample  59  Passed! -  .168749600000000E+01  V
+
+  Sample  60  Passed! -  .171874600000000E+01  V
+
+  Sample  61  Passed! -  .171874600000000E+01  V
+
+  Sample  62  Passed! -  .174999600000000E+01  V
+
+  Sample  63  Passed! -  .176562000000000E+01  V
+
+  Sample  64  Passed! -  .181249500000000E+01  V
+
+  Sample  65  Passed! -  .181249500000000E+01  V
+
+  Sample  66  Passed! -  .182812000000000E+01  V
+
+  Sample  67  Passed! -  .187499500000000E+01  V
+
+  Sample  68  Passed! -  .187499500000000E+01  V
+
+  Sample  69  Passed! -  .190624500000000E+01  V
+
+  Sample  70  Passed! -  .190624500000000E+01  V
+
+  Sample  71  Passed! -  .195312000000000E+01  V
+
+  Sample  72  Passed! -  .195312000000000E+01  V
+
+  Sample  73  Passed! -  .198437000000000E+01  V
+
+  Sample  74  Passed! -  .198437000000000E+01  V
+
+  Sample  75  Passed! -  .198437000000000E+01  V
+
+  Sample  76  Passed! -  .198437000000000E+01  V
+
+  Sample  77  Passed! -  .198437000000000E+01  V
+
+  Sample  78  Passed! -  .198437000000000E+01  V
+
+  Sample  79  Passed! -  .198437000000000E+01  V
+
+  Sample  80  Passed! -  .198437000000000E+01  V
+
+  Sample  81  Passed! -  .198437000000000E+01  V
+
+  Sample  82  Passed! -  .198437000000000E+01  V
+
+  Sample  83  Passed! -  .198437000000000E+01  V
+
+  Sample  84  Passed! -  .198437000000000E+01  V
+
+  Sample  85  Passed! -  .198437000000000E+01  V
+
+  Sample  86  Passed! -  .198437000000000E+01  V
+
+  Sample  87  Passed! -  .198437000000000E+01  V
+
+  Sample  88  Passed! -  .198437000000000E+01  V
+
+  Sample  89  Passed! -  .198437000000000E+01  V
+
+  Sample  90  Passed! -  .198437000000000E+01  V
+
+  Sample  91  Passed! -  .198437000000000E+01  V
+
+  Sample  92  Passed! -  .198437000000000E+01  V
+
+  Sample  93  Passed! -  .198437000000000E+01  V
+
+  Sample  94  Passed! -  .198437000000000E+01  V
+
+  Sample  95  Passed! -  .198437000000000E+01  V
+
+  Sample  96  Passed! -  .198437000000000E+01  V
+
+  Sample  97  Passed! -  .198437000000000E+01  V
+
+  Sample  98  Passed! -  .198437000000000E+01  V
+
+  Sample  99  Passed! -  .198437000000000E+01  V
+
+  Sample  100  Passed! -  .198437000000000E+01  V
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 70430      TRUE      GO       FALSE    P 
+   WAVEFORM [MATH]-SUBTRACTION
+          ----------------------------
+
+  Sample  1  Passed! -  .000000000000000E+00  V
+
+  Sample  2  Passed! -  .000000000000000E+00  V
+
+  Sample  3  Passed! -  .000000000000000E+00  V
+
+  Sample  4  Passed! -  .000000000000000E+00  V
+
+  Sample  5  Passed! -  .000000000000000E+00  V
+
+  Sample  6  Passed! -  .000000000000000E+00  V
+
+  Sample  7  Passed! -  .000000000000000E+00  V
+
+  Sample  8  Passed! -  .000000000000000E+00  V
+
+  Sample  9  Passed! -  .000000000000000E+00  V
+
+  Sample  10  Passed! -  .000000000000000E+00  V
+
+  Sample  11  Passed! -  .000000000000000E+00  V
+
+  Sample  12  Passed! -  .000000000000000E+00  V
+
+  Sample  13  Passed! -  .000000000000000E+00  V
+
+  Sample  14  Passed! -  .000000000000000E+00  V
+
+  Sample  15  Passed! -  .000000000000000E+00  V
+
+  Sample  16  Passed! -  .000000000000000E+00  V
+
+  Sample  17  Passed! -  .000000000000000E+00  V
+
+  Sample  18  Passed! -  .000000000000000E+00  V
+
+  Sample  19  Passed! -  .000000000000000E+00  V
+
+  Sample  20  Passed! -  .000000000000000E+00  V
+
+  Sample  21  Passed! -  .000000000000000E+00  V
+
+  Sample  22  Passed! -  .000000000000000E+00  V
+
+  Sample  23  Passed! -  .000000000000000E+00  V
+
+  Sample  24  Passed! -  .000000000000000E+00  V
+
+  Sample  25  Passed! -  .000000000000000E+00  V
+
+  Sample  26  Passed! -  .000000000000000E+00  V
+
+  Sample  27  Passed! -  .000000000000000E+00  V
+
+  Sample  28  Passed! -  .000000000000000E+00  V
+
+  Sample  29  Passed! -  .000000000000000E+00  V
+
+  Sample  30  Passed! -  .000000000000000E+00  V
+
+  Sample  31  Passed! -  .000000000000000E+00  V
+
+  Sample  32  Passed! -  .000000000000000E+00  V
+
+  Sample  33  Passed! -  .000000000000000E+00  V
+
+  Sample  34  Passed! -  .000000000000000E+00  V
+
+  Sample  35  Passed! -  .000000000000000E+00  V
+
+  Sample  36  Passed! -  .000000000000000E+00  V
+
+  Sample  37  Passed! -  .000000000000000E+00  V
+
+  Sample  38  Passed! -  .000000000000000E+00  V
+
+  Sample  39  Passed! -  .000000000000000E+00  V
+
+  Sample  40  Passed! -  .000000000000000E+00  V
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 70530      TRUE      GO       FALSE    P 
+   WAVEFORM [MATH]-MULTIPLICATION
+          ----------------------------------
+
+  Sample  1  Passed! -  .244140000000000E-03  V
+
+  Sample  2  Passed! -  .000000000000000E+00  V
+
+  Sample  3  Passed! -  .976560000000000E-03  V
+
+  Sample  4  Passed! -  .976560000000000E-03  V
+
+  Sample  5  Passed! -  .219726000000000E-02  V
+
+  Sample  6  Passed! -  .976560000000000E-03  V
+
+  Sample  7  Passed! -  .219726000000000E-02  V
+
+  Sample  8  Passed! -  .976560000000000E-03  V
+
+  Sample  9  Passed! -  .219726000000000E-02  V
+
+  Sample  10  Passed! -  .390624000000000E-02  V
+
+  Sample  11  Passed! -  .878904000000000E-02  V
+
+  Sample  12  Passed! -  .390624000000000E-02  V
+
+  Sample  13  Passed! -  .119628600000000E-01  V
+
+  Sample  14  Passed! -  .610350000000000E-02  V
+
+  Sample  15  Passed! -  .119628600000000E-01  V
+
+  Sample  16  Passed! -  .119628600000000E-01  V
+
+  Sample  17  Passed! -  .878904000000000E-02  V
+
+  Sample  18  Passed! -  .156249600000000E-01  V
+
+  Sample  19  Passed! -  .197753400000000E-01  V
+
+  Sample  20  Passed! -  .197753400000000E-01  V
+
+  Sample  21  Passed! -  .197753400000000E-01  V
+
+  Sample  22  Passed! -  .244140000000000E-01  V
+
+  Sample  23  Passed! -  .244140000000000E-01  V
+
+  Sample  24  Passed! -  .197753400000000E-01  V
+
+  Sample  25  Passed! -  .244140000000000E-01  V
+
+  Sample  26  Passed! -  .244140000000000E-01  V
+
+  Sample  27  Passed! -  .295409400000000E-01  V
+
+  Sample  28  Passed! -  .295409400000000E-01  V
+
+  Sample  29  Passed! -  .412596600000000E-01  V
+
+  Sample  30  Passed! -  .295409400000000E-01  V
+
+  Sample  31  Passed! -  .295409400000000E-01  V
+
+  Sample  32  Passed! -  .412596600000000E-01  V
+
+  Sample  33  Passed! -  .412596600000000E-01  V
+
+  Sample  34  Passed! -  .412596600000000E-01  V
+
+  Sample  35  Passed! -  .549315000000000E-01  V
+
+  Sample  36  Passed! -  .478514400000000E-01  V
+
+  Sample  37  Passed! -  .549315000000000E-01  V
+
+  Sample  38  Passed! -  .624998400000000E-01  V
+
+  Sample  39  Passed! -  .624998400000000E-01  V
+
+  Sample  40  Passed! -  .705564600000000E-01  V
+
+  Sample  41  Passed! -  .791013600000000E-01  V
+
+  Sample  42  Passed! -  .705564600000000E-01  V
+
+  Sample  43  Passed! -  .705564600000000E-01  V
+
+  Sample  44  Passed! -  .791013600000000E-01  V
+
+  Sample  45  Passed! -  .624998400000000E-01  V
+
+  Sample  46  Passed! -  .705564600000000E-01  V
+
+  Sample  47  Passed! -  .791013600000000E-01  V
+
+  Sample  48  Passed! -  .881345400000000E-01  V
+
+  Sample  49  Passed! -  .881345400000000E-01  V
+
+  Sample  50  Passed! -  .881345400000000E-01  V
+
+  Sample  51  Passed! -  .976560000000000E-01  V
+
+  Sample  52  Passed! -  .107665700000000E+00  V
+
+  Sample  53  Passed! -  .976560000000000E-01  V
+
+  Sample  54  Passed! -  .976560000000000E-01  V
+
+  Sample  55  Passed! -  .107665700000000E+00  V
+
+  Sample  56  Passed! -  .107665700000000E+00  V
+
+  Sample  57  Passed! -  .976560000000000E-01  V
+
+  Sample  58  Passed! -  .118163800000000E+00  V
+
+  Sample  59  Passed! -  .107665700000000E+00  V
+
+  Sample  60  Passed! -  .140624600000000E+00  V
+
+  Sample  61  Passed! -  .129150100000000E+00  V
+
+  Sample  62  Passed! -  .129150100000000E+00  V
+
+  Sample  63  Passed! -  .129150100000000E+00  V
+
+  Sample  64  Passed! -  .140624600000000E+00  V
+
+  Sample  65  Passed! -  .152587500000000E+00  V
+
+  Sample  66  Passed! -  .129150100000000E+00  V
+
+  Sample  67  Passed! -  .140624600000000E+00  V
+
+  Sample  68  Passed! -  .140624600000000E+00  V
+
+  Sample  69  Passed! -  .152587500000000E+00  V
+
+  Sample  70  Passed! -  .140624600000000E+00  V
+
+  Sample  71  Passed! -  .140624600000000E+00  V
+
+  Sample  72  Passed! -  .152587500000000E+00  V
+
+  Sample  73  Passed! -  .177978100000000E+00  V
+
+  Sample  74  Passed! -  .152587500000000E+00  V
+
+  Sample  75  Passed! -  .191405800000000E+00  V
+
+  Sample  76  Passed! -  .165038600000000E+00  V
+
+  Sample  77  Passed! -  .165038600000000E+00  V
+
+  Sample  78  Passed! -  .177978100000000E+00  V
+
+  Sample  79  Passed! -  .177978100000000E+00  V
+
+  Sample  80  Passed! -  .165038600000000E+00  V
+
+  Sample  81  Passed! -  .177978100000000E+00  V
+
+  Sample  82  Passed! -  .177978100000000E+00  V
+
+  Sample  83  Passed! -  .191405800000000E+00  V
+
+  Sample  84  Passed! -  .191405800000000E+00  V
+
+  Sample  85  Passed! -  .177978100000000E+00  V
+
+  Sample  86  Passed! -  .205321700000000E+00  V
+
+  Sample  87  Passed! -  .191405800000000E+00  V
+
+  Sample  88  Passed! -  .219726000000000E+00  V
+
+  Sample  89  Passed! -  .205321700000000E+00  V
+
+  Sample  90  Passed! -  .205321700000000E+00  V
+
+  Sample  91  Passed! -  .205321700000000E+00  V
+
+  Sample  92  Passed! -  .205321700000000E+00  V
+
+  Sample  93  Passed! -  .205321700000000E+00  V
+
+  Sample  94  Passed! -  .219726000000000E+00  V
+
+  Sample  95  Passed! -  .219726000000000E+00  V
+
+  Sample  96  Passed! -  .234618500000000E+00  V
+
+  Sample  97  Passed! -  .219726000000000E+00  V
+
+  Sample  98  Passed! -  .234618500000000E+00  V
+
+  Sample  99  Passed! -  .219726000000000E+00  V
+
+  Sample  100  Passed! -  .219726000000000E+00  V
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 70630      TRUE      GO       FALSE    P 
+   WAVEFORM [SAMPLE]
+          ----------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 70930      TRUE      GO       FALSE    P 
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 85030    .130000000000000E-02      .100000000000000E-02     .700000000000000E-03            P 
+   AC Signal [VOLTAGE]
+          -------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 90030    .194461729931549E+01      .176880000000000E+01     .159105051762177E+01            P 
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 80030    .550000000000000E+01      .526950000000000E+01     .450000000000000E+01            P 
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 81060    .550000000000000E+01      .522110000000000E+01     .450000000000000E+01            P 
+  SQUARE WAVE [MULTIPLE MEASURMENTS]
+          -------------------------------------------
+
+   SQUARE WAVE MULTIPLE MEASUREMENTS [VOLTAGE-PP] 
+          ---------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 100100    .550000000000000E+01      .512810000000000E+01     .450000000000000E+01            P 
+ 
+
+  SQUARE WAVE MULTIPLE MEASUREMENTS [FREQUENCY] 
+          ---------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 100200    .110000000000000E+04      .100000000000000E+04     .900000000000000E+03            P 
+ 
+
+  SQUARE WAVE MULTIPLE MEASUREMENTS [PERIOD] 
+          ---------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 100300    .110000000000000E-02      .100000000000000E-02     .900000000000000E-03            P 
+ 
+
+  SQUARE WAVE MULTIPLE MEASUREMENTS [DUTY-CYCLE] 
+          ---------------------------------------------------
+
+ TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT
+
+ ----        ------------               ------------            ------------             ------
+
+ 100400    .550000000000000E+02      .500000000000000E+02     .450000000000000E+02            P 

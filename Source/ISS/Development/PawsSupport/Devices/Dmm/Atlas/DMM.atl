@@ -1,0 +1,2526 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'DMM Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemDeviceXxx.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+C 	REQUIRE, 'PRINTER', I-O DEVICE,
+        	CAPABILITY,
+			LINE-LENGTH 80 CHAR,
+			PAGE-SIZE 25 LINES $
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'SUB-CHOICE' IS INTEGER 	$
+        DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+        DECLARE, VARIABLE, 'SUB-E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN 		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+        DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+        DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT' IS DECIMAL		$
+        DECLARE, VARIABLE, 'CURRENT-RMS' IS DECIMAL 	$
+        DECLARE, VARIABLE, 'DC-VOLTS ' IS DECIMAL	$
+        DECLARE, VARIABLE, 'FREQ' IS DECIMAL 		$
+        DECLARE, VARIABLE, 'PERIOD' IS DECIMAL 		$
+        DECLARE, VARIABLE, 'MAX-T' IS DECIMAL 		$
+        DECLARE, VARIABLE, 'RESISTANCE' IS DECIMAL	$
+        DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+        DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$ 
+        DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$ 
+     	DECLARE, VARIABLE, 'SAMP-COUNT' IS INTEGER	$ 
+	DECLARE, VARIABLE, 'REF-VOLTS' IS INTEGER	$ 
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, GLOBAL, CONSTANT, 'CONTINUE' IS
+         C'\LF\   Press TRUE OR FALSE to continue.\LF\'
+          $
+C $
+        DECLARE,  GLOBAL, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test\LF\
+	'
+        $
+
+        IDENTIFY, EVENT 'TRIGGER-EXT' AS
+            (VOLTAGE), AC SIGNAL,
+            EQ 5 V,
+            DECREASING,
+            DELAY 0.5 SEC,
+            SAMPLE-COUNT 1,
+            CNX HI X21-1                                                            $
+C $
+C $
+C        DEFINE, 'RESULTS-MSG', MESSAGE,
+            UL   ()
+              MV ()
+            LL   () $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', GLOBAL, PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------' $ 
+
+              OUTPUT, 
+		'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+        C'DMM ATLAS Driver Benchmark',
+	C'Date/Time:','DATE-TIME',C'\LF\' $
+
+	OUTPUT, TO 'PRINTER', C'DMM ATLAS Driver Benchmark\LF\',
+      	C'Date/Time:', 'DATE-TIME', C'\LF\' $	
+
+B $
+ 001005  OUTPUT, 
+         C'            Test Menu \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' AC SIGNAL                      2\LF\',
+         C' DC SIGNAL                      3\LF\',
+         C' Impedance                      4\LF\',
+	 C' Square Wave                    5\LF\',
+	 C' Triangular Wave                6\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+       
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','CHOICE',C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 040000 $
+        END, IF $
+        IF, 'CHOICE' EQ 6, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050000 $
+        END, IF $
+ 
+     	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * AC SIGNAL               
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         AC SIGNAL              \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage                        2\LF\',
+	 C' Av-Voltage                     3\LF\',
+         C' Voltage-p                      4\LF\',
+	 C' Voltage-pp                     5\LF\',
+	 C' DC-Offset                      6\LF\',
+	 C' Frequency                      7\LF\',
+	 C' Period                         8\LF\',
+	 C' Current                        9\LF\',
+	 C' Av-Current                    10\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010300 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 5, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010400 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 6, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010600 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 7, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010700 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 8, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010800 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 9, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010900 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 10, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 011000 $
+        END, IF $
+ 
+     	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 010005 $
+C $ 
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE) Test
+C ******************************************************************* $
+C $
+B $
+ 010100 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = ('AC-VOLTS-P' / 1.41416) * 1.1 $
+        CALCULATE, 'VER-LL' = ('AC-VOLTS-P' / 1.41416) * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'REF-VOLTS'  = 2 		$
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010199 $
+        END, IF $
+
+    20 VERIFY, (VOLTAGE INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE MAX 300 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+           BANDWIDTH RANGE 3 Hz TO 300kHz,
+           REF-VOLT 'REF-VOLTS' RANGE -360 V TO 360 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        CALCULATE, 'TESTNO' = 10120$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [Voltage], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010100 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (AV-VOLTAGE) Test
+C ******************************************************************* $
+C $
+B $
+ 010200 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = ('AC-VOLTS-P' / 1.41416) * 1.1 $
+        CALCULATE, 'VER-LL' = ('AC-VOLTS-P' / 1.41416) * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'REF-VOLTS'  = 0 		$
+
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [AV-VOLTAGE] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010299 $
+        END, IF $
+
+    20 VERIFY, (AV-VOLTAGE INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           AV-VOLTAGE MAX 300 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+           SAMPLE-COUNT 100,
+           REF-VOLT 'REF-VOLTS' RANGE 0 V TO 360 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        CALCULATE, 'TESTNO' = 10220$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [AV-Voltage], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [AV-Voltage], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010200 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE-P) Test
+C ******************************************************************* $
+C $
+B $
+ 010300 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 'AC-VOLTS-P' * 1.1 $
+        CALCULATE, 'VER-LL' = 'AC-VOLTS-P' * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010399 $
+        END, IF $
+
+    20 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P MAX 10 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+           REF-VOLT 'REF-VOLTS' RANGE -360 V TO 360 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        CALCULATE, 'TESTNO' = 10320$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [Voltage-P], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage-P], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010400 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010300 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE-PP) Test
+C ******************************************************************* $
+C $
+B $
+ 010400 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = ('AC-VOLTS-P' * 2) * 1.1 $
+        CALCULATE, 'VER-LL' = ('AC-VOLTS-P' * 2) * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010499 $
+        END, IF $
+
+    20 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 10 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+           REF-VOLT 'REF-VOLTS' RANGE -360 V TO 360 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        CALCULATE, 'TESTNO' = 10420$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [Voltage-PP], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage-PP], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010600 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010400 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (DC-OFFSET) Test
+C ******************************************************************* $
+C $
+B $
+ 010600 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 'DC-VOLTS' * 1.1 $
+        CALCULATE, 'VER-LL' = 'DC-VOLTS' * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+
+    05 OUTPUT,
+        C'          AC SIGNAL [DC-OFFSET] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  With a 2 V DC Offset                                                 \LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010699 $
+        END, IF $
+
+    20 VERIFY, (DC-OFFSET INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL' V LL 'VER-LL' V,
+           DC-OFFSET MAX 10 V,
+           REF-VOLT 'REF-VOLTS' RANGE -360 V TO 360 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        CALCULATE, 'TESTNO' = 10620$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [DC-OFFSET], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [DC-OFFSET], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010700 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010600 $
+        END, IF $
+C $
+C       END OF AC [DC-OFFSET] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (FREQUENCY) Test
+C ******************************************************************* $
+C $
+B $
+ 010700 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 'FREQ' * 1.1 $
+        CALCULATE, 'VER-LL' = 'FREQ' * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [FREQUENCY] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010799 $
+        END, IF $
+
+    20 VERIFY, (FREQ INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'HZ LL 'VER-LL'HZ,
+           FREQ MAX 5000 HZ,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        CALCULATE, 'TESTNO' = 10720$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [FREQUENCY], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [FREQUENCY], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010800 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010700 $
+        END, IF $
+C $
+C       END OF AC [FREQUENCY] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (PERIOD) Test
+C ******************************************************************* $
+C $
+B $
+ 010800 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = (1/'FREQ') * 1.1 $
+        CALCULATE, 'VER-LL' = (1/'FREQ') * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+    05 OUTPUT,
+        C'          AC SIGNAL [PERIOD] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010899 $
+        END, IF $
+
+    20 VERIFY, (PERIOD INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'SEC LL 'VER-LL'SEC,
+           PERIOD MAX .333 SEC,
+           VOLTAGE 'AC-VOLTS-RMS' MAX 300 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        CALCULATE, 'TESTNO' = 10820$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [PERIOD], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [PERIOD], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010900 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010800 $
+        END, IF $
+C $
+C       END OF AC [PERIOD] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (CURRENT) Test
+C ******************************************************************* $
+C $
+B $
+ 010900 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 0 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = ('AC-VOLTS-P' / 1.41416 / 1000) * 1.1 $
+        CALCULATE, 'VER-LL' = ('AC-VOLTS-P' / 1.41416 / 1000) * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [CURRENT] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  Set up to measure current through a 1 k resistor.\LF\', 
+	C'  \LF\',
+	C'  IMPORTANT!! - The 50 Ohm Terminating resistor must be removed for this test.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010999 $
+        END, IF $
+
+    20 VERIFY, (CURRENT INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'A LL 'VER-LL'A,
+           CURRENT MAX .9 A,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-Curr LO DMM_1-Lo $
+
+        CALCULATE, 'TESTNO' = 10920$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   AC [CURRENT], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [CURRENT], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 011000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010900 $
+        END, IF $
+C $
+C       END OF AC [CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (AV-CURRENT) Test
+C ******************************************************************* $
+C $
+B $
+ 011000 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = ('AC-VOLTS-P' / 1.41416/1000) * 1.1 $
+        CALCULATE, 'VER-LL' = ('AC-VOLTS-P' / 1.41416/1000) * 0.9 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [AV-CURRENT] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  Set up to measure current through a 1 k resistor.\LF\', 
+	C'  \LF\',
+	C'  IMPORTANT!! - The 50 Ohm Terminating resistor must be removed for this test.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 011099 $
+        END, IF $
+
+    20 VERIFY, (AV-CURRENT INTO 'MEASUREMENT'), AC SIGNAL, UL 'VER-UL'A LL 'VER-LL'A,
+	   AV-CURRENT MAX .9 A,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+           SAMPLE-COUNT 50,
+          CNX HI DMM_1-Curr LO DMM_1-Lo $
+
+        CALCULATE, 'TESTNO' = 11020$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [AV-CURRENT], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [AV-CURRENT], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+C $
+        IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 011000 $
+        END, IF $
+C $
+C       END OF AC [AV-CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * DC SIGNAL                
+C ******************************************************************* $
+C $
+C $
+B $
+ 020000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         DC SIGNAL              \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage                        2\LF\',
+	 C' Voltage-ratio                  3\LF\',
+	 C' Av-Voltage                     4\LF\',
+         C' AC-Comp                        5\LF\',
+	 C' AC-Comp-Freq                   6\LF\',
+	 C' Current                        7\LF\',
+	 C' Av-Current                     8\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 020100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020300 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 5, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020400 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 6, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020500 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 7, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020600 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 8, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020700 $
+        END, IF $
+
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 020005 $
+
+C *******************************************************************
+C * DC SIGNAL (VOLTAGES) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020100 CALCULATE, 'REF-VOLTS'  = 0 		$
+        CALCULATE, 'DC-VOLTS'   = 8 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+ 
+B $
+     05 OUTPUT,
+        C'          DC SIGNAL [VOLTAGES] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an DC SIGNAL of 8V with a reference\LF\',
+	C'  voltage of 0V to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020125 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = ('DC-VOLTS') + 1 $
+        CALCULATE, 'VER-LL' = ('DC-VOLTS') - 1 $
+C $
+B $
+    20 VERIFY, (VOLTAGE INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE MAX 20 V,
+           REF-VOLT MAX 'REF-VOLTS'  RANGE -360 V TO 360 V,
+           MAX-TIME 5 SEC,
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   DC SIGNAL [Voltage], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [Voltage], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20120$
+        PERFORM, 'RESULTS' $
+
+C $
+B $
+     25 OUTPUT,
+        C'          DC SIGNAL [VOLTAGES] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an DC SIGNAL of 8V with a reference\LF\',
+	C'  voltage of 0V to the input ports of the DMM.\LF\', 
+	C'  Prepare a TTL trigger signal to the EXT-TRIG port.\LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     30 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020199 $
+        END, IF $
+C $     
+        ENABLE, EVENT 'TRIGGER-EXT' $
+B $
+     40 VERIFY, (VOLTAGE INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE MAX 20 V,
+           REF-VOLT MAX 'REF-VOLTS'  RANGE -360 V TO 360 V,
+           SAMPLE-WIDTH .0167 Sec,
+           STROBE-TO-EVENT 'TRIGGER-EXT' MAX-TIME 10 SEC,
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        DISABLE, EVENT 'TRIGGER-EXT' $
+
+        OUTPUT,
+        C'   DC SIGNAL [Voltage], Ranged, Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [Voltage], Ranged, Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20140$
+        PERFORM, 'RESULTS' $
+
+         IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * DC SIGNAL (VOLTAGE-RATIO) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020200 CALCULATE, 'REF-VOLTS'  = 2 		$
+        CALCULATE, 'DC-VOLTS'   = 8 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+ 
+B $
+     05 OUTPUT,
+        C'          DC SIGNAL [VOLTAGE-RATIO] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an DC SIGNAL of 2.5V with a reference\LF\',
+	C'  voltage of 5V to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020299 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = .5 * 1.1 $
+        CALCULATE, 'VER-LL' = .5 * .9 $
+C $
+B $
+    20 VERIFY, (VOLTAGE-RATIO INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL' LL 'VER-LL',
+           VOLTAGE-RATIO MAX 20,
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   DC SIGNAL [Voltage-RATIO], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [Voltage-RATIO], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20220$
+        PERFORM, 'RESULTS' $
+
+C $
+         IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGE-RATIO] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * DC SIGNAL (AV-VOLTAGE) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020300 CALCULATE, 'REF-VOLTS'  = 2 		$
+        CALCULATE, 'DC-VOLTS'   = 8 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+ 
+B $
+     05 OUTPUT,
+        C'          DC SIGNAL [AV-VOLTAGE] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an DC SIGNAL of 8V with a reference\LF\',
+	C'  voltage of 0V to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020399 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = ('DC-VOLTS') *1.1 $
+        CALCULATE, 'VER-LL' = ('DC-VOLTS') * .9 $
+C $
+B $
+    20 VERIFY, (AV-VOLTAGE INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           AV-VOLTAGE MAX 20 V,
+           SAMPLE-COUNT 50,
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   DC SIGNAL [Av-Voltage], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [Av-Voltage], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20320$
+        PERFORM, 'RESULTS' $
+
+C $
+         IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020400 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020300 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * DC SIGNAL (AC-COMP) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020400 CALCULATE, 'REF-VOLTS'  = 0 		$
+        CALCULATE, 'DC-VOLTS'   = 7.19 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+        CALCULATE, 'AC-VOLTS-P' = .8 		$
+        CALCULATE, 'VER-UL' = ('AC-VOLTS-P' / 1.41416) * 1.1 $
+        CALCULATE, 'VER-LL' = ('AC-VOLTS-P' / 1.41416) * 0.9 $
+ 
+B $
+     05 OUTPUT,
+        C'          DC SIGNAL [AC-COMP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of .8V Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+        C'  And a DC Offset of 7.19V                 \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020499 $
+        END, IF $
+C $
+B $
+    20 VERIFY, (AC-COMP INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           AC-COMP MAX 300 V,
+	   REF-VOLT 'REF-VOLTS' RANGE -360 V TO 360 V,	
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   DC SIGNAL [AC-COMP], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [AC-COMP], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20420$
+        PERFORM, 'RESULTS' $
+
+C $
+         IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020500 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020400 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * DC SIGNAL (AC-COMP-FREQ) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020500 CALCULATE, 'REF-VOLTS'  = 0 		$
+        CALCULATE, 'DC-VOLTS'   = 7.19 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+ 
+B $
+     05 OUTPUT,
+        C'          DC SIGNAL [AC-COMP-FREQ] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an AC SIGNAL of .8V Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+        C'  And a DC Offset of 7.19V                 \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020599 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 1100 $
+        CALCULATE, 'VER-LL' = 900 $
+C $
+B $
+     20 VERIFY, (AC-COMP-FREQ INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL'HZ LL 'VER-LL'HZ,
+           AC-COMP-FREQ MAX 30000 HZ,
+	   REF-VOLT 'REF-VOLTS' RANGE -360 V TO 360 V,	
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   DC SIGNAL [AC-COMP-FREQ], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [AC-COMP-FREQ], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20520$
+        PERFORM, 'RESULTS' $
+
+C $
+         IF, 'SUB-E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020600 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020500 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * DC SIGNAL (CURRENT) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020600 CALCULATE, 'REF-VOLTS'  = 2 		$
+        CALCULATE, 'DC-VOLTS'   = 8 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+ 
+B $
+     05 OUTPUT,
+        C'          DC SIGNAL [CURRENT] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an DC SIGNAL of 8V with a reference\LF\',
+	C'  voltage of 0V to the input ports of the DMM.\LF\', 
+	C'  Setup to measure current through a 1 k resistor.\LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020699 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = ('DC-VOLTS'/1000) * 1.1 $
+        CALCULATE, 'VER-LL' = ('DC-VOLTS'/1000) * .9 $
+C $
+B $
+    20 VERIFY, (CURRENT INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL'A LL 'VER-LL'A,
+           CURRENT  MAX 1 A,
+           CNX HI DMM_1-Curr LO DMM_1-Lo $
+
+        OUTPUT,
+        C'   DC SIGNAL [CURRENT], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [CURRENT], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20620$
+        PERFORM, 'RESULTS' $
+
+C $
+C         IF, 'SUB-E-E' EQ FALSE, THEN $
+C            OUTPUT, 'CONTINUE' $
+C            INPUT, INTO 'MI' $
+C        END, IF $
+C $
+C $
+B $
+     99	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020700 $
+        END, IF $
+
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020600 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * DC SIGNAL (AV-CURRENT) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020700 CALCULATE, 'REF-VOLTS'  = 2 		$
+        CALCULATE, 'DC-VOLTS'   = 8 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+ 
+B $
+     05 OUTPUT,
+        C'          DC SIGNAL [AV-CURRENT] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an DC SIGNAL of 8V with a reference\LF\',
+	C'  voltage of 0V to the input ports of the DMM.\LF\', 
+	C'  Setup to measure current through a 1 k resistor.\LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020799 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = ('DC-VOLTS'/1000) * 1.1 $
+        CALCULATE, 'VER-LL' = ('DC-VOLTS'/1000) * .9 $
+C $
+B $
+    20 VERIFY, (AV-CURRENT INTO 'MEASUREMENT'), DC SIGNAL, UL 'VER-UL'A LL 'VER-LL'A,
+           AV-CURRENT MAX 1 A,
+           SAMPLE-COUNT 50,
+           CNX HI DMM_1-Curr LO DMM_1-Lo $
+
+        OUTPUT,
+        C'   DC SIGNAL [AV-CURRENT], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC SIGNAL [AV-CURRENT], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 20720$
+        PERFORM, 'RESULTS' $
+
+C $
+C         IF, 'SUB-E-E' EQ FALSE, THEN $
+C            OUTPUT, 'CONTINUE' $
+C            INPUT, INTO 'MI' $
+C        END, IF $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030000 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020005 $
+        END, IF $
+
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020700 $
+        END, IF $
+C $
+C       END OF DC [AV-CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * IMPEDANCE (RES) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 030000 CALCULATE, 'RESISTANCE' = 10000 $
+        CALCULATE, 'MAX-T'      = 10 $
+B $
+     05 OUTPUT,
+        C'          IMPEDANCE [RES 2-wire] Test \LF\',
+        C'  ------------------------------------\LF\',
+        C'  Connect a 10000 Ohm resistor across \LF\',
+        C'  HI & LO input jacks of DMM-1 on     \LF\',
+        C'  the Probe Panel.                    \LF\',
+	C'  \LF\ 				\LF\',                                    
+        C'  T - Ready to test                   \LF\',
+        C'  F - Skip test                       \LF\'           $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030199 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 'RESISTANCE' * 1.2 $
+        CALCULATE, 'VER-LL' = 'RESISTANCE' * 0.8 $
+
+B $
+    20 VERIFY,  (RES INTO 'MEASUREMENT'), IMPEDANCE, UL 'VER-UL'OHM LL 'VER-LL'OHM,
+           RES MAX 'RESISTANCE' MAX 100E6 OHM,
+           SAMPLE-COUNT 50,
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   IMPEDANCE [Res 2-Wire], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+
+        OUTPUT, TO 'PRINTER',
+        C'   IMPEDANCE [Res 2-Wire], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+C $
+        CALCULATE, 'TESTNO' = 30020$
+        PERFORM, 'RESULTS' $
+C $
+    40 VERIFY,  (RES INTO 'MEASUREMENT'), IMPEDANCE, UL 'VER-UL'OHM LL 'VER-LL'OHM,
+           RES MAX 'RESISTANCE' MAX 100E6 OHM,
+           SAMPLE-COUNT 1,
+           SAMPLE-TIME 500 MSEC,
+           CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   IMPEDANCE [Res 2-Wire], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+
+        OUTPUT, TO 'PRINTER',
+        C'   IMPEDANCE [Res 2-Wire], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+C $
+        CALCULATE, 'TESTNO' = 30040$
+        PERFORM, 'RESULTS' $
+C $
+ 030100 OUTPUT,
+        C'          IMPEDANCE [RES 2-wire] Test \LF\',
+        C'  ------------------------------------\LF\',
+        C'  Connect a 10000 Ohm resistor across \LF\',
+        C'  HI & LO, Sense-Hi and Sense-Lo      \LF\',
+        C'  input jacks of DMM-1 on             \LF\',
+        C'  the Probe Panel.                    \LF\',
+	C'  \LF\ 				\LF\',                                    
+        C'  T - Ready to test                   \LF\',
+        C'  F - Skip test                       \LF\'           $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030199 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 'RESISTANCE' * 1.2 $
+        CALCULATE, 'VER-LL' = 'RESISTANCE' * 0.8 $
+
+B $
+    20 VERIFY,  (RES INTO 'MEASUREMENT'), IMPEDANCE, UL 'VER-UL'OHM LL 'VER-LL'OHM,
+           RES MAX 'RESISTANCE' MAX 100E6 OHM,
+           SAMPLE-COUNT 50,
+           FOUR-WIRE,
+           CNX HI DMM_1-HI LO DMM_1-LO SENSE-HI DMM_1-S-HI SENSE-LO DMM_1-S-LO $
+
+        OUTPUT,
+        C'   IMPEDANCE [Res 4-Wire], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+
+        OUTPUT, TO 'PRINTER',
+        C'   IMPEDANCE [Res 4-Wire], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+C $
+        CALCULATE, 'TESTNO' = 30020$
+        PERFORM, 'RESULTS' $
+
+
+
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 040100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 030000 $
+        END, IF $
+C $
+C       END OF IMPEDANCE [RES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C $
+C *******************************************************************
+C * Square Wave                
+C ******************************************************************* $
+C $
+C $
+B $
+ 040000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         Square Wave            \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage                        2\LF\',
+	 C' Voltage-P                      3\LF\',
+	 C' Voltage-PP                     4\LF\',
+         C' Frequency                      5\LF\',
+	 C' Period                         6\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 040100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040300 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 5, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040400 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 6, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040500 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 040005 $
+C *******************************************************************
+C * Square Wave Test [VOLTAGE]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040100 CALCULATE, 'AC-VOLTS-P'    = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'VER-UL' = 'AC-VOLTS-P' * 1.1	$
+        CALCULATE, 'VER-LL' = 'AC-VOLTS-P' * 0.9	$
+
+B $
+     05 OUTPUT,
+        C'          SQUARE WAVE [VOLTAGE] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an SQUARE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040199 $
+        END, IF $
+
+B $
+    20 VERIFY, (VOLTAGE INTO 'MEASUREMENT'), SQUARE WAVE, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE MAX 10 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+           BANDWIDTH RANGE 3 Hz TO 300kHz,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+ 
+        OUTPUT,
+        C'   SQUARE WAVE [VOLTAGE], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   SQUARE WAVE [VOLTAGE], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 40120$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040100 $
+        END, IF $
+C $
+C       END OF AC [CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Square Wave Test [VOLTAGE-P]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040200 CALCULATE, 'AC-VOLTS-P'    = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+
+B $
+     05 OUTPUT,
+        C'          SQUARE WAVE [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an SQUARE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040299 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = ('AC-VOLTS-P') * 1.1	$
+         CALCULATE, 'VER-LL' = ('AC-VOLTS-P') * 0.9	$
+
+B $
+    20 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), SQUARE WAVE, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P MAX 10 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   SQUARE WAVE [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   SQUARE WAVE [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 40220$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040200 $
+        END, IF $
+C $
+C       END OF SQUARE [CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C $
+C *******************************************************************
+C * Square Wave Test [VOLTAGE-PP]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040300 CALCULATE, 'AC-VOLTS-P'    = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+
+B $
+     05 OUTPUT,
+        C'          SQUARE WAVE [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an SQUARE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040399 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = ('AC-VOLTS-P') * 1.1	$
+         CALCULATE, 'VER-LL' = ('AC-VOLTS-P') * 0.9	$
+
+B $
+    20 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), SQUARE WAVE, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 10 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   SQUARE WAVE [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   SQUARE WAVE [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 40320$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040400 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040300 $
+        END, IF $
+C $
+C       END OF AC [CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C $
+C *******************************************************************
+C * Square Wave Test [FREQUENCY]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040400 CALCULATE, 'AC-VOLTS-P'    = 2.5 /1.41416 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+
+B $
+     05 OUTPUT,
+        C'          SQUARE WAVE [FREQUENCY] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an SQUARE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040499 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = ('FREQ') * 1.1	$
+         CALCULATE, 'VER-LL' = ('FREQ') * 0.9	$
+
+B $
+    20 VERIFY, (FREQ INTO 'MEASUREMENT'), SQUARE WAVE, UL 'VER-UL'HZ LL 'VER-LL'HZ,
+           FREQ MAX 5000 HZ,
+           VOLTAGE 'AC-VOLTS-P' MAX 300 V,
+           DC-OFFSET 'DC-VOLTS' RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   SQUARE WAVE [FREQUENCY], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   SQUARE WAVE [FREQUENCY], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 40420$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040500 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040400 $
+        END, IF $
+C $
+C       END OF AC [FREQUENCY] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Square Wave Test [PERIOD]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040500 CALCULATE, 'AC-VOLTS-P'     = 2.5 /1.41416 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+
+B $
+     05 OUTPUT,
+        C'          SQUARE WAVE [PERIOD] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an SQUARE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040599 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = (1/'FREQ') * 1.1	$
+         CALCULATE, 'VER-LL' = (1/'FREQ') * 0.9	$
+
+B $
+    20 VERIFY, (PERIOD INTO 'MEASUREMENT'), SQUARE WAVE, UL 'VER-UL'SEC LL 'VER-LL'SEC,
+           PERIOD MAX .333 SEC,
+           VOLTAGE 'AC-VOLTS-P' MAX 300 V,
+           DC-OFFSET 'DC-VOLTS' RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   SQUARE WAVE [PERIOD], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   SQUARE WAVE [PERIOD], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 40520$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040500 $
+        END, IF $
+C $
+C       END OF AC [PERIOD] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Triangle Wave                
+C ******************************************************************* $
+C $
+C $
+B $
+ 050000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         Triangle Wave            \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage                        2\LF\',
+	 C' Voltage-P                      3\LF\',
+	 C' Voltage-PP                     4\LF\',
+         C' Frequency                      5\LF\',
+	 C' Period                         6\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 050100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 050100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 050200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 050300 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 5, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 050400 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 6, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 050500 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 050005 $
+
+C *******************************************************************
+C * Triangle Wave Test [VOLTAGE]
+C ******************************************************************* $
+C $
+C $
+B $
+ 050100 CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+
+B $
+     05 OUTPUT,
+        C'          TRIANGLE WAVE [VOLTAGE] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an TRIANGLE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050199 $
+        END, IF $
+
+C   INSTRUMENT ONLY ACCURATE TO 46%                             $
+         CALCULATE, 'VER-UL' = ('AC-VOLTS-P'/1.73205) * 1.5	$
+         CALCULATE, 'VER-LL' = ('AC-VOLTS-P'/1.73205) * 0.5	$
+
+B $
+    20 VERIFY, (VOLTAGE INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE MAX 10 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+           BANDWIDTH RANGE 3 Hz TO 300kHz,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   TRIANGLE WAVE [VOLTAGE], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   TRIANGLE WAVE [VOLTAGE], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 50120$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 050200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050005 $
+	ELSE $ 
+            GO TO, STEP 050100 $
+        END, IF $
+C $
+C       END OF AC [CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Triangle Wave Test [VOLTAGE-P]
+C ******************************************************************* $
+C $
+C $
+B $
+ 050200 CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+
+
+B $
+     05 OUTPUT,
+        C'          TRIANGLE WAVE [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an TRIANGLE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050299 $
+        END, IF $
+
+C   INSTRUMENT ONLY ACCURATE TO 46%                             $
+         CALCULATE, 'VER-UL' = ('AC-VOLTS-P') * 1.5	$
+         CALCULATE, 'VER-LL' = ('AC-VOLTS-P') * 0.5	$
+
+B $
+    20 VERIFY, (VOLTAGE-P INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-P MAX 10 V,
+           BANDWIDTH RANGE 3 Hz TO 300kHz,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   TRIANGLE WAVE [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   TRIANGLE WAVE [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 50220$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 050300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050005 $
+	ELSE $ 
+            GO TO, STEP 050200 $
+        END, IF $
+C $
+C       END OF AC [CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C $
+C *******************************************************************
+C * Triangle Wave Test [VOLTAGE-PP]
+C ******************************************************************* $
+C $
+C $
+B $
+ 050300 CALCULATE, 'AC-VOLTS-P' = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+
+B $
+     05 OUTPUT,
+        C'          TRIANGLE WAVE [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an TRIANGLE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050399 $
+        END, IF $
+C $
+C   INSTRUMENT ONLY ACCURATE TO 46%                             $
+         CALCULATE, 'VER-UL' = ('AC-VOLTS-P') * 1.5	$
+         CALCULATE, 'VER-LL' = ('AC-VOLTS-P') * 0.5	$
+
+B $
+    20 VERIFY, (VOLTAGE-PP INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL, UL 'VER-UL'V LL 'VER-LL'V,
+           VOLTAGE-PP MAX 10 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   TRIANGLE WAVE [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   TRIANGLE WAVE [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 50320$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 050400 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050005 $
+	ELSE $ 
+            GO TO, STEP 050300 $
+        END, IF $
+C $
+C       END OF AC [CURRENT] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C $
+C *******************************************************************
+C * Triangle Wave Test [FREQUENCY]
+C ******************************************************************* $
+C $
+C $
+B $
+ 050400 CALCULATE, 'AC-VOLTS-P' = 2.5 /1.41416 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+
+B $
+     05 OUTPUT,
+        C'          TRIANGLE WAVE [FREQUENCY] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an TRIANGLE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050499 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = ('FREQ') * 1.1	$
+         CALCULATE, 'VER-LL' = ('FREQ') * 0.9	$
+
+B $
+    20 VERIFY, (FREQ INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL, UL 'VER-UL'HZ LL 'VER-LL'HZ,
+           FREQ MAX 5000 HZ,
+           VOLTAGE 'AC-VOLTS-RMS' MAX 300 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   TRIANGLE WAVE [FREQUENCY], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   TRIANGLE WAVE [FREQUENCY], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 50420$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 050500 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050005 $
+	ELSE $ 
+            GO TO, STEP 050400 $
+        END, IF $
+C $
+C       END OF AC [FREQUENCY] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Triangle Wave Test [PERIOD]
+C ******************************************************************* $
+C $
+C $
+B $
+ 050500 CALCULATE, 'AC-VOLTS-P' = 2.5 /1.41416 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+
+B $
+     05 OUTPUT,
+        C'          TRIANGLE WAVE [PERIOD] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Prepare an TRIANGLE SIGNAL of 5V Peak to Peak with a reference\LF\',
+	C'  voltage of 0V and a frequency of 1 kHz to the input ports of the DMM.\LF\', 
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050599 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = (1/'FREQ') * 1.1	$
+         CALCULATE, 'VER-LL' = (1/'FREQ') * 0.9	$
+
+B $
+    20 VERIFY, (PERIOD INTO 'MEASUREMENT'), TRIANGULAR WAVE SIGNAL, UL 'VER-UL'SEC LL 'VER-LL'SEC,
+           PERIOD MAX .333 SEC,
+           VOLTAGE 'AC-VOLTS-RMS' MAX 300 V,
+           DC-OFFSET 'DC-VOLTS'  RANGE -300 V TO 300 V,
+          CNX HI DMM_1-HI LO DMM_1-LO $
+
+        OUTPUT,
+        C'   TRIANGLE WAVE [PERIOD], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   TRIANGLE WAVE [PERIOD], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+        CALCULATE, 'TESTNO' = 50520$
+        PERFORM, 'RESULTS' $
+
+         IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+	
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060000 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 050005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050005 $
+	ELSE $ 
+            GO TO, STEP 050500 $
+        END, IF $
+C $
+C       END OF AC [PERIOD] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C *******************************************************************
+C * SUMMARY
+C ******************************************************************* $
+C $
+B $
+ 060000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+         C' --------------------------------------\LF\',
+         C'  END - END TEST			  \LF\',
+         C'     PASSED				  \LF\',
+         C' --------------------------------------\LF\'          $
+
+	  OUTPUT, TO 'PRINTER',   	
+         C' --------------------------------------\LF\',
+         C'  END - END TEST			  \LF\',
+         C'     PASSED				  \LF\',
+         C' --------------------------------------\LF\'          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\					        ',	
+         C' --------------------------------------  \LF\',
+         C'  END - END TEST			    \LF\',
+         C'  FAILED WITH', 'FAIL-FLAG', C' FAILURES \LF\',
+         C' --------------------------------------  \LF\'        $
+
+	  OUTPUT, TO 'PRINTER',
+	 C' -------------------------------------- \LF\',
+         C'  END - END TEST			   \LF\',
+         C'  FAILED WITH', 'FAIL-FLAG', C'FAILURES \LF\',
+         C' -------------------------------------- \LF\'         $
+
+
+        END, IF  $
+ 060100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+ 999999 TERMINATE, ATLAS PROGRAM 'DMM Benchmark' $

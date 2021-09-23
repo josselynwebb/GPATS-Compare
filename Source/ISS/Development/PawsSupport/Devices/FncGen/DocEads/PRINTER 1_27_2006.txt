@@ -1,0 +1,183 @@
+ FncGen ATLAS Driver Benchmark
+ Date/Time: Fri Jan 27 13:18:0 
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 10120       TRUE                GO                  FALSE                P 
+
+    AC [Voltage], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 10220       TRUE                GO                  FALSE                P 
+
+    AC [Voltage-P], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 10320       TRUE                GO                  FALSE                P 
+
+    AC [Voltage-PP], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 10420       TRUE                GO                  FALSE                P 
+
+    AC [Voltage], Ranged, Triggered
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 10520       TRUE                GO                  FALSE                P 
+
+    AC [Voltage], Ranged, Gated
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 10620       TRUE                GO                  FALSE                P 
+
+    AC [Voltage], Ranged, With Sync
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 20120       TRUE                GO                  FALSE                P 
+
+    Square Wave [Voltage-P], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 20220       TRUE                GO                  FALSE                P 
+
+    Square Wave [Voltage-PP], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 20320       TRUE                GO                  FALSE                P 
+
+    Square Wave [BURST], Ranged, non-Triggered
+   --------------------------------------
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 30120       TRUE                GO                  FALSE                P 
+
+    Triangular Wave [VOLTAGE-P], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 30220       TRUE                GO                  FALSE                P 
+
+    Triangular Wave [VOLTAGE-PP], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 30320       TRUE                GO                  FALSE                P 
+
+    Triangular Wave [BURST], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 40120       TRUE                GO                  FALSE                P 
+
+    Ramp Signal [VOLTAGE-P], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 40220       TRUE                GO                  FALSE                P 
+
+    Ramp Signal [VOLTAGE-PP], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 40320       TRUE                GO                  FALSE                P 
+
+    Ramp Signal [BURST], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 50120       TRUE                GO                  FALSE                P 
+
+    Pulsed DC [VOLTAGE-P], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 50220       TRUE                GO                  FALSE                P 
+
+    Pulsed DC [VOLTAGE-PP], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 50120       TRUE                GO                  FALSE                P 
+
+    Sinc Wave [VOLTAGE-P], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 50220       TRUE                GO                  FALSE                P 
+
+    Sinc Wave [VOLTAGE-PP], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 70120       TRUE                GO                  FALSE                P 
+
+    Exponential Pulse Wave [VOLTAGE-P], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 70220       TRUE                GO                  FALSE                P 
+
+    Exponential Pulse Wave [VOLTAGE-PP], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 70320       TRUE                GO                  FALSE                P 
+
+    Exponential Pulse Wave [BURST], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 80020       TRUE                GO                  FALSE                P 
+
+    DC Signal Test, Ranged, non-Triggered 
+   --------------------------------------	   
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 90120       TRUE                GO                  FALSE                P 
+
+    Waveform [Staircase], Ranged, non-Triggered 
+   --------------------------------------	
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+ 90220       TRUE                GO                  FALSE                P 
+
+    Waveform [DC OFFSET], Ranged, non-Triggered 
+   --------------------------------------	
+
+  --------------------------------------
+   END - END TEST			  
+      PASSED				  
+  --------------------------------------
+

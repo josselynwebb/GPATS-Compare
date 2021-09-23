@@ -1,0 +1,13 @@
+#define WinHelp_aps6062_init 1
+#define WinHelp_aps6062_writeInstrData 2
+#define WinHelp_aps6062_readInstrData 3
+#define WinHelp_aps6062_reset 4
+#define WinHelp_aps6062_selfTest 5
+#define WinHelp_aps6062_errorQuery 6
+#define WinHelp_aps6062_errorMessage 7
+#define WinHelp_aps6062_close 8
+#define WinHelp_Contents 9
+#define WinHelp_Introduction 10
+#define WinHelp_Assumptions 11
+#define WinHelp_ErrorCodes 12
+#define WinHelp_Summary 13

@@ -1,0 +1,939 @@
+\\**************************************************************************
+\\
+\\  Filename: modifier
+\\  Version:  2.0
+\\  Purpose:  A source file used to build the TYX PAWS ATLAS lexical
+\\            database file LexDB.LEX.
+\\
+\\ VER   DATE     ENGINEER, ORGANIZATION, DR# (STR #): DESCRIPTION
+\\ ---   -------  --------------------------------------------------------------
+\\ 1.3   01Nov00  LMIS: Update for Electro-Optical additions.
+\\
+\\ 1.4   15Mar04  Tom Biggs, ManTech: Update to support EOV ATLAS Benchmark 
+\\                development (see ECO-3047-637).
+\\
+\\ 2.0   28Apr09 EADS:
+\\                 Baselined VIPER/T version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\********New version scheme to meet the System software version******************
+\\*  2.1.0.X   13MAR19  Update to bring to 1.3.2.0
+\\*  3.0.0.0007 27JUN19	Win 10 Release
+\\**************************************************************************
+\\
+print "Source File: modifiers";
+
+	constant;       MODRULE == 054;
+
+
+define  REALDIMS
+	    lexrule = MODRULE
+	    tables 1 = type 2 = num 3 = sub;
+		COMMON-DIMS;
+end_unit;
+\\
+\\      <NounModifier> Definitions
+\\
+\\      Primary Attributes:
+\\
+\\          o   DSC_MC      -   No Associated Arithmetic Value
+\\          o   NTC_MC      -   Not Acceptable At Compile Time
+\\          o   LST_MC      -   Allow List (ListRange)
+\\          o   GRP_MC      -   Group Modifier
+\\          o   XXX_MC      -   Spare
+\\          o   DDT_MC      -   Decimal Data Type (Default)
+\\          o   IDT_MC      -   Integer Data Type
+\\          o   XDT_MC      -   Digital Data Type
+\\          o   ADT_MC      -   All     Data Type
+\\
+
+define  MODIFIERS
+	lexrule = MODRULE string = 4
+	    tables 1 = type 2 = num 3 = sub;
+		AC-COMP                 "ACCP";
+		AC-COMP-FREQ		"ACCF";
+   (XDT_MC) ACCEPTANCE-CODE         "ACCD";		\\ Added for TETS II -EADS
+   (XDT_MC) ACCEPTANCE-MASK         "ACMK";	      \\ Added for TETS II -EADS
+   (DSC_MC)     ADD-FROM     		"ADFM";		\\added for TETS-ECP3 4/20/99 YS		
+   (DSC_MC)     ADD-TO     		"ADTO";		\\added for TETS-ECP3 4/20/99 YS		
+   (IDT_MC)     ADDR-LINES              "ADLN";
+		ADDRESS-REG             "ADRG";		\\ Added for TETS II -EADS
+   (IDT_MC)     AGE-RATE        	"AGER";
+		ALLOWANCE		"ALLW";		\\added for TETS-ECP3 3/8/99 YS
+                ALT             	"ALTI";
+		ALT-RATE                "ALTR";
+		AM-COMP                 "AMCP";
+    (DSC_MC)	AM-COUPL		"AMCU";		\\MCATES added for SG1&2
+		AM-FREQ                 "AMFQ";		\\MCATES added for SG1&2
+		AM-SHIFT                "AMSH";
+    (DSC_MC)	AM-SOURCE      		"AMSR";		\\MCATES added for SG1&2
+		AMPL-MOD                "AMPL";
+		AMPL-MOD-C              "AMMC";
+		AMPL-MOD-F              "AMMF";
+		ANGLE                   "ANGL";
+		ANGLE-PHI               "ANGP";
+		ANGLE-THETA             "ANGT";
+		ANGLE-ACCEL             "ANAC";
+		ANGLE-ACCEL-X           "ANAX";
+		ANGLE-ACCEL-Y           "ANAY";
+		ANGLE-ACCEL-Z           "ANAZ";
+		ANGLE-RATE              "ANRT";
+		ANGLE-RATE-X            "ANRX";
+		ANGLE-RATE-Y            "ANRY";
+		ANGLE-RATE-Z            "ANRZ";
+		ANGLE-X                 "ANGX";
+		ANGLE-Y                 "ANGY";
+		ANGLE-Z                 "ANGZ";
+		ANT-SPEED-DEV           "ANSD";
+		ATTEN                   "ATTN";
+   (DSC_MC)     ATTENUATION     	"ATTE";		\\KEITHLY
+   (IDT_MC)	AZIMUTH			"AZIM";
+                BACK-PORCH              "BKPH";
+        	BANDWIDTH               "BAND";
+		BAROMETRIC-PRESS        "BARP";
+		BASE-VECTOR             "BSVT";		\\ Added for TETS II -EADS
+\\ NOW Dim      BIT             "BPCD";
+        	BIT-RATE                "BITR";
+		BIT-PERIOD              "BITP";
+		BURST                   "BURS";
+		BURST-DROOP             "BURD";
+		BURST-REP-RATE          "BURR";
+		BUS-TIMEOUT             "BSTO";		\\ Added for TETS II -EADS
+            CAP                     "CAPA";
+		CAR-AMPL		"CAMP";
+		CAR-FREQ                "CFRQ";
+		CAR-HARMONICS		"CHRM";
+		CAR-PHASE		"CPHS";
+		CAR-RESID		"CRSD";
+	        CHANNEL-IDENT          	"CHID";     \\Test SEKAS
+   (DSC_MC)     CLOCK-SOURCE   		"CLKS";     \\MCATES added for SG1&2
+        	COMMAND                 "COMD";
+		COMPL                   "CMPL";
+   		COMPARE-WAVE   		"CMWV";		\\added for TETS-ECP3 4/20/99 YS		
+   (DSC_MC)     COMPARE-CH     		"CMCH";		\\added for TETS-ECP3 4/20/99 YS		
+   (DSC_MC)     COMPARE-TO     		"CMTO";		\\added for TETS-ECP3 4/20/99 YS		
+		CONDUCTANCE             "COND";
+        	COUNT                   "COUN";
+    (DSC_MC)    COUPLING       		"CPLG";     \\KEITHLY
+		CREST-FACTOR            "CRSF";
+		CURRENT                 "CURR";
+		AV-CURRENT              "CURA";
+		CURRENT-INST            "CURI";
+		CURRENT-P               "CUPK";
+		CURRENT-PP              "CUPP";
+		CURRENT-TRMS            "CURT";
+		CURRENT-LMT             "CURL";
+		CURRENT-ONE		"CUR1";
+		CURRENT-QUIES           "CURQ";
+		CURRENT-ZERO            "CUR0";
+		CURRENT-P-POS           "CPKP";
+		CURRENT-P-NEG           "CPKN";
+                CUTOFF-FREQ             "CTRQ";
+		CW-LEVEL                "CWLV";
+		DATA                    "DATA";
+		DBL-INT                 "DBLI";
+		DC-OFFSET		"DCOF";
+		DE-EMPHASIS             "DEEM";		\\MCATES added for MOD
+		DEBRIS-COUNT            "DBRC";
+		DEBRIS-SIZE             "DBRS";
+		DELAY                   "DELA";
+   (DSC_MC)     DESTINATION   		"DEST";		\\added for TETS-ECP3 4/20/99 YS		
+		DEV-PNEG = FREQ-DEV-PN  "DVPN";		\\MCATES added for MOD	\\ FREQ-DEV-PN Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		DEV-PPOS = FREQ-DEV-PP  "DVPP";		\\MCATES added for MOD	\\ FREQ-DEV-PP Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+        	DEWPOINT                "DEWP";
+    (DSC_MC)    DIFFERENTIATE		"DIFR";		\\added for TETS-ECP3 4/20/99 YS		
+    (DSC_MC)	DISPLAY			"DISP";		\\MCATES added for drivers
+		DISS-FACTOR             "DSFC";
+		DISTANCE                "DIST";
+		DISTANCE-R              "DSTR";
+		DISTANCE-X              "DSTX";
+		DISTANCE-Y              "DSTY";
+		DISTANCE-Z              "DSTZ";
+		DISTORTION              "DTOR";
+    (LST_MC)	DISTORTION-POSITIONS	"DSTP";		\\ VIPER-T added for GEOMETRIC-FIDELITY-DISTORTION
+    (IDT_MC)    DIST-POS-COUNT          "DSPC";         \\ Distortion position count for GEOMETRIC FIDELITY DISTORTION
+    (IDT_MC)	DIVISIONS		"DIVS";		\\MCATES added for SC1
+		DOMINANT-MOD-SIG        "DMDS";
+		DOPPLER-BANDWIDTH       "DBND";
+		DOPPLER-FREQ		"DPFR";
+		DOPPLER-SHIFT           "DPSH";
+        	DROOP                   "DROO";
+		DUTY-CYCLE		"DUTY";
+		EFF                     "EFFI";
+		EFFICACY                "EFCY";
+    (IDT_MC)	ELEVATION		"ELEV";
+    		EXPONENT		"EXPO";		\\added for TETS-ECP3 3/8/99 fs
+		FALL-TIME               "FALL";
+		FIELD-STRENGTH          "FDST";
+    		FILTER         		"FILT";
+                FIRST-ACTIVE-LINE       "FIAL";
+     		FLUX-DENS               "FXDN";
+		FLUX-DENS-IN-PHASE      "FXIP";
+		FLUX-DENS-QUAD          "FXQD";
+		FM-COMP                 "FMCP";
+    (DSC_MC)	FM-COUPL		"FMCU";		\\MCATES added for SG1&2
+		FM-FREQ                 "FMFQ";		\\MCATES added for SG1&2
+    (DSC_MC)	FM-SOURCE       	"FMSR";		\\MCATES added for SG1&2
+                FOCAL-LENGTH            "FCLN";         \\ TETS
+		FORCE                   "FRCE";
+		FORCE-RATE              "FRCR";
+                FRAME-COUNT             "FCNT";
+		FREQ                    "FREQ";
+		FREQ-DEV		"FRQD";
+		FREQ-ONE                "FRQ1";
+		FREQ-PAIRING            "FRQP";
+		FREQ-QUIES              "FRQQ";
+		FREQ-RATIO              "FRQR";
+		FREQ-SPAN		"FRSP";		\\ Added 4-24-06 for Rf_MeasAn
+		FREQ-WINDOW             "FRQW";
+		FREQ-ZERO               "FRQ0";
+   (IDT_MC)	HARM-NUMBER		"HARN";		\\MCATES added for ASA
+		HARM-PHASE              "HARP";
+		HARM-POWER              "HAPW";
+		HARM-VOLTAGE            "HARV";
+		HARMONICS               "HARM";
+\\ Harmonic modifiers added for RF_Analyzer EWL 03082006
+                HARM-1-POWER            "HP01";
+                HARM-2-POWER            "HP02";
+                HARM-3-POWER            "HP03";
+                HARM-4-POWER            "HP04";
+                HARM-5-POWER            "HP05";
+                HARM-6-POWER            "HP06";
+                HARM-7-POWER            "HP07";
+                HARM-8-POWER            "HP08";
+                HARM-9-POWER            "HP09";
+                HARM-10-POWER           "HP10";
+                HARM-11-POWER           "HP11";
+                HARM-12-POWER           "HP12";
+                HARM-13-POWER           "HP13";
+                HARM-14-POWER           "HP14";
+                HARM-15-POWER           "HP15";
+                HARM-16-POWER           "HP16";
+                HARM-01-POWER           "HPZ1";
+                HARM-02-POWER           "HPZ2";
+                HARM-03-POWER           "HPZ3";
+                HARM-04-POWER           "HPZ4";
+                HARM-05-POWER           "HPZ5";
+                HARM-06-POWER           "HPZ6";
+                HARM-07-POWER           "HPZ7";
+                HARM-08-POWER           "HPZ8";
+                HARM-09-POWER           "HPZ9";
+                HARM-001-POWER          "HPX1";
+                HARM-002-POWER          "HPX2";
+                HARM-003-POWER          "HPX3";
+                HARM-004-POWER          "HPX4";
+                HARM-005-POWER          "HPX5";
+                HARM-006-POWER          "HPX6";
+                HARM-007-POWER          "HPX7";
+                HARM-008-POWER          "HPX8";
+                HARM-009-POWER          "HPX9";
+                HARM-010-POWER          "HPA0";
+                HARM-011-POWER          "HPA1";
+                HARM-012-POWER          "HPA2";
+                HARM-013-POWER          "HPA3";
+                HARM-014-POWER          "HPA4";
+                HARM-015-POWER          "HPA5";
+                HARM-016-POWER          "HPA6";
+                HARM-1-VOLTAGE          "HV01";
+                HARM-2-VOLTAGE          "HV02";
+                HARM-3-VOLTAGE          "HV03";
+                HARM-4-VOLTAGE          "HV04";
+                HARM-5-VOLTAGE          "HV05";
+                HARM-6-VOLTAGE          "HV06";
+                HARM-7-VOLTAGE          "HV07";
+                HARM-8-VOLTAGE          "HV08";
+                HARM-9-VOLTAGE          "HV09";
+                HARM-10-VOLTAGE         "HV10";
+                HARM-11-VOLTAGE         "HV11";
+                HARM-12-VOLTAGE         "HV12";
+                HARM-13-VOLTAGE         "HV13";
+                HARM-14-VOLTAGE         "HV14";
+                HARM-15-VOLTAGE         "HV15";
+                HARM-16-VOLTAGE         "HV16";
+                HARM-01-VOLTAGE         "HVZ1";
+                HARM-02-VOLTAGE         "HVZ2";
+                HARM-03-VOLTAGE         "HVZ3";
+                HARM-04-VOLTAGE         "HVZ4";
+                HARM-05-VOLTAGE         "HVZ5";
+                HARM-06-VOLTAGE         "HVZ6";
+                HARM-07-VOLTAGE         "HVZ7";
+                HARM-08-VOLTAGE         "HVZ8";
+                HARM-09-VOLTAGE         "HVZ9";
+                HARM-001-VOLTAGE        "HVX1";
+                HARM-002-VOLTAGE        "HVX2";
+                HARM-003-VOLTAGE        "HVX3";
+                HARM-004-VOLTAGE        "HVX4";
+                HARM-005-VOLTAGE        "HVX5";
+                HARM-006-VOLTAGE        "HVX6";
+                HARM-007-VOLTAGE        "HVX7";
+                HARM-008-VOLTAGE        "HVX8";
+                HARM-009-VOLTAGE        "HVX9";
+                HARM-010-VOLTAGE        "HVA0";
+                HARM-011-VOLTAGE        "HVA1";
+                HARM-012-VOLTAGE        "HVA2";
+                HARM-013-VOLTAGE        "HVA3";
+                HARM-014-VOLTAGE        "HVA4";
+                HARM-015-VOLTAGE        "HVA5";
+                HARM-016-VOLTAGE        "HVA6";
+		HI-MOD-FREQ             "HMDF";
+		HUMIDITY                "HUMY";
+		IAS                     "IASP";
+		IDENT-SIG-EP            "IDSE";
+		IDENT-SIG-FREQ          "IDSF";
+		IDENT-SIG-MOD           "IDSM";
+		ILLUM                   "ILLU";
+		IND                     "INDU";
+   (DSC_MC)     INTEGRATE     		"INTG";		\\added for TETS-ECP3 4/20/99 YS		
+		INT-JITTER              "IJIT";
+		INT-RATE                "IRAT";
+		INTERRUPT-ACK-TIMEOUT   "IATO";		\\ Added for TETS II -EADS
+            INTERVAL                "INTL";     \\KEITHLY
+   (IDT_MC)     ITERATE        		"ITER";
+   (IDT_MC)     LASER-STAGE             "LSTG";
+                \\LEVEL-LOGIC-ZERO	"LVLZ";	\\ Only used for Illegal state Indicator TETS II - EADS NA
+                \\LEVEL-LOGIC-ONE	"LVLO";	\\ Only used for Illegal state Indicator  TETS II - EADS NA
+   (DSC_MC)     LOAD-FROM     		"LDFM";		\\added for TETS-ECP3 4/20/99 YS		
+   (DSC_MC)     LOAD-TO     		"LDTO";		\\added for TETS-ECP3 4/20/99 YS		
+   (LST_MC)     LOAD-WAVE     		"LDVW";		\\added for TETS-ECP3 4/20/99 YS		
+		LO-MOD-FREQ             "LMDF";
+		LUM-FLUX                "LUMF";
+		LUM-INT                 "LMIN";
+		LUM-TEMP                "LUMT";
+		LUMINANCE               "LUMI";
+		MAG-BEARING             "MAGB";
+		MAG-BEARING-RATE        "MAGR";
+   (LST_MC)	MATH     		"MATH";		\\added for TETS-ECP3 4/20/99 YS		
+ 		MASS-FLOW               "MASF";
+		MAX-TIME                "MAXT";
+		MEAN-MOD                "MMOD";
+		MESSAGE-GAP             "MGAP";
+		MINIMUM-SENSE-RATE      "MSNR";
+		MOD-AMPL                "MAMP";
+		MOD-DIST                "MODD";
+		MOD-FREQ                "MODF";
+		MOD-OFFSET              "MODO";
+		MOD-PHASE               "MODP";
+		MOD-PNEG = MOD-AMPL-PN  "MDPN";		\\MCATES added for MOD	\\ MOD-AMPL-PN Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		MOD-PPOS = MOD-AMPL-PP  "MDPP";		\\MCATES added for MOD	\\ MOD-AMPL-PP Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+    (DSC_MC)	MOD-SOURCE    		"MDSC";		\\MCATES added for SG1&2
+		NEG-PULSE-WIDTH         "NPWT";         \\added for TETS-ECP3 3/8/99 YS
+   (DSC_MC)     MULTP-FROM     		"MPFM";		\\added for TETS-ECP3 4/20/99 YS		
+   (DSC_MC)     MULTP-TO     		"MPTO";		\\added for TETS-ECP3 4/20/99 YS		
+		NO-COMMAND-TIMEOUT      "NCTO";		\\ Added for TETS II -EADS
+            NO-RESPONSE-TIMEOUT     "NRTO";		\\ Added for TETS II -EADS
+            NOISE                   "NOIS";
+		NOISE-AV                "NOAV";
+		NOISE-P                 "NOPK";
+		NOISE-PP                "NOPP";
+		NOISE-TRMS              "NOTR";
+		NOISE-AMPL-DENS         "NOAD";
+		NOISE-PWR-DENS          "NOPD";
+		NON-HARMONICS           "NHAR";
+		NON-LIN			"NLIN";
+		ONE-AMPLITUDE           "OAMP";
+		OPER-TEMP               "OTMP";
+     		OVERSHOOT               "OVER";
+		P-AMPL			"PAMP";
+		P3-DEV                  "P3DV";
+		P3-LEVEL                "P3LV";
+(DSC_MC)	PAC-COUPL		"PCCU";		\\MCATES added for SG1&2
+(DSC_MC)	PAC-SOURCE      	"PCSR";		\\MCATES added for SG1&2
+		PAIR-DROOP              "PDRP";
+		PAIR-SPACING            "PSPC";
+		PEAK-DEGEN		"PDGN";
+(DSC_MC)	PEAK-DEV   		"PKDV";		\\added for TETS-ECP3 5/14/99 CMR
+	      PEAK-SEARCH		"PSRC";		\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		PERIOD                  "PERI";
+		PHASE-ANGLE		"PANG";
+		PHASE-DEV               "PDEV";
+		PHASE-DEV-PP		"PDVP";		\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+                PHASE-DEV-PN		"PDVN";		\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		PHASE-JIT               "PJIT";
+		PHASE-PNEG              "PHPN";		\\MCATES added for MOD
+		PHASE-PPOS              "PHPP";		\\MCATES added for MOD
+		PHASE-SHIFT		"PSHI";
+		PLA                     "PLAN";
+		PLA-RATE                "PLAR";
+(DSC_MC)	PM-COUPL		"PMCU";		\\MCATES added for SG1&2
+		PM-FREQ                 "PMFQ";		\\MCATES added for SG1&2
+    (DSC_MC)	PM-SOURCE       	"PMSR";		\\MCATES added for SG1&2
+    (IDT_MC)	POLARIZE		"POLR";
+    (IDT_MC)	POSITION		"POSI";     	\\MCATES added for DM1
+		POS-PULSE-WIDTH         "PPWT";         \\added for TETS-ECP3 3/8/99 YS
+		POWER                   "POWR";
+		POWER-AV                "POWA";
+		POWER-P                 "POWP";
+		POWER-DIFF              "PRDF";
+		PRESHOOT                "PSHT";
+		PRESS-A			"PRSA";
+		PRESS-G                 "PRSG";
+		PRESS-RATE              "PRSR";
+		PRESS-OSC-AMPL          "PROA";
+		PRESS-OSC-FREQ          "PROF";
+		PRF                     "PRFR";
+    (IDT_MC)    PRIORITY        	"PRIO";
+      		PULSE-POSN		"PPOS";
+    (DSC_MC)    PULSE-SPECT    		"PSPE";
+		PULSE-SPECT-THRESHOLD   "PSPT";
+		PULSE-WIDTH		"PLWD";
+		PWR-LMT                 "PWRL";
+		Q                       "QFAC";
+		QUAD			"QUAD";
+		RADIAL                  "RADL";
+		RADIAL-RATE             "RADR";
+		RAMP-NEG-SLOPE		"RMNS";		\\ new since Mar '91
+		RAMP-POS-SLOPE		"RMPS";		\\ new since Mar '91
+		RANGE-PULSE-DEV         "RPDV";
+		RANGE-PULSE-ECHO        "RPEC";
+		REACTANCE               "REAC";
+   (XDT_MC)	RECEIVE-MSG-CODEONE	"RMC1";
+   (XDT_MC)	RECEIVE-MSG-CODETWO	"RMC2";
+		REF-FREQ                "REFF";
+		REF-PHASE-FREQ          "RPHF";
+		REF-POWER               "REFP";
+        	REF-PULSES-DEV          "RPLD";
+		REF-RES			"REFR";  	\\added for TETS 1/16/97 jrc
+   (DSC_MC)     REF-SOURCE		"REFS";		\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		REF-VOLT = VOLTAGE-REF	"REFV";		\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		REL-BEARING             "RELB";
+		REL-BEARING-RATE        "RLBR";
+		RELATIVE-HUMIDITY       "RELH";
+		RELATIVE-WIND           "RELW";
+		REPLY-EFF               "RPLE";
+		RES                     "RESI";
+		RES-RATIO               "RESR";
+		RESOLUTION-BANDWIDTH	"RESB";
+    (LST_MC)    RESP            	"RESP";
+    (DSC_MC)    RESP-HIZ        	"RSPH";
+    (DSC_MC)    RESP-ONE        	"RSPO";
+    (DSC_MC)    RESP-ZERO       	"RSPZ";
+		RESPONSE-TIME           "RSPT";
+		RINGING                 "RING";
+		RISE-TIME               "RISE";
+		ROTOR-SPEED             "RTRS";
+		ROUNDING                "ROUN";
+    (LST_MC)    SAMPLE          	"SMPL";
+                SAMPLE-AV               "SMAV";         \\ TETS
+		SAMPLE-COUNT		"SCNT";		\\added for TETS-ECP3 3/8/99 YS
+		SAMPLE-SPACING          "SASP";
+		SAMPLE-TIME             "SATM";
+		SAMPLE-WIDTH            "SMPW";
+   (DSC_MC)     SAVE-FROM     		"SVFM";		\\added for TETS-ECP3 4/20/99 YS		
+   (DSC_MC)     SAVE-TO     		"SVTO";		\\added for TETS-ECP3 4/20/99 YS		
+   (LST_MC)     SAVE-WAVE     		"SVWV";		\\added for TETS-ECP3 4/20/99 YS		
+		SENSE-DELAY             "SDEL";
+		SENSE-RATE              "SNSR";
+        	SETTLE-TIME             "SETT";
+		SHAFT-SPEED             "SHFS";
+		SIG-NOISE		"SGNO";		\\MCATES added for ATS
+		SINAD			"SNAD";		\\MCATES added for ATS
+		SINGLE-FILTER           "SNFL";		\\ Added for TETS II -EADS
+		SKEW-TIME               "SKEW";
+		SLANT-RANGE             "SLRG";
+		SLANT-RANGE-ACCEL       "SLRA";
+		SLANT-RANGE-RATE        "SLRR";
+		SLEW-RATE               "SLEW";
+		SLS-DEV                 "SLSD";
+		SLS-LEVEL               "SLSL";
+(DSC_MC)	SMOOTH			"SMTH";		\\MCATES added for DTZ
+		SPACING                 "SPCG";
+		SPEC-GRAV               "SPGR";
+		SPEC-TEMP               "SPTM";
+		SPEED			"SPED";		\\ GPA BUS	\\
+		SPEED-RATIO		"SPRT";		\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		SQTR-DIST               "SQTD";
+		SQTR-DIST-1             "SQD1";
+		SQTR-DIST-2             "SQD2";
+		SQTR-DIST-3             "SQD3";
+		SQTR-RATE               "SQTR";
+		STATIC-PRESS-A          "STPA";
+		STATIC-PRESS-G          "STPG";
+		STATIC-PRESS-RATE       "STPR";
+		STATIC-TEMP             "STMP";
+		STATUS                  "STAT";
+    (LST_MC)    STIM            	"STIM";
+    (DSC_MC)    STIM-HIZ        	"STMH";
+    (DSC_MC)    STIM-ONE        	"STMO";
+    (DSC_MC)    STIM-ZERO       	"STMZ";
+		STIM-RATE               "STMR";
+                STOP-BITS		"STPB";		\\ TETS II
+	      	SUB-CAR-FREQ            "SBCF";
+		SUB-CAR-MOD             "SBCM";
+		SUSCEPTANCE             "SUSP";
+   (DSC_MC)     SUBTRACT-FROM     	"SBFM";		\\added for TETS-ECP3 4/20/99 YS		
+   (DSC_MC)     SUBTRACT-TO     	"SBTO";		\\added for TETS-ECP3 4/20/99 YS		
+		SWEEP-TIME		"SWPT";
+        	SWR                     "SWRA";
+		TARGET-RANGE            "TGTD";
+		TARGET-RANGE-ACCEL      "TGTA";
+		TARGET-RANGE-RATE       "TGTR";
+                TARGET-THRESHOLD        "TGTH";
+		TAS                     "TASP";
+		TEMP                    "TEMP";
+		TEMP-COEFF-CAP          "TCAP";
+		TEMP-COEFF-CURRENT      "TCUR";
+		TEMP-COEFF-IND          "TIND";
+		TEMP-COEFF-REACT        "TREA";
+		TEMP-COEFF-RES          "TRES";
+		TEMP-COEFF-VOLT         "TVOL";
+		TEST-EQUIP-IMP          "TIMP";		\\MCATES added for drivers
+		THREE-SAMPLES           "THSM";		\\ Added for TETS II -EADS
+		THRUST                  "THRT";
+		TIME                    "TIME";
+		TIME-ASYM		"TASY";
+		TIME-JIT		"TJIT";
+		TIMING-VALUE            "TMVL";		\\ Added for TETS II -EADS
+		TORQUE                  "TORQ";
+		TOTAL-PRESS-A           "TOPA";
+		TOTAL-PRESS-G           "TOPG";
+		TOTAL-PRESS-RATE        "TOPR";
+		TOTAL-TEMP              "TTMP";
+		TRIG                    "TRIG";
+		TRIG-LEVEL              "TRLV";
+    (DSC_MC)    TRIG-SLOPE      	"TRSL";		\\MCATES added for drivers
+    (DSC_MC)    TRIG-SOURCE     	"TRGS";		\\MCATES added for drivers
+    (DSC_MC)    TRIGGER-MODE            "TGMD";
+		TRUE                    "TRUE";
+		UNDERSHOOT              "UNDR";
+                UNITS-PER-LINE          "UUPL";
+		VALUE                   "VALU";
+		VAR-PHASE-FREQ          "VPHF";
+		VAR-PHASE-MOD           "VPHM";
+		VIBRATION-ACCEL         "VBAC";
+		VIBRATION-AMPL-P        "VBAP";
+		VIBRATION-AMPL-pp       "VBPP";
+		VIBRATION-AMPL-TRMS     "VBTR";
+		VIBRATION-RATE          "VBRT";
+		VIDEO-BANDWIDTH		"VBAN";
+		VOLT-LMT                "VLTL";
+		VOLT-PER-DIV		"VDIV";		\\MCATES added for SC1
+		VOLTAGE                 "VOLT";
+		AV-VOLTAGE		"VLAV";
+		VOLTAGE-INST            "VINS";
+        	VOLTAGE-ONE             "VLT1";
+		VOLTAGE-P               "VLPK";
+		VOLTAGE-P-NEG           "VPKN";
+		VOLTAGE-P-POS           "VPKP";
+		VOLTAGE-PP		"VLPP";
+		VOLTAGE-QUIES           "VLTQ";
+                VOLTAGE-RATIO           "VOLR";
+		VOLTAGE-TRMS            "VRMS";
+        	VOLTAGE-ZERO            "VLT0";
+		VOLUME-FLOW             "VOLF";
+		WAVE-LENGTH             "WAVE";
+		WIND-SPEED              "WIND";
+		WORD-COUNT              "WRDC";
+		WORD-GAP                "WGAP";
+        	WORD-LENGTH             "WDLN";
+		WORD-RATE               "WDRT";
+		ZERO-AMPLITUDE          "ZAMP";
+		ZERO-CROSSING           "ZCRS";
+		ZERO-INDEX              "ZERO";
+    (DSC_MC)    {
+			ATMOS                   "ATMS";
+			BIT-TRANSITION          "BTRN";
+			CHANNEL                 "CHAN";
+			COMMAND-WORD            "CMDW";
+\\
+\\ Used as base: later changed to data-word-xxx
+\\
+			DATA-WORD               "DATW"; 
+
+			DDM                     "DDMD";
+                        DETECTOR-SCAN           "DTSC";
+			FAULT-TEST              "FLTS";
+                        FOUR-WIRE		"FORW";	\\ added 04FEB09 for DMM
+                        FLUID-TYPE              "FLUT";
+			FUEL-SUPPLY             "FUEL";
+			GLIDE-SLOPE             "GSLP";
+			IDENT-SIG               "IDSG";
+\\ NO Longer, now dim   LENGTH                  "LNTH";
+                        LOCALIZER               "LOCL";
+			MARKER-BEACON           "MRKB";
+			MODE                    "MODE";
+			NEG-SLOPE               "NEGS";
+                        PARITY                  "PRTY";		\\ TETS II
+			PARITY-EVEN		"PARE";	\\ GPA BUS	\\
+			PARITY-ODD		"PARO";	\\ GPA BUS	\\
+			POS-SLOPE               "POSS";
+			PULSE-CLASS             "PCLS";
+			PULSE-IDENT             "PLID";
+			PULSES-EXCL             "PLSE";
+			PULSES-INCL             "PLSI";
+			PROCEED                 "PRCD";
+			REF-INERTIAL            "REFI";
+			REF-PULSES-INCL         "RPLI";
+			REF-PULSES-EXCL         "RPLX";
+			REF-UUT                 "REFU";
+			STANDARD                "STRD";
+			STATUS-WORD             "STWD";
+\\ NO Longer, now dim   T-R         "TRCD"; \\ Feb '92
+          (DSC_MC)      TARGET-POLARITY         "TGPL";
+	(DSC_MC)    TCP                     "PTCP";      \\ TETS II changed from NDM_MC to DCS_MC
+			TEST-EQUIP-MONITOR      "TMON";
+			TEST-EQUIP-ROLE         "TROL";
+			TEST-EQUIP-SIMULATE     "TSIM";
+            		THREE-PHASE-DELTA       "TPHD";
+			THREE-PHASE-WYE         "TPHY";
+			TRANS-ONE               "TRN1";
+			TRANS-PERIOD            "TRNP";
+			TRANS-ZERO              "TRN0";
+			TRANS-SYNC              "TRNS";
+			TYPE                    "TYPE";
+	(DSC_MC)	UDP                     "PUDP";	\\ TETS II
+			VOLTAGE-RAMPED          "VLTR";
+			VOLTAGE-STEPPED         "VLTS";
+			WAIT                    "WAIT";
+			WORD-TRANSITION         "WTRN";
+			EVENT-INTERVAL          "EINM";
+		}
+\\
+\\      EventMonitor
+\\
+
+	\\
+	\\     Compiler Generates SET <EventIdentifier>
+	\\
+    (IDT_MC)    {
+		 EVENT-OUT                      "EVOU"; \\ EVOU_MI
+		 EVENT-AFTER-OCCURRENCES        "EVAO"; \\ EVAO_MI
+		 EVENT-DELAY                    "EVDL"; \\ EVDL_MI
+		 EVENT-EACH-OCCURRENCE          "EVEO"; \\ EVEO_MI
+		 EVENT-FIRST-OCCURRENCE         "EVFO"; \\ EVFO_MI
+		 EVENT-GATE-FROM                "EVGF"; \\ EVGF_MI
+		 EVENT-GATE-TO                  "EVGT"; \\ EVGT_MI
+		 EVENT-GATED-BY                 "EVGB"; \\ EVGB_MI
+		 EVENT-SENSE = SENSE-EVENT      "EVXE"; \\ EVXE_MI  \\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+		 EVENT-STIM = STIM-EVENT        "EVXM"; \\ EVXM_MI  \\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+\\
+\\      EVENT-STROBE is an Alias for STROBE-TO-EVENT
+\\
+\\               EVENT-STROBE                   "EVST"; \\ EVST_MI
+\\
+		 STROBE-TO-EVENT = EVENT-STROBE "SBEV"; \\ EVST_MI
+\\
+\\      EVENT-SYNC is an Alias for SYNC
+\\
+\\               EVENT-SYNC                     "EVSY"; \\ EVSY_MI
+		 SYNC = EVENT-SYNC              "SYNC"; \\ EVSY_MI
+		 EVENT-TIME-FROM                "EVTF"; \\ EVTF_MI
+		 EVENT-TIME-TO                  "EVTT"; \\ EVTT_MI
+		 EVENT-WHEN                     "EVWH"; \\ EVWH_MI
+
+		 EVENT-SYNC-WORD                "EVSW"; \\ EVSW_MI
+		 EVENT-SYNC-BIT                 "EVSB"; \\ EVSB_MI
+		 EVENT-SYNC-FREQ                "EVSF"; \\ EVSF_MI
+
+\\
+\\      Exchange Frame ONLY
+\\
+		 EVENT-EVERY                    "EVEV"; \\ EVEV_MI
+		 EVENT-UNTIL                    "EVUN"; \\ EVUN_MI
+		}
+
+\\
+\\      Compiler Generates SET <Value>
+\\
+    (IDT_MC)    EVENT-AFTER-OCCURRENCES-VALUE   "VEAO"; \\ VEAO_MI
+    (DDT_MC)    EVENT-DELAY-VALUE               "VEDL"; \\ VEDL_MI
+    (IDT_MC)    EVENT-EACH-OCCURRENCE-VALUE     "VEEO"; \\ VEEO_MI
+    (IDT_MC)    EVENT-FIRST-OCCURRENCE-VALUE    "VEFO"; \\ VEFO_MI
+    (DSC_MC)    EVENT-SLOPE                     "EVSL"; \\ EVSL_MI
+
+
+
+    (DDT_MC)    EVENT-GATE-FOR                  "VEGF"; \\ VEGF_MI EVENT-INTERVAL
+    (DDT_MC)    EVENT-TIME-FOR                  "VETF"; \\ VETF_MI EVENT-INTERVAL
+\\
+\\      Compiler Generates SET
+\\
+    (DSC_MC)    EVENT-GATE-FOREVER              "EVGR"; \\ EVGR_MI EVENT-INTERVAL
+    (DSC_MC)    EVENT-TIME-FOREVER              "EVTR"; \\ EVTR_MI EVENT-INTERVAL
+
+\\
+\\      Signal <Mchar> Only
+\\
+    (BDT_MC)    EVENT-INDICATOR                 "EVTI"; \\ EVTI_MI
+    (BDT_MC)    MANUAL-INTERVENTION             "MANI"; \\ MANI_MI
+\\
+\\      Exchange Frame ONLY
+\\
+    (DDT_MC)    {
+		 TIME-EVERY                     "TIEV"; \\ TIEV_MI
+		 TIME-UNTIL                     "TIUN"; \\ TIUN_MI
+		}
+\\
+\\      Timer
+\\
+	\\
+	\\     Compiler Generates SET <TimerIdentifier>
+	\\
+    (IDT_MC)    {
+		 TIMER-WHEN                     "TRWH"; \\ TIWH_MI
+		 TIMER-UNTIL                    "TRUN"; \\ TRUN_MI;
+		}
+
+\\
+\\      Compiler Generates SET <Value>
+\\
+    (DDT_MC)    {
+		 TIME-WHEN                      "TIWH"; \\ TIWH_MI
+\\\\             TIME-UNTIL                     "TIUN"; \\ TIUN_MI
+		}
+
+\\
+\\      DIGITAL CONFIGURATION
+\\
+		{
+    (XDT_MC)     ERROR                          "ERRO";
+		 ERROR-INDEX                    "ERRI";
+    (IDT_MC)     EXCEPT AT EVERY                "EXAE";
+    (IDT_MC)     FAULT-COUNT                    "FLTC";
+    (XDT_MC)     HIZ                            "HIZZ";
+    (XDT_MC)     MASK-ONE                       "MASK";
+    (XDT_MC)     MASK-ZERO                      "MSKZ";
+                 REF                            "REFX";
+    (IDT_MC)     REPEAT                         "REPT";
+    (XDT_MC)     SAVE-COMP                      "SVCP";
+    (BDT_MC)     ILLEGAL-STATE-INDICATOR        "ISTI";
+    (DSC_MC)        {
+		     SERIAL-LSB-FIRST           "SERL";
+		     SERIAL-MSB-FIRST           "SERM";
+		    }
+		}
+
+    (NTC_MC)    {
+			SYNC-DELAY              "SYDL";
+			PATH                    "PATH";
+    (DSC_MC)        {
+			    START               "STRT";
+			    STOP                "STOP";
+		    }
+		}
+
+		\\
+		\\      BUS-PROTOCOL
+		\\
+		{
+	(IDT_MC)    {
+		     UUT-LISTENER       "UUTL";         \\      BUS     \\
+		     UUT-TALKER         "UUTT";         \\      BUS     \\
+		     TEST-EQUIP-TALKER  "TEQT";         \\      BUS     \\
+		     TEST-EQUIP-LISTENER "TEQL";        \\      BUS     \\
+		    }
+
+	(IDT_MC)    {
+		     COUNT-DATA		"CDAT";		\\ BUS COUNT-INTO \\
+		     COUNT-COMMAND	"CCOM";
+		     COUNT-STATUS	"CSTS";
+		    }
+
+	(DSC_MC)    {
+		     BUS-MODE           "BUSM";         \\      BUS     \\
+		     BUS-SPEC           "BUSS";         \\      BUS     \\
+                 TERMINATED   	"TERM";         \\ TETS II
+		    }
+		}
+
+        (DSC_MC) FORMAT   "FRMT";
+	\\
+	\\      The following modifiers are for section 14.67 <bus parameter>
+	\\      and 14.68 <protocol parameter> for the purpose of handling 
+	\\      the Invalid-Bus-Parameter and Insert-Invalid fields 
+	\\      of  Bus Testing
+	\\
+		{
+		 INVALID-MESSAGE-GAP     "IVMG";
+		 INVALID-ONE-AMPLITUDE   "IVOA";
+		 INVALID-RESPONSE-TIME   "IVRT";
+		 INVALID-WORD-COUNT      "IVWC";
+		 INVALID-WORD-LENGTH     "IVWL";
+		 INVALID-WORD-GAP        "IVWG";
+		 INVALID-ZERO-AMPLITUDE  "IVZA";
+		 INVALID-ZERO-CROSSING   "IVZC";
+		}
+
+        \\
+	\\      To handle BIT <unsigned decimal integer> PULSE-CODE field
+	\\	and [INVALID-] DATA-WORD <integer> 
+	\\		{ SYNC | T-R | PARITY | LENGTH }
+	\\
+
+	(IDT_MC)
+		{
+		 COMMAND-WORD-BIT               "CMWB"; 
+		 DATA-WORD-BIT                  "DWBT";
+		 STATUS-WORD-BIT                "SWBT";
+		 INVALID-COMMAND-WORD-BIT       "ICWB";
+		 INVALID-DATA-WORD-BIT          "IDWB";
+		 INVALID-STATUS-WORD-BIT        "ISWB";
+
+		 DATA-WORD-SYNC			"DATS";
+		 DATA-WORD-TR			"DATT";
+		 DATA-WORD-PARITY		"DATP";
+		 DATA-WORD-LENGTH		"DATL";
+		 INVALID-DATA-WORD-SYNC		"IVDS";
+		 INVALID-DATA-WORD-TR		"IVDT";
+		 INVALID-DATA-WORD-PARITY	"IVDP";
+		 INVALID-DATA-WORD-LENGTH	"IVDL";
+
+		 EXCHANGE-NUMBER                "EXNM";
+                }
+
+
+	(DSC_MC)
+		{
+		 INVALID-COMMAND-WORD       "IVCW";
+		 INVALID-STATUS-WORD        "IVSW";
+
+\\
+\\ Used as base: later changed to invalid-data-word-xxx
+\\
+		 INVALID-DATA-WORD          "IVDW";
+		}
+
+        \\
+	\\      End mods for section 14.67 <bus parameter> & 14.68 <protocol
+	\\      parameter>
+
+		\\
+		\\ DO, SIMULTANEOUS
+		\\
+	(DSC_MC)    {
+		     DO-SIMULTANEOUS	"SIMU";		\\	DO	\\
+		    }
+
+		\\
+		\\ <Define Digital S/S> External specification
+		\\
+	(DSC_MC)    {
+		     DIG-SPEC		"DIGS";		
+		    }
+
+		\\
+		\\ DO, TIMED DIGITAL
+		\\
+	(DSC_MC)    {
+		     DO-TIMED-DIGITAL	"DTMD";
+		    }
+
+	(BDT_MC ++ LST_MC)   WILD		"WILD";
+
+
+\\
+\\ Added for Electro-Optical Subsystem
+\\
+   (LST_MC) AUTOCOLLIMATION-ERROR     "AUCO";
+		BEAM-DETECTION-THRESHOLD  "BDTH";
+	 (LST_MC) BORESIGHT-ANGLE           "BRAN";
+\\		BURST                     \\ already exists
+ (IDT_MC ++ LST_MC) CHAN-INTEGRITY            "CHIT";
+\\ (IDT_MC ++ LST_MC) CHAN-CROSSTALK            "CHCT";
+		DETECTOR-COUNT            "DTCT";
+	(LST_MC) DIFF-BORESIGHT-ANGLE      "DFBA";
+		DIFFERENTIAL-TEMP         "DIFT";
+\\		DISTORTION                \\ already exists
+		DIVERGENCE                "DIVG";
+		DYNAMIC-RANGE             "DYRA";
+		END-LINE                  "EDLN";
+		END-UNIT                  "EDUT";
+		ENERGY-DISTRIBUTION       "EGDR";
+		FIELD-OF-VIEW             "FDVW";
+		GAMMA                     "GAMA";
+		GRAY-SCALE-RESOLUTION     "GSRE";
+		H-FIELD-OF-VIEW           "HFOV";
+		H-LOS-ALIGN-ERROR         "HLAE";
+		H-REFERENCE-ANGLE         "HRAG";
+		H-SENSOR-RESOLUTION-MIN   "HSRM";
+		H-TARGET-ANGLE            "HTAG";
+		H-TARGET-OFFSET           "HTOF";
+		INTENSITY-RATIO           "ITRO";
+		LINE                      "LINE";
+            LINES-PER-CHANNEL         "LIPF";
+       (LST_MC) LOS-ALIGN-ERROR           "LSAE";
+		LST-REFERENCE-ANGLE       "LRAN";
+\\		MAX-TIME                  \\ already exists
+       (LST_MC) MIN-RESOLV-CONTRAST       "MRCO";
+       (LST_MC) MIN-RESOLV-TEMP-DIFF      "MRTD";
+\\		MODE                      \\ already exists
+       (LST_MC) MODULATION-TRANSFER-FUNCTION  "MTFU";
+       (DSC_MC) MTF-DIRECTION             "MTFD";
+       (IDT_MC)	MTF-FREQ-POINTS           "MTFP";
+		NOISE-EQ-DIFF-TEMP        "NEDT";
+       (DSC_MC) PATTERN                   "PATT";
+\\		PERIOD                    \\ already exists
+		POWER-DENS                "PODN";
+\\		POWER-P                   \\ already exists
+		PULSE-ENERGY              "PLEG";
+\\		PULSE-WIDTH               \\ already exists
+		RADIANCE                  "RDNC";
+		RADIANCE-LEVEL-COUNT      "RLVL";
+		RANGING-MODE              "RMOD";
+		RANGE-ERROR               "RERR";
+		RECEIVER-SENSITIVITY      "RCVS";
+\\		REF                       \\ already exists
+		REFERENCE-MIRROR-SIZE     "REFM";
+\\		RESP                      \\ already exists
+\\		SAMPLE                    \\ already exists
+\\		SATELLITE-BEAM            "STBM";
+		SENSITIVITY-MODE          "SSMD";
+		SENSOR-APERTURE           "SESA";
+		SENSOR-FREQ               "SRFR";
+                SET-OF-POINTS             "STPT";
+		SIG-TRANSFER-FUNCTION     "SGTF";
+		START-LINE                "STLN";
+		START-UNIT                "STUT";
+		SYNC-TO-EVENT             "SYEV";
+		SYS-INTENS-TRANSFER-FUNCTION "SITF";
+\\		TARGET-RANGE              \\ already exists
+     (LST_MC) TARGET-DATA             "TDAT";
+     (DSC_MC)   TARGET-TYPE               "TGTP";
+		TEST-AREA-COUNT           "TSAC";
+		TEST-CHAN-COUNT           "TSCC";
+     (DSC_MC)   TEST-FIELD                "TSTF";
+     (IDT_MC)	TEST-FREQ-COUNT           "TEFC";
+	(IDT_MC)TEST-POINT-COUNT          "TSPC";
+		TILT                      "TILT";
+     (DSC_MC)   TILT-AXIS                 "TLAX";
+		UNIFORMITY                "UNFY";
+		UNIT                      "UNIT";
+    (DSC_MC)	VIDEO-SYNC-TYPE		  "VIST";
+		V-FIELD-OF-VIEW           "VFOV";
+		V-LOS-ALIGN-ERROR         "VLAE";
+		V-REFERENCE-ANGLE         "VRAG";
+		V-SENSOR-RESOLUTION-MIN   "VSRM";
+		V-TARGET-ANGLE            "VTAG";
+		V-TARGET-OFFSET           "VTOF";
+		X-ANGLE-OF-REGARD         "XAGR";
+            X-AUTOCOLLIMATION-ERROR   "XACE";
+		X-BORESIGHT-ANGLE         "XBAG";
+		X-TARGET-ANGLE            "XTAR";
+		Y-ANGLE-OF-REGARD         "YAGR";
+            Y-AUTOCOLLIMATION-ERROR   "YACE";
+		Y-BORESIGHT-ANGLE         "YBAG";
+		Y-TARGET-ANGLE            "YTAR";
+		PULSE-AMPL-STAB           "PAST";
+	(IDT_MC)PULSE-ATTEN		        "PATN";
+		PULSE-ENERGY-STAB         "PEST";
+		PULSE-PERIOD-STAB         "PPST";
+		AMBIENT-TEMP              "AMBT";
+		BLACKBODY-TEMP            "BLKT";
+		DIFF-TEMP-ERROR           "DTER";
+		DIFF-TEMP-START           "DTST";
+		DIFF-TEMP-STOP            "DTSP";
+		DIFF-TEMP-INTERVAL        "DTIL";
+	(IDT_MC)TGT-COORDINATE-LEFT       "TCLT";
+	(IDT_MC)TGT-COORDINATE-TOP        "TCTP";
+	(IDT_MC)TGT-COORDINATE-RIGHT      "TCRT";
+	(IDT_MC)TGT-COORDINATE-BOTTOM     "TCBT";
+		CAMERA-GAIN               "CAMG";
+		RADIANCE-START            "RAST";
+		RADIANCE-STOP             "RASP";
+		RADIANCE-INTERVAL         "RAIL";
+		LAST-PULSE-RANGE          "TGTS";
+		MAIN-BEAM-ATTEN           "MBAT";
+\\		SATELLITE-BEAM-ATTEN      "SBAT";
+
+end_unit;
+\***********************************************************************
+
+

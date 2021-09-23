@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="CON-A4" LABEL="VII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\6802_COMPUTER_A4_CCA_2618567-2\TP_AAV_CON_A4.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s07.ide!c4s07'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_A4/ASSY/CON_A4_1.pic' ?><?BUTTON POS='4' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/CON_A4/SCHEM/CON_A4_sch_1.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s07.ide!Table3-8'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s07.ide!c3s07'?><?FRAME ID="5-7a" TITLE="Chapter 5. Maintenance, Section VII. ELTD FOR 6802 COMPUTER CCA, P/N 2618567-2" previous="./CON_LRU.ide" next="./con_a3.ide"?><?TOCENTRY TITLE="SECTION VII. ELTD for the 6802 Computer CCA, P/N 2618567-2" TOCLEVEL="2" LABEL="VII"?>
+<TITLE>SECTION VII. ELTD for the 6802 Computer CCA, P/N 2618567-2</TITLE>
+<PARA0 ID="P5-7" LABEL="5.7"><?TOCENTRY TITLE="5.7 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the 6802 Computer CCA, P/N 2618567-2.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-6802COMP-2618567-2.PDF"?>6802 Computer CCA ELTD<?endhotspot?></PARA></PARA0></SECTION>

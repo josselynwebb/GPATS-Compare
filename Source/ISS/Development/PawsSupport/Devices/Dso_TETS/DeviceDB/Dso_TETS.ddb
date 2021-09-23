@@ -1,0 +1,921 @@
+**************************************************************************
+************    HP E1428A (DIG_SCOPE) STATIC DESCRIPTION      ************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Dso.ddb
+*
+* INSTRUMENT  : Oscilloscope
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER   DATE     DESCRIPTION                                 AUTHOR
+*  ---   -------  ------------------------------------------  -----------------
+*  1.0   16SEP05  Initial Release For TETS                                 EADS
+*  2.0   27MAY17  Baselined GPATSCIC 
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev DSO_1;
+
+	control
+	{
+		coupling ac, dc;
+		voltage range 0 v to 50 v continuous;
+		test-equip-imp 50 ohm, 1000000 ohm;
+	}
+
+	begin using scope-ch1;
+
+		cnx via DSO-In1;
+		cnx event-strobe event-port;
+
+		begin;  *ac signal  
+			control
+			{
+				dc-offset range -250 v to 250 v continuous;
+				voltage-pp range 0 v to 40 v continuous;
+				av-voltage range 0 v to 40 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				freq-window range 450 hz to 30000000 hz continuous;
+				period range .00000001 sec to 50 sec;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				voltage-p range 0 v to 50 v continuous;
+				period range .00000001 sec to 50 sec;
+				voltage range 0 v to 50 v continuous;
+				strobe-to-event;
+			}
+
+			begin FNC=101;  *freq
+				sensor (freq) ac signal;
+			end;
+
+			begin FNC=102;  *period
+				sensor (period) ac signal;
+			end;
+
+			begin FNC=103;  *voltage-pp
+				sensor (voltage-pp) ac signal;
+			end;
+
+			begin FNC=117;  *av-voltage
+				sensor (av-voltage) ac signal;
+			control
+			{
+				sample-count range 0 to 2048 continuous;
+			}
+			end;
+
+			begin FNC=123; *voltage
+				sensor (voltage) ac signal;
+			end;
+
+			begin FNC=124; *voltage-p
+				sensor (voltage-p) ac signal;
+			end;
+
+		end; *end ac signal
+
+		begin;  *dc signal  
+			control
+			{
+				voltage range -40 v to 40 v continuous;
+				strobe-to-event;
+			}
+
+			begin FNC=104;  *voltage
+				sensor (voltage) dc signal;
+			end;
+
+		end; *end dc signal
+
+		begin;  *pulsed dc  
+			control
+			{
+				voltage-pp range 0 v to 40 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				prf range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				pulse-width range .00000001 sec to 50 sec continuous;
+				neg-pulse-width range .00000001 sec to 50 sec continuous;
+				pos-pulse-width range .00000001 sec to 50 sec continuous;
+				duty-cycle range 0 pc to 100 pc;
+				overshoot range 0 pc to 100 pc;
+				preshoot range 0 pc to 100 pc;
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=107;  *voltage-pp
+				sensor (voltage-pp) pulsed dc;
+			end;
+
+			begin FNC=108;  *voltage-p-pos
+				sensor (voltage-p-pos) pulsed dc;
+			end;
+
+			begin FNC=109;  *voltage-p-neg
+				sensor (voltage-p-neg) pulsed dc;
+			end;
+
+			begin FNC=110;  *prf
+				sensor (prf) pulsed dc ;
+			end;
+
+			begin FNC=111;  *risetime
+				sensor (rise-time) pulsed dc;
+			end;
+
+			begin FNC=112;  *falltime
+				sensor (fall-time) pulsed dc;
+			end;
+
+			begin FNC=113;  *pulsewidth
+				sensor (pulse-width) pulsed dc;
+			end;
+
+			begin FNC=114;  *duty cycle
+				sensor (duty-cycle) pulsed dc;
+			end;
+
+			begin FNC=115;  *overshoot
+				sensor (overshoot) pulsed dc;
+			end;
+
+			begin FNC=116;  *preshoot
+				sensor (preshoot) pulsed dc;
+			end;
+
+			begin FNC=118;  *pulsewidth
+				sensor (neg-pulse-width) pulsed dc;
+			end;
+
+			begin FNC=119;  *pulsewidth
+				sensor (pos-pulse-width) pulsed dc;
+			end;
+
+		end; *end pulsed dc
+
+		****************************************************************************
+		** For future reference if Cem Wizard needs to be changed for scope only,
+		** remove the code from here down to the next line of stars and then after 
+		** the change, paste this code back. (Same thing applies to channel 2)
+		****************************************************************************
+		begin;  *ramp signal  
+			control
+			{
+				voltage-pp range 0 v to 40 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=107;  *voltage-pp
+				sensor (voltage-pp) ramp signal;
+			end;
+
+			begin FNC=110;  *frequency
+				sensor (freq) ramp signal ;
+			end;
+
+			begin FNC=111;  *risetime
+				sensor (rise-time) ramp signal;
+			end;
+
+			begin FNC=112;  *falltime
+				sensor (fall-time) ramp signal;
+			end;
+
+		end; *end ramp signal
+
+		begin;  *square wave  
+			control
+			{
+				voltage-pp range 0 v to 40 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				pulse-width range .00000001 sec to 50 sec continuous;
+				duty-cycle range 0 pc to 100 pc;
+				overshoot range 0 pc to 100 pc;
+				preshoot range 0 pc to 100 pc;
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=107;  *voltage-pp
+				sensor (voltage-pp) square wave;
+			end;
+
+			begin FNC=110;  *frequency
+				sensor (freq) square wave ;
+			end;
+
+			begin FNC=111;  *risetime
+				sensor (rise-time) square wave;
+			end;
+
+			begin FNC=112;  *falltime
+				sensor (fall-time) square wave;
+			end;
+
+			begin FNC=114;  *duty cycle
+				sensor (duty-cycle) square wave;
+			end;
+
+		end; *end square wave
+
+		begin;  *triangular wave signal
+			control
+			{
+				voltage-pp range 0 v to 40 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				pulse-width range .00000001 sec to 50 sec continuous;
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=107;  *voltage-pp
+				sensor (voltage-pp) triangular wave signal;
+			end;
+
+			begin FNC=110;  *frequency
+				sensor (freq) triangular wave signal;
+			end;
+
+			begin FNC=111;  *risetime
+				sensor (rise-time) triangular wave signal;
+			end;
+
+			begin FNC=112;  *falltime
+				sensor (fall-time) triangular wave signal;
+			end;
+
+			begin FNC=114;  *duty cycle
+				sensor (duty-cycle) triangular wave signal;
+			end;
+
+		end; *end triangular wave signal
+		****************************************************************************
+
+		begin;  *Save, Load, and Compare  
+			control
+			{
+				save-wave;
+				load-wave;
+				compare-wave;
+				strobe-to-event;
+			}
+
+			begin FNC=130;  *save-waveform
+				sensor (save-wave) waveform;
+				control
+				{
+					save-wave max 8000;
+					save-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+					save-to wmem1,wmem2,wmem3,wmem4;
+				}      
+			end;
+
+			begin FNC=131;  *load-waveform
+				sensor (load-wave) waveform;
+				control
+				{
+					load-wave max 8000;
+					load-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+				}      
+
+			end;
+
+			begin FNC=132;  *compare-waveform
+				sensor (compare-wave) waveform;
+				control
+				{
+					compare-wave max 8000;
+					compare-ch chan1,chan2;
+					compare-to wmem1,wmem2,wmem3,wmem4;
+					allowance range 0 to 8;
+				}      
+			end;
+
+		end; *Save, Load, and Compare  
+
+		begin;  *Math Function 
+			control
+			{
+				math;
+				strobe-to-event;
+			}
+
+			begin FNC=133;  *add-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					add-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					add-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  	func1,func2;
+				}
+			end;
+
+			begin FNC=134;  *subtract-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					subtract-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					subtract-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  	func1,func2;
+				}
+			end;
+
+			begin FNC=135;  *multiply-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					multp-from   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					multp-to     chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  	func1,func2;
+				}
+			end;
+
+			begin FNC=136;  *differentiate-waveform
+			sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					differentiate	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  	func1,func2;
+				}
+			end;
+
+			begin FNC=137;  *integrate-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					integrate		chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  	func1,func2;
+				}
+			end;
+
+		end; *Math Function  
+
+		begin FNC=120;  *waveform for digitizing
+			sensor(sample)waveform;
+			begin;
+				control
+				{
+					dc-offset range -250 v to 250 v continuous;
+					voltage-pp range 0 v to 40 v continuous;
+					sample max 8000;
+					sample-time range 0.00000016 sec to 800 sec continuous;
+					resp max 8000;
+					strobe-to-event;
+				}
+			end;
+
+			begin;
+				control
+				{
+					dc-offset range -250 v to 250 v continuous;
+					voltage-pp range 0 v to 40 v continuous;
+					sample max 500;
+					sample-time range 0.00000001 sec to 800 sec continuous;
+					resp max 8000;
+					strobe-to-event;
+				}
+			end;
+		end;
+
+		begin; 
+			control
+			{
+				voltage range 0 v to 50 v;
+				event-slope pos, neg;
+			}
+
+			begin; *events for delay
+				event monitor (voltage) dc signal;
+				cnx event-out DSO-Ev1;
+				control
+				{
+					event-out;
+					voltage range 0 v to 50 v;
+				}
+
+				begin FNC=121 using from-channel-1;  *event for time interval
+					cnx FROM DSO-In1;
+					control
+					{
+						event-slope pos, neg;
+					}
+				end;
+
+				begin FNC=122 using to-channel-1;  *event for time interval
+					cnx TO DSO-In1;
+					control
+					{
+						event-slope pos, neg;
+					}
+				end;
+
+			end; *end events for delay
+		end;
+	end; *end scope-ch1
+
+	begin using scope-ch2;
+		cnx via DSO-In2;
+		cnx event-strobe event-port;
+
+		begin;  *ac signal  
+			control
+			{
+				dc-offset range -250 v to 250 v continuous;
+				voltage range 0 v to 50 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				voltage-pp range 0 v to 40 v continuous;
+				av-voltage range 0 v to 40 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				freq-window range 450 hz to 30000000 hz continuous;
+				period range .00000001 sec to 50 sec;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+
+			}
+
+			begin FNC=201;  *freq
+				sensor (freq) ac signal;
+			end;
+
+			begin FNC=202;  *period
+				sensor (period) ac signal;
+			end;
+
+			begin FNC=203;  *voltage-pp
+				sensor (voltage-pp) ac signal;
+			end;
+
+			begin FNC=217;  *av-voltage
+				sensor (av-voltage) ac signal;
+				control
+				{
+					sample-count range 0 to 2048 continuous;
+				}
+			end;
+
+			begin FNC=223;
+				sensor (voltage) ac signal;
+			end;
+
+			begin FNC=224;
+				sensor (voltage-p) ac signal;
+			end;
+
+		end; *end ac signal
+
+		begin;  *dc signal  
+			control
+			{
+				voltage range -40 v to 40 v continuous;
+				strobe-to-event;
+			}
+
+			begin FNC=204;  *voltage
+				sensor (voltage) dc signal;
+			end;
+
+			end; *end dc signal
+
+		begin;  *pulsed dc  
+			control
+			{
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				voltage-pp range 0 v to 40 v continuous;
+				prf range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				pulse-width range .00000001 sec to 50 sec continuous;
+				neg-pulse-width range .00000001 sec to 50 sec continuous;
+				pos-pulse-width range .00000001 sec to 50 sec continuous;
+				overshoot range 0 pc to 100 pc;
+				preshoot range 0 pc to 100 pc;
+				duty-cycle range 0 pc to 100 pc;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=207;  *voltage-pp
+				sensor (voltage-pp) pulsed dc;
+			end;
+
+			begin FNC=208;  *voltage-p-pos
+				sensor (voltage-p-pos) pulsed dc;
+			end;
+
+			begin FNC=209;  *voltage-p-neg
+				sensor (voltage-p-neg) pulsed dc;
+			end;
+
+			begin FNC=210;  *prf
+				sensor (prf) pulsed dc ;
+			end;
+
+			begin FNC=211;  *risetime
+				sensor (rise-time) pulsed dc;
+			end;
+
+			begin FNC=212;  *falltime
+				sensor (fall-time) pulsed dc;
+			end;
+
+			begin FNC=213;  *pulsewidth
+				sensor (pulse-width) pulsed dc;
+			end;
+
+			begin FNC=214;  *duty cycle
+				sensor (duty-cycle) pulsed dc;
+			end;
+
+			begin FNC=215;  *overshoot
+				sensor (overshoot) pulsed dc;
+			end;
+
+			begin FNC=216;  *preshoot
+				sensor (preshoot) pulsed dc;
+			end;
+
+			begin FNC=218;  *pulsewidth
+				sensor (neg-pulse-width) pulsed dc;
+			end;
+
+			begin FNC=219;  *pulsewidth
+				sensor (pos-pulse-width) pulsed dc;
+			end;
+
+		end; *end pulsed dc
+
+		****************************************************************************
+		** For future reference if Cem Wizard needs to be changed for scope only,
+		** remove the code from here down to the next line of stars and then after 
+		** the change, paste this code back. (Same thing applies to channel 1)
+		****************************************************************************
+		begin;  *ramp signal  
+			control
+			{
+				voltage-pp range 0 v to 40 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=207;  *voltage-pp
+				sensor (voltage-pp) ramp signal;
+			end;
+
+			begin FNC=210;  *frequency
+				sensor (freq) ramp signal ;
+			end;
+
+			begin FNC=211;  *risetime
+				sensor (rise-time) ramp signal;
+			end;
+
+			begin FNC=212;  *falltime
+				sensor (fall-time) ramp signal;
+			end;
+
+		end; *end ramp signal
+
+		begin;  *square wave  
+			control
+			{
+				voltage-pp range 0 v to 40 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				pulse-width range .00000001 sec to 50 sec continuous;
+				duty-cycle range 0 pc to 100 pc;
+				overshoot range 0 pc to 100 pc;
+				preshoot range 0 pc to 100 pc;
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=207;  *voltage-pp
+				sensor (voltage-pp) square wave;
+			end;
+
+			begin FNC=210;  *frequency
+				sensor (freq) square wave ;
+			end;
+
+			begin FNC=211;  *risetime
+				sensor (rise-time) square wave;
+			end;
+
+			begin FNC=212;  *falltime
+				sensor (fall-time) square wave;
+			end;
+
+			begin FNC=214;  *duty cycle
+				sensor (duty-cycle) square wave;
+			end;
+
+		end; *end square wave
+
+		begin;  *triangular wave signal
+			control
+			{
+				voltage-pp range 0 v to 40 v continuous;
+				voltage-p range 0 v to 50 v continuous;
+				dc-offset range -250 v to 250 v continuous;
+				freq range .02 hz to 200000000 hz continuous;
+				rise-time range .000000012 sec to 40 sec continuous;
+				fall-time range .000000012 sec to 40 sec continuous;
+				pulse-width range .00000001 sec to 50 sec continuous;
+				voltage-p-pos range 0 v to 40 v continuous;
+				voltage-p-neg range 0 v to 40 v continuous;
+				sample-count range 1 to 2048 continuous;
+				trig-level range -310 v to 310 v continuous;
+				trig-slope pos, neg;
+				strobe-to-event;
+			}
+
+			begin FNC=207;  *voltage-pp
+				sensor (voltage-pp) triangular wave signal;
+			end;
+
+			begin FNC=210;  *frequency
+				sensor (freq) triangular wave signal;
+			end;
+
+			begin FNC=211;  *risetime
+				sensor (rise-time) triangular wave signal;
+			end;
+
+			begin FNC=212;  *falltime
+				sensor (fall-time) triangular wave signal;
+			end;
+
+			begin FNC=214;  *duty cycle
+				sensor (duty-cycle) triangular wave signal;
+			end;
+
+		end; *end triangular wave signal
+		****************************************************************************
+
+		begin;  *Save, Load, and Compare  
+			control
+			{
+				save-wave;
+				load-wave;
+				compare-wave;
+				strobe-to-event;
+			}
+
+			begin FNC=230;  *save-waveform
+				sensor (save-wave) waveform;
+				control
+				{
+					save-wave max 8000;
+					save-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+					save-to wmem1,wmem2,wmem3,wmem4;
+				}      
+			end;
+
+			begin FNC=231;  *load-waveform
+				sensor (load-wave) waveform;
+				control
+				{
+					load-wave max 8000;
+					load-from chan1,chan2,wmem1,wmem2,wmem3,wmem4,func1,func2;
+				}      
+
+			end;
+
+			begin FNC=232;  *compare-waveform
+				sensor (compare-wave) waveform;
+				control
+				{
+					compare-wave max 8000;
+					compare-ch chan1,chan2;
+					compare-to wmem1,wmem2,wmem3,wmem4;
+					allowance range 0 to 8;
+				}      
+			end;
+
+		end; *Save, Load, and Compare  
+
+		begin;  *Math Function 
+			control
+			{
+				math;
+				strobe-to-event;
+			}
+
+			begin FNC=233;  *add-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					add-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					add-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  	func1,func2;
+				}
+			end;
+
+			begin FNC=234;  *subtract-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					subtract-from 	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					subtract-to  	chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  	func1,func2;
+				}
+			end;
+
+			begin FNC=235;  *multiply-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					multp-from   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					multp-to     chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  func1,func2;
+				}
+			end;
+
+			begin FNC=236;  *differentiate-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					differentiate   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination     func1,func2;
+				}
+			end;
+
+			begin FNC=237;  *integrate-waveform
+				sensor (math) waveform;
+				control
+				{
+					math max 8000;
+					integrate	   chan1,chan2,wmem1,wmem2,wmem3,wmem4;
+					destination  func1,func2;
+				}
+			end;
+
+		end; *Math Function
+
+		begin FNC=220;  *waveform for digitizing
+			sensor(sample)waveform;
+			begin;
+				control
+				{
+					dc-offset range -250 v to 250 v continuous;
+					voltage-pp range 0 v to 40 v continuous;
+					sample max 8000;
+					sample-time range 0.00000016 sec to 800 sec continuous;
+					resp max 8000;
+					strobe-to-event;
+				}
+			end;
+
+			begin;
+				control
+				{
+					dc-offset range -250 v to 250 v continuous;
+					voltage-pp range 0 v to 40 v continuous;
+					sample max 500;
+					sample-time range 0.00000001 sec to 800 sec continuous;
+					resp max 8000;
+					strobe-to-event;
+				}
+			end;
+		end;
+
+		begin;
+			control
+			{
+				voltage range 0 v to 50 v;
+				event-slope pos, neg;
+			}
+
+			begin; *events for delay
+				event monitor (voltage) dc signal;
+				cnx event-out DSO-Ev2;
+				control
+				{
+					event-out;
+					voltage range 0 v to 50 v;
+				}
+
+				begin FNC=221 using from-channel-2;  *event for ti
+					cnx FROM DSO-In2;
+					control
+					{
+						event-slope pos, neg;
+					}
+				end;
+
+				begin FNC=222 using to-channel-2;  *event for ti
+					cnx TO DSO-In2;
+					control
+					{
+						event-slope pos, neg;
+					}
+				end;
+			end; *end events for delay
+		end;
+	end; *end scope-ch2
+
+
+	begin using scope-trigger;   * events for trigger on ch1
+		event monitor (voltage) pulsed dc;
+		cnx event-out event-port;
+		control
+		{
+			event-indicator;
+			event-out;
+			voltage range 0 v to 50 v;
+			event-slope pos,neg;
+			delay range 10 nsec to 50 sec;
+			prf range 0 hz to 200000000 hz continuous;
+		}
+
+		begin FNC = 11 using trigger-ch1; * event for trigger on ch1
+			cnx via DSO-In1;
+		end;
+
+		begin FNC = 12 using trigger-ch2; * event for trigger on ch2
+			cnx via DSO-In2;
+		end;
+
+		begin FNC = 13 using trigger-ext; * event for trigger on ext
+			cnx via DSO-TrigIn;
+		end;
+
+		begin FNC = 14 using trigger-int; * event for setting internal trig-lev and slope
+			cnx via DSO-TrigOut;
+		end;
+
+	end; *end scope-trigger
+end; *end dig_scope

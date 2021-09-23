@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?FRAME id='C3s1a' title='CHAPTER 3 - THEORY OF OPERATION' next='.\C3s2.xml!C3s2a' previous='.\C2s1.xml!C2s3c'?>
+<chapter id="chapter2" label="CHAPTER 3" tocentry="1">
+<?PUB TOCLEVEL="1" TEXT="CHAPTER 3 - THEORY OF OPERATION"?>
+<title>THEORY OF OPERATION</title>
+<?PUB TOCLEVEL="2" TEXT="Section I. Introduction."?>
+<section id="c3s1" label="Section I.">
+<title>Introduction.</title>
+<para0 id="p3-1" label="3-1" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-1 Introduction."?>
+<title>Introduction.</title>
+<para>This section describes the scope, purpose, and content arrangement
+of this chapter.</para>
+<subpara1 id="p3-1.1" label="3-1.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-1.1 Scope."?>
+<title>Scope.</title>
+<para>This chapter provides the theory of operation for each of the
+LRUs tested with the AN/PSM-130 APS. </para>
+</subpara1>
+<subpara1 id="p3-1.2" label="3-1.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-1.2 Purpose."?>
+<title>Purpose.</title>
+<para>The purpose of this chapter is to provide the maintenance technician
+with the knowledge necessary to understand how the Test Program provides
+for the switching and routing of power, stimulus, and measurement
+signals between the Test Station and the Unit Under Test (UUT).</para>
+</subpara1>
+<subpara1 id="p3-1.3" label="3-1.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-1.3 Content Arrangement."?>
+<title>Content Arrangement.</title>
+<para>This chapter is divided into twelve sections. Section I provides
+the introduction, which includes the scope and purpose of the content
+provided in this chapter. Sections II through XI each contain information
+on a single UUT. Section XII contains information on the AN/PSM-130
+TPH Self-Test.</para><?Pub Caret 225?>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body>

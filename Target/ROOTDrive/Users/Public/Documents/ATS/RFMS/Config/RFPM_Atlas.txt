@@ -1,0 +1,1136 @@
+ 000100 BEGIN, ATLAS PROGRAM 'RF POWER METER BENCHMARK'                $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                              ** $
+C ******************************************************************** $
+C                                                                      $
+ 000200 REQUIRE, 'DBM-8481D', SENSOR(POWER), AC SIGNAL,
+            CONTROL,
+                POWER RANGE -70 DBM TO -20 DBM,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     05 REQUIRE, 'DBM-8481A', SENSOR(POWER), AC SIGNAL,
+            CONTROL,
+                POWER RANGE -30 DBM TO 20 DBM,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     10 REQUIRE, 'WATTS-8481D', SENSOR(POWER), AC SIGNAL,
+            CONTROL,
+                POWER RANGE 0.0000001 MW TO 0.01 MW,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     15 REQUIRE, 'WATTS-8481A', SENSOR(POWER), AC SIGNAL,
+            CONTROL,
+                POWER RANGE 0.001 MW TO 100 MW,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     20 REQUIRE, 'PC-8481D', SENSOR(REF-POWER), AC SIGNAL,
+            CONTROL,
+                REF-POWER RANGE 0 PC TO 100 PC,
+                POWER RANGE 0.0000001 MW TO 0.01 MW,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     25 REQUIRE, 'PC-8481A', SENSOR(REF-POWER), AC SIGNAL,
+            CONTROL,
+                REF-POWER RANGE 0 PC TO 100 PC,
+                POWER RANGE 0.001 MW TO 100 MW,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     30 REQUIRE, 'DB-8481D', SENSOR(REF-POWER), AC SIGNAL,
+            CONTROL,
+                POWER RANGE -70 DBM TO -20 DBM,
+                REF-POWER RANGE -70 DB TO 20 DB,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     35 REQUIRE, 'DB-8481A', SENSOR(REF-POWER), AC SIGNAL,
+            CONTROL,
+                POWER RANGE -30 DBM TO 20 DBM,
+                REF-POWER RANGE -70 DB TO 20 DB,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     40 REQUIRE, 'V-8481D', SENSOR(VOLTAGE), AC SIGNAL,
+            CONTROL,
+                VOLTAGE RANGE 0.0005 V TO 0.158114 V,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+     45 REQUIRE, 'V-8481A', SENSOR(VOLTAGE), AC SIGNAL,
+            CONTROL,
+                VOLTAGE RANGE 0.05 V TO 15.81139 V,
+                FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     50 REQUIRE, 'FM-MW-8481D', SENSOR(POWER), FM SIGNAL,
+            CONTROL,
+                POWER RANGE 0.0000001 MW TO 0.01 MW,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     55 REQUIRE, 'FM-MW-8481A', SENSOR(POWER), FM SIGNAL,
+            CONTROL,
+                POWER RANGE 0.001 MW TO 100 MW,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MOD-FREQ RANGE 0 HZ TO 10E6 HZ,
+                FREQ-DEV RANGE 0 HZ TO 10E6 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     60 REQUIRE, 'FM-DBM-8481D', SENSOR(POWER), FM SIGNAL,
+            CONTROL,
+                POWER RANGE -70 DBM TO -20 DBM,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     65 REQUIRE, 'FM-DBM-8481A', SENSOR(POWER), FM SIGNAL,
+            CONTROL,
+                POWER RANGE -30 DBM TO 20 DBM,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MOD-FREQ RANGE 0 HZ TO 10E6 HZ,
+                FREQ-DEV RANGE 0 HZ TO 10E6 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     70 REQUIRE, 'AM-MW-8481D', SENSOR(POWER), AM SIGNAL,
+            CONTROL,
+                POWER RANGE 0.0000001 MW TO 0.01 MW,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     75 REQUIRE, 'AM-MW-8481A', SENSOR(POWER), AM SIGNAL,
+            CONTROL,
+                POWER RANGE 0.001 MW TO 100 MW,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MOD-FREQ RANGE 0 HZ TO 1E6 HZ,
+                MOD-AMPL RANGE 0 V TO 5 V,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     80 REQUIRE, 'AM-DBM-8481D', SENSOR(POWER), AM SIGNAL,
+            CONTROL,
+                POWER RANGE -70 DBM TO -20 DBM,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     85 REQUIRE, 'AM-DBM-8481A', SENSOR(POWER), AM SIGNAL,
+            CONTROL,
+                POWER RANGE -30 DBM TO 20 DBM,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MOD-FREQ RANGE 0 HZ TO 1E6 HZ,
+                MOD-AMPL RANGE 0 V TO 5 V,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     90 REQUIRE, 'PM-MW-8481D', SENSOR(POWER), PM SIGNAL,
+            CONTROL,
+                POWER RANGE 0.0000001 MW TO 0.01 MW,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+ 000300 REQUIRE, 'PM-MW-8481A', SENSOR(POWER), PM SIGNAL,
+            CONTROL,
+                POWER RANGE 0.001 MW TO 100 MW,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MOD-FREQ RANGE 0 HZ TO 1E6 HZ,
+                PHASE-DEV RANGE -180 DEG TO 180 DEG,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     05 REQUIRE, 'PM-DBM-8481D', SENSOR(POWER), PM SIGNAL,
+            CONTROL,
+                POWER RANGE -70 DBM TO -20 DBM,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+     10 REQUIRE, 'PM-DBM-8481A', SENSOR(POWER), PM SIGNAL,
+            CONTROL,
+                POWER RANGE -30 DBM TO 20 DBM,
+                CAR-FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+                CAR-AMPL RANGE -70 DBM TO 20 DBM,
+                MOD-FREQ RANGE 0 HZ TO 1E6 HZ,
+                PHASE-DEV RANGE -180 DEG TO 180 DEG,
+                MAX-TIME RANGE 1 SEC TO 5 SEC,
+            CNX VIA                                                    $
+C                                                                      $
+C ******************************************************************** $
+C * CONSTANT DECLARATIONS                                           ** $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * VARIABLE DECLARATIONS                                           ** $
+C ******************************************************************** $
+C                                                                      $
+ 000500 DECLARE, VARIABLE, 'FAIL-CNT' IS INTEGER                       $
+     05 DECLARE, VARIABLE, 'CHOICE'   IS INTEGER                       $
+     10 DECLARE, VARIABLE, 'VER-UL'   IS DECIMAL                       $
+     15 DECLARE, VARIABLE, 'VER-LL'   IS DECIMAL                       $
+     20 DECLARE, VARIABLE, 'TESTNO'   IS INTEGER                       $
+     25 DECLARE, VARIABLE, 'HP8481A CAL ZERO STATE' IS BOOLEAN         $
+     30 DECLARE, VARIABLE, 'HP8481D CAL ZERO STATE' IS BOOLEAN         $
+     35 DECLARE, VARIABLE, 'DATETIME' IS STRING(15) OF CHAR            $
+     40 DECLARE, VARIABLE, 'E-E' IS BOOLEAN                            $
+     45 DECLARE, VARIABLE, 'POWER' IS DECIMAL                          $
+     50 DECLARE, VARIABLE, 'MEASVAL' IS DECIMAL                        $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE DECLARATIONS                                          ** $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                              ** $
+C ******************************************************************** $
+C                                                                      $
+ 010000 DEFINE, 'RESULTS', PROCEDURE ('TEST' IS INTEGER,
+                                      'MVAL' IS DECIMAL,
+                                      'ULIM' IS DECIMAL,
+                                      'LLIM' IS DECIMAL)               $
+C                                                                      $
+     05 DECLARE, VARIABLE, 'PassFail' IS STRING(4) OF CHAR             $ 
+     10 DECLARE, VARIABLE, 'GoNogo'   IS STRING(5) OF CHAR             $
+     15 DECLARE, VARIABLE, 'NESTED'   IS BOOLEAN                       $
+C                                                                      $
+     20 IF, 'MVAL' UL 'ULIM' LL 'LLIM', THEN                           $
+     25    CALCULATE, 'PassFail' = C'PASS'                             $
+     30    CALCULATE, 'GoNogo' = C'GO  '                               $
+     35 ELSE                                                           $
+     40    CALCULATE, 'PassFail' = C'FAIL'                             $
+     45    CALCULATE, 'GoNogo' = C'NOGO'                               $
+     50    CALCULATE, 'FAIL-CNT' = 'FAIL-CNT' + 1                      $
+     55 END, IF                                                        $
+C                                                                      $
+     60 CALCULATE, 'NESTED' = FALSE                                    $
+C                                                                      $
+     65 IF, 'ULIM' EQ 0, THEN                                          $
+     70    IF, 'LLIM' EQ 0, THEN                                       $
+     75       CALCULATE, 'NESTED' = TRUE                               $
+     80    END, IF                                                     $
+     85 END, IF                                                        $
+C                                                                      $
+     90 IF, 'NESTED', THEN                                             $
+     95     OUTPUT, C' TEST        UPPER LIMIT    MEAS VALUE    LOWER LIMIT    RESULT' $
+ 010100     OUTPUT, C'------      ------------   ------------   ------------   ------' $ 
+     05     OUTPUT, 'TEST', C'           ', C'GO', C'           ', 'GoNogo', 
+               C'           ', C'NOGO', C'        ', 'PassFail'        $
+     10     OUTPUT, TO 'PRINTER', C' TEST        UPPER LIMIT    MEAS VALUE    LOWER LIMIT    RESULT' $
+     15     OUTPUT, TO 'PRINTER', C'------      ------------   ------------   ------------   ------' $ 
+     20     OUTPUT, TO 'PRINTER', 'TEST', C'           ', C'GO', C'           ', 'GoNogo', 
+               C'           ', C'NOGO', C'        ', 'PassFail'        $
+     25 ELSE                                                           $
+     30     OUTPUT, C' TEST      UPPER LIMIT        MEAS VALUE       LOWER LIMIT     RESULT' $
+     35     OUTPUT, C'------   ---------------   ---------------   ---------------   ------' $ 
+     40     OUTPUT, 'TEST', C' ', 'ULIM':16:6, C' ', 'MVAL':16:6, C' ', 'LLIM':16:6,
+                C'  ', 'PassFail'                                      $
+     45     OUTPUT, TO 'PRINTER', C' TEST      UPPER LIMIT        MEAS VALUE       LOWER LIMIT     RESULT' $
+     50     OUTPUT, TO 'PRINTER', C'------   ---------------   ---------------   ---------------   ------' $ 
+     55     OUTPUT, TO 'PRINTER', 'TEST', C' ', 'ULIM':16:6, C' ', 'MVAL':16:6, C' ', 'LLIM':16:6,
+                C'  ', 'PassFail'                                      $
+     60 END, IF                                                        $
+C                                                                      $ 
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                               ** $
+C ******************************************************************** $
+C                                                                      $
+ 011000 DEFINE, 'CLRSCR', PROCEDURE                                    $
+     05     OUTPUT, C' \LF\\LF\\LF\\LF\\LF\\LF\\LF\ \LF\
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\'             $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * MAIN MODULE PROCEDURE: RF-POWER-METER                           ** $
+C ******************************************************************** $
+C                                                                      $
+E090000 CALCULATE, 'DATETIME' = DATE                                   $
+        OUTPUT,
+            C'BEGIN RF POWER METER ATLAS Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+C                                                                      $
+        OUTPUT, TO 'PRINTER', 
+            C'BEGIN RF POWER METER ATLAS Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+C                                                                      $
+     05 CALCULATE, 'FAIL-CNT' = 0                                      $
+B $
+ 090010 OUTPUT, 
+            C'           Test Menu',
+            C'----------------------------------\LF\',
+            C'Run All Tests                   1\LF\',
+            C'HP8481D Low Power Range Tests   2\LF\',
+            C'HP8481A High Power Range Tests  3\LF\',
+            C'Exit                            0\LF\',
+            C'\LF\',
+            C'Enter a selection'                                       $
+C                                                                      $
+     15 CALCULATE, 'HP8481A CAL ZERO STATE' = FALSE,
+                   'HP8481D CAL ZERO STATE' = FALSE                    $
+
+     20 INPUT, INTO 'CHOICE'                                           $
+     25 OUTPUT, 
+            C'Selection: ', 'CHOICE'                                   $
+     30 IF, 'CHOICE' EQ 0, THEN                                        $
+     35   GO TO, STEP 999900                                           $
+     40 END, IF                                                        $
+     45 IF, 'CHOICE' EQ 1, THEN                                        $
+     50   CALCULATE, 'E-E' = TRUE                                      $
+     55   GO TO, STEP 100000                                           $
+     60 END, IF                                                        $
+     65 IF, 'CHOICE' EQ 2, THEN                                        $
+     70   CALCULATE, 'E-E' = FALSE                                     $
+     75   GO TO, STEP 100000                                           $
+     80 END, IF                                                        $
+     85 IF, 'CHOICE' EQ 3, THEN                                        $
+     90   CALCULATE, 'E-E' = FALSE                                     $
+     95   GO TO, STEP 200000                                           $
+ 090100 END, IF                                                        $
+     05 OUTPUT, 
+           C'Invalid Selection'                                        $
+     10 GO TO, STEP 100010                                             $
+C                                                                      $
+C ******************************************************************** $
+C ******************************************************************** $
+C ** HP8481D Power Sensor Tests                                     ** $
+C ******************************************************************** $
+C ******************************************************************** $
+B                                                                      $
+ 100000 OUTPUT, C'HP8481D Low Power Sensor Tests'                      $
+C Perform ZERO and CAL on HP8481D                                      $
+     05 OUTPUT,
+            C'************** OPERATOR INSTRUCTIONS ************\LF\',
+            C'  USE FOLLOWING PROCEDURE TO CALIBRATE HP8481D:\LF\',
+            C'  1. CONNECT HP11708A REFERENCE ATTENUATOR TO THE\LF\',
+            C'     HP8481D.\LF\',
+            C'  2. CONNECT HP8481D TO THE POWER REF ON THE RF PWR \LF\',
+            C'     METER AND CONNECT OTHER SIDE OF THE HP8481D TO \LF\',
+            C'     THE SENSOR CONNECTION OF THE RF PWR METER.\LF\',
+            C'  3. START SAIS FROM TETS MENU. SELECT RF POWER METER.\LF\',
+            C'     SELECT ZERO SET TAB AND THEN CLICK ON CALIBRATE ALL.\LF\',
+            C' \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\',          $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 IF, 'E-E', THEN                                                $
+     20     GO TO, STEP 110000                                         $
+     25 END, IF                                                        $
+B                                                                      $
+     30 OUTPUT,
+            C'\LF\', 
+            C'Low Power Range Test Menu\LF\',
+            C'--------------------------\LF\',
+            C'AC Signal Tests         1\LF\',
+            C'FM Signal Tests         2\LF\',
+            C'AM Signal Tests         3\LF\',
+            C'PM Signal Tests         4\LF\',
+            C'Return to main menu     0\LF\',
+            C'\LF\',
+            C'Enter Selection'                                         $
+     35 INPUT, INTO 'CHOICE'                                           $
+C                                                                      $
+     40 IF, 'CHOICE' EQ 0, THEN                                        $
+     45     GO TO, STEP 090010                                         $
+     50 END, IF                                                        $
+     55 IF, 'CHOICE' EQ 1, THEN                                        $
+     60     GO TO, STEP 110000                                         $
+     65 END, IF                                                        $
+     70 IF, 'CHOICE' EQ 2, THEN                                        $
+     75     GO TO, STEP 120000                                         $
+     80 END, IF                                                        $
+     85 IF, 'CHOICE' EQ 3, THEN                                        $
+     90     GO TO, STEP 130000                                         $
+     95 END, IF                                                        $
+ 100100 IF, 'CHOICE' EQ 4, THEN                                        $
+     05     GO TO, STEP 140000                                         $
+     10 END, IF                                                        $
+C                                                                      $
+     15 OUTPUT, C'Invalid selection'                                   $
+     20 GO TO, STEP 100030                                             $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * AC SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 110000 OUTPUT, C'AC SIGNAL Low Power Sensor Tests'                    $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481D POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481D POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481D POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER -30 DBM                                  \LF\',
+            C'     NO MODULATION                                  \LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 110100 OUTPUT,
+            C' TESTING POWER AC SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-6,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 110100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'WATTS-8481D',
+            POWER MAX 'POWER' RANGE 1.0E-7 MW TO 1.0E-2 MW,
+            FREQ 1.0 GHZ,
+            MAX-TIME 3 SEC,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 110200 OUTPUT,
+            C' TESTING POWER AC SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = -30,
+                   'VER-UL' = 'POWER' * 0.8,
+                   'VER-LL' = 'POWER' * 1.2,
+                   'TESTNO' = 110200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'DBM-8481D',
+            POWER MAX 'POWER' RANGE -70 DBM TO -30 DBM,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+
+C                                                                      $
+ 110300 OUTPUT,
+            C' TESTING REF-POWER AC SIGNAL IN PERCENT'                 $
+     05 CALCULATE, 'POWER' = 50,
+                   'VER-UL' = 'POWER' * 1.2,
+                   'VER-LL' = 'POWER' * 0.8,
+                   'TESTNO' = 110300                                   $
+     10 MEASURE, (REF-POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'PC-8481D',
+            REF-POWER MAX 'POWER' RANGE 0 PC TO 100 PC,
+            POWER 2.0E-3 MW,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+
+C                                                                      $
+ 110400 OUTPUT,
+            C' TESTING REF-POWER AC SIGNAL IN DB'                      $
+     05 CALCULATE, 'POWER' = -10,
+                   'VER-UL' = 'POWER' * 0.8,
+                   'VER-LL' = 'POWER' * 1.2,
+                   'TESTNO' = 110400                                   $
+     10 MEASURE, (REF-POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'DB-8481D',
+            REF-POWER MAX 'POWER' RANGE -70 DB TO 0 DB,
+            POWER -20 DBM,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+        input, go-nogo $
+ 
+C                                                                      $
+ 110500 OUTPUT,
+            C' TESTING VOLTAGE AC SIGNAL'                              $
+     05 CALCULATE, 'POWER' = 7.1E-3,
+                   'VER-UL' = 'POWER' * 1.2,
+                   'VER-LL' = 'POWER' * 0.8,
+                   'TESTNO' = 110500                                   $
+     10 MEASURE, (VOLTAGE INTO 'MEASVAL'), 
+            AC SIGNAL USING 'V-8481D',
+            VOLTAGE MAX 'POWER' RANGE 0.0005 V TO 0.158114 V,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+        input, go-nogo $
+C                                                                      $
+ 110600 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 IF, 'E-E', THEN                                                $
+     15     GO TO, STEP 120000                                         $
+     20 END, IF                                                        $
+     25 GO TO, STEP 100030                                             $
+C                                                                      $
+C ******************************************************************** $
+C * FM SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 120000 OUTPUT, C'FM SIGNAL Power Meter Tests'                         $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481D POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481D POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481D POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER -30 DBM                                  \LF\',
+            C'     FM MODULATION 1 MHZ 1 V                        \LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 120100 OUTPUT,
+            C' TESTING POWER FM SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-6,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 120100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            FM SIGNAL USING 'FM-MW-8481D',
+            POWER MAX 'POWER' RANGE 1.0E-7 MW TO 1.0E-2 MW,
+            CAR-FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+C                                                                      $
+ 120200 OUTPUT,
+            C' TESTING POWER FM SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = -30,
+                   'VER-UL' = 'POWER' * 0.8,
+                   'VER-LL' = 'POWER' * 1.2,
+                   'TESTNO' = 120200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            FM SIGNAL USING 'FM-DBM-8481D',
+            POWER MAX 'POWER' RANGE -70 DBM TO -20 DBM,
+            CAR-FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 120300 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 IF, 'E-E', THEN                                                $
+     15     GO TO, STEP 130000                                         $
+     20 END, IF                                                        $
+     25 GO TO, STEP 100030                                             $
+C                                                                      $
+C ******************************************************************** $
+C * AM SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 130000 OUTPUT, C'AM SIGNAL Power Meter Tests'                         $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481D POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481D POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481D POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER -30 DBM                                  \LF\',
+            C'     AM MODULATION 10 KHZ 0.1 V OR A DEPTH OF 44.4 %\LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 130100 OUTPUT,
+            C' TESTING POWER AM SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-6,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 130100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AM SIGNAL USING 'AM-MW-8481D',
+            POWER MAX 'POWER' RANGE 1.0E-7 MW TO 1.0E-2 MW,
+            CAR-FREQ 1.0 GHZ,
+            CAR-AMPL -30 DBM,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+C                                                                      $
+ 130200 OUTPUT,
+            C' TESTING POWER AM SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = -30,
+                   'VER-UL' = 'POWER' * 0.8,
+                   'VER-LL' = 'POWER' * 1.2,
+                   'TESTNO' = 130200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AM SIGNAL USING 'AM-DBM-8481D',
+            POWER MAX 'POWER' RANGE -70 DBM TO -20 DBM,
+            CAR-FREQ 1.0 GHZ,
+            CAR-AMPL -30 DBM,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 130300 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 IF, 'E-E', THEN                                                $
+     15     GO TO, STEP 140000                                         $
+     20 END, IF                                                        $
+     25 GO TO, STEP 100030                                             $
+C                                                                      $
+C ******************************************************************** $
+C * PM SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 140000 OUTPUT, C'PM SIGNAL Power Meter Tests'                         $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481D POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481D POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481D POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER -30 DBM                                    \LF\',
+            C'     PHASE MODULATION PRF 10 KHz AND 50 DEG PHASE DEVIATION \LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 140100 OUTPUT,
+            C' TESTING POWER PM SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-6,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 140100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            PM SIGNAL USING 'PM-MW-8481D',
+            POWER MAX 'POWER' RANGE 1.0E-7 MW TO 1.0E-2 MW,
+            CAR-FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+C                                                                      $
+ 140200 OUTPUT,
+            C' TESTING POWER PM SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = -30,
+                   'VER-UL' = 'POWER' * 0.8,
+                   'VER-LL' = 'POWER' * 1.2,
+                   'TESTNO' = 140200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            PM SIGNAL USING 'PM-DBM-8481D',
+            POWER MAX 'POWER' RANGE -70 DBM TO -20 DBM,
+            CAR-FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 140300 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 IF, 'E-E', THEN                                                $
+     15     GO TO, STEP 200000                                         $
+     20 END, IF                                                        $
+     25 GO TO, STEP 100030                                             $
+C                                                                      $
+C ******************************************************************** $
+C ******************************************************************** $
+C ** HP8481A Power Sensor Tests                                     ** $
+C ******************************************************************** $
+C ******************************************************************** $
+B                                                                      $
+ 200000 OUTPUT, C'HP8481A High Power Sensor Tests'                     $
+C Perform ZERO and CAL on HP8481A                                      $
+     05 OUTPUT,
+            C'************** OPERATOR INSTRUCTIONS ************\LF\',
+            C'  USE FOLLOWING PROCEDURE TO CALIBRATE HP8481A:\LF\',
+            C'  1. CONNECT HP8481A TO THE POWER REF ON THE RF PWR \LF\',
+            C'     METER AND CONNECT OTHER SIDE OF THE HP8481A TO \LF\',
+            C'     THE SENSOR CONNECTION OF THE RF PWR METER.\LF\',
+            C'  2. START SAIS FROM TETS MENU. SELECT RF POWER METER.\LF\',
+            C'     SELECT ZERO SET TAB AND THEN CLICK ON CALIBRATE ALL.\LF\',
+            C' \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\',          $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 IF, 'E-E', THEN                                                $
+     20     GO TO, STEP 210000                                         $
+     25 END, IF                                                        $
+B                                                                      $
+     30 OUTPUT,
+            C'\LF\', 
+            C'High Power Range Test Menu\LF\',
+            C'--------------------------\LF\',
+            C'AC Signal Tests         1\LF\',
+            C'FM Signal Tests         2\LF\',
+            C'AM Signal Tests         3\LF\',
+            C'PM Signal Tests         4\LF\',
+            C'Return to main menu     0\LF\',
+            C'\LF\',
+            C'Enter Selection'                                         $
+     35 INPUT, INTO 'CHOICE'                                           $
+C                                                                      $
+     40 IF, 'CHOICE' EQ 0, THEN                                        $
+     45     GO TO, STEP 090010                                         $
+     50 END, IF                                                        $
+     55 IF, 'CHOICE' EQ 1, THEN                                        $
+     60     GO TO, STEP 210000                                         $
+     65 END, IF                                                        $
+     70 IF, 'CHOICE' EQ 2, THEN                                        $
+     75     GO TO, STEP 220000                                         $
+     80 END, IF                                                        $
+     85 IF, 'CHOICE' EQ 3, THEN                                        $
+     90     GO TO, STEP 230000                                         $
+     95 END, IF                                                        $
+ 200100 IF, 'CHOICE' EQ 4, THEN                                        $
+     05     GO TO, STEP 240000                                         $
+     10 END, IF                                                        $
+C                                                                      $
+     15 OUTPUT, C'Invalid selection'                                   $
+     20 GO TO, STEP 200030                                             $
+C                                                                      $
+C ******************************************************************** $
+C * AC SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 210000 OUTPUT, C'AC SIGNAL High Power Sensor Tests'                   $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481A POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481A POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481A POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER 0 DBM                                    \LF\',
+            C'     NO MODULATION                                  \LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 210100 OUTPUT,
+            C' TESTING POWER AC SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-3,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 210100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'WATTS-8481A',
+            POWER MAX 'POWER' RANGE 1.0E-3 MW TO 100 MW,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+C                                                                      $
+ 210200 OUTPUT,
+            C' TESTING POWER AC SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = 0,
+                   'VER-UL' = 'POWER' + 0.5,
+                   'VER-LL' = 'POWER' - 2.0,
+                   'TESTNO' = 210200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'DBM-8481A',
+            POWER MAX 'POWER' RANGE -30 DBM TO 20 DBM,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+C                                                                      $
+ 210300 OUTPUT,
+            C' TESTING REF-POWER AC SIGNAL IN PERCENT'                 $
+     05 CALCULATE, 'POWER' = 50,
+                   'VER-UL' = 'POWER' * 1.2,
+                   'VER-LL' = 'POWER' * 0.8,
+                   'TESTNO' = 210300                                   $
+     10 MEASURE, (REF-POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'PC-8481A',
+            REF-POWER MAX 'POWER' RANGE 0 PC TO 100 PC,
+            POWER 2.0E-3 W,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+C                                                                      $
+ 210400 OUTPUT,
+            C' TESTING REF-POWER AC SIGNAL IN DB'                      $
+     05 CALCULATE, 'POWER' = -10,
+                   'VER-UL' = 'POWER' * 0.8,
+                   'VER-LL' = 'POWER' * 1.2,
+                   'TESTNO' = 210400                                   $
+     10 MEASURE, (REF-POWER INTO 'MEASVAL'), 
+            AC SIGNAL USING 'DB-8481A',
+            REF-POWER MAX 'POWER' RANGE -70 DB TO 0 DB,
+            POWER 10 DBM,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+        input, go-nogo $
+C                                                                      $
+ 210500 OUTPUT,
+            C' TESTING VOLTAGE AC SIGNAL'                              $
+     05 CALCULATE, 'POWER' = 0.224,
+                   'VER-UL' = 'POWER' * 1.2,
+                   'VER-LL' = 'POWER' * 0.8,
+                   'TESTNO' = 210500                                   $
+     10 MEASURE, (VOLTAGE INTO 'MEASVAL'), 
+            AC SIGNAL USING 'V-8481A',
+            VOLTAGE MAX 'POWER' RANGE 0.05 V TO 15.81139 V,
+            FREQ 1.0 GHZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+        input, go-nogo $
+C                                                                      $
+ 210600 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 IF, 'E-E', THEN                                                $
+     15     GO TO, STEP 220000                                         $
+     20 END, IF                                                        $
+     25 GO TO, STEP 200030                                             $
+C                                                                      $
+C ******************************************************************** $
+C * FM SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 220000 OUTPUT, C'FM SIGNAL Power Meter Tests'                         $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481A POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481A POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481A POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER 0 DBM                                    \LF\',
+            C'     FM MODULATION 1 MHZ 1 V                        \LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 220100 OUTPUT,
+            C' TESTING POWER FM SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-3,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 220100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            FM SIGNAL USING 'FM-MW-8481A',
+            POWER MAX 'POWER' RANGE 1.0E-3 MW TO 100 MW,
+            CAR-FREQ 1.0 GHZ,
+            CAR-AMPL 0 DBM,
+            MOD-FREQ 1E6 HZ,
+            FREQ-DEV 1000 HZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 220200 OUTPUT,
+            C' TESTING POWER FM SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = 0,
+                   'VER-UL' = 1,
+                   'VER-LL' = -1,
+                   'TESTNO' = 220200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            FM SIGNAL USING 'FM-DBM-8481A',
+            POWER MAX 'POWER' RANGE -30 DBM TO 20 DBM,
+            CAR-FREQ 1.0 GHZ,
+            CAR-AMPL 0 DBM,
+            MOD-FREQ 1E6 HZ,
+            FREQ-DEV 1000 HZ,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 220300 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 IF, 'E-E', THEN                                                $
+     15     GO TO, STEP 230000                                         $
+     20 END, IF                                                        $
+     25 GO TO, STEP 200030                                             $
+C                                                                      $
+C ******************************************************************** $
+C * AM SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 230000 OUTPUT, C'AM SIGNAL Power Meter Tests'                         $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481A POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481A POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481A POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER 0 DBM                                    \LF\',
+            C'     AM MODULATION 10 KHZ 0.1 V OR A DEPTH OF 44.4 %\LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 230100 OUTPUT,
+            C' TESTING POWER AM SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-3,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 230100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AM SIGNAL USING 'AM-MW-8481A',
+            POWER MAX 'POWER' RANGE 1.0E-3 MW TO 100 MW,
+            CAR-FREQ 1.0 GHZ,
+            CAR-AMPL 0 DBM,
+            MOD-FREQ 10000 HZ,
+            MOD-AMPL .1 V,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 230200 OUTPUT,
+            C' TESTING POWER AM SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = 0,
+                   'VER-UL' = .5,
+                   'VER-LL' = -.5,
+                   'TESTNO' = 130200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            AM SIGNAL USING 'AM-DBM-8481A',
+            POWER MAX 'POWER' RANGE -30 DBM TO 20 DBM,
+            CAR-FREQ 1.0 GHZ,
+            CAR-AMPL 0 DBM,
+            MOD-FREQ 10000 HZ,
+            MOD-AMPL .1 V,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 230300 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 IF, 'E-E', THEN                                                $
+     15     GO TO, STEP 240000                                         $
+     20 END, IF                                                        $
+     25 GO TO, STEP 200030                                             $
+C                                                                      $
+C ******************************************************************** $
+C * PM SIGNAL TESTS                                                 ** $
+C ******************************************************************** $
+B                                                                      $
+ 240000 OUTPUT, C'PM SIGNAL Power Meter Tests'                         $
+C                                                                      $
+     05 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. IF CONNECTED, DISCONNECT THE HP8481A POWER SENSOR\LF\',
+            C'   FROM THE RF CALIBRATOR OUTPUT.                   \LF\',
+            C'2. IF CONNECTED, DISCONNECT THE HP 11708A REFERENCE \LF\',
+            C'   ATTENUATOR FROM THE HP8481A POWER SENSOR.        \LF\',
+            C'3. CONNECT THE HP8481A POWER SENSOR TO THE RF OUTPUT\LF\',
+            C'   ON THE SECONDARY CHASSIS.                        \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+C                                                                      $
+     10 INPUT, GO-NOGO                                                 $
+     15 OUTPUT,
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND CONFIGURE  \LF\',
+            C'   THE RF GENERATOR FOR :                           \LF\',
+            C'     FREQ 1 GHZ                                     \LF\',
+            C'     POWER 0 DBM                                    \LF\',
+            C'     PHASE MODULATION PRF 10 KHz AND 50 DEG PHASE DEVIATION \LF\',
+            C'     OUTPUT ON                                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     20 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 240100 OUTPUT,
+            C' TESTING POWER PM SIGNAL IN MW'                          $
+     05 CALCULATE, 'POWER' = 1.0E-3,
+                   'VER-UL' = 'POWER' * 1.5,
+                   'VER-LL' = 'POWER' * 0.5,
+                   'TESTNO' = 240100                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            PM SIGNAL USING 'PM-MW-8481A',
+            POWER MAX 'POWER' RANGE 1.0E-3 MW TO 100 MW,
+            CAR-FREQ 1.0 GHZ,
+	    CAR-AMPL 0 DBM,
+	    MOD-FREQ 10000 HZ,
+	    PHASE-DEV 50 DEG,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 240200 OUTPUT,
+            C' TESTING POWER PM SIGNAL IN DBM'                         $
+     05 CALCULATE, 'POWER' = 0,
+                   'VER-UL' = 1,
+                   'VER-LL' = -1,
+                   'TESTNO' = 240200                                   $
+     10 MEASURE, (POWER INTO 'MEASVAL'), 
+            PM SIGNAL USING 'PM-DBM-8481A',
+            POWER MAX 'POWER' RANGE -30 DBM TO 20 DBM,
+            CAR-FREQ 1.0 GHZ,
+            CAR-AMPL 0 DBM,
+            MOD-FREQ 10000 HZ,
+	    PHASE-DEV 50 DEG,
+            CNX VIA RFPM-IN                                            $
+     15 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 240300 OUTPUT, 
+            C'              OPERATOR INSTRUCTIONS\LF\',
+            C'----------------------------------------------------\LF\',
+            C'1. OPEN THE RF SIGNAL GENERATOR SAIS AND DISABLE THE\LF\',
+            C'   RF SIGNAL GENERATOR OUTPUT.                      \LF\',
+            C' \LF\ \LF\',
+            C'         **** PRESS ENTER TO CONTINUE ***\LF\'           $
+     05 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     10 GO TO, STEP 090010                                             $
+C                                                                      $
+B                                                                      $
+ 999900 CALCULATE, 'DATETIME' = DATE                                   $
+     05 OUTPUT,
+            C'RF POWER METER ATLAS Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+        OUTPUT, TO 'PRINTER',
+            C'RF POWER METER ATLAS Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+     10 IF, 'FAIL-CNT' EQ 0, THEN                                      $
+     15     OUTPUT, 
+                C'TEST PASSED'                                         $
+            OUTPUT, TO 'PRINTER',
+                C'TEST PASSED'                                         $
+     20 ELSE                                                           $
+     25     OUTPUT,
+                C'TEST FAILED ', 'FAIL-CNT', C' TESTS'                 $
+            OUTPUT, TO 'PRINTER',
+                C'TEST FAILED ', 'FAIL-CNT', C' TESTS'                 $
+     30 END, IF                                                        $
+C                                                                      $
+ 999999 TERMINATE, ATLAS PROGRAM 'RF POWER METER BENCHMARK'            $

@@ -1,0 +1,1869 @@
+\ $HEADER$
+\
+\********************************************************************************
+\
+\ FILENAME  :  SwitchDB.sdb
+\
+\ REVISION  :  4.4
+\
+\ DESCRIPTION: Switch Database for TETS - ManTech
+\
+\********************************************************************************
+\*
+\*                 SOURCE REVISION HISTORY
+\*
+\*  VER   DATE     DESCRIPTION                                AUTHOR
+\*  ---   ----     -----------------------------------------  -------------------
+\*  4.0   08JUN99  Initial Release                            TYX Corp.
+\*  4.01  21JUN99  DWG Change for J2 and J3 number (1->2)     CG TYX Corp.
+\*  4.2   12SEP00  MF Switches (S801 thru S804) are modeled   Quoc Nguyen, MTSI
+\*                 as Mux from Matrix 
+\*  4.3   07JUN01  Jeff Hill, MTSI
+\*                 Added EO ports per LMIS.
+\*        28JUN01  Jeff Hill, MTSI, DR 212:
+\*                 Changed 'switch' numbers for all MOD 1000 switches (S300's)
+\*                 in BLKs 1 and 2 from 1 thru 48 to 1001 thru 1048. This was 
+\*                 necessary to prevent bogus allocation error when a DCPS load
+\*                 pin used the same 'switch' number as one of its sense pins,
+\*                 even though it is in a different MOD. Example:
+\*                      DC1-Hi  uses BLK 1 MOD 0    PTH 0 (via switch 1)
+\*                      DC1-SHi uses BLK 1 MOD 1000 PTH 0 (via switch 1).
+\*                 This would cause a bogus allocation error.
+\*  4.4   20JAN04  Tom Biggs, MTSI, ECO-3047-651  
+\*                 1. Moved EO port to FOCALPLANE using only ATMOSPHERE.
+\*                 2. Defined connection ports for Frame-Grabber I/O cable W105.
+\*                 3. Changed S201, MOD = 9 96:J12, PTH=4 as follows to correct
+\*                    allocation error when connecting S201-4 to S201-46:
+\*                           20 to 85 and 52 to 81 via matrix 201 PTH=4;
+\*                                      Changed to:
+\*                           20 to 85 and 52 to 21 via matrix 201 PTH=4;
+\********************************************************************************
+\\
+\\
+\\
+\\      Slot Numbers are based on information as follows.
+\\
+\\      =======================================
+\\      |       |             | Slot  | Usage |
+\\      | #pins |   Label     |  #    |       | NOTE:  The Slot Numbers are
+\\      |-------|-------------|-------|-------|        part of the message
+\\      |  64   |    J1       |   0   | DCPS  |        for CLOSE and OPEN
+\\      | 96,64 |    J2,J3    |   1   | DWG   |        ATLAS OP-Codes.
+\\      | 96,64 |    J4,J5    |   2   | DWG   |
+\\      | 96,64 |    J6,J7    |   3   | DWG   |
+\\      | 64,64 |    J8,J9    |   4   | DWG-C | These two
+\\      | 256   |    J10      |   5   | -39   | pieces of information
+\\      | 256   |    J11      |   6   | -39   | have been encoded into
+\\      | 96,96 |    J12,J13  |   7   | -38T  | the MOD numbers for each
+\\      | 19,19 |    J14,J15  |   8   | -58   | Plug definition.
+\\      | 32,32 |    J16,J17  |   9   | -67A  |
+\\      | 32,19 |    J18,J19  |  10   | Inst  |
+\\      | 64,12 |    J20,J21  |  11   | DMM   |
+\\      | 64,12 |    J22,J23  |  12   | ARB   |
+\\      =======================================
+\\
+\\             BLK Numbers reflect the module type and will be the module address for the subsystem
+\\                   1 = ri1260_39 card 1, OPT-1
+\\                   2 = ri1260_39 card 2
+\\                   3 = ri1260_38
+\\                   4 = ri1260-58 for medium freq 1X8
+\\                   5 = ri1260-67A for RF Switch
+\\                   6 = Misc and DWG
+\\             MOD Numbers reflect the the device type and Switch indicator
+\\                    where MOD = 0 is the first switch (RF, 1260-38, Medium freq) or
+\\                          MOD = Y0 is the first switch of type Y
+\\         Y    - device type where 0 = DPST DC Switch, 1260-39
+\\                                                1000 = 1 X 1 Relay Switch, 1260-39
+\\                                                2X00 = 1 X 2, LF Switch, 1260-39
+\\                                                3X00 = 1 X 4, LF Switch, 1260-39
+\\                                                4X00 = 2 X 8, LF Switch, 1260-39
+\\
+\\             PTH Numbers reflect relay numbers needed for P&P RD drivers
+\\
+\\            Wire integers reflect the following:
+\\                  Wireaabb where aa = plug number (1=J1, 2=J2 etc.)
+\\                                 bb = pin number on plug (01-96)
+\\                   naming convention follows the rule that the output plug is
+\\                      used as the plug number for both sides of the Wire
+\\                       example:  Wire1342 is the output for a 2X24 matrix switch
+\\                                 equal to J13-42 used in the J12 MOD
+\\
+Begin BLK=1;
+  \\
+  \\      Model for    1 X 1,    1 X 4,    2 X 8,    DPST,     1 X 2
+  \\      PD Reference 3.4.11.4, 3.4.11.5, 3.4.11.6, 3.4.11.2, 3.4.11.7
+  \\
+  \\         Slot 5 of Chassis, 1260 -39 Opt 001 card
+  \\
+
+  Begin MOD = 0 256:J10;   \\(DPST, S101)
+    22 to 86 and 150 to 214 via switch 1 PTH=0;
+    23 to 87 and 151 to 215 via switch 2 PTH=1;
+    24 to 88 and 152 to 216 via switch 3 PTH=2;
+    25 to 89 and 153 to 217 via switch 4 PTH=3;
+    26 to 90 and 154 to 218 via switch 5 PTH=4;
+  End;
+
+  Begin MOD = 1000 256:J10;  \\(1w1x1, S301)
+     65 to  34 via switch 1001 PTH=0;  \\1 to 2
+    226 to  99 via switch 1002 PTH=1;  \\3 to 4
+     33 to  66 via switch 1003 PTH=2;  \\5 to 6
+      1 to  35 via switch 1004 PTH=3;  \\7 to 8
+     97 to   2 via switch 1005 PTH=4;  \\9 to 10
+     98 to 163 via switch 1006 PTH=5;  \\11 to 12
+    100 to 228 via switch 1007 PTH=6;  \\13 to 14
+    131 to 196 via switch 1008 PTH=7;  \\15 to 16
+     67 to   4 via switch 1009 PTH=8;  \\17 to 18
+      3 to 132 via switch 1010 PTH=9;  \\19 to 20
+    227 to  37 via switch 1011 PTH=10;  \\21 to 22
+    130 to 229 via switch 1012 PTH=11;  \\23 to 24
+    102 to 166 via switch 1013 PTH=12;  \\25 to 26
+    133 to  70 via switch 1014 PTH=13;  \\27 to 28
+    197 to 198 via switch 1015 PTH=14;  \\29 to 30
+    165 to 103 via switch 1016 PTH=15;  \\31 to 32
+     69 to 134 via switch 1017 PTH=16;  \\33 to 34
+    101 to 231 via switch 1018 PTH=17;  \\35 to 36
+    104 to 200 via switch 1019 PTH=18;  \\37 to 38
+     40 to   8 via switch 1020 PTH=19;  \\39 to 40
+    199 to  41 via switch 1021 PTH=20;  \\41 to 42
+    135 to 136 via switch 1022 PTH=21;  \\43 to 44
+    167 to 201 via switch 1023 PTH=22;  \\45 to 46
+      7 to  73 via switch 1024 PTH=23;  \\47 to 48
+     42 to 171 via switch 1025 PTH=24;  \\49 to 50
+    234 to 202 via switch 1026 PTH=25;  \\51 to 52
+      9 to 138 via switch 1027 PTH=26;  \\53 to 54
+    106 to  75 via switch 1028 PTH=27;  \\55 to 56
+    233 to  43 via switch 1029 PTH=28;  \\57 to 58
+    169 to  11 via switch 1030 PTH=29;  \\59 to 60
+    172 to  13 via switch 1031 PTH=30;  \\61 to 62
+     45 to  46 via switch 1032 PTH=31;  \\63 to 64
+    140 to 206 via switch 1033 PTH=32;  \\65 to 66
+    204 to 174 via switch 1034 PTH=33;  \\67 to 68
+     44 to 141 via switch 1035 PTH=34;  \\69 to 70
+     76 to 142 via switch 1036 PTH=35;  \\71 to 72
+     14 to  15 via switch 1037 PTH=36;  \\73 to 74
+     79 to  80 via switch 1038 PTH=37;  \\75 to 76
+     47 to 208 via switch 1039 PTH=38;  \\77 to 78
+    143 to 209 via switch 1040 PTH=39;  \\79 to 80
+    175 to  48 via switch 1041 PTH=40;  \\81 to 82
+     78 to  81 via switch 1042 PTH=41;  \\83 to 84
+    178 to 243 via switch 1043 PTH=42;  \\85 to 86
+    210 to  83 via switch 1044 PTH=43;  \\87 to 88
+     49 to  82 via switch 1045 PTH=44;  \\89 to 90
+    114 to  51 via switch 1046 PTH=45;  \\91 to 92
+    145 to 179 via switch 1047 PTH=46;  \\93 to 94
+     50 to 148 via switch 1048 PTH=47;  \\95 to 96
+  End;
+
+  Begin MOD = 2000 256:J10;  \\(1w1x2, S601)
+    29 to 128 via matrix 601 PTH =0;
+    29 to  31 via matrix 601 PTH =1;
+  End;
+
+  Begin MOD = 2100 256:J10;  \\(1w1x2, S602)
+    192 to 32 via matrix 602 PTH =0;
+    192 to 96 via matrix 602 PTH =1;
+  End;
+
+  Begin MOD = 2200 256:J10;  \\(1w1x2, S603)
+    223 to 157 via matrix 603 PTH =0;
+    223 to 189 via matrix 603 PTH =1;
+  End;
+
+  Begin MOD = 2300 256:J10;  \\(1w1x2, S604)
+    156 to 255 via matrix 604 PTH =0;
+    156 to 160 via matrix 604 PTH =1;
+  End;
+
+  Begin MOD = 2400 256:J10;  \\(1w1x2, S605)
+    159 to 188 via matrix 605 PTH =0;
+    159 to  63 via matrix 605 PTH =1;
+  End;
+
+  Begin MOD = 2500 256:J10;  \\(1w1x2, S606)
+    64 to 62 via matrix 606 PTH =0;
+    64 to 30 via matrix 606 PTH =1;
+  End;
+
+  Begin MOD = 3000 256:J10;  \\(1w1x4, S401)
+    93 to 190 via matrix 401 PTH =0;
+    93 to 254 via matrix 401 PTH =1;
+    93 to 28  via matrix 401 PTH =2;
+    93 to 220 via matrix 401 PTH =3;
+  End;
+
+  Begin MOD = 3100 256:J10;  \\(1w1x4, S402)
+    94 to 158 via matrix 402 PTH =0;
+    94 to 222 via matrix 402 PTH =1;
+    94 to 61  via matrix 402 PTH =2;
+    94 to 253 via matrix 402 PTH =3;
+  End;
+
+  Begin MOD = 3200 256:J10;  \\(1w1x4, S403)
+    92 to 191 via matrix 403 PTH =0;
+    92 to 95  via matrix 403 PTH =1;
+    92 to 60  via matrix 403 PTH =2;
+    92 to 221 via matrix 403 PTH =3;
+  End;
+
+  Begin MOD = 4000 256:J10;  \\(1w2x8, S501)
+    194 to 164 via matrix 501 PTH = 0;
+    194 to 195 via matrix 501 PTH = 1;
+    194 to 225 via matrix 501 PTH = 2;
+    194 to 193 via matrix 501 PTH = 3;
+    194 to 161 via matrix 501 PTH = 4;
+    194 to 129 via matrix 501 PTH = 5;
+    194 to 68  via matrix 501 PTH = 6;
+    194 to 36  via matrix 501 PTH = 7;
+    162 to 164 via matrix 501 PTH = 10;
+    162 to 195 via matrix 501 PTH = 11;
+    162 to 225 via matrix 501 PTH = 12;
+    162 to 193 via matrix 501 PTH = 13;
+    162 to 161 via matrix 501 PTH = 14;
+    162 to 129 via matrix 501 PTH = 15;
+    162 to 68  via matrix 501 PTH = 16;
+    162 to 36  via matrix 501 PTH = 17;
+  End;
+
+  Begin MOD = 4100 256:J10;  \\(1w2x8, S502)
+    39 to 168 via matrix 502 PTH = 0;
+    39 to 72  via matrix 502 PTH = 1;
+    39 to 6  via matrix 502 PTH = 2;
+    39 to 38  via matrix 502 PTH = 3;
+    39 to 230 via matrix 502 PTH = 4;
+    39 to 5   via matrix 502 PTH = 5;
+    39 to 232 via matrix 502 PTH = 6;
+    39 to 105 via matrix 502 PTH = 7;
+    71 to 168 via matrix 502 PTH =10;
+    71 to 72  via matrix 502 PTH =11;
+    71 to 6   via matrix 502 PTH =12;
+    71 to 38  via matrix 502 PTH =13;
+    71 to 230 via matrix 502 PTH =14;
+    71 to 5   via matrix 502 PTH =15;
+    71 to 232 via matrix 502 PTH =16;
+    71 to 105 via matrix 502 PTH =17;
+  End;
+
+  Begin MOD = 4200 256:J10;  \\(1w2x8, S503)
+    203 to 77  via matrix 503 PTH = 0;
+    203 to 12  via matrix 503 PTH = 1;
+    203 to 10  via matrix 503 PTH = 2;
+    203 to 74  via matrix 503 PTH = 3;
+    203 to 137 via matrix 503 PTH = 4;
+    203 to 170 via matrix 503 PTH = 5;
+    203 to 173 via matrix 503 PTH = 6;
+    203 to 205 via matrix 503 PTH = 7;
+    139 to 77  via matrix 503 PTH = 10;
+    139 to 12  via matrix 503 PTH = 11;
+    139 to 10  via matrix 503 PTH = 12;
+    139 to 74  via matrix 503 PTH = 13;
+    139 to 137 via matrix 503 PTH = 14;
+    139 to 170 via matrix 503 PTH = 15;
+    139 to 173 via matrix 503 PTH = 16;
+    139 to 205 via matrix 503 PTH = 17;
+  End;
+
+  Begin MOD = 4300 256:J10;  \\(1w2x8, S504)
+    177 to 18  via matrix 504 PTH = 0;
+    177 to 17  via matrix 504 PTH = 1;
+    177 to 176 via matrix 504 PTH = 2;
+    177 to 16  via matrix 504 PTH = 3;
+    177 to 207 via matrix 504 PTH = 4;
+    177 to 144 via matrix 504 PTH = 5;
+    177 to 211 via matrix 504 PTH = 6;
+    177 to 146 via matrix 504 PTH = 7;
+    242 to 18  via matrix 504 PTH = 10;
+    242 to 17  via matrix 504 PTH = 11;
+    242 to 176 via matrix 504 PTH = 12;
+    242 to 16  via matrix 504 PTH = 13;
+    242 to 207 via matrix 504 PTH = 14;
+    242 to 144 via matrix 504 PTH = 15;
+    242 to 211 via matrix 504 PTH = 16;
+    242 to 146 via matrix 504 PTH = 17;
+  End;
+
+  Begin MOD = 4400 256:J10;  \\(1w2x8, S505)
+    52 to 180 via matrix 505 PTH = 0;
+    52 to 147 via matrix 505 PTH = 1;
+    52 to 212 via matrix 505 PTH = 2;
+    52 to 84  via matrix 505 PTH = 3;
+    52 to 115 via matrix 505 PTH = 4;
+    52 to 20  via matrix 505 PTH = 5;
+    52 to 116 via matrix 505 PTH = 6;
+    52 to 19  via matrix 505 PTH = 7;
+    244 to 180 via matrix 505 PTH = 10;
+    244 to 147 via matrix 505 PTH = 11;
+    244 to 212 via matrix 505 PTH = 12;
+    244 to 84  via matrix 505 PTH = 13;
+    244 to 115 via matrix 505 PTH = 14;
+    244 to 20  via matrix 505 PTH = 15;
+    244 to 116 via matrix 505 PTH = 16;
+    244 to 19  via matrix 505 PTH = 17;
+  End;
+End;
+
+Begin BLK=2;
+  \\
+  \\      Model for    1 X 1,    1 X 4,    2 X 8,    DPST,     1 X 2
+  \\      PD Reference 3.4.11.4, 3.4.11.5, 3.4.11.6, 3.4.11.2, 3.4.11.7
+  \\
+  \\         Slot 6 of Chassis, 1260 -39 card
+  \\
+
+  Begin MOD=0 256:J11;  \\(DPST, S101)
+    22 to 86 and 150 to 214 via switch 1 PTH=0;
+    23 to 87 and 151 to 215 via switch 2 PTH=1;
+    24 to 88 and 152 to 216 via switch 3 PTH=2;
+    25 to 89 and 153 to 217 via switch 4 PTH=3;
+    26 to 90 and 154 to 218 via switch 5 PTH=4;
+  End;
+
+  Begin MOD = 1000 256:J11;  \\(1w1x1, S301)
+     65 to  34 via switch 1001 PTH=0;  \\97 to 98
+    226 to  99 via switch 1002 PTH=1;  \\99 to 100
+     33 to  66 via switch 1003 PTH=2;  \\101 to 102
+      1 to  35 via switch 1004 PTH=3;  \\103 to 104
+     97 to   2 via switch 1005 PTH=4;  \\105 to 106
+     98 to 163 via switch 1006 PTH=5;  \\107 to 108
+    100 to 228 via switch 1007 PTH=6;  \\109 to 110
+    131 to 196 via switch 1008 PTH=7;  \\111 to 112
+     67 to   4 via switch 1009 PTH=8;  \\113 to 114
+      3 to 132 via switch 1010 PTH=9;  \\115 to 116
+    227 to  37 via switch 1011 PTH=10;  \\117 to 118
+    130 to 229 via switch 1012 PTH=11;  \\119 to 120
+    102 to 166 via switch 1013 PTH=12;  \\121 to 122
+    133 to  70 via switch 1014 PTH=13;  \\123 to 124
+    197 to 198 via switch 1015 PTH=14;  \\125 to 126
+    165 to 103 via switch 1016 PTH=15;  \\127 to 128
+     69 to 134 via switch 1017 PTH=16;  \\129 to 130
+    101 to 231 via switch 1018 PTH=17;  \\131 to 132
+    104 to 200 via switch 1019 PTH=18;  \\133 to 134
+     40 to   8 via switch 1020 PTH=19;  \\135 to 136
+    199 to  41 via switch 1021 PTH=20;  \\137 to 138
+    135 to 136 via switch 1022 PTH=21;  \\139 to 140
+    167 to 201 via switch 1023 PTH=22;  \\141 to 142
+      7 to  73 via switch 1024 PTH=23;  \\143 to 144
+     42 to 171 via switch 1025 PTH=24;  \\145 to 146
+    234 to 202 via switch 1026 PTH=25;  \\147 to 148
+      9 to 138 via switch 1027 PTH=26;  \\149 to 150
+    106 to  75 via switch 1028 PTH=27;  \\151 to 152
+    233 to  43 via switch 1029 PTH=28;  \\153 to 154
+    169 to  11 via switch 1030 PTH=29;  \\155 to 156
+    172 to  13 via switch 1031 PTH=30;  \\157 to 158
+     45 to  46 via switch 1032 PTH=31;  \\159 to 160
+    140 to 206 via switch 1033 PTH=32;  \\161 to 162
+    204 to 174 via switch 1034 PTH=33;  \\163 to 164
+     44 to 141 via switch 1035 PTH=34;  \\165 to 166
+     76 to 142 via switch 1036 PTH=35;  \\167 to 168
+     14 to  15 via switch 1037 PTH=36;  \\169 to 170
+     79 to  80 via switch 1038 PTH=37;  \\171 to 172
+     47 to 208 via switch 1039 PTH=38;  \\173 to 174
+    143 to 209 via switch 1040 PTH=39;  \\175 to 176
+    175 to  48 via switch 1041 PTH=40;  \\177 to 178
+     78 to  81 via switch 1042 PTH=41;  \\179 to 180
+    178 to 243 via switch 1043 PTH=42;  \\181 to 182
+    210 to  83 via switch 1044 PTH=43;  \\183 to 184
+     49 to  82 via switch 1045 PTH=44;  \\185 to 186
+    114 to  51 via switch 1046 PTH=45;  \\187 to 188
+    145 to 179 via switch 1047 PTH=46;  \\189 to 190
+     50 to 148 via switch 1048 PTH=47;  \\191 to 192
+  End;
+
+  Begin MOD = 2000 256:J11;  \\(1w1x2, S607)
+    29 to 128 via matrix 607 PTH =0;
+    29 to  31 via matrix 607 PTH =1;
+  End;
+
+  Begin MOD = 2100 256:J11;  \\(1w1x2, S608)
+    192 to 32 via matrix 608 PTH =0;
+    192 to 96 via matrix 608 PTH =1;
+  End;
+
+  Begin MOD = 2200 256:J11;  \\(1w1x2, S609)
+    223 to 157 via matrix 609 PTH =0;
+    223 to 189 via matrix 609 PTH =1;
+  End;
+
+  Begin MOD = 2300 256:J11;  \\(1w1x2, S610)
+    156 to 255 via matrix 610 PTH =0;
+    156 to 160 via matrix 610 PTH =1;
+  End;
+
+  Begin MOD = 2400 256:J11;  \\(1w1x2, S611)
+    159 to 188 via matrix 611 PTH =0;
+    159 to  63 via matrix 611 PTH =1;
+  End;
+
+  Begin MOD = 2500 256:J11;  \\(1w1x2, S612)
+    64 to 62 via matrix 612 PTH =0;
+    64 to 30 via matrix 612 PTH =1;
+  End;
+
+  Begin MOD = 3000 256:J11;  \\(1w1x4, S404)
+    93 to 190 via matrix 404 PTH =0;
+    93 to 254 via matrix 404 PTH =1;
+    93 to 28  via matrix 404 PTH =2;
+    93 to 220 via matrix 404 PTH =3;
+  End;
+
+  Begin MOD = 3100 256:J11;  \\(1w1x4, S405)
+    94 to 158 via matrix 405 PTH =0;
+    94 to 222 via matrix 405 PTH =1;
+    94 to 61  via matrix 405 PTH =2;
+    94 to 253 via matrix 405 PTH =3;
+  End;
+
+  Begin MOD = 3200 256:J11;  \\(1w1x4, S406)
+    92 to 191 via matrix 406 PTH =0;
+    92 to 95  via matrix 406 PTH =1;
+    92 to 60  via matrix 406 PTH =2;
+    92 to 221 via matrix 406 PTH =3;
+  End;
+
+  Begin MOD = 4000 256:J11;  \\(1w2x8, S506)
+    194 to 164 via matrix 506 PTH = 0;
+    194 to 195 via matrix 506 PTH = 1;
+    194 to 225 via matrix 506 PTH = 2;
+    194 to 193 via matrix 506 PTH = 3;
+    194 to 161 via matrix 506 PTH = 4;
+    194 to 129 via matrix 506 PTH = 5;
+    194 to 68  via matrix 506 PTH = 6;
+    194 to 36  via matrix 506 PTH = 7;
+    162 to 164 via matrix 506 PTH = 10;
+    162 to 195 via matrix 506 PTH = 11;
+    162 to 225 via matrix 506 PTH = 12;
+    162 to 193 via matrix 506 PTH = 13;
+    162 to 161 via matrix 506 PTH = 14;
+    162 to 129 via matrix 506 PTH = 15;
+    162 to 68  via matrix 506 PTH = 16;
+    162 to 36  via matrix 506 PTH = 17;
+  End;
+
+  Begin MOD = 4100 256:J11;  \\(1w2x8, S507)
+    39 to 168 via matrix 507 PTH = 0;
+    39 to 72  via matrix 507 PTH = 1;
+    39 to 6   via matrix 507 PTH = 2;
+    39 to 38  via matrix 507 PTH = 3;
+    39 to 230 via matrix 507 PTH = 4;
+    39 to 5   via matrix 507 PTH = 5;
+    39 to 232 via matrix 507 PTH = 6;
+    39 to 105 via matrix 507 PTH = 7;
+    71 to 168 via matrix 507 PTH =10;
+    71 to 72  via matrix 507 PTH =11;
+    71 to 6   via matrix 507 PTH =12;
+    71 to 38  via matrix 507 PTH =13;
+    71 to 230 via matrix 507 PTH =14;
+    71 to 5   via matrix 507 PTH =15;
+    71 to 232 via matrix 507 PTH =16;
+    71 to 105 via matrix 507 PTH =17;
+  End;
+
+  Begin MOD = 4200 256:J11;  \\(1w2x8, S508)
+    203 to 77  via matrix 508 PTH = 0;
+    203 to 12  via matrix 508 PTH = 1;
+    203 to 10  via matrix 508 PTH = 2;
+    203 to 74  via matrix 508 PTH = 3;
+    203 to 137 via matrix 508 PTH = 4;
+    203 to 170 via matrix 508 PTH = 5;
+    203 to 173 via matrix 508 PTH = 6;
+    203 to 205 via matrix 508 PTH = 7;
+    139 to 77  via matrix 508 PTH = 10;
+    139 to 12  via matrix 508 PTH = 11;
+    139 to 10  via matrix 508 PTH = 12;
+    139 to 74  via matrix 508 PTH = 13;
+    139 to 137 via matrix 508 PTH = 14;
+    139 to 170 via matrix 508 PTH = 15;
+    139 to 173 via matrix 508 PTH = 16;
+    139 to 205 via matrix 508 PTH = 17;
+  End;
+
+  Begin MOD = 4300 256:J11;  \\(1w2x8, S509)
+    177 to 18  via matrix 509 PTH = 0;
+    177 to 17  via matrix 509 PTH = 1;
+    177 to 176 via matrix 509 PTH = 2;
+    177 to 16  via matrix 509 PTH = 3;
+    177 to 207 via matrix 509 PTH = 4;
+    177 to 144 via matrix 509 PTH = 5;
+    177 to 211 via matrix 509 PTH = 6;
+    177 to 146 via matrix 509 PTH = 7;
+    242 to 18  via matrix 509 PTH = 10;
+    242 to 17  via matrix 509 PTH = 11;
+    242 to 176 via matrix 509 PTH = 12;
+    242 to 16  via matrix 509 PTH = 13;
+    242 to 207 via matrix 509 PTH = 14;
+    242 to 144 via matrix 509 PTH = 15;
+    242 to 211 via matrix 509 PTH = 16;
+    242 to 146 via matrix 509 PTH = 17;
+  End;
+
+  Begin MOD = 4400 256:J11;  \\(1w2x8, S510)
+    52 to 180 via matrix 510 PTH = 0;
+    52 to 147 via matrix 510 PTH = 1;
+    52 to 212 via matrix 510 PTH = 2;
+    52 to 84  via matrix 510 PTH = 3;
+    52 to 115 via matrix 510 PTH = 4;
+    52 to 20  via matrix 510 PTH = 5;
+    52 to 116 via matrix 510 PTH = 6;
+    52 to 19  via matrix 510 PTH = 7;
+    244 to 180 via matrix 510 PTH = 10;
+    244 to 147 via matrix 510 PTH = 11;
+    244 to 212 via matrix 510 PTH = 12;
+    244 to 84  via matrix 510 PTH = 13;
+    244 to 115 via matrix 510 PTH = 14;
+    244 to 20  via matrix 510 PTH = 15;
+    244 to 116 via matrix 510 PTH = 16;
+    244 to 19  via matrix 510 PTH = 17;
+  End;
+End;
+
+Begin BLK=3;
+  \\
+  \\      Model for 2 X 24 Dual Switch, 1 X 20 Dual
+  \\      PD Reference is 3.4.11.3 and 3.4.11.8
+  \\
+  \\         Slot 7 of Chassis
+  \\
+  \\
+  Begin MOD = 0 96:J12;  \\(2w1x8, S751)
+    Wire1302 to 34 and Wire1366 to  1 via matrix 751 PTH=0;
+    Wire1302 to 65 and Wire1366 to 33 via matrix 751 PTH=1;
+    Wire1302 to 67 and Wire1366 to 35 via matrix 751 PTH=4;
+    Wire1302 to  2 and Wire1366 to 66 via matrix 751 PTH=5;
+  End;
+
+  Begin MOD = 0 96:J13;  \\ (S751 cont'd)
+    2 to 68 and 66 to 36 via matrix 751 PTH=2;
+    2 to 67 and 66 to 35 via matrix 751 PTH=3;
+    2 to  5 and 66 to 69 via matrix 751 PTH=6;
+    2 to 37 and 66 to  4 via matrix 751 PTH=7;
+    Wire1302 to 2 and Wire1366 to 66;
+  End;
+
+  Begin MOD = 1 96:J12;  \\(2w1x24, S701)
+    76 to 4 and 44 to 68 via matrix 701 PTH=0;
+    76 to 36 and 44 to 3 via matrix 701 PTH=1;
+    76 to Wire1339 and 44 to Wire1306 via matrix 701 PTH=2;
+    76 to Wire1370 and 44 to Wire1338 via matrix 701 PTH=3;
+    76 to 38 and 44 to 5 via matrix 701 PTH=4;
+    76 to 69 and 44 to 37 via matrix 701 PTH=5;
+    76 to Wire1372 and 44 to Wire1340 via matrix 701 PTH=6;
+    76 to Wire1307 and 44 to Wire1371 via matrix 701 PTH=7;
+  End;
+
+  Begin MOD = 1 96:J13;  \\(2w1x24, S701)
+    Wire1339 to 39 and Wire1306 to 6;
+    Wire1370 to 70 and Wire1338 to 38;
+    Wire1372 to 72 and Wire1340 to 40;
+    Wire1307 to 7 and Wire1371 to 71;
+  End;
+
+  Begin MOD = 2 96:J12;  \\(2w1x24, S701)
+    76 to 71 and 44 to 39 via matrix 701 PTH=0;
+    76 to 6 and 44 to 70 via matrix 701 PTH=1;
+    76 to Wire1342 and 44 to Wire1309 via matrix 701 PTH=2;
+    76 to Wire1373 and 44 to Wire1341 via matrix 701 PTH=3;
+    76 to 8 and 44 to 72 via matrix 701 PTH=4;
+    76 to 40 and 44 to 7 via matrix 701 PTH=5;
+    76 to Wire1375 and 44 to Wire1343 via matrix 701 PTH=6;
+    76 to Wire1310 and 44 to Wire1374 via matrix 701 PTH=7;
+  End;
+
+  Begin MOD = 2 96:J13;  \\(2w1x24, S701)
+    Wire1342 to 42 and Wire1309 to 9;
+    Wire1373 to 73 and Wire1341 to 41;
+    Wire1375 to 75 and Wire1343 to 43;
+    Wire1310 to 10 and Wire1374 to 74;
+  End;
+
+  Begin MOD = 3 96:J12;  \\(2w1x24, S701)
+    76 to 42 and 44 to 9 via matrix 701 PTH=0;
+    76 to 73 and 44 to 41 via matrix 701 PTH=1;
+    76 to Wire1345 and 44 to Wire1312 via matrix 701 PTH=2;
+    76 to Wire1376 and 44 to Wire1344 via matrix 701 PTH=3;
+    76 to 75 and 44 to 43 via matrix 701 PTH=4;
+    76 to 10 and 44 to 74 via matrix 701 PTH=5;
+    76 to Wire1378 and 44 to Wire1346 via matrix 701 PTH=6;
+    76 to Wire1313 and 44 to Wire1377 via matrix 701 PTH=7;
+  End;
+
+  Begin MOD = 3 96:J13;  \\(2w1x24, S701)
+    Wire1345 to 45 and Wire1312 to 12;
+    Wire1376 to 76 and Wire1344 to 44;
+    Wire1378 to 78 and Wire1346 to 46;
+    Wire1313 to 13 and Wire1377 to 77;
+  End;
+
+  Begin MOD = 4 96:J12;  \\(2w2x24, S201)
+    16 to 79 and 80 to 47 via matrix 201 PTH=0;
+    16 to 46 and 80 to 13 via matrix 201 PTH=1;
+    16 to Wire1347 and 80 to Wire1314 via matrix 201 PTH=2;
+    16 to Wire1380 and 80 to Wire1348 via matrix 201 PTH=3;
+    16 to 14 and 80 to 78 via matrix 201 PTH=4;
+    16 to 48 and 80 to 15 via matrix 201 PTH=5;
+    16 to Wire1349 and 80 to Wire1316 via matrix 201 PTH=6;
+    16 to Wire1315 and 80 to Wire1379 via matrix 201 PTH=7;
+  End;
+
+  Begin MOD = 4 96:J13;  \\(2w2x24, S201)
+    Wire1347 to 47 and Wire1314 to 14;
+    Wire1380 to 80 and Wire1348 to 48;
+    Wire1349 to 49 and Wire1316 to 16;
+    Wire1315 to 15 and Wire1379 to 79;
+  End;
+
+  Begin MOD = 5 96:J12;  \\(2w2x24, S201)
+    20 to 79 and 52 to 47 via matrix 201 PTH=0;
+    20 to 46 and 52 to 13 via matrix 201 PTH=1;
+    20 to Wire1347 and 52 to Wire1314 via matrix 201 PTH=2;
+    20 to Wire1380 and 52 to Wire1348 via matrix 201 PTH=3;
+    20 to 14 and 52 to 78 via matrix 201 PTH=4;
+    20 to 48 and 52 to 15 via matrix 201 PTH=5;
+    20 to Wire1349 and 52 to Wire1316 via matrix 201 PTH=6;
+    20 to Wire1315 and 52 to Wire1379 via matrix 201 PTH=7;
+  End;
+
+  Begin MOD = 6 96:J12;  \\(2w2x24, S201)
+    16 to 51 and 80 to 18 via matrix 201 PTH=0;
+    16 to 17 and 80 to 81 via matrix 201 PTH=1;
+    16 to Wire1350 and 80 to Wire1317 via matrix 201 PTH=2;
+    16 to Wire1383 and 80 to Wire1351 via matrix 201 PTH=3;
+    16 to 82 and 80 to 50 via matrix 201 PTH=4;
+    16 to 19 and 80 to 83 via matrix 201 PTH=5;
+    16 to Wire1352 and 80 to Wire1319 via matrix 201 PTH=6;
+    16 to Wire1318 and 80 to Wire1382 via matrix 201 PTH=7;
+  End;
+
+  Begin MOD = 6 96:J13;  \\(2w2x24, S201)
+    Wire1350 to 50 and Wire1317 to 17;
+    Wire1383 to 83 and Wire1351 to 51;
+    Wire1352 to 52 and Wire1319 to 19;
+    Wire1318 to 18 and Wire1382 to 82;
+  End;
+
+  Begin MOD = 7 96:J12;  \\(2w2x24, S201)
+    20 to 51 and 52 to 18 via matrix 201 PTH=0;
+    20 to 17 and 52 to 81 via matrix 201 PTH=1;
+    20 to Wire1350 and 52 to Wire1317 via matrix 201 PTH=2;
+    20 to Wire1383 and 52 to Wire1351 via matrix 201 PTH=3;
+    20 to 82 and 52 to 50 via matrix 201 PTH=4;
+    20 to 19 and 52 to 83 via matrix 201 PTH=5;
+    20 to Wire1352 and 52 to Wire1319 via matrix 201 PTH=6;
+    20 to Wire1318 and 52 to Wire1382 via matrix 201 PTH=7;
+  End;
+
+  Begin MOD = 8 96:J12;  \\(2w2x24, S201)
+    16 to 22 and 80 to 54 via matrix 201 PTH=0;
+    16 to 53 and 80 to 84 via matrix 201 PTH=1;
+    16 to Wire1321 and 80 to Wire1353 via matrix 201 PTH=2;
+    16 to Wire1386 and 80 to Wire1322 via matrix 201 PTH=3;
+    16 to 85 and 80 to 21 via matrix 201 PTH=4;
+    16 to 55 and 80 to 86 via matrix 201 PTH=5;
+    16 to Wire1323 and 80 to Wire1355 via matrix 201 PTH=6;
+    16 to Wire1354 and 80 to Wire1385 via matrix 201 PTH=7;
+  End;
+
+  Begin MOD = 8 96:J13;  \\(2w2x24, S201)
+    Wire1321 to 21 and Wire1353 to 53;
+    Wire1386 to 86 and Wire1322 to 22;
+    Wire1323 to 23 and Wire1355 to 55;
+    Wire1354 to 54 and Wire1385 to 85;
+  End;
+
+  Begin MOD = 9 96:J12;  \\(2w2x24, S201)
+    20 to 22 and 52 to 54 via matrix 201 PTH=0;
+    20 to 53 and 52 to 84 via matrix 201 PTH=1;
+    20 to Wire1321 and 52 to Wire1353 via matrix 201 PTH=2;
+    20 to Wire1386 and 52 to Wire1322 via matrix 201 PTH=3;
+    20 to 85 and 52 to 21 via matrix 201 PTH=4;
+    20 to 55 and 52 to 86 via matrix 201 PTH=5;
+    20 to Wire1323 and 52 to Wire1355 via matrix 201 PTH=6;
+    20 to Wire1354 and 52 to Wire1385 via matrix 201 PTH=7;
+  End;
+
+  Begin MOD = 10 96:J12;  \\(2w2x24, S202)
+    59 to 89 and 90 to 25 via matrix 202 PTH=0;
+    59 to 24 and 90 to 56 via matrix 202 PTH=1;
+    59 to Wire1356 and 90 to Wire1387 via matrix 202 PTH=2;
+    59 to Wire1325 and 90 to Wire1357 via matrix 202 PTH=3;
+    59 to 57 and 90 to 88 via matrix 202 PTH=4;
+    59 to 26 and 90 to 58 via matrix 202 PTH=5;
+    59 to Wire1358 and 90 to Wire1389 via matrix 202 PTH=6;
+    59 to Wire1388 and 90 to Wire1324 via matrix 202 PTH=7;
+  End;
+
+  Begin MOD = 10 96:J13;  \\(2w2x24, S202)
+    Wire1356 to 56 and Wire1387 to 87;
+    Wire1325 to 25 and Wire1357 to 57;
+    Wire1358 to 58 and Wire1389 to 89;
+    Wire1388 to 88 and Wire1324 to 24;
+  End;
+
+  Begin MOD = 11 96:J13;  \\(2w2x24, S202)
+    93 to Wire1289 and 29 to Wire1225 via matrix 202 PTH=0;
+    93 to Wire1224 and 29 to Wire1256 via matrix 202 PTH=1;
+    93 to 56 and 29 to 87 via matrix 202 PTH=2;
+    93 to 25 and 29 to 57 via matrix 202 PTH=3;
+    93 to Wire1257 and 29 to Wire1288 via matrix 202 PTH=4;
+    93 to Wire1226 and 29 to Wire1258 via matrix 202 PTH=5;
+    93 to 58 and 29 to 89 via matrix 202 PTH=6;
+    93 to 88 and 29 to 24 via matrix 202 PTH=7;
+  End;
+
+  Begin MOD = 11 96:J12;  \\(2w2x24, S202)
+    Wire1289 to 89 and Wire1225 to 25;
+    Wire1224 to 24 and Wire1256 to 56;
+    Wire1257 to 57 and Wire1288 to 88;
+    Wire1226 to 26 and Wire1258 to 58;
+  End;
+
+  Begin MOD = 12 96:J12;  \\(2w2x24, S202)
+    59 to 61 and 90 to 92 via matrix 202 PTH=0;
+    59 to 91 and 90 to 27 via matrix 202 PTH=1;
+    59 to Wire1359 and 90 to Wire1390 via matrix 202 PTH=2;
+    59 to Wire1328 and 90 to Wire1360 via matrix 202 PTH=3;
+    59 to 28 and 90 to 60 via matrix 202 PTH=4;
+    59 to 93 and 90 to 29 via matrix 202 PTH=5;
+    59 to Wire1361 and 90 to Wire1392 via matrix 202 PTH=6;
+    59 to Wire1391 and 90 to Wire1327 via matrix 202 PTH=7;
+  End;
+
+  Begin MOD = 12 96:J13;  \\(2w2x24, S202)
+    Wire1359 to 59 and Wire1390 to 90;
+    Wire1328 to 28 and Wire1360 to 60;
+    Wire1361 to 61 and Wire1392 to 92;
+    Wire1391 to 91 and Wire1327 to 27;
+  End;
+
+  Begin MOD = 13 96:J13;  \\(2w2x24, S202)
+    93 to Wire1261 and 29 to Wire1292 via matrix 202 PTH=0;
+    93 to Wire1291 and 29 to Wire1227 via matrix 202 PTH=1;
+    93 to 59 and 29 to 90 via matrix 202 PTH=2;
+    93 to 28 and 29 to 60 via matrix 202 PTH=3;
+    93 to Wire1228 and 29 to Wire1260 via matrix 202 PTH=4;
+    93 to Wire1293 and 29 to Wire1229 via matrix 202 PTH=5;
+    93 to 61 and 29 to 92 via matrix 202 PTH=6;
+    93 to 91 and 29 to 27 via matrix 202 PTH=7;
+  End;
+
+  Begin MOD = 13 96:J12;  \\(2w2x24, S202)
+    Wire1261 to 61 and Wire1292 to 92;
+    Wire1291 to 91 and Wire1227 to 27;
+    Wire1228 to 28 and Wire1260 to 60;
+    Wire1293 to 93 and Wire1229 to 29;
+  End;
+
+  Begin MOD = 14 96:J12;  \\(2w2x24, S202)
+    59 to 64 and 90 to 95 via matrix 202 PTH=0;
+    59 to 94 and 90 to 30 via matrix 202 PTH=1;
+    59 to Wire1330 and 90 to Wire1362 via matrix 202 PTH=2;
+    59 to Wire1395 and 90 to Wire1331 via matrix 202 PTH=3;
+    59 to 31 and 90 to 63 via matrix 202 PTH=4;
+    59 to 96 and 90 to 32 via matrix 202 PTH=5;
+    59 to Wire1332 and 90 to Wire1364 via matrix 202 PTH=6;
+    59 to Wire1363 and 90 to Wire1394 via matrix 202 PTH=7;
+  End;
+
+  Begin MOD = 14 96:J13;  \\(2w2x24, S202)
+    Wire1330 to 30 and Wire1362 to 62;
+    Wire1395 to 95 and Wire1331 to 31;
+    Wire1332 to 32 and Wire1364 to 64;
+    Wire1363 to 63 and Wire1394 to 94;
+  End;
+
+  Begin MOD = 15 96:J13;  \\(2w2x24, S202)
+    93 to Wire1264 and 29 to Wire1295 via matrix 202 PTH=0;
+    93 to Wire1294 and 29 to Wire1230 via matrix 202 PTH=1;
+    93 to 30 and 29 to 62 via matrix 202 PTH=2;
+    93 to 95 and 29 to 31 via matrix 202 PTH=3;
+    93 to Wire1231 and 29 to Wire1263 via matrix 202 PTH=4;
+    93 to Wire1296 and 29 to Wire1232 via matrix 202 PTH=5;
+    93 to 32 and 29 to 64 via matrix 202 PTH=6;
+    93 to 63 and 29 to 94 via matrix 202 PTH=7;
+  End;
+
+  Begin MOD=15 96:J12;  \\(2w2x24, S202)
+    Wire1264 to 64 and Wire1295 to 95;
+    Wire1294 to 94 and Wire1230 to 30;
+    Wire1231 to 31 and Wire1263 to 63;
+    Wire1296 to 96 and Wire1232 to 32;
+  End;
+End;
+
+Begin BLK = 4;
+  \\
+  \\      Model for 1 X 8 Medium Frequency Switches
+  \\         Slots XY of Chassis
+  \\         PD Reference 3.4.11.9
+  \\
+  Begin MOD = 0  19:J14;  \\(coax 1x8, S801)
+      5 to 1 via switch 1 PTH = 0;
+      5 to 2 via switch 1 PTH = 1;
+      5 to 3 via switch 1 PTH = 2;
+      5 to 4 via switch 1 PTH = 3;
+      5 to 6 via switch 1 PTH = 4;
+      5 to 7 via switch 1 PTH = 5;
+      5 to 8 via switch 1 PTH = 6;
+      5 to 9 via switch 1 PTH = 7;
+  End;
+
+  Begin MOD = 1  19:J14;  \\(coax 1x8, S802)
+      15 to 19 via switch 2 PTH = 0;
+      15 to 18 via switch 2 PTH = 1;
+      15 to 17 via switch 2 PTH = 2;
+      15 to 16 via switch 2 PTH = 3;
+      15 to 14 via switch 2 PTH = 4;
+      15 to 13 via switch 2 PTH = 5;
+      15 to 12 via switch 2 PTH = 6;
+      15 to 11 via switch 2 PTH = 7;
+  End;
+
+  Begin MOD = 2  19:J15;  \\(coax 1x8, S803)
+      5 to 1 via switch 3 PTH = 0;
+      5 to 2 via switch 3 PTH = 1;
+      5 to 3 via switch 3 PTH = 2;
+      5 to 4 via switch 3 PTH = 3;
+      5 to 6 via switch 3 PTH = 4;
+      5 to 7 via switch 3 PTH = 5;
+      5 to 8 via switch 3 PTH = 6;
+      5 to 9 via switch 3 PTH = 7;
+  End;
+
+  Begin MOD = 3  19:J15;  \\(coax 1x8, S804)
+      15 to 19 via switch 4 PTH = 0;
+      15 to 18 via switch 4 PTH = 1;
+      15 to 17 via switch 4 PTH = 2;
+      15 to 16 via switch 4 PTH = 3;
+      15 to 14 via switch 4 PTH = 4;
+      15 to 13 via switch 4 PTH = 5;
+      15 to 12 via switch 4 PTH = 6;
+      15 to 11 via switch 4 PTH = 7;
+  End;
+End;
+
+Begin BLK = 5;
+  \\
+  \\      Model for 1 X 6 RF Switches
+  \\         Slots XX of Chassis
+  \\         PD Reference 3.4.12.2.4
+  \\
+  \\      PTH Numbers reflect relay 'K' numbers in Specification
+  \\      MOD Numbers reflect relay ID (1 through 4)
+
+  Begin MOD = 0  32:J16;  \\(coax 1x6, S901)
+     18 to  17 via switch 1 PTH = 0;
+      18 to Wire1702 via switch 1 PTH = 1;
+      18 to Wire1703 via switch 1 PTH = 2;
+      18 to 19 via switch 1 PTH = 3;
+     18 to 3 via switch 1 PTH = 4;
+     18 to 2 via switch 1 PTH = 5;
+  End;
+
+  Begin MOD = 0  32:J17;  \\(coax 1x6, S901)
+    Wire1702 to 2;
+    Wire 1703 to 3;
+  End;
+
+  Begin MOD = 1  32:J17;  \\(coax 1x6, S902)
+    5 to 4 via switch 2 PTH = 0;
+    5 to 20:21 via switch 2 PTH = 1:2;
+    5 to 6 via switch 2 PTH = 3;
+    5 to Wire1621 via switch 2 PTH = 4;
+    5 to Wire1620 via switch 2 PTH = 5;
+  End;
+
+  Begin MOD = 1  32:J16;  \\(coax 1x6, S902)
+    Wire1620 to 20;
+    Wire 1621 to 21;
+  End;
+
+  Begin MOD = 2  32:J16;  \\(coax 1x6, S903)
+    23 to  22 via switch 3 PTH = 0;
+    23 to Wire1707 via switch 3 PTH = 1;
+    23 to Wire1708 via switch 3 PTH = 2;
+    23 to 24 via switch 3 PTH = 3;
+    23 to 8 via switch 3 PTH = 4;
+    23 to 7 via switch 3 PTH = 5;
+  End;
+
+  Begin MOD = 2  32:J17;  \\(coax 1x6, S903)
+    Wire1707 to 7;
+    Wire 1708 to 8;
+  End;
+
+  Begin MOD = 3  32:J17;  \\(coax 1x6, S904)
+    10 to 9 via switch 4 PTH = 0;
+    10 to 25:26 via switch 4 PTH = 1:2;
+    10 to 11 via switch 4 PTH = 3;
+    10 to Wire1626 via switch 4 PTH = 4;
+    10 to Wire1625 via switch 4 PTH = 5;
+  End;
+
+  Begin MOD = 3  32:J16;  \\(coax 1x6, S904)
+    Wire1625 to 25;
+    Wire 1626 to 26;
+  End;
+
+  Begin MOD = 4  32:J16;  \\(coax 1x6, S905)
+    28 to  27 via switch 5 PTH = 0;
+    28 to Wire1712 via switch 5 PTH = 1;
+    28 to Wire1713 via switch 5 PTH = 2;
+    28 to 29 via switch 5 PTH = 3;
+    28 to 13 via switch 5 PTH = 4;
+    28 to 12 via switch 5 PTH = 5;
+  End;
+
+  Begin MOD = 4  32:J17;  \\(coax 1x6, S905)
+    Wire1712 to 12;
+    Wire 1713 to 13;
+  End;
+
+  Begin MOD = 5  32:J17;  \\(coax 1x6, S906)
+    15 to 14 via switch 6 PTH = 0;
+    15 to 30:31 via switch 6 PTH = 1:2;
+    15 to 16 via switch 6 PTH = 3;
+    15 to Wire1631 via switch 6 PTH = 4;
+    15 to Wire1630 via switch 6 PTH = 5;
+   End;
+
+  Begin MOD = 5  32:J16;  \\(coax 1x6, S906)
+    Wire1630 to 30;
+    Wire 1631 to 31;
+  End;
+End;
+
+begin TERM9DWG;
+
+\\ 192 channels digital I/O
+
+     begin dwg 94 : J2=2;  \\ DWG
+          DWGX to 1 via switch = 167;  \\ channel 167
+          DWGX to 2 via switch = 166;  \\ channel 166
+          DWGX to 3 via switch = 165;  \\ channel 165
+          DWGX to 4 via switch = 164;  \\ channel 164
+          DWGX to 5 via switch = 163;  \\ channel 163
+          DWGX to 6 via switch = 162;  \\ channel 162
+          DWGX to 7 via switch = 161;  \\ channel 161
+          DWGX to 8 via switch = 160;  \\ channel 160
+          DWGX to 9 via switch = 159;  \\ channel 159
+          DWGX to 10 via switch = 158;  \\ channel 158
+          DWGX to 11 via switch = 157;  \\ channel 157
+          DWGX to 12 via switch = 156;  \\ channel 156
+          DWGX to 13 via switch = 155;  \\ channel 155
+          DWGX to 14 via switch = 154;  \\ channel 154
+          DWGX to 15 via switch = 153;  \\ channel 153
+          DWGX to 16 via switch = 152;  \\ channel 152
+          DWGX to 17 via switch = 151;  \\ channel 151
+          DWGX to 18 via switch = 150;  \\ channel 150
+          DWGX to 19 via switch = 149;  \\ channel 149
+          DWGX to 20 via switch = 148;  \\ channel 148
+          DWGX to 21 via switch = 147;  \\ channel 147
+          DWGX to 22 via switch = 146;  \\ channel 146
+          DWGX to 23 via switch = 145;  \\ channel 145
+          DWGX to 24 via switch = 144;  \\ channel 144
+          DWGX to 25 via switch = 128;  \\ channel 128
+          DWGX to 26 via switch = 129;  \\ channel 129
+          DWGX to 27 via switch = 130;  \\ channel 130
+          DWGX to 28 via switch = 131;  \\ channel 131
+          DWGX to 29 via switch = 132;  \\ channel 132
+          DWGX to 30 via switch = 133;  \\ channel 133
+          DWGX to 31 via switch = 134;  \\ channel 134
+          DWGX to 32 via switch = 135;  \\ channel 135
+          DWGX to 80 via switch = 136;  \\ channel 136
+          DWGX to 82 via switch = 137;  \\ channel 137
+          DWGX to 84 via switch = 138;  \\ channel 138
+          DWGX to 86 via switch = 139;  \\ channel 139
+          DWGX to 88 via switch = 140;  \\ channel 140
+          DWGX to 90 via switch = 141;  \\ channel 141
+          DWGX to 92 via switch = 142;  \\ channel 142
+          DWGX to 94 via switch = 143;  \\ channel 143
+     end;
+
+     begin dwg 56 : J3=2;  \\ DWG
+          DWGX to 33 via switch = 191;  \\ channel 191
+          DWGX to 34 via switch = 190;  \\ channel 190
+          DWGX to 35 via switch = 189;  \\ channel 189
+          DWGX to 36 via switch = 188;  \\ channel 188
+          DWGX to 37 via switch = 187;  \\ channel 187
+          DWGX to 38 via switch = 186;  \\ channel 186
+          DWGX to 39 via switch = 185;  \\ channel 185
+          DWGX to 40 via switch = 184;  \\ channel 184
+          DWGX to 41 via switch = 183;  \\ channel 183
+          DWGX to 42 via switch = 182;  \\ channel 182
+          DWGX to 43 via switch = 181;  \\ channel 181
+          DWGX to 44 via switch = 180;  \\ channel 180
+          DWGX to 45 via switch = 179;  \\ channel 179
+          DWGX to 46 via switch = 178;  \\ channel 178
+          DWGX to 47 via switch = 177;  \\ channel 177
+          DWGX to 48 via switch = 176;  \\ channel 176
+          DWGX to 49 via switch = 175;  \\ channel 175
+          DWGX to 50 via switch = 174;  \\ channel 174
+          DWGX to 51 via switch = 173;  \\ channel 173
+          DWGX to 52 via switch = 172;  \\ channel 172
+          DWGX to 53 via switch = 171;  \\ channel 171
+          DWGX to 54 via switch = 170;  \\ channel 170
+          DWGX to 55 via switch = 169;  \\ channel 169
+          DWGX to 56 via switch = 168;  \\ channel 168
+     end;
+
+     begin dwg 94 : J4=1;  \\ DWG
+          DWGX to 1 via switch = 203;  \\ channel 103
+          DWGX to 2 via switch = 202;  \\ channel 102
+          DWGX to 3 via switch = 201;  \\ channel 101
+          DWGX to 4 via switch = 200;  \\ channel 100
+          DWGX to 5 via switch = 199;  \\ channel 99
+          DWGX to 6 via switch = 198;  \\ channel 98
+          DWGX to 7 via switch = 197;  \\ channel 97
+          DWGX to 8 via switch = 196;  \\ channel 96
+          DWGX to 9 via switch = 195;  \\ channel 95
+          DWGX to 10 via switch = 194;  \\ channel 94
+          DWGX to 11 via switch = 193;  \\ channel 93
+          DWGX to 12 via switch = 192;  \\ channel 92
+          DWGX to 13 via switch = 191;  \\ channel 91
+          DWGX to 14 via switch = 190;  \\ channel 90
+          DWGX to 15 via switch = 189;  \\ channel 89
+          DWGX to 16 via switch = 188;  \\ channel 88
+          DWGX to 17 via switch = 187;  \\ channel 87
+          DWGX to 18 via switch = 186;  \\ channel 86
+          DWGX to 19 via switch = 185;  \\ channel 85
+          DWGX to 20 via switch = 184;  \\ channel 84
+          DWGX to 21 via switch = 183;  \\ channel 83
+          DWGX to 22 via switch = 182;  \\ channel 82
+          DWGX to 23 via switch = 181;  \\ channel 81
+          DWGX to 24 via switch = 180;  \\ channel 80
+          DWGX to 25 via switch = 164;  \\ channel 64
+          DWGX to 26 via switch = 165;  \\ channel 65
+          DWGX to 27 via switch = 166;  \\ channel 66
+          DWGX to 28 via switch = 167;  \\ channel 67
+          DWGX to 29 via switch = 168;  \\ channel 68
+          DWGX to 30 via switch = 169;  \\ channel 69
+          DWGX to 31 via switch = 170;  \\ channel 70
+          DWGX to 32 via switch = 171;  \\ channel 71
+          DWGX to 80 via switch = 172;  \\ channel 72
+          DWGX to 82 via switch = 173;  \\ channel 73
+          DWGX to 84 via switch = 174;  \\ channel 74
+          DWGX to 86 via switch = 175;  \\ channel 75
+          DWGX to 88 via switch = 176;  \\ channel 76
+          DWGX to 90 via switch = 177;  \\ channel 77
+          DWGX to 92 via switch = 178;  \\ channel 78
+          DWGX to 94 via switch = 179;  \\ channel 79
+     end;
+
+     begin dwg 56 : J5=1;  \\ DWG
+          DWGX to 33 via switch = 227;  \\ channel 127
+          DWGX to 34 via switch = 226;  \\ channel 126
+          DWGX to 35 via switch = 225;  \\ channel 125
+          DWGX to 36 via switch = 224;  \\ channel 124
+          DWGX to 37 via switch = 223;  \\ channel 123
+          DWGX to 38 via switch = 222;  \\ channel 122
+          DWGX to 39 via switch = 221;  \\ channel 121
+          DWGX to 40 via switch = 220;  \\ channel 120
+          DWGX to 41 via switch = 219;  \\ channel 119
+          DWGX to 42 via switch = 218;  \\ channel 118
+          DWGX to 43 via switch = 217;  \\ channel 117
+          DWGX to 44 via switch = 216;  \\ channel 116
+          DWGX to 45 via switch = 215;  \\ channel 115
+          DWGX to 46 via switch = 214;  \\ channel 114
+          DWGX to 47 via switch = 213;  \\ channel 113
+          DWGX to 48 via switch = 212;  \\ channel 112
+          DWGX to 49 via switch = 211;  \\ channel 111
+          DWGX to 50 via switch = 210;  \\ channel 110
+          DWGX to 51 via switch = 209;  \\ channel 109
+          DWGX to 52 via switch = 208;  \\ channel 108
+          DWGX to 53 via switch = 207;  \\ channel 107
+          DWGX to 54 via switch = 206;  \\ channel 106
+          DWGX to 55 via switch = 205;  \\ channel 105
+          DWGX to 56 via switch = 204;  \\ channel 104
+     end;
+
+     begin dwg 94 : J6=1;  \\ DWG
+          DWGX to 1 via switch = 139;  \\ channel 39
+          DWGX to 2 via switch = 138;  \\ channel 38
+          DWGX to 3 via switch = 137;  \\ channel 37
+          DWGX to 4 via switch = 136;  \\ channel 36
+          DWGX to 5 via switch = 135;  \\ channel 35
+          DWGX to 6 via switch = 134;  \\ channel 34
+          DWGX to 7 via switch = 133;  \\ channel 33
+          DWGX to 8 via switch = 132;  \\ channel 32
+          DWGX to 9 via switch = 131;  \\ channel 31
+          DWGX to 10 via switch = 130;  \\ channel 30
+          DWGX to 11 via switch = 129;  \\ channel 29
+          DWGX to 12 via switch = 128;  \\ channel 28
+          DWGX to 13 via switch = 127;  \\ channel 27
+          DWGX to 14 via switch = 126;  \\ channel 26
+          DWGX to 15 via switch = 125;  \\ channel 25
+          DWGX to 16 via switch = 124;  \\ channel 24
+          DWGX to 17 via switch = 123;  \\ channel 23
+          DWGX to 18 via switch = 122;  \\ channel 22
+          DWGX to 19 via switch = 121;  \\ channel 21
+          DWGX to 20 via switch = 120;  \\ channel 20
+          DWGX to 21 via switch = 119;  \\ channel 19
+          DWGX to 22 via switch = 118;  \\ channel 18
+          DWGX to 23 via switch = 117;  \\ channel 17
+          DWGX to 24 via switch = 116;  \\ channel 16
+          DWGX to 25 via switch = 100;  \\ channel 0
+          DWGX to 26 via switch = 101;  \\ channel 1
+          DWGX to 27 via switch = 102;  \\ channel 2
+          DWGX to 28 via switch = 103;  \\ channel 3
+          DWGX to 29 via switch = 104;  \\ channel 4
+          DWGX to 30 via switch = 105;  \\ channel 5
+          DWGX to 31 via switch = 106;  \\ channel 6
+          DWGX to 32 via switch = 107;  \\ channel 7
+          DWGX to 80 via switch = 108;  \\ channel 8
+          DWGX to 82 via switch = 109;  \\ channel 9
+          DWGX to 84 via switch = 110;  \\ channel 10
+          DWGX to 86 via switch = 111;  \\ channel 11
+          DWGX to 88 via switch = 112;  \\ channel 12
+          DWGX to 90 via switch = 113;  \\ channel 13
+          DWGX to 92 via switch = 114;  \\ channel 14
+          DWGX to 94 via switch = 115;  \\ channel 15
+     end;
+
+     begin dwg 56 : J7=1;  \\ DWG
+          DWGX to 33 via switch = 163;  \\ channel 63
+          DWGX to 34 via switch = 162;  \\ channel 62
+          DWGX to 35 via switch = 161;  \\ channel 61
+          DWGX to 36 via switch = 160;  \\ channel 60
+          DWGX to 37 via switch = 159;  \\ channel 59
+          DWGX to 38 via switch = 158;  \\ channel 58
+          DWGX to 39 via switch = 157;  \\ channel 57
+          DWGX to 40 via switch = 156;  \\ channel 56
+          DWGX to 41 via switch = 155;  \\ channel 55
+          DWGX to 42 via switch = 154;  \\ channel 54
+          DWGX to 43 via switch = 153;  \\ channel 53
+          DWGX to 44 via switch = 152;  \\ channel 52
+          DWGX to 45 via switch = 151;  \\ channel 51
+          DWGX to 46 via switch = 150;  \\ channel 50
+          DWGX to 47 via switch = 149;  \\ channel 49
+          DWGX to 48 via switch = 148;  \\ channel 48
+          DWGX to 49 via switch = 147;  \\ channel 47
+          DWGX to 50 via switch = 146;  \\ channel 46
+          DWGX to 51 via switch = 145;  \\ channel 45
+          DWGX to 52 via switch = 144;  \\ channel 44
+          DWGX to 53 via switch = 143;  \\ channel 43
+          DWGX to 54 via switch = 142;  \\ channel 42
+          DWGX to 55 via switch = 141;  \\ channel 41
+          DWGX to 56 via switch = 140;  \\ channel 40
+     end;
+
+     begin dwg 1 : EVT=1;
+          DWGE to 1 via switch = 0;
+          DWGT3 to 1 via switch = 0;
+          DWG3 to 1 via switch = 0;
+          DWGT2 to 1 via switch = 0;
+          DWGC to 1 via switch = 0;
+     end;
+end;
+
+\\ 192 channels digital I/O for use with APPLY/MEASURE (separate instrument)
+begin BLK = 6;
+
+     begin MOD=20  94:J2;  \\ DS
+          DS-HI to 1 PTH = 1675;  \\ channel 167
+          DS-HI to 2 PTH = 1665;  \\ channel 166
+          DS-HI to 3 PTH = 1655;  \\ channel 165
+          DS-HI to 4 PTH = 1645;  \\ channel 164
+          DS-HI to 5 PTH = 1635;  \\ channel 163
+          DS-HI to 6 PTH = 1625;  \\ channel 162
+          DS-HI to 7 PTH = 1615;  \\ channel 161
+          DS-HI to 8 PTH = 1605;  \\ channel 160
+          DS-HI to 9 PTH = 1595;  \\ channel 159
+          DS-HI to 10 PTH = 1585;  \\ channel 158
+          DS-HI to 11 PTH = 1575;  \\ channel 157
+          DS-HI to 12 PTH = 1565;  \\ channel 156
+          DS-HI to 13 PTH = 1555;  \\ channel 155
+          DS-HI to 14 PTH = 1545;  \\ channel 154
+          DS-HI to 15 PTH = 1535;  \\ channel 153
+          DS-HI to 16 PTH = 1525;  \\ channel 152
+          DS-HI to 17 PTH = 1515;  \\ channel 151
+          DS-HI to 18 PTH = 1505;  \\ channel 150
+          DS-HI to 19 PTH = 1495;  \\ channel 149
+          DS-HI to 20 PTH = 1485;  \\ channel 148
+          DS-HI to 21 PTH = 1475;  \\ channel 147
+          DS-HI to 22 PTH = 1465;  \\ channel 146
+          DS-HI to 23 PTH = 1455;  \\ channel 145
+          DS-HI to 24 PTH = 1445;  \\ channel 144
+
+          DS-HI to 25 PTH = 1285;  \\ channel 128
+          DS-HI to 26 PTH = 1295;  \\ channel 129
+          DS-HI to 27 PTH = 1305;  \\ channel 130
+          DS-HI to 28 PTH = 1315;  \\ channel 131
+          DS-HI to 29 PTH = 1325;  \\ channel 132
+          DS-HI to 30 PTH = 1335;  \\ channel 133
+          DS-HI to 31 PTH = 1345;  \\ channel 134
+          DS-HI to 32 PTH = 1355;  \\ channel 135
+
+          DS-HI to 80 PTH = 1365;  \\ channel 136
+          DS-HI to 82 PTH = 1375;  \\ channel 137
+          DS-HI to 84 PTH = 1385;  \\ channel 138
+          DS-HI to 86 PTH = 1395;  \\ channel 139
+          DS-HI to 88 PTH = 1405;  \\ channel 140
+          DS-HI to 90 PTH = 1415;  \\ channel 141
+          DS-HI to 92 PTH = 1425;  \\ channel 142
+          DS-HI to 94 PTH = 1435;  \\ channel 143
+     end;
+
+     begin MOD=20  56:J3;  \\ DWG
+          DS-HI to 33 PTH = 1915;  \\ channel 191
+          DS-HI to 34 PTH = 1905;  \\ channel 190
+          DS-HI to 35 PTH = 1895;  \\ channel 189
+          DS-HI to 36 PTH = 1885;  \\ channel 188
+          DS-HI to 37 PTH = 1875;  \\ channel 187
+          DS-HI to 38 PTH = 1865;  \\ channel 186
+          DS-HI to 39 PTH = 1855;  \\ channel 185
+          DS-HI to 40 PTH = 1845;  \\ channel 184
+          DS-HI to 41 PTH = 1835;  \\ channel 183
+          DS-HI to 42 PTH = 1825;  \\ channel 182
+          DS-HI to 43 PTH = 1815;  \\ channel 181
+          DS-HI to 44 PTH = 1805;  \\ channel 180
+          DS-HI to 45 PTH = 1795;  \\ channel 179
+          DS-HI to 46 PTH = 1785;  \\ channel 178
+          DS-HI to 47 PTH = 1775;  \\ channel 177
+          DS-HI to 48 PTH = 1765;  \\ channel 176
+          DS-HI to 49 PTH = 1755;  \\ channel 175
+          DS-HI to 50 PTH = 1745;  \\ channel 174
+          DS-HI to 51 PTH = 1735;  \\ channel 173
+          DS-HI to 52 PTH = 1725;  \\ channel 172
+          DS-HI to 53 PTH = 1715;  \\ channel 171
+          DS-HI to 54 PTH = 1705;  \\ channel 170
+          DS-HI to 55 PTH = 1695;  \\ channel 169
+          DS-HI to 56 PTH = 1685;  \\ channel 168
+     end;
+
+     begin MOD=20  94:J4;  \\ DWG
+          DS-HI to 1 PTH = 1035;  \\ channel 103
+          DS-HI to 2 PTH = 1025;  \\ channel 102
+          DS-HI to 3 PTH = 1015;  \\ channel 101
+          DS-HI to 4 PTH = 1005;  \\ channel 100
+          DS-HI to 5 PTH = 995;  \\ channel 99
+          DS-HI to 6 PTH = 985;  \\ channel 98
+          DS-HI to 7 PTH = 975;  \\ channel 97
+          DS-HI to 8 PTH = 965;  \\ channel 96
+          DS-HI to 9 PTH = 955;  \\ channel 95
+          DS-HI to 10 PTH = 945;  \\ channel 94
+          DS-HI to 11 PTH = 935;  \\ channel 93
+          DS-HI to 12 PTH = 925;  \\ channel 92
+          DS-HI to 13 PTH = 915;  \\ channel 91
+          DS-HI to 14 PTH = 905;  \\ channel 90
+          DS-HI to 15 PTH = 895;  \\ channel 89
+          DS-HI to 16 PTH = 885;  \\ channel 88
+          DS-HI to 17 PTH = 875;  \\ channel 87
+          DS-HI to 18 PTH = 865;  \\ channel 86
+          DS-HI to 19 PTH = 855;  \\ channel 85
+          DS-HI to 20 PTH = 845;  \\ channel 84
+          DS-HI to 21 PTH = 835;  \\ channel 83
+          DS-HI to 22 PTH = 825;  \\ channel 82
+          DS-HI to 23 PTH = 815;  \\ channel 81
+          DS-HI to 24 PTH = 805;  \\ channel 80
+
+          DS-HI to 25 PTH = 645;  \\ channel 64
+          DS-HI to 26 PTH = 655;  \\ channel 65
+          DS-HI to 27 PTH = 665;  \\ channel 66
+          DS-HI to 28 PTH = 675;  \\ channel 67
+          DS-HI to 29 PTH = 685;  \\ channel 68
+          DS-HI to 30 PTH = 695;  \\ channel 69
+          DS-HI to 31 PTH = 705;  \\ channel 70
+          DS-HI to 32 PTH = 715;  \\ channel 71
+
+          DS-HI to 80 PTH = 725;  \\ channel 72
+          DS-HI to 82 PTH = 735;  \\ channel 73
+          DS-HI to 84 PTH = 745;  \\ channel 74
+          DS-HI to 86 PTH = 755;  \\ channel 75
+          DS-HI to 88 PTH = 765;  \\ channel 76
+          DS-HI to 90 PTH = 775;  \\ channel 77
+          DS-HI to 92 PTH = 785;  \\ channel 78
+          DS-HI to 94 PTH = 795;  \\ channel 79
+     end;
+
+     begin MOD=20  56:J5;  \\ DWG
+          DS-HI to 33 PTH = 1275;  \\ channel 127
+          DS-HI to 34 PTH = 1265;  \\ channel 126
+          DS-HI to 35 PTH = 1255;  \\ channel 125
+          DS-HI to 36 PTH = 1245;  \\ channel 124
+          DS-HI to 37 PTH = 1235;  \\ channel 123
+          DS-HI to 38 PTH = 1225;  \\ channel 122
+          DS-HI to 39 PTH = 1215;  \\ channel 121
+          DS-HI to 40 PTH = 1205;  \\ channel 120
+          DS-HI to 41 PTH = 1195;  \\ channel 119
+          DS-HI to 42 PTH = 1185;  \\ channel 118
+          DS-HI to 43 PTH = 1175;  \\ channel 117
+          DS-HI to 44 PTH = 1165;  \\ channel 116
+          DS-HI to 45 PTH = 1155;  \\ channel 115
+          DS-HI to 46 PTH = 1145;  \\ channel 114
+          DS-HI to 47 PTH = 1135;  \\ channel 113
+          DS-HI to 48 PTH = 1125;  \\ channel 112
+          DS-HI to 49 PTH = 1115;  \\ channel 111
+          DS-HI to 50 PTH = 1105;  \\ channel 110
+          DS-HI to 51 PTH = 1095;  \\ channel 109
+          DS-HI to 52 PTH = 1085;  \\ channel 108
+          DS-HI to 53 PTH = 1075;  \\ channel 107
+          DS-HI to 54 PTH = 1065;  \\ channel 106
+          DS-HI to 55 PTH = 1055;  \\ channel 105
+          DS-HI to 56 PTH = 1045;  \\ channel 104
+     end;
+
+
+     begin MOD=20  94:J6;  \\ DWG
+          DS-HI to 1 PTH = 395;  \\ channel 39
+          DS-HI to 2 PTH = 385;  \\ channel 38
+          DS-HI to 3 PTH = 375;  \\ channel 37
+          DS-HI to 4 PTH = 365;  \\ channel 36
+          DS-HI to 5 PTH = 355;  \\ channel 35
+          DS-HI to 6 PTH = 345;  \\ channel 34
+          DS-HI to 7 PTH = 335;  \\ channel 33
+          DS-HI to 8 PTH = 325;  \\ channel 32
+          DS-HI to 9 PTH = 315;  \\ channel 31
+          DS-HI to 10 PTH = 305;  \\ channel 30
+          DS-HI to 11 PTH = 295;  \\ channel 29
+          DS-HI to 12 PTH = 285;  \\ channel 28
+          DS-HI to 13 PTH = 275;  \\ channel 27
+          DS-HI to 14 PTH = 265;  \\ channel 26
+          DS-HI to 15 PTH = 255;  \\ channel 25
+          DS-HI to 16 PTH = 245;  \\ channel 24
+          DS-HI to 17 PTH = 235;  \\ channel 23
+          DS-HI to 18 PTH = 225;  \\ channel 22
+          DS-HI to 19 PTH = 215;  \\ channel 21
+          DS-HI to 20 PTH = 205;  \\ channel 20
+          DS-HI to 21 PTH = 195;  \\ channel 19
+          DS-HI to 22 PTH = 185;  \\ channel 18
+          DS-HI to 23 PTH = 175;  \\ channel 17
+          DS-HI to 24 PTH = 165;  \\ channel 16
+
+          DS-HI to 25 PTH = 05;  \\ channel 0
+          DS-HI to 26 PTH = 15;  \\ channel 1
+          DS-HI to 27 PTH = 25;  \\ channel 2
+          DS-HI to 28 PTH = 35;  \\ channel 3
+          DS-HI to 29 PTH = 45;  \\ channel 4
+          DS-HI to 30 PTH = 55;  \\ channel 5
+          DS-HI to 31 PTH = 65;  \\ channel 6
+          DS-HI to 32 PTH = 75;  \\ channel 7
+
+          DS-HI to 80 PTH = 85;  \\ channel 8
+          DS-HI to 82 PTH = 95;  \\ channel 9
+          DS-HI to 84 PTH = 105;  \\ channel 10
+          DS-HI to 86 PTH = 115;  \\ channel 11
+          DS-HI to 88 PTH = 125;  \\ channel 12
+          DS-HI to 90 PTH = 135;  \\ channel 13
+          DS-HI to 92 PTH = 145;  \\ channel 14
+          DS-HI to 94 PTH = 155;  \\ channel 15
+     end;
+
+     begin MOD=20  56:J7;  \\ DWG
+          DS-HI to 33 PTH = 635;  \\ channel 63
+          DS-HI to 34 PTH = 625;  \\ channel 62
+          DS-HI to 35 PTH = 615;  \\ channel 61
+          DS-HI to 36 PTH = 605;  \\ channel 60
+          DS-HI to 37 PTH = 595;  \\ channel 59
+          DS-HI to 38 PTH = 585;  \\ channel 58
+          DS-HI to 39 PTH = 575;  \\ channel 57
+          DS-HI to 40 PTH = 565;  \\ channel 56
+          DS-HI to 41 PTH = 555;  \\ channel 55
+          DS-HI to 42 PTH = 545;  \\ channel 54
+          DS-HI to 43 PTH = 535;  \\ channel 53
+          DS-HI to 44 PTH = 525;  \\ channel 52
+          DS-HI to 45 PTH = 515;  \\ channel 51
+          DS-HI to 46 PTH = 505;  \\ channel 50
+          DS-HI to 47 PTH = 495;  \\ channel 49
+          DS-HI to 48 PTH = 485;  \\ channel 48
+          DS-HI to 49 PTH = 475;  \\ channel 47
+          DS-HI to 50 PTH = 465;  \\ channel 46
+          DS-HI to 51 PTH = 455;  \\ channel 45
+          DS-HI to 52 PTH = 445;  \\ channel 44
+          DS-HI to 53 PTH = 435;  \\ channel 43
+          DS-HI to 54 PTH = 425;  \\ channel 42
+          DS-HI to 55 PTH = 415;  \\ channel 41
+          DS-HI to 56 PTH = 405;  \\ channel 40
+     end;
+
+\\ 32 channels high voltage pins(CRB) can be used with APPLY
+
+\\ High Voltage Pins
+
+
+     begin MOD=20  64:J8;  \\ DWG
+          SCAN-HI to 1 PTH = 235;  \\ channel 23
+          SCAN-HI to 2 PTH = 225;  \\ channel 22
+          SCAN-HI to 3 PTH = 215;  \\ channel 21
+          SCAN-HI to 4 PTH = 205;  \\ channel 20
+          SCAN-HI to 5 PTH = 195;  \\ channel 19
+          SCAN-HI to 6 PTH = 185;  \\ channel 18
+          SCAN-HI to 7 PTH = 175;  \\ channel 17
+          SCAN-HI to 8 PTH = 165;  \\ channel 16
+          SCAN-HI to 9 PTH = 155;  \\ channel 15
+          SCAN-HI to 10 PTH = 145;  \\ channel 14
+          SCAN-HI to 11 PTH = 135;  \\ channel 13
+          SCAN-HI to 12 PTH = 125;  \\ channel 12
+          SCAN-HI to 13 PTH = 115;  \\ channel 11
+          SCAN-HI to 14 PTH = 105;  \\ channel 10
+          SCAN-HI to 15 PTH = 95;  \\ channel 9
+          SCAN-HI to 16 PTH = 85;  \\ channel 8
+          SCAN-HI to 17 PTH = 75;  \\ channel 7
+          SCAN-HI to 18 PTH = 65;  \\ channel 6
+          SCAN-HI to 19 PTH = 55;  \\ channel 5
+          SCAN-HI to 20 PTH = 45;  \\ channel 4
+          SCAN-HI to 21 PTH = 35;  \\ channel 3
+          SCAN-HI to 22 PTH = 25;  \\ channel 2
+          SCAN-HI to 23 PTH = 15;  \\ channel 1
+          SCAN-HI to 24 PTH = 05;  \\ channel 0
+end;
+
+
+begin MOD=20  64:J9;  \\ DWG
+          SCAN-HI to 33 PTH = 315;  \\ channel 31
+          SCAN-HI to 34 PTH = 305;  \\ channel 30
+          SCAN-HI to 35 PTH = 295;  \\ channel 29
+          SCAN-HI to 36 PTH = 285;  \\ channel 28
+          SCAN-HI to 37 PTH = 275;  \\ channel 27
+          SCAN-HI to 38 PTH = 265;  \\ channel 26
+          SCAN-HI to 39 PTH = 255;  \\ channel 25
+          SCAN-HI to 40 PTH = 245;  \\ channel 24
+end;
+
+end;
+
+
+Begin BLK = 10;
+  \\
+  \\      BLK 10 and MOD 20 is used to
+  \\      identify feedthroughs
+
+  Begin MOD = 20  32:J18;  \\(Analog Probe)
+    Aprobe to 1;
+  End;
+
+  Begin MOD = 20 32:J18;  \\(RF Stimulus)
+    RFStim-Out to 28;
+  End;
+
+  Begin MOD = 20  19:J19;  \\(RF Stimulus)
+    RFStim-AM to 10;
+    RFStim-PM to 11;
+    RFStim-FM to 12;
+  End;
+
+  Begin MOD = 20 32:J18;  \\(RF Measurement)
+    RFMeas-In to 30;
+  End;
+
+  Begin MOD = 20 32:J18;  \\(RF Power Meter)
+    RFPM-In to 32;
+  End;
+
+   Begin MOD = 20 19:J19;  \\(RF System)
+    RFTRIG-IN to 14;
+    RF10MHZ-REF to 15;
+  End;
+
+  Begin MOD = 20 19:J19;  \\(Digitizing Oscilloscope)
+    DSO-In1 to 1;
+    DSO-In2 to 2;
+    DSO-TrigIn to 3;
+    DSO-TrigOut to 4;
+    DSO-Ev1 to DSO-Ev1;
+    DSO-Ev2 to DSO-Ev2;
+  End;
+
+  Begin MOD = 20 19:J19;  \\(Function Generator)
+    FG-Out to 5;
+    FG-Sync to 6;
+    FG-Trig to 7;
+    FG-Clock to 8;
+    FG-PM to 9;
+    FG-EvArm TO FG-EvArm;
+  End;
+
+  Begin MOD = 20 19:J19;  \\(Counter Timer)
+    CT-Arm to 17;
+    CT-In1 to 18;
+    CT-In2 to 19;
+    CT-EvA to CT-EvA;
+    CT-EvB to CT-EvB;
+    CT-EvArm to CT-EvArm;
+  End;
+
+  Begin MOD = 20 64:J20;  \\(DMM)
+    DMM-Gnd to 1;
+    DMM-Hi to 2;
+    DMM-Lo to 3;
+    DMM-Curr to 4;
+    DMM-SHi to 5;
+    DMM-SLo to 6;
+  End;
+
+  begin MOD = 20 0 : Instrpins;
+	\\ NOTE: The following PATHs are artificial and do not reflect
+        \\ existing relays. The purpose of PTH is to allow proper allocation
+    DMM-em to DMM-es	PTH = 1;  \\ Added this to connect the triggering events to Dmm. YS
+    xx to yy PTH = 2;
+  end;
+
+
+  Begin MOD = 20 12:J21;  \\(DMM)
+    DMM-Trig to 1;
+    DMM-VMC to 2;
+  End;
+
+   Begin MOD = 20 64:J22;  \\(ARB)
+    ARB-FP00 to 1;
+    ARB-FP01 to 2;
+    ARB-FP03 to 3;
+    ARB-FP04 to 4;
+    ARB-FP06 to 5;
+    ARB-FP07 to 6;
+    ARB-GND1 to 7;
+    ARB-FP10 to 8;
+    ARB-FP11 to 9;
+    ARB-FP13 to 10;
+    ARB-FP14 to 11;
+    ARB-FPCLK to 12;
+    ARB-FPPACE to 13;
+    ARB-GND2 to 33;
+    ARB-FP02 to 34;
+    ARB-MarkerRet to 34;
+    ARB-GND3 to 35;
+    ARB-RefRet to 35;
+    ARB-FP05 to 36;
+    ARB-StartArmRet to 36;
+    ARB-GND4 to 37;
+    ARB-StopTrigFskRet to 37;
+    ARB-FP08 to 38;
+    ARB-OutRet to 38;
+    ARB-FP09 to 39;
+    ARB-GND5 to 40;
+    ARB-FP12 to 41;
+    ARB-GND6 to 42;
+    ARB-FP15 to 43;
+    ARB-GND7 to 44;
+  End;
+
+  Begin MOD = 20 12:J23;  \\(ARB)
+    ARB-OUT/7 to 7;
+    ARB-Marker to 8;
+    ARB-Ref to 9;
+    ARB-Start-Arm to 10;
+    ARB-StopTrigFsk to 11;
+    ARB-Out to 12;
+    ARB-EvArm TO ARB-EvArm;
+  End;
+
+  Begin MOD = 20 64:J1;   \\(DC Pwr Supplies)
+    DC1-Hi to (1,33);
+    DC1-SHi to 3;
+    DC2-Hi to (4,36);
+    DC2-SHi to 6;
+    DC3-Hi to (7,39);
+    DC3-SHi to 9;
+    DC4-Hi to (10,42);
+    DC4-SHi to 12;
+    DC5-Hi to (13,45);
+    DC5-SHi to 15;
+    DC6-Hi to (16,48);
+    DC6-SHi to 18;
+    DC7-Hi to (19,51);
+    DC7-SHi to 21;
+    DC8-Hi to (22,54);
+    DC8-SHi to 24;
+    DC9-Hi to (25,57);
+    DC9-SHi to 27;
+    DC10-Hi to (28,60);
+    DC10-SHi to 30;
+    DC1-Lo to (2,34);
+    DC1-SLo to 35;
+    DC2-Lo to (5,37);
+    DC2-SLo to 38;
+    DC3-Lo to (8,40);
+    DC3-SLo to 41;
+    DC4-Lo to (11,43);
+    DC4-SLo to 44;
+    DC5-Lo to (14,46);
+    DC5-SLo to 47;
+    DC6-Lo to (17,49);
+    DC6-SLo to 50;
+    DC7-Lo to (20,52);
+    DC7-SLo to 53;
+    DC8-Lo to (23,55);
+    DC8-SLo to 56;
+    DC9-Lo to (26,58);
+    DC9-SLo to 59;
+    DC10-Lo to (29,61);
+    DC10-SLo to 62;
+  End;
+
+
+  Begin MOD = 20 64 : stub;  \\pseudo pins for time interval
+    cntr-evt-from to 1;
+    cntr-evt-to to 2;
+    TTLTrig0 to 3;
+    TTLTrig1 to 4;
+    TTLTrig2 to 5;
+    TTLTrig3 to 6;
+    TTLTrig4 to 7;
+    TTLTrig5 to 8;
+    TTLTrig6 to 9;
+    TTLTrig7 to 10;
+    CT-Strt to 14;
+    CT-Stp to 15;
+    DDC1553b-hi to 16;
+    DDC1553b-lo to 17;
+    event-port to 18;
+    cntr-event-port to 19;
+
+\\    DWGC  to DWGC;           \\ !! CG
+\\    DWG3  to DWG3;           \\ !! CG
+\\    DWGT2 to DWGT2;          \\ !! CG
+\\    DWGT3 to DWGT3;          \\ !! CG
+    DWGCST to DWGEBE51;
+    DWGCST to DWGEBE52;
+
+    DWGCSE to DWGEBE51;
+    DWGCSE to DWGEBE52;
+
+    DWGT2  to DWGTBE62;
+    DWGT2  to DWGSBE72;
+
+    DWGE3  to DWGEBE53;
+
+    DWGT3  to DWGTBE63;
+    DWGT3  to DWGSBE73;
+  End;
+
+  Begin MOD = 20 4: W105;  \\FRAMEGRABBER I/O CABLE
+           VIDEO-IN to 1;
+       LASER-CAMERA to 1;
+        FRAME-RESET to 2;
+     HORIZ-SYNC-OUT to 3;
+      VERT-SYNC-OUT to 4;
+  End;
+
+  Begin MOD = 20 4: FOCALPLANE;
+      ATMOSPHERE to FOCALPLANE;  \\(EO Source) Port to Satisfy Resource Allocator
+  End;
+
+End;
+
+begin BLK = 11;
+
+  begin MOD = 1 2 : BUS;
+
+    DDC1553b-hi to 1;
+    DDC1553b-lo to 2;
+
+  end;
+
+end;
+
+
+\\*******************************************************
+\\*********************** NEW PINS **********************
+\\*******************************************************
+
+\\*** Synchro/Resolver I/O
+
+SIGNAL NAME		PIN
+SDCH1S1		SRIO-1
+SDCH1S2		SRIO-2
+SDCH1S3		SRIO-3
+SDCH1S4		SRIO-4
+SDCH1RHI		SRIO-5
+SDCH1RLO		SRIO-6
+SDCH2S1		SRIO-7
+SDCH2S2		SRIO-8
+SDCH2S3		SRIO-9
+SDCH2S4		SRIO-10
+SDCH2RHI		SRIO-11
+SDCH2RLO		SRIO-12
+DSCH1S1		SRIO-13
+DSCH1S2		SRIO-14
+DSCH1S3		SRIO-15
+DSCH1S4		SRIO-16
+DSCH1RHI		SRIO-17
+DSCH1RLO		SRIO-18
+DSCH2S1		SRIO-19
+DSCH2S2		SRIO-20
+DSCH2S3		SRIO-21
+DSCH2S4		SRIO-22
+DSCH2RHI		SRIO-23
+DSCH2RLO		SRIO-24
+RHIOUT		SRIO-25
+RLOOUT		SRIO-26
+SDCH1VELHI		SRIO-27
+SDCH1VELLO		SRIO-28
+SDCH2VELHI		SRIO-29
+SDCH2VELLO		SRIO-30
+DSCH1VELHI		SRIO-31
+DSCH1VELLO		SRIO-32
+DSCH2VELHI		SRIO-33
+DSCH2VELLO		SRIO-34
+SRTRIGGER+		SRIO-35
+SRTRIGGER-		SRIO-36
+
+\\*** BUS I/O
+
+SIGNAL NAME		PIN
+MICCH1PIN		BUSIO-1
+MICCH1NIN		BUSIO-2
+MICCH1GNDIN		BUSIO-3
+MICCH1POUT		BUSIO-4
+MICCH1NOUT		BUSIO-5
+MICCH1GNDOUT	BUSIO-6
+MICCH2PIN		BUSIO-7
+MICCH2NIN		BUSIO-8
+MICCH2GNDIN		BUSIO-9
+MICCH2POUT		BUSIO-10
+MICCH2NOUT		BUSIO-11
+MICCH2GNDOUT	BUSIO-12
+CANCH1PIN		BUSIO-13
+CANCH1NIN		BUSIO-14
+CANCH1GNDIN		BUSIO-15
+CANCH1POUT		BUSIO-16
+CANCH1NOUT		BUSIO-17
+CANCH1GNDOUT	BUSIO-18
+CANCH2PIN		BUSIO-19
+CANCH2NIN		BUSIO-20
+CANCH2GNDIN		BUSIO-21
+CANCH2POUT		BUSIO-22
+CANCH2NOUT		BUSIO-23
+CANCH2GNDOUT	BUSIO-24
+CDDITXD+PORTA	BUSIO-26
+CDDITXD-PORTA	BUSIO-27
+CDDIRXD+PORTA	BUSIO-28
+CDDIRXD-PORTA	BUSIO-29
+CDDIVCC1BYP		BUSIO-30
+CDDIVCC2BYP		BUSIO-31
+CDDISWSECRGBYP	BUSIO-32
+CDDISWPRIRGBYP	BUSIO-33
+CDDIGNDBYP		BUSIO-34
+CDDISWPRESBYP	BUSIO-35
+CDDITXD+PORTB	BUSIO-36
+CDDITXD-PORTB	BUSIO-37
+CDDIRXD+PORTB	BUSIO-38
+CDDIRXD-PORTB	BUSIO-39
+SECCH1RS232GND	BUSIO-41
+SECCH1RX-RS232	BUSIO-42
+SECCH1TX-RS232	BUSIO-43
+SECCH1GND		BUSIO-44
+SECCH1X21C/RTS	BUSIO-45
+SECCH1X21I/CTS	BUSIO-46
+SECCH1BUSY		BUSIO-47
+SECCH1PTT		BUSIO-48
+SECCH1CPTT		BUSIO-49
+SECCH1MUTE		BUSIO-50
+SECCH1TXD		BUSIO-51
+SECCH1TXD-		BUSIO-52
+SECCH1RXD		BUSIO-53
+SECCH1RXD-		BUSIO-54
+SECCH1RXC		BUSIO-55
+SECCH1RXC-		BUSIO-56
+SECCH1CTS-		BUSIO-57
+SECCH1DDMC		BUSIO-58
+SECCH1GNDSHLD	BUSIO-59
+SECCH1ADMC		BUSIO-60
+SECCH2ANLGTX	BUSIO-62
+SECCH2ANLGREF	BUSIO-63
+SECCH2ANLGRX	BUSIO-64
+SECCH2RX-RS232	BUSIO-65
+SECCH2TX-RS232	BUSIO-66
+SECCH2GND1		BUSIO-67
+SECCH2HOPIND	BUSIO-68
+SECCH2X21C/RTS	BUSIO-69
+SECCH2GND2		BUSIO-70
+SECCH2X21I/CTS	BUSIO-71
+SECCH2BUSY		BUSIO-72
+SECCH2PTT		BUSIO-73
+SECCH2CPTT		BUSIO-74
+SECCH2MUTE		BUSIO-75
+SECCH2TXD		BUSIO-76
+SECCH2RXD		BUSIO-77
+SECCH2RXC		BUSIO-78
+SECCH2DDMC		BUSIO-79
+SECCH2GNDSHLD	BUSIO-80
+SECCH2ADMC		BUSIO-81
+
+\\*** Instrument Controller Serial RS-232
+
+SIGNAL NAME		PIN
+ICRS232-NDCD	ICJ5-1
+ICRS232-NRXD	ICJ5-2
+ICRS232-NTXD	ICJ5-3
+ICRS232-NDTR	ICJ5-4
+ICRS232-GND		ICJ5-5
+ICRS232-NDSR	ICJ5-6
+ICRS232-NRTS	ICJ5-7
+ICRS232-NCTS	ICJ5-8
+ICRS232-NRI		ICJ5-9
+
+\\*** Instrument Controller Serial RS-422
+
+SIGNAL NAME		PIN
+ICRS422-TXD-	ICJ6-1
+ICRS422-TXD+	ICJ6-2
+ICRS422-RXD+	ICJ6-3
+ICRS422-RXD-	ICJ6-4
+ICRS422-GND		ICJ6-5
+
+\\*** Instrument Controller Programmable Serial (RS-232 Mode)
+
+SIGNAL NAME		PIN
+ICPSRS232-TD	ICJ10-2
+ICPSRS232-RD	ICJ10-3
+ICPSRS232-RTS	ICJ10-4
+ICPSRS232-CTS	ICJ10-5
+ICPSRS232-DSR	ICJ10-6
+ICPSRS232-GND	ICJ10-7
+ICPSRS232-DCD	ICJ10-8
+ICPSRS232-TXC	ICJ10-15
+ICPSRS232-RXC	ICJ10-17
+ICPSRS232-LL	ICJ10-18
+ICPSRS232-DTR	ICJ10-20
+ICPSRS232-RL	ICJ10-21
+ICPSRS232-TSET	ICJ10-24
+ICPSRS232-TM	ICJ10-25
+
+\\*** Instrument Controller Programmable Serial (RS-422 Mode)
+
+SIGNAL NAME		PIN
+ICPSRS422-TX-	ICJ10-2
+ICPSRS422-RX-	ICJ10-3
+ICPSRS422-RTS-	ICJ10-4
+ICPSRS422-CTS-	ICJ10-5
+ICPSRS422-DSR-	ICJ10-6
+ICPSRS422-GND	ICJ10-7
+ICPSRS422-DCD-	ICJ10-8
+ICPSRS422-RXC+	ICJ10-9
+ICPSRS422-DCD+	ICJ10-10
+ICPSRS422-TSET+	ICJ10-11
+ICPSRS422-TXC+	ICJ10-12
+ICPSRS422-CTS+	ICJ10-13
+ICPSRS422-TX+	ICJ10-14
+ICPSRS422-TXC-	ICJ10-15
+ICPSRS422-RX+	ICJ10-16
+ICPSRS422-RXC-	ICJ10-17
+ICPSRS422-LL	ICJ10-18
+ICPSRS422-RTS+	ICJ10-19
+ICPSRS422-DTR-	ICJ10-20
+ICPSRS422-RL	ICJ10-21
+ICPSRS422-DSR+	ICJ10-22
+ICPSRS422-DTR+	ICJ10-23
+ICPSRS422-TSET-	ICJ10-24
+
+\\*** Instrument Controller Programmable Serial (RS-485 Mode)
+
+SIGNAL NAME		PIN
+ICPSRS485-TX-	ICJ10-2
+ICPSRS485-RX-	ICJ10-3
+ICPSRS485-GND	ICJ10-7
+ICPSRS485-RXC+	ICJ10-9
+ICPSRS485-TSET+	ICJ10-11
+ICPSRS485-TXC+	ICJ10-12
+ICPSRS485-TX+	ICJ10-14
+ICPSRS485-TXC-	ICJ10-15
+ICPSRS485-RX+	ICJ10-16
+ICPSRS485-RXC-	ICJ10-17
+ICPSRS485-LL	ICJ10-18
+ICPSRS485-RL	ICJ10-21
+ICPSRS485-TSET-	ICJ10-24
+
+\\*** Instrument Controller Gigabit Ethernet
+
+SIGNAL NAME		PIN
+ICGIGPORT1		ICJ15-PORT1
+ICGIGPORT2		ICJ16-PORT2

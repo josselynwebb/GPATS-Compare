@@ -1,0 +1,50 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: fhdb - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Release/Script1.res" /d "NDEBUG" "E:\1200Source\Source\Core\Source\FHDB\FHDB_EXE\Source\Script1.rc"" 
+Creating temporary file "C:\DOCUME~1\chaffinr\LOCALS~1\Temp\RSP6B0.tmp" with contents
+[
+/nologo /ML /W4 /vmg /GX /I "../../../include" /I "g:/usr/tyx/include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Release/fhdb.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"E:\1200Source\Source\Core\Source\FHDB\FHDB_EXE\Source\error.cpp"
+"E:\1200Source\Source\Core\Source\FHDB\FHDB_EXE\Source\fhdbNam.cpp"
+"E:\1200Source\Source\Core\Source\FHDB\FHDB_EXE\Source\fhdbNamMain.cpp"
+"E:\1200Source\Source\Core\Source\FHDB\FHDB_EXE\Source\fillInDB.cpp"
+"E:\1200Source\Source\Core\Source\FHDB\FHDB_EXE\Source\insertFile.cpp"
+"E:\1200Source\Source\Core\Source\FHDB\FHDB_EXE\Source\utilities.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\chaffinr\LOCALS~1\Temp\RSP6B0.tmp" 
+Creating temporary file "C:\DOCUME~1\chaffinr\LOCALS~1\Temp\RSP6B1.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib oldnam.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/fhdb.pdb" /machine:I386 /out:"Release/fhdb.exe" /libpath:"../../../lib" /libpath:"g:/usr/tyx/lib" 
+.\Release\error.obj
+.\Release\fhdbNam.obj
+.\Release\fhdbNamMain.obj
+.\Release\fillInDB.obj
+.\Release\insertFile.obj
+.\Release\utilities.obj
+.\Release\Script1.res
+]
+Creating command line "link.exe @C:\DOCUME~1\chaffinr\LOCALS~1\Temp\RSP6B1.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+error.cpp
+fhdbNam.cpp
+fhdbNamMain.cpp
+fillInDB.cpp
+insertFile.cpp
+utilities.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+fhdb.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <schema targetNamespace="urn:atxml"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:atxml="urn:atxml"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="unqualified"
+  attributeFormDefault="unqualified">
+  <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+  <!-- operation request element -->
+  <element name="Initialize">
+   <complexType>
+    <sequence>
+     <element name="ProcType" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="ProcUuid" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="Pid" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="InitializeResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="Close">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="ProcUuid" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="Pid" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="CloseResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterInterUsed">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InterUsage" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterInterUsedResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RetrieveTpsData">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RetrieveTpsDataResponse">
+   <complexType>
+    <sequence>
+     <element name="TpsName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TpsVersion" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TpsFileName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="RecommendedAction" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterTSF">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TSFSignalDefinition" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TSFLibrary" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="STDTSF" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="STDBSC" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterTSFResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="ValidateRequirements">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TestRequirements" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="Allocation" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="ValidateRequirementsResponse">
+   <complexType>
+    <sequence>
+     <element name="Availability" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterRemoveSequence">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="RemoveSequence" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterRemoveSequenceResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="TestStationStatus">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="TestStationStatusResponse">
+   <complexType>
+    <sequence>
+     <element name="TestStationStatus" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterInstStatus">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InstStatus" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterInstStatusResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="RegisterTmaSelect">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TmaList" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="RegisterTmaSelectResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="SubmitUutId">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="UUT-Partnumber" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="UUT-Serialnumber" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TmaBufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="RaBufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="SubmitUutIdResponse">
+   <complexType>
+    <sequence>
+     <element name="Action" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="cTmaList" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TmaBufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="RecommendedActions" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueSignal">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="SignalDescription" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueSignalResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="QueryInterStatus">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="QueryInterStatusResponse">
+   <complexType>
+    <sequence>
+     <element name="InterStatus" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="InvokeRemoveAllSequence">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="InvokeRemoveAllSequenceResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueTestResults">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TestResults" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TPS-Status" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueTestResultsResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueTestResultsFile">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="TestResultsFile" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="TPS-Status" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueTestResultsFileResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueIst">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InstSelfTest" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueIstResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueNativeCmds">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="InstrumentCmds" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueNativeCmdsResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="IssueDriverFunctionCall">
+   <complexType>
+    <sequence>
+     <element name="Handle" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+     <element name="DriverFunction" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="BufferSize" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="IssueDriverFunctionCallResponse">
+   <complexType>
+    <sequence>
+     <element name="Response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+   </complexType>
+  </element>
+ </schema>
+

@@ -1,0 +1,18 @@
+ <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+    
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == ''">Release</Configuration>
+        <AssemblyName>NetConfigNAM</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <MyReleaseFiles Include="NetConfigNAM\bin\Release\*.*" Exclude=".\bin\Release\*vshost.exe" />
+        <Compile Include="NetConfigNAM\NetConfigNAM.csproj" />
+    </ItemGroup>
+
+    <Target Name="Build">
+        <Message Text="Building $(AssemblyName) $(Configuration)" />
+        <MSBuild Projects="NetConfigNAM\NetConfigNAM.csproj" Targets="Build" />
+    </Target>
+
+ </Project>

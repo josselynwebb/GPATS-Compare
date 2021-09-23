@@ -1,0 +1,8 @@
+Declare Function aps6062_init& Lib "aps6062_32.dll" ( ByVal x1$, ByVal x2%, ByVal x3%, x4&)
+Declare Function aps6062_writeInstrData& Lib "aps6062_32.dll" ( ByVal x1&, ByVal x2$)
+Declare Function aps6062_readInstrData& Lib "aps6062_32.dll" ( ByVal x1&, ByVal x2%, ByVal x3$, x4&)
+Declare Function aps6062_reset& Lib "aps6062_32.dll" ( ByVal x1&)
+Declare Function aps6062_selfTest& Lib "aps6062_32.dll" ( ByVal x1&, x2%, ByVal x3$)
+Declare Function aps6062_errorQuery& Lib "aps6062_32.dll" ( ByVal x1&, x2&, ByVal x3$)
+Declare Function aps6062_errorMessage& Lib "aps6062_32.dll" ( ByVal x1&, ByVal x2&, ByVal x3$)
+Declare Function aps6062_close& Lib "aps6062_32.dll" ( ByVal x1&)

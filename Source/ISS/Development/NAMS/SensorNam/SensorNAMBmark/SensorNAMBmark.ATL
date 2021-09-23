@@ -1,0 +1,63 @@
+ 000100 BEGIN, ATLAS PROGRAM 'NAM_DEMO' $
+C Demo program using all of the following Non-ATLAS module software:           $
+C 			SensorNam.exe	-	NAM for RF Power Meter         $
+
+C       NON-ATLAS MODULE INCLUDE STATEMENTS $
+ 000125 INCLUDE, NON-ATLAS MODULE 'SENSORNAM' $
+
+ 000460  DECLARE, VARIABLE, 'RETURN_STATUS' IS INTEGER $
+C APP NOTE - RETURN_STATUS IS A RETURN VALUE CONTAINING A INTEGER $
+C            VALUE DETAILING THE STATUS OF THE BURST. $
+
+ 000465 DECLARE, VARIABLE, 'RETURN_STRING' IS STRING (499) OF CHAR $
+
+C ******************************************************************************$
+C ***                       BEGIN PROCEDURE DEFINITIONS                      ***$
+C ******************************************************************************$
+ 003000  DEFINE, 'CLRSCR', PROCEDURE	$
+		OUTPUT, C' \LF\\LF\\LF\\LF\\LF\\LF\\LF\ \LF\
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\' $
+	   END, 'CLRSCR'		$
+
+E100000		PERFORM, 'CLRSCR' $
+        	OUTPUT, C'SensorNAM.EXE DEMO' $
+        	OUTPUT, C'==================' $
+		  
+        	OUTPUT, C'\LF\', C'PERFORMING SensorNAM ..............' $
+        	OUTPUT, C'\LF\', C'Connect the 8481A Sensor to the Power Meter Ref output.' $
+		PERFORM, 'SENSORNAM' (C'GET_SN_HP8481A','RETURN_STATUS','RETURN_STRING') $
+		OUTPUT, C' '  $
+		OUTPUT, C'RETURN STATUS: ', 'RETURN_STATUS' $
+		OUTPUT, C'RETURN_STRING: ', 'RETURN_STRING' $
+		OUTPUT, C'Install HP8481A power sensor S/N ','RETURN_STRING', 
+		  C' onto RF POWER METER POWER REF jack.' $
+		INPUT, GO-NOGO $
+
+  		PERFORM, 'SENSORNAM' (C'CAL_HP8481A', 'RETURN_STATUS', 'RETURN_STRING') $
+		OUTPUT, C' '  $
+		OUTPUT, C'RETURN STATUS: ', 'RETURN_STATUS' $
+		OUTPUT, C'RETURN_STRING: ', 'RETURN_STRING' $
+
+		PERFORM, 'SENSORNAM' (C'GET_SN_HP8481D','RETURN_STATUS','RETURN_STRING') $
+		OUTPUT, C' '  $
+		OUTPUT, C'RETURN STATUS: ', 'RETURN_STATUS' $
+		OUTPUT, C'RETURN_STRING: ', 'RETURN_STRING' $
+		OUTPUT, C'Install HP8481D power sensor S/N ','RETURN_STRING', 
+		  C' onto RF POWER METER POWER REF jack with the 30 dB Reference Attenuator.' $
+		INPUT, GO-NOGO $
+
+  		PERFORM, 'SENSORNAM' (C'CAL_HP8481D', 'RETURN_STATUS',  'RETURN_STRING') $
+		OUTPUT, C' '  $
+		OUTPUT, C'RETURN STATUS: ', 'RETURN_STATUS' $
+		OUTPUT, C'RETURN_STRING: ', 'RETURN_STRING' $
+
+        	OUTPUT, C'\LF\', C'Performing ZERO.' $
+		PERFORM, 'SENSORNAM' (C'ZERO', 'RETURN_STATUS', 'RETURN_STRING') $
+		OUTPUT, C'RETURN STATUS: ', 'RETURN_STATUS' $
+		OUTPUT, C'RETURN_STRING: ', 'RETURN_STRING' $
+
+		OUTPUT, C'COMPLETE' $
+			
+		INPUT, GO-NOGO $
+
+ 999999 TERMINATE, ATLAS PROGRAM 'NAM_DEMO' $

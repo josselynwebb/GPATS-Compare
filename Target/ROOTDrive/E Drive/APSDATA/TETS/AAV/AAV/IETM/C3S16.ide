@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY fig3-40 SYSTEM "./graphics/fig3-40.pic" NDATA FAXTILE>
+<!ENTITY fig3-41 SYSTEM "./graphics/fig3-41.pic" NDATA FAXTILE>
+<!ENTITY fig3-42 SYSTEM "./graphics/fig3-42.pic" NDATA FAXTILE>
+<!ENTITY fig3-43 SYSTEM "./graphics/fig3-43.pic" NDATA FAXTILE>
+<!ENTITY fig3-44 SYSTEM "./graphics/fig3-44.pic" NDATA FAXTILE>
+<!ENTITY ita-sch-1 SYSTEM "./graphics/ITA/SCHEM/ita_sch_1.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S16" LABEL="XVI"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\INTERFACE_TEST_ADAPTER\ITA_05005A1000\TP_AAV_ITA.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ITA/ASSY/ITA_1.PIC' ?><?BUTTON POS='3' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section XVI. ITA, P/N 05005A1000" previous="./c3s15.ide!C3S15a" image="./graphics/fig1-1A.pic -T 'Figure 1-1. AN/PSM-115 APS Contents (Sheet 1 of 2)'"?><?TOCENTRY TITLE="SECTION XVI. Theory of Operation for the ITA, P/N 05005A1000" TOCLEVEL="2" LABEL="XVI"?>
+<TITLE>SECTION XVI. Theory of Operation for the ITA, P/N 05005A1000</TITLE>
+<PARA0 ID="P3-16" LABEL="3.16"><?TOCENTRY TITLE="3.16 ITA Theory of Operation" TOCLEVEL="3"?>
+<TITLE>ITA Theory of Operation</TITLE>
+<PARA>The primary purpose of any TPH is to provide an electrical and mechanical interface between the Automatic Test Equipment (ATE) and a specific set of UUTs. A secondary purpose of the TPH is to host any devices used to supplement the ATE if necessary to perform the required tests. Typically, such devices are load resistors, additional switches, unique signal sources, resource expansion devices or signal interfacing devices among others. The only devices added to the AAV TPH are one potentiometer (1R1) and 16 resistors (1R2-1R6 and 1A1R1-1A1R11).</PARA>
+<PARA>The AAV TPH supports 14 TPSs. These 14 TPSs support the maintenance of three LRU UUTs and 11 CCA UUTs. The 11 CCAs are subassemblies of the three LRUs. Throughout this document, UUTs will sometimes be referred to by reference designators composed of a three-letter mnemonic representing the associated LRU followed by "LRU" for LRUs and by the actual reference designator for CCAs. <XREF XREFID="TABLE3-17" XIDTYPE="TABLE">Table 3-19</XREF> lists these reference designators and illustrates the LRU to subordinate CCA relationships.</PARA>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-17" LABEL="3-19">
+<TITLE>UUT Reference Designators</TITLE>
+<TGROUP COLS="4">
+<COLSPEC COLNAME="COL1" COLWIDTH=".7in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.7in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".4in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.5in" ALIGN="LEFT"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Ref Des</ENTRY>
+<ENTRY ALIGN="CENTER">UUT Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">UUT Type</ENTRY>
+<ENTRY ALIGN="CENTER">UUT PN</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>DDM LRU</ENTRY>
+<ENTRY>Driver's Display Module</ENTRY>
+<ENTRY>LRU</ENTRY>
+<ENTRY>5429249</ENTRY></ROW>
+<ROW>
+<ENTRY>DDM A1</ENTRY>
+<ENTRY>Display Board</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>5428412</ENTRY></ROW>
+<ROW>
+<ENTRY>DDM A2</ENTRY>
+<ENTRY>Signal Conditioner</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>5429427, 5428551</ENTRY></ROW>
+<ROW>
+<ENTRY>DDM A3</ENTRY>
+<ENTRY>Power Supply</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>6227570, 5429442</ENTRY></ROW>
+<ROW>
+<ENTRY>CON LRU</ENTRY>
+<ENTRY>Controller C-10879/MSQ-115</ENTRY>
+<ENTRY>LRU</ENTRY>
+<ENTRY>2618506-1</ENTRY></ROW>
+<ROW>
+<ENTRY>CON A1</ENTRY>
+<ENTRY>CVSD Input/Output</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618587-1</ENTRY></ROW>
+<ROW>
+<ENTRY>CON A3</ENTRY>
+<ENTRY>Control Input/Output</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618572-1</ENTRY></ROW>
+<ROW>
+<ENTRY>CON A4</ENTRY>
+<ENTRY>6802 Computer</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618567-2</ENTRY></ROW>
+<ROW>
+<ENTRY>CON A6</ENTRY>
+<ENTRY>DPCM Assembly</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618582-1</ENTRY></ROW>
+<ROW>
+<ENTRY>CON A7</ENTRY>
+<ENTRY>Conference Accumulator</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618577-1, 656-3766-001</ENTRY></ROW>
+<ROW>
+<ENTRY>ICS LRU</ENTRY>
+<ENTRY>Intercommunication Set</ENTRY>
+<ENTRY>LRU</ENTRY>
+<ENTRY>(V)1 2618500-1, (V)2, (V)3</ENTRY></ROW>
+<ROW>
+<ENTRY>ICS A1</ENTRY>
+<ENTRY>CVSD Encoder/Decoder</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618553-1</ENTRY></ROW>
+<ROW>
+<ENTRY>ICS A4</ENTRY>
+<ENTRY>Control Encode/Decode</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618541-1</ENTRY></ROW>
+<ROW>
+<ENTRY>ICS A5</ENTRY>
+<ENTRY>Power Amplifier</ENTRY>
+<ENTRY>CCA</ENTRY>
+<ENTRY>2618547-1</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="GENC3280" LABEL="3.16.1"><?TOCENTRY TITLE="3.16.1 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<PARA><?hotspot linktype="picture" href="./graphics/fig3-40.pic"?>Figure 3-40<?endhotspot?> is the TPH Functional Block Diagram. The TPH performs as an electrical interface between the test station and the UUTs in two ways: 1) it provides direct connections and 2) it interconnects the ATE switch elements to create a switching configuration that is maximized to allow access between ATE resources and all UUT pins that require those resources. </PARA>
+<FIGURE ID="FIG3-40" LABEL="3-40">
+<TITLE>TPH Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/fig3-40.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<PARA><?hotspot linktype="picture" href="./graphics/fig3-40.pic"?>Figure 3-40<?endhotspot?> illustrates the connections of all 14 UUTs by connector to the ITA connectors through all TPH hardware (test cables W1-W10 and connector adapters CP1-CP2). It also shows the used-pin counts of each TPH external connector. <?hotspot linktype="picture" href="./graphics/fig3-40.pic"?>Figure 3-40<?endhotspot?> shows that the 811 unique UUT pin connections have been consolidated down to 612 by reusing external ITA connectors and test cables.</PARA>
+<PARA>Most ATE pins from the ITA Receiver Frame (P1-P23) are connected to the A1 Motherboard. Sixteen of the coaxial pins are connected directly to other ATE pins, rather than being connected to and routed through the motherboard. The motherboard routes some of the ATE pins directly to UUT-mating connectors (J5-J8) and test cable connectors (J1-J4) on the ITA Top Plate and Front Panel. Refer to <?hotspot linktype="picture" href="./graphics/fig3-41.pic"?>Figure 3-41<?endhotspot?>, "ITA Motherboard Functional Block Diagram". The direct connections to UUT pins are mostly from PPU supplies, DTS channels, switch matrix rows and other switching elements.  The other ATE pin connections are mostly from instruments and switching elements. These connections are routed in the motherboard to create the unique switching configuration required for the suite of UUTs supported by the AAV APS.</PARA>
+<FIGURE ID="FIG3-41" LABEL="3-41">
+<TITLE>ITA Motherboard Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/fig3-41.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<PARA><?hotspot linktype="picture" href="./graphics/fig3-41.pic"?>Figure 3-41<?endhotspot?> identifies the motherboard connectors and the 64- and 96-pin ITA module connectors. The pin counts shown in each path are used pins. In some cases standard ribbon cables are used where not all conductors in the cable are used. <?hotspot linktype="picture" href="./graphics/fig3-41.pic"?>Figure 3-41<?endhotspot?> employs a matrix scheme to show the connections between connectors. When there are connections between connectors, a box is placed over the matrix intersection showing the number of conductors. This shows the general distribution of signal routing within the motherboard and makeup of four pseudo matrices.</PARA>
+<PARA>The ITA motherboard routing was designed to configure the test station switch elements into a matrix named "Instrument Matrix" and three UUT pin matrices given pseudo names M1, M2 and M3. The Instrument Matrix is illustrated in <?hotspot linktype="picture" href="./graphics/fig3-42.pic"?>Figure 3-42<?endhotspot?>. This matrix shows all non-digital instrument connections, some of the PPU connections and some of the custom definition connections. Each UUT Matrix is described below and illustrated in <?hotspot linktype="picture" href="./graphics/fig3-43.pic"?>Figure 3-43<?endhotspot?>, "UUT Matrices". <?hotspot linktype="picture" href="./graphics/fig3-43.pic"?>Figure 3-43<?endhotspot?> also shows the mapping between the pseudo matrix numbers and the logical test station switch numbers.</PARA>
+<PARA>* M1 - 2x48 matrix composed of S201 and S202.</PARA>
+<PARA>* M2 - 2x64 matrix composed of S503 through S510</PARA>
+<PARA>* M3 - 1x32 matrix composed of S701 and S751</PARA>
+<FIGURE ID="FIG3-42" LABEL="3-42">
+<TITLE>Instrument Matrix</TITLE><?hotspot linktype="picture" href="./graphics/fig3-42.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<FIGURE ID="FIG3-43" LABEL="3-43">
+<TITLE>UUT Matrices</TITLE><?hotspot linktype="picture" href="./graphics/fig3-43.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE><?FRAME id="c3s16b" title="Chapter 3. Theory of Operation, Section XVI. ITA, P/N 05005A1000 Cont'd" image="./graphics/fig1-1A.pic -T 'Figure 1-1. AN/PSM-115 APS Contents (Sheet 1 of 2)'"?>
+<PARA>The Instrument Matrix and the three UUT Matrices are connected together with four Test Busses, given the pseudo names B1, B2, B3, and B4. <?hotspot linktype="picture" href="./graphics/fig3-41.pic"?>Figure 3-41<?endhotspot?>, <?hotspot linktype="picture" href="./graphics/fig3-42.pic"?>Figure 3-42<?endhotspot?> and <?hotspot linktype="picture" href="./graphics/fig3-43.pic"?>Figure 3-43<?endhotspot?> refer to these Test Busses to show how all the matrices are connected together.</PARA>
+<PARA><?hotspot linktype="picture" href="./graphics/fig3-44.pic"?>Figure 3-44<?endhotspot?>, "UUT Custom and PPU Wiring" illustrates and documents other load resistor, switch element and power supply connections to UUT pins.</PARA>
+<FIGURE ID="FIG3-44" LABEL="3-44">
+<TITLE>UUT Custom and PPU Wiring</TITLE><?hotspot linktype="picture" href="./graphics/fig3-44.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<PARA>In addition to providing interconnections, the ITA hosts all required additional components. These are listed in <XREF XREFID="TABLE3-18" XIDTYPE="TABLE">Table 3-20</XREF>.</PARA>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-18" LABEL="3-20">
+<TITLE>ITA Components</TITLE>
+<TGROUP COLS="4">
+<COLSPEC COLNAME="COL1" COLWIDTH=".425in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.8in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".825in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.25in" ALIGN="LEFT"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Ref Des</ENTRY>
+<ENTRY ALIGN="CENTER">Component</ENTRY>
+<ENTRY ALIGN="CENTER">Purpose</ENTRY>
+<ENTRY ALIGN="CENTER">Using UUT(s)</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>R1</ENTRY>
+<ENTRY>Potentiometer, 10-Turn, 1K Ohm</ENTRY>
+<ENTRY>Stimulus</ENTRY>
+<ENTRY>DDM LRU, DDM A2</ENTRY></ROW>
+<ROW>
+<ENTRY>R2</ENTRY>
+<ENTRY>Resistor, 6 Ohms, 50W, 1%</ENTRY>
+<ENTRY>3 Ohm Load</ENTRY>
+<ENTRY>CON LRU</ENTRY></ROW>
+<ROW>
+<ENTRY>R3</ENTRY>
+<ENTRY>Resistor, 6 Ohms, 50W, 1%</ENTRY>
+<ENTRY>3 Ohm Load</ENTRY>
+<ENTRY>CON LRU</ENTRY></ROW>
+<ROW>
+<ENTRY>R4</ENTRY>
+<ENTRY>Resistor, 10 Ohm, 50W, 1%</ENTRY>
+<ENTRY>Load-Sink</ENTRY>
+<ENTRY>ICS A5</ENTRY></ROW>
+<ROW>
+<ENTRY>R5</ENTRY>
+<ENTRY>Resistor, 60 Ohm, 12.5W, 5%</ENTRY>
+<ENTRY>Load-Sink</ENTRY>
+<ENTRY>DDM A3</ENTRY></ROW>
+<ROW>
+<ENTRY>R6</ENTRY>
+<ENTRY>Resistor, 4K Ohm, 12.5W, 1%</ENTRY>
+<ENTRY>Divider / Load</ENTRY>
+<ENTRY>DDM A1, DDM A3</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R1</ENTRY>
+<ENTRY>Resistor, 18 Ohm, 3W, 5%</ENTRY>
+<ENTRY>Load-Sink</ENTRY>
+<ENTRY>DDM A3</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R2</ENTRY>
+<ENTRY>Resistor, 120 Ohm, 3W, 5%</ENTRY>
+<ENTRY>Load-Sink</ENTRY>
+<ENTRY>DDM A3</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R3</ENTRY>
+<ENTRY>Resistor, 150 Ohm, 1/4W, 1%</ENTRY>
+<ENTRY>Load-Sink</ENTRY>
+<ENTRY>ICS LRU, ICS A1</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R4</ENTRY>
+<ENTRY>Resistor, 600 Ohm, 1W, 1%</ENTRY>
+<ENTRY>Load-Sink / Source</ENTRY>
+<ENTRY>ICS LRU, ICS A4, ICS A5</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R5</ENTRY>
+<ENTRY>Resistor, 1K Ohm, 1/4W, 5%</ENTRY>
+<ENTRY>Stimulus</ENTRY>
+<ENTRY>DDM LRU, DDM A2</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R6</ENTRY>
+<ENTRY>Resistor, 1K Ohm, 3W, 1%</ENTRY>
+<ENTRY>Divider / Load</ENTRY>
+<ENTRY>DDM A1, DDM A3</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R7</ENTRY>
+<ENTRY>Resistor, 2K Ohm, 1/2W, 5%</ENTRY>
+<ENTRY>Load-Source</ENTRY>
+<ENTRY>DDM LRU, DDM A2, DDM A3</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R8</ENTRY>
+<ENTRY>Resistor, 12.1K Ohm, 1/4W, 1%</ENTRY>
+<ENTRY>Stimulus</ENTRY>
+<ENTRY>ICS A5</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R9</ENTRY>
+<ENTRY>Resistor, 20K Ohm, 1/4W, 1%</ENTRY>
+<ENTRY>Divider</ENTRY>
+<ENTRY>ICS LRU</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R10</ENTRY>
+<ENTRY>Resistor, 1.5M Ohm, 1/4W, 1%</ENTRY>
+<ENTRY>9M Ohm 10X Scope</ENTRY>
+<ENTRY>ICS LRU</ENTRY></ROW>
+<ROW>
+<ENTRY>A1R11</ENTRY>
+<ENTRY>Resistor, 7.5M Ohm, 1/4W, 1%</ENTRY>
+<ENTRY>Input Divider</ENTRY>
+<ENTRY>ICS LRU</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<PARA>The series combination of potentiometer R1 and resistor A1R5 is used to provide multiple precise resistive stimuli to multiple UUT pins in the range of 1,210 to 1,824 ohms to ground. This is accomplished by connecting R1 to the Instrument Matrix thus providing it as an available resource to the M1, M2 and M3 UUT matrices. At TPS run-time, R1 is switched to the desired UUT pin simultaneously with the DMM.  An ATLAS Monitor statement is executed and the test operator is instructed to adjust R1 to the desired value +/-2 ohms. This scheme will reduce error introduced by the normal resistance of the test station switches, which can vary from test station to test station and over time. </PARA>
+<PARA>The parallel combination of load resistors R2 and R3 provides a 3-ohm, up to 100-watt load used to test the Controller LRU +15 VDC power supply output.</PARA>
+<PARA>Resistors R4, R5, A1R1 and A1R2 are individual loads dedicated to specific UUT pins.</PARA>
+<PARA>The series combination of R6 and A1R6 provides two functions: </PARA>
+<PARA>1) It is the 5 K-ohm load required for the 250 VDC output of DDM A3 pin J2-1. </PARA>
+<PARA>2) It is a voltage divider needed to lower the 250 VDC output from DDM A3 J2-1 and the 250 VDC input to DDM A1 pin C-56 to a safe switching level below 110 VDC that can be switched to the DMM for measurement.</PARA><?FRAME id="c3s16c" title="Chapter 3. Theory of Operation, Section XVI. ITA, P/N 05005A1000 Cont'd" next="./c4S01.ide!C4S01" image="./graphics/FIG1-1A.pic -T 'Figure 1-1. DDM, MSQ-115 and the AN/MIQ-1 APS Contents'"?>
+<PARA>Resistors A1R3, A1R4 and A1R7 are sink/source loads connected to the Instrument Matrix to satisfy testing requirements for seven UUTs on a number of UUT pins. Resistor A1R3 is used only as a load-sink and is therefore connected to ITA ground. Resistor A1R7 is used only as a load-source and is therefore connected to a PPU supply that is set to the required pull-up voltage at TPS run-time. Resistor A1R4 is used both as a load-sink and a load-source at different times and is therefore connected to a switched ITA ground via S301-33/34 and to a PPU supply. When A1R4 is needed as a load-source, S301-33/34 is left open and the PPU supply is applied. When A1R4 is needed as a load-sink, S301-33/34 is closed and the PPU supply is left in its reset state where its output relays are open. </PARA>
+<PARA>The parallel combination of resistor A1R8 and test station switch S301-5/6 connected across UUT pins ICS A5 P6-5 and P6-10 is used in the Dimmer Test for the Power Amplifier UUT (ICS A5). The test requirement is to turn an unidentified dimmer control fully CW and then fully CCW, making a measurement and test at both adjustment points. The closing of S301-5/6 simulates the fully CCW position of 0 ohms while the 12.1 K-ohm resistance of A1R8 simulates the fully CW position. Refer to section 11.2 in TSR-05005014-TETS to see how the value of 12.1 K-ohms was reverse-engineered based on the tested output voltage using a formula from the UUT component data sheet.</PARA>
+<PARA>The 20 K-ohm resistor A1R9 is used in series with the test station FG 50-ohm output resistor and the UUT input impedance to divide down the FG signal. This is necessary to achieve a signal level required by the ICS LRU CVSD 1 Tests that is lower than the FG can directly output. At TPS run-time, the DMM will be simultaneously switched to the same UUT input pin to verify the required input signal level to the UUT.</PARA>
+<PARA>The series combination of A1R10 and A1R11 creates a 9 M-ohm input resistor to the DSO. When used in combination with the 1 M-ohm input of the DSO, this provides a 10:1 voltage divider as a standard 10x oscilloscope probe does. This is necessary to measure UUT signals higher than 40 Vp-p.</PARA></SUBPARA1>
+<SUBPARA1 ID="P3-16.1" LABEL="3.16.2"><?TOCENTRY TITLE="3.16.2 Wiring Diagram" TOCLEVEL="4"?>
+<TITLE>Wiring Diagram</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/ITA/SCHEM/ita_sch_1.pic"?>Figure 3-45<?endhotspot?> for the wiring diagram for the TPH.</PARA>
+<FIGURE ID="ITA-SCH-1" LABEL="3-45">
+<TITLE>AAV ITA Wiring Diagram</TITLE><?hotspot linktype="picture" href="./graphics/ITA/SCHEM/ita_sch_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1>
+<SUBPARA1 ID="P3-16.2" LABEL="3.16.3"><?TOCENTRY TITLE="3.16.3 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><EXTREF DOCNO="C6S01" XREFID="./C6S01.ide!C6" XIDTYPE="CHAPTER">Chapter 6</EXTREF> list all repair parts available for the ITA.</PARA></SUBPARA1></PARA0></SECTION>

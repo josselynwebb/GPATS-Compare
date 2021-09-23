@@ -1,0 +1,26 @@
+ 000001 Begin, Atlas Program 'ArbNamTest' $
+        Include, Non-Atlas Module 'ARBNAM'  $
+		Declare, Variable, 'Return_Value' is integer;
+		'Return_String' is string (499) of Char   $
+
+	declare, variable, 'DateString' is string (17) of char $
+	declare, variable, 'TIME' is 'TIME-DATE-REC'  $
+
+
+E000002 OUTPUT, C'Testing the ARBNAM Runtime - Press Enter to run ARBNAM.' $
+        INPUT, GO-NOGO $
+     	calculate, 'DateString' = time-date('TIME') $
+	Output, C'Time before ARBNAM (HH:MM:SS): ','TIME'.'TD-HOUR', C':', 'TIME'.'TD-MIN', C':', 'TIME'.'TD-SEC' $
+	Perform, 'ARBNAM'(C'chint1a.Arb', 'Return_Value', 'Return_String')  $
+	Output, C'Return_Value = ','Return_Value'  $
+	Output, C'Return_String = ','Return_String'  $
+	Output, C' ' $
+     	calculate, 'DateString' = time-date('TIME') $
+	Output, C'Time after ARBNAM (HH:MM:SS): ','TIME'.'TD-HOUR', C':', 'TIME'.'TD-MIN', C':', 'TIME'.'TD-SEC' $
+	Output, C' ' $
+	OUTPUT, C'ARBNAM Finished - Press Enter to terminate ARBNAM.' $
+	INPUT, GO-NOGO $
+	Perform, 'ARBNAM'(C'REMOVE', 'Return_Value', 'Return_String')  $
+	Output, C'Return_Value = ','Return_Value'  $
+	Output, C'Return_String = ','Return_String'  $
+ 999999 Terminate, Atlas Program 'ArbNamTest' $

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY fig4-14 SYSTEM "./graphics/fig4-14.pic" NDATA FAXTILE>
+<!ENTITY fig4-15 SYSTEM "./graphics/fig4-15.pic" NDATA FAXTILE>
+<!ENTITY fig4-16 SYSTEM "./graphics/fig4-16.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S06" LABEL="VI"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE  E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\CONTROLLER_LRU_2618506-1\TP_AAV_CON_LRU.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s06.ide!c3s06'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./CON_LRU.ide!5-6a'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_LRU/ASSY/CON_LRU_1.pic' ?><?BUTTON POS='5' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/CON_LRU/SCHEM/CON_LRU_FBD.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1" previous="./c4s05.ide!c4s05c"?><?TOCENTRY TITLE="SECTION VI. Test Program Instructions for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1" TOCLEVEL="2" LABEL="VI"?>
+<TITLE>SECTION VI. Test Program Instructions for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1</TITLE>
+<PARA0 ID="P4-6" LABEL="4.6"><?TOCENTRY TITLE="4.6 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the Controller C-10879/MSQ-115 LRU, P/N 2618506-1.</PARA>
+<SUBPARA1 ID="P4-6.1" LABEL="4.6.1"><?TOCENTRY TITLE="4.6.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-9" LABEL="4-9">
+<TITLE>Test Station Instrumentation Required to Test
+<BRK/> the Controller C-10879/MSQ-115 LRU, P/N 2618506-1.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5.50in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Function Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">LF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Test Instrument</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-6.2" LABEL="4.6.2"><?TOCENTRY TITLE="4.6.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-10" LABEL="4-10">
+<TITLE>TPS Equipment Required to Test
+<BRK/> the Controller C-10879/MSQ-115 LRU, P/N 2618506-1.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3.5in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.5in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">Part Number</ENTRY>
+<ENTRY ALIGN="CENTER">Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">AAV Interface Test Adapter</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1000</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W1</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0101</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W2</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0102</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W3</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0103</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W4</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0104</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, W5</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0105</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">PWA, Controller XA5 Adapter, CP2</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1045</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cover, Connectors, ITA</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1006</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-6.3" LABEL="4.6.3"><?TOCENTRY TITLE="4.6.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s06b" title="Chapter 4. Test Program Instructions, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd"?>
+<SUBPARA1 ID="P4-6.4" LABEL="4.6.4"><?TOCENTRY TITLE="4.6.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-6.5" LABEL="4.6.5"><?TOCENTRY TITLE="4.6.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<CAUTION>
+<PARA>For your safety, note that the LRU to be tested has a weight of approximately 71.5lbs. Per MIL-STD-1472F, this restricts the lifting of this LRU to a "Two Person Lift" (88 lbs) or a "One Man Lift" (87 lbs).</PARA></CAUTION>
+<CAUTION>
+<PARA>The UUT contains components that are subject to damage from electrostatic discharge (ESD). When handling the UUT or its CCAs, a grounded wrist strap must be used. <GRAPHIC BOARDNO="esd"/></PARA></CAUTION>
+<PARA>Refer to <EXTREF DOCNO="C2S02" XREFID="./C2S02.ide!P2-2.2.2" XIDTYPE="PARA">Paragraph 2.2.2.2, ESD Damage Prevention</EXTREF> for proper handling requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-6.6" LABEL="4.6.6"><?TOCENTRY TITLE="4.6.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>21.0 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-6.7" LABEL="4.6.7"><?TOCENTRY TITLE="4.6.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-6.8" LABEL="4.6.8"><?TOCENTRY TITLE="4.6.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<CAUTION>
+<PARA>For your safety and for the safety of test station, the TPH and the LRU, a safety cover for ITA J5 thru J8 is provided. This cover must be installed during operation of the TPS. Setup instructions for this cover are included in the TPS setup instructions which can be accessed by selecting 96 from the TPS main menu. A warning will also be provided prior to the first power up cycle.</PARA></CAUTION>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<STEP1 ID="P4-6.81" LABEL="a">
+<PARA>Prior to executing the Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Test Program, install ITA P/N 05005A1000 onto the test station receiver. </PARA></STEP1>
+<STEP1 ID="P4-6.82" LABEL="b">
+<PARA>Load the test program for the Controller C-10879/MSQ-115 LRU into the ATLAS Run-Time System (RTS). When the RTS State field of the RTS front panel displays 'READY', the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-6.83" LABEL="c">
+<PARA>***OPERATOR ACTION***: Initiate the test program by selecting 'Run' from the RTS 'Run' menu.</PARA></STEP1>
+<STEP1 ID="P4-6.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-14.pic"?>Figure 4-14<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-14" LABEL="4-14">
+<TITLE>Test Program Information Controller C-10879/MSQ-115 LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-14.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-6.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-15.pic"?>Figure 4-15<?endhotspot?>) is displayed which identifies the UUT fault states which are non-detectable and untested by the test program.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-15" LABEL="4-15">
+<TITLE>Nondetectable/Untested Faults Controller C-10879/MSQ-115 LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-15.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-6.86" LABEL="f">
+<PARA>The test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-16.pic"?>Figure 4-16<?endhotspot?>) is displayed. From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-8) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM and (98) Exit Testing.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-16" LABEL="4-16">
+<TITLE>Test Program Main Menu Controller C-10879/MSQ-115 LRU</TITLE><?hotspot linktype="picture" href="./graphics/fig4-16.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-6.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-6.88" LABEL="h">
+<PARA>The operator is instructed to install the safety cover over ITA J5-J8, NOMENCLATURE: COVER, CONNECTORS, ITA P/N: 05005A1006.</PARA></STEP1>
+<STEP1 ID="P4-6.89" LABEL="i">
+<PARA>The operator is instructed to place the LRU right side up on the workbench with the back panel facing the end user so that the connectors J1 through J16 are accessible.</PARA></STEP1>
+<STEP1 ID="P4-6.810" LABEL="j">
+<PARA>The operator is instructed to connect Test Cable W3-P2 to LRU-J14; W3-P3 to LRU-J15; W3-J4 to LRU-J16; and W2-P1 to ITA-J3.</PARA></STEP1>
+<STEP1 ID="P4-6.811" LABEL="k">
+<PARA>The operator is instructed to connect Test Cable W2-P2 to LRU-J10; W2-P3 to LRU-J11; W2-J4 to LRU-J12; W2-J5 to LRU-J13; and W2-P1 to ITA-J2.</PARA></STEP1>
+<STEP1 ID="P4-6.812" LABEL="l">
+<PARA>The operator is instructed to connect Test Cable W1-P1 to LRU-J1; W1-P2 to LRU-J2; W1-J3 to LRU-J3; W1-J4 to LRU-J4; W1-J5 to LRU-J5; W1-J6 to LRU-J6; W1-J7 to LRU-J7; W1-J8 to LRU-J8; W1-J9 to LRU-J9; and W1-P10 to ITA-J1.</PARA></STEP1>
+<STEP1 ID="P4-6.813" LABEL="m">
+<PARA>The operator is instructed to loosen all screws which secure the top cover of the LRU and remove the top cover. Install the PWA, Controller XA5 Adapter, CP2, P/N 05005A1045 in the empty A5 Slot of the LRU.</PARA></STEP1>
+<STEP1 ID="P4-6.814" LABEL="n">
+<PARA>The operator is instructed to connect Test Cable W4-P2 to Test Card Assembly (CP2; W4-TP1 to LRU A6-TP4; and W4-P1 to ITA-J4.</PARA></STEP1><?FRAME id="c4s06c" title="Chapter 4. Test Program Instructions, Section VI. Controller C-10879/MSQ-115 LRU, P/N 2618506-1 Cont'd" next="./c4s07.ide!c4s07"?>
+<STEP1 ID="C4S06C15" LABEL="o">
+<PARA>The operator is instructed to position the LRU with the heat sink down on the workbench. The operator is then instructed to orient the LRU so that the front panel faces the operator and so that the indicators and controls are accessible.</PARA></STEP1>
+<STEP1 ID="C4S06C16" LABEL="p">
+<PARA>The operator is instructed to connect Test Cable W5 from the LRU ground lug to the ITA ground lug.</PARA></STEP1>
+<STEP1 ID="C4S06C17" LABEL="q">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION***: Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S06C18" LABEL="r">
+<PARA>The display prompts the operator to enter the UUT serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S06C19" LABEL="s">
+<PARA>The display prompts the operator to enter the UUT revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S06C20" LABEL="t">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S06C21" LABEL="u">
+<PARA>The display prompts the operator to enter the Interface serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the ITA label, which is found on the upper, right corner of the right side and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S06C22" LABEL="v">
+<PARA>The display prompts the operator to verify the test setup and UUT are ready to begin testing.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-6.9" LABEL="4.6.9"><?TOCENTRY TITLE="4.6.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-6.91" LABEL="a">
+<PARA>Upon detection of a UUT failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-6.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

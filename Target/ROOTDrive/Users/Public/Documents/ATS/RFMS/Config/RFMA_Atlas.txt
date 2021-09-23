@@ -1,0 +1,1732 @@
+C        1         2         3         4         5         6         7 $
+C234567890123456789012345678901234567890123456789012345678901234567890 $
+ 000100 BEGIN, ATLAS PROGRAM 'RFMA BENCHMARK'                          $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 000300 REQUIRE, 'AC BANDWIDTH', SENSOR (BANDWIDTH), AC SIGNAL,
+          CONTROL,
+            BANDWIDTH RANGE 0 HZ TO 10E6 HZ,
+            FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            POWER RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     05 REQUIRE, 'AC DISTORTION', SENSOR (DISTORTION), AC SIGNAL,
+          CONTROL,
+            DISTORTION RANGE 0 PC TO 99.9 PC,
+            FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            POWER RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     10 REQUIRE, 'AC FREQ', SENSOR (FREQ), AC SIGNAL,
+          CONTROL,
+            FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            POWER RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     15 REQUIRE, 'AC HARMONICS DB', SENSOR (HARMONICS), AC SIGNAL,
+          CONTROL,
+            HARMONICS RANGE -70 DB TO 20 DB,
+            FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            POWER RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     20 REQUIRE, 'AC NON_HARMONICS', SENSOR (NON-HARMONICS), AC SIGNAL,
+          CONTROL,
+            NON-HARMONICS RANGE -70 DB TO 20 DB,
+            FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            POWER RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     30 REQUIRE, 'AC POWER', SENSOR (POWER), AC SIGNAL,
+          CONTROL,
+            POWER RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+    	 CNX HI                                                       $ 
+     35 REQUIRE, 'AC POWER_P', SENSOR (POWER-P), AC SIGNAL,
+          CONTROL,
+            POWER-P RANGE -35 DBM TO 25 DBM,
+            FREQ RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     45 REQUIRE, 'AC REF_POWER', SENSOR (REF-POWER), AC SIGNAL,
+          CONTROL,
+            REF-POWER RANGE -70 DB TO 20 DB,
+            POWER RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     50 REQUIRE, 'AC VOLTAGE', SENSOR (VOLTAGE), AC SIGNAL,
+          CONTROL,
+            VOLTAGE RANGE 0.7071E-6 V TO 3.976 V,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $ 
+     55 REQUIRE, 'AC HARM 3 POWER', SENSOR (HARM-3-POWER), AC SIGNAL,
+          CONTROL,
+            HARM-3-POWER RANGE -35 DBM TO 25 DBM,
+            POWER RANGE -37 DBM TO 25 DBM,
+            ATTEN RANGE 0 DB TO 70 DB BY 10 DB,
+      	    FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+          CNX HI                                                       $
+     60 REQUIRE, 'AC HARM 2 VOLTAGE', SENSOR(HARM-002-VOLTAGE), AC SIGNAL,
+          CONTROL,
+            HARM-002-VOLTAGE RANGE 0.7071E-6 V TO 3.976 V,
+            FREQ-WINDOW RANGE 10.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            ATTEN RANGE 0 DB TO 70 DB BY 10 DB,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+C                                                                      $
+ 000400 REQUIRE, 'FM FREQ_DEV', SENSOR (FREQ-DEV), FM SIGNAL,
+          CONTROL,
+            FREQ-DEV RANGE 0.0 HZ TO 500.0E6 HZ,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     05 REQUIRE, 'FM CAR_FREQ', SENSOR (CAR-FREQ), FM SIGNAL,
+          CONTROL,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     10 REQUIRE, 'FM CAR_AMPL', SENSOR (CAR-AMPL), FM SIGNAL,
+          CONTROL,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     15 REQUIRE, 'FM MOD_FREQ', SENSOR (MOD-FREQ), FM SIGNAL,
+          CONTROL,
+            MOD-FREQ RANGE 20.0 HZ TO 200.0E3 HZ,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     20 REQUIRE, 'FM POWER', SENSOR (POWER), FM SIGNAL,
+          CONTROL,
+            POWER RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     25 REQUIRE, 'FM POWER_P', SENSOR (POWER-P), FM SIGNAL,
+          CONTROL,
+            POWER-P RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     30 REQUIRE, 'FM CAR_HARMONICS', SENSOR (CAR-HARMONICS), FM SIGNAL,
+          CONTROL,
+            CAR-HARMONICS RANGE -35 DBM TO 25 DBM,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     35 REQUIRE, 'FM MOD_DIST', SENSOR (MOD-DIST), FM SIGNAL,
+          CONTROL,
+            MOD-DIST RANGE 0.0 PC TO 99.9 PC,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     40 REQUIRE, 'FM NON_HARMONICS', SENSOR (NON-HARMONICS), FM SIGNAL,
+          CONTROL,
+            NON-HARMONICS RANGE -70 DB TO 20 DB,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     45 REQUIRE, 'FM NOISE', SENSOR (NOISE), FM SIGNAL,
+          CONTROL,
+            NOISE RANGE 0.0 PC TO 99.9 PC,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     50 REQUIRE, 'FM FREQ_DEV_PP', SENSOR (FREQ-DEV-PP), FM SIGNAL,
+          CONTROL,
+            FREQ-DEV-PP RANGE 0.0 HZ TO 500.0E6 HZ,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+     55 REQUIRE, 'FM FREQ_DEV_PN', SENSOR (FREQ-DEV-PN), FM SIGNAL,
+          CONTROL,
+            FREQ-DEV-PN RANGE 0.0 HZ TO 500.0E6 HZ,
+            CAR-AMPL RANGE -35.0 DBM TO 25.0 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 1500.0 SEC,
+          CNX HI                                                       $
+C                                                                      $
+ 000500 REQUIRE, 'AM MOD_AMPL', SENSOR (MOD-AMPL), AM SIGNAL,
+          CONTROL,
+            MOD-AMPL RANGE 0 PC TO 99.9 PC,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     05 REQUIRE, 'AM CAR_FREQ', SENSOR (CAR-FREQ), AM SIGNAL,
+          CONTROL,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     10 REQUIRE, 'AM CAR_AMPL', SENSOR (CAR-AMPL), AM SIGNAL,
+          CONTROL,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     15 REQUIRE, 'AM MOD_FREQ', SENSOR (MOD-FREQ), AM SIGNAL,
+          CONTROL,
+            MOD-FREQ RANGE 20 HZ TO 100000 HZ,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     20 REQUIRE, 'AM POWER', SENSOR (POWER), AM SIGNAL,
+          CONTROL,
+            POWER RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     25 REQUIRE, 'AM POWER_P', SENSOR (POWER-P), AM SIGNAL,
+          CONTROL,
+            POWER-P RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     30 REQUIRE, 'AM CAR_HARMONICS', SENSOR (CAR-HARMONICS), AM SIGNAL,
+          CONTROL,
+            CAR-HARMONICS RANGE -70 DB TO 20 DB,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     35 REQUIRE, 'AM MOD_DIST', SENSOR (MOD-DIST), AM SIGNAL,
+          CONTROL,
+            MOD-DIST RANGE 0 PC TO 99.9 PC,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     40 REQUIRE, 'AM NON_HARMONICS', SENSOR (NON-HARMONICS), AM SIGNAL,
+          CONTROL,
+            NON-HARMONICS RANGE -70 DB TO 20 DB,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     45 REQUIRE, 'AM NOISE', SENSOR (NOISE), AM SIGNAL,
+          CONTROL,
+            NOISE RANGE 0 PC TO 99.9 PC,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     50 REQUIRE, 'AM MOD_AMPL_PP', SENSOR (MOD-AMPL-PP), AM SIGNAL,
+          CONTROL,
+            MOD-AMPL-PP RANGE -70 DB TO 20 DB,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     55 REQUIRE, 'AM MOD_AMPL_PN', SENSOR (MOD-AMPL-PN), AM SIGNAL,
+          CONTROL,
+            MOD-AMPL-PN RANGE -70 DB TO 20 DB,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+C                                                                      $
+ 000600 REQUIRE, 'PM PHASE_DEV', SENSOR (PHASE-DEV), PM SIGNAL,
+          CONTROL,
+            PHASE-DEV RANGE 0 DEG TO 1000 DEG,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     05 REQUIRE, 'PM CAR_FREQ', SENSOR (CAR-FREQ), PM SIGNAL,
+          CONTROL,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     10 REQUIRE, 'PM CAR_AMPL', SENSOR (CAR-AMPL), PM SIGNAL,
+          CONTROL,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     15 REQUIRE, 'PM MOD_FREQ', SENSOR (MOD-FREQ), PM SIGNAL,
+          CONTROL,
+            MOD-FREQ RANGE 20 HZ TO 100000 HZ,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     20 REQUIRE, 'PM POWER', SENSOR (POWER), PM SIGNAL,
+          CONTROL,
+            POWER RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     25 REQUIRE, 'PM POWER_P', SENSOR (POWER-P), PM SIGNAL,
+          CONTROL,
+            POWER-P RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     30 REQUIRE, 'PM MOD_DIST', SENSOR (MOD-DIST), PM SIGNAL,
+          CONTROL,
+            MOD-DIST RANGE -70 DB TO 20 DB,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     35 REQUIRE, 'PM NON_HARMONICS', SENSOR (NON-HARMONICS), PM SIGNAL,
+          CONTROL,
+            NON-HARMONICS RANGE -70 DB TO 20 DB,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     40 REQUIRE, 'PM NOISE', SENSOR (NOISE), PM SIGNAL,
+          CONTROL,
+            NOISE RANGE 0 PC TO 99.9 PC,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     45 REQUIRE, 'PM PHASE_DEV_PP', SENSOR (PHASE-DEV-PP), PM SIGNAL,
+          CONTROL,
+            PHASE-DEV-PP RANGE -180 DEG TO 180 DEG,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+     50 REQUIRE, 'PM PHASE_DEV_PN', SENSOR (PHASE-DEV-PN), PM SIGNAL,
+          CONTROL,
+            PHASE-DEV-PN RANGE -180 DEG TO 180 DEG,
+            CAR-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+          CNX HI                                                       $
+C                                                                      $
+ 000700 REQUIRE, 'PAM CAR_FREQ', SENSOR (CAR-FREQ), PAM,
+          CONTROL,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     05 REQUIRE, 'PAM P_AMPL', SENSOR (P-AMPL), PAM,
+          CONTROL,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     10 REQUIRE, 'PAM MOD_FREQ', SENSOR (MOD-FREQ), PAM,
+          CONTROL,
+            MOD-FREQ RANGE 20 HZ TO 200E3 HZ,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     15 REQUIRE, 'PAM MOD_AMPL', SENSOR (MOD-AMPL), PAM,
+          CONTROL,
+            MOD-AMPL RANGE 0 PC TO 99.9 PC,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     20 REQUIRE, 'PAM PERIOD', SENSOR (PERIOD), PAM,
+          CONTROL,
+            PERIOD RANGE 250E-9 SEC TO 1 SEC,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     25 REQUIRE, 'PAM PULSE_WIDTH', SENSOR (PULSE-WIDTH), PAM,
+          CONTROL,
+            PULSE-WIDTH RANGE 50E-9 SEC TO 500E-3 SEC,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     30 REQUIRE, 'PAM PRF', SENSOR (PRF), PAM,
+          CONTROL,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+     35 REQUIRE, 'PAM NOISE', SENSOR (NOISE), PAM,
+          CONTROL,
+            NOISE RANGE 0 PC TO 99.9 PC,
+            P-AMPL RANGE -35 DBM TO 25 DBM,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            FREQ-SPAN RANGE 100.0 HZ TO 9.0E9 HZ,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ, 
+            PULSE-WIDTH RANGE 50.0E-9 SEC TO 500.0E-3 SEC,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+ 000800 REQUIRE, 'PAC PRF', SENSOR(PRF), PULSED AC,
+          CONTROL,
+            PRF RANGE 1.0 HZ TO 4.0E6 HZ,
+            CAR-FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            VOLTAGE RANGE 0.7071E-6 V TO 3.976 V,
+            FREQ-WINDOW RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            MAX-TIME RANGE 0.1 SEC TO 120 SEC,
+          CNX HI                                                       $
+C                                                                      $
+ 000900 REQUIRE, 'WAVEFORM', SENSOR (SAMPLE), WAVEFORM,
+          CONTROL,
+            SAMPLE MAX 1024,
+            FREQ RANGE 100.0E6 HZ TO 18.0E9 HZ,
+            VOLTAGE RANGE 0.0 V TO 3.976 V,
+            POWER RANGE -35 DBM TO 25 DBM,
+            SAMPLE-SPACING RANGE 10.0E-9 SEC TO 1.0 SEC,
+            SAMPLE-TIME RANGE 100E-9 SEC TO 1.0 SEC,
+            ADD-FROM WMEM1 WMEM2 FILE,
+            ADD-TO   WMEM1 WMEM2 FILE,
+            COMPARE-TO   WMEM1 WMEM2 FILE,
+            SAVE-FROM WMEM1 WMEM2 FILE,
+            SAVE-TO   WMEM1 WMEM2 FILE,
+            SUBTRACT-FROM WMEM1 WMEM2 FILE,
+            SUBTRACT-TO   WMEM1 WMEM2 FILE,
+          CNX HI                                                       $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 001000 DECLARE, VARIABLE, 'FAIL-CNT'  IS INTEGER                      $
+     05 DECLARE, VARIABLE, 'DATETIME'  IS STRING(15) OF CHAR           $
+     10 DECLARE, VARIABLE, 'ETE TEST'  IS BOOLEAN                      $
+     15 DECLARE, VARIABLE, 'MEASVAL'   IS DECIMAL                      $
+     20 DECLARE, VARIABLE, 'VER-UL'    IS DECIMAL                      $
+     25 DECLARE, VARIABLE, 'VER-LL'    IS DECIMAL                      $
+     30 DECLARE, VARIABLE, 'CHOICE'    IS DECIMAL                      $
+     35 DECLARE, VARIABLE, 'AMPLITUDE' IS DECIMAL                      $
+     40 DECLARE, VARIABLE, 'FREQUENCY' IS DECIMAL                      $
+     45 DECLARE, VARIABLE, 'TESTNO'    IS INTEGER                      $
+     50 DECLARE, VARIABLE, 'ARRAY'     IS ARRAY
+                                              (1 THRU 1024) OF DECIMAL $
+     55 DECLARE, VARIABLE, 'HISAMPLE'  IS DECIMAL                      $
+     60 DECLARE, VARIABLE, 'LOSAMPLE'  IS DECIMAL                      $
+     65 DECLARE, VARIABLE, 'SUM'       IS DECIMAL                      $
+     70 DECLARE, VARIABLE, 'AVERAGE'   IS DECIMAL                      $
+     75 DECLARE, VARIABLE, 'SAMPLES'   IS DECIMAL                      $
+     80 DECLARE, VARIABLE, 'IDX'       IS INTEGER                      $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                              ** $
+C ******************************************************************** $
+C                                                                      $
+ 010000 DEFINE, 'RESULTS', PROCEDURE ('TEST' IS INTEGER,
+                                      'MVAL' IS DECIMAL,
+                                      'ULIM' IS DECIMAL,
+                                      'LLIM' IS DECIMAL)               $
+C                                                                      $
+     05 DECLARE, VARIABLE, 'PassFail' IS STRING(4) OF CHAR             $ 
+     10 DECLARE, VARIABLE, 'GoNogo'   IS STRING(5) OF CHAR             $
+     15 DECLARE, VARIABLE, 'NESTED'   IS BOOLEAN                       $
+C                                                                      $
+     20 IF, 'MVAL' UL 'ULIM' LL 'LLIM', THEN                           $
+     25    CALCULATE, 'PassFail' = C'PASS'                             $
+     30    CALCULATE, 'GoNogo' = C'GO  '                               $
+     35 ELSE                                                           $
+     40    CALCULATE, 'PassFail' = C'FAIL'                             $
+     45    CALCULATE, 'GoNogo' = C'NOGO'                               $
+     50    CALCULATE, 'FAIL-CNT' = 'FAIL-CNT' + 1                      $
+     55 END, IF                                                        $
+C                                                                      $
+     60 CALCULATE, 'NESTED' = FALSE                                    $
+C                                                                      $
+     65 IF, 'ULIM' EQ 0, THEN                                          $
+     70    IF, 'LLIM' EQ 0, THEN                                       $
+     75       CALCULATE, 'NESTED' = TRUE                               $
+     80    END, IF                                                     $
+     85 END, IF                                                        $
+C                                                                      $
+     90 IF, 'NESTED', THEN                                             $
+     95     OUTPUT, C' TEST        UPPER LIMIT      MEAS VALUE       LOWER LIMIT     RESULT' $
+ 010100     OUTPUT, C'------      --------------   --------------   --------------   ------' $ 
+     05     OUTPUT, 'TEST', C'           ', C'GO', C'           ', 'GoNogo', 
+               C'           ', C'NOGO', C'           ', 'PassFail'     $
+     25 ELSE                                                           $
+     30     OUTPUT, C' TEST       UPPER LIMIT          MEAS VALUE         LOWER LIMIT      RESULT' $
+     35     OUTPUT, C'------   -----------------   -----------------   -----------------   ------' $ 
+     40     OUTPUT, 'TEST', C'  ', 'ULIM':17:6, C'  ', 'MVAL':17:6, C'  ', 'LLIM':17:6,
+                C'  ', 'PassFail'                                      $
+     60 END, IF                                                        $
+     65 OUTPUT, C'\LF\'                                                $
+C                                                                      $ 
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                               ** $
+C ******************************************************************** $
+C                                                                      $
+ 011000 DEFINE, 'CLRSCR', PROCEDURE                                    $
+     05     OUTPUT, C' \LF\\LF\\LF\\LF\\LF\\LF\\LF\ \LF\
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\'             $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C ******************************************************************** $
+E090000 CALCULATE, 'DATETIME' = DATE                                   $
+        OUTPUT,
+            C'BEGIN RF MEASUREMENT ANALYZER ATLAS Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+C                                                                      $
+     05 CALCULATE, 'FAIL-CNT' = 0                                      $
+C ******************************************************************** $
+B $
+ 090010 OUTPUT, 
+            C'           Test Menu\LF\',
+            C'----------------------------------\LF\',
+            C'Run All Tests                   1\LF\',
+            C'AC SIGNAL Tests                 2\LF\',
+            C'FM SIGNAL Tests                 3\LF\',
+            C'AM SIGNAL Tests                 4\LF\',
+            C'PM SIGNAL Tests                 5\LF\',
+            C'PAM Tests                       6\LF\',
+            C'PULSED AC Tests                 7\LF\',
+            C'WAVEFORM Tests                  8\LF\',
+            C'Exit                            0\LF\',
+            C'\LF\',
+            C'Enter a selection\LF\'                                   $
+C                                                                      $
+     15 INPUT, INTO 'CHOICE'                                           $
+C                                                                      $
+     20 OUTPUT, 
+            C'Selection: ', 'CHOICE'                                   $
+     25 IF, 'CHOICE' EQ 0, THEN                                        $
+     30   GO TO, STEP 999900                                           $
+     35 END, IF                                                        $
+     40 IF, 'CHOICE' EQ 1, THEN                                        $
+     45   CALCULATE, 'ETE TEST' = TRUE                                 $
+     55   GO TO, STEP 100000                                           $
+     60 END, IF                                                        $
+     65 IF, 'CHOICE' EQ 2, THEN                                        $
+     70   CALCULATE, 'ETE TEST' = FALSE                                $
+     75   GO TO, STEP 100000                                           $
+     80 END, IF                                                        $
+     85 IF, 'CHOICE' EQ 3, THEN                                        $
+     90   CALCULATE, 'ETE TEST' = FALSE                                $
+     95   GO TO, STEP 200000                                           $
+ 090100 END, IF                                                        $
+     05 IF, 'CHOICE' EQ 4, THEN                                        $
+     10   CALCULATE, 'ETE TEST' = FALSE                                $
+     15   GO TO, STEP 300000                                           $
+     20 END, IF                                                        $
+     25 IF, 'CHOICE' EQ 5, THEN                                        $
+     30   CALCULATE, 'ETE TEST' = FALSE                                $
+     35   GO TO, STEP 400000                                           $
+     40 END, IF                                                        $
+     45 IF, 'CHOICE' EQ 6, THEN                                        $
+     50   CALCULATE, 'ETE TEST' = FALSE                                $
+     55   GO TO, STEP 500000                                           $
+     60 END, IF                                                        $
+     65 IF, 'CHOICE' EQ 7, THEN                                        $
+     70   CALCULATE, 'ETE TEST' = FALSE                                $
+     75   GO TO, STEP 600000                                           $
+     80 END, IF                                                        $
+     85 IF, 'CHOICE' EQ 8, THEN                                        $
+     90   CALCULATE, 'ETE TEST' = FALSE                                $
+     95   GO TO, STEP 700000                                           $
+ 090200 END, IF                                                        $
+C                                                                      $
+     05 OUTPUT, C'INVALID SELECTION'                                   $
+     10 GO TO, STEP 090010                                             $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 100000 AC SIGNAL TESTS                                      * $
+C ******************************************************************** $
+B                                                                      $
+ 100000 OUTPUT, C'TEST 100000 AC SIGNAL TESTS'                         $
+C                                                                      $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply an unmodulated sine wave at:\LF\',
+          C'     Frequency : 2.4 GHz\LF\',
+          C'     Power -5.0 dBm\LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $         
+C                                                                      $
+     15 OUTPUT, C'TEST 100000 (FREQ) AC SIGNAL'                        $
+     20 CALCULATE, 'TESTNO' = 100000                                   $
+     25 CALCULATE, 'AMPLITUDE' = -5.0                                  $
+     30 CALCULATE, 'FREQUENCY' = 2.4E9                                 $
+     35 CALCULATE, 'VER-UL' = 10000                                    $
+     40 CALCULATE, 'VER-LL' = 1                                        $
+     45 CALCULATE, 'VER-UL' = 'FREQUENCY' * 1.01                       $
+     50 CALCULATE, 'VER-LL' = 'FREQUENCY' * 0.99                       $
+     55 MEASURE, (FREQ INTO 'MEASVAL'), AC SIGNAL USING 'AC FREQ',
+          FREQ MAX 2.4E9 HZ,
+          FREQ-SPAN 1 MHZ,
+          POWER -5 DBM,
+          CNX HI RFMEASAN-HI                                           $
+     60 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+C IN WORK RFMS ERROR $
+ 100100 OUTPUT, C'TEST 100100 (DISTORTION) AC SIGNAL'                  $
+     10 INPUT, GO-NOGO                                                 $
+     15 CALCULATE, 'TESTNO' = 100100                                   $
+     20 CALCULATE, 'VER-UL' = 99                                       $
+     25 CALCULATE, 'VER-LL' = 0                                        $
+     30 MEASURE, (DISTORTION INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC DISTORTION',
+          DISTORTION MAX 99.9 PC,
+          FREQ 2.4E9 HZ,
+          FREQ-SPAN 10 MHZ,
+          POWER -5 DBM,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 100200 OUTPUT, C'TEST 100200 (BANDWIDTH) AC SIGNAL'                   $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 100200                                   $
+     15 CALCULATE, 'VER-UL' = 250000                                   $
+     20 CALCULATE, 'VER-LL' = 150000                                   $
+C                                                                      $
+     25 MEASURE, (BANDWIDTH INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC BANDWIDTH',
+          BANDWIDTH MAX 1E6 HZ,
+          FREQ-WINDOW RANGE 2.395E9 HZ TO 2.405E9 HZ,
+          POWER -5 DBM,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 100300 OUTPUT, C'TEST 100300 (HARMONICS) AC SIGNAL IN DB'             $
+     05 INPUT, GO-NOGO                                                 $         
+C                                                                      $
+     10 CALCULATE, 'TESTNO' = 100300                                   $
+     15 CALCULATE, 'VER-UL' = 45.0                                     $
+     20 CALCULATE, 'VER-LL' = 15.0                                     $
+     25 MEASURE, (HARMONICS INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC HARMONICS DB',
+          HARMONICS MAX 5 DB,
+          FREQ 2.4E9 HZ,
+          FREQ-SPAN 1 MHZ,
+          POWER 0 DBM,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 100400 OUTPUT, C'TEST 100400 (NON-HARMONICS) AC SIGNAL IN DB'         $
+     10 INPUT, GO-NOGO                                                 $         
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 100400                                   $
+     20 CALCULATE, 'VER-UL' = 25.0                                     $
+     25 CALCULATE, 'VER-LL' = 15.0                                     $
+     30 MEASURE, (NON-HARMONICS INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC NON_HARMONICS',
+          NON-HARMONICS MAX 0 DB,
+          FREQ MAX 2.4E9 HZ,
+          FREQ-SPAN 1E6 HZ,
+          POWER -5 DBM,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 100500 OUTPUT, C'TEST 100500 (POWER) AC SIGNAL'                       $
+     05 INPUT, GO-NOGO                                                 $         
+C                                                                      $
+     10 CALCULATE, 'TESTNO' = 100500                                   $
+     15 CALCULATE, 'VER-UL' =   0.0                                    $
+     20 CALCULATE, 'VER-LL' = -10.0                                    $
+     25 MEASURE, (POWER INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC POWER',
+          POWER MAX 0 DBM,
+          FREQ-WINDOW RANGE 2.395E9 HZ TO 2.405E9 HZ,
+          MAX-TIME 120 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+C POWER-P does not seem to apply to unmodulated sinusoid               $
+ 100600 OUTPUT, C'TEST 100600 (POWER-P) AC SIGNAL'                     $
+     05 INPUT, GO-NOGO                                                 $
+     10 CALCULATE, 'TESTNO' = 100600                                   $
+     15 CALCULATE, 'VER-UL' =   0.0                                    $
+     20 CALCULATE, 'VER-LL' = -10.0                                    $
+     25 MEASURE, (POWER-P INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC POWER_P',
+          POWER-P MAX -5 DBM,
+          FREQ 2.4E9 HZ,
+          FREQ-SPAN 1E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 100700 OUTPUT, C'TEST 100700 (REF-POWER) AC SIGNAL'                   $
+     10 INPUT, GO-NOGO                                                 $         
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 100700                                   $
+     20 CALCULATE, 'VER-UL' =   0.0                                    $
+     25 CALCULATE, 'VER-LL' = -10.0                                    $
+     30 MEASURE, (REF-POWER INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC REF_POWER',
+          REF-POWER MAX 0 DB,
+          POWER 0 DBM,
+          FREQ-WINDOW RANGE 2.395E9 HZ TO 2.405E9 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 100800 OUTPUT, C'TEST 100800 (VOLTAGE) AC SIGNAL'                     $
+     10 INPUT, GO-NOGO                                                 $         
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 100800                                   $
+     20 CALCULATE, 'VER-UL' = 0.15                                     $
+     25 CALCULATE, 'VER-LL' = 0.05                                     $
+     30 MEASURE, (VOLTAGE INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC VOLTAGE',
+          VOLTAGE MAX 0.2 V,
+          FREQ-WINDOW RANGE 2.395E9 HZ TO 2.405E9 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 100900 OUTPUT, C'TEST 100900 (HARM-3-POWER) AC SIGNAL'                $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply an unmodulated sine wave at:\LF\',
+          C'     Frequency : 20 mHz\LF\',
+          C'     Power -5.0 dBm\LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $
+     15 CALCULATE, 'TESTNO' = 100900                                   $
+     20 CALCULATE, 'VER-UL' = -70.0                                    $
+     25 CALCULATE, 'VER-LL' = -90.0                                    $
+     30 MEASURE, (HARM-3-POWER INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC HARM 3 POWER',
+          HARM-3-POWER MAX 0 DBM,
+          POWER -10 DBM,
+          ATTEN 30 DB,
+          FREQ-WINDOW RANGE 20.0E6 HZ TO 100.0E6 HZ,
+          MAX-TIME 60 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+B                                                                      $
+ 101000 OUTPUT, C'TEST 101000 (HARM-002-VOLTAGE) AC SIGNAL'            $
+     10 INPUT, GO-NOGO                                                 $
+     15 CALCULATE, 'TESTNO' = 101000                                   $
+     20 CALCULATE, 'VER-UL' = 0.1                                      $
+     25 CALCULATE, 'VER-LL' = 0.0                                      $
+     30 MEASURE, (HARM-002-VOLTAGE INTO 'MEASVAL'),
+          AC SIGNAL USING 'AC HARM 2 VOLTAGE',
+          HARM-002-VOLTAGE MAX 0.125 V,
+          FREQ-WINDOW RANGE 10.0E6 HZ TO 110.0E6 HZ,
+          MAX-TIME 180 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 199900 OUTPUT,
+          C'DISABLE SIGNAL GENERATOR AND DISCONNECT FROM RFMA\LF\',
+          C'\LF\',
+          C'CLICK ON GO TO CONTINUE'                                   $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOT 'ETE TEST', THEN                                       $
+     15   GO TO, STEP 090010                                           $
+     20 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 200000 FM SIGNAL TESTS                                      * $
+C ******************************************************************** $
+B                                                                      $
+ 200000 OUTPUT, C'TEST 200000 FM SIGNAL TESTS'                         $
+C                                                                      $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply a frequency moduled sine wave at:\LF\',
+          C'     Frequency : 500 MHz\LF\',
+          C'     Power -10.0 dBm\LF\',
+          C'     Modulation 20 KHz at 1.0 V-PP\LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 OUTPUT, C'TEST 200000 (FREQ-DEV) FM SIGNAL'                    $
+     20 CALCULATE, 'TESTNO' = 200000                                   $
+     25 CALCULATE, 'AMPLITUDE' = -10.0                                 $
+     30 CALCULATE, 'FREQUENCY' = 500.0E6                               $
+     35 CALCULATE, 'VER-UL' = 40.0E3                                   $
+     40 CALCULATE, 'VER-LL' = 30.0E3                                   $
+C                                                                      $
+     45 MEASURE, (FREQ-DEV INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM FREQ_DEV',
+          FREQ-DEV MAX 30E3 HZ,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 20E6 HZ,
+          CAR-AMPL -10 DBM,
+          CNX HI RFMEASAN-HI                                           $
+     50 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 200100 OUTPUT, C'TEST 200100 (CAR-FREQ) FM SIGNAL'                    $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 200100                                   $
+     15 CALCULATE, 'VER-UL' = 1.1 * 'FREQUENCY'                        $
+     20 CALCULATE, 'VER-LL' = 0.9 * 'FREQUENCY'                        $
+     25 MEASURE, (CAR-FREQ INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM CAR_FREQ',
+          CAR-FREQ MAX 500E6 HZ,
+          CAR-AMPL -10 DBM,
+          FREQ-WINDOW RANGE 490.0E6 HZ TO 510.0E6 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 200200 OUTPUT, C'TEST 200200 (CAR-AMPL) FM SIGNAL'                    $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 200200                                   $
+     15 CALCULATE, 'VER-UL' = 0.8 * 'AMPLITUDE'                        $
+     20 CALCULATE, 'VER-LL' = 1.4 * 'AMPLITUDE'                        $
+     25 MEASURE, (CAR-AMPL INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM CAR_AMPL',
+          CAR-AMPL MAX -10 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 20E6 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 200300 OUTPUT, C'TEST 200300 (MOD-FREQ) FM SIGNAL'                    $
+     05 INPUT, GO-NOGO                                                 $
+     10 CALCULATE, 'TESTNO' = 200300                                   $
+     15 CALCULATE, 'VER-UL' = 1.1 * 20000                              $
+     20 CALCULATE, 'VER-LL' = 0.9 * 20000                              $
+     25 MEASURE, (MOD-FREQ INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM MOD_FREQ',
+          MOD-FREQ MAX 22000 HZ, 
+          CAR-AMPL -10 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 300E3 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 200400 OUTPUT, C'TEST 200400 (POWER) FM SIGNAL'                       $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 200400                                   $
+     15 CALCULATE, 'VER-UL' = 0.8 * 'AMPLITUDE'                        $
+     20 CALCULATE, 'VER-LL' = 1.4 * 'AMPLITUDE'                        $
+     25 MEASURE, (POWER INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM POWER',
+          POWER MAX -10 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 100E3 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 200500 OUTPUT, C'TEST 200500 (POWER-P) FM SIGNAL'                     $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 200500                                   $
+     15 CALCULATE, 'VER-UL' = 0.8 * 'AMPLITUDE'                        $
+     20 CALCULATE, 'VER-LL' = 1.4 * 'AMPLITUDE'                        $
+     25 MEASURE, (POWER-P INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM POWER_P',
+          POWER-P MAX -10 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 300E3 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 200600 OUTPUT, C'TEST 200600 (CAR-HARMONICS) FM SIGNAL'               $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 200600                                   $
+     15 CALCULATE, 'VER-UL' = -70                                      $
+     20 CALCULATE, 'VER-LL' = -90                                      $
+     25 MEASURE, (CAR-HARMONICS INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM CAR_HARMONICS',
+          CAR-HARMONICS MAX 25 DBM, 
+          CAR-AMPL -10 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 200E3 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+C NOT CURRENTLY IMPLEMENTED IN RFMS
+c 200700 OUTPUT, C'TEST 200700 (MOD-DIST) FM SIGNAL'                    $
+c     05 INPUT, GO-NOGO                                                 $         
+c     10 CALCULATE, 'TESTNO' = 200700                                   $
+c     15 CALCULATE, 'VER-UL' = 10                                       $
+c     20 CALCULATE, 'VER-LL' = 0                                        $
+c     25 MEASURE, (MOD-DIST INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM MOD_DIST',
+          MOD-DIST MAX 99 PC, 
+          CAR-AMPL 0 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 200.0E3 HZ,
+          CNX HI RFMEASAN-HI                                           $
+c     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+c 200800 OUTPUT, C'TEST 200800 (NON-HARMONICS) FM SIGNAL'               $
+c     05 INPUT, GO-NOGO                                                 $         
+c     10 CALCULATE, 'TESTNO' = 200800                                   $
+c     15 CALCULATE, 'VER-UL' = -70                                      $
+c     20 CALCULATE, 'VER-LL' = -90                                      $
+c     25 MEASURE, (NON-HARMONICS INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM NON_HARMONICS',
+          NON-HARMONICS MAX 20 DB, 
+          CAR-AMPL 0 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-WINDOW RANGE 495.0E6 HZ TO 505.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+c     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+C NOT CURRENTLY IMPLEMENTED IN RFMS $
+C 200900 OUTPUT, C'TEST 200900 (NOISE) FM SIGNAL'                       $
+C     05 INPUT, GO-NOGO                                                 $         
+C     10 CALCULATE, 'TESTNO' = 200900                                   $
+C     15 CALCULATE, 'VER-UL' = 10                                       $
+C     20 CALCULATE, 'VER-LL' = 0                                        $
+C     25 MEASURE, (NOISE INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM NOISE',
+          NOISE MAX 99 PC, 
+          CAR-AMPL 0 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-WINDOW RANGE 490.0E6 HZ TO 510.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+C     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 201000 OUTPUT, C'TEST 201000 (FREQ-DEV-PP) FM SIGNAL'                 $
+     05 INPUT, GO-NOGO                                                 $
+     10 CALCULATE, 'TESTNO' = 201000                                   $
+     15 CALCULATE, 'VER-UL' = 5.0E6                                    $
+     20 CALCULATE, 'VER-LL' = 4.0E6                                    $
+     25 MEASURE, (FREQ-DEV-PP INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM FREQ_DEV_PP',
+          FREQ-DEV-PP MAX 50E3 HZ, 
+          CAR-AMPL -10 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 20E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 201100 OUTPUT, C'TEST 201100 (FREQ-DEV-PN) FM SIGNAL'                 $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 201100                                   $
+     15 CALCULATE, 'VER-UL' = 5.0E6                                    $
+     20 CALCULATE, 'VER-LL' = 4.0E6                                    $
+     25 MEASURE, (FREQ-DEV-PN INTO 'MEASVAL'),
+          FM SIGNAL USING 'FM FREQ_DEV_PN',
+          FREQ-DEV-PN MAX 50E3 HZ, 
+          CAR-AMPL -10 DBM,
+          CAR-FREQ 500E6 HZ,
+          FREQ-SPAN 20.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 299900 OUTPUT,
+          C'DISABLE SIGNAL GENERATOR AND DISCONNECT FROM RFMA\LF\',
+          C'\LF\',
+          C'CLICK ON GO TO CONTINUE'                                   $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOT 'ETE TEST', THEN                                       $
+     15   GO TO, STEP 090010                                           $
+     20 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 300000 AM SIGNAL TESTS                                      * $
+C ******************************************************************** $
+B                                                                      $
+ 300000 OUTPUT, C'TEST 300000 AM SIGNAL TESTS'                         $
+C                                                                      $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply an amplitude moduled sine wave at:\LF\',
+          C'     Frequency : 300 MHz\LF\',
+          C'     Power 0.0 dBm\LF\',
+          C'     Modulation 10 KHz at 0.2 V-PP\LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 OUTPUT, C'TEST 300000 (MOD-AMPL) AM SIGNAL'                    $
+     20 CALCULATE, 'TESTNO' = 300000                                   $
+     25 CALCULATE, 'AMPLITUDE' = 0.0                                   $
+     30 CALCULATE, 'FREQUENCY' = 300.0E6                               $
+     35 CALCULATE, 'VER-UL' = 20.0                                     $
+     40 CALCULATE, 'VER-LL' = 10.0                                     $
+C                                                                      $
+     45 MEASURE, (MOD-AMPL INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM MOD_AMPL',
+          MOD-AMPL MAX 99 PC,
+          CAR-AMPL 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     50 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 300100 OUTPUT, C'TEST 300100 (CAR-FREQ) AM SIGNAL'                    $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300100                                   $
+     20 CALCULATE, 'VER-UL' = 1.1 * 'FREQUENCY'                        $
+     25 CALCULATE, 'VER-LL' = 0.9 * 'FREQUENCY'                        $
+     30 MEASURE, (CAR-FREQ INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM CAR_FREQ',
+          CAR-FREQ MAX 300E6 HZ,
+          CAR-AMPL 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          MAX-TIME 45 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 300200 OUTPUT, C'TEST 300200 (CAR-AMPL) AM SIGNAL'                    $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300200                                   $
+     20 CALCULATE, 'VER-UL' = 2                                        $
+     25 CALCULATE, 'VER-LL' = -7                                       $
+     30 MEASURE, (CAR-AMPL INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM CAR_AMPL',
+          CAR-AMPL MAX 0 DBM,
+          CAR-FREQ 300E6 HZ,
+          FREQ-SPAN 1E6 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 300300 OUTPUT, C'TEST 300300 (MOD-FREQ) AM SIGNAL'                    $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300300                                   $
+     20 CALCULATE, 'VER-UL' = 1.1 * 10000                              $
+     25 CALCULATE, 'VER-LL' = 0.9 * 10000                              $
+     30 MEASURE, (MOD-FREQ INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM MOD_FREQ',
+          MOD-FREQ MAX 10000 HZ,
+          CAR-AMPL MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          MAX-TIME 45 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 300400 OUTPUT, C'TEST 300400 (POWER) AM SIGNAL'                       $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300400                                   $
+     20 CALCULATE, 'VER-UL' = 2                                        $
+     25 CALCULATE, 'VER-LL' = -7                                       $
+     30 MEASURE, (POWER INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM POWER',
+          POWER MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          MAX-TIME 45 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 300500 OUTPUT, C'TEST 300500 (POWER-P) AM SIGNAL'                     $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300500                                   $
+     20 CALCULATE, 'VER-UL' = 2                                        $
+     25 CALCULATE, 'VER-LL' = -7                                       $
+     30 MEASURE, (POWER-P INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM POWER_P',
+          POWER-P MAX 0 DBM,
+          CAR-FREQ 300E6 HZ,
+          FREQ-SPAN 100E3 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 300600 OUTPUT, C'TEST 300600 (CAR-HARMONICS) AM SIGNAL'               $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300600                                   $
+     20 CALCULATE, 'VER-UL' = 75                                       $
+     25 CALCULATE, 'VER-LL' = 60                                       $
+     30 MEASURE, (CAR-HARMONICS INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM CAR_HARMONICS',
+          CAR-HARMONICS RANGE -70 DB TO 20 DB,
+          CAR-AMPL MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+C Not currently implemented $
+ 300700 OUTPUT, C'TEST 300700 (MOD-DIST) AM SIGNAL'                    $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300700                                   $
+     20 CALCULATE, 'VER-UL' = 20                                       $
+     25 CALCULATE, 'VER-LL' = 0                                        $
+     30 MEASURE, (MOD-DIST INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM MOD_DIST',
+          MOD-DIST MAX 99.9 PC,
+          CAR-AMPL MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 300800 OUTPUT, C'TEST 300800 (NON-HARMONICS) AM SIGNAL'               $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300800                                   $
+     20 CALCULATE, 'VER-UL' = 10                                       $
+     25 CALCULATE, 'VER-LL' = 0                                        $
+     30 MEASURE, (NON-HARMONICS INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM NON_HARMONICS',
+          NON-HARMONICS MAX 20 DB,
+          CAR-AMPL MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+C not currently implemented $
+ 300900 OUTPUT, C'TEST 300900 (NOISE) AM SIGNAL'                       $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 300900                                   $
+     20 CALCULATE, 'VER-UL' = -3                                       $
+     25 CALCULATE, 'VER-LL' = -30                                      $
+     30 MEASURE, (NOISE INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM NOISE',
+          NOISE MAX 99 PC,
+          CAR-AMPL MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 301000 OUTPUT, C'TEST 301000 (MOD-AMPL-PP) AM SIGNAL'                 $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 301000                                   $
+     20 CALCULATE, 'VER-UL' = 0                                        $
+     25 CALCULATE, 'VER-LL' = -10                                      $
+     30 MEASURE, (MOD-AMPL-PP INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM MOD_AMPL_PP',
+          MOD-AMPL-PP MAX 20 DB,
+          CAR-AMPL MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 301100 OUTPUT, C'TEST 301100 (MOD-AMPL-PN) AM SIGNAL'                 $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 CALCULATE, 'TESTNO' = 301100                                   $
+     20 CALCULATE, 'VER-UL' = 0                                        $
+     25 CALCULATE, 'VER-LL' = -10                                      $
+     30 MEASURE, (MOD-AMPL-PN INTO 'MEASVAL'),
+          AM SIGNAL USING 'AM MOD_AMPL_PN',
+          MOD-AMPL-PN MAX 20 DB,
+          CAR-AMPL MAX 0 DBM,
+          FREQ-WINDOW RANGE 250E6 HZ TO 350E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     35 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 399900 OUTPUT,
+          C'DISABLE SIGNAL GENERATOR AND DISCONNECT FROM RFMA\LF\',
+          C'\LF\',
+          C'CLICK ON GO TO CONTINUE'                                   $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOT 'ETE TEST', THEN                                       $
+     15   GO TO, STEP 090010                                           $
+     20 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 400000 PM SIGNAL TESTS                                      * $
+C ******************************************************************** $
+B                                                                      $
+ 400000 OUTPUT, C'TEST 400000 PM SIGNAL TESTS'                         $
+C                                                                      $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply a phase moduled sine wave at:\LF\',
+          C'     Frequency : 1.0 GHz\LF\',
+          C'     Power -20.0 dBm\LF\',
+          C'     Modulation 1 KHz at 0.2 V-PP\LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 OUTPUT, C'TEST 400000 (PHASE-DEV) PM SIGNAL'                   $
+     20 CALCULATE, 'TESTNO' = 400000                                   $
+     25 CALCULATE, 'AMPLITUDE' = -20.0                                 $
+     30 CALCULATE, 'FREQUENCY' = 1.0E9                                 $
+     35 CALCULATE, 'VER-UL' = 10100                                    $
+     40 CALCULATE, 'VER-LL' =  9900                                    $
+C                                                                      $
+     45 MEASURE, (PHASE-DEV INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM PHASE_DEV',
+          PHASE-DEV MAX 360 DEG,
+          CAR-AMPL -20 DBM,
+          FREQ-WINDOW RANGE 950E6 HZ TO 1050E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     50 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400100 OUTPUT, C'TEST 400100 (CAR-FREQ) PM SIGNAL'                    $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400100                                   $
+     15 CALCULATE, 'VER-UL' = 1.1 * 'FREQUENCY'                        $
+     20 CALCULATE, 'VER-LL' = 0.9 * 'FREQUENCY'                        $
+     25 MEASURE, (CAR-FREQ INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM CAR_FREQ',
+          CAR-FREQ MAX 1E9 HZ,
+          CAR-AMPL -20 DBM,
+          FREQ-WINDOW RANGE 995.0E6 HZ TO 1005.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400200 OUTPUT, C'TEST 400200 (CAR-AMPL) PM SIGNAL'                    $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400200                                   $
+     15 CALCULATE, 'VER-UL' = 'AMPLITUDE' + 5                          $
+     20 CALCULATE, 'VER-LL' = 'AMPLITUDE' - 5                          $
+     25 MEASURE, (CAR-AMPL INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM CAR_AMPL',
+          CAR-AMPL MAX -20 DBM,
+          FREQ-WINDOW RANGE 995.0E6 HZ TO 1005.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400300 OUTPUT, C'TEST 400300 (MOD-FREQ) PM SIGNAL'                    $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400300                                   $
+     15 CALCULATE, 'VER-UL' = 11000                                    $
+     20 CALCULATE, 'VER-LL' =  9000                                    $
+     25 MEASURE, (MOD-FREQ INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM MOD_FREQ',
+          MOD-FREQ MAX 20000 HZ,
+          CAR-AMPL -20 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          MAX-TIME 30 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400400 OUTPUT, C'TEST 400400 (POWER) PM SIGNAL'                       $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400400                                   $
+     15 CALCULATE, 'VER-UL' = 'AMPLITUDE' + 5                          $
+     20 CALCULATE, 'VER-LL' = 'AMPLITUDE' - 5                          $
+     25 MEASURE, (POWER INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM POWER',
+          POWER MAX -20 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400500 OUTPUT, C'TEST 400500 (POWER-P) PM SIGNAL'                     $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400500                                   $
+     15 CALCULATE, 'VER-UL' = 'AMPLITUDE' + 5                          $
+     20 CALCULATE, 'VER-LL' = 'AMPLITUDE' - 5                          $
+     25 MEASURE, (POWER-P INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM POWER_P',
+          POWER-P MAX -10 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400600 OUTPUT, C'TEST 400600 (MOD-DIST) PM SIGNAL'                    $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400600                                   $
+     15 CALCULATE, 'VER-UL' = -20                                      $
+     20 CALCULATE, 'VER-LL' = -70                                      $
+     25 MEASURE, (MOD-DIST INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM MOD_DIST',
+          MOD-DIST MAX 20 DB,
+          CAR-AMPL -20 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400700 OUTPUT, C'TEST 400700 (NON-HARMONICS) PM SIGNAL'               $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400700                                   $
+     15 CALCULATE, 'VER-UL' = -20                                      $
+     20 CALCULATE, 'VER-LL' = -70                                      $
+     25 MEASURE, (NON-HARMONICS INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM NON_HARMONICS',
+          NON-HARMONICS MAX 20 DB,
+          CAR-AMPL -20 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400800 OUTPUT, C'TEST 400800 (NOISE) PM SIGNAL'                       $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400800                                   $
+     15 CALCULATE, 'VER-UL' = 10                                       $
+     20 CALCULATE, 'VER-LL' = 0                                        $
+     25 MEASURE, (NOISE INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM NOISE',
+          NOISE MAX 99 PC,
+          CAR-AMPL -20 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 400900 OUTPUT, C'TEST 400900 (PHASE-DEV-PP) PM SIGNAL'                $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 400900                                   $
+     15 CALCULATE, 'VER-UL' = 360                                      $
+     20 CALCULATE, 'VER-LL' = 0                                        $
+     25 MEASURE, (PHASE-DEV-PP INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM PHASE_DEV_PP',
+          PHASE-DEV-PP RANGE -180 DEG TO 180 DEG,
+          CAR-AMPL -20 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 401000 OUTPUT, C'TEST 401000 (PHASE-DEV-PN) PM SIGNAL'                $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 401000                                   $
+     15 CALCULATE, 'VER-UL' = 360                                      $
+     20 CALCULATE, 'VER-LL' = 0                                        $
+     25 MEASURE, (PHASE-DEV-PN INTO 'MEASVAL'),
+          PM SIGNAL USING 'PM PHASE_DEV_PN',
+          PHASE-DEV-PN RANGE -180 DEG TO 180 DEG,
+          CAR-AMPL -20 DBM,
+          CAR-FREQ MAX 1E9 HZ,
+          FREQ-SPAN 1.0E6 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 499900 OUTPUT,
+          C'DISABLE SIGNAL GENERATOR AND DISCONNECT FROM RFMA\LF\',
+          C'\LF\',
+          C'CLICK ON GO TO CONTINUE'                                   $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOT 'ETE TEST', THEN                                       $
+     15   GO TO, STEP 090010                                           $
+     20 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 500000 PAM TESTS                                            * $
+C ******************************************************************** $
+B                                                                      $
+ 500000 OUTPUT, C'TEST 500000 PAM TESTS'                               $
+C                                                                      $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply a pulse amplitude moduled sine wave at:\LF\',
+          C'     Frequency : 10.0 GHz\LF\',
+          C'     Power -20.0 dBm\LF\',
+          C'     Prf 1e3 hz\LF\',
+          C'     Pulse-Width 1 usec\LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 OUTPUT, C'TEST 500000 (CAR-FREQ) PAM'                          $
+     20 CALCULATE, 'TESTNO' = 500000                                   $
+     25 CALCULATE, 'AMPLITUDE' = -20.0                                 $
+     30 CALCULATE, 'FREQUENCY' = 10.0E9                                $
+     35 CALCULATE, 'VER-UL' = 1.1 * 'FREQUENCY'                        $
+     40 CALCULATE, 'VER-LL' = 0.9 * 'FREQUENCY'                        $
+C                                                                      $
+     45 MEASURE, (CAR-FREQ INTO 'MEASVAL'),
+          PAM USING 'PAM CAR_FREQ',
+          CAR-FREQ MAX 10E9 HZ,
+          P-AMPL -20 DBM,
+          PRF 1E3 HZ,
+          PULSE-WIDTH 1E-6 SEC,
+          FREQ-WINDOW RANGE 9.99E9 HZ TO 10.01E9 HZ,
+          MAX-TIME 60 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     50 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 500100 OUTPUT, C'TEST 500100 (P-AMPL) PAM'                            $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 500100                                   $
+     15 CALCULATE, 'VER-UL' = -9                                       $
+     20 CALCULATE, 'VER-LL' = -13                                      $
+     25 MEASURE, (P-AMPL INTO 'MEASVAL'),
+          PAM USING 'PAM P_AMPL',
+          P-AMPL MAX -20 DBM,
+          CAR-FREQ MAX 10E9 HZ,
+          FREQ-SPAN 1E6 HZ,
+          PRF 1E3 HZ,
+          PULSE-WIDTH 1E-6 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 500200 OUTPUT, C'TEST 500200 (MOD-FREQ) PAM'                          $
+     05 INPUT, GO-NOGO                                                 $
+     10 CALCULATE, 'TESTNO' = 500200                                   $
+     15 CALCULATE, 'VER-UL' = 1100                                     $
+     20 CALCULATE, 'VER-LL' =  900                                     $
+     25 MEASURE, (MOD-FREQ INTO 'MEASVAL'),
+          PAM USING 'PAM MOD_FREQ',
+          MOD-FREQ MAX 1E3 HZ,
+          CAR-FREQ 10E9 HZ,
+          P-AMPL MAX -20 DBM,
+          FREQ-WINDOW RANGE 9.9E9 HZ TO 10.1E9 HZ,
+          PRF 1E3 HZ,
+          PULSE-WIDTH 1E-6 SEC,
+          MAX-TIME 60 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 500300 OUTPUT, C'TEST 500300 (MOD-AMPL) PAM'                          $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 500300                                   $
+     15 CALCULATE, 'VER-UL' = 120                                      $
+     20 CALCULATE, 'VER-LL' = 80                                        $
+     25 MEASURE, (MOD-AMPL INTO 'MEASVAL'),
+          PAM USING 'PAM MOD_AMPL',
+          MOD-AMPL MAX 99.9 PC,
+          P-AMPL MAX -20 DBM,
+          CAR-FREQ MAX 10E9 HZ,
+          FREQ-SPAN 1E6 HZ,
+          PRF 1E3 HZ,
+          PULSE-WIDTH 1E-6 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 500400 OUTPUT, C'TEST 500400 (PERIOD) PAM'                            $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 500400                                   $
+     15 CALCULATE, 'VER-UL' = 1.5e-3                                   $
+     20 CALCULATE, 'VER-LL' = 0.5e-3                                   $
+     25 MEASURE, (PERIOD INTO 'MEASVAL'),
+          PAM USING 'PAM PERIOD',
+          PERIOD MAX 1E-3 SEC,
+          P-AMPL MAX -20 DBM,
+          CAR-FREQ MAX 10E9 HZ,
+          FREQ-WINDOW RANGE 9.9E9 HZ TO 10.1E9 HZ,
+          PRF 1E3 HZ,
+          PULSE-WIDTH 1E-6 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 500500 OUTPUT, C'TEST 500500 (PULSE-WIDTH) PAM'                       $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 500500                                   $
+     15 CALCULATE, 'VER-UL' = 1.1e-6                                   $
+     20 CALCULATE, 'VER-LL' = 0.9e-6                                   $
+     25 MEASURE, (PULSE-WIDTH INTO 'MEASVAL'),
+          PAM USING 'PAM PULSE_WIDTH',
+          PULSE-WIDTH MAX 1E-6 SEC,
+          P-AMPL MAX -20 DBM,
+          CAR-FREQ 10E9 HZ,
+          FREQ-SPAN 1E6 HZ,
+          PRF 1E3 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 500600 OUTPUT, C'TEST 500600 (PRF) PAM'                               $
+     05 INPUT, GO-NOGO                                                 $         
+     10 CALCULATE, 'TESTNO' = 500600                                   $
+     15 CALCULATE, 'VER-UL' = 1.1E3                                    $
+     20 CALCULATE, 'VER-LL' = 0.9E3                                    $
+     25 MEASURE, (PRF INTO 'MEASVAL'),
+          PAM USING 'PAM PRF',
+          PRF MAX 1E3 HZ,
+          CAR-FREQ MAX 10E9 HZ,
+          FREQ-WINDOW RANGE 9.9E9 HZ TO 10.1E9 HZ,
+          PULSE-WIDTH 1E-6 SEC,
+          MAX-TIME 50 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+C NOT CURRENTLY IMPLEMENTED $
+ 500700 OUTPUT, C'TEST 500700 (NOISE) PAM'                             $
+     05 INPUT, GO-NOGO                                                 $
+     10 CALCULATE, 'TESTNO' = 500700                                   $
+     15 CALCULATE, 'VER-UL' = 99                                       $
+     20 CALCULATE, 'VER-LL' = 0                                        $
+     25 MEASURE, (NOISE INTO 'MEASVAL'),
+          PAM USING 'PAM NOISE',
+          NOISE MAX 99 PC,
+          CAR-FREQ MAX 10E9 HZ,
+          FREQ-WINDOW RANGE 9.9E9 HZ TO 10.1E9 HZ,
+          CNX HI RFMEASAN-HI                                           $
+     30 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $
+C                                                                      $
+ 599900 OUTPUT,
+          C'DISABLE SIGNAL GENERATOR AND DISCONNECT FROM RFMA\LF\',
+          C'\LF\',
+          C'CLICK ON GO TO CONTINUE'                                   $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOT 'ETE TEST', THEN                                       $
+     15   GO TO, STEP 090010                                           $
+     20 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 600000 PULSED AC TESTS                                      * $
+C ******************************************************************** $
+B                                                                      $
+ 600000 OUTPUT, C'TEST 600000 PULSED AC TESTS'                         $
+C                                                                      $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply a pulsed ac moduled sine wave at:\LF\',
+          C'     Frequency : 5.0 GHz\LF\',
+          C'     Power -10.0 dBm\LF\',
+          C'     Prf 1e3 hz\LF\',
+          C'     Pulse-Width 1 usec\LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 OUTPUT, C'TEST 600000 (PRF) PULSED AC SIGNAL'                  $
+     20 CALCULATE, 'TESTNO' = 600000                                   $
+     25 CALCULATE, 'AMPLITUDE' = -20.0                                 $
+     30 CALCULATE, 'FREQUENCY' = 5.0E9                                 $
+     35 CALCULATE, 'VER-UL' = 1050.0                                   $
+     40 CALCULATE, 'VER-LL' =  950.0                                   $
+C                                                                      $
+     45 MEASURE, (PRF INTO 'MEASVAL'),
+          PULSED AC USING 'PAC PRF',
+          PRF MAX 1E3 HZ,
+          CAR-FREQ MAX 5E9 HZ,
+          FREQ-WINDOW RANGE 4.90E9 HZ TO 5.10E9 HZ,
+          MAX-TIME 60 SEC,
+          CNX HI RFMEASAN-HI                                           $
+     50 PERFORM, 'RESULTS'('TESTNO', 'MEASVAL', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 699900 OUTPUT,
+          C'DISABLE SIGNAL GENERATOR AND DISCONNECT FROM RFMA\LF\',
+          C'\LF\',
+          C'CLICK ON GO TO CONTINUE'                                   $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOT 'ETE TEST', THEN                                       $
+     15   GO TO, STEP 090010                                           $
+     20 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 700000 WAVEFORM TESTS                                       * $
+C ******************************************************************** $
+B                                                                      $
+ 700000 OUTPUT, C'TEST 700000 WAVEFORM TESTS'                          $
+C                                                                      $
+     05 OUTPUT, 
+          C' Test Setup\LF\',
+          C'--------------------------------------------------\LF\',
+          C'1. Apply an ac signal at:\LF\',
+          C'     Frequency : 1.0 GHz\LF\',
+          C'     Power -20.0 dBm \LF\',
+          C'   to the RF MeasAn input.\LF\',
+          C'\LF\',
+          C'Click on go to continue'                                   $
+     10 INPUT, GO-NOGO                                                 $
+C                                                                      $
+     15 OUTPUT, C'TEST 700000 (SAMPLE) WAVEFORM'                       $
+     20 CALCULATE, 'TESTNO' = 700000                                   $
+C                                                                      $
+     25 MEASURE, (SAMPLE INTO 'ARRAY'(1 THRU 1024) ), WAVEFORM USING 'WAVEFORM',
+          SAMPLE MAX 1024,
+          POWER -20.0 DBM,
+          FREQ 1.0E9 HZ,
+          SAMPLE-TIME 1.0E-3 SEC,
+          SAMPLE-SPACING 1.0E-6 SEC,
+          SAVE-TO FILE,
+          CNX HI RFMEASAN-HI                                           $
+C                                                                      $
+     30 CALCULATE, 'HISAMPLE' = -999999,
+                   'LOSAMPLE' = 999999,
+                   'SUM' = 0,
+                   'SAMPLES' = 0,
+                   'AVERAGE' = 0                                       $
+     35 FOR, 'IDX' = 1 THRU 1024, THEN                                 $
+     40   IF, 'ARRAY'('IDX') EQ 0, THEN                                $
+     45     LEAVE, FOR                                                 $
+     50   END, IF                                                      $
+     55   IF, 'ARRAY'('IDX') GT 'HISAMPLE', THEN                       $
+     60     CALCULATE, 'HISAMPLE' = 'ARRAY'('IDX')                     $
+     65   END, IF                                                      $
+     70   IF, 'ARRAY'('IDX') LT 'LOSAMPLE', THEN                       $
+     75     CALCULATE, 'LOSAMPLE' = 'ARRAY'('IDX')                     $
+     80   END, IF                                                      $
+C                                                                      $
+     85   CALCULATE, 'SAMPLES' = 'SAMPLES' + 1,
+                     'SUM' = 'SUM' + 'ARRAY'('IDX'),
+                     'AVERAGE' = 'SUM' / 'SAMPLES'                     $
+     95 END, FOR                                                       $
+C                                                                      $
+ 700100 CALCULATE, 'VER-UL' = -22.0                                    $
+     05 CALCULATE, 'VER-LL' = -32.0                                    $
+     10 CALCULATE, 'TESTNO' = 700100                                   $
+     15 PERFORM, 'RESULTS'('TESTNO', 'HISAMPLE', 'VER-UL', 'VER-LL')   $ 
+C                                                                      $
+ 700200 CALCULATE, 'VER-UL' = -63.0                                    $
+     05 CALCULATE, 'VER-LL' = -73.0                                    $
+     10 CALCULATE, 'TESTNO' = 700200                                   $
+     15 PERFORM, 'RESULTS'('TESTNO', 'LOSAMPLE', 'VER-UL', 'VER-LL')   $ 
+C                                                                      $
+ 700300 CALCULATE, 'VER-UL' = -54.0                                    $
+     05 CALCULATE, 'VER-LL' = -64.0                                    $
+     10 CALCULATE, 'TESTNO' = 700300                                   $
+     15 PERFORM, 'RESULTS'('TESTNO', 'AVERAGE', 'VER-UL', 'VER-LL')    $ 
+C                                                                      $
+ 701000 OUTPUT, C'TEST 601000 ADD FROM WAVEFROM'                       $
+     05 INPUT, GO-NOGO                                                 $
+     10 CALCULATE, 'TESTNO' = 701000                                   $
+     15 MEASURE, (SAMPLE INTO 'ARRAY'(1 THRU 1024) ), WAVEFORM USING 'WAVEFORM',
+          SAMPLE MAX 1024,
+          POWER -20.0 DBM,
+          FREQ 1.0E9 HZ,
+          SAMPLE-TIME 1.0E-3 SEC,
+          SAMPLE-SPACING 1.0E-6 SEC,
+          ADD-FROM FILE,
+          CNX HI RFMEASAN-HI                                           $
+        OUTPUT, 
+          C'HI SAMPLE = ', 'HISAMPLE':10:5, C'\LF\',
+          C'LO SAMPLE = ', 'LOSAMPLE':10:5, C'\LF\',
+          C'SAMPLES   = ', 'SAMPLES':5:0, C'\LF\',
+          C'AVERAGE   = ', 'AVERAGE':10:5, C'\LF\'                     $
+C                                                                      $
+ 799900 OUTPUT,
+          C'DISABLE SIGNAL GENERATOR AND DISCONNECT FROM RFMA\LF\',
+          C'\LF\',
+          C'CLICK ON GO TO CONTINUE'                                   $
+     05 INPUT, GO-NOGO                                                 $
+     10 IF, NOT 'ETE TEST', THEN                                       $
+     15   GO TO, STEP 090010                                           $
+     20 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C *                  END OF BENCHMARK TESTING                        * $
+C ******************************************************************** $
+B                                                                      $
+ 999900 CALCULATE, 'DATETIME' = DATE                                   $
+     05 OUTPUT,
+            C'END RF MEASUREMENT ANALYZER ATLAS Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+     10 IF, 'FAIL-CNT' EQ 0, THEN                                      $
+     15     OUTPUT, 
+                C'TEST PASSED'                                         $
+     20 ELSE                                                           $
+     25     OUTPUT,
+                C'TEST FAILED ', 'FAIL-CNT', C' TESTS'                 $
+     30 END, IF                                                        $
+C                                                                      $
+C ******************************************************************** $
+C ******************************************************************** $
+C                                                                      $
+ 999998 REMOVE, ALL                                                    $
+ 999999 TERMINATE, ATLAS PROGRAM 'RFMA BENCHMARK'                      $

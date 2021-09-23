@@ -1,0 +1,918 @@
+ 000100 BEGIN, ATLAS MODULE 'VEO-2 IR BENCHMARK'                       $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 001000 DECLARE, EXTERNAL, VARIABLE, 'FAIL-CNT'  IS INTEGER            $
+     05 DECLARE, EXTERNAL, VARIABLE, 'ETE TEST'  IS BOOLEAN            $
+     10 DECLARE, EXTERNAL, VARIABLE, 'TESTNO'    IS INTEGER            $
+     15 DECLARE, VARIABLE, 'UUT-HORIZ-FOV' IS DECIMAL                  $
+     20 DECLARE, VARIABLE, 'UUT-VERT-FOV'  IS DECIMAL                  $
+     25 DECLARE, VARIABLE, 'ULIM' IS DECIMAL                           $
+     30 DECLARE, VARIABLE, 'LLIM' IS DECIMAL                           $
+     35 DECLARE, VARIABLE, 'MVAL' IS DECIMAL                           $
+     40 DECLARE, VARIABLE, 'MIODATA' IS ARRAY(1 THRU 512) OF DECIMAL   $ 
+     45 DECLARE, VARIABLE, 'X-ALIGN-ERROR' IS DECIMAL                  $
+     50 DECLARE, VARIABLE, 'Y-ALIGN-ERROR' IS DECIMAL                  $
+     55 DECLARE, VARIABLE, 'SYNTAX' IS BOOLEAN INITIAL = FALSE         $
+     60 DECLARE, VARIABLE, 'TEST-STEPS' IS 
+            ARRAY(1 THRU 2, 1 THRU 5) OF DECIMAL                       $
+     65 DECLARE, VARIABLE, 'XYDATA' IS ARRAY(1 THRU 2) OF DECIMAL      $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 002000 DEFINE, 'RESULTS', EXTERNAL, PROCEDURE ('TEST' IS INTEGER,
+                                                'MVAL' IS DECIMAL,
+                                                'ULIM' IS DECIMAL,
+                                                'LLIM' IS DECIMAL)     $
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                                * $
+C ******************************************************************** $
+C                                                                      $
+ 002100 DEFINE, 'CLRSCR', EXTERNAL, PROCEDURE                          $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'CALL VIDEO-GEN                                       * $
+C ******************************************************************** $
+C                                                                      $
+ 002200 DEFINE, 'SETUP VIDEO-GEN', EXTERNAL,
+          PROCEDURE('ARG' IS STRING(10) OF CHAR)                       $
+     99 END, 'SETUP VIDEO-GEN'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'IR SOURCE TESTS'                                     * $
+C ******************************************************************** $
+C                                                                      $
+ 010000 DEFINE, 'IR SOURCE TESTS', PROCEDURE                           $
+C                                                                      $
+C   ****************************************************************   $
+C   * TEST 010100 - Open Aperture (No Target)                      *   $
+C   ****************************************************************   $
+ 010100   OUTPUT,
+            C'IR Source Test 0101 - Open Aperture no target'           $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010100                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-OPNAPR,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify open aperture (no target) is displayed.\LF\',
+            C'    See CPM Table 1.5-13.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C   ****************************************************************   $
+C   * TEST 010200 - Boresight Target (pinhole)                     *   $
+C   ****************************************************************   $
+ 010200   OUTPUT,
+            C'IR Source Test 0102 - Boresight Target'                  $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010200                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-BRSGHT,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 010300 - Piesector Target                               *   $
+C   ****************************************************************   $
+ 010300   OUTPUT,
+            C'IR Source Test 0103 - Piesector Target'                  $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010300                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-PIESECTOR,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify piesector target is displayed.\LF\',
+            C'    See CPM Table 1.5-1.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 010400 - 5.00 cy/mrad 4-Bar Target                      *   $
+C   ****************************************************************   $
+ 010400   OUTPUT,
+            C'IR Source Test 0104 - 5.00 cy/mrad 4-bar Target'         $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010400                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-4BAR5,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+c todo fix paragraph number $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify 5.00 cy/mrad 4-bar target is displayed.\LF\',
+            C'    See CPM Table 1.5-x.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 010500 - 3.83 cy/mrad 4-Bar Target                      *   $
+C   ****************************************************************   $
+ 010500   OUTPUT,
+            C'IR Source Test 0105 - 3.83 cy/mrad 4-bar Target'         $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010500                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-4BAR383,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+c todo fix paragraph number $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify 3.83 cy/mrad 4-bar target is displayed.\LF\',
+            C'    See CPM Table 1.5-x.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 010600 - 2.67 cy/mrad 4-Bar Target                      *   $
+C   ****************************************************************   $
+ 010600   OUTPUT,
+            C'IR Source Test 0106 - 2.67 cy/mrad 4-bar Target'         $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010600                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-4BAR267,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+c todo fix paragraph number $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify 2.67 cy/mrad 4-bar target is displayed.\LF\',
+            C'    See CPM Table 1.5-x.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 010700 - 1.5 cy/mrad 4-Bar Target                       *   $
+C   ****************************************************************   $
+ 010700   OUTPUT,
+            C'IR Source Test 0107 - 1.5 cy/mrad 4-bar Target'          $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010700                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-4BAR15,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+c todo fix paragraph number $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify 1.5 cy/mrad 4-bar target is displayed.\LF\',
+            C'    See CPM Table 1.5-x.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 010800 - 0.33 cy/mrad 4-Bar Target                      *   $
+C   ****************************************************************   $
+ 010800   OUTPUT,
+            C'IR Source Test 0108 - 0.33 cy/mrad 4-bar Target'         $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010800                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-4BAR33,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+c todo fix paragraph number $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify 0.33 cy/mrad 4-bar target is displayed.\LF\',
+            C'    See CPM Table 1.5-x.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 010900 - Diagonal Line Target                           *   $
+C   ****************************************************************   $
+ 010900   OUTPUT,
+            C'IR Source Test 0109 - Diagonal Line Target'              $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 010900                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-DIAGLN,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify 0.33 cy/mrad 4-bar target is displayed.\LF\',
+            C'    See CPM Table 1.5-4.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 011000 - Multi Pinhole Target                           *   $
+C   ****************************************************************   $
+ 011000   OUTPUT,
+            C'IR Source Test 0110 - Multi Pinhole Target'              $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 011000                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-ETCHED,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify multi pinhole target is displayed.\LF\',
+            C'    See CPM Table 1.5-12.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 011100 - Spinning Pinhole Target                        *   $
+C   ****************************************************************   $
+ 011100   OUTPUT,
+            C'IR Source Test 0111 - Spinning Pinhole Target'           $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 011100                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-SPNPINHL,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify spinning pinhole target is displayed.\LF\',
+            C'    See CPM Table 1.5-12.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 011200 - USAF 1951 Group 0-7 Target                     *   $
+C   ****************************************************************   $
+ 011200   OUTPUT,
+            C'IR Source Test 0112 - USAF 1951 Group 0-7 Target'        $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 011200                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-TGTGRP07,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify USAF 1951 Group 0-7 target is displayed.\LF\',
+            C'    See CPM Table 1.5-14.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 011300 - USAF 1951 Group -1 Target                      *   $
+C   ****************************************************************   $
+ 011300   OUTPUT,
+            C'IR Source Test 0113 - USAF 1951 Group -1 Target'         $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 011300                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-TGTGRP1,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify USAF 1951 Group -1 target is displayed.\LF\',
+            C'    See CPM Table 1.5-15.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, INFRARED, CNX VIA ATMOSPHERE                          $
+C   ****************************************************************   $
+C   * TEST 011400 - USAF 1951 Group -2 Target                      *   $
+C   ****************************************************************   $
+ 011400   OUTPUT,
+            C'IR Source Test 0114 - USAF 1951 Group -2 Target'         $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 011400                                 $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-TGTGRP2,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify USAF 1951 Group -2 target is displayed.\LF\',
+            C'    See CPM Table 1.5-16.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 011600   RESET, INFRARED,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 011699 END, 'IR SOURCE TESTS'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'TEMPERATURE MEASUREMENTS'                            * $
+C ******************************************************************** $
+C                                                                      $
+ 012000 DEFINE, 'TEMPERATURE MEASUREMENTS', PROCEDURE                  $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'TEMP' IS DECIMAL                         $
+     10   OUTPUT, 
+            C'IR Source Temperature Measurements'                      $
+C   ****************************************************************   $
+C   * Test 0121 - Ambient Temperature Measurement                  *   $
+C   ****************************************************************   $
+ 012100   OUTPUT,
+            C'IR Source Ambient Measurement Test'                      $
+     05   CALCULATE, 'ULIM' = 27.00,
+                     'LLIM' =  20.00,
+                     'TESTNO' = 012100                                 $
+     10   SETUP, INFRARED,
+            DIFFERENTIAL-TEMP -2 DEGC,
+            DIFF-TEMP-ERROR 0.1 DEGC,
+            MAX-TIME 120 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (AMBIENT-TEMP INTO 'MVAL'), INFRARED,
+            AMBIENT-TEMP RANGE -10.0 DEGC TO 55.0 DEGC,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     25   CALCULATE, 'TEMP' = 'MVAL' - 1.0                             $
+     30   INPUT, GO-NOGO                                               $
+C   ****************************************************************   $
+C   * Test 0122 - Blackbody Temperature Measurement                *   $
+C   ****************************************************************   $
+ 012200   OUTPUT,
+            C'IR Source Blackbody Measurement Test'                    $
+     05   CALCULATE, 'ULIM' = 'MVAL' - 1.0,
+                     'LLIM' = 'MVAL' - 3.0,
+                     'TESTNO' = 012200                                 $
+     10   WAIT FOR, 10 SEC                                             $
+     15   MEASURE, (BLACKBODY-TEMP INTO 'MVAL'), INFRARED,
+            BLACKBODY-TEMP RANGE -10.0 DEGC TO 65.0 DEGC,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     25   INPUT, GO-NOGO                                               $
+C   ****************************************************************   $
+C   * Test 0123 - Differential Temperature Measurement             *   $
+C   ****************************************************************   $
+ 012300   OUTPUT,
+            C'IR Source Differential Measurement Test'                 $
+     05   CALCULATE, 'ULIM' = 5.05,
+                     'LLIM' = 4.95,
+                     'TESTNO' = 012300                                 $
+     10   SETUP, INFRARED,
+            DIFFERENTIAL-TEMP 5 DEGC,
+            DIFF-TEMP-ERROR 0.03 DEGC,
+            MAX-TIME 120 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (DIFFERENTIAL-TEMP INTO 'MVAL'), INFRARED,
+            DIFFERENTIAL-TEMP RANGE -10.0 DEGC TO 10.0 DEGC,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     25   INPUT, GO-NOGO                                               $
+C   ****************************************************************   $
+C   * Test 0124 - Differential Temperature Measurement             *   $
+C   ****************************************************************   $
+ 012400   OUTPUT,
+            C'IR Source Differential Measurement Test'                 $
+     05   CALCULATE, 'ULIM' = -4.95,
+                     'LLIM' = -5.05,
+                     'TESTNO' = 012400                                 $
+     10   SETUP, INFRARED,
+            DIFFERENTIAL-TEMP -5 DEGC,
+            DIFF-TEMP-ERROR 0.05 DEGC,
+            MAX-TIME 300 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   WAIT FOR, 10 SEC                                             $
+     20   MEASURE, (DIFFERENTIAL-TEMP INTO 'MVAL'), INFRARED,
+            DIFFERENTIAL-TEMP RANGE -10.0 DEGC TO 10.0 DEGC,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   INPUT, GO-NOGO                                               $
+C   ****************************************************************   $
+C   * Test 0126 - Blackbody Temperature Measurement                *   $
+C   ****************************************************************   $
+ 012500   OUTPUT,
+            C'IR Source Blackbody Measurement Test'                    $
+     05   CALCULATE, 'ULIM' = 25.00,
+                     'LLIM' = 15.00,
+                     'TESTNO' = 012600                                 $
+     10   MEASURE, (BLACKBODY-TEMP INTO 'MVAL'), INFRARED,
+            BLACKBODY-TEMP MAX 60.0 DEGC,
+            CNX VIA ATMOSPHERE                                         $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     25   RESET, INFRARED,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 012699 END, 'TEMPERATURE MEASUREMENTS'                                $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'OPTICAL REFERENCE LINE'                              * $
+C ******************************************************************** $
+C                                                                      $
+ 013000 DEFINE, 'OPTICAL REFERENCE LINE', PROCEDURE                    $
+C                                                                      $
+     15   OUTPUT, 
+            C'IR Optical Reference Line Tests'                         $
+C                                                                      $
+     20   CALCULATE, 'TESTNO' = 013000,
+                     'ULIM' = 25.0,
+                     'LLIM' = -25.0                                    $
+C TODO TEST INSTRUCTION $
+     25   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C'1. Setup the external reference mirror for \LF\',
+            C'   AUTOCOLLIMATION per FAT Plan Procedures.\LF\',
+            C'2. Do not clear or set the Az/El registers.\LF\',
+            C'3. When the IrWindows Continuous Display dialog\LF\',
+            C'   appears, click Done.\LF\',
+            C'\LF\',
+            C'Press ENTER to Continue.'                                $
+     30   INPUT, GO-NOGO                                               $
+C Deleted during phase 2
+c     35   MEASURE, (AUTOCOLLIMATION-ERROR INTO 'XYDATA'), LASER,
+            AUTOCOLLIMATION-ERROR RANGE -57.29578 DEG TO 57.29578 DEG,
+            WAVE-LENGTH 1.064 UM,
+            PULSE-WIDTH 2.4E-6 SEC,
+            PULSE-ATTEN 0,
+            SAMPLE-AV 5 FRAMES,
+            INTENSITY-RATIO 50 PC,
+            DELAY 0 SEC,
+            TRIGGER-MODE INT,
+            SAMPLE-TIME 0.033 SEC,
+            CNX VIA ALTA-Video-Out                                     $
+C assign errors and convert from deg to radians.                       $
+C     40   CALCULATE, 'X-ALIGN-ERROR' = 'XYDATA'(1) / (180.0/3.14159),
+                     'Y-ALIGN-ERROR' = 'XYDATA'(2) / (180.0/3.14159)  $
+     40   CALCULATE, 'X-ALIGN-ERROR' = 0.0,
+                     'Y-ALIGN-ERROR' = 0.0                             $
+C TODO CAN WE DO THIS MANUALLY?  $
+C     45   PERFORM, 'SETUP VIDEO-GEN'(C'ALTA2')                         $
+          SETUP, LASER,
+            WAVE-LENGTH 1.540 UM,
+            CNX VIA ATMOSPHERE                                         $
+     50   MEASURE, (LOS-ALIGN-ERROR INTO 'XYDATA'), INFRARED,
+            LOS-ALIGN-ERROR MAX 90.0 DEG,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT INTERNAL2,
+            TARGET-TYPE TARG-BRSGHT,
+            H-FIELD-OF-VIEW 0.04 RAD,
+            V-FIELD-OF-VIEW 0.03 RAD,
+            X-AUTOCOLLIMATION-ERROR 'X-ALIGN-ERROR' MAX 0 RAD,
+            Y-AUTOCOLLIMATION-ERROR 'Y-ALIGN-ERROR' MAX 0 RAD,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            INTENSITY-RATIO 50 PC,
+            TGT-COORDINATE-TOP    20,
+            TGT-COORDINATE-LEFT   20,
+            TGT-COORDINATE-BOTTOM 278,
+            TGT-COORDINATE-RIGHT  364,
+            CNX VIA UUT-Video-Out                                      $
+     55   CALCULATE, 'TESTNO' = 013100,
+                     'MVAL' = 'XYDATA'(1)                             $
+     60   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     65   CALCULATE, 'TESTNO' = 013200,
+                     'MVAL' = 'XYDATA'(2)                             $
+     70   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     75   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 013200   MEASURE, (LOS-ALIGN-ERROR INTO 'XYDATA'), INFRARED,
+            LOS-ALIGN-ERROR RANGE 0.0 DEG TO 90.0 DEG,
+            SAMPLE-AV 2 FRAMES,
+            FORMAT INTERNAL2,
+            TARGET-TYPE TARG-BRSGHT,
+            H-FIELD-OF-VIEW 0.04 RAD,
+            V-FIELD-OF-VIEW 0.03 RAD,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-TARGET-ANGLE 1.0 RAD,
+            V-TARGET-ANGLE 0.8 RAD,
+            INTENSITY-RATIO 50 PC,
+            CNX VIA UUT-Video-Out                                      $
+     05   CALCULATE, 'TESTNO' = 013200,
+                     'MVAL' = 'XYDATA'(1)                              $
+     10   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     15   CALCULATE, 'TESTNO' = 013300,
+                     'MVAL' = 'XYDATA'(2)                             $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+          RESET, LASER, CNX VIA ATMOSPHERE                             $
+C                                                                      $
+ 013999 END, 'OPTICAL REFERENCE LINE'                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'MIN RESOLV TEMP DIFF'                                * $
+C ******************************************************************** $
+C                                                                      $
+ 014000 DEFINE, 'MIN RESOLV TEMP DIFF', PROCEDURE                      $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'TEST-STEPS' IS 
+            ARRAY(1 THRU 2, 1 THRU 5) OF DECIMAL                       $
+     10   DECLARE, VARIABLE, 'IDX' IS INTEGER                          $
+C                                                                      $
+     15   OUTPUT,
+            C'Minimum Resolvable Temperature Difference Tests'         $
+C Differential Temperatures                                            $
+     20   CALCULATE, 'TEST-STEPS'(1, 1) = 0.05,
+                     'TEST-STEPS'(1, 2) = 0.07,
+                     'TEST-STEPS'(1, 3) = 0.1,
+                     'TEST-STEPS'(1, 4) = 0.145,
+                     'TEST-STEPS'(1, 5) = 0.32                         $
+C Target Spatial Frequencies                                           $
+     25   CALCULATE, 'TEST-STEPS'(2, 1) = 0.33,
+                     'TEST-STEPS'(2, 2) = 1.5,
+                     'TEST-STEPS'(2, 3) = 2.67,
+                     'TEST-STEPS'(2, 4) = 3.83,
+                     'TEST-STEPS'(2, 5) = 5.0                          $
+C                                                                      $
+     30   SETUP, INFRARED,
+            DIFF-TEMP-ERROR 0.005 DEGC,
+            MAX-TIME 40 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     35   MEASURE, (MIN-RESOLV-TEMP-DIFF INTO 'MIODATA'), INFRARED,
+            MIN-RESOLV-TEMP-DIFF MAX 10 DEGC,
+            TARGET-DATA 'TEST-STEPS' MAX 5,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     45   FOR, 'IDX' = 1 THRU 5, THEN                                  $
+     50     CALCULATE, 'TESTNO' = 014000 + ('IDX' * 100),
+              'ULIM' = ('TEST-STEPS'(1, 'IDX') * 0.9409) + 0.01,
+              'LLIM' = ('TEST-STEPS'(1, 'IDX') * 0.9409) - 0.01,
+              'MVAL' = 'MIODATA'('IDX')                                $
+     55     PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')       $
+     60   END, FOR                                                     $
+C                                                                      $
+ 014100   MEASURE, (MIN-RESOLV-TEMP-DIFF INTO 'MIODATA'), INFRARED,
+            MIN-RESOLV-TEMP-DIFF RANGE 0.001 DEGC TO 10 DEGC,
+            TARGET-DATA 'TEST-STEPS' MAX 5,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     45   FOR, 'IDX' = 1 THRU 5, THEN                                  $
+     50     CALCULATE, 'TESTNO' = 014100 + ('IDX' * 100),
+              'ULIM' = ('TEST-STEPS'(1, 'IDX') * 0.9409) + 0.01,
+              'LLIM' = ('TEST-STEPS'(1, 'IDX') * 0.9409) - 0.01,
+              'MVAL' = 'MIODATA'('IDX')                                $
+     55     PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')       $
+     60   END, FOR                                                     $
+C                                                                      $
+     65   RESET, INFRARED, 
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 014999 END, 'MIN RESOLV TEMP DIFF'                                    $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'MODULATION TRANSFER FUNCTION'                        * $
+C ******************************************************************** $
+C                                                                      $
+ 015000 DEFINE, 'MODULATION TRANSFER FUNCTION', PROCEDURE              $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'IDX' IS INTEGER                          $
+C                                                                      $
+     10   OUTPUT,
+            C'Modulation Transfer Function Test'                       $
+C                                                                      $
+C     15   PERFORM, 'SETUP VIDEO-GEN'(C'MTF1')                          $
+C                                                                      $
+     20   CALCULATE, 'TESTNO' = 015000,
+                     'ULIM'   = 1.0,
+                     'LLIM'   = 0.04                                   $
+C                                                                      $
+     25   MEASURE, (MODULATION-TRANSFER-FUNCTION INTO 'MIODATA'),
+            INFRARED,
+            MODULATION-TRANSFER-FUNCTION MAX 1,
+            SAMPLE-AV 10 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 2 DEGC,
+            FILTER 100,
+            H-FIELD-OF-VIEW 0.4 RAD,
+            V-FIELD-OF-VIEW 0.3 RAD,
+            MTF-DIRECTION HORIZ,
+            MTF-FREQ-POINTS 8,
+            H-LOS-ALIGN-ERROR 'X-ALIGN-ERROR' RANGE -1 RAD TO 1 RAD,
+            V-LOS-ALIGN-ERROR 'Y-ALIGN-ERROR' RANGE -1 RAD TO 1 RAD,
+            WAVE-LENGTH 8 UM,
+            CNX VIA UUT-Video-Out                                      $
+C                                                                      $
+     30   INPUT, GO-NOGO                                               $
+     35   FOR, 'IDX' = 1 THRU 512 BY 2, THEN                           $
+     40     CALCULATE, 'MVAL' = 'MIODATA'('IDX' + 1),
+                       'TESTNO' = 'TESTNO' + 100                       $
+     45     COMPARE, 'MVAL', UL 'ULIM' LL 'LLIM'                       $
+     50     PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')       $
+     55   END, FOR                                                     $
+C                                                                      $
+     60   CALCULATE, 'ULIM' = 1.0,
+                     'LLIM' = 0.6                                      $
+     65   MEASURE, (MODULATION-TRANSFER-FUNCTION INTO 'MIODATA'),
+            INFRARED,
+            MODULATION-TRANSFER-FUNCTION MAX1,
+            H-FIELD-OF-VIEW 0.0225 RAD,
+            V-FIELD-OF-VIEW 0.016875 RAD,
+            MTF-FREQ-POINTS 256,
+            MTF-DIRECTION VERT,
+            DIFFERENTIAL-TEMP 2 DEGC,
+            WAVE-LENGTH 5 UM,
+            SAMPLE-AV 10 FRAMES,
+            FORMAT RS170,
+            CNX VIA UUT-Video-Out                                      $
+C                                                                      $
+     70   FOR, 'IDX' = 1 THRU 512 BY 2, THEN                           $
+     75     CALCULATE, 'MVAL' = 'MIODATA'('IDX' + 1),
+                       'TESTNO' = 'TESTNO' + 100                       $
+     80     COMPARE, 'MVAL', UL 'ULIM' LL 'LLIM'                       $
+     85     PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')       $
+     90   END, FOR                                                     $
+C                                                                      $
+ 015999 END, 'MODULATION TRANSFER FUNCTION'                            $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'SYNTAX ONLY'                                         * $
+C ******************************************************************** $
+C                                                                      $
+ 016000 DEFINE, 'IR SYNTAX ONLY', PROCEDURE                            $
+C                                                                      $
+C CPM 1.1.2.1 SOURCE INFRARED                                          $
+ 016100   SETUP, INFRARED,
+            DIFFERENTIAL-TEMP -2.0 DEGC,
+            CNX VIA ATMOSPHERE                                         $
+     05   SETUP, INFRARED,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            DIFF-TEMP-ERROR 0.03 DEGC,
+            CNX VIA ATMOSPHERE                                         $
+     10   SETUP, INFRARED,
+            TARGET-TYPE TARG-BRSGHT,
+            CNX VIA ATMOSPHERE                                         $
+     15   SETUP, INFRARED,
+            DIFFERENTIAL-TEMP 5.0 DEGC,
+            DIFF-TEMP-ERROR 0.2 DEGC,
+            TARGET-TYPE TARG-OPNAPR,
+            MAX-TIME 120 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     20   RESET, INFRARED,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C CPM 1.1.3.1 ORL                                                      $
+ 016200   MEASURE, (LOS-ALIGN-ERROR INTO 'MIODATA'), INFRARED,
+            LOS-ALIGN-ERROR RANGE -0.1 DEG TO 1.0 DEG,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            TARGET-TYPE TARG-BRSGHT,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.24 RAD,
+            V-FIELD-OF-VIEW 0.33 RAD,
+            H-TARGET-ANGLE 0.35 RAD,
+            V-TARGET-ANGLE 0.28 RAD,
+            INTENSITY-RATIO 50 PC,
+            CNX VIA UUT-Video-Out                                      $
+     05   MEASURE, (LOS-ALIGN-ERROR INTO 'MIODATA'), INFRARED,
+            LOS-ALIGN-ERROR MAX 1.0 DEG,
+            FORMAT RS170,
+            TARGET-TYPE TARG-IRBS05,
+            SETTLE-TIME 5.0 SEC,
+            X-AUTOCOLLIMATION-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            Y-AUTOCOLLIMATION-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.24 RAD,
+            V-FIELD-OF-VIEW 0.33 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-RIGHT 320,
+            TGT-COORDINATE-BOTTOM 284,
+            CNX VIA UUT-Video-Out                                      $
+     10   MEASURE, (LOS-ALIGN-ERROR INTO 'MIODATA'), INFRARED,
+            LOS-ALIGN-ERROR MIN -1.0 DEG,
+            FORMAT RS170,
+            TARGET-TYPE TARG-IRBS05,
+            SETTLE-TIME 5.0 SEC,
+            DIFFERENTIAL-TEMP 2.0 DEGC,
+            H-FIELD-OF-VIEW 0.24 RAD,
+            V-FIELD-OF-VIEW 0.33 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-RIGHT 320,
+            TGT-COORDINATE-BOTTOM 284,
+            CNX VIA UUT-Video-Out                                      $
+C                                                                      $
+C CPM 1.1.3.2 MODULATION-TRANSFER-FUNCTION                             $
+ 016300   MEASURE, (MODULATION-TRANSFER-FUNCTION INTO 'MIODATA'),
+            INFRARED,
+            MODULATION-TRANSFER-FUNCTION MAX 1,
+            SAMPLE-AV 10 FRAMES,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 2 DEGC,
+            H-FIELD-OF-VIEW 0.0225 RAD,
+            V-FIELD-OF-VIEW 0.016875 RAD,
+            MTF-FREQ-POINTS 256,
+            MTF-DIRECTION HORIZ,
+            WAVE-LENGTH 5 UM,
+            CNX VIA UUT-Video-Out                                      $
+     05   MEASURE, (MODULATION-TRANSFER-FUNCTION INTO 'MIODATA'),
+            INFRARED,
+            MODULATION-TRANSFER-FUNCTION RANGE 0 TO 1,
+            FORMAT RS170,
+            DIFFERENTIAL-TEMP 2 DEGC,
+            FILTER 50,
+            H-FIELD-OF-VIEW 0.0225 RAD,
+            V-FIELD-OF-VIEW 0.016875 RAD,
+            MTF-FREQ-POINTS 256,
+            MTF-DIRECTION VERT,
+            H-LOS-ALIGN-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            V-LOS-ALIGN-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            WAVE-LENGTH 5 UM,
+            CNX VIA UUT-Video-Out                                      $
+C                                                                      $
+C CPM 1.1.3.4 MIN-RESOLV-TEMP-DIFF                                     $
+ 016400   MEASURE, (MIN-RESOLV-TEMP-DIFF INTO 'MIODATA'), INFRARED,
+            MIN-RESOLV-TEMP-DIFF RANGE 0.001 DEGC TO 10 DEGC,
+            TARGET-DATA 'TEST-STEPS' MAX 5,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+     05   MEASURE, (MIN-RESOLV-TEMP-DIFF INTO 'MIODATA'), INFRARED,
+            MIN-RESOLV-TEMP-DIFF MAX 10 DEGC,
+            TARGET-DATA 'TEST-STEPS' MAX 5,
+            TEST-POINT-COUNT 5,
+            CNX VIA ATMOSPHERE                                         $
+     10   MEASURE, (MIN-RESOLV-TEMP-DIFF INTO 'MIODATA'), INFRARED,
+            MIN-RESOLV-TEMP-DIFF MIN 0.001 DEGC,
+            TARGET-DATA 'TEST-STEPS' MAX 5,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C CPM 1.1.3.8 TEMPERATURE MEASUREMENTS                                 $
+ 016500   MEASURE, (AMBIENT-TEMP INTO 'MVAL'), INFRARED,
+            AMBIENT-TEMP RANGE 15.0 DEGC TO 22.0 DEGC,
+            MAX-TIME 10 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     05   MEASURE, (AMBIENT-TEMP INTO 'MVAL'), INFRARED,
+            AMBIENT-TEMP MAX 22.0 DEGC,
+            CNX VIA ATMOSPHERE                                         $
+     10   MEASURE, (AMBIENT-TEMP INTO 'MVAL'), INFRARED,
+            AMBIENT-TEMP MIN 15.0 DEGC,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (BLACKBODY-TEMP INTO 'MVAL'), INFRARED,
+            BLACKBODY-TEMP RANGE 15.0 DEGC TO 22.0 DEGC,
+            MAX-TIME 30 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     20   MEASURE, (BLACKBODY-TEMP INTO 'MVAL'), INFRARED,
+            BLACKBODY-TEMP MAX 22.0 DEGC,
+            CNX VIA ATMOSPHERE                                         $
+     25   MEASURE, (BLACKBODY-TEMP INTO 'MVAL'), INFRARED,
+            BLACKBODY-TEMP MIN 15.0 DEGC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 016999 END, 'IR SYNTAX ONLY'                                          $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'IR TESTS'                                            * $
+C ******************************************************************** $
+C                                                                      $
+ 100000 DEFINE, 'IR TESTS', GLOBAL, PROCEDURE                          $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'CHOICE' IS INTEGER                       $
+C                                                                      $
+     10   CALCULATE, 'UUT-HORIZ-FOV' = 0.041,
+                     'UUT-VERT-FOV'  = 0.033                           $
+     15   IF, 'ETE TEST', THEN                                         $
+     20     GO TO, STEP 100600                                         $
+     25   END, IF                                                      $
+B                                                                      $
+     30   OUTPUT, 
+          C'                  INFRARED Test Menu\LF\',
+          C'----------------------------------------------------\LF\',
+          C'IR Target Source                                   1\LF\',
+          C'Optical Reference Line Measurement                 2\LF\',
+          C'Modulation Transfer Function (MTF) Measurement     3\LF\',
+          C'Minimum Resolvable Temp. Difference Measurement    4\LF\',
+          C'Temperature Measurements                           5\LF\',
+          C'All INFRARED Measurements                          6\LF\',
+          C'Return to Main Menu                                0\LF\',
+          C'\LF\',
+          C'Enter a Selection:'                                        $
+     35   INPUT, INTO 'CHOICE'                                         $
+     40   IF, 'CHOICE' EQ 0, THEN                                      $
+     45     GO TO, STEP 199999                                         $
+     50   END, IF                                                      $
+C                                                                      $
+ 100100   IF, 'CHOICE' EQ 1, THEN                                      $
+     05     PERFORM, 'IR SOURCE TESTS'                                 $
+     10   END, IF                                                      $
+C                                                                      $
+ 100200   IF, 'CHOICE' EQ 2, THEN                                      $
+     05     PERFORM, 'OPTICAL REFERENCE LINE'                          $
+     10   END, IF                                                      $
+C                                                                      $
+ 100300   IF, 'CHOICE' EQ 3, THEN                                      $
+     05     PERFORM, 'MODULATION TRANSFER FUNCTION'                    $
+     10   END, IF                                                      $
+C                                                                      $
+ 100400   IF, 'CHOICE' EQ 4, THEN                                      $
+     05     PERFORM, 'MIN RESOLV TEMP DIFF'                            $
+     10   END, IF                                                      $
+C                                                                      $
+ 100500   IF, 'CHOICE' EQ 5, THEN                                      $
+     05     PERFORM, 'TEMPERATURE MEASUREMENTS'                        $
+     10   END, IF                                                      $
+B                                                                      $
+ 100600   IF, 'CHOICE' EQ 6, THEN                                      $
+     05     PERFORM, 'IR SOURCE TESTS'                                 $
+     10     PERFORM, 'OPTICAL REFERENCE LINE'                          $
+     15     PERFORM, 'MODULATION TRANSFER FUNCTION'                    $
+     20     PERFORM, 'MIN RESOLV TEMP DIFF'                            $
+     25     PERFORM, 'TEMPERATURE MEASUREMENTS'                        $
+     30   END, IF                                                      $
+C                                                                      $
+ 100700   IF, 'SYNTAX', THEN                                           $
+     05     PERFORM, 'IR SYNTAX ONLY'                                  $
+     10   END, IF                                                      $
+C                                                                      $
+ 100800   GO TO, STEP 100030                                           $
+B                                                                      $
+ 199999 END, 'IR TESTS'                                                $
+C                                                                      $
+ 999999 TERMINATE, ATLAS MODULE 'VEO-2 IR BENCHMARK'                   $

@@ -1,0 +1,31 @@
+; Module Definition File For Creating AtXmlWrapper.DLL
+;
+
+; For Win32 DLLs, only EXPORTs really required.
+
+EXPORTS
+   atxml_Initialize
+   atxml_Close
+   atxml_RegisterTSF
+   atxml_ValidateRequirements
+   atxml_IssueSignal
+   atxml_TestStationStatus
+   atxml_RegisterInstStatus
+   atxml_InvokeRemoveAllSequence
+   atxml_IssueNativeCmds
+   atxml_IssueDriverFunctionCall
+   atxml_ParseAvailability
+   atxml_ParseErrDbgResponse
+   atxml_ErrDbgNextError
+   atxml_ErrDbgNextDebug
+   atxml_ErrDbgClose
+   atxml_GetSingleIntValue
+   atxml_GetIntArrayValue
+   atxml_GetSingleDblValue
+   atxml_GetDblArrayValue
+   atxml_GetStringValue
+   atxml_WriteCmds
+   atxml_ReadCmds
+   atxml_CallDriverFunction
+
+

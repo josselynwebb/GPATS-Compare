@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc' ?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='TOO' TYPE='frame' LINK='.\C3s7.xml!C3S7A' bitmap='n' DESC='Open Theory of Operation.'?>
+<?BUTTON POS='2' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-17_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='3' LABEL='UUT Sch' TYPE='pic' LINK='.\graphics\Fig3-18_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='4' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='5' LABEL='UUT TPI' TYPE='frame' LINK='.\C4s7.xml!C4S7A' bitmap='n' DESC='Open UUT Test Program Instruction.'?>
+<?BUTTON POS='6' LABEL='ID TPI' TYPE='frame' LINK='.\C4s12.xml!C4S12b' bitmap='n' DESC='Open ID Test Procedure Instructions.'?>
+<?BUTTON POS='7' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Gun Control Unit 00004A2200-1\GCU_SLEP Pwr Drv (00004A2205-1)\TP_LAV_PWRSLEP.OBJ"' bitmap='n' DESC='Select to launch GCU Power Drive A2 SLEP TPS.'?>
+<?BUTTON POS='8' LABEL='RPSTL' TYPE='frame' LINK='.\C6s1.ide!C6S1A' bitmap='n' DESC='Display AN/PSM-130 APS RPSTL.'?>
+<?FRAME id='C5s9a' title='CHAP. 5 - MAINTENANCE,  SECT. IX - GCU Power Drive A2' next='.\C5s10.xml!C5S10a' previous='.\C5s8.xml!C5S8a'?>
+<chapter>
+<section id="c5s9" label="Section IX." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section IX. GCU Power Drive A2."?>
+<title>GCU Power Drive A2.</title>
+<para0 id="p5-9" label="5-9" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="5-9 Introduction."?>
+<title>Introduction.</title>
+<para>This section provides the English Language Test Description
+(ELTD) for the GCU Power Drive A2. Each step of each module contained
+in the TPS is outlined with a description of its associated functionality
+and the full signal path present during the step. "Safe-To-Turn-On"
+and "Power-Up" steps are also provided, when applicable.</para>
+<para><?hotspot href="T5-7"?>Table 5-7<?endhotspot?> lists the UUT
+or ID name, part number, and provides a link to a external ELTD document.</para>
+<para> <?pub tablewidth="60%"?> <table id="T5-7" tocentry="1">
+<title>Table 5-7. GCU Power Drive A2 Information</title>
+<tgroup align="left" cols="3">
+<colspec colname="1" colnum="1" colwidth="1.5*"/>
+<colspec colname="2" colnum="2" colwidth="1.5*"/>
+<colspec colname="3" colnum="3" colwidth="1.5*"/>
+<thead>
+<row>
+<entry align="center">UUT/ID</entry>
+<entry align="center">UUT/ID ELTD<?Pub _newline?> Part Number</entry>
+<entry align="center">Link to ELTD Document</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">GCU Power Drive A2</entry>
+<entry align="center">7566394-011</entry>
+<entry align="center"><?HOTSPOT LINKTYPE="Execute" HREF='./ELTD/11_ELTD_7566394_011_GCU Pwr Drive.pdf'?>ELTD<?ENDHOTSPOT?></entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 7?>

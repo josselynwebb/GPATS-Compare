@@ -1,0 +1,261 @@
+**************************************************************************
+************   	          (DWG) STATIC DESCRIPTION            ************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Dwg.ddb
+*
+* INSTRUMENT  : Digital Word Generator
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  3.0   13MAR19  Update for 2200 SW version
+********************************************************************************
+begin dev DWG_1;
+
+	** Digital configuration
+	begin FNC = 1;
+		function digital configuration;
+		cnx hi DWGX;
+		cnx event-sense DWGCSE;
+		cnx event-stim  DWGCST;
+		control
+		{
+			stim-rate   range 8 kwords/sec to 25000        kwords/sec;
+			sense-rate  range 8 kwords/sec to 25000        kwords/sec;   
+			sense-delay range 0 sec        to     0.131072 msec;
+			max-time    range 0 sec        to   100        sec;   ** TBD
+			iterate     max   262144 times;
+			do-timed-digital on,off;
+			event-sense;
+			event-stim;
+		}
+	end;
+
+	** Stimulate static Logic Data
+	begin FNC = 10;
+		function logic data;
+		cnx hi DWGX;
+		control
+		{
+			type          parallel;
+			stim          range  1     to 32767;
+			voltage-zero  range -2 v   to     5 v;
+			voltage-one   range -2 v   to     5 v; 
+			voltage-quies range -2 v   to     5 v;
+			fall-time     range  0 sec to     1 sec;
+			rise-time     range  0 sec to     1 sec;
+			stim-zero;
+			stim-one;
+			stim-hiz;
+			illegal-state-indicator;
+			level-logic-zero  voltage range  -2 v   to     5 v;
+			level-logic-one   voltage range  -2 v   to     5 v;
+			repeat range 1 to 32767;  
+		}
+	end;
+
+	** Sense static Logic Data
+	begin FNC = 17;
+		cnx hi DWGX;
+		function-value logic data;
+		control
+		{
+			type          parallel;
+			value         range    0    to  32767;
+			hiz           range    0    to  32767;
+			voltage-zero  range -2 v    to      5 v;
+			voltage-one   range -2 v    to      5 v;
+			voltage-quies range -2 v    to      5 v;
+			current-one   range -10 ma  to     10 ma;   ** TBD
+			current-zero  range -10 ma  to     10 ma;   ** TBD
+			word-count    max 32767;
+			fault-count   1;
+		}
+	end;
+
+	** Prove static Logic Data
+	begin FNC = 22;
+		cnx hi DWGX;
+		function-value logic data;
+		control
+		{
+			type          parallel;
+			value         range  0    to  32767;
+			hiz           range  0    to  32767;
+			ref           range  0    to  32767;
+			mask-one      range  0    to  32767;
+			mask-zero     range  0    to  32767;
+			save-comp     range  0    to  32767;
+			error         range  0    to  32767;
+			error-index   range  0    to  32767;
+			fault-count   1;
+			word-count    max 32767;
+			voltage-zero  range -2 v    to      5 v;
+			voltage-one   range -2 v    to      5 v;
+			voltage-quies range -2 v    to      5 v;
+			current-one   range -10 ma  to     10 ma;   ** TBD
+			current-zero  range -10 ma  to     10 ma;   ** TBD
+		}
+	end;
+
+	** Apply static Logic Data (regular channels)
+	begin FNC = 11;
+		source logic data;
+		cnx hi DS-HI;
+		control
+		{
+			voltage-zero range -2 v to 5 v;
+			voltage-one  range -2 v to 5 v;
+			value        range  0   to 192;
+		}
+	end;
+
+	** Measure static Logic Data (regular channels)
+	begin FNC = 12;
+
+		sensor (value) logic data;
+		cnx hi DS-HI;
+		control
+		{
+			voltage-zero range -2 v to 5 v;
+			voltage-one  range -2 v to 5 v;
+			value        range  1   to 32768;
+		}
+	end;
+
+	** Apply static Logic Data (regular channels)
+	begin FNC = 31;
+
+		source logic data;
+		cnx hi SCAN-HI;
+		control
+		{
+			voltage-zero 0 v;  ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+			voltage-one  5 v;  ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+			value        range  0   to 32;    ** !! TBD
+		}
+	end;
+
+	** Measure static Logic Data (regular channels)
+	begin FNC = 32;
+
+		sensor (value) logic data;
+		cnx hi SCAN-HI;
+		control
+		{
+			voltage-zero range 0 v to 10.235 v;   ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+			voltage-one  range 0 v to 10.235 v;   ** Changed by Q.Nguyen on 10/10/00 per Ticket# 347
+			value        range  1   to 32768; ** !! TBD
+		}
+	end;
+
+	*********** Events ********************
+
+	** Event based event (EBE) calling TBE or SBE (2 layers)
+	begin FNC = 51;
+		event monitor (event-delay-value) event;
+		cnx event-out   DWGEBE51;
+		cnx event-delay DWGT2;
+		control
+		{
+			event-out;
+			event-delay;
+			event-delay-value  range 0.0 sec to 10.0 sec;  ** TBD 
+		}
+	end;
+
+	** Event based event (EBE) calling EVE (3 layers)
+	begin FNC = 52;
+		event monitor (event-delay-value) event;
+		cnx event-out   DWGEBE52;
+		cnx event-delay DWGE3;
+		control
+		{
+			event-out;
+			event-delay;
+			event-delay-value  range 0.0 sec to 10.0 sec;  ** TBD 
+		}
+	end;
+
+	** Event based event (EBE) calling TBE or SBE (3 layers)
+	begin FNC = 53;
+		event monitor (event-delay-value) event;
+		cnx event-out   DWGEBE53;
+		cnx event-delay DWGT3;
+		control
+		{
+			event-out;
+			event-delay;
+			event-delay-value  range 0.0 sec to 10.0 sec;  ** TBD 
+		}
+	end;
+
+	** Timer based event (TBE) (2 layer)
+	begin FNC = 62;
+		event monitor (time) timer;
+		cnx event-out   DWGTBE62;
+		control
+		{
+			event-out;
+			time range 0 sec to 100 sec;  ** TBD
+		}
+	end;
+
+	** Signal based event (SBE) (2 layer)
+	begin FNC = 72;
+		event monitor (voltage) square wave;
+		cnx event-out DWGSBE72;
+		cnx hi;
+		control
+		{
+			event-out;
+			voltage    range -2 v to 5 v;
+			period     range 0 sec to 100 sec;  ** TBD
+		}
+	end;
+
+	** Timer based event (TBE) (3 layer)
+	begin FNC = 63;
+		event monitor (time) timer;
+		cnx event-out   DWGTBE63;
+		control
+		{
+			event-out;
+			time range 0 sec to 100 sec;  ** TBD
+		}
+	end;
+
+	** Signal based event (SBE) (3 layer)
+	begin FNC = 73;
+		event monitor (voltage) square wave;
+		cnx event-out DWGSBE73;
+		cnx hi;
+		control
+		{
+			event-out;
+			voltage    range -2 v to 5 v;
+			period     range 0 sec to 100 sec;  ** TBD
+		}
+	end;
+
+	** Timer
+	begin FNC = 80;
+		timer (time) timer;
+		control
+		{
+			time range 0 to 100 sec;  ** TBD
+		}
+	end;
+
+end; ** dev DWG

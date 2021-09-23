@@ -1,0 +1,51 @@
+\\**************************************************************************
+\\static char	*sccsid = "@(#)modtypes	1.2	4/26/94";
+\\
+\\***********************************************************************
+\\ File: modtypes      Version: 1.2  Date: 4/26/9
+\\
+\\ 2.0   28Apr09 EADS:
+\\                 Baselined VIPER/T version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\********New version scheme to meet the System software version******************
+\\*  2.1.0.X   13MAR19  Update to bring to 1.3.2.0
+\\*  3.0.0.0007 27JUN19	Win 10 Release
+\***********************************************************************
+
+print "Source File: modtypes";
+
+\ The <module_type> tokens and their respective CIIL mne.
+
+ constant;
+        MODULERULE      ==      1;
+
+define MODULETYPE  lexrule=MODULERULE  string = 3 table 1 = num ;
+
+	ACS             "ACS"; \AC SUPPLY
+	API             "API"; \ANGLE POS INDICATOR
+	ARB             "ARB"; \ARBITRARY WAVEFORM GENERATOR
+	ASA             "ASA"; \AUTOMATIC SPECTRUM ANALYZER
+	DCS             "DCS"; \DC SUPPLY
+	DIG             "DIG"; \DIGITIZER
+	DMM             "DMM"; \DIGITAL MULTI-METER
+	DWG             "DWG"; \DIGITAL TESTER
+	FNG             "FNG"; \FUNCTION GENERATOR
+	FTM             "FTM"; \FREQ/TIME INTERVAL METER OR TIMER/COUNTER
+	MBT             "MBT"; \SERIAL MULTIPLEX BUS TESTER
+	MFU             "MFU"; \MULTI-FUNCTION UNIT
+	MTR		"MTR"; \MATRIX
+	PAT             "PAT"; \PATEC
+	PCM             "PCM"; \POWER CONTROL MONITOR
+        PLG             "PLG"; \PULSE GENERATOR
+	PSS             "PSS"; \PRESSURE SOURCE/SENSOR
+	PWM             "PWM"; \POWER METER
+	QAL             "QAL"; \General Qual Station Designator
+	RSV             "RSV"; \RESOLVER
+	RSY             "RSY"; \RF SYNTHESIZER
+	SNG             "SNG"; \SYNCHRO GENERATOR
+	SRS             "SRS"; \SYNCHRO/RESOLVER
+	VDG             "VDG"; \VIDEO DISPLAY GENERATOR
+
+	end_unit;
+
+\***********************************************************************

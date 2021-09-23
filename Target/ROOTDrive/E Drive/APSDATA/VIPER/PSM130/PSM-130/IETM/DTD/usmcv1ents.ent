@@ -1,0 +1,755 @@
+<!-- THIS ENTITY SET DECLARES ENTITIES PROVIDING STANDARD TEXTS FOR THE UNITED STATES MARINE
+CORPS APPROVED DTD WITH THE PUBLIC IDENTIFIER "-//USA-DOD//DTD FOR USMCV1 040421//EN" FOR MIL-M-38784-LIKE TECHNICAL MANUALS AND SL-4 MANUALS-->
+<!-- THIS ENTITY SET IS INVOKED AS FOLLOWS
+
+<!ENTITY % usmcv1ents PUBLIC "-//USA-DOD//ENTITIES FOR USMCV1 040525 DTD//EN">
+%usmcv1ents;
+-->
+
+<!ENTITY chgrec 
+'<table frame="all" pgwide="1">
+<tgroup cols="4">
+<colspec colnum="1" colname="c1" colwidth="1in">
+<colspec colnum="2" colname="c2" colwidth="1in">
+<colspec colnum="3" colname="c3" colwidth="3in">
+<colspec colnum="4" colname="c4" colwidth="2in">
+<tbody><row>
+<entry colname="c1">
+</entry>
+<entry colname="c2">
+</entry>
+<entry colname="c3">
+</entry>
+<entry colname="c4">
+</entry>
+</row></tbody></tgroup>
+</table>'>
+
+<!ENTITY smrcodedescrip-part1A '<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Source codes are assigned to support items and indicate the manner of 
+acquiring the item for maintenance or overhaul of end items. Source codes are
+entered in the first and second position of the SMR code.</para></entry></row>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>SERIES A: ASSEMBLE, COMPLETE ASSEMBLY NOT STOCKED</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Code "A" entered in the first position of the source code applies to 
+items that are not procured as assemblies but are assembled within the Marine
+Corps prior to installation. The code entered in the second position 
+designates the lowest echelon authorized to assemble the item. All the parts
+will be "P" coded.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>AO</para></entry>
+<entry colname="c2" align="left">
+<para>Assemble at organizational maintenance level 2nd echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>AF</para></entry>
+<entry colname="c2" align="left">
+<para>Assemble at field maintenance level 3rd echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>AH</para></entry>
+<entry colname="c2" align="left">
+<para>Assemble at field maintenance level 4th echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>AD</para></entry>
+<entry colname="c2" align="left">
+<para>Assemble at depot maintenance level 5th echelon.</para></entry></row>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>SERIES K: ITEMS OF A KIT, NOT PURCHASE SEPARATELY</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>KD</para></entry>
+<entry colname="c2" align="left">
+<para>An item of depot overhaul/repair kit and not purchased separately. 
+Depot kit defined as a kit that provides items required at the time of 
+overhaul or repair.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>KF</para></entry>
+<entry colname="c2" align="left">
+<para>An item of maintenance kit and not purchased separately. Maintenance 
+kit defined as a kit that provides an item that can be replaced at 
+organizational or intermediate levels of maintenance.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>KB</para></entry>
+<entry colname="c2" align="left">
+<para>Items included in both a depot overhaul/repair kit and a maintenance 
+kit.</para></entry></row>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>SERIES M: MANUFACTURE, PARTS NOT PROCURED</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Code "M" entered in the first position of the source code applies to 
+items that are not procured as assemblies but are capable of being fabricated 
+or manufactured within the Marine Corps. These items have relatively low usage
+and will be fabricated or manufactured only as required for immediate repair or
+replacement. The code entered in the second position designates the lowest 
+echelon authorized to manufacture or fabricate the item. Units will requisition
+the bulk materiel under the NSNs and the quantities indicated to effect the
+fabrication or manufacture of the item.</para></entry></row>'>
+
+<!ENTITY smrcodedescrip-part1B '<row>
+<entry colname="c1" align="left">
+<para>MO</para></entry>
+<entry colname="c2" align="left">
+<para>Manufacture or fabricate at organizational maintenance level 2nd
+echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>MF</para></entry>
+<entry colname="c2" align="left">
+<para>Manufacture or fabricate at field maintenance level 3rd echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>MH</para></entry>
+<entry colname="c2" align="left">
+<para>Manufacture or fabricate at field maintenance level 4th echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>MD</para></entry>
+<entry colname="c2" align="left">
+<para>Manufacture or fabricate at depot maintenance level 5th echelon.</para></entry></row>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>SERIES P: PARTS PROCURED, SUPPLY SYSTEM STOCK</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>PA</para></entry>
+<entry colname="c2" align="left">
+<para>Applied to items procured for the Marine Corps supply system for 
+anticipated or known usage.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>PB</para></entry>
+<entry colname="c2" align="left">
+<para>Applied to items for which no usage is anticipated, but procured for 
+the Marine Corps supply system in limited quantity for issuing purposes.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>PC</para></entry>
+<entry colname="c2" align="left">
+<para>Applied to items procured for the Marine Corps supply system which
+would be coded PA except that they are deteriorative in nature.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>PD</para></entry>
+<entry colname="c2" align="left">
+<para>Support item, excluding support equipment, procured for initial issue
+or outfitting and stocked only for subsequent or additional initial issues or 
+outfittings. Not subject to automatic replacement.</para></entry></row>
+<row>
+<entry colname="c1" align="left"><para>PE</para></entry>
+<entry colname="c2" align="left">
+<para>Support equipment procured and stocked for initial issue or outfitting
+to specified maintenance repair activities.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>PF</para></entry>
+<entry colname="c2" align="left">
+<para>Support equipment which will not be stocked but which will be procured
+on demand.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>PG</para></entry>
+<entry colname="c2" align="left">
+<para>Applied to parts procured for the Marine Corps supply system to provide
+for the sustained support of the equipment. It is applied to an item peculiar
+to the equipment which because of probable discontinuance or shutdown of 
+production facilities would prove uneconomical to reproduce at a later
+time.</para></entry></row>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>SERIES X: NOT PROCURED, GENERALLY IMPRACTICAL FOR STOCKING, MAINTENANCE,
+OR MANUFACTURE</para></entry></row>'>
+
+<!ENTITY smrcodedescrip-part1 '<table frame="none" colsep="0" rowsep="0" pgwide="1" orient="port">
+<title></title>
+<tgroup cols="2">
+<colspec colnum="1" colname="c1" colwidth="1.2in">
+<colspec colnum="2" colname="c2" colwidth="5.8in">
+<spanspec namest="c1" nameend="c2" spanname="s1-2">
+<thead>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>SOURCE CODES</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>Code</para></entry>
+<entry colname="c2" align="left">
+<para>Application/Explanation</para></entry></row></thead>
+<tbody>
+&smrcodedescrip-part1A;
+&smrcodedescrip-part1B;
+<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Items listed in this publication, which are source coded XA or XB, may
+have been subsequently assigned an NSN because of other applications in the 
+Marine Corps. Therefore, if an item source coded in the XA or XB series in 
+this publication is required, users are directed to first make the following
+investigations:</para>
+<para><seqlist numstyle="alphalc">
+<item>
+<para>Check the corresponding part number in FEDLOG to determine if an NSN has
+been assigned.</para></item>
+<item>
+<para>If an NSN has been obtained from the above check, refer to FEDLOG for
+the latest supply management decision regarding the stock number.</para></item>
+<item>
+<para>Check stock for availability of part(s) having a National Stock
+Number.</para></item>
+<item>
+<para>If the review of stock discloses that the materiel is not available, 
+refer to FEDLOG for inventory record data regarding the preferred NSN which 
+may have been obtained in the FEDLOG review.</para></item>
+<item>
+<para>Prepare a requisition citing the stock number shown in FEDLOG.</para></item></seqlist></para>
+<para>The above review will assist the user in obtaining the correct item of 
+supply from the supply system, when available, rather than through alternative
+methods such as obtaining the desired part from salvage, requisitioning the 
+next higher assembly, or recommending that the equipment be overhauled or
+retired. If a stock number for the desired item does not exist, then the 
+source of supply as defined below will prevail:</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>XA</para></entry>
+<entry colname="c2" align="left">
+<para>Applied to items not maintained in the supply system; replacement of
+these parts is nether practical or economical. Support of the end equipment
+will be effected by replacing the next higher assembly.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>XB</para></entry>
+<entry colname="c2" align="left">
+<para>Applied to items not procured for stock, but may be acquired for use
+through salvage. Activities requiring such items will attempt to obtain them 
+from salvage, if not obtainable from storage, all efforts to manufacture or
+assemble the item should be exhausted prior to requisitioning. Such items 
+will be requisitioned through normal supply channels citing the 
+manufacturer&apos;s code and part number with supporting justification.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>XC</para></entry>
+<entry colname="c2" align="left">
+<para>Applied to installation drawing, diagram, instruction sheet or field
+service drawing identified by a manufacturer&apos;s part number.</para></entry></row></tbody></tgroup></table>'>
+<!ENTITY smrcodedescrip-part2 '<table frame="none" colsep="0" rowsep="0" pgwide="1" orient="port">
+<title></title>
+<tgroup cols="2">
+<colspec colnum="1" colname="c1" colwidth="1.2in">
+<colspec colnum="2" colname="c2" colwidth="5.8in">
+<spanspec namest="c1" nameend="c2" spanname="s1-2">
+<thead>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>MAINTENANCE CODES</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>Code</para></entry>
+<entry colname="c2" align="left">
+<para>Application/Explanation</para></entry></row></thead>
+<tbody>
+<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Maintenance codes are assigned to indicate the levels authorized to
+use and repair support items. The maintenance codes are entered in the
+third and fourth position of the SMR code.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Use (Third Position): The maintenance code entered in the 
+third position will indicate the lowest maintenance level authorized to 
+remove, replace, and use the support item. The maintenance code entered in 
+third position will indicate one of the following levels of maintenance:</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>O</para></entry>
+<entry colname="c2" align="left">
+<para>Organizational 1st and 2nd echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>F</para></entry>
+<entry colname="c2" align="left">
+<para>Field 3rd echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>H</para></entry>
+<entry colname="c2" align="left">
+<para>Field 4th echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>D</para></entry>
+<entry colname="c2" align="left">
+<para>Depot 5th echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Repair (Fourth Position): The maintenance code entered in the 
+fourth position indicates whether the item is to be repaired and identifies 
+the lowest maintenance level with the capability to perform complete repair.
+This does not preclude some repair which should be accomplished at a lower 
+level of maintenance unless specifically excluded by the appropriate code 
+(i.e., L).</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>O</para></entry>
+<entry colname="c2" align="left">
+<para>Organizational 1st and 2nd echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>F</para></entry>
+<entry colname="c2" align="left">
+<para>Field 3rd echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>H</para></entry>
+<entry colname="c2" align="left">
+<para>Field 4th echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>D</para></entry>
+<entry colname="c2" align="left">
+<para>Depot 5th echelon</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>L</para></entry>
+<entry colname="c2" align="left">
+<para>Repair restricted to designated Specialized Repair Activity.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>Z</para></entry>
+<entry colname="c2" align="left">
+<para>Non-repairable. No repair is authorized.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>B</para></entry>
+<entry colname="c2" align="left">
+<para>No repair is authorized. The item may be reconditioned by adjusting, 
+lubricating, etc., at the user level. No parts or special tools are procured
+for the maintenance of this item.</para></entry></row></tbody></tgroup></table>'>
+
+<!ENTITY smrcodedescrip-part3 '<table frame="none" colsep="0" rowsep="0" pgwide="1" orient="port">
+<title></title>
+<tgroup cols="2">
+<colspec colnum="1" colname="c1" colwidth="1.2in">
+<colspec colnum="2" colname="c2" colwidth="5.8in">
+<spanspec namest="c1" nameend="c2" spanname="s1-2">
+<thead>
+<row>
+<entry colname="c1" spanname="s1-2" align="center">
+<para>RECOVERABILITY CODES</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>Code</para></entry>
+<entry colname="c2" align="left">
+<para>Application/Explanation</para></entry></row></thead>
+<tbody>
+<row>
+<entry colname="c1" align="left">
+<para> </para></entry>
+<entry colname="c2" align="left">
+<para>Recoverability codes are assigned to support items and indicate the
+disposition action for unserviceable items. The recoverability code is 
+entered in the fifth position of the SMR code.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>Z</para></entry>
+<entry colname="c2" align="left">
+<para>Nonrepairable item. When unserviceable, condemn and dispose at
+maintenance level indicated in position 3.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>O</para></entry>
+<entry colname="c2" align="left">
+<para>Repairable item. When uneconomically repairable, condemn at 
+organizational level.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>F</para></entry>
+<entry colname="c2" align="left">
+<para>Repairable item. When uneconomically repairable, condemn and dispose at 
+field maintenance level 3rd echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>H</para></entry>
+<entry colname="c2" align="left">
+<para>Repairable item. When uneconomically repairable, condemn at field
+maintenance level 4th echelon.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>D</para></entry>
+<entry colname="c2" align="left">
+<para>Repairable item. When beyond lower level of repair capability, return 
+to depot. Condemnation and disposal not authorized below depot level. </para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>L</para></entry>
+<entry colname="c2" align="left">
+<para>Repairable item. Condemnation and disposal not authorized below 
+Specified Special Repair Activity level.</para></entry></row>
+<row>
+<entry colname="c1" align="left">
+<para>A</para></entry>
+<entry colname="c2" align="left">
+<para>Item requires special handing or condemnation procedures because of
+specific reasons (i.e., precious metal content, high dollar value, critical 
+material or hazardous material). Refer to appropriate manuals/directives for
+specific instructions.</para></entry></row></tbody></tgroup></table>'>
+
+<!ENTITY smrcodedescrip
+'<para0>
+<title>DEFINITIONS AND APPLICATION OF SOURCE MAINTENANCE RECOVERABILITY CODES</title>
+&smrcodedescrip-part1;
+&smrcodedescrip-part2;
+&smrcodedescrip-part3;
+</para0>'>
+
+<!ENTITY promulhead "<promulhead>
+<organiz>DEPARTMENT  OF  THE  NAVY</organiz>
+<organiz>Headquarters,  U.  S.  Marine Corps</organiz>
+<address>Washington,  D.C.  20380-0001</address>
+</promulhead>">
+
+<!ENTITY dist "THIS PUBLICATION IS REQUIRED FOR OFFICIAL USE OR FOR ADMINISTRATIVE OR OPERATIONAL PURPOSES ONLY.  DISTRIBUTION IS LIMITED TO U.S. GOVERNMENT AGENCIES. OTHER REQUESTS FOR THIS DOCUMENT MUST BE REFERRED TO:  COMMANDANT OF THE MARINE CORPS (ARD), WASHINGTON, D.C.  20380-0001.">
+
+<!ENTITY destr "DESTRUCTION NOTICE:  FOR UNCLASSIFIED, LIMITED DOCUMENTS, DESTROY BY ANY METHOD THAT WILL PREVENT DISCLOSURE OF CONTENTS OR RECONSTRUCTION OF THE DOCUMENTS.">
+
+<!ENTITY marinecorpsdirect "BY DIRECTION OF THE COMMANDANT OF THE MARINE CORPS">
+
+<!--<!ENTITY navymarinecorpsseal SYSTEM "" NDATA tif>-->
+
+<!ENTITY fouo "FOR OFFICIAL USE ONLY">
+
+<!ENTITY circuitsymcrossrefdescrip
+'<para0>
+<title>PART V - CIRCUIT SYMBOL NUMBER TO ITEM NUMBER CROSS-REFERENCE</title>
+<para>This cross-reference, which is applicable to <emphasis emph="u">electronic equipment RPLs only</emphasis>, consists of all circuit symbol numbers listed in Part I and cross-references each circuit symbol number to its individual RPL item number. If an excessive quantity of circuit symbols are required, this cross-reference may be omitted.</para>
+</para0>'>
+
+<!ENTITY itemnocrossrefdescrip 
+"<para0>
+<title>PART II - ITEM NUMBER CROSS-REFERENCE</title>
+<para>Part II consists of a cross-reference from RPL item numbers to part numbers and manufacturers' code numbers. Part II is arranged in numerical sequence by RPL item number and contains only those items listed in Part I which do not have an NSN.</para>
+</para0>">
+
+<!ENTITY nsncrossrefdescrip 
+"<para0>
+<title>PART III - NATIONAL STOCK NUMBER CROSS-REFERENCE</title>
+<para>Part III consists of a cross-reference from NSNs to RPL item numbers, part numbers, and manufacturers' code numbers. Part III is arranged in NSN sequence and contains only those items listed in Part I which have an NSN.</para>
+</para0>">
+
+<!ENTITY partnocrossrefdescrip 
+"<para0>
+<title>PART IV - PART NUMBER CROSS-REFERENCE</title>
+<para>Part IV consists of a cross-reference from part numbers to manufacturers' code numbers, RPL item numbers, and NSNs for all items listed in Part I for which part numbers are available. Part IV is arranged in alpha numeric sequence by part number.</para>
+</para0>">
+
+<!ENTITY miscdescrip 
+'<para0>
+<title>REQUISITIONING OF PUBLICATIONS</title>
+<para>Publications stocked by the Marine Corps shall be requisitioned as set forth in the current editions of MCO P5600.31, Marine Corps Publications and Printing Regulations and MCO P4400.150, Marine Corps Consumer-Level Supply Policy Manual. Failure to comply with these instructions may result in return of the requisition or delay in processing.</para>
+</para0>
+
+<para0>
+<title>CHANGES</title>
+<para>Changes will be forwarded as required. Changes to Marine Corps Stocklist and Marine Corps Technical Manuals will be numbered consecutively beginning with number 1. Each change will show the new effective date of this RPL and latest Marine Corps Modification Technical Instructions for which repair parts are included. When changes are received, annotate the Record of Changes sheet.</para>
+
+<para>Changes to other Service Publications and Commercial Manuals, adapted for Marine Corps use, will be identified by Alpha letters beginning with letter A. These changes will be handled the same as changes to Marine Corps Stocklist.</para>
+
+<para>Changes to Marine Corps Stocklists for NSNs will not be made on an as received basis. Changes to NSNs, initiated by Replacement Parts, Substitute Parts, Standardization and other actions that are denoted by Phrase Code Actions in the Federal Logistics Online Information System (FEDLOG) will be held until it has been determined that a sufficient number of changes warrant such action.</para></para0>
+
+<para0>
+<title>REPORTING OF MAINTENANCE AND UNSATISFACTORY EQUIPMENT</title>
+<para>Marine Corps Units using Asset Tracking Logistics and Supply System (ATLASS) will maintain the forms and records information in accordance with the applicable ATLASS requirements. All other Marine Corps Units will maintain forms and records associated with the operation and maintenance of ground equipment as prescribed by TM 4700-15_.</para></para0>
+
+<para0>
+<title>PUBLICATIONS FEEDBACK</title>
+<para>You can help improve this manual. If you find any mistakes or if you know of a way to improve the procedures, please let us know. Identify deficiencies in TMs and notify the appropriate TM sponsor by submission of NAVMC 10772 (Recommended Changes to Publications/Logistics-Maintenance Data Coding). The NAVMC 10772 may be submitted via the Internet using web site <url>http://pubs.ala.usmc.mil/navmc</url> and following the screen instructions provided, or by Electronic mail to mbmatcommarlogbases@matcom.usmc.mil , or by mailing of paper copy NAVMC 10772 in an envelope addressed to <address>Commander, Marine Corps Systems Command, Attn: Assistant Commander Acquisition and Logistics (LOG/TP), 814 Radford Blvd, Suite 20343, Albany, Georgia 31704-0343</address>. <emphasis emph="u">If submitting a paper copy NAVMC 10772, it should be submitted to the above address in all cases except when the authentication sheet in the technical publication directs otherwise.</emphasis></para></para0>
+
+<para0>
+<title>MISCELLANEOUS</title>
+<para>For full information concerning the Marine Corps Stocklist publications, see the current edition of MCO P5215.17, The Marine Corps Technical Publications System.</para>
+</para0>'>
+
+<!--<!ENTITY partnocrossrefdescrip-part2 '<subpara2>
+<title>Commercial and Government Entity (CAGE) (Column 4)</title>  
+<para>The
+CAGE codes are five position codes assigned to manufacturers/non-manufactures organizational entities/contractors.  The primary use of the CAGE coding system is in machine accounting operations related to support management programs, such as cataloging and standardization.  The CAGE code is used in conjunction with the firm&apos;s reference number relating the firm with the item of supply, production or design in cataloging and other supply record, as well as on engineering documentation.  These codes are essential to contract/purchase agreements and various activities/agencies automated data processing (ADP) systems.  The CAGE code and reference number are used to screen item identification against each other primarily to detect duplication.</para>
+</subpara2>
+
+<subpara2>
+<title>Part Number.  (Column 5)</title>  
+<para>Indicates the primary number used by
+the manufacturer (individual, company, firm, corporation or government activity), which controls the design and characteristics of the item by means of its engineering drawings, specifications, standards and inspection requirements to identify an item or range of items.</para>
+</subpara2> 
+
+<subpara2>
+<title>Description. (Column 6)</title>  
+<para>This column contains the item
+name and description of the repair part.  When an item is duplicated, the abbreviation (S/A) is inserted after the noun name to indicate "same as".  S/A items refer to the line item number of the item&apos;s first appearance in the major combination.  When an item is fabricated from other items, the abbreviation FAB FR, followed by the item required for the fabrication, is inserted after the item identification.  When an item is assembled from other items, the abbreviation ASSEM FR is used followed by each item required for the assembly of the item.  When the items comprise a kit or set, a complete list of the components will be given in alphabetical order immediately following the item, under the heading "Consist of", abbreviated (C/O).</para>
+</subpara2>
+
+<subpara2>
+<title>Rep - ECO/MAN. (Column 7)</title>  
+<para>Replace - Economical/Mandatory.  An X in the ECO column indicates an item is economically cheaper to replace during repair than to expend the man-hours necessary to fully inspect the item.  An X in the MAN column indicates it is mandatory that the item be replaced any time it is loosened or removed.  No X in either column indicates the item has no special replacement considerations other than those described in the text of this manual.</para>
+</subpara2>
+
+<subpara2>
+<title>Unit of Measure (Column 8)</title>  
+<para>This column indicates the
+measure of quantity specified in column 8 and is not to be used for requisitioning purposes.  When requisitioning parts, the Unit of Issue, Stores Account Code, and Unit Price should be obtained from the "Master Header Information File (MHIF)".</para>
+</subpara2>
+
+<subpara2>
+<title>Quantity.  (Column 9)</title>   
+<para>This column is divided into sub-columns and indicates the following.</para>
+  
+<para>
+<deflist>
+<term>(A)  Quantity of item in Illustration</term>  
+<def><para>Indicates the quantity of
+the item used in the breakout shown on the illustration figure, which is prepared for a functional group, sub-functional group, or an assembly.  An "A/R" appearing in this column in lieu of quantity indicates that no specific quantity is applicable (e.g., shims, spacers, etc.).  An "AY" appearing in this column indicates the item is an assembly.</para></def>    
+
+<term>(B) Quantity per Equipment</term>  
+<def><para>Indicates the amount of the item for
+the entire system.</para></def>
+</deflist>
+</para>
+
+</subpara2>'>
+
+<!ENTITY repairpartslistdescrip
+'<chapter>
+
+<title>REPAIR PARTS LIST</title>
+
+<para0>
+
+<title>INTRODUCTION</title>
+
+<subpara1>
+<title>General</title>
+
+<subpara2>
+<para>The repair parts list pages list spares and repair parts required for performance of organizational, intermediate and depot maintenance of the &topic; system.  They authorize the requisitioning and issue of spares and repair parts as indicated by the source and maintenance codes.</para>
+</subpara2>  
+
+<subpara2>
+<para>The repair parts list lists spares and repair parts authorized for use in the performance of maintenance.  The list also includes parts, which must be removed for replacement of authorized parts.  Parts lists are composed of parts in each group listed in Figure and Number sequence.</para>
+</subpara2>  
+
+<subpara2>
+<para>An index in National Stock Number (NSN) sequence appears in the back of this manual.  National Stock Numbers and part numbers are cross-referenced to each illustration figure and item number.</para>
+</subpara2>  
+</subpara1>
+
+<subpara1>
+<title>Explanation of Columns</title>
+
+<subpara2>
+<title>Illustration (Column 1).</title>  
+<para>This column is divided into sub-columns and indicates the following.</para>
+
+<para>
+<deflist>
+<term>Figure Number</term>  
+<def><para>Indicates the figure number of the illustration in
+which the item is shown.</para></def>
+
+<term>Item Number</term>
+<def><para>The number used to identify the item called out in the
+illustration.  When a figure has more than one illustration, an item may appear on several illustrations.</para></def>
+
+</deflist>
+</para>
+</subpara2>
+
+<subpara2>
+<title>Source, Maintenance and Recoverability (SM&amp;R) Codes (Column 2)</title>  
+<para>This column contains a series of alphabetic letters, which denote the uniform source, maintenance and recoverability coding structure.  This Code is assigned to items subordinate to or associated with an end item, i.e., spares, repair parts and support equipment.  The uniform code format is composed of three parts consisting of a two (2) position Source Code, a two (2) position Maintenance Code and a one (1) position Recoverability Code.</para>
+
+<para>
+<seqlist>
+<item><para>The code provides the user with information on each item relative to (1) the method of obtaining the item; for example, by requisition, fabrication or salvage; (2) the lowest maintenance echelon authorized to remove, replace and use the item and the lowest echelon capable to perform complete repair; and (3) disposition action on unserviceable items.</para></item>          <item><para>Definitions of SMR codes are listed below.  Sample SMR Codes are:
+
+TO BE TAGGED LATER
+
+
+</para></item>
+</seqlist>
+</para>
+</subpara2>
+
+<subpara2>
+<title>National Stock Number (Column 3)</title>  
+<para>This column furnishes
+National Stock Numbers (NSNs) assigned to those centrally managed items required for support of the equipment.  When they have been assigned, NSNs will be used in all supply operations, from original purchase to final disposal of the item.  Absence of an NSN indicates the item is not normally stocked as a repair part, as indicated by the source code portion of the SMR codes.  If an item without an NSN is required, it should be determined if the item can be obtained from assembly, manufacturer or salvage by referring to the source code.  Items not stock numbered, that cannot be obtained from these sources, may be requisitioned using the manufacturer&apos;s code and part number referencing the RPL number, date of the PL and the line item number which applies.</para>
+</subpara2> 
+
+&partnocrossrefdescrip-part2;
+
+</subpara1>
+</para0>
+</chapter>'>-->
+
+<!ENTITY itemidlistdescrip-part1 '<subpara1>
+<title>Repair Parts</title>
+<para>This listing presents all repair parts contained in the equipment and is numbered in sequence by component. Repair parts need not be identical with parts of the original equipment, but as replacement parts they are considered suitable or preferred.</para></subpara1>
+<subpara1>
+<title>Item Numbers (Column 1)</title> 
+<para>This column specifies item numbers assigned in numerical sequence and in the order that each item appears in the RPL. The item numbers are provided for reference purposes. In emergencies, these item numbers may be used for RPL number and date on requisitions which combat units transmit by message.</para></subpara1>
+<subpara1>
+<title>Model (Column 2)</title> 
+<para>This column indicates by an alphabetical code the specific application of repair parts, components, or assemblies when more than one model of an assembly, component, or equipment is contained in this publication. The absence of the code indicates that only one version of the item (assembly, component, or equipment) is covered by this RPL.</para></subpara1>
+<subpara1>
+<title>Stock Number (Column 3)</title> 
+<para>This column furnishes National Stock Numbers (NSNs) assigned to those centrally managed items required for support of the equipment. When they have been assigned, NSNs will be used in all supply operations, from original purchase to final disposal of the item. Absence of an NSN indicates the item is not normally stocked as a repair part, as indicated by the source code portion of the SMR codes. If an item without an NSN is required, it should be determined if the item can be obtained from assembly, manufacturer or salvage by referring to the source code. Items not stock numbered, that cannot be obtained from these sources, may be requisitioned using the manufacturer&apos;s code and part number referencing the RPL number, date of the RPL and the line item number which applies.</para></subpara1>
+<subpara1>
+<title>Reference Designator (Column 4)</title>
+<para>This column contains alphabetical and/or numerical designators for referencing an individual repair part to an illustration. The absence of a reference designator indicates there is no illustration for the part.</para></subpara1>
+<subpara1>
+<title>Indenture Code (Column 5)</title>
+<para>This column contains the Indenture Code Letter which indicates the relationship of a line item to the end item or to the preceding component, assembly, or subassembly. Visual indentation of the line item is not shown; however, the Indenture Code Letter will enable the user of the RPL to interpret the relationship of the line item with its next higher assembly.</para>
+<subpara2>
+<para>Normally, the Indenture Code Letters indicate the following relationship:</para>
+<para><deflist>
+<termhead>Code</termhead>
+<defhead>Relationship</defhead>
+<term>"A"</term>
+<def><para>End item</para></def>
+<term>"B"</term>
+<def><para>Component; attaching parts for component or detail parts of the
+end item not contained in a component</para></def>
+<term>"C"</term>
+<def><para>Assembly; attaching parts for assembly or detail parts of 
+component not contained in a component</para></def>
+<term>"D"</term>
+<def><para>Subassembly; attaching parts for subassembly or detail parts of
+assembly not contained in subassembly</para></def>
+<term>"E"</term>
+<def><para>Detail parts of subassembly</para></def>
+<term>"F"</term>
+<def><para>And so forth</para></def></deflist></para></subpara2></subpara1>'>
+
+<!ENTITY itemidlistdescrip-part2A '<table tocentry="0" frame="none" colsep="0" rowsep="0" pgwide="1" orient="port" display="inline">
+<tgroup cols="4">
+<colspec colnum="1" colname="c1" colwidth="1.0in" align="center">
+<colspec colnum="2" colname="c2" colwidth="1.0in" align="center">
+<colspec colnum="3" colname="c3" colwidth="1.0in" align="center">
+<colspec colnum="4" colname="c4" colwidth="1.0in" align="center">
+<spanspec namest="c2" nameend="c3" spanname="c2c3" align="center">
+<thead>
+<row>
+<entry colname="c1"><para>(1)</para></entry>
+<entry namest="c2" nameend="c3" spanname="c2c3"><para>(2)</para></entry>
+<entry colname="c4"><para>(3)</para></entry></row>
+<row>
+<entry colname="c1"><para>Source</para></entry>
+<entry namest="c2" nameend="c3" spanname="c2c3"><para>Maintenance</para></entry>
+<entry colname="c4"><para>Recoverability</para></entry></row>
+<row>
+<entry colname="c1"><para> </para></entry>
+<entry colname="c2"><para>Use</para></entry>
+<entry colname="c3"><para>Repair</para></entry>
+<entry colname="c4"><para> </para></entry></row></thead>
+<tbody>
+<row>
+<entry colname="c1"><para> </para></entry>
+<entry colname="c2"><para> </para></entry>
+<entry colname="c3"><para> </para></entry>
+<entry colname="c4"><para> </para></entry></row>
+<row>
+<entry colname="c1"><para>PA</para></entry>
+<entry colname="c2"><para>F</para></entry>
+<entry colname="c3"><para>F</para></entry>
+<entry colname="c4"><para>A</para></entry></row>
+<row>
+<entry colname="c1"><para>PB</para></entry>
+<entry colname="c2"><para>F</para></entry>
+<entry colname="c3"><para>H</para></entry>
+<entry colname="c4"><para>H</para></entry></row>
+<row>
+<entry colname="c1"><para>PC</para></entry>
+<entry colname="c2"><para>O</para></entry>
+<entry colname="c3"><para>Z</para></entry>
+<entry colname="c4"><para>Z</para></entry></row>
+<row>
+<entry colname="c1"><para>AF</para></entry>
+<entry colname="c2"><para>F</para></entry>
+<entry colname="c3"><para>Z</para></entry>
+<entry colname="c4"><para>Z</para></entry></row>
+<row>
+<entry colname="c1"><para>MF</para></entry>
+<entry colname="c2"><para>F</para></entry>
+<entry colname="c3"><para>F</para></entry>
+<entry colname="c4"><para>F</para></entry></row>
+<row>
+<entry colname="c1"><para>KF</para></entry>
+<entry colname="c2"><para>H</para></entry>
+<entry colname="c3"><para>Z</para></entry>
+<entry colname="c4"><para>Z</para></entry></row>
+<row>
+<entry colname="c1">XA<para> </para></entry>
+<entry colname="c2">F<para> </para></entry>
+<entry colname="c3">Z<para> </para></entry>
+<entry colname="c4">Z<para> </para></entry></row>
+<row>
+<entry colname="c1"><para>XB</para></entry>
+<entry colname="c2"><para>O</para></entry>
+<entry colname="c3"><para>F</para></entry>
+<entry colname="c4"><para>F</para></entry></row>
+<row>
+<entry colname="c1"><para>XC</para></entry>
+<entry colname="c2"><para>H</para></entry>
+<entry colname="c3"><para>Z</para></entry>
+<entry colname="c4"><para>Z</para></entry></row></tbody></tgroup></table>'>
+
+
+<!ENTITY itemidlistdescrip-part2 '<subpara1>
+<title>Item Identification (Column 6)</title> 
+<para>This column contains the item name and description of the repair part. When an item is duplicated, the abbreviation (S/A) is inserted after the noun name to indicate "same as". S/A items refer to the line item number of the item&apos;s first appearance in the major combination. When an item is fabricated from other items, the abbreviation FAB FR, followed by the item required for the fabrication, is inserted after the item identification. When an item is assembled from other items, the abbreviation ASSEM FR is used, followed by each item required for the assembly of the item. When the items comprise a kit or set, a complete list of the components will be given in alphabetical order immediately following the item, under the heading "Consist of", abbreviated (C/O).</para></subpara1>
+<subpara1>
+<title>Unit of Measure (Column 7)</title> 
+<para>This column indicates the measure of quantity specified in column 8 and is not to be used for requisitioning purposes. When requisitioning parts, the Unit of Issue, Stores Account Code, and Unit Price should be obtained from the "Master Header Information File (MHIF)."</para></subpara1>
+<subpara1>
+<title>Quantity (Column 8)</title> 
+<para>This column is divided into sub-columns (A) and (B) and indicates the following:</para>
+<subpara2>
+<para>The quantity of a maintenance or a non-maintenance part used in a specific application within the end item.</para>
+</subpara2><subpara2><para>The consolidated quantity of a maintenance part used in an end item upon the item&apos;s first appearance in this list.</para></subpara2></subpara1>
+<subpara1>
+<title>Source Maintenance Recoverability Code (Column 9)</title> 
+<para>This column contains a series of alphabetic letters which denote the uniform source, maintenance and recoverability coding structure. This Code is assigned to items subordinate to or associated with an end item, i.e., spares, repair parts and support equipment. The uniform code format is composed of three parts consisting of a two (2) position Source Code, a two (2) position Maintenance Code and a one (1) position Recoverability Code.</para>
+<subpara2>
+<para>The code provides the user with information on each item relative to (1) the method of obtaining the item; for example, by requisition, fabrication or salvage; (2) the lowest maintenance echelon authorized to remove, replace and use the item and the lowest echelon capable to perform complete repair; and (3) disposition action on unserviceable items.</para></subpara2>
+<subpara2>
+<para>Definitions of SMR codes are listed on page xi of the preface. Sample SMR codes are:</para>
+<para>&itemidlistdescrip-part2A;</para></subpara2></subpara1>'>
+
+<!ENTITY itemidlistdescrip
+'<para0>
+<title>PART I - ITEM IDENTIFICATION LISTING</title>
+<para>This listing comprises the main part of the RPL. It is arranged in columns which show stock numbers, item identification, and other data necessary to maintain this equipment in an operative condition. Illustrations are placed either before, or in close proximity to, the component or assembly. The items are arranged in <emphasis emph="u">topdown breakdown sequence</emphasis> within the major combination.</para>
+&itemidlistdescrip-part1;
+&itemidlistdescrip-part2;
+</para0>'>

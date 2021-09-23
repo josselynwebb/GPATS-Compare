@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub EntList alpha bull copy rArr sect trade gt lt?>
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='TOO' TYPE='frame' LINK='.\C3s9.xml!C3S9A' bitmap='n' DESC='Open Theory of Operation.'?>
+<?BUTTON POS='2' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-23_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='3' LABEL='UUT Sch' TYPE='pic' LINK='.\graphics\Fig3-24_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='4' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='5' LABEL='UUT ELTD' TYPE='program' LINK=''./ELTD/9_ELTD_00004A2205_1 GCU Pwr Drive A2 SLEP.pdf'' bitmap='n' DESC='Open UUT English Language Test Description.'?>
+<?BUTTON POS='6' LABEL='ID ELTD' TYPE='program' LINK=''./ELTD/14_ELTD_13020A1000_TPH.pdf'' bitmap='n' DESC='Open ID English Language Test Description.'?>
+<?BUTTON POS='7' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Gun Control Unit 7575345-051\GCU Pwr_Drv  )7566394-011)\TP_LAV_PWR_DRV.OBJ"' bitmap='n' DESC='Select to launch GTD Power Supply TPS.'?>
+<?FRAME id='C4s9a' title='CHAPTER 4 - TEST PROGRAM INSTRUCTIONS' next='.\C4s10.xml!C4s10a' previous='.\C4s8.xml!C4s8a'?>
+<chapter>
+<section id="c4s9" label="Section IX." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section IX. GCU Power Drive A2 SLEP."?>
+<title>GCU Power Drive A2 SLEP.</title>
+<para0 id="p4-9" label="4-9" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="4-9 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs will describe the Test Program Instructions
+(TPI) for the GCU Power Drive A2 SLEP (P/N 00004A2205-1).</para>
+<para>Weapon System: LAV-25A2.</para>
+<?ALERT id="cESD" type="caution"?>
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+<?ENDALERT?>
+<subpara1 id="p4-9.1" label="4-9.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-9.1 Test Program Instructions."?>
+<title>Test Program Instructions.</title>
+<para>Required Equipment.</para>
+<para><?hotspot href="T4-8"?>Table 4-8<?endhotspot?> provides information
+on the equipment required to test the GCU Power Drive A2 SLEP circuit
+card.</para>
+<para><?pub tablewidth="80%"?><table id="T4-8" tocentry="1">
+<title>Table 4-8. GCU Power Drive A2 SLEP Required Equipment</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="919.00px"?>
+<colspec colname="1" colnum="1" colwidth="0.74*"/>
+<colspec colname="2" colnum="2" colwidth="0.56*"/>
+<colspec colname="4" colnum="3" colwidth="0.30*"/>
+<thead>
+<row>
+<entry align="center">Nomenclature</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">Quantity</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>VIPER/T or TETS-B ATE</entry>
+<entry align="center">AN/USM-717 or AN/USM-657B</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Interface Device</entry>
+<entry align="center">13020A1000</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Fixture Assembly, Holding</entry>
+<entry align="center">13020A9015</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>GCU Power Drive A2 SLEP</entry>
+<entry align="center">00004A2205-1</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W5</entry>
+<entry align="center">13020A7500</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (VIPER/T)</entry>
+<entry align="center">93006H9009</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (TETS-B)</entry>
+<entry align="center">93006A9007</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+<caution id="C492">
+<para>UUT contains electrostatic sensitive devices  (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+</caution>
+<subpara1 id="p4-9.2" label="4-9.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-9.2 Set-up Instructions (all modules)."?>
+<title>Set-up Instructions (all modules).</title>
+<step1>
+<para>1. Open the AN/USM-717 or AN/USM-657B interface handle.</para>
+</step1>
+<step1>
+<para>2. Insert Interface Device (P/N 13020A1000) into the AN/USM-717
+or AN/USM-657B interface receiver.</para>
+</step1>
+<step1>
+<para>3. Close the AN/USM-717 or AN/USM-657B interface handle. </para>
+</step1>
+<step1>
+<para>4. Place Holding Fixture (P/N 13020A9015) on top of ID. Secure
+to holding cleat with thumb screw.</para>
+</step1>
+</subpara1>
+<subpara1 id="p4-9.3" label="4-9.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-9.3 Instructions for all Modules and Steps."?>
+<title>Instructions for all Modules and Steps.</title>
+<step1>
+<para>1. Connect W5 cable (P/N 13020A7500) P1 to ID J3.</para>
+</step1>
+<step1>
+<para>2. Extend contacts of W5 P2 and secure in place using both thumb
+screws. Slide mechanism to fully extend fingers. Rotate thumb screw
+clockwise to lock. Do not over tighten.</para>
+</step1>
+<step1>
+<para>3. Connect W5 P2 to UUT TB1-1.</para>
+</step1>
+<step1>
+<para>4. Ensure that each screw is secure, but do not over tighten.</para>
+</step1>
+</subpara1>
+<subpara1 id="p4-9.4" label="4-9.4" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-9.4 Disconnect Instructions."?>
+<title>Disconnect Instructions.</title>
+<step1>
+<para>1. Disconnect all cables from UUT if testing is complete.</para>
+</step1>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 6?>

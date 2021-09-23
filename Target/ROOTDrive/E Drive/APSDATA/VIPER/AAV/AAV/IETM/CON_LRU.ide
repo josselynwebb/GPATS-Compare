@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="CON-LRU" LABEL="VI"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\CONTROLLER_LRU_2618506-1\TP_AAV_CON_LRU.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s06.ide!c4s06'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/con_lru/ASSY/CON_LRU_1.pic' ?><?BUTTON POS='4' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/con_lru/SCHEM/CON_LRU_FBD.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s06.ide!Table3-7'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s06.ide!c3s06'?><?FRAME ID="5-6a" TITLE="Chapter 5. Maintenance, Section VI. ELTD FOR CONTROLLER C-10879/MSQ-115 LRU, P/N 2618506-1" previous="./DDM_A3.ide" next="./con_a4.ide"?><?TOCENTRY TITLE="SECTION VI. ELTD for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1" TOCLEVEL="2" LABEL="VI"?>
+<TITLE>SECTION VI. ELTD for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1</TITLE>
+<PARA0 ID="P5-6" LABEL="5.6"><?TOCENTRY TITLE="5.6 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the Controller C-10879/MSQ-115 LRU, P/N 2618506-1.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-Controller-2618506-1.PDF"?>Controller LRU, C-10879/MSQ-115 ELTD<?endhotspot?></PARA></PARA0></SECTION>

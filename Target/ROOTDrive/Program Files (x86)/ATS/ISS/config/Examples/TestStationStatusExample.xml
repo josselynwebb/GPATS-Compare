@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AtXmlMessages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="../AtXmlMessageSchema.xsd"
+xmlns:c="http://www.ieee.org/ATML/2005/08/Common" 
+xmlns:stdbsc="STDBSC"  xmlns:tsf="STDTSF"
+xsi:schemaLocation="STDBSC ../STDBSC.xsd   http://www.ieee.org/ATML/2005/08/Common ../Common.xsd
+STDTSF ../USER_TSF.xsd">
+	<AtXmlResponse>
+		<TestStationStatus>
+			<ResourceStatus resourceName="DMM_1"
+					availability="Available" 
+					stationInstrumentName="" 
+					stationResourceName="" 
+					allocatedTo="TestProgram" />
+		</TestStationStatus>
+		<ErrStatus errCode="-1" errText="" leadText="" moduleName=""></ErrStatus>
+	</AtXmlResponse>
+</AtXmlMessages>

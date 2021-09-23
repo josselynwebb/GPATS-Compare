@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AtXmlMessages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="../AtXmlMessageSchema.xsd"
+xmlns:c="http://www.ieee.org/ATML/2005/08/Common" 
+xmlns:stdbsc="STDBSC"  xmlns:tsf="STDTSF"
+xsi:schemaLocation="STDBSC ../STDBSC.xsd   http://www.ieee.org/ATML/2005/08/Common ../Common.xsd
+STDTSF ../USER_TSF.xsd">
+	<AtXmlResponse>
+		<ReturnData>
+			<ValuePair>
+				<Attribute>foo</Attribute>
+				<Value>
+					<c:Datum xsi:type="c:double" unit="V" value="8"/>
+				</Value>
+			</ValuePair>
+			<ValuePair>
+				<Attribute>foo</Attribute>
+				<Value>
+					<c:Datum xsi:type="c:string" unit="V"> <c:Value>xxxx</c:Value></c:Datum>
+				</Value>
+			</ValuePair>
+			<ValuePair>
+				<Attribute>xxx</Attribute>
+					<Value>
+						<c:IndexedArray xsi:type="c:doubleArray" unit="V" dimensions="[2]">
+							<c:Element value="10.3" position="[0]"/>
+							<c:Element value="10.4" position="[2]"/>
+						</c:IndexedArray>
+					</Value>
+			</ValuePair>
+		</ReturnData>
+		<ErrStatus errCode="-1" errText="" leadText="" moduleName=""></ErrStatus>
+	</AtXmlResponse>
+</AtXmlMessages>

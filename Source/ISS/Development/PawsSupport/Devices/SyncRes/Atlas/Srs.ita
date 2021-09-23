@@ -1,0 +1,46 @@
+\\ ita for NA65CS4
+
+from    SRS_SIM_1_S1		to SRIO-13;
+from    SRS_SIM_1_S2            to SRIO-14;
+from    SRS_SIM_1_S3            to SRIO-15;
+from    SRS_SIM_1_S4            to SRIO-16;
+from    SRS_IND_1_S1            to SRIO-1;
+from    SRS_IND_1_S2            to SRIO-2;
+from    SRS_IND_1_S3            to SRIO-3;
+from    SRS_IND_1_S4            to SRIO-4;
+\\from    SRS_1_GND               to SRIO-24A;
+from    SRS_SIM_1_X             to SRIO-13;
+from    SRS_SIM_1_Y             to SRIO-14;
+from    SRS_SIM_1_Z             to SRIO-15;
+from    SRS_IND_1_X             to SRIO-1;
+from    SRS_IND_1_Y             to SRIO-2;
+from    SRS_IND_1_Z             to SRIO-3;
+from    SRS_1_EXT_TRIG_HI       to SRIO-35;
+from    SRS_1_EXT_TRIG_LO       to SRIO-36;
+from    REFHI_SIM_1	        to SRIO-17;
+from    REFLO_SIM_1             to SRIO-18;
+\\from    SRS_SIM_1_115_REF       to SRIO-33D;
+from    REFHI_IND_1             to SRIO-5;
+from    REFLO_IND_1             to SRIO-6;
+    \\not connected to CTI for ATS1 srs_1-vel-out              to 219;                   \\SRIO-19B
+    \\not connected to CTI for ATS1 srs_1-vel-rtn              to 218;                   \\SRIO-18B
+
+from    SRS_SIM_2_S1            to SRIO-19;
+from    SRS_SIM_2_S2            to SRIO-20;
+from    SRS_SIM_2_S3            to SRIO-21;
+from    SRS_SIM_2_S4            to SRIO-22;
+from    SRS_IND_2_S1            to SRIO-7;
+from    SRS_IND_2_S2            to SRIO-8;
+from    SRS_IND_2_S3            to SRIO-9;
+from    SRS_IND_2_S4            to SRIO-10;
+\\from    SRS_2_GND               to SRIO-21C;
+from    SRS_SIM_2_X             to SRIO-19;
+from    SRS_SIM_2_Y             to SRIO-20;
+from    SRS_SIM_2_Z             to SRIO-21;
+from    SRS_IND_2_X             to SRIO-7;
+from    SRS_IND_2_Y             to SRIO-8;
+from    SRS_IND_2_Z             to SRIO-9;
+from    REFHI_SIM_2             to SRIO-23;
+from    REFLO_SIM_2             to SRIO-24;
+from    REFHI_IND_2             to SRIO-11;
+from    REFLO_IND_2             to SRIO-12;

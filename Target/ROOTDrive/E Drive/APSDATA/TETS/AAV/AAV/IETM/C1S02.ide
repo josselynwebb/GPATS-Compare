@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY fig1-1a SYSTEM "./graphics/fig1-1a.pic" NDATA FAXTILE>
+<!ENTITY fig1-1b SYSTEM "./graphics/fig1-1b.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C1S02" LABEL="II"><?Pub Dtl?><?FRAME TITLE='Chapter 1. General Information, Section II. Equipment Description' previous='./C1S01.ide!c1s01' image="./graphics/fig1-1A.pic -T 'Figure 1-1. AN/PSM-115 APS Contents (Sheet 1 of 2)'"?><?TOCENTRY TITLE="SECTION II. Equipment Description" TOCLEVEL="2" LABEL="II"?>
+<TITLE>SECTION II. Equipment Description</TITLE>
+<NOTE>
+<PARA>Items 20 through 30 in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?> are described on page [2 of 2] of Section II Equipment Description.</PARA></NOTE>
+<PARA0 ID="P1-2" LABEL="1.2"><?TOCENTRY TITLE="1.2 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section describes the components that make up the AN/PSM-115 APS. The Transit Case specifications are given in <XREF XREFID="TABLE1-2" XIDTYPE="TABLE">Table 1-2</XREF>.</PARA>
+<SUBPARA1 ID="P1-2.1" LABEL="1.2.1"><?TOCENTRY TITLE="1.2.1 APS Components" TOCLEVEL="4"?>
+<TITLE>APS Components</TITLE>
+<PARA>The following paragraphs briefly identify the APS components packed in the APS Transit Case. Refer to <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>.</PARA>
+<FIGURE ID="FIG1-1" LABEL="1-1">
+<TITLE>AN/PSM-115 APS Contents</TITLE>
+<SUBFIG ID="FIG1-1A" LABEL="1"><?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</SUBFIG>
+<SUBFIG ID="FIG1-1B" LABEL="2"><?hotspot linktype="picture" href="./graphics/fig1-1b.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</SUBFIG></FIGURE>
+<SUBPARA2 ID="P1-2.1.1" LABEL="1.2.1.1"><?TOCENTRY TITLE="1.2.1.1 Case, Electrical - Electronic Test &amp; Measuring Equipment, AN/PSM-115" TOCLEVEL="5"?>
+<TITLE>Case, Electrical - Electronic Test &amp; Measuring Equipment, AN/PSM-115</TITLE>
+<PARA>The Transit case, Item 1, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The Transit case is used to store and transport all APS hardware required for testing.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.2" LABEL="1.2.1.2"><?TOCENTRY TITLE="1.2.1.2 Disk, Executable, AN/PSM-115" TOCLEVEL="5"?>
+<TITLE>Disk, Executable, AN/PSM-115</TITLE>
+<PARA>The Executable Disk, Item 2, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The Executable Disk contains all software required to perform all testing with the APS.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.3" LABEL="1.2.1.3"><?TOCENTRY TITLE="1.2.1.3 Cover, Connectors, ITA" TOCLEVEL="5"?>
+<TITLE>Cover, Connectors, ITA</TITLE>
+<PARA>The Connectors Cover, Item 3, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The Connectors Cover is put in place during LRU testing to protect ITA connectors J5 through J8.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.4" LABEL="1.2.1.4"><?TOCENTRY TITLE="1.2.1.4 Cable Assembly, Special Purpose, Electrical, Branched, W1" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W1</TITLE>
+<PARA>The Cable, Item 4, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.5" LABEL="1.2.1.5"><?TOCENTRY TITLE="1.2.1.5 Cable Assembly, Special Purpose, Electrical, Branched, W2" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W2</TITLE>
+<PARA>The Cable, Item 5, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.6" LABEL="1.2.1.6"><?TOCENTRY TITLE="1.2.1.6 Cable Assembly, Special Purpose, Electrical, Branched, W3" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W3</TITLE>
+<PARA>The Cable, Item 6, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.7" LABEL="1.2.1.7"><?TOCENTRY TITLE="1.2.1.7 Cable Assembly, Special Purpose, Electrical, Branched, W4" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W4</TITLE>
+<PARA>The Cable, Item 7, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.8" LABEL="1.2.1.8"><?TOCENTRY TITLE="1.2.1.8 Cable Assembly, Special Purpose, Electrical, W5" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W5</TITLE>
+<PARA>The Cable, Item 8, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.9" LABEL="1.2.1.9"><?TOCENTRY TITLE="1.2.1.9 Cable Assembly, Special Purpose, Electrical, Branched, W6" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W6</TITLE>
+<PARA>The Cable, Item 9, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.10" LABEL="1.2.1.10"><?TOCENTRY TITLE="1.2.1.10 Cable Assembly, Special Purpose, Electrical, W7" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W7</TITLE>
+<PARA>The Cable, Item 10, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.11" LABEL="1.2.1.11"><?TOCENTRY TITLE="1.2.1.11 Cable Assembly, Special Purpose, Electrical, W8" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W8</TITLE>
+<PARA>The Cable, Item 11, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.12" LABEL="1.2.1.12"><?TOCENTRY TITLE="1.2.1.12 Cable Assembly, Special Purpose, Electrical, W9" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, W9</TITLE>
+<PARA>The Cable, Item 12, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.13" LABEL="1.2.1.13"><?TOCENTRY TITLE="1.2.1.13 Cable Assembly, Special Purpose, Electrical, Branched, W10" TOCLEVEL="5"?>
+<TITLE>Cable Assembly, Special Purpose, Electrical, Branched, W10</TITLE>
+<PARA>The Cable, Item 13, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This cable provides an electrical and physical connection to UUTs which require this cable for testing.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.14" LABEL="1.2.1.14"><?TOCENTRY TITLE="1.2.1.14 Card Guide Assembly, 14/120 Pos. CCA - Right" TOCLEVEL="5"?>
+<TITLE>Card Guide Assembly, 14/120 Pos. CCA - Right</TITLE>
+<PARA>The Card Guide, Item 14, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The Card Guide provides support to UUTs which require this item for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.15" LABEL="1.2.1.15"><?TOCENTRY TITLE="1.2.1.15 Card Guide Assembly, 14/120 Pos. CCA - Left" TOCLEVEL="5"?>
+<TITLE>Card Guide Assembly, 14/120 Pos. CCA - Left</TITLE>
+<PARA>The Card Guide, Item 15, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The Card Guide provides support to UUTs which require this item for testing. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.16" LABEL="1.2.1.16"><?TOCENTRY TITLE="1.2.1.16 Fixture Assembly - AAV ITA" TOCLEVEL="5"?>
+<TITLE>Fixture Assembly - AAV ITA</TITLE>
+<PARA>The ITA, Item 16, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The ITA provides the primary electrical and physical connection for all UUTs tested with this APS.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.17" LABEL="1.2.1.17"><?TOCENTRY TITLE="1.2.1.17 Card Guide Assembly" TOCLEVEL="5"?>
+<TITLE>Card Guide Assembly</TITLE>
+<PARA>The Card Guide, Item 17, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The Card Guide provides support to UUTs which require this item for testing. This card guide can be used on both the right and left side of the UUT.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.18" LABEL="1.2.1.18"><?TOCENTRY TITLE="1.2.1.18 Support Assembly, LRU - Left" TOCLEVEL="5"?>
+<TITLE>Support Assembly, LRU - Left</TITLE>
+<PARA>The assembly, Item 18, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The assembly is used to provide support to the DDM LRU while testing.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.19" LABEL="1.2.1.19"><?TOCENTRY TITLE="1.2.1.19 Support Assembly, LRU - Right" TOCLEVEL="5"?>
+<TITLE>Support Assembly, LRU - Right</TITLE>
+<PARA>The assembly, Item 19, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. The assembly is used to provide support to the DDM LRU while testing.</PARA></SUBPARA2><?FRAME title="Section II. Equipment Description Cont'd" ID="C1S02B" image="./graphics/fig1-1b.pic -T 'Figure 1-1. AN/PSM-115 APS Contents (Sheet 2 of 2)'" next="./c1s03.ide!C1S03"?>
+<SUBPARA2 ID="P1-2.1.20" LABEL="1.2.1.20"><?TOCENTRY TITLE="1.2.1.20 Consolidated Self-Test Adapter, A2 Assembly" TOCLEVEL="5"?>
+<TITLE>Consolidated Self-Test Adapter, A2 Assembly</TITLE>
+<PARA>The Self-Test Adapter, Item 20, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This adapter provides the ability to self-test the APS hardware with the APS Self-test program prior to testing of UUTs. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.21" LABEL="1.2.1.21"><?TOCENTRY TITLE="1.2.1.21 Extender Card Assembly - Electronic Test, 70 Pin to 70 Pin, A1" TOCLEVEL="5"?>
+<TITLE>Extender Card Assembly - Electronic Test, 70 Pin to 70 Pin, A1</TITLE>
+<PARA>The Extender Card Assembly, Item 21, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>.  This assembly extends the Controller Bus for additional testing points.  </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.22" LABEL="1.2.1.22"><?TOCENTRY TITLE="1.2.1.22 Printed Wiring Assembly - CP1 Self-Test Adapter, A3" TOCLEVEL="5"?>
+<TITLE>Printed Wiring Assembly - CP1 Self-Test Adapter, A3</TITLE>
+<PARA>The Self-Test Adapter, Item 22, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.23" LABEL="1.2.1.23"><?TOCENTRY TITLE="1.2.1.23 Printed Wiring Assembly - DDM Adapter, CP1" TOCLEVEL="5"?>
+<TITLE>Printed Wiring Assembly - DDM Adapter, CP1</TITLE>
+<PARA>The Self-Test Adapter, Item 23, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This adapter provides the ability to self-test the APS hardware with the APS Self-test program prior to testing of UUTs. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.24" LABEL="1.2.1.24"><?TOCENTRY TITLE="1.2.1.24 Printed Wiring Assembly - Controller XA5 Adapter, CP2" TOCLEVEL="5"?>
+<TITLE>Printed Wiring Assembly - Controller XA5 Adapter, CP2</TITLE>
+<PARA>The Adapter, Item 24, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This adapter allows the Test Program to properly test the Controller. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.25" LABEL="1.2.1.25"><?TOCENTRY TITLE="1.2.1.25 Shorting Plug, SP1" TOCLEVEL="5"?>
+<TITLE>Shorting Plug, SP1</TITLE>
+<PARA>The Shorting Plug, Item 25, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This plug allows proper self-testing of APS hardware prior to use.</PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.26" LABEL="1.2.1.26"><?TOCENTRY TITLE="1.2.1.26 Printed Wiring Assembly - 70 Pin Self-Test Adapter, A4" TOCLEVEL="5"?>
+<TITLE>Printed Wiring Assembly - 70 Pin Self-Test Adapter, A4</TITLE>
+<PARA>The Self-Test Adapter, Item 26, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This adapter provides the ability to self-test the APS hardware with the APS Self-test program prior to testing of UUTs. </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.27" LABEL="1.2.1.27"><?TOCENTRY TITLE="1.2.1.27 Screw, Machine" TOCLEVEL="5"?>
+<TITLE>Screw, Machine</TITLE>
+<PARA>The Machine Screw, Item 27, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This item provides the ability to attach the Printed Wiring Assembly - CP1 Self-Test Adapter, A3, Item 22, to the UUTs which require this adapter assembly.  </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.28" LABEL="1.2.1.28"><?TOCENTRY TITLE="1.2.1.28 Spacer" TOCLEVEL="5"?>
+<TITLE>Spacer</TITLE>
+<PARA>The Spacer, Item 28, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This item provides the ability to attach the Printed Wiring Assembly - CP1 Self-Test Adapter, A3, Item 22, to the UUTs which require this adapter assembly.  </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.29" LABEL="1.2.1.29"><?TOCENTRY TITLE="1.2.1.29 Connector, Stacking, Electrical" TOCLEVEL="5"?>
+<TITLE>Connector, Stacking, Electrical</TITLE>
+<PARA>The Connector, Item 29, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This item provides the ability to attach the Printed Wiring Assembly - CP1 Self-Test Adapter, A3, Item 22, to the UUTs which require this adapter assembly.  </PARA></SUBPARA2>
+<SUBPARA2 ID="P1-2.1.30" LABEL="1.2.1.30"><?TOCENTRY TITLE="1.2.1.30 Secondary, Support, LRU" TOCLEVEL="5"?>
+<TITLE>Secondary, Support, LRU</TITLE>
+<PARA>The Support, Item 30, is shown in <?hotspot linktype="picture" href="./graphics/fig1-1a.pic"?>Figure 1-1<?endhotspot?>. This item provides supplementary support for the DDM LRU while testing. </PARA></SUBPARA2></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE1-2" LABEL="1-2"><?Pub Dtl?>
+<TITLE>AN/PSM-115 Specifications</TITLE>
+<TGROUP COLS="2">
+<COLSPEC COLNAME="COL1" COLWIDTH="78.84pt"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="87.05pt" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Specification</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>Operating Environment</ENTRY>
+<ENTRY>-10&deg;C to +55&deg;C</ENTRY></ROW>
+<ROW>
+<ENTRY>Length</ENTRY>
+<ENTRY>21 Inches</ENTRY></ROW>
+<ROW>
+<ENTRY>Width</ENTRY>
+<ENTRY>26 Inches</ENTRY></ROW>
+<ROW>
+<ENTRY>Height</ENTRY>
+<ENTRY>24 Inches</ENTRY></ROW>
+<ROW>
+<ENTRY>Weight</ENTRY>
+<ENTRY>42 Pounds</ENTRY></ROW></TBODY></TGROUP></TABLE></PARA0></SECTION>

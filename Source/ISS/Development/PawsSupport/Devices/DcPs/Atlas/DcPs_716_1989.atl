@@ -1,0 +1,4209 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'DcPs Benchmark' $
+C ***************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemDcPs.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+C	REQUIRE, 'PRINTER', I-O DEVICE,
+        	CAPABILITY,
+			LINE-LENGTH 80 CHAR $
+C			PAGE-SIZE 25 LINES $
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+	DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'VOLTAGE' IS DECIMAL	        $
+	DECLARE, VARIABLE, 'VOLT-MAX' IS DECIMAL	$
+	DECLARE, VARIABLE, 'VOLT-EXP' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT' IS DECIMAL	        $
+        DECLARE, VARIABLE, 'CURR-MAX' IS DECIMAL	$
+	DECLARE, VARIABLE, 'CURR-EXP' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT1' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT2' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT3' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT4' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT5' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT6' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT7' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT8' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT9' IS DECIMAL	$
+        DECLARE, VARIABLE, 'VOLT-LMT' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURR-LMT' IS DECIMAL	$
+        DECLARE, VARIABLE, 'IMPEDANCE' IS DECIMAL	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-VOLTS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MEASUREMENT' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MAX-T' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VOLT-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VOLT-LL' IS DECIMAL		$
+        DECLARE, VARIABLE, 'CURR-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'CURR-LL' IS DECIMAL		$
+        DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, CONSTANT, 'CONTINUE' IS
+         C' Press TRUE OR FALSE to continue '
+          $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test
+	'
+        $
+C $
+C        DEFINE, 'RESULTS-MSG', MESSAGE,
+            UL   ()
+              MV ()
+            LL   () $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'V-RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VOLT-UL' EQ 0, THEN $
+
+             IF, 'VOLT-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, 
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'    ','VOLT-UL':8:4,C'                   ','MEASUREMENT':8:4,C'              ','VOLT-LL':8:4,C'                   ','PassFail', C'\LF\\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'    ','VOLT-UL':8:4,C'                    ','MEASUREMENT':8:4,C'             ','VOLT-LL':8:4,C'                   ', 'PassFail', C'\LF\\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'V-RESULTS' $
+
+ 000500 DEFINE, 'I-RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'CURR-UL' EQ 0, THEN $
+
+             IF, 'CURR-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, 
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'    ','CURR-UL':8:4,C'                   ','MEASUREMENT':8:4,C'              ','CURR-LL':8:4,C'                   ','PassFail', C'\LF\\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'    ','CURR-UL':8:4,C'                    ','MEASUREMENT':8:4,C'             ','CURR-LL':8:4,C'                   ', 'PassFail', C'\LF\\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'I-RESULTS' $
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+      C'DcPs ATLAS Driver Benchmark\LF\',
+      C'Date/Time:','DATE-TIME' $
+	
+	OUTPUT, TO 'PRINTER', C'      DcPs ATLAS Driver Benchmark\LF\',
+      C'Date/Time:', 'DATE-TIME', C'\LF\\LF\\LF\' $
+
+
+c	APPLY, SHORT, FROM J1 TO J2 $
+B $
+ 001005  OUTPUT, 
+        C'           Main Menu
+          --------------------------------
+          Run All Tests                  1
+          Single Supply DCPS 1-10 tests  2
+          Master-Slave parallel tests    3
+          Current Limit tests            4
+	  Sequence Supplies	 	 5
+          Exit                           0
+
+          Enter a selection'
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+	IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050000 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 055000 $
+        END, IF $
+        
+	
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001005 $
+
+C $
+
+C *************************************************************$
+C ****** TEST POWER SUPPLIES 1-10 *****************************$
+C *************************************************************$
+
+B $
+ 010000 CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'CURR-MAX'	  = 5 $
+        CALCULATE, 'VOLT-MAX'	  = 40 $
+
+	OUTPUT, C' CLOSE SWITCHES TO SWITCH FROM 13 OHM LOAD
+                   TO 13.5 OHM LOAD:
+			   S101-37,38
+                           S101-39,40  \LF\\LF\'   $
+
+	OUTPUT, 
+        C'   DCPS_1 - DCPS_10 Test Menu
+          --------------------------------
+          DCPS_1                         1
+          DCPS_2		         2
+          DCPS_3		         3
+          DCPS_4                         4
+          DCPS_5		         5
+          DCPS_6		         6
+          DCPS_7                         7
+          DCPS_8		         8
+          DCPS_9		         9
+          DCPS_10                        10
+          Main Menu                      0
+
+          Enter a selection\LF\'
+        $
+
+     05	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020300 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020400 $
+        END, IF $
+        IF, 'CHOICE' EQ 6, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020500 $
+        END, IF $
+        IF, 'CHOICE' EQ 7, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020600 $
+        END, IF $
+        IF, 'CHOICE' EQ 8, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020700 $
+        END, IF $
+        IF, 'CHOICE' EQ 9, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020800 $
+        END, IF $
+	IF, 'CHOICE' EQ 10, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020900 $
+        END, IF $
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 010000 $
+
+
+C *******************************************************************
+C * DCPS_1 Tests
+C ******************************************************************* $
+	
+
+
+C $
+B $
+ 010100	OUTPUT, 
+	C'     DCPS1 TESTS
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS1 TESTS
+              --------------\LF\' $
+
+	OUTPUT, 
+	C'     DC SIGNAL TEST-VOLTAGE
+              ------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DC SIGNAL TEST-VOLTAGE
+              ------------------------\LF\' $
+
+        
+      	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-MAX'=5 $
+        CALCULATE, 'CURR-LMT' = 4 $
+	CALCULATE, 'MAX-T' = 10  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $  
+
+     10 OUTPUT,
+        C'   DC SIGNAL Test-VOLTAGE
+          --------------------------------------
+          Connect DC1 output to the ', 'IMPEDANCE':5:2,
+          C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+
+	CALCULATE, 'TESTNO' = 010120 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS1A-SENHI SENSE-LO DCPS1A-SENLO   $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS1A-HI LO DCPS1A-LO   $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current  = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+
+	IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+
+ 
+ 010200	OUTPUT, 
+	C'     DC SIGNAL TEST-CURRENT
+              ------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DC SIGNAL TEST-CURRENT
+              ------------------------\LF\' $
+
+        
+        
+     10 OUTPUT,
+        C'   DC SIGNAL Test- CURRENT
+          --------------------------------------
+          Connect DC1 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+c	CALCULATE, 'IMPEDANCE'    = 50 $
+	CALCULATE, 'CURRENT'    = 2 $
+        CALCULATE, 'VOLT-MAX' = 40 $
+	CALCULATE, 'VOLT-LMT' = 40 $
+	CALCULATE, 'VOLT-EXP' = 'CURRENT'*'IMPEDANCE' $
+	CALCULATE, 'CURR-MAX'=5 $
+
+	CALCULATE, 'VOLT-UL' = ('VOLT-EXP') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLT-EXP') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURRENT') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURRENT') * 0.9 $
+C $
+	OUTPUT, 'CURRENT':5:2, C' A is applied.\LF\'  $
+
+
+
+     20 APPLY, DC SIGNAL,
+           CURRENT 'CURRENT' RANGE 1 A TO 5 A,
+           VOLT-LMT 'VOLT-LMT' RANGE -40 V TO 40 V,
+           CNX HI DCPS1B-HI LO DCPS1B-LO 
+                  SENSE-HI DCPS1B-SENHI SENSE-LO DCPS1B-SENLO $
+
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 010220 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS1B-SENHI SENSE-LO DCPS1B-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS1B-HI LO DCPS1B-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current  = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+	
+        
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS1B-HI LO DCPS1B-LO 
+                  SENSE-HI DCPS1B-SENHI SENSE-LO DCPS1B-SENLO $
+
+	IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+
+
+ 010300	OUTPUT, 
+	C'     DC SIGNAL TEST-NEGATIVE VOLTAGE
+              ---------------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DC SIGNAL TEST-NEGATIVE VOLTAGE
+              ---------------------------------\LF\' $
+
+        
+     10 OUTPUT,
+        C'   DC SIGNAL Test-NEGATIVE VOLTAGE
+          --------------------------------------
+          Connect DC output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+c	CALCULATE, 'IMPEDANCE'    = 50 $
+	CALCULATE, 'VOLTAGE'    = -15 $
+        CALCULATE, 'CURR-EXP' = -('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURR-MAX'=5 $
+        CALCULATE, 'CURR-LMT' = 4 $
+	CALCULATE, 'MAX-T' = 10  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * .9 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 1.1 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+
+	CALCULATE, 'TESTNO' = 010320 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS1A-SENHI SENSE-LO DCPS1A-SENLO   $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS1A-HI LO DCPS1A-LO   $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current  = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 010100 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+
+C ************ DCPS_2 ************************** $
+B $
+ 020100 OUTPUT, C' TESTS FOR SUPPLIES 2-10\LF\',
+                C' THESE TESTS WILL BE TO SHOW COMMUNICATION WITH 
+                   THE INSTRUMENT.  EXCEPTION: THE TESTS FOR 
+                   SUPPLY 10 WILL ME MORE THOROUGH SINCE IT HAS 
+                   SLIGHTLY DIFFERENT SPECS THAT 1 THRU 9 \LF\'  $
+	OUTPUT, 
+	C'     DCPS_2 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_2 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+        CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+        OUTPUT,
+        C'   DCPS_2 TEST
+          --------------------------------------
+          Connect DCPS_2 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     18 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+	
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS2A-HI LO DCPS2A-LO 
+                  SENSE-HI DCPS2A-SENHI SENSE-LO DCPS2A-SENLO $
+
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+
+	CALCULATE, 'TESTNO' = 020120 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS2A-SENHI SENSE-LO DCPS2A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS2A-HI LO DCPS2A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+	
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS2A-HI LO DCPS2A-LO 
+                  SENSE-HI DCPS2A-SENHI SENSE-LO DCPS2A-SENLO $
+
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020100 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ************ DCPS_3 ************************** $
+B $
+ 020200 OUTPUT, 
+	C'     DCPS_3 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_3 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+        OUTPUT,
+        C'   DCPS_3 TEST
+          --------------------------------------
+          Connect DCPS_3 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS3A-HI LO DCPS3A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020220 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS3A-SENHI SENSE-LO DCPS3A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS3A-HI LO DCPS3A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS3A-HI LO DCPS3A-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020200 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ************ DCPS_4 ************************** $
+B $
+ 020300 OUTPUT, 
+	C'     DCPS_4 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_4 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+        OUTPUT,
+        C'   DCPS_4 TEST
+          --------------------------------------
+          Connect DCPS_4 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS4A-HI LO DCPS4A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020320 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS4A-SENHI SENSE-LO DCPS4A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS4A-HI LO DCPS4A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS4A-HI LO DCPS4A-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020400 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020300 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ************ DCPS_5 ************************** $
+B $
+ 020400 OUTPUT, 
+	C'     DCPS_5 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_5 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+        OUTPUT,
+        C'   DCPS_5 TEST
+          --------------------------------------
+          Connect DCPS_5 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS5A-HI LO DCPS5A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020420 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS5A-SENHI SENSE-LO DCPS5A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS5A-HI LO DCPS5A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $ 
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS5A-HI LO DCPS5A-LO $
+
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020500 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C       GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020400 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ************ DCPS_6 ************************** $
+B $
+ 020500 OUTPUT, 
+	C'     DCPS_6 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_6 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+        OUTPUT,
+        C'   DCPS_6 TEST
+          --------------------------------------
+          Connect DCPS_6 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS6A-HI LO DCPS6A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020520 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS6A-SENHI SENSE-LO DCPS6A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS6A-HI LO DCPS6A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS6A-HI LO DCPS6A-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020600 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C       GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020500 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ************ DCPS_7 ************************** $
+B $
+ 020600 OUTPUT, 
+	C'     DCPS_7 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_7 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+
+        OUTPUT,
+        C'   DCPS_7 TEST
+          --------------------------------------
+          Connect DCPS_7 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS7A-HI LO DCPS7A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020620 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS7A-SENHI SENSE-LO DCPS7A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS7A-HI LO DCPS7A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+ 	PERFORM, 'I-RESULTS' $
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS7A-HI LO DCPS7A-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020700 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C       GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020600 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ************ DCPS_8 ************************** $
+B $
+ 020700 OUTPUT, 
+	C'     DCPS_8 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_8 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+        OUTPUT,
+        C'   DCPS_8 TEST
+          --------------------------------------
+          Connect DCPS_8 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS8A-HI LO DCPS8A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020720 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS8A-SENHI SENSE-LO DCPS8A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS8A-HI LO DCPS8A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS8A-HI LO DCPS8A-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020800 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C       GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020700 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ************ DCPS_9 ************************** $
+B $
+ 020800 OUTPUT, 
+	C'     DCPS_9 TEST
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_9 TEST
+              --------------\LF\' $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+        OUTPUT,
+        C'   DCPS_9 TEST
+          --------------------------------------
+          Connect DCPS_9 output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS9A-HI LO DCPS9A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020820 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS9A-SENHI SENSE-LO DCPS9A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS9A-HI LO DCPS9A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+         
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS9A-HI LO DCPS9A-LO $
+
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020900 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C       GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010000 $
+	ELSE $ 
+            GO TO, STEP 020800 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C *******************************************************************
+C * DCPS_10 Tests
+C ******************************************************************* $
+C $
+B $
+ 020900	OUTPUT, 
+	C'     DCPS_10 TESTS
+              --------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DCPS_10 TESTS
+              --------------\LF\' $
+
+	OUTPUT, 
+	C'     DC SIGNAL TEST-VOLTAGE
+              ------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DC SIGNAL TEST-VOLTAGE
+              ------------------------\LF\' $
+
+        
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-LMT' = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'MAX-T' = 3.5  $
+C        CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $        
+
+     10 OUTPUT,
+        C'   DC SIGNAL Test-VOLTAGE
+          --------------------------------------
+          Connect DC output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -65 V TO 65 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS10A-HI LO DCPS10A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 020920 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -65 V TO 65 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS10A-SENHI SENSE-LO DCPS10A-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS10A-HI LO DCPS10A-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current  = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+
+        
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS10A-HI LO DCPS10A-LO $
+
+ 	IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+
+
+C 	DCPS_10 CURRENT TEST $
+ 021000	OUTPUT, 
+	C'     DC SIGNAL TEST-CURRENT
+              ------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     DC SIGNAL TEST-CURRENT
+              ------------------------\LF\' $
+	
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	
+	CALCULATE, 'CURRENT'    = 2 $
+	CALCULATE, 'VOLT-EXP' = 'CURRENT'*'IMPEDANCE' $
+        CALCULATE, 'VOLT-LMT' = 62 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLT-EXP') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLT-EXP') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURRENT') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURRENT') * 0.9 $
+C $ 
+     10 OUTPUT,
+        C'   DC SIGNAL Test- CURRENT
+          --------------------------------------
+          Connect DC output to the ', 'IMPEDANCE':5:2, C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+
+	OUTPUT, 'CURRENT':5:2, C' A is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           CURRENT 'CURRENT' RANGE 1 A TO 5 A,
+           VOLT-LMT 'VOLT-LMT' RANGE -65 V TO 65 V,
+           CNX HI DCPS10B-HI LO DCPS10B-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 021020 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -65 V TO 65 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS10B-SENHI SENSE-LO DCPS10B-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS10B-HI LO DCPS10B-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current  = ','CURRENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+
+       REMOVE,  DC SIGNAL,
+           CNX HI DCPS10B-HI LO DCPS10B-LO $
+      
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 020900 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C *******************************************************************
+C * Master-Slave Parallel Tests
+C ******************************************************************* $
+C $
+B $
+ 030000	OUTPUT, 
+	C'     MASTER-SLAVE TESTS
+              --------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     MASTER-SLAVE TESTS
+              --------------------\LF\' $
+
+	OUTPUT, 
+        C'   Master-Slave Parallel Test Menu
+          ------------------------------------
+          Master supply 1		 1
+          Master supply 2		 2
+          Master supply 3 	         3
+          Master supply 4		 4
+          Master supply 5		 5
+          Master supply 6		 6
+          Master supply 7		 7
+          Master supply 8		 8
+          Main Menu                      9
+	  Exit Program                   0
+
+          Enter a selection\LF\'
+        $
+
+	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030020 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 031000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 032000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 033000 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 034000 $
+        END, IF $
+        IF, 'CHOICE' EQ 6, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 035000 $
+        END, IF $
+        IF, 'CHOICE' EQ 7, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 036000 $
+        END, IF $
+        IF, 'CHOICE' EQ 8, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 037000 $
+        END, IF $
+        IF, 'CHOICE' EQ 9, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 030000 $
+
+B $
+ 030020 OUTPUT, 
+        C' Master Supply 1 Parallel Test Menu \LF\',
+        C'------------------------------------\LF\',
+        C'Two supplies in parallel	 2    \LF\',
+        C'Three supplies in parallel	 3    \LF\',
+	C'				      \LF\',
+        C'Main Menu                      4    \LF\',
+	C'Master Slave Parallel Menu	5    \LF\',
+	C'Exit Program                   0    \LF\',
+        C'\LF\',
+        C'Enter a selection\LF\'                          $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 030020 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 030100 OUTPUT, 
+	C'     2 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     2 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 1 and 2
+          ------------------------------------------
+          Connect power supply 1 and 2 outputs in 
+          parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #1 
+          sense lines to supply 1 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030020 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_2MS-HI LO DCPS_2MS-LO
+               SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 030120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_1MS-SENHI SENSE-LO DCPS_1MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+
+        MEASURE, (CURRENT INTO 'CURRENT1'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_1MS-SENHI SENSE-LO DCPS_1MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT2'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT1' + 'CURRENT2' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 1 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+  	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_2MS-HI LO DCPS_2MS-LO $
+
+	IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+
+
+ 030150	OUTPUT, 
+	C'     2 SUPPLIES PARALLEL TEST-NEGATIVE VOLTAGE
+              -------------------------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     2 SUPPLIES PARALLEL TEST-NEGATIVE VOLTAGE
+              -------------------------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 1 and 2, NEGATIVE VOLTAGE
+          --------------------------------------------------------
+          Connect power supply 1 and 2 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #1 
+          sense lines to supply 1 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030020 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = -25 $
+        CALCULATE, 'CURR-EXP' = -('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     70	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 0.9 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 1.1 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_2MS-HI LO DCPS_2MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 030150 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_1MS-SENHI SENSE-LO DCPS_1MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+
+        MEASURE, (CURRENT INTO 'CURRENT1'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_1MS-SENHI SENSE-LO DCPS_1MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT2'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT1' + 'CURRENT2' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 1 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+       
+
+c        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_8MS-HI LO DCPS_8MS-LO $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_2MS-HI LO DCPS_2MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030020 $
+	ELSE $ 
+            GO TO, STEP 030100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ******** 3 SUPPLIES IN PARALLEL*********************$
+B $
+ 030200 OUTPUT, 
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   3 SUPPLIES PARALLEL TEST
+          ------------------------------------------
+          Connect power supply 1, 2, and 3 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #1 
+          sense lines to supply 1 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030020 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+        CALCULATE, 'CURR-LMT' = 12 $
+        CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 10.0001 A TO 15 A,
+           CNX HI DCPS_3MS-HI LO DCPS_3MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 030220 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_1MS-SENHI SENSE-LO DCPS_1MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+
+        MEASURE, (CURRENT INTO 'CURRENT1'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_1MS-SENHI SENSE-LO DCPS_1MS-SENLO $
+ 
+	MEASURE, (CURRENT INTO 'CURRENT2'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT3'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_3MS-SENHI SENSE-LO DCPS_3MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT1' + 'CURRENT2' + 'CURRENT3' $
+	PERFORM, 'I-RESULTS' $
+
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+ 	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_3MS-HI LO DCPS_3MS-LO $
+
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 031100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030020 $
+	ELSE $ 
+            GO TO, STEP 030200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ****************************************************$
+C MASTER SUPPLY 2
+C ****************************************************$
+
+B $
+ 031000 OUTPUT, 
+        C' Master Supply 2 Parallel Test Menu
+          ------------------------------------
+          Two supplies in parallel	 2
+          Three supplies in parallel	 3
+
+          Main Menu                      4
+	  Master Slave Parallel Menu	 5
+	  Exit Program                   0
+	  
+          Enter a selection\LF\'
+        $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 031100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 031200 $
+        END, IF $
+        IF, 'CHOICE' EQ 8, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 9, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 031000 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 031100 OUTPUT, 
+	C'   MASTER SUPPLY 2 - PARALLEL TESTS
+          -------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+	C'   MASTER SUPPLY 2 - PARALLEL TESTS
+          -------------------------------------\LF\' $
+	
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 2 and 3
+          ------------------------------------------
+          Connect power supply 2 and 3 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #2 sense lines
+          to supply 2 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_3MS-HI LO DCPS_3MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 031120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        
+	MEASURE, (CURRENT INTO 'CURRENT2'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT3'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_3MS-SENHI SENSE-LO DCPS_3MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT2'+'CURRENT3' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 2 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total) = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_3MS-HI LO DCPS_3MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 031200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 031000 $
+	ELSE $ 
+            GO TO, STEP 031100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ******** 3 SUPPLIES IN PARALLEL*********************$
+B $
+ 031200 OUTPUT, 
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   3 SUPPLIES PARALLEL TEST - 2, 3, 4
+          -------------------------------------------
+          Connect power supply 2, 3, and 4 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #2 sense lines
+          to supply 2 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 031000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+        CALCULATE, 'CURR-LMT' = 12 $
+        CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 10.0001 A TO 15 A,
+           CNX HI DCPS_4MS-HI LO DCPS_4MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 031220 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+       
+	 MEASURE, (CURRENT INTO 'CURRENT2'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_2MS-SENHI SENSE-LO DCPS_2MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT3'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_3MS-SENHI SENSE-LO DCPS_3MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT4'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_4MS-SENHI SENSE-LO DCPS_4MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT2'+'CURRENT3'+'CURRENT4' $
+	PERFORM, 'I-RESULTS' $
+
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+ 	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+         REMOVE,  DC SIGNAL,
+           CNX HI DCPS_4MS-HI LO DCPS_4MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 032100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 031000 $
+	ELSE $ 
+            GO TO, STEP 031200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ****************************************************$
+C MASTER SUPPLY 3
+C ****************************************************$
+
+B $
+ 032000 OUTPUT, 
+        C' Master Supply 3 Parallel Test Menu
+          ------------------------------------
+          Two supplies in parallel	 2
+          Three supplies in parallel	 3
+
+          Main Menu                      4
+	  Master Slave Parallel Menu	 5
+	  Exit Program                   0
+
+          Enter a selection\LF\'
+        $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 032100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 032200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 032000 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 032100 OUTPUT, 
+	C'     MASTER 3 PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     MASTER 3 PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 3 and 4
+          ------------------------------------------
+          Connect power supply 3 and 4 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #3 sense lines
+          to supply 3 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 032000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_4MS-HI LO DCPS_4MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 032120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_3MS-SENHI SENSE-LO DCPS_3MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        
+	MEASURE, (CURRENT INTO 'CURRENT3'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_3MS-SENHI SENSE-LO DCPS_3MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT4'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_4MS-SENHI SENSE-LO DCPS_4MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT3'+'CURRENT4' $
+	PERFORM, 'I-RESULTS' $
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 3 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_4MS-HI LO DCPS_4MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 032200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 032000 $
+	ELSE $ 
+            GO TO, STEP 032100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ******** 3 SUPPLIES IN PARALLEL*********************$
+B $
+ 032200 OUTPUT, 
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   3 SUPPLIES PARALLEL TEST
+          ------------------------------------------
+          Connect power supply 3, 4, and 5 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #3 sense lines
+          to supply 3 output.
+
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 032000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+        CALCULATE, 'CURR-LMT' = 12 $
+        CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 10.0001 A TO 15 A,
+           CNX HI DCPS_5MS-HI LO DCPS_5MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 032220 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_3MS-SENHI SENSE-LO DCPS_3MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+        PERFORM, 'V-RESULTS' $
+	
+	MEASURE, (CURRENT INTO 'CURRENT3'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_3MS-SENHI SENSE-LO DCPS_3MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT4'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_4MS-SENHI SENSE-LO DCPS_4MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT5'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_5MS-SENHI SENSE-LO DCPS_5MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT3'+'CURRENT4'+'CURRENT5' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+          C'Current  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_5MS-HI LO DCPS_5MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 033100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 032000 $
+	ELSE $ 
+            GO TO, STEP 032200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ****************************************************$
+C MASTER SUPPLY 4
+C ****************************************************$
+
+B $
+ 033000 OUTPUT, 
+        C' Master Supply 4 Parallel Test Menu
+          ------------------------------------
+          Two supplies in parallel	 2
+          Three supplies in parallel	 3
+
+          Main Menu                      4
+	  Master Slave Parallel Menu	 5
+	  Exit Program                   0
+
+          Enter a selection\LF\'
+        $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 033100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 033200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 033000 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 033100 OUTPUT, 
+	C'     MASTER 4 PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     MASTER 4 PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 4 and 5
+          ------------------------------------------
+          Connect power supply 4 and 5 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #4 sense lines
+          to supply 4 output.
+
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 033000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_5MS-HI LO DCPS_5MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 033120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_4MS-SENHI SENSE-LO DCPS_4MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        
+	MEASURE, (CURRENT INTO 'CURRENT4'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_4MS-SENHI SENSE-LO DCPS_4MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT5'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_5MS-SENHI SENSE-LO DCPS_5MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT4'+'CURRENT5' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 4 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_5MS-HI LO DCPS_5MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 033200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 033000 $
+	ELSE $ 
+            GO TO, STEP 033100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ******** 3 SUPPLIES IN PARALLEL*********************$
+B $
+ 033200 OUTPUT, 
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   3 SUPPLIES PARALLEL TEST
+          ------------------------------------------
+          Connect power supply 4, 5, and 6 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #4 sense lines
+          to supply 4 output.
+
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 033000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+        CALCULATE, 'CURR-LMT' = 12 $
+        CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 10.0001 A TO 15 A,
+           CNX HI DCPS_6MS-HI LO DCPS_6MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 033220 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_4MS-SENHI SENSE-LO DCPS_4MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+        PERFORM, 'V-RESULTS' $
+	
+	MEASURE, (CURRENT INTO 'CURRENT4'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_4MS-SENHI SENSE-LO DCPS_4MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT5'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_5MS-SENHI SENSE-LO DCPS_5MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT6'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_6MS-SENHI SENSE-LO DCPS_6MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT4'+'CURRENT5'+'CURRENT6' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+          C'Current  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+	
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_6MS-HI LO DCPS_6MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 034100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 033000 $
+	ELSE $ 
+            GO TO, STEP 033200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ****************************************************$
+C MASTER SUPPLY 5
+C ****************************************************$
+
+B $
+ 034000 OUTPUT, 
+        C' Master Supply 5 Parallel Test Menu
+          ------------------------------------
+          Two supplies in parallel	 2
+          Three supplies in parallel	 3
+
+          Main Menu                      4
+	  Master Slave Parallel Menu	 5
+	  Exit Program                   0
+
+          Enter a selection\LF\'
+        $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 034100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 034200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 034000 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 034100 OUTPUT, 
+	C'     MASTER 5 PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     MASTER 5 PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 5 and 6
+          ------------------------------------------
+          Connect power supply 5 and 6 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #5 sense lines
+          to supply 5 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 034000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_6MS-HI LO DCPS_6MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 034120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_5MS-SENHI SENSE-LO DCPS_5MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        
+	MEASURE, (CURRENT INTO 'CURRENT5'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_5MS-SENHI SENSE-LO DCPS_5MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT6'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_6MS-SENHI SENSE-LO DCPS_6MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT5'+'CURRENT6' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 5 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_6MS-HI LO DCPS_6MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 034200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 034000 $
+	ELSE $ 
+            GO TO, STEP 034100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ******** 3 SUPPLIES IN PARALLEL*********************$
+B $
+ 034200 OUTPUT, 
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   3 SUPPLIES PARALLEL TEST
+          ------------------------------------------
+          Connect power supply 5, 6, and 7 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #5 sense lines
+          to supply 5 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 034000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+        CALCULATE, 'CURR-LMT' = 12 $
+        CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 10.0001 A TO 15 A,
+           CNX HI DCPS_7MS-HI LO DCPS_7MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 034220 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_5MS-SENHI SENSE-LO DCPS_5MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+        PERFORM, 'V-RESULTS' $
+	
+	MEASURE, (CURRENT INTO 'CURRENT5'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_5MS-SENHI SENSE-LO DCPS_5MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT6'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_6MS-SENHI SENSE-LO DCPS_6MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT7'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_7MS-SENHI SENSE-LO DCPS_7MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT5'+'CURRENT6'+'CURRENT7' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+          C'Current  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_7MS-HI LO DCPS_7MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 035100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 034000 $
+	ELSE $ 
+            GO TO, STEP 034200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ****************************************************$
+C MASTER SUPPLY 6
+C ****************************************************$
+
+B $
+ 035000 OUTPUT, 
+        C' Master Supply 6 Parallel Test Menu
+          ------------------------------------
+          Two supplies in parallel	 2
+          Three supplies in parallel	 3
+
+          Main Menu                      4
+	  Master Slave Parallel Menu	 5
+	  Exit Program                   0
+
+          Enter a selection\LF\'
+        $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 035100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 035200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 035000 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 035100 OUTPUT, 
+	C'     MASTER 6 PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     MASTER 6 PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 6 and 7
+          ------------------------------------------
+          Connect power supply 6 and 7 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #6 sense lines
+          to supply 6 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 035000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_7MS-HI LO DCPS_7MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 035120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_6MS-SENHI SENSE-LO DCPS_6MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        
+	MEASURE, (CURRENT INTO 'CURRENT6'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_6MS-SENHI SENSE-LO DCPS_6MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT7'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_7MS-SENHI SENSE-LO DCPS_7MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT6'+'CURRENT7' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 6 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_7MS-HI LO DCPS_7MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 035200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 035000 $
+	ELSE $ 
+            GO TO, STEP 035100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ******** 3 SUPPLIES IN PARALLEL*********************$
+B $
+ 035200 OUTPUT, 
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   3 SUPPLIES PARALLEL TEST
+          ------------------------------------------
+          Connect power supply 6, 7, and 8 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #6 sense lines
+          to supply 6 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 035000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+        CALCULATE, 'CURR-LMT' = 12 $
+        CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 10.0001 A TO 15 A,
+           CNX HI DCPS_8MS-HI LO DCPS_8MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 035220 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_6MS-SENHI SENSE-LO DCPS_6MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+        PERFORM, 'V-RESULTS' $
+	
+	MEASURE, (CURRENT INTO 'CURRENT6'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_6MS-SENHI SENSE-LO DCPS_6MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT7'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_7MS-SENHI SENSE-LO DCPS_7MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT8'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_8MS-SENHI SENSE-LO DCPS_8MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT6'+'CURRENT7'+'CURRENT8' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+          C'Current  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+         REMOVE,  DC SIGNAL,
+           CNX HI DCPS_8MS-HI LO DCPS_8MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 036100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 035000 $
+	ELSE $ 
+            GO TO, STEP 035200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C ****************************************************$
+C MASTER SUPPLY 7
+C ****************************************************$
+
+B $
+ 036000 OUTPUT, 
+        C' Master Supply 7 Parallel Test Menu
+          ------------------------------------
+          Two supplies in parallel	 2
+          Three supplies in parallel	 3
+
+          Main Menu                      4
+	  Master Slave Parallel Menu	 5
+	  Exit Program                   0
+
+          Enter a selection\LF\'
+        $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 036100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 036200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 036000 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 036100 OUTPUT, 
+	C'     MASTER 7 PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     MASTER 7 PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 7 and 8
+          ------------------------------------------
+          Connect power supply 7 and 8 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #7 sense lines
+          to supply 7 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 036000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_8MS-HI LO DCPS_8MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 036120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_7MS-SENHI SENSE-LO DCPS_7MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        
+	MEASURE, (CURRENT INTO 'CURRENT7'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_7MS-SENHI SENSE-LO DCPS_7MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT8'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_8MS-SENHI SENSE-LO DCPS_8MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT7'+'CURRENT8' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 7 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+ 	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_8MS-HI LO DCPS_8MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 036200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 036000 $
+	ELSE $ 
+            GO TO, STEP 036100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ******** 3 SUPPLIES IN PARALLEL*********************$
+B $
+ 036200 OUTPUT, 
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     3 SUPPLIES PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   3 SUPPLIES PARALLEL TEST
+          ------------------------------------------
+          Connect power supply 7, 8, and 9 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #7 sense lines
+          to supply 7 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 036000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = ('VOLTAGE'/'IMPEDANCE') $
+        CALCULATE, 'CURR-LMT' = 12 $
+        CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 10.0001 A TO 15 A,
+           CNX HI DCPS_9MS-HI LO DCPS_9MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 036220 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_7MS-SENHI SENSE-LO DCPS_7MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+	
+	MEASURE, (CURRENT INTO 'CURRENT7'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_7MS-SENHI SENSE-LO DCPS_7MS-SENLO $
+
+	MEASURE, (CURRENT INTO 'CURRENT8'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_8MS-SENHI SENSE-LO DCPS_8MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT9'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_9MS-SENHI SENSE-LO DCPS_9MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT7'+'CURRENT8'+'CURRENT9' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage  = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+          C'Current  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+ 	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+         REMOVE,  DC SIGNAL,
+           CNX HI DCPS_9MS-HI LO DCPS_9MS-LO $
+
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 037100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $ 
+            GO TO, STEP 036200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+
+C ****************************************************$
+C MASTER SUPPLY 8
+C ****************************************************$
+
+B $
+ 037000 OUTPUT, 
+        C' Master Supply 8 Parallel Test Menu
+          ------------------------------------
+          Two supplies in parallel	 2
+
+          Main Menu                      4
+	  Master Slave Parallel Menu	 5
+	  Exit Program                   0
+
+          Enter a selection\LF\'
+        $
+
+     25	CALCULATE, 'FAIL-FLAG' = 0 $
+
+     30 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 037100 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 001005 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+
+     45 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 037000 $
+
+
+C ******** 2 SUPPLIES IN PARALLEL*********************$
+B $
+ 037100 OUTPUT, 
+	C'     MASTER 8 PARALLEL TEST
+              --------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     MASTER 8 PARALLEL TEST
+              --------------------------\LF\' $
+        OUTPUT,
+        C'   2 SUPPLIES PARALLEL TEST - 8 and 9
+          ------------------------------------------
+          Connect power supply 8 and 9 outputs in 
+           parallel with 15 Ohm load.  Remove ITA box and use special
+          connector to do this.  Connect supply #8 sense lines
+          to supply 8 output.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+	INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 037000 $
+        END, IF $
+C $
+	CALCULATE, 'IMPEDANCE'    = 15.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURRENT' = ('VOLTAGE'/'IMPEDANCE') $
+	CALCULATE, 'CURRENT' = 5 $
+	CALCULATE, 'CURR-LMT' = 8 $
+	CALCULATE, 'MAX-T' = 10 $
+
+     20	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+	APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 5.0001 A TO 10 A,
+           CNX HI DCPS_9MS-HI LO DCPS_9MS-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 037120 $
+C	Sense lines at only 1 of the parallel supplies is used 
+C       to measure resultant voltage and current   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_8MS-SENHI SENSE-LO DCPS_8MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $        
+	
+	MEASURE, (CURRENT INTO 'CURRENT8'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_8MS-SENHI SENSE-LO DCPS_8MS-SENLO $
+	
+	MEASURE, (CURRENT INTO 'CURRENT9'), DC SIGNAL,
+	   CURRENT MAX 'CURR-MAX' RANGE 0 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS_9MS-SENHI SENSE-LO DCPS_9MS-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT8'+'CURRENT9' $
+	PERFORM, 'I-RESULTS' $
+
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage supply 8 = ','VOLTAGE':5:2,C' V (+/-10%). \LF\',
+	  C'Current (Total)  = ','MEASUREMENT':5:2,C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+C $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS_9MS-HI LO DCPS_9MS-LO $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030000 $
+	ELSE $ 
+            GO TO, STEP 037100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C ****************************************************************
+C ***********CURRENT SHUTDOWN / VOLTAGE-LIMIT TESTS **************
+C ****************************************************************
+C $
+B $
+ 050000 OUTPUT,
+	C' CURRENT SHUTDOWN TESTS\LF\',
+	C'------------------------\LF\' $
+
+	OUTPUT, TO 'PRINTER',
+	C' CURRENT SHUTDOWN TESTS\LF\',
+	C'------------------------\LF\' $
+
+
+ 050100	
+	OUTPUT, C' CLOSE SWITCHES TO SWITCH FROM 13 OHM LOAD
+                   TO 13.5 OHM LOAD:
+			   S101-37,38
+                           S101-39,40  \LF\\LF\'   $
+
+
+	OUTPUT, 
+	C'     CURRENT-LMT MODIFIER, DCPS_1
+              ------------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     CURRENT-LMT MODIFIER, DCPS_1
+              ------------------------------\LF\' $
+
+      	CALCULATE, 'IMPEDANCE'    = 8.0 $
+	CALCULATE, 'VOLTAGE'    = 20 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURRENT'=5 $
+        CALCULATE, 'CURR-LMT' = 2 $
+	CALCULATE, 'MAX-T' = 10  $
+	CALCULATE, 'VOLT-UL' = 4 $
+        CALCULATE, 'VOLT-LL' = -.2 $
+	CALCULATE, 'CURR-UL' = .2 $
+        CALCULATE, 'CURR-LL' = -.2 $  
+        
+     10 OUTPUT,
+        C'   DC SIGNAL Test-VOLTAGE
+          -------------------------------------------
+          Connect DC_1 output and sense-lines to ', 'IMPEDANCE':5:2, 
+          C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 001005 $
+        END, IF $
+C $
+
+C $
+	OUTPUT, 'VOLTAGE':5:2, C' V is applied.\LF\'  $
+
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 050120 $
+c	FETCH, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS1A-HI LO DCPS1A-LO SENSE-HI DCPS1A-SENHI SENSE-LO DCPS1A-SENLO   $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS1A-SENHI SENSE-LO DCPS1A-SENLO   $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+c	 VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 5 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS1A-SENHI SENSE-LO DCPS1A-SENLO   $
+c	FETCH, (CURRENT INTO 'CURRENT'), DC SIGNAL, 
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS1A-HI LO DCPS1A-LO   $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS1A-HI LO DCPS1A-LO   $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'The readback values are:              \LF\', 
+	  C'Voltage = 0', C' V (+/-10%). \LF\',
+	  C'Current = 0', C' A (+/-10%). \LF\',
+	  C'                                                  \LF\',
+          C' This is shutdown condition                       \LF\',
+          C'\LF\',	
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+ 
+        
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+
+	IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI'$
+        END, IF $
+
+ 050200	OUTPUT, 
+	C'     VOLTAGE LIMITING-CURRENT, VOLTAGE-LMT
+              ---------------------------------------\LF\' $
+	OUTPUT, TO 'PRINTER',
+	C'     VOLTAGE LIMITING-CURRENT, VOLTAGE-LMT
+              ---------------------------------------\LF\' $
+       
+	CALCULATE, 'IMPEDANCE'    = 8 $
+	CALCULATE, 'CURRENT'    = 2 $
+        CALCULATE, 'VOLTAGE' = 40 $
+	CALCULATE, 'VOLT-LMT' = 12 $
+
+	CALCULATE, 'CURR-EXP' = 'VOLT-LMT'/'IMPEDANCE' $
+	CALCULATE, 'VOLT-UL' = ('VOLT-LMT') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLT-LMT') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+C $
+
+        
+     10 OUTPUT,
+        C'   DC SIGNAL Test- CURRENT, VOLTAGE-LMT
+          -----------------------------------------
+          Connect DC output and sense lines to ', 'IMPEDANCE':5:2, 
+          C' Ohm load.
+
+          T - Ready to test.
+          F - Skip test. '
+          $
+
+     15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050000 $
+        END, IF $
+C $
+	OUTPUT, 'CURRENT':5:2, C' A is applied.\LF\'  $
+
+     20 APPLY, DC SIGNAL,
+           CURRENT 'CURRENT' RANGE 1 A TO 5 A,
+           VOLT-LMT 'VOLT-LMT' RANGE -40 V TO 40 V,
+           CNX HI DCPS1B-HI LO DCPS1B-LO 
+                  SENSE-HI DCPS1B-SENHI SENSE-LO DCPS1B-SENLO $
+	OUTPUT, 'CONTINUE' $
+	INPUT, INTO 'READY' $
+	CALCULATE, 'TESTNO' = 050220 $
+        VERIFY, (VOLTAGE INTO 'VOLTAGE'), DC SIGNAL, UL 'VOLT-UL' V LL 'VOLT-LL' V,
+	   VOLTAGE MAX 'VOLT-MAX' RANGE -40 V TO 40 V,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX SENSE-HI DCPS1B-SENHI SENSE-LO DCPS1B-SENLO $
+	CALCULATE, 'MEASUREMENT' = 'VOLTAGE' $
+	PERFORM, 'V-RESULTS' $
+        VERIFY, (CURRENT INTO 'CURRENT'), DC SIGNAL, UL 'CURR-UL' A LL 'CURR-LL' A,
+	   CURRENT MAX 'CURR-MAX' RANGE 1 A TO 5 A,
+           MAX-TIME 'MAX-T' RANGE 0 SEC TO 1000 SEC,
+           CNX HI DCPS1B-HI LO DCPS1B-LO $
+	CALCULATE, 'MEASUREMENT' = 'CURRENT' $
+	PERFORM, 'I-RESULTS' $
+ 
+C $
+	OUTPUT, C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'Readback values are:              \LF\', 
+	  C'Voltage = ','VOLTAGE':5:2,C' V . \LF\',
+	  C'Current = ','CURRENT':5:2,C' A . \LF\',
+	  C'                                                  \LF\',
+	  C'Verify Voltage = ', 'VOLT-LMT', C' V (+/-10%) and \LF\',
+          C'Current adjusts down to ', 'VOLT-LMT'/'IMPEDANCE', C' A\LF\',
+          C'T - Test Passed                                   \LF\',
+          C'F - Test Failed                                   \LF\',
+	  $
+         
+C $
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS1B-HI LO DCPS1B-LO 
+                  SENSE-HI DCPS1B-SENHI SENSE-LO DCPS1B-SENLO $
+
+ 99 	IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 050000 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C ************************************************************* $
+C* SEQUENCE SUPPLIES						$
+C* this test will turn on 4 supplies and perform a remove	$
+C* all to demonstrate that the Cicl will remove in reverse	$
+C* order.
+C************************************************************** $
+B $
+ 055000  OUTPUT, C'\LF\ \LF\ \LF\ \LF\CLOSE SWITCHES TO SWITCH FROM 13 OHM LOAD
+                   TO 13.5 OHM LOAD:
+			   S101-37,38
+                           S101-39,40  '
+	$
+
+	REMOVE, ALL $
+
+	 OUTPUT, 
+	  C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'This test will turn on four (1-4) supplies        \LF\', 
+	  C'and then perform a REMOVE ALL to demonstrate      \LF\',
+	  C'Cicl will remove the supplies in reverse order   \LF\',
+	  C'                                                  \LF\',
+          C'T - Ready		                              \LF\',
+          C'F - Skip Test                                     \LF\',
+	  $
+
+	OUTPUT, TO 'PRINTER',
+	  C' \LF\',
+          C'----------------------------------------          \LF\',
+          C'This test will turn on four (1-4) supplies        \LF\', 
+	  C'and then perform a REMOVE ALL to demonstrate      \LF\',
+	  C'Cicl will remove the supplies in reverse order   \LF\',
+	  C'                                                  \LF\',
+          C'T - Ready		                              \LF\',
+          C'F - Skip Test                                     \LF\',
+	  $
+
+    15 INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010000 $
+        END, IF $
+
+	CALCULATE, 'IMPEDANCE'    = 13.5 $
+	CALCULATE, 'VOLTAGE'    = 5 $
+        CALCULATE, 'CURR-EXP' = 'VOLTAGE'/'IMPEDANCE' $
+	CALCULATE, 'CURR-LMT' = 5 $
+	CALCULATE, 'MAX-T' = 3.5  $
+	CALCULATE, 'VOLT-UL' = ('VOLTAGE') * 1.1 $
+        CALCULATE, 'VOLT-LL' = ('VOLTAGE') * 0.9 $
+	CALCULATE, 'CURR-UL' = ('CURR-EXP') * 1.1 $
+        CALCULATE, 'CURR-LL' = ('CURR-EXP') * 0.9 $
+
+	OUTPUT, C' Turning on supply 1.\LF\'  $
+
+     20 APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+
+
+	OUTPUT, C' Turning on supply 2.\LF\'  $
+
+     21  APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS2A-HI LO DCPS2A-LO $
+
+	OUTPUT, C' Turning on supply 3.\LF\'  $
+
+     22  APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS3A-HI LO DCPS3A-LO $
+
+	OUTPUT, C' Turning on supply 4.\LF\'  $
+
+     23  APPLY, DC SIGNAL,
+           VOLTAGE 'VOLTAGE' RANGE -40 V TO 40 V,
+           CURRENT-LMT 'CURR-LMT' RANGE 0 A TO 5 A,
+           CNX HI DCPS4A-HI LO DCPS4A-LO $
+
+	OUTPUT, C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Verify that Supplies 1-4 are on.       	      \LF\', 
+	  C'                                                  \LF\',
+	  C'NOTE:  Once you enter T the REMOVE ALL sequence   \LF\',
+	  C'will begin.  Please verify that the supplies      \LF\',
+          C'are removed the following sequence: 4,3,2,1	      \LF\',
+	  C'						      \LF\',
+          C'T - Supplies are on.                              \LF\',
+          C'F - No                                     	      \LF\',
+	  $
+
+	OUTPUT, TO 'PRINTER',
+	  C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Verify that Supplies 1-4 are on.       	      \LF\', 
+	  C'                                                  \LF\',
+	  C'NOTE:  Once you enter T the REMOVE ALL sequence   \LF\',
+	  C'will begin.  Please verify that the supplies      \LF\',
+          C'are removed the following sequence: 4,3,2,1	      \LF\',	  C'						      \LF\',
+	  C'						      \LF\',
+          C'T - Supplies are on.                              \LF\',
+          C'F - No                                     	      \LF\',
+	  $
+ 
+        INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 055000 $
+        END, IF $
+C $
+
+	OUTPUT, C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Now performing a REMOVE all       	      \LF\', 
+	  C'                                                  \LF\',
+ 	  $
+
+	REMOVE, ALL $
+
+	OUTPUT, C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Verify that the supplies were removed     	      \LF\', 
+	  C'in reverse order.				      \LF\',
+	  C'						      \LF\',
+          C'T - Removed in reverse order.                     \LF\',
+          C'F - No                                     	      \LF\',
+	  $
+
+	OUTPUT, TO 'PRINTER',
+	  C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Verify that the supplies were removed     	      \LF\', 
+	  C'in reverse order.				      \LF\',
+	  C'						      \LF\',
+          C'T - Removed in reverse order.                     \LF\',
+          C'F - No                                     	      \LF\',
+	  $
+
+        INPUT, INTO 'READY' $
+
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 055099 $
+        END, IF $
+C $
+
+	OUTPUT, C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Test was SUCCESSFULL			      \LF\',
+          C'                                     	      \LF\',
+	  $
+
+	OUTPUT, TO 'PRINTER',
+	  C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Test was SUCCESSFULL			      \LF\',
+          C'                                     	      \LF\',
+	  $
+
+
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 055000 $
+        END, IF $
+C $
+
+
+C	********** BELOW IS ONLY PERFORMED IF REMOVE ALL FAILED ************ $
+B $
+ 055099 OUTPUT,
+	  C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Removing Manually				      \LF\',
+          C'                                     	      \LF\',
+	  $
+
+	OUTPUT, TO 'PRINTER', 
+	  C' \LF\\LF\',
+          C'----------------------------------------          \LF\',
+          C'Removing Manually				      \LF\',
+          C'                                     	      \LF\',
+	  $
+
+	REMOVE,  DC SIGNAL,
+           CNX HI DCPS4A-HI LO DCPS4A-LO $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS3A-HI LO DCPS3A-LO $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS2A-HI LO DCPS2A-LO $
+
+        REMOVE,  DC SIGNAL,
+           CNX HI DCPS1A-HI LO DCPS1A-LO $
+
+ 	OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+C GO BACK TO MAIN MENU OR RETEST $
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 055000 $
+        END, IF $
+C $
+C       END OF SHUTDOWN/LIMITING TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C***************************************************************** $
+B $
+ 060000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+        C'--------------------------------------\LF\',
+        C' END - END TEST\LF\',
+        C'    PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'\LF\', 
+          C'--------------------------------------\LF\',
+         C'END - END TEST\LF\',
+         C'   PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\',
+        C'--------------------------------------\LF\',
+        C' END - END TEST \LF\',
+        C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+       C' --------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	 C'\LF\',  
+        C'--------------------------------------\LF\',
+         C'END - END TEST\LF\ ',
+         C'FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+
+        END, IF  $
+ 060100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+B $
+ 999999 TERMINATE, ATLAS PROGRAM 'DcPs Benchmark' $

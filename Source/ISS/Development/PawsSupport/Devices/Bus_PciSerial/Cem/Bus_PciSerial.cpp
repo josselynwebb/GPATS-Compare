@@ -1,0 +1,342 @@
+//2345678901234567890123456789012345678901234567890123456789012345678901234567890
+///////////////////////////////////////////////////////////////////////////
+// File:	    Bus_PciSerial.cpp
+//
+// Date:	    13-FEB-06
+//
+// Purpose:	    Instrument Driver for Bus_PciSerial
+//
+// Instrument:	Bus_RS485  <device description> (PciSerial)
+//
+//                    Required Libraries / DLL's
+//		
+//		Library/DLL					Purpose
+//	=====================  ===============================================
+//     cem.lib              \usr\tyx\lib (TYX CEM Library functions)
+//     cemsupport.lib       ..\..\Common\lib  (ARC CEM support functions)
+//
+// ATLAS Subset: All
+//
+//
+//       This initial program was generated via the CEM Wizard.
+//       The "ctlr.cpp" functions were copied to this file to
+//       allow the use of "static" variables vs. "global" variables.
+//
+// Revision History described in Bus_PciSerial_T.cpp
+//
+///////////////////////////////////////////////////////////////////////////////
+// Includes
+#include "cem.h"
+#include "key.h"
+#include <limits.h>
+#include <float.h>
+#include "cemsupport.h"
+#include "Bus_PciSerial_T.h"
+
+// Local Defines
+//#define IEEE_716 /*using 716.89 compiler with CLOSE/OPEN missing*/
+
+#define MAX_DEVICES  1
+// Static Variables
+static int        s_NumDev;
+static CS_DEVINFO s_DevInfo[MAX_DEVICES]; // Device and BusConfi information
+static int        s_DoDclCount = 0;
+
+// Local Function Prototypes
+
+//++++/////////////////////////////////////////////////////////////////////////
+// Exposed Functions
+///////////////////////////////////////////////////////////////////////////////
+
+//++++/////////////////////////////////////////////////////////////////////////
+// Callback Functions moved from "ctlr.cpp"
+///////////////////////////////////////////////////////////////////////////////
+
+//BEGIN{DFW}:DCL
+int CCALLBACK doDcl (void)
+//END{DFW}
+{
+    if(s_DevInfo[s_DoDclCount].DriverClass != NULL)
+    {
+        ((CBus_RS485_T *)(s_DevInfo[s_DoDclCount].DriverClass))->ResetBus_RS485(-1);
+    }
+    
+	activereset = true;
+		//CJW changed call ResetBus_RS485(0) to ResetBus_RS485(-1)
+	if( com1active )	// reset com_1
+    {
+        ((CBus_RS485_T *)(s_DevInfo[s_DoDclCount].DriverClass))->ResetBus_RS485( 1 );
+
+    }
+
+	if( com2active )	// reset com_2
+    {
+        ((CBus_RS485_T *)(s_DevInfo[s_DoDclCount].DriverClass))->ResetBus_RS485( 3 );
+    }
+
+	if( com3active )	// reset com_3
+    {
+        ((CBus_RS485_T *)(s_DevInfo[s_DoDclCount].DriverClass))->ResetBus_RS485( 5 );
+    }
+            
+	if( com4active )	// reset com_4
+    {
+        ((CBus_RS485_T *)(s_DevInfo[s_DoDclCount].DriverClass))->ResetBus_RS485( 7 );
+    }
+            
+	if( com5active )	// reset com_5
+    {
+        ((CBus_RS485_T *)(s_DevInfo[s_DoDclCount].DriverClass))->ResetBus_RS485( 9 );
+    }
+            
+	activereset = false;
+
+	// Signal system reset in process
+	cs_SysResetDevice(s_DevInfo[s_DoDclCount].DeviceName);
+
+    s_DoDclCount++;
+    if(s_DoDclCount >= s_NumDev)
+    {
+        s_DoDclCount = 0;
+    }
+
+    return 0;
+}
+
+//BEGIN{DFW}:OPEN
+int CCALLBACK doOpen (void)
+//END{DFW}
+{
+    int i;
+    // DoOpen called prior to each NAM execution
+    static bool DoneOnce = FALSE;
+    if(DoneOnce)
+    {
+        return 0;
+    }
+    DoneOnce = TRUE;
+
+
+	// inhibit multiple reset calls
+	DclResetDisable("AllDevices");
+
+    // Check if already initialized
+    if(s_NumDev)
+    {
+        return(0);
+    }
+
+    memset(s_DevInfo,0,sizeof(s_DevInfo));
+
+    s_NumDev = cs_GetDevInfo("PCISERIAL", 1, s_DevInfo, MAX_DEVICES);
+
+    if(s_NumDev == 0)
+    {
+        // Error can't find instrument
+        return(0);
+    }
+    for(i = 0; i < s_NumDev; i++)
+    {
+        s_DevInfo[i].DriverClass = new CBus_RS485_T(
+                              s_DevInfo[i].DeviceName,
+                              s_DevInfo[i].BusNo,
+                              s_DevInfo[i].PrimaryAdr,
+                              s_DevInfo[i].SecondaryAdr,
+                              s_DevInfo[i].Dbg, s_DevInfo[i].Sim);
+
+    }
+	return 0;
+}
+
+//BEGIN{DFW}:DISCONNECT
+int CCALLBACK doUnload (void)
+//END{DFW}
+{
+    int i;
+
+    for(i = 0; i < s_NumDev; i++)
+    {
+        if(s_DevInfo[i].DriverClass != NULL)
+        {
+            delete((CBus_RS485_T *)(s_DevInfo[i].DriverClass));
+        }
+
+        s_DevInfo[i].DriverClass = NULL;
+    }
+
+    s_NumDev = 0;
+	return 0;
+}
+
+//++++/////////////////////////////////////////////////////////////////////////
+// Wizard Generated Functions
+///////////////////////////////////////////////////////////////////////////////
+
+//BEGIN{DFW}:Bus_RS485:1:0
+int doRS485_Setup (void)
+//END{DFW}
+{
+    void *DriverClass;
+    int Fnc;
+    int Status;
+
+    Status = cs_GetCurDeviceFnc(s_DevInfo, MAX_DEVICES, &DriverClass, &Fnc);
+    // Any Errors already diagnosed
+    if(Status == 0)
+    {
+        ((CBus_RS485_T *)(DriverClass))->SetupBus_RS485(Fnc);
+    }
+
+
+#ifdef IEEE_716
+    // Any Errors already diagnosed
+    Status = ((CBus_RS485_T *)(DriverClass))->CloseBus_RS485(Fnc);
+#endif
+
+	return (int)0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:1
+int doRS485_Status (void)
+//END{DFW}
+{
+    void *DriverClass;
+    int Fnc;
+    int Status;
+
+    Status = cs_GetCurDeviceFnc(s_DevInfo, MAX_DEVICES, &DriverClass, &Fnc);
+    // Any Errors already diagnosed
+    if(Status == 0)
+    {
+        ((CBus_RS485_T *)(DriverClass))->StatusBus_RS485(Fnc);
+    }
+
+	return (int) 0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:2
+int doRS485_Fetch (void)
+//END{DFW}
+{
+    void *DriverClass;
+    int Fnc;
+    int Status;
+
+    Status = cs_GetCurDeviceFnc(s_DevInfo, MAX_DEVICES, &DriverClass, &Fnc);
+    // Any Errors already diagnosed
+    if(Status == 0)
+    {
+        ((CBus_RS485_T *)(DriverClass))->FetchBus_RS485(Fnc);
+    }
+
+	return (int) 0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:3
+int doRS485_Init (void)
+//END{DFW}
+{
+    void *DriverClass;
+    int Fnc;
+    int Status;
+
+    Status = cs_GetCurDeviceFnc(s_DevInfo, MAX_DEVICES, &DriverClass, &Fnc);
+    // Any Errors already diagnosed
+    if(Status == 0)
+    {
+        ((CBus_RS485_T *)(DriverClass))->InitiateBus_RS485(Fnc);
+    }
+
+	return (int) 0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:4
+int doRS485_Reset (void)
+//END{DFW}
+{
+    void *DriverClass;
+    int Fnc;
+    int Status;
+
+    Status = cs_GetCurDeviceFnc(s_DevInfo, MAX_DEVICES, &DriverClass, &Fnc);
+#ifdef IEEE_716
+    // Any Errors already diagnosed
+    Status = ((CBus_RS485_T *)(DriverClass))->OpenBus_RS485(Fnc);
+#endif
+    // Any Errors already diagnosed
+    if(Status == 0)
+    {
+        ((CBus_RS485_T *)(DriverClass))->ResetBus_RS485(Fnc);
+    }
+
+	return (int) 0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:5
+int doRS485_Close (void)
+//END{DFW}
+{
+    void *DriverClass;
+    int Fnc;
+    int Status;
+
+    Status = cs_GetCurDeviceFnc(s_DevInfo, MAX_DEVICES, &DriverClass, &Fnc);
+    // Any Errors already diagnosed
+    if(Status == 0)
+    {
+        ((CBus_RS485_T *)(DriverClass))->CloseBus_RS485(Fnc);
+    }
+
+	return (int) 0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:6
+int doRS485_Open (void)
+//END{DFW}
+{
+    void *DriverClass;
+    int Fnc;
+    int Status;
+
+    Status = cs_GetCurDeviceFnc(s_DevInfo, MAX_DEVICES, &DriverClass, &Fnc);
+    // Any Errors already diagnosed
+    if(Status == 0)
+    {
+        ((CBus_RS485_T *)(DriverClass))->OpenBus_RS485(Fnc);
+    }
+
+	return (int) 0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:7
+int doRS485_Connect (void)
+//END{DFW}
+{
+    cs_DoSwitching(M_PATH);
+    return (int) 0;
+}
+
+//BEGIN{DFW}:Bus_RS485:1:8
+int doRS485_Disconnect (void)
+//END{DFW}
+{
+    cs_DoSwitching(M_PATH);
+
+	return (int) 0;
+}
+
+
+//BEGIN{DFW}:Bus_RS485:1:9
+int doRS485_Load (void)
+//END{DFW}
+{
+
+	return (int) 0;
+}
+
+
+//++++/////////////////////////////////////////////////////////////////////////
+// Local Static Functions
+///////////////////////////////////////////////////////////////////////////////
+
+

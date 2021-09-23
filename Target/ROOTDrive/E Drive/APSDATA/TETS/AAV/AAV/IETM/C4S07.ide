@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY fig4-17 SYSTEM "./graphics/fig4-17.pic" NDATA FAXTILE>
+<!ENTITY fig4-18 SYSTEM "./graphics/fig4-18.pic" NDATA FAXTILE>
+<!ENTITY fig4-19 SYSTEM "./graphics/fig4-19.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S07" LABEL="VII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\6802_COMPUTER_A4_CCA_2618567-2\TP_AAV_CON_A4.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s07.ide!c3s07'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./CON_A4.ide!5-7a'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_A4/ASSY/CON_A4_1.pic' ?><?BUTTON POS='5' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/CON_A4/SCHEM/CON_A4_SCH_1.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section VII. 6802 Computer CCA, P/N 2618567-2" previous="./c4s06.ide!c4s06c"?><?TOCENTRY TITLE="SECTION VII. Test Program Instructions for the 6802 Computer CCA, P/N 2618567-2" TOCLEVEL="2" LABEL="VII"?>
+<TITLE>SECTION VII. Test Program Instructions for the 6802 Computer CCA, P/N 2618567-2</TITLE>
+<PARA0 ID="P4-7" LABEL="4.7"><?TOCENTRY TITLE="4.7 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the 6802 Computer CCA, P/N 2618567-2.</PARA>
+<SUBPARA1 ID="P4-7.1" LABEL="4.7.1"><?TOCENTRY TITLE="4.7.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-11" LABEL="4-11">
+<TITLE>Test Station Instrumentation Required to Test
+<BRK/> the 6802 Computer CCA, P/N 2618567-2.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5.5in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digitizing Oscilloscope</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Test Instrument</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-7.2" LABEL="4.7.2"><?TOCENTRY TITLE="4.7.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-12" LABEL="4-12">
+<TITLE>TPS Equipment Required to Test
+<BRK/> the 6802 Computer CCA, P/N 2618567-2.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3.5in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.5in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">Part Number</ENTRY>
+<ENTRY ALIGN="CENTER">Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">AAV Interface Test Adapter</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1000</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Cable Assembly, Special Purpose, Electrical, Branched, W10</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A0110</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly, 14/120 Position CCA</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1008-1</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assembly, 14/120 Position CCA</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1008-2</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-7.3" LABEL="4.7.3"><?TOCENTRY TITLE="4.7.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s07b" title="Chapter 4. Test Program Instructions, Section VII. 6802 Computer CCA, P/N 2618567-2 Cont'd"?>
+<SUBPARA1 ID="P4-7.4" LABEL="4.7.4"><?TOCENTRY TITLE="4.7.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-7.5" LABEL="4.7.5"><?TOCENTRY TITLE="4.7.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<CAUTION>
+<PARA>The UUT contains components that are subject to damage from electrostatic discharge (ESD). When handling the UUT, a grounded wrist strap must be used. <GRAPHIC BOARDNO="esd"/></PARA></CAUTION>
+<PARA>Refer to <EXTREF DOCNO="C2S02" XREFID="./C2S02.ide!P2-2.2.2" XIDTYPE="PARA">Paragraph 2.2.2.2, ESD Damage Prevention</EXTREF> for proper handling requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-7.6" LABEL="4.7.6"><?TOCENTRY TITLE="4.7.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>4.0 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-7.7" LABEL="4.7.7"><?TOCENTRY TITLE="4.7.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-7.8" LABEL="4.7.8"><?TOCENTRY TITLE="4.7.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<STEP1 ID="P4-7.81" LABEL="a">
+<PARA>Prior to executing the 6802 Computer CCA, P/N 2618567-2 Test Program, install ITA P/N 05005A1000 onto the test station receiver. </PARA></STEP1>
+<STEP1 ID="P4-7.82" LABEL="b">
+<PARA>Load the test program for the 6802 Computer CCA into the ATLAS RTS. When the RTS State field of the RTS front panel displays 'READY', the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-7.83" LABEL="c">
+<PARA>***OPERATOR ACTION***: Initiate the test program by selecting 'Run' from the RTS 'Run' menu.</PARA></STEP1>
+<STEP1 ID="P4-7.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-17.pic"?>Figure 4-17<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-17" LABEL="4-17">
+<TITLE>Test Program Information 6802 Computer CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-17.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-7.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-18.pic"?>Figure 4-18<?endhotspot?>) is displayed which identifies the UUT fault states which are non-detectable and untested by the test program.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-18" LABEL="4-18">
+<TITLE>Nondetectable/Untested Faults 6802 Computer CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-18.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-7.86" LABEL="f">
+<PARA>The test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-19.pic"?>Figure 4-19<?endhotspot?>) is displayed. From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-8) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM and (98) Exit Testing.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-19" LABEL="4-19">
+<TITLE>Test Program Main Menu 6802 Computer CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-19.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-7.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-7.88" LABEL="h">
+<PARA>The operator is instructed to install Card Guide Assemblies, P/N 05005A1008-1 to left and P/N 05005A1008-2 to the right and adjacent to ITA connector J6.</PARA></STEP1>
+<STEP1 ID="P4-7.89" LABEL="i">
+<PARA>The operator is instructed to install the UUT connector P1 into ITA connector J6.</PARA></STEP1>
+<STEP1 ID="P4-7.810" LABEL="j">
+<PARA>The operator is instructed to connect P/N 05005A0110, Cable W10-P1 to ITA-J4; W10-TP4 to UUT-TP4; W10-TP9 to UUT-TP9; and W10-TP11 to UUT-TP11.</PARA></STEP1><?FRAME id="c4s07c" title="Chapter 4. Test Program Instructions, Section VII. 6802 Computer CCA, P/N 2618567-2 Cont'd" next="./c4s08.ide!c4s08"?>
+<STEP1 ID="C4S07C11" LABEL="k">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION***: Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S07C12" LABEL="l">
+<PARA>The display prompts the operator to enter the UUT serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S07C13" LABEL="m">
+<PARA>The display prompts the operator to enter the UUT revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S07C14" LABEL="n">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S07C15" LABEL="o">
+<PARA>The display prompts the operator to enter the Interface serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the ITA label, which is found on the upper, right corner of the right side and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S07C16" LABEL="p">
+<PARA>The display prompts the operator to verify the test setup and UUT are ready to begin testing.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-7.9" LABEL="4.7.9"><?TOCENTRY TITLE="4.7.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-7.91" LABEL="a">
+<PARA>Upon detection of a UUT failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-7.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

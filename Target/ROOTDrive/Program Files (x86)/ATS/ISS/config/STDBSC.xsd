@@ -1,0 +1,2253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="STDBSC" xmlns="STDBSC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:simpleType name="qualifier">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="trms"/>
+			<xs:enumeration value="pk_pk"/>
+			<xs:enumeration value="pk"/>
+			<xs:enumeration value="pk_pos"/>
+			<xs:enumeration value="pk_neg"/>
+			<xs:enumeration value="inst"/>
+			<xs:enumeration value="av"/>
+			<xs:enumeration value="inst_max"/>
+			<xs:enumeration value="inst_min"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="quantity">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(\+|\-)?\d+(\.\d*)?((E|e)(\+|\-)?\d+)? *((y|z|a|f|p|n|µ|u|m|c|d|h|k|M|G|T|P|E|Z|Y)?(F|S|C|A|V|J|eV|T|N|Hz|lx|H|m|in|ft|mi|nmi|lm|cd|Wb|g|rad|deg|°|W|BW|Bm|Pa|bar|B(\(\d *m?W\))?|%|pc|Ohm|sr|K|degC|°C|degF|°F|s|min|h|L|mol)\d*((·|\.|/)(y|z|a|f|p|n|µ|u|m|c|d|h|k|M|G|T|P|E|Z|Y)?(F|S|C|A|V|J|eV|T|N|Hz|lx|H|m|in|ft|mi|nmi|lm|cd|Wb|g|rad|deg|°|W|BW|Bm|Pa|bar|B|%|pc|Ohm|sr|K|degC|°C|degF|°F|s|min|h|L|mol)\d*)*)?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="errlmt">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="errlmt|±|\+-"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="range">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="range|MAX|MIN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="to">
+		<xs:restriction base="xs:string">
+			<xs:pattern value=":|\-|to"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="_physical">
+		<xs:list>
+			<xs:simpleType>
+				<xs:union memberTypes="qualifier errlmt range to quantity"/>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:simpleType name="Physical">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="\(.+\)"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="( *(trms|pk_pk|pk|pk_pos|pk_neg|inst|av|inst_max|inst_min|errlmt (±|\+-)?|±|\+-|range (MAX|MIN)?|MAX|MIN|to|:|\-)? *((\+|\-)?\d+(\.\d*)?((E|e)(\+|\-)?\d+)? *((y|z|a|f|p|n|µ|u|m|c|d|h|k|M|G|T|P|E|Z|Y)?(F|S|C|A|V|J|eV|T|N|Hz|lx|H|m|in|ft|mi|nmi|lm|cd|Wb|g|rad|deg|°|W|BW|Bm|Pa|bar|B(\(\d *m?W\))?|%|pc|Ohm|sr|K|degC|°C|degF|°F|s|min|h|L|mol)\d*((·|\.|/)\(*(y|z|a|f|p|n|µ|u|m|c|d|h|k|M|G|T|P|E|Z|Y)?(F|S|C|A|V|J|eV|T|N|Hz|lx|H|m|in|ft|mi|nmi|lm|cd|Wb|g|rad|deg|°|W|BW|Bm|Pa|bar|B(\(\d *m?W\))?|%|pc|Ohm|sr|K|degC|°C|degF|°F|s|min|h|L|mol)\d*)*)?\)*) *)+"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="Admittance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="AmountOfInformation">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="AmountOfSubstance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Capacitance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Conductance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Charge">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Current">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Voltage">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Resistance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Energy">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Force">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Frequency">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Heat">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Illuminance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Impedance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Inductance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Distance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="LuminousFlux">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="LuminousIntensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MagneticFlux">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MagneticFluxDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Mass">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="PlaneAngle">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Power">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Pressure">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Ratio">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Reactance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="SolidAngle">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Susceptance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Temperature">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Time">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Acceleration">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="AngularAcceleration">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="AngularSpeed">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Area">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Concentration">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="CurrentDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="DynamicViscosity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="ElectricChargeDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="ElectricFieldStrength">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="ElectricFluxDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="EnergyDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Enthropy">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Exposure">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="HeatCapacity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="HeatFluxDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Irradiance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="KinematicViscosity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Luminance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MagneticFieldStrength">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MassDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MassFlow">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MolarEnergy">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MolarEntropy">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MolarHeatCapacity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MomentOfForce">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="MomentOfInertia">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Momentum">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Permeability">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Permittivity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="PowerDensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Radiance">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="RadiantIntensity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="SpecificHeatCapacity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="SpecificEnergy">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="SpecificEntropy">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="SpecificVolume">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="SurfaceTension">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="ThermalConductivity">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Speed">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="Volume">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="VolumeFlow">
+		<xs:restriction base="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="PulseDefn">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="PulseDefns">
+		<xs:list itemType="PulseDefn"/>
+	</xs:simpleType>
+	<xs:simpleType name="enumCondition">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE"/>
+			<xs:enumeration value="GT"/>
+			<xs:enumeration value="GE"/>
+			<xs:enumeration value="LE"/>
+			<xs:enumeration value="LT"/>
+			<xs:enumeration value="EQ"/>
+			<xs:enumeration value="NE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="enumMeasuredVariable">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEPENDENT"/>
+			<xs:enumeration value="INDEPENDENT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SAFEARRAY_BSTR">
+		<xs:list itemType="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="SAFEARRAY_Physical">
+		<xs:list itemType="Physical"/>
+	</xs:simpleType>
+	<xs:simpleType name="SAFEARRAY_double">
+		<xs:list itemType="xs:double"/>
+	</xs:simpleType>
+	<xs:simpleType name="SAFEARRAY_VARIANT">
+		<xs:list itemType="xs:string"/>
+	</xs:simpleType>
+	<xs:complexType name="SignalFunctionType">
+		<xs:attribute name="type" type="xs:string" use="optional"/>
+		<xs:attribute name="reftype" type="xs:string" use="optional"/>
+		<xs:attribute name="name" type="xs:ID" use="required"/>
+		<xs:attribute name="In" type="xs:IDREFS" use="optional"/>
+		<xs:attribute name="Gate" type="xs:IDREF" use="optional"/>
+		<xs:attribute name="Sync" type="xs:IDREF" use="optional"/>
+		<xs:attribute name="Conn" type="xs:IDREFS" use="optional"/>
+	</xs:complexType>
+	<xs:element name="Signal">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Constant">
+					<xs:annotation>
+						<xs:documentation>A constant signal retains its given level.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>the level of the signal.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Step">
+					<xs:annotation>
+						<xs:documentation>A Step signal makes a transition from zero to a given level.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>final value of step signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="startTime" type="Time" default="0.5s">
+									<xs:annotation>
+										<xs:documentation>defines when the step transition starts</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SingleTrapezoid">
+					<xs:annotation>
+						<xs:documentation>A Single Trapezoid is a non-periodic signal defined by the geometric trapezoid shape.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>value of pulse amplitude</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="startTime" type="Time" default="0s">
+									<xs:annotation>
+										<xs:documentation>time at which trapezoid starts relative to it initialization</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="riseTime" type="Time" default="0.25s">
+									<xs:annotation>
+										<xs:documentation>time taken to reach amplitude</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="pulseWidth" type="Time" default="0.5s">
+									<xs:annotation>
+										<xs:documentation>time that trapezoid is stable at amplitude</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="fallTime" type="Time" default="0.25s">
+									<xs:annotation>
+										<xs:documentation>Time taken to fall back to transient state</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Noise">
+					<xs:annotation>
+						<xs:documentation>Noise may be considered as unwanted disturbances superimposed upon a useful signal, which tend to obscure its information content. Noise may be genuinely random (as in white noise) or may be pseudo-random. Noise occurs across a range of frequencies and can be characterized by amplitude; it may take the form of a sense or source signal. Pseudo-random noise is only of interest as a source signal, in addition to amplitude it also allows a frequency and an optional seed to be defined</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0"/>
+								<xs:attribute name="seed" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>used for pseudo-random noise</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="frequency" type="Frequency" default="50 Hz">
+									<xs:annotation>
+										<xs:documentation>upper bound frequency bandwidth for transient disturbances</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SingleRamp">
+					<xs:annotation>
+						<xs:documentation>A Single Ramp represents a linear transition from zero to the defined amplitude level during a defined time period.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>final value of ramp signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="riseTime" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>time for signal to reach final value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="startTime" type="Time" default="0s">
+									<xs:annotation>
+										<xs:documentation>defines when the step transition starts</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Sinusoid">
+					<xs:annotation>
+						<xs:documentation>A Sinusoid is a signal whereby the amplitude of the dependent variable is given by the formula:</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Amplitude</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="frequency" type="Frequency" default="1Hz">
+									<xs:annotation>
+										<xs:documentation>Frequency</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="phase" type="PlaneAngle" default="0 rad">
+									<xs:annotation>
+										<xs:documentation>initial phase angle</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Trapezoid">
+					<xs:annotation>
+						<xs:documentation>A Trapezoidal Signal is a periodic signal that sequentially repeats the Single Trapezoid. The period is defined by the duration of the Single Trapezoid.  All event times are referenced to local time, which is reset at the start of each pulse.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>value of pulse amplitude</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="period" type="Time" default="1 s">
+									<xs:annotation>
+										<xs:documentation>time in which the signal repeats itself</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="riseTime" type="Time" default="0.25 s">
+									<xs:annotation>
+										<xs:documentation>time taken to reach amplitude</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="pulseWidth" type="Time" default="0.5 s">
+									<xs:annotation>
+										<xs:documentation>time that trapezoid is stable at amplitude</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="fallTime" type="Time" default="0.25 s">
+									<xs:annotation>
+										<xs:documentation>Time taken to fall back to transiant state</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Ramp">
+					<xs:annotation>
+						<xs:documentation>A Ramp Signal is a periodic signal whose instantaneous value varies alternately and linearly between two specified values.  Its parameters are defined by its amplitude, the time to rise from zero and the period.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>final level of the signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="period" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>time is which signal repeats itself</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="riseTime" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>Rise Time of ramp signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Triangle">
+					<xs:annotation>
+						<xs:documentation>A Triangular Signal is a periodic signal whose instantaneous value varies linearly and equally about zero. Duty cycle is a ratio between the time for which it increases to its positive value and the time for which it decreases to its negative value. Its parameters are defined by its amplitude, period and dutyCycle.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum amplitude level of the signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="period" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>time in which signal repeats itself</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="dutyCycle" type="Ratio" default="50%">
+									<xs:annotation>
+										<xs:documentation>ratio between time taken to increase from its minimum to its maximum value and the time for one period	</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SquareWave">
+					<xs:annotation>
+						<xs:documentation>A Square Wave is a periodic signal whose amplitude (dependent variable) alternately assumes one of two fixed values of amplitude, the amplitudes are equal about zero which is the reference base line.  Its parameters are defined by its amplitude and period.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Amplitude of signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="period" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>period of signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="dutyCycle" type="Ratio" default="50%">
+									<xs:annotation>
+										<xs:documentation>duty cycle of the wave</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="WaveformRamp">
+					<xs:annotation>
+						<xs:documentation>A Waveform is defined by a sampling interval and a list of values. The Waveform cycles through those values sequentially and infinitely, starting from zero. The width of each window is the same, and each window consists of a Ramp Signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="1">
+									<xs:annotation>
+										<xs:documentation>amplitude of the output signal where the level factor (in points) </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="period" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>the time between each sequence	</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samplingInterval" type="Time" default="0">
+									<xs:annotation>
+										<xs:documentation>the time between successive (points) outputs	</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="points" type="SAFEARRAY_double">
+									<xs:annotation>
+										<xs:documentation>level factor of each waveform sample	</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="WaveformStep">
+					<xs:annotation>
+						<xs:documentation>WaveformStep takes the form of a sequence of constant signals, the level of the constant signal is defined by the points, a transition in level occurring at each increment of the sampling interval. WaveformStep cycles through the points sequentially and continuously.
+
+If the samplingInterval is zero, the complete waveform described by the points is repeated per period, otherwise the period is calculated as sampleInterval * number of points. Assigning a non-zero period value sets the samplingInterval to zero.  </xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="1">
+									<xs:annotation>
+										<xs:documentation>amplitude of the output signal where the level factor (in points) </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="period" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>the time between each sequence</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samplingInterval" type="Time" default="0">
+									<xs:annotation>
+										<xs:documentation>the time between successive (points) outputs	</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="points" type="SAFEARRAY_double">
+									<xs:annotation>
+										<xs:documentation>level factor of each waveform sample	</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="BandPass">
+					<xs:annotation>
+						<xs:documentation>A BandPass filter passes a set of frequencies from an input signal (with equal gain across all its frequencies) and filters out all frequencies outside of the band. </xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="centerFrequency" type="Frequency" default="0">
+									<xs:annotation>
+										<xs:documentation>Center frequency of the filter's band</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="frequencyBand" type="Frequency" default="0">
+									<xs:annotation>
+										<xs:documentation>Bandwidth of filter. Zero implies narrowest band </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="LowPass">
+					<xs:annotation>
+						<xs:documentation>LowPass Filter suppresses all frequencies above the Bandpass frequency. The LowPass Filter represents a perfect step filter.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="cutoff" type="Frequency" default="0Hz">
+									<xs:annotation>
+										<xs:documentation>Cut off frequency filter. Zero implies DC offset</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="HighPass">
+					<xs:annotation>
+						<xs:documentation>HighPass Filter suppresses all frequencies below the Bandpass frequency. The HighPass Filter represents a perfect step filter.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="cutoff" type="Frequency" default="0Hz">
+									<xs:annotation>
+										<xs:documentation>Start frequency of filter. Zero implies AC Coupled</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Notch">
+					<xs:annotation>
+						<xs:documentation>Notch filter suppresses with equal gain across its frequencies, opposite to BandPass filter</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="centerFrequency" type="Frequency" default="0Hz">
+									<xs:annotation>
+										<xs:documentation>Center frrequency of the filter's notch</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="frequencyBand" type="Frequency" default="0Hz">
+									<xs:annotation>
+										<xs:documentation>Frequency band of filter. Zero implies minimum band</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Sum">
+					<xs:annotation>
+						<xs:documentation>Sum makes signals from other Signals by summing them together.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Product">
+					<xs:annotation>
+						<xs:documentation>Product makes signals from other signals by multiplying them together.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Diff">
+					<xs:annotation>
+						<xs:documentation>Diff makes signals from other signals by subtracting them from the first signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FM">
+					<xs:annotation>
+						<xs:documentation>The FM is a modulator where the instantaneous frequency of the sinusoidal carrier varies with the amplitude of the modulating input signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="1">
+									<xs:annotation>
+										<xs:documentation>Amplitude of  Sinusoidal Carrier wave</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="carrierFrequency" type="Frequency" default="1kHz">
+									<xs:annotation>
+										<xs:documentation>Frequency of Sinusoidal Carrier Wave</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="frequencyDeviation" type="Frequency" default="100Hz">
+									<xs:annotation>
+										<xs:documentation>Frequency deviation</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AM">
+					<xs:annotation>
+						<xs:documentation>Amplitude modulation where the Amplitude of the sinusoidal carrier varies with as a ratio to the  amplitude of the modulated input signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="modIndex" type="Ratio" default="0.3">
+									<xs:annotation>
+										<xs:documentation>Modulation Index</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="Carrier" type="xs:IDREFS"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PM">
+					<xs:annotation>
+						<xs:documentation>Phase modulation where the phase of the sinusoidal carrier varies with the amplitude of the modulated input signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="amplitude" type="Physical" default="1">
+									<xs:annotation>
+										<xs:documentation>Amplitude of  Sinusoidal Carrier wave</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="carrierFrequency" type="Frequency" default="1kHz">
+									<xs:annotation>
+										<xs:documentation>Frequency of Sinusoidal Carrier Wave</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="phaseDeviation" type="PlaneAngle" default="(pi/4)">
+									<xs:annotation>
+										<xs:documentation>Phase deviation</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SignalDelay">
+					<xs:annotation>
+						<xs:documentation>The InSignal is delayed to become the OutSignal, where the delay is defined by an initial fixed delay and where the delay may change over time.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="acceleration" type="Frequency" default="0">
+									<xs:annotation>
+										<xs:documentation>the rate at which the Rate will alter over time (Acceleration)</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="delay" type="Time" default="0">
+									<xs:annotation>
+										<xs:documentation>Fixed delay that signal will be delayed (Distance)</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="rate" type="Ratio" default="0">
+									<xs:annotation>
+										<xs:documentation>the rate at which the Delay will alter over time (Speed)</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Exponential">
+					<xs:annotation>
+						<xs:documentation>A transformation that multiplies the input signal with a coefficient that decays exponentially over time..</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="dampingFactor" type="xs:double" default="1.0">
+									<xs:annotation>
+										<xs:documentation>value of damping factor</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="E">
+					<xs:annotation>
+						<xs:documentation>Similarly, we have an exponential operation on signals. This signal takes expy, where y is the result of the signal used as input. </xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Negate">
+					<xs:annotation>
+						<xs:documentation>Modifies a signal such that its amplitude is the negative of the In signal amplidude</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Inverse">
+					<xs:annotation>
+						<xs:documentation>Inverse is the mathematical reciprocal of a Signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PulseTrain">
+					<xs:annotation>
+						<xs:documentation>Creates a Train of Pulses of the In signal by multiplying the input signal with the amplitude of the pulses.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="pulses" type="PulseDefns">
+									<xs:annotation>
+										<xs:documentation>list of pulses</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="repetition" type="xs:long" default="0"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Attenuator">
+					<xs:annotation>
+						<xs:documentation>Scales the amplitude (dependent variable) of the In signal. Allows both the increase and decrease of the signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="gain" type="Ratio" default="1.0"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Load">
+					<xs:annotation>
+						<xs:documentation>Provides an impedance to load a signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="resistance" type="Resistance" default="0 Ohm"/>
+								<xs:attribute name="reactance" type="Resistance" default="0 Ohm"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Limit">
+					<xs:annotation>
+						<xs:documentation>Limit restricts the values of the signal to ± the limit value.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="limit" type="Physical" default="1">
+									<xs:annotation>
+										<xs:documentation>limits the absolute value of the signal to +/- limit value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FFT">
+					<xs:annotation>
+						<xs:documentation>The Fourier Transform converts time domain signals to frequency domain signals. It is more restricted than the other BSC signal combination mechanisms. It uses a number of samples (which is rounded up to the nearest power of two), the time over which the signal will be sampled, and the signal to be converted.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="samples" type="xs:long" default="1023"/>
+								<xs:attribute name="interval" type="Time" default="1s"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Clock">
+					<xs:annotation>
+						<xs:documentation>Clock generates an event at regular intervals. Each event is active for the first half of the Clock period.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="clockRate" type="Frequency" default="1Hz">
+									<xs:annotation>
+										<xs:documentation>Frequency of the clock.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TimedEvent">
+					<xs:annotation>
+						<xs:documentation>TimedEvent generates an OutEvent at regular intervals. Each event is active for a specific duration, if the duration is longer that than the event interval (Every) the OutEvent is signaled Active at each interval but never becomes Paused.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="delay" type="Time" default="0s">
+									<xs:annotation>
+										<xs:documentation>the delay time before the first event will be start</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="duration" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>the duration that each event is active</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="period" type="Time" default="1s">
+									<xs:annotation>
+										<xs:documentation>the time interval for each event</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="repetition" type="xs:long" default="0"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PulsedEvent">
+					<xs:annotation>
+						<xs:documentation>PulsedEvent generates an Out event in the form of a sequence of timing pulses primarily intended for use in generating source signals. The sequence comprises a train of N pulses (where N may be any integer greater than zero). Where N is greater than one, the pulses may be of unequal duration and spacing. The pulse train may be either output once or repeated infinitely and continuously for a periodic timing sequence.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="pulses" type="PulseDefns">
+									<xs:annotation>
+										<xs:documentation>list of pulses</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="repetition" type="xs:long" default="0"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="EventedEvent">
+					<xs:annotation>
+						<xs:documentation>An EventedEvent allows events to be combined to produce complex event streams.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="EventCount">
+					<xs:annotation>
+						<xs:documentation>An EventCount filters out input events only allowing every 'count' input event.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Identifies the number of events that must happen before a event is generated</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ProbabilityEvent">
+					<xs:annotation>
+						<xs:documentation>A ProbabilityEvent generates an event stream based upon the event stream present at the In. It will replicate the same timing information but will randomly suppress In pulses. Conceptually, the ProbabilityEvent comprises a random number generator and a comparator. At each event the comparator compares the random number with the value of the attribute 'probability' to determine whether to generate an event in the Out Event Stream. A seed is included so that the user can reliably reproduce test results.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="seed" type="xs:long" default="0"/>
+								<xs:attribute name="probability" type="Ratio" default="50"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotEvent">
+					<xs:annotation>
+						<xs:documentation>The NotEvent is Active when the In Signal is not Active</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="OrEvent">
+					<xs:annotation>
+						<xs:documentation>The OrEvent is Active when any in events is Active</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="XOrEvent">
+					<xs:annotation>
+						<xs:documentation>The XOrEvent is Active when an odd number of in events is Active</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AndEvent">
+					<xs:annotation>
+						<xs:documentation>The AndEvent is Active when all in events is Active</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Counter">
+					<xs:annotation>
+						<xs:documentation>For all Sensors every time a measurement is taken, the 'count' property is incremented. A Counter is a sensor that counts when a measurement would be taken, but does not take any specific measurement.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TimeInterval">
+					<xs:annotation>
+						<xs:documentation>Measures the time interval between the In/Sync event going Active and the Gate event going Active.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Instantaneous">
+					<xs:annotation>
+						<xs:documentation>Measures the amplitude (value) of the signal in the dimension 'type' at specified instances in time.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="RMS">
+					<xs:annotation>
+						<xs:documentation>RMS measures the root mean square value of a signal</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Average">
+					<xs:annotation>
+						<xs:documentation>The arithmetic mean of a set of sampled measurements divided by the total number of samples.
+The duration of the measurement is either defined by 'gateTime' or by the Gate event (Gated Event Stream), which defines the time over which average measurements are taken
+
+The arithmetic mean of a set of sampled measurements divided by the total number of samples. The length of the sample is either defined by 'gateTime' or by the Gate event (Gated Event Stream), which defines the time over which average measurements are taken</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PeakToPeak">
+					<xs:annotation>
+						<xs:documentation>The peak to peak measurement is the difference between the highest sample value and the lowest sample value.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Peak">
+					<xs:annotation>
+						<xs:documentation>The peak measurement is the highest measurement of the sample. </xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PeakNeg">
+					<xs:annotation>
+						<xs:documentation>The peak measurement is the highest measurement of the sample. </xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="MaxInstantaneous">
+					<xs:annotation>
+						<xs:documentation>Sensors allow signals to be measured, monitored and compared. A Sensor takes an input signal and generates measurement values. Any Sensor can be applied to any signal, however the resultant value only has meaning when applied to the correct type of signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="MinInstantaneous">
+					<xs:annotation>
+						<xs:documentation>Sensors allow signals to be measured, monitored and compared. A Sensor takes an input signal and generates measurement values. Any Sensor can be applied to any signal, however the resultant value only has meaning when applied to the correct type of signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Measure">
+					<xs:annotation>
+						<xs:documentation>Measures any control attribute, as opposed to a capability attribute, of a Basic Signal Component or TSF.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="As" type="xs:IDREFS">
+									<xs:annotation>
+										<xs:documentation>reference to a Signal representing signal model of input signal</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="attribute" type="xs:string">
+									<xs:annotation>
+										<xs:documentation>Attribute of the signal that is to be measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measuredVariable" type="enumMeasuredVariable" default="DEPENDENT">
+									<xs:annotation>
+										<xs:documentation>Whether the measurement made is of the dependent or independent variable. </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurement" type="xs:string" default="0">
+									<xs:annotation>
+										<xs:documentation>Current value measured</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="measurements" type="SAFEARRAY_VARIANT">
+									<xs:annotation>
+										<xs:documentation>Array of measurements made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="samples" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Number of consecutive measurement to be made. Zero indicates no measurement to be taken and indicates the Sensor is acting as a monitor only</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="count" type="xs:long" default="0">
+									<xs:annotation>
+										<xs:documentation>Readonly number of measurements currently made</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="gateTime" type="xs:double" default="1">
+									<xs:annotation>
+										<xs:documentation>Continuous range of independent variable (Time) over which measurement is made.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="nominal" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Value against which any condition is checked. This can be either an absolute value (5V) or a ratio value (50%) representing the percentage value between the low-peak and high-peak values.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="condition" type="enumCondition" default="NONE">
+									<xs:annotation>
+										<xs:documentation>Test made between measurement and nominal value</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="GO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status. If no measurement is taken GO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="NOGO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating last measurement Pass/Fail Status If no measurement is taken GO is False.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="HI" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken HI is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LO" type="xs:boolean" default="false">
+									<xs:annotation>
+										<xs:documentation>Read Only flag indicating the last measurement High/Low Status.  If no measurement is taken LO is False</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="UL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Upper Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LL" type="Physical" default="0">
+									<xs:annotation>
+										<xs:documentation>Lower Limit value against which condition is checked</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TwoWire">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="lo" type="xs:string"/>
+								<xs:attribute name="hi" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TwoWireComp">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="true" type="xs:string"/>
+								<xs:attribute name="comp" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ThreeWireComp">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="true" type="xs:string"/>
+								<xs:attribute name="comp" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SinglePhase">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="n" type="xs:string"/>
+								<xs:attribute name="a" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TwoPhase">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="n" type="xs:string"/>
+								<xs:attribute name="a" type="xs:string"/>
+								<xs:attribute name="b" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ThreePhaseDelta">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="a" type="xs:string"/>
+								<xs:attribute name="b" type="xs:string"/>
+								<xs:attribute name="c" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ThreePhaseWye">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="n" type="xs:string"/>
+								<xs:attribute name="a" type="xs:string"/>
+								<xs:attribute name="b" type="xs:string"/>
+								<xs:attribute name="c" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ThreePhaseSynchro">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="x" type="xs:string"/>
+								<xs:attribute name="y" type="xs:string"/>
+								<xs:attribute name="z" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FourWireResolver">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="s1" type="xs:string"/>
+								<xs:attribute name="s2" type="xs:string"/>
+								<xs:attribute name="s3" type="xs:string"/>
+								<xs:attribute name="s4" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SynchroResolver">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="r1" type="xs:string"/>
+								<xs:attribute name="r2" type="xs:string"/>
+								<xs:attribute name="r3" type="xs:string"/>
+								<xs:attribute name="r4" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Series">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="via" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NonElectrical">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="to" type="xs:string"/>
+								<xs:attribute name="from" type="xs:string"/>
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DigitalBus">
+					<xs:annotation>
+						<xs:documentation>Connection is the base class that collects signals into multiple channels</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SignalFunctionType">
+								<xs:attribute name="channelWidth" type="xs:int" default="0">
+									<xs:annotation>
+										<xs:documentation>maximum number of channels allowed to be connected</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:any namespace="##other"/>
+			</xs:choice>
+			<xs:attribute name="type" type="xs:string" use="optional"/>
+			<xs:attribute name="reftype" type="xs:string" use="optional"/>
+			<xs:attribute name="name" type="xs:NMTOKEN" use="optional"/>
+			<xs:attribute name="Out" type="xs:IDREFS" use="optional"/>
+			<xs:attribute name="In" type="xs:ID" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,39 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: SensorNam - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Release/Script1.res" /i "\vipert104\Source\ISS\Development\TestProgramSets\CommonNams\SensorNam\Source" /d "NDEBUG" /d "_AFXDLL" "E:\vipert104\Source\ISS\Development\TestProgramSets\CommonNams\SensorNam\Source\Script1.rc"" 
+Creating temporary file "C:\DOCUME~1\atep\LOCALS~1\Temp\RSPC7.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /I "../Vendor/Include" /I "../../Common/Include" /I "../../../../TETS/Include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Fo"Release/" /Fd"Release/" /FD /c 
+"E:\vipert104\Source\ISS\Development\TestProgramSets\CommonNams\SensorNam\Source\rfms.cpp"
+"E:\vipert104\Source\ISS\Development\TestProgramSets\CommonNams\SensorNam\Source\SensorNAM.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\atep\LOCALS~1\Temp\RSPC7.tmp" 
+Creating temporary file "C:\DOCUME~1\atep\LOCALS~1\Temp\RSPC8.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib nam.lib /nologo /subsystem:console /incremental:no /pdb:"Release/SensorNam.pdb" /machine:I386 /nodefaultlib:"libc.lib" /out:"Release/SensorNam.exe" /libpath:"../Vendor/Lib" /libpath:"../../Common/Lib" /libpath:"../../../../TETS/Lib" 
+.\Release\rfms.obj
+.\Release\SensorNAM.obj
+.\Release\Script1.res
+]
+Creating command line "link.exe @C:\DOCUME~1\atep\LOCALS~1\Temp\RSPC8.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+rfms.cpp
+SensorNAM.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+SensorNam.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,105 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}{\f1\fswiss\fcharset0 Arial;}}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\nowidctlpar\b\f0\fs20 June 24, 2011\par
+\par
+Notes on building new \ul TPexec.dll\ulnone  files for TETS, TetsB and ViperT:\par
+\b0\par
+\pard\nowidctlpar\li360 1. Build the \ul TETS\ulnone  TPexec.dll \ul first\ulnone .  If you need to rebuild the original TETS TPexec.dll, you must observe compatability with the earlier version of TETS TPexec.dll in order for the original TETS programs to still run on TETS.  Then, you would need to rebuild the TetsB and ViperT TPexec.dll files as described below.\par
+\par
+\f1 Note, TETS does not exist anymore except as TETS EO only stations which will not run these PSM109 programs.  However, Picatinny is developing PSM119 test programs using the original TETS TPexec.dll file, so we must maintain compatability with that file.\par
+\f0\par
+2. Build the \ul TetsB\ulnone  TPexec.dll \ul second\ulnone .  If you need to rebuild the TetsB TPexec.dll, you must observe compatability with the latest version of the TETS TPexec.dll.  Then, you would need to rebuild the ViperT TPexec.dll file as described below.\par
+\par
+3. Build the \ul ViperT\ulnone  TPexec.dll \ul last\ulnone .  The ViperT TPexec.dll must be built last, observing compatability with the latest version of the TetsB TPexec.dll.\par
+\par
+Note:The TPexec.dll file only has to be registered once.\par
+\par
+Note: Observe compatability by going to Project/Properties/Component Tab and clicking binary compatability.  Then enter the file name and path to the TPexec.dll file that you want to observe compatability with.  The source project files are set up for this. They have a subdirectory named Tets DLL (or TetsB DLL) where the latest version of the TPexec.dll file should be installed.\par
+\par
+\pard\nowidctlpar\b Notes on building new \ul test programs\ulnone  for TetsB and ViperT:\par
+\pard\nowidctlpar\li360\b0\par
+Any test program *.exe files that are built to run on TetsB and ViperT must be built on the TetsB tester using the TetsB TPexec.dll.\par
+\par
+For program development, the test program exe file can be built on ViperT, but before the test program is delivered, it must be built on the TetsB station.  Otherwise, the program will work on ViperT but may not work on TetsB.\par
+\par
+\f1 Use the same TC_file.bas and StaticDigital.bas files as used on TETS.\par
+\par
+Use the same test program directory structure as used on TETS.\par
+\par
+Also, in order to run the same CD on both stations, you must include both of the following files on the CD:\par
+\par
+\lang1036      Tets_TPS.ini\par
+     ViperT_TPS.ini\par
+\line\lang1033\f0\par
+\pard\nowidctlpar\b Notes for converting existing TPexec programs from TETS to TetsB and ViperT.\par
+\b0\par
+\pard\nowidctlpar\li360 Note: The TPexec.dll file for ViperT has been changed in order to use the CICL to control the SCPI instruments.  Also, all of the RF software has been changed to use the ViperT RFMS system. The TetsB TPexec.dll can only use the original TETS RF subsystem.  The TetsB TPexec.dll would have to be updated to use both RF subsystems if any of the TetsB stations have the new RF subsystem.\par
+\par
+Note: Building the VB6 executable programs works best on the tester where the RFMS and FHDBdriver programs have been installed.  I had problems compiling the programs at my desk and getting them to work on the tester.  The main problem was the FHDB.\par
+\par
+Note: Do NOT run the TPexec \ul Setup.exe\ulnone  program that was provided with the original TPexec software or you will have a problem with the View Director software.  TetsB and ViperT use a later version of ViewDirector than TETS.  TETS uses the file Windows\\System32\\viewdx45.ocx. TetsB and ViperT use the file Windows\\System32\\ViewDirX.ocx. If setup was run, you may be able to correct the problem by deleting the viewdx45.ocx file and reregistering the ViewDirX.ocx file.\par
+\par
+\b Required new files:\b0\par
+\par
+\b TPexec.dll\b0   (replaces the one installed in Windows\\system32 directory) \endash  This file will already be on all ViperT systems that have system software Version 1.05 or later.\par
+\par
+\b VB6\b0  run time system with \b SP6\b0  installed.\par
+\par
+Also, in order to compile test programs, you must copy the file \b vbusc.exe\b0  onto the C:\\ directory and run it.  This will give you a license to use the obsolete software called Sheridan tools.  After the program has run successfully, the vbusc.exe file can be deleted from the C drive.\par
+\par
+If you are trying to compile at your desk, you will also need the FHDB program installed.  Also, you will need Anthonys RFMS software installed.  See Jess for FHDB and see Anthony for the RFMS install program.\par
+\pard\nowidctlpar\par
+\par
+\b Notes on Test Program PTF file changes for TetsB and ViperT:\par
+\b0\par
+\pard\nowidctlpar\li360 1. TetsB and ViperT have a much faster processor (5x) which requires added delays in the source code.  The following code changes are recommended.\par
+\par
+After switch closure before any measure statement, add a 0.2 second delay as follows:\par
+\par
+\pard\nowidctlpar\li810 Exec.nDelay 0.2 \par
+\pard\nowidctlpar\li360\par
+After a power supply is turned on before any measure statement, add a 0.5 second delay:\par
+\par
+\pard\nowidctlpar\li720 Exec.nDelay 0.5\par
+\pard\nowidctlpar\li360\par
+Other stimulus (ie, ARB,FG) prior to any measure statement would probably also require a 0.5 second delay.  The DTS may also need a 0.2 second delay before any measure statements.\par
+\par
+\f1 2. DSO - Also, the ViperT has a different scope from TETS and TetsB (although technically a direct replacement).  The ViperT scope does not use Auto mode the same as TETS.  Most of the programs that I have converted use the Auto mode for most tests.  Even on TETS the Auto mode had limits that were exceeded, but evidently worked.  Those tests will need to be changed to NOT use the Auto mode, except as noted below. In particular, the ViperT scope does not Autorange the voltage very well, so voltages over 4 Vdc will need to not use the Auto mode.  If you do use the Auto mode, include a dVoltRange parameter.\par
+\par
+ Set the DSO dVoltRange(3rd parameter) to 20 either of these two ways:\par
+\par
+    dMeasured = cmdOSCOPE.dMeasDC("AUTO", "INP1", 20)\par
+    dMeasured = cmdOSCOPE.dMeasDC("AUTO", "INP1", dVoltRange:=20)\par
+\par
+\par
+In order to make a consistant VPP measurement and a fast pulsed signal using the ViperT, the following DSO command was added to the TetsB and ViperT TPexec.dll files.  This command can be used on either the TetsB or ViperT.\par
+\par
+   cOscope.ArmVPP2 - Optional dTriggerDelay as Double\par
+\par
+\f0\par
+3. PPU - If a power supply is changed from a high voltage to a lower voltage, it will probably trip on TetsB or ViperT.  You should turn off the supply, wait about 6 seconds for the supply to drift down, then turn it back on at the desired voltage.\par
+\par
+Also, when TETS would pass a command to the Power Supply, the command would not finish until the supply was at the correct voltage, so no delays were needed.  On TetsB and ViperT, the Power supply commands do not wait until the supply reaches the proper voltage, so delays (usually about 0.5 seconds) should be added after most power supply statements.  If multiple supplies are set at the same time, only one delay after the last one is needed.\par
+\pard\nowidctlpar\par
+\pard\nowidctlpar\li360\f1 4. RF \endash  As noted before, the TETS and TetsB use a different RF system than ViperT.  ViperT required a few additional arguments for some commands (ie, frequency for RF power measurements).  In order to maintain compatability with the original TETS, the TetsB and ViperT TPexec.dll has kept the original calls, but added 4 new calls with additional parameters as follows:\par
+\par
+   cRFcounter.dRFMeasFreq2 - Optional dMaxTimeOut as Double\par
+\par
+   cRFcounter.dRFMeasPulsePeriod2 - Optional dMaxTimeOut as Double\par
+\pard\nowidctlpar\li2265                           - Optional dTrigLevel as Double\par
+\pard\nowidctlpar\par
+\pard\nowidctlpar\li360    cRFcounter.dRFMeasPulseWidth2  - Optional dMaxTimeOut as Double\par
+                                                            - Optional dTrigLevel as Double\par
+                                                            - Optional APROBE\par
+\par
+   cRFPwrMeter.dMeasPower2 - Optional dFrequency as Single\par
+\par
+These new calls with additional parameters are available on TetsB and ViperT.\par
+\par
+\pard\nowidctlpar\f0\par
+bb\par
+\par
+\par
+\par
+\par
+}
+ 

@@ -1,0 +1,1913 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'Arb Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemArb.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+C *******************************************************************
+C * IDENTITY STATEMENTS
+C ******************************************************************* $
+C $
+  000150 IDENTIFY, EVENT 'TRIGGER' AS (VOLTAGE), SQUARE WAVE,
+	     EQ 1.6 V,
+	     DECREASING,
+	     DELAY 0.5 SEC,
+	     CNX HI ARB_StopTrigFsk
+	     $
+
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'ANSWER' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+        DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+        DECLARE, VARIABLE, 'MEASUREMENT' IS DECIMAL	$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+C	  beginning of declaring modifiers to test	$
+	DECLARE, VARIABLE, 'AGE-RATE' IS INTEGER	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$        
+        DECLARE, VARIABLE, 'BANDWIDTH' IS DECIMAL	$
+	DECLARE, VARIABLE, 'BURST' IS INTEGER		$
+	DECLARE, VARIABLE, 'BURST-DLY' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-OFFSET' IS DECIMAL	$
+        DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+        DECLARE, VARIABLE, 'MAX-TIME' IS DECIMAL	$
+	DECLARE, VARIABLE, 'PERIOD' IS DECIMAL		$
+	DECLARE, VARIABLE, 'SWEEP-TIME'	IS DECIMAL	$
+        DECLARE, VARIABLE, 'TEST-EQUIP-IMP' IS INTEGER 	$
+        DECLARE, VARIABLE, 'VOLTAGE' IS DECIMAL	 	$
+        DECLARE, VARIABLE, 'VOLTAGE-P' IS DECIMAL 	$
+        DECLARE, VARIABLE, 'VOLTAGE-PP' IS DECIMAL 	$
+        DECLARE, VARIABLE, 'VOLTAGE-RMS' IS DECIMAL 	$
+        DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+ 	DECLARE, VARIABLE, 'DATA' IS ARRAY (1 THRU 8)
+            OF DECIMAL INITIAL = (-2, -1.2, -.8, -.4, -.1, -.3, +.4, +.2) 		            $
+ 	DECLARE, VARIABLE, 'BINARY-FILE' IS FILE OF UNTYPED                         $
+ 	DECLARE, VARIABLE, 'I' IS INTEGER                                           $
+ 	DECLARE, VARIABLE,
+            'DEC-DATA' IS ARRAY (1 THRU 1000) OF LONG-DECIMAL INITIAL = (1000 OF 1) $
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, GLOBAL, CONSTANT, 'CONTINUE' IS
+         C'\LF\   Press TRUE OR FALSE to continue.\LF\'
+          $
+C $
+        DECLARE,  GLOBAL, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test\LF\
+	'
+        $
+C $
+C        DEFINE, 'RESULTS-MSG', MESSAGE,
+            UL   ()
+              MV ()
+            LL   () $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', GLOBAL, PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------' $ 
+
+              OUTPUT, 
+		'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+        C'Arb ATLAS Driver Benchmark	\LF\',
+	C'Date/Time:', 'DATE-TIME', C'	\LF\'
+	$
+	
+	OUTPUT, TO 'PRINTER',
+	C'        Arb ATLAS Driver Benchmark	\LF\',
+        C'Date/Time:', 'DATE-TIME',C'		\LF\'
+	$
+B $
+ 001005  OUTPUT,
+	 C'\LF\ ',
+         C'            Test Menu			\LF\',
+         C' --------------------------------		\LF\',
+         C' Run All Tests                       1	\LF\',
+         C' Test AC SIGNAL                      2	\LF\',
+         C' Test SQUARE WAVE                    3	\LF\',
+	 C' Test RAMP SIGNAL                    4	\LF\',
+	 C' Test TRIANGULAR WAVE SIGNAL         5	\LF\',
+	 C' Test DC SIGNAL                      6	\LF\',
+	 C' Test AGE-RATE                       7	\LF\',
+	 C' Test TRIGGERS                       8	\LF\',
+         C' Test WAVEFORM                       9       \LF\',
+         C' Test BURST MODE                    10       \LF\',
+         C' Exit                                0	\LF\',
+	 C'						\LF\',
+         C' Enter a selection				\LF\'
+         $
+
+C $
+C $
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+C $
+     10 INPUT,  INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'  Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+	IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+	IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050000 $
+        END, IF $		
+	IF, 'CHOICE' EQ 6, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060000 $
+        END, IF $
+	IF, 'CHOICE' EQ 7, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 070000 $
+	END, IF $
+	IF, 'CHOICE' EQ 8, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 110000 $
+	END, IF $
+	IF, 'CHOICE' EQ 9, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 100000 $
+	END, IF $
+	IF, 'CHOICE' EQ 10, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 090000 $
+	END, IF $
+												
+C $
+     OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+
+C $
+C ************************************************************************* $
+C * AC SIGNAL Test Menu
+C *  
+C ************************************************************************* $
+C $
+B $
+ 010000  OUTPUT,
+	 C'\LF\ ',
+	 C'            AC SIGNAL			\LF\',
+         C'            Test Menu			\LF\',
+         C' --------------------------------		\LF\',
+         C' Run All Tests                       1	\LF\',
+         C' Test frequency, period, bandwidth   2	\LF\',
+         C' Test Low Impedance  [VOLTAGES]      3	\LF\',
+	 C' Test High Impedance [VOLTAGES]      4	\LF\',
+	 C' Exit                                0	\LF\',
+	 C'						\LF\',
+         C' Enter a selection				\LF\'
+         $
+
+C $
+C $
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+C $
+     10 INPUT,  INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'  Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010200 $
+        END, IF $
+	IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010300 $
+        END, IF $
+		
+C $
+     OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+C $
+C ************************************** $
+C * AC SIGNAL Test Menu
+C * frequency, period, bandwidth 
+C ************************************** $
+C $
+B $
+ 010100
+	CALCULATE, 'VOLTAGE-PP'	=	6		$
+        CALCULATE, 'VOLTAGE-P'	=	2.80		$
+        CALCULATE, 'VOLTAGE'	=	2		$
+	CALCULATE, 'PERIOD'	=	.2E-5		$
+	CALCULATE, 'DC-OFFSET'	=	2		$
+C $
+C $
+     05 APPLY, AC SIGNAL,
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+	    PERIOD 'PERIOD' RANGE .000000093132 sec TO 100 sec,
+            DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,	    
+	    TEST-EQUIP-IMP 50 OHM,	    	   	    	     
+	    CNX via ARB_50Ohm $
+
+C	PERFORMING PERIOD TEST					$ 
+     40 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN PERIOD TEST			\LF\',
+	C' 						\LF\',
+	C'  NOMINAL VALUE: .2e-5			\LF\',
+	C'  ENTER PERIOD OF AC SIGNAL:			\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'			$
+
+	REMOVE, AC SIGNAL,
+	  CNX VIA ARB_50Ohm	$
+
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+	CALCULATE, 'FREQ'  = ( 1 / 'PERIOD')	$
+        CALCULATE, 'VER-UL' = 'PERIOD' * 1.1	$
+        CALCULATE, 'VER-LL' = 'PERIOD' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 10140$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' 	$
+           INPUT, INTO 'MI' 	$
+        END, IF $
+C $
+C $
+C $
+C	PERFORMING FREQ TEST					$ 
+     45 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN FREQ TEST			\LF\',
+	C' 						\LF\',
+	$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+
+	CALCULATE, 'MEASUREMENT'  = ( 1 / 'MEASUREMENT')	$
+        CALCULATE, 'VER-UL' = 'FREQ' * 1.1	$
+        CALCULATE, 'VER-LL' = 'FREQ' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [FREQ], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [FREQ], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 010145$
+        PERFORM, 'RESULTS' $
+C $
+C $
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' 	$
+           INPUT, INTO 'MI' 	$
+        END, IF $
+
+C $
+C		BANDWIDTH TEST			$
+	CALCULATE, 'VOLTAGE-PP'	=	6	$
+        CALCULATE, 'VOLTAGE-P'	=	2.80	$
+        CALCULATE, 'VOLTAGE'	=	2	$
+	CALCULATE, 'BANDWIDTH'  = 250E3		$
+C $
+     46 APPLY, AC SIGNAL,
+	    FREQ 500E3 HZ,
+	    BANDWIDTH 250E3 HZ,            
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+ 	    TEST-EQUIP-IMP 50 OHM,	   	    	     
+	    CNX VIA ARB_50Ohm $
+C $
+C	PERFORMING BANDWIDTH TEST					$ 
+     50 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN BANDWIDTH TEST		\LF\',
+	C' 						\LF\',
+	C'  NOMINAL VALUE: 4 v-pp			\LF\',
+	C'  ENTER VOLTAGE-PP: 				\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'			$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+	
+C        CALCULATE, 'VER-UL' = 'BANDWIDTH' * 1.1	$
+        CALCULATE, 'VER-UL' = 'VOLTAGE-PP' * .7	$
+C        CALCULATE, 'VER-LL' = 'BANDWIDTH' * 0.9	$
+        CALCULATE, 'VER-LL' = 0	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [BANDWIDTH], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [BANDWIDTH], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+	REMOVE, AC SIGNAL,
+	   CNX VIA ARB_50Ohm	$
+
+	CALCULATE, 'TESTNO' = 010150$
+	PERFORM, 'RESULTS' $
+ 
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 010200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C **************************************** $
+C * AC SIGNAL Test
+C * LOW Z
+C **************************************** $
+C $
+C $
+B $
+ 010200	CALCULATE, 'VOLTAGE-PP'	=	6	$
+        CALCULATE, 'VOLTAGE-P'	=	2.8	$
+        CALCULATE, 'VOLTAGE'	=	2	$
+	CALCULATE, 'PERIOD'	=	.2E-5	$
+	CALCULATE, 'DC-OFFSET'	=	2	$
+	
+C $
+C $
+     05 APPLY, AC SIGNAL,
+	    PERIOD 'PERIOD' RANGE .000000093132 sec TO 100 sec,            
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+ 	    DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,	    
+	    TEST-EQUIP-IMP 50 OHM,
+	    CNX VIA ARB_50Ohm	 $
+
+
+C	PERFORMING VOLTAGE-PP TEST					$ 
+     20 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN VOLTAGE-PP TEST		\LF\',
+	C' 						\LF\',
+	C'  Connect a scope to Arb Output		\LF\',
+	C'  with a 50 Ohm impedance			\LF\',
+	C'  NOMINAL VALUE: 6  				\LF\',
+	C'  ENTER VOLTAGE-PP VALUE: 			\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'		$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+        CALCULATE, 'VER-UL' = 'VOLTAGE-PP' * 1.1	$
+        CALCULATE, 'VER-LL' = 'VOLTAGE-PP' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [VOLTAGE-PP], 50-OHM Z, RANGED, NON-TRIGGERED 	\LF\',
+	C'  ---------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [VOLTAGE-PP], 50-OHM Z, RANGED, NON-TRIGGERED 	\LF\',
+        C'  ----------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 010220$
+        PERFORM, 'RESULTS' $
+
+ 	REMOVE, AC SIGNAL,    	   	    	     
+	    CNX via ARB_50Ohm $
+
+       IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' $
+           INPUT, INTO 'MI' $
+        END, IF $
+
+C	PERFORMING VOLTAGE TEST					$ 
+     29 APPLY, AC SIGNAL,
+	    PERIOD 'PERIOD' RANGE .000000093132 sec TO 100 sec,            
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+ 	    DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,	    
+	    TEST-EQUIP-IMP 50 OHM,
+	    CNX VIA ARB_50Ohm	 $
+
+
+C	PERFORMING DC-OFFSET TEST					$ 
+     35 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN DC-OFFSET TEST 		\LF\',
+	C'						\LF\',
+	C'  NOMINAL VALUE: 2  				\LF\',
+	C'  ENTER DC-OFFSET VALUE: 			\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'		$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+        CALCULATE, 'VER-UL' = 'DC-OFFSET' * 1.1	$
+        CALCULATE, 'VER-LL' = 'DC-OFFSET' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [DC-OFFSET], 50-OHM Z, RANGED, NON-TRIGGERED 	\LF\',
+	C'  ---------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [DC-OFFSET], 50-OHM Z, RANGED, NON-TRIGGERED	\LF\',
+        C'  ----------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 10235$
+        PERFORM, 'RESULTS' $
+
+	REMOVE, AC SIGNAL,
+	  CNX VIA ARB_50Ohm	$
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 010300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C       END OF AC SIGNAL LOW Z [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C ************************************** $
+C * AC SIGNAL Test
+C * HIGH Z
+C ************************************** $
+C $
+C $
+B $
+ 010300	CALCULATE, 'VOLTAGE-PP'	=	6	$
+        CALCULATE, 'VOLTAGE-P'	=	2.80	$
+        CALCULATE, 'VOLTAGE'	=	2	$
+	CALCULATE, 'PERIOD'	=	.2E-5	$
+	CALCULATE, 'DC-OFFSET'	=	2	$
+	
+C $
+C $
+     05 APPLY, AC SIGNAL,
+	    FREQ 5E5 HZ,
+            DC-OFFSET 'DC-OFFSET' RANGE -10 V TO 10 V,
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .64750 v to 20.4 v,
+ 	    TEST-EQUIP-IMP 1 MOHM,
+	    CNX VIA ARB_1Mohm $
+
+C	PERFORMING VOLTAGE-P TEST					$ 
+     20 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN VOLTAGE-PP TEST		\LF\',
+	C' 						\LF\',
+	C'  Connect a scope to Arb Output		\LF\',
+	C' 						\LF\',
+	C'  NOMINAL VALUE: 6  				\LF\',
+	C'  ENTER VOLTAGE-PP VALUE: 			\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'		$
+C $
+	REMOVE, AC SIGNAL,    	   	    	     
+	    CNX via ARB_1Mohm $
+
+C	      calculate the 10% margin for upper and lower limits	$
+        CALCULATE, 'VER-UL' = 'VOLTAGE-PP' * 1.1	$
+        CALCULATE, 'VER-LL' = 'VOLTAGE-PP' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [VOLTAGE-PP], 1-MOHM Z, RANGED, NON-TRIGGERED 	\LF\',
+	C'  ---------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [VOLTAGE-PP], 1-MOHM Z, RANGED, NON-TRIGGERED 	\LF\',
+        C'  ----------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 010320$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' $
+           INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+
+     29 APPLY, AC SIGNAL,
+	    PERIOD 'PERIOD' RANGE .000000093132 sec TO 100 sec,            
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+ 	    DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,	    
+	    TEST-EQUIP-IMP 50 OHM,
+	    CNX VIA ARB_50Ohm	 $
+
+C	PERFORMING DC-OFFSET TEST					$ 
+     35 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN DC-OFFSET TEST 		\LF\',
+	C'						\LF\',
+	C'  NOMINAL VALUE: 2  				\LF\',
+	C'  ENTER DC-OFFSET VALUE: 			\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'		$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+        CALCULATE, 'VER-UL' = 'DC-OFFSET' * 1.1	$
+        CALCULATE, 'VER-LL' = 'DC-OFFSET' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [DC-OFFSET], 1-MOHM Z, RANGED, NON-TRIGGERED 	\LF\',
+	C'  ---------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [DC-OFFSET], 1-MOHM Z, RANGED, NON-TRIGGERED	\LF\',
+        C'  ----------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 010335$
+        PERFORM, 'RESULTS' $
+
+	REMOVE, AC SIGNAL,
+	  CNX VIA ARB_50Ohm	$
+
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+
+C       END OF AC SIGNAL HIGH Z [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C $
+C ************************************************************************* $
+C * SQUARE WAVE Test Menu
+C *  
+C ************************************************************************** $
+C $
+B $
+ 020000  OUTPUT,
+	 C'\LF\ ',
+	 C'          SQUARE WAVE			\LF\',
+         C'           Test Menu				\LF\',
+         C' --------------------------------		\LF\',
+         C' Run All Tests                       1	\LF\',
+         C' Test frequency, period              2	\LF\',
+	 C' Exit                                0	\LF\',
+	 C'						\LF\',
+         C' Enter a selection				\LF\'
+         $
+C $
+C $
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+C $
+     10 INPUT,  INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'  Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 020100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020100 $
+        END, IF $
+C $
+     OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+C $
+C ************************************** $
+C * SQUARE WAVE Test Menu
+C * frequency, period
+C ************************************** $
+C $
+B $
+ 020100
+	CALCULATE, 'VOLTAGE-PP'	=	6		$
+        CALCULATE, 'VOLTAGE-P'	=	3		$
+	CALCULATE, 'PERIOD'	=	.2E-5		$
+	CALCULATE, 'DC-OFFSET'	=	2		$
+C $
+C $
+     05 APPLY, SQUARE WAVE,
+	    PERIOD 'PERIOD' RANGE .0000008163 SEC TO 400 SEC,
+            DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+            TEST-EQUIP-IMP 50 OHM,	   	    	     
+	    CNX VIA ARB_50Ohm $
+
+C $
+C	PERFORMING PERIOD TEST					$ 
+     40 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN PERIOD TEST			\LF\',
+	C' 						\LF\',
+	C'  NOMINAL VALUE: .2e-5			\LF\',
+	C'  ENTER PERIOD OF SQUAREWAVE SIGNAL:		\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'			$
+
+	REMOVE, SQUARE WAVE,
+	  CNX VIA ARB_50Ohm	$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+	CALCULATE, 'FREQ'  = ( 1 / 'PERIOD')	$
+        CALCULATE, 'VER-UL' = 'PERIOD' * 1.1	$
+        CALCULATE, 'VER-LL' = 'PERIOD' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   SQUARE WAVE [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   SQUARE WAVE [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 020140$
+        PERFORM, 'RESULTS' $
+
+C $
+C	PERFORMING FREQ TEST					$ 
+     45 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN FREQ TEST			\LF\',
+	C' 						\LF\',
+	$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+
+	CALCULATE, 'MEASUREMENT'  = ( 1 / 'MEASUREMENT')	$
+        CALCULATE, 'VER-UL' = 'FREQ' * 1.1	$
+        CALCULATE, 'VER-LL' = 'FREQ' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   SQUARE WAVE [FREQ], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   SQUARE WAVE [FREQ], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 020145$
+        PERFORM, 'RESULTS' $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+
+C       END OF SQUARE WAVE [FREQ,PERIOD,BANDWIDTH] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C ************************************************************************* $
+C * RAMP SIGNAL Test Menu
+C *  
+C ************************************************************************** $
+C $
+B $
+ 030000  OUTPUT,
+	 C'\LF\ ',
+	 C'           RAMP SIGNAL			\LF\',
+         C'            Test Menu			\LF\',
+         C' --------------------------------		\LF\',
+         C' Run All Tests                       1	\LF\',
+         C' Test frequency, period              2	\LF\',
+	 C' Exit                                0	\LF\',
+	 C'						\LF\',
+         C' Enter a selection				\LF\'
+         $
+
+C $
+C $
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+C $
+     10 INPUT,  INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'  Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 030100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030100 $
+        END, IF $
+C $
+     OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+C $
+C ************************************** $
+C * RAMP Test Menu
+C * frequency, period, bandwidth 
+C ************************************** $
+C $
+B $
+ 030100
+	CALCULATE, 'VOLTAGE-PP'	=	6		$
+        CALCULATE, 'VOLTAGE-P'	=	3		$
+	CALCULATE, 'PERIOD'	=	.2E-5		$
+	CALCULATE, 'DC-OFFSET'	=	2		$
+C $
+C $
+     05 APPLY, RAMP SIGNAL,
+	    PERIOD 'PERIOD' RANGE .0000008163 SEC TO 500 SEC,
+            DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,
+            VOLTAGE-P 'VOLTAGE-P' RANGE .16187 V TO 5.11875 V,
+	    TEST-EQUIP-IMP 50 OHM,	   	    	     
+	    CNX VIA ARB_50Ohm $
+
+C	REMOVE, RAMP SIGNAL,    	   	    	     
+	    CNX via ARB_50Ohm $
+
+C $
+     10 OUTPUT,
+	C'\LF\						\LF\',
+        C'               RAMP SIGNAL  	 		\LF\',
+	C'           frequency/period tests		\LF\',
+	C'	            ARB 			\LF\',
+        C'  --------------------------------------	\LF\',
+	C'  Connect a scope to T1S8-12B and to T1S8-12A	\LF\',
+	C'						\LF\',
+	C'  Is the signal an RAMP signal?		\LF\',
+	C'						\LF\',
+        C'  T - It is, Ready to test.			\LF\',
+        C'  F - It is not, Skip test.			\LF\',
+	C' 						\LF\'
+        $
+     
+C     15 INPUT, INTO 'READY' $
+C        IF, 'READY'EQ FALSE, THEN $
+C	  REMOVE, RAMP SIGNAL,
+	     CNX VIA ARB_50Ohm	$
+C	  GO TO, STEP 030199   $
+C	END, IF $
+C $
+
+C $
+C	PERFORMING PERIOD TEST					$ 
+     40 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN PERIOD TEST			\LF\',
+	C' 						\LF\',
+	C'  NOMINAL VALUE: .2e-5			\LF\',
+	C'  ENTER PERIOD OF RAMP SIGNAL:		\LF\'
+	$
+
+
+	INPUT, INTO 'MEASUREMENT'			$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+	CALCULATE, 'FREQ'  = ( 1 / 'PERIOD')	$
+        CALCULATE, 'VER-UL' = 'PERIOD' * 1.1	$
+        CALCULATE, 'VER-LL' = 'PERIOD' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   RAMP SIGNAL [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   RAMP SIGNAL [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 30140$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' 	$
+           INPUT, INTO 'MI' 	$
+        END, IF $
+C $
+
+C	PERFORMING FREQ TEST					$ 
+     45 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN FREQ TEST			\LF\',
+	C' 						\LF\',
+	$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+
+	CALCULATE, 'MEASUREMENT'  = ( 1 / 'MEASUREMENT')	$
+        CALCULATE, 'VER-UL' = 'FREQ' * 1.1	$
+        CALCULATE, 'VER-LL' = 'FREQ' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   RAMP SIGNAL [FREQ], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   RAMP SIGNAL [FREQ], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 30145$
+        PERFORM, 'RESULTS' $
+C $
+C $
+	REMOVE, RAMP SIGNAL,
+	  CNX VIA ARB_50Ohm	$
+
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' 	$
+           INPUT, INTO 'MI' 	$
+        END, IF $
+
+B $
+C     99 IF, 'E-E' EQ TRUE, THEN $
+C            GO TO, STEP 030200 $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 030000 $
+        END, IF $
+C $
+
+C       END OF RAMP SIGNAL [FREQ,PERIOD,BANDWIDTH] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C ************************************************************************* $
+C * TRIANGULAR WAVE SIGNAL Test Menu
+C *  
+C ************************************************************************** $
+C $
+B $
+ 050000  OUTPUT,
+	 C'\LF\ ',
+	 C'        TRIANGULAR WAVE SIGNAL		\LF\',
+         C'            Test Menu			\LF\',
+         C' --------------------------------		\LF\',
+         C' Run All Tests                       1	\LF\',
+         C' Test frequency, period              2	\LF\',
+	 C' Exit                                0	\LF\',
+	 C'						\LF\',
+         C' Enter a selection				\LF\'
+         $
+
+C $
+C $
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+C $
+     10 INPUT,  INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'  Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 050100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050100 $
+        END, IF $
+C $
+     OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+C $
+C ************************************** $
+C * TRIANGULAR WAVE SIGNAL Test Menu
+C * frequency, period, bandwidth 
+C ************************************** $
+C $
+B $
+ 050100
+	CALCULATE, 'VOLTAGE-PP'	=	6		$
+        CALCULATE, 'VOLTAGE-P'	=	1.73		$
+	CALCULATE, 'PERIOD'	=	.2E-5		$
+	CALCULATE, 'DC-OFFSET'	=	2		$
+C $
+C $
+     05 APPLY, TRIANGULAR WAVE SIGNAL,
+	    PERIOD 'PERIOD' RANGE .0000008163 SEC TO 500 SEC,
+            DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+  	    TEST-EQUIP-IMP 50 OHM,	   	    	     
+	    CNX VIA ARB_50Ohm $
+
+C $
+C	PERFORMING PERIOD TEST					$ 
+     40 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN PERIOD TEST			\LF\',
+	C' 						\LF\',
+	C'  Connect a scope to Arb Output		\LF\',
+	C'						\LF\',
+	C'  NOMINAL VALUE: .2e-5			\LF\',
+	C'  ENTER PERIOD OF TRIANGLE SIGNAL:		\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'			$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+	CALCULATE, 'FREQ'  = ( 1 / 'PERIOD')	$
+        CALCULATE, 'VER-UL' = 'PERIOD' * 1.1	$
+        CALCULATE, 'VER-LL' = 'PERIOD' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   TRIANGULAR WAVE SIGNAL [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   TRIANGULAR WAVE SIGNAL [PERIOD], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 050140$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' 	$
+           INPUT, INTO 'MI' 	$
+        END, IF $
+C $
+C $
+C $
+C	PERFORMING FREQ TEST					$ 
+     45 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN FREQ TEST			\LF\',
+	C' 						\LF\',
+	$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+
+	CALCULATE, 'MEASUREMENT'  = ( 1 / 'MEASUREMENT')	$
+        CALCULATE, 'VER-UL' = 'FREQ' * 1.1	$
+        CALCULATE, 'VER-LL' = 'FREQ' * 0.9	$
+C $
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   TRIANGULAR WAVE SIGNAL [FREQ], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   TRIANGULAR WAVE SIGNAL [FREQ], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 050145$
+        PERFORM, 'RESULTS' $
+C $
+C $
+	REMOVE, TRIANGULAR WAVE SIGNAL,
+	  CNX VIA ARB_50Ohm	$
+
+        IF, 'E-E' EQ FALSE, THEN $
+           OUTPUT, 'CONTINUE' 	$
+           INPUT, INTO 'MI' 	$
+        END, IF $
+
+C $
+C		BANDWIDTH TEST				$
+	CALCULATE, 'VOLTAGE-PP'	= 2		$
+        CALCULATE, 'VOLTAGE-P'	= .57		$
+	CALCULATE, 'BANDWIDTH'  = 250E3		$
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 050000 $
+        END, IF $
+C $
+
+C       END OF TRIANGULAR WAVE SIGNAL [FREQ,PERIOD,BANDWIDTH] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C ************************************************************************* $
+C * DC SIGNAL Test Menu
+C *  
+C ************************************************************************** $
+C $
+B $
+ 060000  OUTPUT,
+	 C'\LF\ ',
+	 C'            DC SIGNAL			\LF\',
+         C'            Test Menu			\LF\',
+         C' --------------------------------		\LF\',
+         C' Run All Tests                      1	\LF\',         
+         C' Test Low Impedance  [VOLTAGE]      2	\LF\',
+	 C' Test High Impedance [VOLTAGE]      3	\LF\',
+	 C' Exit                               0	\LF\',
+	 C'						\LF\',
+         C' Enter a selection				\LF\'
+         $
+
+C $
+C $
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+C $
+     10 INPUT,  INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'  Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 060100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060100 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060200 $
+        END, IF $
+		
+C $
+     OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+C $
+C $
+C $
+C **************************************** $
+C * DC SIGNAL Test
+C * LOW Z
+C **************************************** $
+C $
+C $
+B $
+ 060100	CALCULATE, 'VOLTAGE'	=	3	$	
+C $
+C $
+     05 APPLY, DC SIGNAL,         
+	    VOLTAGE 'VOLTAGE' RANGE -5.12 V TO 5.11875 V,	    
+	    TEST-EQUIP-IMP 50 OHM,
+	    CNX VIA ARB_50Ohm	 $
+
+C	PERFORMING VOLTAGE TEST					$ 
+     30 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN VOLTAGE TEST 			\LF\',
+	C'						\LF\',
+	C'  Connect a scope to Arb Output		\LF\',
+	C'  with a 50 Ohm impedance			\LF\',
+	C'						\LF\',
+	C'  NOMINAL VALUE: 3  				\LF\',
+	C'  ENTER DC-OFFSET VALUE: 			\LF\'
+	$
+	
+	INPUT, INTO 'MEASUREMENT'	$
+
+	REMOVE, DC SIGNAL,
+	    CNX VIA ARB_50Ohm	$
+C $
+        CALCULATE, 'VER-UL' = 'VOLTAGE' * 1.1	$
+        CALCULATE, 'VER-LL' = 'VOLTAGE' * 0.9	$
+
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   DC SIGNAL [VOLTAGE], 50-OHM Z, RANGED, NON-TRIGGERED 	\LF\',
+	C'  ---------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   DC SIGNAL [VOLTAGE], 50-OHM Z, RANGED, NON-TRIGGERED	\LF\',
+        C'  ----------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 060130$
+        PERFORM, 'RESULTS' $
+
+	
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+
+C       END OF DC LOW Z [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C ************************************** $
+C * DC SIGNAL Test
+C * HIGH Z
+C ************************************** $
+C $
+C $
+B $
+ 060200	CALCULATE, 'VOLTAGE'	=	2	$	
+C $
+C $
+     05 APPLY, DC SIGNAL,
+	    VOLTAGE 'VOLTAGE' RANGE -5.12 V TO 5.11875 V,	     
+	    TEST-EQUIP-IMP 1 mohm,
+	    CNX VIA ARB_1Mohm $
+
+C	PERFORMING VOLTAGE TEST					$ 
+     30 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN VOLTAGE TEST 			\LF\',
+	C'						\LF\',
+	C'  Connect a scope to Arb Output		\LF\',
+	C'						\LF\',
+	C'  NOMINAL VALUE: 2  				\LF\',
+	C'  ENTER DC-OFFSET VALUE: 			\LF\'
+	$
+	
+	INPUT, INTO 'MEASUREMENT'	$
+ 
+	REMOVE, DC SIGNAL,
+	    CNX VIA ARB_1Mohm	 $
+
+        CALCULATE, 'VER-UL' = 'VOLTAGE' * 1.1	$
+        CALCULATE, 'VER-LL' = 'VOLTAGE' * 0.9	$
+
+	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   DC SIGNAL [VOLTAGE], 1-MOHM Z, RANGED, NON-TRIGGERED 	\LF\',
+	C'  ---------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   DC SIGNAL [VOLTAGE], 1-MOHM Z, RANGED, NON-TRIGGERED	\LF\',
+        C'  ----------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 060230$
+        PERFORM, 'RESULTS' $
+
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 070000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+
+C       END OF DC SIGNAL HIGH Z [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C $
+C ******************************************************************************* $
+C * FREQ-SWEEPING (AGE-RATE)
+C * TESTING
+C ******************************************************************************* $
+C $
+B $
+ 070000	CALCULATE, 'VOLTAGE-PP'	 =	6	$
+	CALCULATE, 'AGE-RATE'	 =	40000	$
+	CALCULATE, 'DC-OFFSET'	 =	0	$
+	
+C $
+     05 OUTPUT,
+	C'          BEGIN SWEEP-TIME TEST		\LF\',
+	C'						\LF\',
+	C'  Connect a scope to Arb Out			\LF\',
+	C'  Sweep Window from 100k to 500k and 		\LF\',
+	C'  Age-Rate of 40k hz/sec			\LF\',
+	C'						\LF\',
+        C'  Count the time from when the waveform       \LF\',
+        C'  starts to the time when the frequency       \LF\',
+        C'  stops sweeping.                             \LF\',
+        C'                                              \LF\',
+        C'  Press Enter to Start Test.                  \LF\'  $
+     10 INPUT, GO-NOGO                                         $
+C $
+     15 APPLY, AC SIGNAL,  
+	    AGE-RATE 'AGE-RATE' RANGE 1 HZ/SEC TO 3350 HZ/SEC,
+	    FREQ-WINDOW RANGE 100 KHZ to 500 KHZ,
+ 	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V,
+ 	    DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,
+	    TEST-EQUIP-IMP 50 OHM,	   	   
+	    CNX VIA ARB_50Ohm $
+
+
+C       PERFORMING FREQ TEST					$ 
+     45 OUTPUT,
+        C' \LF\ 					\LF\',
+	C'						\LF\',
+	C'  NOMINAL VALUE: 10.0				\LF\',
+	C'  ENTER SWEEP-TIME VALUE: 			\LF\'
+	$
+
+	INPUT, INTO 'MEASUREMENT'			$
+
+	CALCULATE, 'SWEEP-TIME' = 10.0		$
+        CALCULATE, 'VER-UL' = ('FREQ' / 'SWEEP-TIME') * 1.2	$
+        CALCULATE, 'VER-LL' = ('FREQ' / 'SWEEP-TIME') * 0.8	$
+C $
+	CALCULATE, 'MEASUREMENT' = ('FREQ' / 'MEASUREMENT')	$
+   	COMPARE, 'MEASUREMENT', UL 'VER-UL' LL 'VER-LL' $
+
+C $
+	OUTPUT,	 
+        C'   AC SIGNAL [AGE-RATE], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   AC SIGNAL [AGE-RATE], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 070040$
+        PERFORM, 'RESULTS' $
+C $
+C $
+	REMOVE, AC SIGNAL,
+	  CNX VIA ARB_50Ohm	$
+
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 110000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 070000 $
+        END, IF $
+C $
+
+C       END OF AC [AGE-RATE] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C ******************************************** $
+C * POLARITY
+C *  
+C ******************************************** $
+C $
+B $
+ 080000	OUTPUT,
+	C'\LF\						\LF\',
+        C'          	POLARITY Test	 		\LF\',
+	C'		    ARB     			\LF\',
+        C'  --------------------------------------	\LF\',
+	C'  Connect a scope to T1S8-12B and to T1S8-12A	\LF\',
+	C'						\LF\',
+	C'  50 Ohm impedance				\LF\',
+	C'						\LF\',
+        C'  Set scope to following scale:		\LF\',
+        C' 	Vertical 1V				\LF\',
+	C' 	Horizontal 200mS			\LF\',
+	C'						\LF\',
+	C'  Press enter to continue			\LF\'
+        $
+     
+	INPUT, INTO 'READY'	$
+
+
+ 	APPLY, TRIANGULAR WAVE SIGNAL,
+                VOLTAGE-PP 7 V,
+                VOLTAGE-P 2.02 V,
+                FREQ 1 HZ,
+                DC-OFFSET 0 V,
+                EVENT-SLOPE NEG,
+                TEST-EQUIP-IMP 50 OHM,
+                CNX VIA ARB_50Ohm     $
+
+	REMOVE, TRIANGULAR WAVE SIGNAL,
+	    CNX VIA ARB_50Ohm	 $
+
+     45 OUTPUT,
+        C' 						\LF\',
+	C'          BEGIN POLARITY TEST			\LF\',
+	C'						\LF\',
+	C'  IS THE POLARITY NEGATIVE?			\LF\',
+	C'  						\LF\'
+	$
+
+	INPUT, INTO 'ANSWER'	$
+C $
+C	      calculate the 10% margin for upper and lower limits	$
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+
+C $
+	IF, 'ANSWER' EQ TRUE, THEN $
+	   CALCULATE, 'GO' = TRUE $
+	ELSE $
+	   CALCULATE, 'GO' = FALSE $
+	END, IF $
+
+	OUTPUT,
+        C'   TRIANGLE WAVE [POLARITY], RANGED, NON-TRIGGERED	\LF\',
+	C'  --------------------------------------		\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'							\LF\',
+        C'   TRIANGLE WAVE [POLARITY], RANGED, NON-TRIGGERED	\LF\', 
+        C'  --------------------------------------		\LF\'
+        $
+
+C	REMOVE, TRIANGULAR WAVE SIGNAL,
+	   CNX VIA ARB_50Ohm	$
+
+	CALCULATE, 'TESTNO' = 080045$
+        PERFORM, 'RESULTS' $
+
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 110000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 080000 $
+        END, IF $
+C $
+
+C       END OF TRIANGULAR WAVE [POLARITY] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C $
+C *********************************************************************** $
+C * BURST MODE
+C *  
+C *********************************************************************** $
+C $
+B $
+ 090000	CALCULATE, 'VOLTAGE-PP'	=	2	$
+        CALCULATE, 'VOLTAGE-P'	=       2       $
+	CALCULATE, 'BURST'	=	10	$
+	CALCULATE, 'DC-OFFSET'	=	0	$
+
+C $
+     10 OUTPUT,
+	C'\LF\						\LF\',
+        C'          	BURST MODE Test 		\LF\',
+	C'	      	     ARB  			\LF\',
+        C'  --------------------------------------	\LF\',
+	C'  Connect a scope to Arb Output		\LF\',
+	C'  Set the scope to measure a 15 kHz Square Wave\LF\',
+	C'  Set the scope up to capture a SINGLE BURST	\LF\',
+	C'  signal that rises to a trigger level of .5 V \LF\',
+	C'						\LF\',
+        C'  T - Ready to test.		        	\LF\',
+        C'  F - Skip test.			        \LF\',
+	C' 						\LF\'
+        $
+     
+     15 INPUT, INTO 'READY' $
+        IF, 'READY'EQ FALSE, THEN $
+	   GO TO, STEP 090099   $
+	END, IF $
+C $
+
+
+     25 APPLY, SQUARE WAVE,
+	    FREQ 15E3 HZ,
+            DC-OFFSET 'DC-OFFSET' RANGE -5 V TO 5 V,
+	    VOLTAGE-PP 'VOLTAGE-PP' RANGE .32374 V TO 10.2375 V ,
+            BURST 'BURST' RANGE 1 CYCLES TO 65535 CYCLES,	   
+	    TEST-EQUIP-IMP 50 OHM,	   	   
+	    CNX VIA ARB_50Ohm $
+
+C	PERFORMING PERIOD TEST					$ 
+     40 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN BURST TEST			\LF\',
+	C' 						\LF\',
+	C'  Did the Arb generate 10 cycles of a         \LF\',
+	C'  15 KHz Square wave?  			\LF\'
+	$
+
+	INPUT, GO-NOGO $
+
+
+	REMOVE, SQUARE WAVE,
+	    CNX VIA ARB_50Ohm	 $
+
+C $
+        CALCULATE, 'VER-UL' = 0	$
+        CALCULATE, 'VER-LL' = 0	$
+C $
+	OUTPUT,	 
+        C'   SQUARE WAVE BURST, RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   SQUARE WAVE BURST, RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 090140$
+        PERFORM, 'RESULTS' $
+C $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 120000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 090000 $
+        END, IF $
+C $
+
+C       END OF BURST MODE TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C *******************************************************************
+C * WAVEFORM Test
+C * STIM test
+C ******************************************************************* $
+C $
+B $
+ 100000 OUTPUT,
+	C'\LF\						\LF\',
+        C'          WAVEFORM Test ARB            	\LF\',
+        C'  --------------------------------------	\LF\',
+	C'  Connect a scope to the Arb using 50 Ohm Term\LF\',
+	C'						\LF\',
+	C'  Press enter to continue			\LF\'
+        $
+     
+	INPUT, INTO 'READY' $
+
+     05	APPLY, WAVEFORM,
+	    STIM 'DATA' (1 THRU 8),
+	    SAMPLE-SPACING 2E-3 SEC,
+	    DC-OFFSET 0 V,
+	    TEST-EQUIP-IMP 50 OHM,
+	    CNX via ARB_50Ohm	$
+
+C	PERFORMING STIM TEST					$ 
+     40 OUTPUT,
+	C' 						\LF\',
+	C'          BEGIN STIM TEST			\LF\',
+	C' 						\LF\',
+	C'  DOES THE WAVEFORM HA AN 8 POINT STEP 	\LF\',
+	C'  SIGNAL WITH THE FOLLOWING VOLTAGES? 	\LF\',
+	C'  (-2, -1.2, -.8, -.4, -.1, -.3, +.4, +.2)	\LF\',
+	C' 						\LF\',
+	C'  AND A FREQUENCY OF 62.5 Hz			\LF\',
+	C'						\LF\',
+        C'  T - TRUE.					\LF\',
+        C'  F - FALSE.					\LF\',
+	$
+
+     45 INPUT, GO-NOGO $
+C $
+	REMOVE, WAVEFORM,
+	    CNX VIA ARB_50Ohm	 $
+
+	CALCULATE, 
+             'VER-UL' = 0,
+             'VER-LL' = 0
+                          $
+
+	OUTPUT,	 
+        C'   WAVEFORM [STIM], RANGED, NON-TRIGGERED	\LF\',
+	C'  ------------------------------------------------	\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'  							\LF\',
+        C'   WAVEFORM [STIM], RANGED, NON-TRIGGERED	\LF\',
+        C'  ------------------------------------------------	\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 100040$
+        PERFORM, 'RESULTS' $
+
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 090000 $
+        END, IF $
+C $
+        OUTPUT, ('RETURN-MENU')  $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 100000 $
+        END, IF $
+C $
+C       END OF WAVEFORM [STIM] TESTING - LOOP BACK TO MENU $        
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * TRIGGER TESTING
+C ******************************************************************* $
+C $
+B $
+ 110000 CALCULATE, 'MAX-TIME'=10 $
+    
+     05	ENABLE, EVENT 'TRIGGER'	$
+
+	APPLY, AC SIGNAL,
+	    VOLTAGE-PP 7 V,
+	    DC-OFFSET 0 V,	   	              	
+	    FREQ 500E3 HZ,	    	    
+	    TEST-EQUIP-IMP 50 OHM,
+	    SYNC TO EVENT 'TRIGGER' MAX-TIME 5 SEC,
+	    CNX VIA ARB_50Ohm	$
+
+     10 OUTPUT,
+	C'\LF\							\LF\',
+        C'         AC SIGNAL TRIGGER Test                	\LF\',
+        C'  --------------------------------------		\LF\',
+	C'  Connect a scope to Arb Output			\LF\',
+	C'  Apply an external trigger with a negative	        \LF\',
+	C'  going pulse from 3.0. v to 0.0 v			\LF\',
+	C'							\LF\',
+	C'  Is the signal an AC signal that has been		\LF\',
+	C'  triggered?  				        \LF\',
+	C'							\LF\',
+       	C'  							\LF\'
+        $
+     
+	INPUT, GO-NOGO	$
+C $
+	REMOVE, AC SIGNAL,
+	    CNX VIA ARB_50Ohm	 $
+
+	DISABLE, EVENT 'TRIGGER'	$
+
+	CALCULATE, 'VER-UL' = 0 $
+	CALCULATE, 'VER-LL' = 0 $
+
+	OUTPUT,
+        C'   TRIGGER, RANGED, NON-TRIGGERED		\LF\',
+	C'  ----------------------------------------		\LF\'
+        $
+
+	OUTPUT, TO 'PRINTER',
+	C'							\LF\',
+        C'   TRIGGER, RANGED, NON-TRIGGERED		\LF\',
+        C'  ----------------------------------------		\LF\'
+        $
+
+	CALCULATE, 'TESTNO' = 11000$
+        PERFORM, 'RESULTS' $
+
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 100000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 110000 $
+        END, IF $
+C $
+
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C *******************************************************************
+C * SUMMARY
+C ******************************************************************* $
+C $
+B $
+ 120000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,					
+         C' --------------------------------------	\LF\',
+         C'  END - END TEST				\LF\',
+         C'     PASSED					\LF\',
+         C' --------------------------------------	\LF\'
+         $
+
+	  OUTPUT, TO 'PRINTER',  
+          C'--------------------------------------	\LF\',
+          C' END - END TEST				\LF\',
+          C'    PASSED					\LF\',
+          C'--------------------------------------	\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	  C'--------------------------------------	\LF\',
+          C' END - END TEST				\LF\',
+          C' FAILED WITH', 'FAIL-FLAG', C' FAILURES	\LF\',
+          C'--------------------------------------	\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'--------------------------------------	\LF\',
+          C' END - END TEST				\LF\',
+          C' FAILED WITH', 'FAIL-FLAG', C' FAILURES	\LF\',
+          C'--------------------------------------	\LF\',
+          $
+
+        END, IF  $
+ 120100 GO TO, STEP 001005 $
+
+B $
+ 999900 REMOVE, ALL $
+ 999999 TERMINATE, ATLAS PROGRAM 'Arb Benchmark' $

@@ -1,0 +1,569 @@
+\\**************************************************************************
+\\
+\\  Filename: dims
+\\  Version:  2.0
+\\  Purpose:  A source file used to build the TYX PAWS ATLAS lexical
+\\            database file LexDB.LEX.
+\\
+\\ VER   DATE     ENGINEER, ORGANIZATION, DR# (STR #): DESCRIPTION
+\\ ---   -------  --------------------------------------------------------------
+\\ 1.3   01Nov00  LMIS: Update for Electro-Optical additions.
+\\
+\\ 1.4   04Feb04  Tom Biggs, ManTech: Update to support EOV ATLAS Benchmark 
+\\                development (see ECO-3047-637).
+\\\ 2.0   28Apr09 EADS:
+\\                 Baselined VIPER/T version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\********New version scheme to meet the System software version******************
+\\*  2.1.0.X   13MAR19  Update to bring to 1.3.2.0
+\\*  3.0.0.0007 27JUN19	Win 10 Release
+\\**************************************************************************
+
+print "Source File: dims";
+
+\\
+\\      Dimension Prefix Table
+\\      CIIL Table Only Generated
+\\      Used By Test Executive for Display
+\\
+
+
+define DIMPF lexrule=1 string=1 tables 1 = num;
+	PICO    "P";
+        NANO    "N";
+	MICRO   "U";
+	MILLI   "m";
+	KILO    "K";
+	MEGA    "M";
+	GIGA    "G";
+end_unit;
+
+constant;
+\\
+\\	Apr. '92
+\\	
+\\	To avoid the restriction of 127 tokens in Dims table, token number,
+\\	which used to be stored at table-1, has been moved to table-2.
+\\	Scale field, as a result, is moved to table-1. (see later)
+\\	
+\\	To fit scale field into 7 bits width, the following constants have
+\\	to be changed: <- 9 is changed to <- 2.
+\\	
+\\	This left 2 bits can be used by users. (MAC_FACT, which is used
+\\	internally, occupies bit 0)
+\\
+	PICO  ==  DIMPF.token.PICO  <- 3;
+	NANO  ==  DIMPF.token.NANO  <- 3;
+	MICRO ==  DIMPF.token.MICRO <- 3;
+	MILLI ==  DIMPF.token.MILLI <- 3;
+	KILO  ==  DIMPF.token.KILO  <- 3;
+	MEGA  ==  DIMPF.token.MEGA  <- 3;
+	GIGA  ==  DIMPF.token.GIGA  <- 3;
+
+	DIMRULE         ==      071;
+
+
+\\      The definition of all of the SUBSET dimensions follow together with
+\\      linear scale factors, where appropriate.
+
+
+
+\\
+\\	<num> and <scale> are swapped to avoid the 127 restriction
+\\
+define DIMS lexrule=DIMRULE string=12 tables 1=scale 2=num 3=float;
+\\
+
+	A
+	= *1E-3  (MILLI) MA
+	= *1E-6  (MICRO) UA
+	= *1E-9  (NANO)  NA                                     "A";
+\\        = *1E3   (KILO)  KA                                     "A";
+
+	BITS                                                    "BITS";
+
+	BITS/SEC
+	= *1E3   (KILO) KBITS/SEC
+	= *1E6   (MEGA) MBITS/SEC                               "BITS/SEC";
+
+	C                 
+	= *1E3   (KILO)  KC
+	= *1E-6  (MICRO) UC
+	= *1E-9  (NANO) NC                                      "C";
+
+        CD                                                      "CD";
+
+        CHAR                                                    "CHAR";
+
+	COMMAND                                                 "TEQC";
+	CYCLES = PULSES                                         "CYCLES";
+
+        CYCLES/MRAD                                             "CYCLES/MRAD";
+
+	DATA                                                    "TEQD";
+        DB                                                      "DB";
+	DB/DEGC                                                 "DB/DEGC";
+	DB/DEGF                                                 "DB/DEGF";
+	DB/DEGK                                                 "DB/DEGK";
+	DB/SEC                                                  "DB/SEC";
+
+	DBM                                                     "DBM";
+        DBW                                                     "DBW";
+        DBK                                                     "DBK";
+
+        DEG = *57.295787 RAD 
+	    = *360.00    REV                                    "DEG";
+	DEG/SEC = *57.295787 RAD/SEC
+                = *57.295787 RADS/SEC
+		= *360.00    RPS
+		= *21600.00  RPM                                "DEG/SEC";
+	DEG/SEC/SEC = *57.295787 RAD/SEC/SEC
+		    = *360.00    REV/SEC/SEC                    "DEG/SEC/SEC";
+
+        DEGC                                                    "DEGC";
+	DEGF                                                    "DEGF";
+	DEGK                                                    "DEGK";
+
+        DIGITS                                                  "DIGITS";
+	
+	EV
+	 = *1E3  (KILO)  KEV
+	 = *1E6  (MEGA)  MEV                                    "EV";
+
+        FD
+	= *1E-6  (MICRO) UFD
+	= *1E-9  (NANO)  NFD
+	= *1E-12 (PICO)  PFD                                    "FD";
+			       
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	\\ NEW section (Electro-Optical Subsystem) (below) 2/16/00
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        FRAMES                                                  "FRAMES";
+        SHADES                                                  "SHADES";
+
+	FSF							"FSF";
+
+	IN2							"IN2";
+	OD							"OD";
+
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	\\ End of section (Electro-Optical Subsystem) (above) 2/16/00
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+	FT   
+	 = *5280    S-MILE                                      "FT";
+	FT/SEC                                      
+	 = *5280    S-MILE/SEC                                  "FT/SEC";
+	FT/SEC/SEC 
+	 = *5280    S-MILE/SEC/SEC     
+								"FT/SEC/SEC";
+
+	H
+	= *1E-3  (MILLI) MH
+	= *1E-6  (MICRO) UH    
+	= *1E-9  (NANO)  NH    
+	= *1E-12 (PICO)  PH                                     "H";
+
+	HZ
+	= *1E3   (KILO)  KHZ
+	= *1E6   (MEGA)  MHZ
+	= *1E9   (GIGA)  GHZ                                    "HZ";
+	HZ/SEC                                                  "HZ/SEC";
+
+        IN     = INCHES
+               = INCH                                           "IN";
+	IN/SEC                                                  "IN/SEC";
+	IN/SEC/SEC                                              "IN/SEC/SEC";
+
+        INHG                                                    "INHG";
+	INHG/SEC                                                "INHG/SEC";
+
+	J
+	 =  *1E3   (KILO)   KJ
+	 =  *1E-3  (MILLI)  MJ                                  "J";
+
+        KG                 
+	 = *1E-3           G
+	 = *1E-6          MG
+	 = *1E-9          UG                                    "KG";
+	KG/SEC                                                  "KG/SEC";
+	KG/L                                                    "KG/L";
+
+        KT                                                      "KT";
+
+	L = *1E-3 ML                                            "L";
+	L/SEC                                                   "L/SEC";
+
+	LM                                                      "LM";
+	LM/W                                                    "LM/W";
+
+        LX                                                      "LX";
+
+        LINES                                                   "LINES";
+        HALF-LINES                                              "HALF-LINES";
+
+        M                                                               
+	= *1E3   (KILO)  KM
+	= *1E-3  (MILLI) MM
+	= *1E-6  (MICRO) UM
+	= *1E-9  (NANO)  NM                                   
+	= *1852          N-MILE                                 "M";
+	M/SEC                                                   "M/SEC"; 
+	M/SEC/SEC                                               "M/SEC/SEC";
+
+        MACH                                                    "MACH"; 
+
+	MB                                                      "MB";
+	MB/SEC                                                  "MB/SEC";
+
+        MMHG                                                    "MMHG";
+	MMHG/SEC                                                "MMHG/SEC";
+	N
+	= *1E3   (KILO)  KN
+	= *1E-3  (MILLI) MN
+	= *1E-6  (MICRO) UN                                     "N";
+	N/SEC                                                   "N/SEC";
+
+        N-M                                                     "N-M";
+
+
+        NT                                                      "NIT";
+
+	OCCURRENCES                                             "OCCUR";
+
+        OHM
+	= *1E3   (KILO)  KOHM
+	= *1E6   (MEGA)  MOHM                                   "OHM";
+
+	PC                                                      "PC";
+	PC/DEGC                                                 "PC/DEGC";
+	PC/DEGF                                                 "PC/DEGF";
+	PC/DEGK                                                 "PC/DEGK";
+	PC/SEC                                                  "PC/SEC";
+
+        PIXELS                                                  "PIXELS";
+
+	PA         
+	 = *1E3   KPA
+	 = *1E-3  MPA
+	 = *1E-6  UPA                                           "PA";
+	PA/SEC                                                  "PA/SEC";
+	PULSE-CODE                                              "PLSC";
+	PPS                                                     "PPS";
+
+
+	S                                                       "S";
+
+	SEC
+	= *1E-3  (MILLI) MSEC
+	= *1E-6  (MICRO) USEC
+	= *1E-9  (NANO)  NSEC
+	= *1E-12 (NANO)  PICO
+	= *60            MIN      
+	= *3600          HR                                     "SEC";
+
+	SR         
+	 = *1E-3 (MILLI) MSR                                    "SR";
+	STATUS                                                  "TEQS";
+
+        T
+	 = *1E-3  (MILLI)  MT                                       
+	 = *1E-6  (MICRO)  UT                                       
+	 = *1E-9  (NANO)   GAM                                  "T";                                       
+
+	TIMES                                                   "TIMES";
+	TIMES/L                                                 "TIMES/L";
+
+	V
+	= *1E3   (KILO)  KV
+	= *1E-3  (MILLI) MV
+	= *1E-6  (MICRO) UV                                     "V";
+	V/FT                                                    "V/FT";
+	V/HZ                                                    "V/HZ";
+	V/IN                                                    "V/IN";
+	V/M                                                     "V/M";
+	V/SEC                                                   "V/SEC";
+      V/UW/CM2/SR	                                            "V/UW/CM2/SR";
+
+	W
+	= *1E3   (KILO)  KW
+	= *1E-3  (MILLI) MW
+	= *1E-6  (MICRO) UW
+	= *1E-9  (NANO)  NW                                     "W";
+	W/HZ                                                    "W/HZ";
+        W/CM2                                                   "W/CM2";
+        UW/CM2/SR                                               "UW/CM2/SR";
+
+        WB
+	  = *1E-3  (MILLI) MWB                                  "WB";
+
+        WORDS/SEC
+	= *1E3   (KILO)  KWORDS/SEC
+	= *1E6   (MEGA)  MWORDS/SEC                             "WORDS/SEC";
+
+
+\\      There follows the 'fake' dimensions for the descriptor modifiers.
+\\
+\\  Note: Any <modifier descriptor> which it is constructed from <decimal digit>s
+\\        or <letter>s and <decimal digit>s it is hard coded in the compiler.  
+\\
+
+(DSC_MC) {
+	  CSM            "CSM";       \\A Dummy Descriptor For IDENT-SIG     
+	  CSN            "CSN";       \\A Dummy Descriptor For IDENT-SIG  
+	  ARDC           "ARDC";      \\Descriptor For ATMOS         
+	  ICAN           "ICAN";      \\Descriptor For ATMOS         
+	  ICAO           "ICAO";      \\Descriptor For ATMOS         
+	  WADC           "WADC";      \\Descriptor For ATMOS         
+	  ON             "ON";        \\Descriptor For FUEL-SUPPLY 
+	  OFF            "OFF";       \\Descriptor For FUEL-SUPPLY 
+	 }
+
+       
+(DSC_MC) {
+	 AMI              "AMI";
+         BIP              "BIP";
+	 CONSECUTIVE-OCCURRENCES        "CSOC";
+	 HDB              "HDB";
+	 MIP              "MIP";
+	 NRZ              "NRZ";
+	 PARALLEL         "PARA";
+	 RZ               "RZ";
+	 SERIAL-LSB-FIRST "SERL";
+	 SERIAL-MSB-FIRST "SERM";
+	}
+
+	\\
+	\\      BUS-SPEC
+	\\
+(DSC_MC) {
+	 ETHERNET	"ETHERNET";                         \\      BUS     \\ TETS II
+         AFAPD		"AFAPD";                         \\      BUS     \\ TETS II
+         CAN		"CAN";                         \\      BUS     \\ TETS II
+         CDDI		"CDDI";                         \\      BUS     \\ TETS II
+         MIC		"MIC";                         \\      BUS     \\ TETS II
+	 MIL-1553A      "1553A";                        \\      BUS     \\
+	 MIL-1553B      "1553B";                        \\      BUS     \\
+         MTS		"MTS";                         \\      BUS     \\ TETS II
+         IDL		"IDL";                         \\      BUS     \\ TETS II
+	 IEEE-488       "IEEE488";                      \\      BUS     \\
+	 RS-232         "RS232";                        \\      BUS     \\
+	 RS-422         "RS422";                        \\      BUS     \\
+         RS-485		"RS485";                         \\      BUS     \\ TETS II
+         TACFIRE	"TACFIRE";                         \\      BUS     \\ TETS II
+	 ARINC-429      "AR429";                        \\      BUS     \\
+	}
+
+	\\
+	\\      BUS-MODE
+	\\
+(DSC_MC) {
+	 CON-MODE               "CONMD";                \\      BUS     \\
+	 CON-RT                 "CONRT";                \\      BUS     \\
+	 RT-CON                 "RTCON";                \\      BUS     \\
+	 RT-RT                  "RTRT";                 \\      BUS     \\
+	 TALKER-LISTENER        "TLKLS";                \\      BUS     \\
+	 ALL-LISTENER           "ALLLS";                \\      BUS     \\
+
+        }
+
+	\\
+        \\      TEST-EQUIP-ROLE
+	\\
+(DSC_MC){ 
+	  MASTER                "MASTR";                \\      BUS     \\
+	  SLAVE                 "SLAVE";                \\      BUS     \\
+	  MONITOR               "MONTR";                \\      BUS     \\
+	}
+
+	\\
+	\\      STANDARD / FAULT-TEST BUS
+	\\
+(DSC_MC) {
+	 PRIMARY                "PRIM";                 \\      BUS     \\
+	 REDUNDANT              "REDT";                 \\      BUS     \\
+	}
+
+
+	\\
+	\\      <protocol parameter> 14.68
+	\\
+(DSC_MC) {
+	  SYNC                  "SYNC";                 
+	  T-R                   "TR";
+	  PARITY                "PRTY";
+	  LENGTH                "LNGTH";
+	}
+        \\
+	\\ What are these 4 doing here ? (No Reference in modsdims file !!)
+	\\
+	POS-SLOPE        "POSS";
+	NEG-SLOPE        "NEGS";
+	POS              "POS";
+	NEG              "NEG";
+        AUTO             "AUTO";
+	AVE              "AVE"; 
+	INT              "INT";
+	EXT              "EXT"; 
+	EXT1             "EXT1"; 
+	EXT2             "EXT2"; 
+	CH1              "CH1";
+	CH2              "CH2";
+	WMEM1            "WMEM1";
+	WMEM2            "WMEM2";
+	WMEM3            "WMEM3";
+	WMEM4            "WMEM4";
+	CHAN1            "CHAN1";
+	CHAN2            "CHAN2";
+	FILE		 "FILE";	\\ Added for TETS II - per General Notes for ATLAS Implementation EADS NA
+	FUNC1            "FUNC1";
+	FUNC2            "FUNC2";
+	X1               "X1";
+	X10              "X10";
+	AC               "AC";
+	DC               "DC";
+	NORM             "NORM";
+	ALIGN            "ALGN";
+	LASR             "LASR";
+\\
+\\
+\\
+         {
+            TARG-OPNAPR         "T000";   \\ position 0
+            TARG-BRSGHT         "T001"; \\ position 1
+            TARG-PIESECTOR      "T002";	\\ change from TETS-PIESECTOR to TARG-PIE (position 2)
+            TARG-4BAR5          "T003";	\\ new 4-bar resolution target: 5.00 cy/mrad (position 3)
+            TARG-4BAR383        "T004"; \\ new 4-bar resolution target: 3.83 cy/mrad (position 4)
+            TARG-4BAR267        "T005"; \\ new 4-bar resolution target: 2.67 cy/mrad (position 5)
+            TARG-4BAR15         "T006"; \\ new 4-bar resolution target: 1.50 cy/mrad (position 6)
+            TARG-4BAR33         "T007"; \\ 4-bar resolution target: 0.33 cy/mrda (position 7)
+            TARG-DIAGLN         "T008"; \\ position 8
+            TARG-ETCHED         "T009";
+            TARG-SPNPINHL       "T010";
+            TARG-TGTGRP07 = TARG-TGTGRP04      "T011"; \\ This target known as group 0-4 as well.
+            TARG-TGTGRP1        "T012";
+            TARG-TGTGRP2        "T013";
+            TARG-GRYSCL         "T014"; 
+            TARG-CROSS17        "T015";  \\ New target 20110121 in position 10 per SBIR
+            TARG-4BAR10         "T016";  \\ New target 20110121 in position 12 per SBIR
+            TARG-4BAR66         "T017";  \\ New target 20110121 in position 13 per SBIR
+            TARG-SQUARE21       "T018";  \\ New target 20110121 in position 14 per SBIR
+
+            \\ variable intensity names
+            TARG-IRBS00         "IRBS00"; \\ IRBS targets use boresight (position 1) and define intensity levels
+            TARG-IRBS01         "IRBS01";
+            TARG-IRBS02         "IRBS02";
+            TARG-IRBS03         "IRBS03";
+            TARG-IRBS04         "IRBS04";
+            TARG-IRBS05         "IRBS05";
+            TARG-IRBS06         "IRBS06";
+            TARG-IRBS07         "IRBS07";
+            TARG-IRBS08         "IRBS08";
+            TARG-IRBS09         "IRBS09";
+            TARG-IRBS10         "IRBS10";
+            TARG-TVBS01         "TVBS01"; \\ TVBS targets use boresight (position 1) and define intensity levels
+            TARG-TVBS02         "TVBS02";
+            TARG-TVBS03         "TVBS03";
+            TARG-TVBS04         "TVBS04";
+            TARG-TVBS05         "TVBS05";
+            TARG-TVBS06         "TVBS06";
+            TARG-TVBS07         "TVBS07";
+            TARG-TVBS08         "TVBS08";
+            TARG-TVBS09         "TVBS09";
+            TARG-TVBS10         "TVBS10";
+            TARG-TVBS11         "TVBS11";
+            TARG-TVBS12         "TVBS12";
+            TARG-TVBS13         "TVBS13";
+            TARG-TVBS14         "TVBS14";
+            TARG-TVBS15         "TVBS15";
+
+            \\TARG-4BAR40         "Txxx"; deleted
+            \\TARG-4BAR60         "Txxx"; deleted
+            \\TARG-D106           "T005"; deleted
+            \\TARG-D155           "T006"; deleted
+            \\TARG-DFRTL          "T007"; deleted
+            \\TARG-DFRTM          "T008"; deleted
+            \\TARG-DFRTS          "T009"; deleted
+            \\TARG-DISTORTN       "T022"; deleted
+            \\TARG-ENDTR          "T011"; deleted
+            \\TARG-GRYSCL256      "T013"; deleted
+            \\TARG-MPINHL         "T014"; deleted
+            \\TARG-OFFSQR         "T015"; deleted
+            \\TARG-PINMTX         "T017"; deleted
+            \\TARG-RECTANGLE      "T023"; deleted
+         }
+\\
+\\ Video Formats
+         {
+           RS170                 "R000";
+           RS343-675-1-1         "R001";
+           RS343-675-4-3         "R002";
+           RS343-729-1-1         "R003";
+           RS343-729-4-3         "R004";
+           RS343-875-1-1         "R005";
+           RS343-875-4-3         "R006";
+           RS343-945-1-1         "R007";
+           RS343-945-4-3         "R008";
+           RS343-1023-1-1        "R009";
+           RS343-1023-4-3        "R010";
+	   INTERNAL1		 "INT1";
+	   INTERNAL2		 "INT2";
+
+           \\ This group not supported under VEO-2/ Coreco Imaging card
+           \\RS170-350-320-4-3     "R000";
+           \\RS343-1023-1000-1-1   "R001";
+           \\RS343-1023-1000-4-3   "R002";
+           \\RS343-675-1000-1-1    "R005";
+           \\RS343-675-1000-4-3    "R006";
+           \\RS343-729-1000-1-1    "R009";
+           \\RS343-729-1000-4-3    "R010";
+           \\RS343-875-1000-1-1    "R013";
+           \\RS343-875-1000-4-3    "R014";
+           \\RS343-945-1000-1-1    "R017";
+           \\RS343-945-1000-4-3    "R018";
+           \\DUMMY-350-320-4-3     "R021";
+         }
+\\
+\\
+\\
+
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	\\ NEW section (Electro-Optical Subsystem) (below) 2/16/00
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\	Target names updated 24SEP07 from TETS-XXXX to TARG-XXXX per EO_CPM_Updated_1-revB
+	BAR			"BAR";
+        BLACK                   "BLACK";
+	BOX			"BOX";
+	COMPOSITE		"COMPOSITE";
+	HORIZ			"HORIZ";
+	IN-SCAN			"INSCAN";
+	NARROW-FIELD-OF-VIEW    "NARROW";
+	NOISE-RMS		"NOISERMS";
+	NOISE-PSD		"NOISEPSD";
+\\	RS-170 = RS170          "RS170";
+	RS343A			"RS343A";
+	SEPARATE                "SEPARATE";
+\\        TARG-IRBS11             "IRBS11"; \\ Not required per CPM
+\\        TARG-IRBS12             "IRBS12"; \\ Not required per CPM
+	VERT			"VERT";
+	X-SCAN			"XSCAN";
+	WIDE-FIELD-OF-VIEW	"WIDEFOV";
+	WHITE			"WHITE";
+(DSC_MC) {
+	ODD		"ODD";
+	EVEN		"EVEN";
+        MARK		"MARK";		\\ TETS II  PARITY
+	NONE		"NONE";		\\ TETS II  PARITY
+         }
+	BOTH            "AB";
+	FM		"FM";		\\ MODE (vol 17)
+	AM              "AM";           \\ MODE (vol 17)
+	PAM             "PAMM";          \\ MODE (vol 17)
+	PULSED		"PLSD";		\\ MODE (vol 17)
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	\\ End of section (Electro-Optical Subsystem) (above) 2/16/00
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        end_unit;
+
+\***********************************************************************
+

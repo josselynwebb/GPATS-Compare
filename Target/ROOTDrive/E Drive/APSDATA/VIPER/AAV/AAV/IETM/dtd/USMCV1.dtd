@@ -1,0 +1,1825 @@
+<!-- THIS UNITED STATES MARINE CORPS DTD IS THE MARINES CORPS APPROVED DTD FOR   
+     MIL-M-38784-LIKE TECHNICAL MANUALS AND SL-4 MANUALS. -->
+
+<!-- The formal PUBLIC identifier of this SGML DTD is 
+
+   -//USA-DOD//DTD FOR USMCV1 040701//EN
+-->
+
+<!-- The DTD is invoked for Marine Corps Technical Manuals by
+  
+   <!DOCTYPE docmarinecorpstm PUBLIC "-//USA-DOD//DTD FOR USMCV1 040701//EN">
+--> 
+
+<!-- The DTD is invoked for Marine Corps Stand Alone SL-4 Stock Lists by
+  
+   <!DOCTYPE docmarinecorpssl4 PUBLIC "-//USA-DOD//DTD FOR USMCV1 040701//EN">
+--> 
+
+<!-- OWNER OF THIS DTD
+Note: The owner manages this DTD.  Any change requests should go to the owner.
+Organization Name: United States Marine Corps, Marine Corps Systems Command
+Organization Address: 2200 Lester Avenue, Quantico, VA  22134
+POC: Ms. Lisa M. Lawhorne
+Office Code: ACLOG
+Phone: 703 432-3801
+Fax:   703 432-3533
+E-mail: lisa.lawhorne@usmc.mil
+-->
+
+<!-- TECHNICAL POINT OF CONTACT FOR THIS DTD 
+Note: Questions regarding content models, tag use, etc. should be directed to the Technical POC.
+Organization Name: Naval Surface Warfare Center Carderock Division
+Organization Address: 9500 Macarthur Blvd. West Bethesda MD. 20817-5700
+POC: Mr. Harry Whittaker
+Office Code: Technical Information Systems Division/205  
+Phone: 301-227-3388
+Fax:   301-227-3106
+E-mail: harry.whittaker@navy.mil
+-->
+
+<!--DCL 03-10-05: Per USMC Req. DTD CHANGES MADE BY DCL WHICH IS NOT DOCUMENTED: -->
+<!-- 1. Delete: <!ELEMENT mfrcode  - -  (%text;)> -->
+<!-- 2.	Delete: <!ELEMENT cagecode  - -  (#PCDATA)> -->
+
+<!-- Data Content Notation Declarations -->
+<!-- Each of the following notations provides a capability for accessing data
+     of a certain type by a declared entity. --> 
+<!NOTATION cgmbin PUBLIC "ISO 8632/3//NOTATION CGM Binary text encoding//EN"> 
+
+<!NOTATION iges PUBLIC "-//USA-DOD//NOTATION (ASME/ANSI Y14.26M-1987) Initial 
+                                        Graphics Exchange Specification//EN"> 
+
+<!NOTATION fax PUBLIC "-//USA-DOD//NOTATION CCITT Group 4 Facsimile Type1 
+                                                     Untiled Raster//EN"> 
+
+<!NOTATION faxtile PUBLIC "-//USA-DOD//NOTATION CCITT Group 4 Facsimile 
+                                              Type 2 Tiled Raster//EN"> 
+
+<!NOTATION bmp SYSTEM>
+
+<!NOTATION cal SYSTEM>
+
+<!NOTATION cgm SYSTEM>
+
+<!NOTATION g4 SYSTEM>
+
+<!NOTATION jpg SYSTEM>
+
+<!NOTATION pcx SYSTEM>
+
+<!NOTATION tif SYSTEM>
+
+<!NOTATION wmf SYSTEM>
+
+<!-- Added by ADCS Team on 7/14/04. Notation PNG. -->
+<!NOTATION png SYSTEM>
+
+<!-- svg notification added by ESSI on 7/30/04. -->
+<!NOTATION svg SYSTEM>
+
+<!-- ISO Character Set Declarations -->
+<!-- The SDATA (system dependent) character declarations contained in these
+     character sets provide linkage to the non-keyboard characters for the
+     application software. They also allow SGML delimiters to be used as
+     character data. -->
+<!ENTITY % ISOlat1 PUBLIC "ISO 8879:1986//ENTITIES Added Latin 1//EN"> 
+
+<!ENTITY % ISOpub PUBLIC "ISO 8879:1986//ENTITIES Publishing//EN"> 
+
+<!ENTITY % ISOgrk1 PUBLIC "ISO 8879:1986//ENTITIES Greek Letters//EN"> 
+
+<!ENTITY % ISOgrk3 PUBLIC "ISO 8879:1986//ENTITIES Greek Symbols//EN"> 
+
+<!ENTITY % ISOnum PUBLIC "ISO 8879:1986//ENTITIES Numeric and Special 
+                                                        Graphic//EN"> 
+
+<!ENTITY % ISOtech PUBLIC "ISO 8879:1986//ENTITIES General Technical//EN"> 
+
+<!ENTITY % ISOamsb PUBLIC "ISO 8879:1986//ENTITIES Added Math Symbols:
+                                                        Binary Operators//EN">
+
+%ISOlat1; %ISOpub; %ISOgrk1; %ISOgrk3; %ISOnum; %ISOtech; %ISOamsb;
+
+<!-- TABBING CAPABILITY -->
+<!ENTITY tab "     ">
+
+<!-- Parameter Entity Declarations -->
+<!-- These parameter entities allow a simplification of element content models
+     and attribute definitions. -->
+
+<!-- itemno added to %text; by ESSI on 7/30/2004. -->
+<!--DCL 03-22-05: Per USMC Req. circuitsymno and qty added to %text;-->
+<!--DCL 05-24-05: Per USMC Req. Added tools, spectools, supportequip, applicconfig, materials, personnel, references, specenvironconds, gensafeints, other, jointtools and name-->
+<!--DCL 08-26-05: Per USMC Req. Added (location, item, action, indication, correct-action, remarks, condition, recommendation)
+-->
+
+<!--NSWC 2-28-06 remark changed to remarks -->
+<!--NSWC 2-28-06 added all the elements from the content models to allow for maximum
+                 linking and wrapper tags inside a CALS table model  -->
+                 
+<!-- NSWC 8-30-05: Added para0 to %text.  -->
+<!--DCL 3-13-06: Added wrapper elements to %text as per USMC req.(appqty, assembly, cage, category, char-or-test, cnt-indc, color, common-name, component-assembly, component-symptom, descrip, equipconds, equip-not-ready, equipqty, figno, from, from-component-connector, from-pin, function, group-number, harness, indent, initialsetup, instruction, interval, iteminspect, key, maintenance-category, malfunc, month, official-name, part-desc, permissible-repair, possible-remedy, probable-causes, ref-code, reference, remarks-code, repl, repl-fact, requirement, setting-position, size, specification, ssi, symptom, system, system-checks, tasklist, tasks, test, to, to-component-connector, to-pin, toolno, tools-and-equipment, type, um, use, wirename) -->
+<!--DCL 04-11-06: Per USMC Req. Added UOC-->
+<!--NSWC 06-26-06: Added setting, purpose, and position to allow for use in CALS tables -->
+<!--NSWC 09-09-08: Added wrapper element probable-scenario to wrap possible-remedy, probable-causes, and probable-check -->
+<!ENTITY % text "(#PCDATA | ftnref | xref | xlink | indxflag | verbatim |
+		  appqty | assembly | cage | category | char-or-test |
+		  cnt-indc | color | common-name | component-assembly | 
+		  component-symptom | descrip | equipconds | equip-not-ready | 
+		  equipqty | figno | from | from-pin | from-component-connector | function |
+		  group-number | harness | indent | initialsetup | instruction |
+		  interval | iteminspect | key | maintenance-category | malfunc |
+		  month | official-name | part-desc | permissible-repair | 
+		  possible-remedy | probable-causes | ref-code | reference |
+		  remarks-code | repl | repl-fact | requirement | setting-position |
+		  size | specification | ssi | symptom | system | system-checks |
+		  tasklist | tasks | test | to | to-component-connector | to-pin | 
+		  toolno | tools-and-equipment | type | um | use | wirename | 
+                  change | emphasis | graphic | graphicalts | subscrpt | 
+                  supscrpt | symbol | tool | testeq | material | torqueval |
+                  partno | serno | partdesc | smrcode | nsn | modelno | 
+                  sssn | refdes | docno | figindex | lin | faultcode | 
+                  extref | dialink | address | url | itemno | circuitsymno | qty | 
+                  tools | spectools | supportequip | applicconfig | materials | 
+                  personnel | references | specenvironconds | gensafeints | 
+                  other | jointtools | name | location | item | action | indication | 
+                  correct-action | remarks | condition | recommendation | para0 | uoc| setting | position | purpose)+">
+
+   
+<!ENTITY % list "(seqlist | randlist | deflist)">
+
+<!ENTITY % externals "(audio | video | process | ipcmsg | media | subtask)">
+
+<!ENTITY % paracon "para | paraalts | warning | caution | note">
+ 
+<!--NSWC 2-28-06 added supercededby and supercedes to be used for updates
+                  to the manual from the original baseline manual  -->
+<!ENTITY % lvl "chglvl         CDATA        #IMPLIED
+                delchlvl       CDATA        #IMPLIED
+                inschlvl       CDATA        #IMPLIED
+                supercededby   CDATA        #IMPLIED
+                supercedes     CDATA        #IMPLIED">
+
+<!--DCL 03-10-05: Per USMC Req. Added idrefs to maximize linking possibilities -->
+<!ENTITY % bodyatt "id            ID                     #IMPLIED
+                    label         CDATA                  #IMPLIED 
+                    %lvl; 
+                    idrefs		  IDREFS                 #IMPLIED
+                    security      (u | c | s | ts)       #IMPLIED">
+
+<!-- Many attributes have a Boolean value. They are uniformly given the
+     declared value "%yesorno;" rather than NUMBER to indicate this intent. 
+     0 is interpreted as false; all other numbers as true. --> 
+<!ENTITY % yesorno "NUMBER">
+   
+<!-- When the replacement text " PARSER WARNING: AN UNDECLARED ENTITY HAS BEEN REFERENCED HERE IN THE INSTANCE. " of the #DEFAULT entity defined below occurs in the normalized instance after a successful parse, one of the following has occurred:
+(1) The name of a declared general entity was misspelled when the entity was referenced.
+(2) An ampersand character "&" is considered to be the delimiter opening a general entity reference, e.g., "The R&D expenditures ... ".
+-->
+<!ENTITY #DEFAULT " PARSER WARNING: AN UNDECLARED ENTITY HAS BEEN REFERENCED HERE IN THE INSTANCE. ">
+
+<!-- The replacement text of the "topic" entity defined below will appear when the "topic" general entity providing the system specific information for the repair parts list description has not been declared in the DOCTYPE declaration subset for the TM instance. -->
+<!ENTITY topic 'THE "topic" ENTITY REFERENCED IN THE REPAIR PARTS DESCRIPTION HAS NOT BEEN DECLARED IN THE DOCTYPE DECLARATION SUBSET.'>
+
+<!-- Enabling the standard texts. -->
+<!ENTITY % usmcv1ents PUBLIC "-//USA-DOD//ENTITIES FOR USMCV1 040525 DTD//EN">
+%usmcv1ents;
+
+<!-- Element Definitions -->
+<!-- The elements are defined in their hierarchical structure, from top to 
+     bottom, and front to back of the document. --> 
+   
+<!-- docmarinecorpstm modified by ESSI on 7/30/04. docmarinecorpssl3 and docmarincorpssl4 elements added. -->
+<!ELEMENT docmarinecorpstm  - -  ((foreword?, 
+                                  ((fronttm, body, rear?) | (volume+)),
+                                  glossary?) | docmarinecorpssl3 | docmarinecorpssl4)>
+<!ATTLIST docmarinecorpstm  id            ID                      #IMPLIED
+                            security      (u | c | s | ts)        #IMPLIED
+                            bundle        NUMBER                  #IMPLIED
+                            chglvl        CDATA                   #IMPLIED
+                            pagesize      (A | B)                 #IMPLIED    
+                            orient        (port | land)           #IMPLIED>
+
+<!-- docmarinecorpssl3 added by ESSI on 7/30/04. -->
+<!ELEMENT docmarinecorpssl3  - -  (frontsl3, compstocklist)>
+<!ATTLIST docmarinecorpssl3  id            ID                      #IMPLIED
+                             security      (u | c | s | ts)        #IMPLIED
+                             bundle        NUMBER                  #IMPLIED
+                             chglvl        CDATA                   #IMPLIED
+                             pagesize      (A | B)                 #IMPLIED    
+                             orient        (port | land)           #IMPLIED>
+
+<!ELEMENT docmarinecorpssl4  - -  (frontsl4, itemidlist, itemnocrossref, nsncrossref, partnocrossref, circuitsymcrossref?)>
+<!ATTLIST docmarinecorpssl4  id            ID                      #IMPLIED
+                             security      (u | c | s | ts)        #IMPLIED
+                             bundle        NUMBER                  #IMPLIED
+                             chglvl        CDATA                   #IMPLIED
+                             pagesize      (A | B)                 #IMPLIED    
+                             orient        (port | land)           #IMPLIED>
+
+<!-- Added by ADCS Team on 7/14/04. frontsl3 was added to allow conversion of SL-3 front matter. -->
+<!-- NSWC added 1-30-2006 This allows warnings, cautions and notes to be placed anywhere in the front of an SL3 document.  -->
+<!ELEMENT frontsl3  - -  (idinfo | promul | chgrec | preface | contents )+
+                        +(ftnote | brk | figure | table | warning | caution | note)>
+
+<!ELEMENT volume  - -  (title?, fronttm?, body?, rear?)>
+<!ATTLIST volume  tocentry      %yesorno; "0"
+                  id            ID                     #IMPLIED
+                  label         CDATA                  #IMPLIED
+                  num           NUMBER                 #REQUIRED
+                  chglvl        CDATA                  #IMPLIED
+                  security      (u | c | s | ts)       #IMPLIED>
+   
+<!ELEMENT (foreword | preface | intro)  - -  ((%paracon;)*, para0*) 
+                                            -(indxflag) 
+                                            +(ftnote | brk | figure | 
+                                              external | xelemloc | table | 
+                                              chart)>
+<!ATTLIST (foreword | preface | intro)  
+           tocentry      %yesorno;              "0"
+           %bodyatt;>
+
+<!-- The content model for the "fronttm" element optionally contains 1 or more
+     graphics, so that variances in the ordering of front matter may be
+     accommodated. If data other than the document number and title contained
+     in the front matter must be captured, this content model must be 
+     modified. --> 
+
+<!-- NSWC added 1-30-2006 This allows warnings, cautions and notes to be placed anywhere in the front matter of a document.  -->
+<!--DCL 5-17-06: as per USMC added element wrappertable-->
+<!ELEMENT fronttm  - -  (((title?, docno) | 
+                       (idinfo | warnpage | warnsum | chgsheet | lep | promul | 
+                        chgrec | foreword | preface | intro | contents |  
+                        illuslist | tablelist | safesum | howtouse)+), 
+                       (fsection | graphic | graphicalts)*)
+                     +(ftnote | brk | figure | table | warning | caution | note | wrappertable)>
+
+<!-- NSWC added 1-30-2006 This allows warnings, cautions and notes to be placed anywhere in the front of an SL4 document.  -->
+<!ELEMENT frontsl4  - -  (idinfo | promul | chgrec | preface | contents | cages)+
+                        +(ftnote | brk | figure | table | warning | caution | note)>
+
+<!ELEMENT idinfo  - -  (pubno | nsn | chgnum | revnum | titleblk | mfr |
+                        contractno | docmfr | seal | notice | downgrd |
+                        pubdate | chgdate | pcn | tamcn | uid)+>
+
+<!ELEMENT pubno  - -  (user?, docno)+>
+<!ATTLIST pubno  service  (army | airforce | marinecorps | navy)  "marinecorps">
+
+<!ELEMENT (user | docno)  - -  (%text;)>
+
+<!--DCL 03-10-05: Per USMC Req. Moved nsn from here with partno and modelno -->
+<!ELEMENT (chgnum | revnum)  - o  (%text;)>
+
+<!ELEMENT titleblk  - -  (volnum?, docpartn?, revnum?, doctype, maintlvl*,
+                          prtitle, stitle?)>
+
+<!ELEMENT (volnum | docpartn | doctype | maintlvl)  - -  (%text;)>
+
+<!ELEMENT prtitle  - -  (nomen, eqpttype?, (pslist | serno | modelno | nsn)*, subject?)>
+
+<!--DCL 03-10-05: Per USMC Req. Initially was (partno | serno | modelno) -->
+<!--DCL 3-16-05: Per USMC Req. added assembly declaration -->
+<!ELEMENT (nsn | partno | serno | modelno | itemno | cage | toolno | figno | assembly)  - -  (%text;)>
+
+<!--NSWC 07-12-06: Added %bodyatt; to assembly-->
+<!--DCL 03-10-05: Per USMC Req. Initially was (partno | serno | modelno). Added %bodyatt; -->
+<!ATTLIST (nsn | partno | serno | modelno | itemno | cage | toolno | figno | assembly)  %bodyatt;>
+
+<!ELEMENT (nomen | eqpttype | subject)  - -  (%text;)>
+
+<!ELEMENT pslist  - -  (partno, serno)+>
+
+<!ELEMENT stitle  - -  (%text;)>	
+
+<!ELEMENT (mfr | contractno | docmfr)  - -  (%text;)>
+
+<!ELEMENT seal  - -  (graphic)>
+
+<!ELEMENT notice  - -  (para+) +(table)>
+<!-- 28001 definition of notice "notctype" attribute -->
+<!ATTLIST notice  notctype  (dist | auth | fouo | service | pgclass | disclos | 
+                             supersed | effdate | suppl | nopg |noclaspg | warning | 
+                             destr | safesup | opersup | maintsup)    #IMPLIED>
+
+<!ELEMENT downgrd  - -  (authrty | phrase | oadr | date)+>
+
+<!ELEMENT (authrty | phrase | oadr | date)  - -  (%text;)>
+
+<!ELEMENT (pubdate | chgdate)  - -  (%text;)>
+<!--DCL 5-03-06: As per USMC Req. added title to warnpage -->
+<!--DCL 5-03-06: As per USMC Req. added tocentry attribute to warnpage -->
+
+<!ELEMENT warnpage  - -  (title?, para?, warning+)>
+<!ATTLIST warnpage  tocentry      %yesorno     "0"
+                   %bodyatt;>
+
+<!--DCL 3-14-06: As per USMC Req. added title to warnsum -->
+<!ELEMENT warnsum  - -  (title?, (para0 | para | warning)+)>
+<!ATTLIST warnsum  tocentry      %yesorno     "0"
+                   %bodyatt;>
+
+<!ELEMENT chgsheet  - -  (chgnum, address, date, prtitle, para?, chglist)>
+
+<!--NSWC 2-28-06 Added the bodyatt; to the address element -->
+<!ELEMENT address  - -  (%text;)>
+<!ATTLIST address  %bodyatt;>
+
+<!ELEMENT chglist  - -  (removepg, insertpg)+>
+
+<!ELEMENT (removepg | insertpg)  - -  (#PCDATA)>
+
+<!ELEMENT lep  - O  EMPTY>
+
+<!--DCL 03-29-05: Per USMC Req. titleblk added here per Albanys request -->
+<!ELEMENT promul  - -  (titleblk?, promulhead, date, title?, para*, direction, 
+                        (sigblk | graphic)+, distribution)>
+<!ATTLIST promul  %bodyatt;>
+
+<!-- "&promulhead;" will be the only allowable content for a "promulhead" element -->
+<!--DCL 5-03-06: As per USMC, made all elements inside of promulhead optional-->
+<!ELEMENT promulhead  - -  ((organiz, organiz, address)?)>
+
+<!-- "&marinecorpsdirect;" or another "direction" entity reference will be the only allowable contents for a "direction" element -->
+<!ELEMENT direction  - -  (#PCDATA)>
+
+<!ELEMENT sigblk  - -  (graphic?, signer, position+, organiz+, address*)+>
+<!ATTLIST sigblk  sigtype  (preparer | approval | review | concur | other) 
+                                                                    #IMPLIED>
+
+<!--NSWC 2-28-06 Added %bodyatt; to the elements purpose, signer, position and organiz -->
+<!ELEMENT (purpose | signer | position| organiz)  - -  (%text;)>
+<!ATTLIST (purpose | signer | position| organiz)  %bodyatt;>
+
+<!ELEMENT distribution  - -  (pcn)>
+
+<!ELEMENT pcn  - -  (type, itemid, version)>
+
+<!ELEMENT (type | itemid | version)  - -  (#PCDATA)>
+
+<!ELEMENT (tamcn | uid)  - -  (#PCDATA)>
+
+<!ELEMENT chgrec  - -  (table | graphic)>
+<!ATTLIST chgrec  %bodyatt;>
+
+<!ELEMENT contents  - O  EMPTY>
+
+<!ELEMENT (illuslist | tablelist)  - O  EMPTY>
+<!ATTLIST (illuslist | tablelist)  tocentry    %yesorno;    "0">
+
+<!--DCL 03-29-05: Per USMC Req. Added note per Albany req -->
+<!ELEMENT safesum  - -  (para | precaut | warning | caution | note)+>
+<!ATTLIST safesum  tocentry        %yesorno;                "0"
+                   %bodyatt;>
+
+<!ELEMENT precaut  - -  (%text;)>
+
+<!ELEMENT howtouse  - -  ((title, para0*) | para0 | para+)>
+<!ATTLIST howtouse  tocentry        %yesorno;                "0"
+                    %bodyatt;>
+
+<!ELEMENT (tool | testeq | material | torqueval | faultcode)  - -  (%text;)>
+<!ATTLIST (tool | testeq | material | torqueval | faultcode)
+          texttype            NUMBER                 #IMPLIED
+          applictype          IDREFS                 #IMPLIED
+          applicrefid         IDREFS                 #IMPLIED
+          skilltrk            NMTOKENS               #IMPLIED
+          contyp              (desc | proc)          #IMPLIED
+          assocfig            IDREFS                 #IMPLIED
+          assoctab            IDREFS                 #IMPLIED>
+
+<!ELEMENT figindex  - -  (xref, callout)>
+
+<!ELEMENT callout  - -  (%text;)>
+<!ATTLIST callout  assocfig        IDREFS     #IMPLIED>
+
+<!ELEMENT (partdesc | sssn | refdes | lin)  - -  (%text;)>
+<!--DCL 03-23-05: Per USMC Req. Added per linking doc -->
+<!ATTLIST (partdesc | sssn | refdes | lin)  %bodyatt;>
+
+<!ELEMENT fsection  - -  (title?, (%paracon;)*, (section* | para0*))>
+<!ATTLIST fsection  %bodyatt;>
+  
+<!-- The Body Matter Elements  -->
+<!--DCL 03-10-05: Per USMC Req. New content models are now allowed anywhere in the body -->
+<!--DCL 09-26-05: Per USMC Req. had to insert oper-under-unusual-->
+<!-- NSWC added 1-30-2006 This allows warnings, cautions and notes to be placed anywhere in the body of a TM document.  -->
+<!--DCL 5-17-06: as per USMC added element wrappertable-->
+<!ELEMENT body  - -  (chapter+ | section+) 
+                    +(ftnote | brk | databrk | figure | foldout | external |
+                      xelemloc | chart | table | wrappertable | parts-index | nsn-index | esm-list |
+                      tools-list | maintenance-allocation-chart | tools-test-eqp |
+                      remarks-list | special-tools-list | parts-inspection | ts-table |
+                      troubleshootcheck | troubleshootindx |
+                      troubleshoot-test | item-mat-action | pmcs |
+                      consumable-materials-list | repairparts | wire-list |
+                      nomen-crossref-list | itemidlist | cages | itemnocrossref |
+                      nsncrossref | partnocrossref | circuitsymcrossref | cablelist |
+                      procedure | malfunctests | cnt-indc-tbl | proc-tbl | list-of-comp | oper-under-unusual | warning | caution | note)>
+<!--DCL 11-11-05: Per USMC Req. Added procedure -->
+<!ELEMENT chapter  - -  (title?, (%paracon;)*, intro?, (section+ | (para0+ | procedure+)+))>
+<!ATTLIST chapter  tocentry        %yesorno;                "0"
+                   %bodyatt;>
+
+<!--DCL 03-29-05: Per USMC Req. Added procedure in cases where only a procedure is in a section (See tm08594b-20-3-chp5sct3)-->   
+<!--DCL 4-24-06: Per USMC Req. changed element declaration to avoid EPIC error-->
+<!ELEMENT section  - -  (title?, (%paracon;)*, (subsection | para0 | procedure)*)>
+<!ATTLIST section  tocentry         %yesorno;                  "0"
+                   %bodyatt;>
+
+<!ELEMENT subsection  - -  (title?, (%paracon;)*, para0*)>
+<!ATTLIST subsection  tocentry         %yesorno;                 "0"
+                      %bodyatt;>
+
+<!-- The Rear Matter Elements -->
+<!-- Added by ADCS Team on 7/14/04. promulli was added as one of the possible elements of the rear. -->
+<!--DCL 03-10-05: Per USMC Req. New content models are now allowed anywhere in the rear -->
+<!--DCL 09-26-05: Per USMC Req. Added oper-under-unusual because of the production sample but it doesn't really makes sense to do that-->
+<!-- NSWC added 1-30-2006 This allows warnings, cautions and notes to be placed anywhere in the rear of a TM document.  -->
+<!-- DCL 3-23-06: Added nsn-index to the rear element -->
+<!-- DCL 9-28-06: Per USMC Req. Added sigblk to the rear element -->
+<!ELEMENT rear  - -  (appendix | glossary | index | rsection | foldout | promulli | sigblk)*
+                    +(parts-index | esm-list | nsn-index | 
+                      tools-list | maintenance-allocation-chart | tools-test-eqp |
+                      remarks-list | special-tools-list | parts-inspection | ts-table |
+                      troubleshootcheck | troubleshootindx |
+                      troubleshoot-test | item-mat-action | pmcs |
+                      consumable-materials-list | repairparts | wire-list |
+                      nomen-crossref-list | itemidlist | cages | itemnocrossref |
+                      nsncrossref | partnocrossref | circuitsymcrossref | cablelist |
+                      procedure | malfunctests | cnt-indc-tbl | proc-tbl | list-of-comp | oper-under-unusual | warning | caution | note)>
+
+<!-- Added by ADCS Team on 7/14/04. Definitions for promulli and distributionli were added to support LI tech. manuals. -->
+<!ELEMENT promulli - - (direction, sigblk+, distributionli)>
+<!ELEMENT distributionli  - -  (pcn | #PCDATA)*>
+                      
+<!-- Added by ADCS Team on 7/14/04. Optional elements were added to index to allow conversion of the existing index section. 
+Definitions for letter, prentry, secentry and topic were also added in support of that change. -->
+<!-- NSWC 1-19-06 An optional title and bodyatt were added to glossary.  -->
+
+<!--NSWC 6-20-06: modified index to allow for four subentry levels -->
+
+<!ELEMENT index  - - (letter?, sub-entry1*)*>
+<!ATTLIST index  tocentry         %yesorno;                 "0"
+                    %bodyatt;>
+                    
+<!ELEMENT letter - - (#PCDATA) >
+
+<!ELEMENT sub-entry1 - - (topic, sub-entry2*) >
+<!ATTLIST sub-entry1 security      (u | c | s | ts)       #IMPLIED>
+
+<!ELEMENT sub-entry2 - - (topic, sub-entry3*) >
+
+<!ELEMENT sub-entry3 - - (topic, sub-entry4*) >
+
+<!ELEMENT sub-entry4 - - (topic) >
+
+<!ELEMENT topic - -  (%text;) >
+<!ATTLIST topic pararef IDREFS #IMPLIED>
+
+<!--DCL 5-17-06: as per USMC added element wrappertable-->                      
+<!ELEMENT rsection  - -  (title?, (%paracon;)*, (section* | para0*))
+                        +(ftnote | brk | databrk | figure | foldout | 
+                          external | xelemloc | chart | table | wrappertable)>
+<!ATTLIST rsection  %bodyatt;>
+
+<!ELEMENT appendix  - -  (title?, (%paracon;)*, (chapter* | section* | para0*))
+                        +(ftnote | brk | databrk | figure | foldout | 
+                          external | xelemloc | chart | table | wrappertable)>
+<!ATTLIST appendix  tocentry         %yesorno;                 "0"
+                    %bodyatt;>
+
+<!--NSWC 6-20-06: Undocumented Change Noted: Addition of glosstitle element-->   
+<!ELEMENT glossary  - -  (glosstitle?, (para | paraalts)?, (title, deflist)+) 
+                        -(indxflag) 
+                        +(ftnote | brk)> 
+<!ATTLIST glossary  tocentry      %yesorno;      "0"
+                     %bodyatt;>
+                     
+ <!ELEMENT glosstitle - - (%text;) -(table | chart | figure | symbol | databrk)>
+ 
+ <!ATTLIST glosstitle  tocentry      %yesorno;     "0"
+                       %bodyatt;>
+
+<!-- lti and cmdrchklist elements added to para0 by ESSI on 11/19/04. -->
+<!-- NSWC 7/24/2006 added third, optional ltilegendentry -->
+<!ELEMENT lti - - (title, ltiheader, ltilegend, (%paracon;), ltidiscrep, ltilist)>
+<!ATTLIST lti %bodyatt;>
+<!ELEMENT ltiheader - - (ltiheaderrow+)>
+<!ELEMENT ltiheaderrow - - (ltiheaderitem, ltiheaderitem)>
+<!ELEMENT ltilegend - - (ltilegendrow+)>
+<!ELEMENT ltilegendrow - - (ltilegendentry, ltilegendentry, ltilegendentry*)>
+<!ELEMENT ltilist - - (ltiitem+)>
+<!ELEMENT ltiitem - - (ltientry, ltisubitem1*)>
+<!ATTLIST ltiitem ltiremtype (mhlpower | yesorno | serno) #IMPLIED
+	%bodyatt;>
+<!ELEMENT ltientry - - (itemno, ltinomen)>
+<!ELEMENT ltisubitem1 - - (ltinomen, ltisubitem2*)>
+<!ATTLIST ltisubitem1 ltiremtype (mhlpower | yesorno | serno) #IMPLIED
+	%bodyatt;>
+<!ELEMENT ltisubitem2 - - (ltinomen, ltisubitem3*)>
+<!ATTLIST ltisubitem2 ltiremtype (mhlpower | yesorno | serno) #IMPLIED
+	%bodyatt;>
+<!ELEMENT ltisubitem3 - - (ltinomen, ltisubitem4*)>
+<!ATTLIST ltisubitem3 ltiremtype (mhlpower | yesorno | serno) #IMPLIED
+	%bodyatt;>
+<!ELEMENT ltisubitem4 - - (ltinomen, ltisubitem5*)>
+<!ATTLIST ltisubitem4 ltiremtype (mhlpower | yesorno | serno) #IMPLIED
+	%bodyatt;>
+<!ELEMENT ltisubitem5 - - (ltinomen)>
+<!ATTLIST ltisubitem5 ltiremtype (mhlpower | yesorno | serno) #IMPLIED
+	%bodyatt;>
+<!ELEMENT ltinomen - - (%text;)>
+<!ELEMENT ltilegendentry - - (%text;)>
+<!ELEMENT ltiheaderitem - - (%text;)>
+<!--DCL 03-29-05: Per USMC Req. change structure from - to O -->
+<!ELEMENT ltidiscrep - O EMPTY>
+<!ATTLIST ltidiscrep lines NUMBER "15">
+
+<!ELEMENT cmdrchklst - - (title, cclheader, cclitem+)>
+<!ATTLIST cmdrchklst %bodyatt;>
+<!ELEMENT cclheader - - (cclheaderentry+)>
+<!ELEMENT cclheaderentry - - (%text;)>
+<!ELEMENT cclitem - - (title, cclitementry+)>
+<!ATTLIST cclitem %bodyatt;>
+<!ELEMENT cclitementry - - (%text;)>
+<!ATTLIST cclitementry %bodyatt;>
+
+   
+<!-- The Enumerated Paragraphs -->
+<!-- lti and cmdrchklist elements added to para0 by ESSI on 11/19/04. -->
+<!ELEMENT para0  - -  (title?, (%paracon;)*, lti*, cmdrchklst*, step1*, subpara1*)>
+<!-- Added by ADCS Team on 7/14/04. numbering attribute. -->
+<!ATTLIST para0  tocentry      %yesorno;     "0"
+				 numbering     %yesorno;	 "1"
+                 %bodyatt;>
+
+<!ELEMENT subpara1  - -  (title?, (%paracon;)*, step1*, subpara2*)>
+
+<!ELEMENT subpara2  - -  (title?, (%paracon;)*, step1*, subpara3*)>
+
+<!ELEMENT subpara3  - -  (title?, (%paracon;)*, step1*, subpara4*)>
+
+<!ELEMENT subpara4  - -  (title?, (%paracon;)*, step1*, subpara5*)>
+
+<!ELEMENT subpara5  - -  (title?, (%paracon;)*, step1*, subpara6*)>
+
+<!ELEMENT subpara6  - -  (title?, (%paracon;)*, step1*, subpara7*)>
+
+<!ELEMENT subpara7  - -  (title?, (%paracon;)*, step1*)>
+
+<!-- Added by ADCS Team on 7/14/04. numbering attribute. -->
+<!ATTLIST (subpara1 | subpara2 | subpara3 | subpara4 | subpara5 | subpara6 |
+           subpara7)  
+          tocentry         %yesorno;                "0" 
+		  numbering        %yesorno;		        "1"
+          %bodyatt;>
+
+<!-- The Step Elements 
+     As specified here, a step can contain an optional paragraph of special
+     type stepxr, which refers to the fact that this paragraph contains
+     reference material for the containing step.  It is sometimes formatted
+     in a tabular column to the right of the corresponding regular step
+     paragraph. -->
+
+<!ELEMENT step1  - -  ((%paracon;)+, step1r?, step2*)>
+
+<!ELEMENT step2  - -  ((%paracon;)+, step2r?, step3*)>
+
+<!ELEMENT step3  - -  ((%paracon;)+, step3r?, step4*)>
+
+<!ELEMENT step4  - -  ((%paracon;)+, step4r?, step5*)>
+
+<!ELEMENT step5  - -  ((%paracon;)+, step5r?, step6*)>
+
+<!ELEMENT step6  - -  ((%paracon;)+, step6r?, step7*)>
+
+<!ELEMENT step7  - -  ((%paracon;)+, step7r?)>
+<!ATTLIST (step1 | step2 | step3 | step4 | step5 | step6 | step7)  
+          %bodyatt;>
+
+<!-- The stepxr elements model the right side of the training curriculum. -->
+<!ELEMENT (step1r | step2r | step3r | step4r | step5r | step6r | step7r)  - -
+          (%paracon;)+>
+<!ATTLIST (step1r | step2r | step3r | step4r | step5r | step6r | step7r) 
+          %bodyatt;>
+
+<!-- The "%text;" Elements -->
+<!ELEMENT emphasis  - -  (%text;)>
+<!ATTLIST emphasis  emph    (b | i | u | q | s | bo | bu | o )    "b">
+   
+<!ELEMENT supscrpt  - -  RCDATA>
+   
+<!ELEMENT subscrpt  - -  RCDATA>
+   
+<!ELEMENT verbatim  - -  CDATA>
+   
+<!ELEMENT databrk  - O  EMPTY>
+
+<!ELEMENT brk  - O  EMPTY>
+<!ATTLIST brk  type      (line)       #FIXED "line">
+   
+<!ELEMENT xref  - -  (%text;)>
+
+<!--NSWC 07-12-06: Added "para" to xidtype for use when linking to paragraphs-->
+<!--DCL 03-23-05: Per USMC Req. change empty attribute -->
+<!--DCL 08-26-05: Per USMC Req. Revised xidtype attribute-->
+<!ATTLIST xref  xrefid        IDREFS                                 #REQUIRED
+                xidtype       (chapter | section | step | table | figure | item | nsn | 
+                			   partno | cage | text | para)    #REQUIRED
+                empty (yes | no) "yes">
+  
+<!ELEMENT extref  - -  (%text;) >
+<!--NSWC 07-12-06: Added "para" to xidtype for use when linking to paragraphs-->
+<!--DCL 03-23-05: Per USMC Req. change empty attribute -->
+<!--DCL 08-26-05: Per USMC Req. Revised xidtype attribute-->
+<!ATTLIST extref  docno      CDATA                              #REQUIRED
+                  empty (yes | no) "yes"
+                  xidtype       (chapter | section | step | table | figure | item | nsn | 
+                			   partno | cage | text | para)    #REQUIRED
+                  xrefid     CDATA                              #REQUIRED>
+ 
+<!--NSWC 7-12-06: Added %bodyatt; to dialink-->
+<!ELEMENT dialink  - -  (%text;)>
+<!ATTLIST dialink  ident      CDATA    #IMPLIED
+                   boardno    ENTITY   #REQUIRED
+                   hypdestn   CDATA    #REQUIRED  
+                   %bodyatt;>
+
+<!--NSWC 6-20-06: added ref3 and ref4 to allow for four index subentry levels-->
+<!ELEMENT indxflag   - O   EMPTY>
+<!ATTLIST indxflag   ref1        CDATA         #IMPLIED 
+                     ref2        CDATA         #IMPLIED
+                     ref3	 CDATA	       #IMPLIED
+                     ref4	 CDATA         #IMPLIED>
+
+<!ELEMENT ftnref  - O  EMPTY>
+<!ATTLIST ftnref  xrefid      IDREFS        #REQUIRED
+                  label       CDATA        #IMPLIED>
+
+<!ELEMENT ftnote  - -  (para+) -(ftnref | ftnote | indxflag | databrk | 
+                                 figure | external | xelemloc | table | chart)>
+<!ATTLIST ftnote  id           ID                  #IMPLIED
+                  label        CDATA               #IMPLIED
+                  mark         (ctr | sym)         "ctr">
+
+<!ELEMENT change  - -  (%text;)>
+<!ATTLIST change  change      (add | delete)      #IMPLIED
+                  level       CDATA               #IMPLIED
+                  mark        %yesorno;           #IMPLIED
+                  id          ID                  #IMPLIED>
+   
+<!ELEMENT symbol  - O   EMPTY>
+<!ATTLIST symbol  boardno     ENTITY     #REQUIRED>
+
+<!-- The "%list;" Elements -->
+<!ELEMENT randlist  - -  (title?, item+)>
+<!ATTLIST randlist  %bodyatt;
+                    prefix            CDATA            #IMPLIED>
+
+ 
+<!ELEMENT seqlist  - -  (title?, item+)>
+<!ATTLIST seqlist  numstyle        (arabic | romanuc | 
+                                    romanlc | alphauc | 
+                                    alphalc | arabic-parens |
+                                    alphalc-parens | none)       #IMPLIED
+                   prefix          CDATA                         #IMPLIED
+                   %bodyatt;>
+
+<!ELEMENT item  - -  (%text; | %paracon;)+>
+<!ATTLIST item  %bodyatt;>
+
+<!--DCL 03-29-05: Per USMC Req. Added termhead, defhead per Albany req -->
+<!ELEMENT deflist  - -  (title?, (termhead, defhead)?, (term, def)+)>
+
+<!ATTLIST deflist  id            ID                     #IMPLIED
+                   security      (u | c | s | ts)       #IMPLIED>
+
+<!--DCL 03-29-05: Per USMC Req. Added termhead, defhead per Albany req -->
+<!ELEMENT (termhead | defhead)  - -  (%text)>
+
+<!ELEMENT term  - -  (%text;) +(xref)>
+<!ATTLIST term  id            ID                     #IMPLIED
+                security      (u | c | s | ts)       #IMPLIED>
+   
+<!ELEMENT def  - -  (para | paraalts)+>
+<!ATTLIST def  id            ID                     #IMPLIED
+               security      (u | c | s | ts)       #IMPLIED>
+   
+<!-- The Figure Element(s) --> 
+<!ELEMENT figure  - -  (title?, (graphic | (subfig | figurealts)+), legend?) 
+                      -(chart | figure | external | databrk)>
+<!-- Added by ADCS Team on 7/14/04. numbering attribute. -->
+<!ATTLIST figure  tocentry        %yesorno;              "0"
+                  orient         (port | land)           #IMPLIED
+				  numbering      %yesorno;				 "1"
+                  %bodyatt;>
+   
+<!ELEMENT subfig  - -  (title?, graphic)>
+<!ATTLIST subfig       tocentry        %yesorno;              "0" 
+                       id        ID        #IMPLIED>
+
+<!--NSWC 06-30-06: Added %bodyatt and tocentry-->
+<!--DCL 03-23-05: Per USMC Req. Added dimension to pgstyle -->    
+<!ELEMENT foldout  - -  (figure)+ -(foldout)>
+
+<!ATTLIST foldout  pgstyle   (25x11 | 35x11 | 45x11 )  #IMPLIED
+		   tocentry	%yesorno;		"0"
+		   %bodyatt;>
+		
+
+<!ELEMENT legend  - -  (table)>
+
+<!-- The Table Elements -->
+<!--DCL 5-17-06: as per USMC added element wrappertable-->
+<!ELEMENT wrappertable  - -  (table+)>
+
+<!--NSWC 7-5-06: revised to allow figure within table, note that this is for legacy conversion only and should not be used for authoring -->
+<!ELEMENT (table | chart)  - -  (title?, (tgroup | graphic | tablealts)+) 
+                               -(table | chart | external | databrk)>
+
+<!-- Added by ADCS Team on 7/14/04. numbering attribute. -->
+<!ATTLIST (table | chart)  tocentry         %yesorno;               "0"
+                           frame            (top | bottom | 
+                                             topbot | all | 
+                                             sides | none)           #IMPLIED
+                           colsep           %yesorno;                #IMPLIED
+                           rowsep           %yesorno;                #IMPLIED
+                           pgwide           %yesorno;                #IMPLIED
+                           orient           (port | land)            #IMPLIED
+                           display          (inline | outline)       "inline"
+                           fmttype          NMTOKEN                  #IMPLIED
+                           tabstyle         NMTOKEN                  #IMPLIED
+						   numbering        %yesorno;				 "1"
+                           %bodyatt;>
+
+<!--DCL 06-16-05: Per USMC Req. Remove tfoot -->   
+<!ELEMENT tgroup  - -  (colspec*, spanspec*, thead?, tbody)>
+<!ATTLIST tgroup  cols                 NUMBER                         #IMPLIED
+                  tgroupstyle          NMTOKEN                        #IMPLIED
+                  colsep               %yesorno;                      #IMPLIED
+                  rowsep               %yesorno;                      #IMPLIED
+                  align                (left | right | center | 
+                                        justify | char)               "left"
+                  charoff              NUTOKEN                        "50"
+                  char                 CDATA                          "">
+
+<!ELEMENT colspec  - O  EMPTY>
+<!ATTLIST colspec  colnum            NUMBER                           #IMPLIED
+                   colname           NMTOKEN                          #IMPLIED
+                   colwidth          CDATA                            #IMPLIED
+                   colsep            %yesorno;                        #IMPLIED
+                   rowsep            %yesorno;                        #IMPLIED
+                   align             (left | right | center | 
+                                      justify | char)                 "left"
+                   charoff           NUTOKEN                          "50"
+                   char              CDATA                            "">
+   
+<!-- Span Specification -->
+<!ELEMENT spanspec  - O  EMPTY>
+<!ATTLIST spanspec  namest          NMTOKEN                          #REQUIRED
+                    nameend         NMTOKEN                          #REQUIRED
+                    spanname        NMTOKEN                          #REQUIRED
+                    align           (left | right | center |
+                                     justify | char)                 "center"
+                    charoff         NUTOKEN                          #IMPLIED
+                    char            CDATA                            #IMPLIED
+                    colsep          %yesorno;                        #IMPLIED
+                    rowsep          %yesorno;                        #IMPLIED>
+
+<!ELEMENT tbody  - -  (row+)>
+
+<!--DCL 06-16-05: Per USMC Req. Remove tfoot -->
+<!ELEMENT thead  - -  (colspec*, row+) -(entrytbl)>
+
+<!-- NSWC 9-30-05: Added %bodyatt; to the row element.  -->
+<!ELEMENT row  - -  (entry | entrytbl)+>
+<!ATTLIST row  rowsep  %yesorno;                #IMPLIED
+               valign  (top | middle | bottom)  #IMPLIED
+               %bodyatt;>
+   
+<!-- TL 12-21-11:  Added rotate and shading attribute to entry element to support IADS -->
+<!ELEMENT entry  - -  (para | warning | caution | note | %text; | %list; | title)+>
+<!ATTLIST entry  colname           NMTOKEN                            #IMPLIED
+                 namest            NMTOKEN                            #IMPLIED
+                 nameend           NMTOKEN                            #IMPLIED
+                 spanname          NMTOKEN                            #IMPLIED
+                 morerows          NUMBER                             "0"
+                 colsep            %yesorno;                          #IMPLIED
+                 rowsep            %yesorno;                          #IMPLIED
+                 align             (left | right | center | 
+                                    justify | char)                   #IMPLIED
+                 valign            (top | middle | bottom)            #IMPLIED
+                 charoff           NUTOKEN                            #IMPLIED
+                 char              CDATA                              #IMPLIED
+                 id                ID                                 #IMPLIED
+                 %lvl;
+                 idrefs			   IDREFS                 #IMPLIED
+                 security          (u | c | s | ts)                   #IMPLIED
+                 rotate				%yesorno;						  #IMPLIED
+                 shading		   CDATA					  		  #IMPLIED>
+      
+<!ELEMENT entrytbl  - -  (colspec*, thead?, tbody)+  -(entrytbl)>
+<!ATTLIST entrytbl  cols                  NUMBER              #REQUIRED
+                    tgroupstyle           NMTOKEN             #IMPLIED
+                    colname               NMTOKEN             #IMPLIED
+                    namest                NMTOKEN             #IMPLIED
+                    nameend               NMTOKEN             #IMPLIED
+                    spanname              NMTOKEN             #IMPLIED
+                    colsep                %yesorno;           #IMPLIED
+                    rowsep                %yesorno;           #IMPLIED
+                    align                 (left | right | 
+                                           center | 
+                                           justify | char)     #IMPLIED
+                    charoff               NUTOKEN              #IMPLIED
+                    char                  CDATA                #IMPLIED
+                    id                    ID                   #IMPLIED
+                    %lvl;
+                 	idrefs			   	  IDREFS               #IMPLIED
+                    security              (u | c | s | ts)     #IMPLIED>
+
+<!-- The Special Paragraphs Elements -->
+<!ELEMENT warning - -  (para | paraalts | graphic |
+                                            graphicalts | %list;)+
+                                          -(figure | table | chart | 
+                                            external | databrk)>
+                                            
+<!ATTLIST warning   id            ID                     #IMPLIED
+                    type          CDATA                  #IMPLIED 
+                    %lvl;
+                    security      (u | c | s | ts)       #IMPLIED
+                    tocentry   %yesorno;   "0">
+          
+  <!ELEMENT caution - -  (para | paraalts | graphic |
+                                            graphicalts | %list;)+
+                                          -(figure | table | chart | 
+                                            external | databrk)>
+                                            
+<!ATTLIST  caution  id            ID                     #IMPLIED
+                    type          CDATA                  #IMPLIED 
+                    %lvl;
+                    security      (u | c | s | ts)       #IMPLIED
+                    tocentry   %yesorno;    "0">
+          
+          
+  <!ELEMENT note - -  (para | paraalts | graphic |
+                                            graphicalts | %list;)+
+                                          -(figure | table | chart | 
+                                            external | databrk)>
+                                            
+<!ATTLIST  note     id            ID                     #IMPLIED
+                    type          CDATA                  #IMPLIED 
+                    %lvl;
+                    security      (u | c | s | ts)       #IMPLIED>        
+
+<!-- The "Utility" Elements -->
+
+<!-- NSWC 1-19-06 The tocentry and bodyatt were added to title  -->
+
+<!ELEMENT title  - -  (%text;) -(table | chart | figure | symbol | databrk)>
+<!ATTLIST title  tocentry      %yesorno;      "0"
+                     %bodyatt;>
+
+<!-- To avoid problems with mixed content, "title" has been made an option of the repeatable choice below. It may be needed in some rare cases. -->
+<!ELEMENT para  - -  (%text; | %list; | title)+ -(databrk)>
+<!ATTLIST para  %bodyatt;>
+   
+<!ELEMENT graphic  - O  EMPTY>
+
+<!-- Added by ADCS Team on 7/19/04. %bodyatt; -->
+<!ATTLIST graphic  boardno        ENTITY                         #REQUIRED
+                   graphsty       (inline | outline | both)      "outline"
+                   reprowid       NUTOKEN                        #IMPLIED
+                   reprodep       NUTOKEN                        #IMPLIED
+                   %bodyatt;
+                   scalefit       %yesorno;                      #IMPLIED>
+  
+<!-- Externals -->
+<!ELEMENT external  - -  (title?)
+                        -(external | figure | chart | table | databrk)>
+<!ATTLIST external  type     (animation | audio | video | task | 
+                              process | expertsys | question)   "process" 
+                    -- "xrefid" identifies an XELEMLOC --
+                    xrefid   IDREFS                               #REQUIRED
+                    %bodyatt;>
+
+<!ELEMENT xlink  - -  (%text;)>
+<!ATTLIST xlink  id           ID           #IMPLIED   
+                 -- specifies an XELEMLOC --
+                 xrefid       IDREFS        #REQUIRED>
+
+<!ELEMENT xelemloc  - -  (%externals;)+ 
+                        -(xelemloc | external | figure | ftnote | chart | 
+                          table | databrk)>
+<!ATTLIST xelemloc  id       ID       #REQUIRED>
+
+<!ELEMENT audio  - O  EMPTY>
+<!ATTLIST audio  type               CDATA            #IMPLIED  
+                 -- specifies the audio --
+                 external-ptr        CDATA           #REQUIRED> 
+
+<!ELEMENT video  - O  EMPTY>
+<!ATTLIST video  type         CDATA         #IMPLIED  
+                 -- specifies the video --
+                 external-ptr        CDATA         #REQUIRED>
+
+<!ELEMENT process  - -  (parameter*)>
+<!ATTLIST process  type                (run | load | zoom)          "run" 
+                   -- the application name --
+                   external-ptr        CDATA                        #REQUIRED> 
+
+<!ELEMENT ipcmsg  - O  EMPTY>
+<!ATTLIST ipcmsg  type                  (cmd | data)          "cmd"
+                  -- the executable name  --
+                  external-ptr          CDATA                  #REQUIRED 
+                  -- the application name --
+                  name                  CDATA                  #REQUIRED 
+                  -- the conversation id  --
+                  topic                 CDATA                  #REQUIRED 
+                  -- the messsage to pass --
+                  message               CDATA                  #REQUIRED 
+                  -- the data item name   --
+                  data-id                CDATA                  #IMPLIED>  
+
+<!ELEMENT media  - O  EMPTY>
+<!ATTLIST media  -- the message --
+                 external-ptr         CDATA         #REQUIRED>
+
+<!ELEMENT subtask  - O  EMPTY>
+<!ATTLIST subtask  type            CDATA             #REQUIRED 
+                   name            CDATA             #REQUIRED>
+
+<!ELEMENT parameter  - -  (#PCDATA)>
+
+<!-- Supplement text -->
+<!ELEMENT figalt  - -  (subfig+ | graphic)>
+
+<!ELEMENT graphalt  - -  (graphic)>
+
+<!ELEMENT paralt  - -  (para | warning | caution | note)+>
+
+<!ELEMENT tabalt  - -  (tgroup | graphic)+>
+<!ATTLIST (figalt | graphalt | paralt | tabalt)
+          id            ID              #IMPLIED
+          label         CDATA           #IMPLIED
+          type          CDATA           #REQUIRED>
+
+<!ELEMENT figurealts  - -  ((subfig+ | graphic), figalt+)>
+
+<!ELEMENT graphicalts  - -  (graphalt | graphic)+ -(databrk)>
+
+<!ELEMENT paraalts   - -  (paralt | para | warning | caution | note)+ 
+                         -(databrk)>
+
+<!ELEMENT tablealts  - -  (tabalt | tgroup | graphic)+>
+<!ATTLIST (figurealts | graphicalts | paraalts | tablealts) 
+          id              ID                  #IMPLIED
+          label           CDATA               #IMPLIED
+          security        (u|c|s|ts)          #IMPLIED>
+
+<!ELEMENT url  - -  CDATA>   
+
+
+
+
+<!--***************CONTENT MODELS******************** -->
+<!--NSWC 08-04-05 revised to accommodate Epic -->
+<!--DCL 03-10-05: National Stock Number Index (See PDF#1) -->
+<!ELEMENT nsn-index  - -  (title?, nsn-index-head)>
+<!ATTLIST nsn-index
+                    tocentry         %yesorno;                "0"
+					%bodyatt;>
+
+<!ELEMENT nsn-index-head  - -  (nsn-index-entry)+>
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT nsn-index-entry - - (nsn, partno, cage, smrcode, figno, itemno)>
+<!ATTLIST (nsn-index-entry) 
+               tocentry         %yesorno;                "0"
+                                     %bodyatt;>
+
+<!--NSWC 08-04-05 revised to accommodate Epic -->
+<!--DCL 03-10-05: Part Number Index (See PDF#3) -->
+<!ELEMENT parts-index  - -  (title?, parts-index-head)>
+<!ATTLIST (parts-index)  
+                 tocentry         %yesorno;                "0"
+                                    %bodyatt;>
+
+<!ELEMENT parts-index-head  - -  (parts-index-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT parts-index-entry - - (partno, cage, nsn, smrcode, figno, itemno)+>
+<!ATTLIST (parts-index-entry) 
+                 tocentry         %yesorno;                "0"
+                                   %bodyatt;>
+
+<!--NSWC 08-01-05: esm-list-head added for compatibility with Epic -->
+<!--DCL 03-10-05: Expendable Supplies and Materials (See PDF page 1 of 31) -->
+<!ELEMENT esm-list  - -  (title?, esm-list-head)>
+<!ATTLIST (esm-list)  
+               tocentry         %yesorno;                "0"
+                                   %bodyatt;>
+
+<!ELEMENT esm-list-head  - -  (esm-list-entry)+>
+
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--DCL 05-24-05: Per USMC Req. Added %bodyatt-->
+<!ELEMENT esm-list-entry  - -  (itemno, category, nsn, part-desc, um, qty)>
+<!ATTLIST (esm-list-entry)  
+               tocentry         %yesorno;                "0"
+                                 %bodyatt;>
+
+<!--NSWC 07-27-05  -->
+<!ELEMENT part-desc  - -  (name, descrip, partno, cage, specification)>
+
+<!--DCL 3-23-06: Per USMC Req. Added %bodyatt; -->
+<!ATTLIST (part-desc)  %bodyatt;>
+
+<!--NSWC 07-29-05 added -head element for functionality in Epic -->
+<!--DCL 03-10-05: Tools List (See PDF page 2 of 31) -->
+
+<!ELEMENT tools-list  - -  (title?, tools-list-head)>
+<!ATTLIST (tools-list)  
+                 tocentry         %yesorno;                "0"
+                              %bodyatt;>
+
+<!ELEMENT tools-list-head  - -  ((tools-list-entry)+)>
+
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT tools-list-entry - - (itemno, name, nsn, partno, qty)>
+<!ATTLIST (tools-list-entry)  
+                 tocentry         %yesorno;                "0"
+                              %bodyatt;>
+
+<!--DCL 03-10-05: Maintenance Allocation Chart (See PDF# 6) -->
+<!--NSWC 06-06-06:  Revised, added -head element to meet standard content table model -->
+<!ELEMENT maintenance-allocation-chart  - -  (title?, allocation-chart-head)>
+<!ATTLIST (maintenance-allocation-chart)  
+                       tocentry         %yesorno;                "0"
+                              %bodyatt;>
+
+<!ELEMENT allocation-chart-head  - -  ((allocation-chart-entry)+)>
+
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC 06-14-06 Revised model to reflect data association in manuals-->
+<!ELEMENT allocation-chart-entry - - (group-number, component-assembly, (function, maintenance-category, tools-and-equipment+, remarks-code+)+)>
+<!ATTLIST (allocation-chart-entry)  
+                      tocentry         %yesorno;                "0"
+                               %bodyatt;>
+
+
+<!--DCL 03-10-05: Per USMC Req. Added bodyatt so label could be used-->
+<!ELEMENT maintenance-category  - -  (mac-c | mac-o | mac-f | mac-h | mac-i | mac-d)+>
+<!ATTLIST maintenance-category  
+                      tocentry         %yesorno;                "0"
+                              %bodyatt;>
+<!ELEMENT (mac-c | mac-o | mac-f | mac-h | mac-i | mac-d)  - -  (#PCDATA)>
+
+<!ELEMENT (group-number | component-assembly | function | tools-and-equipment | remarks-code) - - (%text;)>
+
+
+<!--DCL 3-23-06: Per USMC Req. Added %bodyatt; -->
+<!ATTLIST (group-number | component-assembly | function | tools-and-equipment | remarks-code)  %bodyatt;>
+
+
+<!--NSWC 08-02-05: added -head to accommodate Epic-->
+<!--DCL 03-10-05: Tools and Test Equipment (See PDF page 5 of 31) -->
+<!ELEMENT tools-test-eqp  - -  (title?, tools-test-eqp-head)>
+<!ATTLIST (tools-test-eqp)  
+                 tocentry         %yesorno;                "0"
+                             %bodyatt;>
+
+<!ELEMENT tools-test-eqp-head - - (tools-test-eqp-entry)+>
+
+<!--DCL 03-10-05: Per USMC Req. Added maintenance-category because it was found in the hard copy -->
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT tools-test-eqp-entry - - (toolno, maintenance-category, name, nsn, partno)>
+<!ATTLIST (tools-test-eqp-entry)  
+                  tocentry         %yesorno;                "0"
+                            %bodyatt;>
+
+
+<!--NSWC 08-02-05 revised to accommodate Epic-->
+<!--DCL 03-10-05: Remarks (See PDF page 6 of 31) -->
+<!ELEMENT remarks-list  - -  (title?, remarks-list-head)>
+<!ATTLIST (remarks-list)  
+                   tocentry         %yesorno;                "0"
+                           %bodyatt;>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT remarks-list-head - - (remarks-list-entry)+>
+<!ELEMENT remarks-list-entry - - (ref-code, remarks)>
+<!ATTLIST (remarks-list-entry)  
+                   tocentry         %yesorno;                "0"
+                          %bodyatt;>
+
+
+<!ELEMENT (ref-code | remarks) - - (%text;)>
+<!ATTLIST (ref-code | remarks)  
+               tocentry         %yesorno;                "0"
+                         %bodyatt;>
+
+
+<!--NSWC 08-02-05: Revised to accommodate Epic -->
+<!--DCL 03-10-05: Special Tools list (See PDF page 3 of 31 and 4 of 31) -->
+<!ELEMENT special-tools-list  - -  (title?, special-tools-head)>
+<!ATTLIST (special-tools-list)  
+                   tocentry         %yesorno;                "0"
+                   %bodyatt;
+                   type  (fabricated | special)  "fabricated">
+
+<!ELEMENT special-tools-head  - -  (special-tools-entry)+>
+
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT special-tools-entry - - (itemno, part-desc, reference, use)>
+<!ATTLIST (special-tools-entry)  
+                   tocentry         %yesorno;                "0"
+                            %bodyatt;>
+
+<!ELEMENT use - - (%text;)>
+<!ATTLIST use  
+                  tocentry         %yesorno;                "0"
+                           %bodyatt;>
+
+<!--DCL 03-10-05: Inspection of Parts (See PDF page 7 of 31) -->
+<!ELEMENT parts-inspection - -  (title?, parts-inspection-head)>
+<!ATTLIST (parts-inspection)  
+                 tocentry         %yesorno;                "0"
+                           %bodyatt;>
+
+<!ELEMENT parts-inspection-head  - -  (parts-inspection-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT parts-inspection-entry  - -  (partno, figno, itemno, char-or-test, requirement, permissible-repair)>
+<!ATTLIST (parts-inspection-entry)  
+                 tocentry         %yesorno;                "0"
+                           %bodyatt;>
+
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--NSWC 2-28-06 %bodyatt added for char-or-test, requirement and  permissible-repair -->
+
+<!ELEMENT (char-or-test | requirement | permissible-repair) - - (para)+>
+<!ATTLIST (char-or-test | requirement | permissible-repair)  %bodyatt;>
+
+<!--NSWC 08-02-05 revised to accommodate Epic-->
+<!--DCL 03-10-05: Troubleshooting Table (See PDF page 8 of 31) -->
+<!ELEMENT ts-table  - -  (title?, ts-system-head+)>
+<!ATTLIST (ts-table)  
+              tocentry         %yesorno;                "0"
+                         %bodyatt;>
+
+<!ELEMENT  ts-system-head  - -  (title, ts-system)>
+<!ELEMENT  ts-system  - -  (ts-reference)+>
+
+<!--DCL 05-24-05: Per USMC Req. Revise structure so system will be its own row-->
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC bodyatt add to probable-causes, system-checks, possible-remedy, compenent-symptom, cause, check, remedy -->
+<!ELEMENT ts-reference  - -  (component-symptom, probable-scenario+)>
+<!ATTLIST (ts-reference)  
+              tocentry         %yesorno;                "0"
+                        %bodyatt;>
+
+<!ELEMENT probable-scenario - -  (probable-causes, system-checks?, possible-remedy)>
+<!ATTLIST (probable-scenario)  
+                        %bodyatt;>
+
+<!ELEMENT probable-causes  - - (cause)+>
+
+<!ELEMENT system-checks  - - (check)*>
+
+<!ELEMENT possible-remedy  - -  (remedy)+>
+
+<!ATTLIST (probable-causes | system-checks | possible-remedy)  %bodyatt;>
+
+<!ELEMENT (component-symptom | cause | check | remedy) - - (%text;)>
+<!ATTLIST (component-symptom | cause | check | remedy)  %bodyatt;>
+
+
+<!--DCL 03-10-05: Troubleshooting - MALFUNCTION TESTS (See PDF page 9 of 31) -->
+<!--DCL 03-29-05: Per USMC Req. Added title -->
+<!--DCL 05-24-05: Per USMC Req. Revised so system will be in a separate row -->
+<!ELEMENT malfunctests  - -  (title?, malfunctests-entry+)>
+<!ATTLIST (malfunctests)  
+           tocentry         %yesorno;                "0"
+                           %bodyatt;>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT malfunctests-entry  - -  (system | (malfunc, (test, action?)+))>
+<!ATTLIST (malfunctests-entry)  
+           tocentry         %yesorno;                "0"
+                           %bodyatt;>
+
+<!--DCL 03-10-05: Per USMC Req. Added bodyatt so label and ID could be used-->
+<!--DCL 3-15-06: As per USMC req. changed from %text to faultcode and name. -->
+<!ELEMENT malfunc - - (faultcode, name)>
+<!ATTLIST (malfunc)  
+           tocentry         %yesorno;                "0"
+                          %bodyatt;>
+
+<!--DCL 03-29-05: Per USMC Req. Revised model to allow para and warning -->
+<!--NSWC 1-19-06: Added bodyatt to test and action.  -->
+<!ELEMENT test    - - (%paracon)+>
+<!ATTLIST (test)  %bodyatt;>
+
+
+<!ELEMENT action  - -  (step1)+>
+<!ATTLIST (action)  %bodyatt;>
+
+
+<!--NSWC 08-10-05 revised <troubleshootcheck-entries> to <troubleshootcheck-head> for consistency -->
+<!--DCL 03-10-05: Troubleshooting Check (See PDF page 10 of 31) -->
+<!ELEMENT troubleshootcheck  - -  (title, (warning | caution | note | para)*, troubleshootcheck-head+)>
+<!ATTLIST (troubleshootcheck)  
+           tocentry         %yesorno;                "0"
+                             %bodyatt;>
+<!--DCL 03-29-05: Per USMC Req. made indication optional-->
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT troubleshootcheck-head  - -  (troubleshootcheck-entry+)>
+<!ELEMENT troubleshootcheck-entry  - -  (title, instruction, indication, reference)>
+<!ATTLIST (troubleshootcheck-entry)  
+           tocentry         %yesorno;                "0"
+                            %bodyatt;>
+
+<!--DCL 03-29-05: Per USMC Req. Added %bodyatt-->
+<!ELEMENT (instruction | indication | reference)  - -  (%text;)>
+<!ATTLIST (instruction | indication | reference)  %bodyatt;>
+
+
+<!--NSWC 08-01-05: Revised to accommodate Epic-->
+<!--DCL 03-10-05: Troubleshooting Symptom Index and Organizational Index (See PDF page 11 of 31) -->
+<!--DCL 03-10-05: Per USMC Req. Added title to fit the old table title-->
+<!--DCL 05-24-05: Per USMC Req. Revised so system will be in a separate row -->
+<!ELEMENT troubleshootindx  - -  (title?, troubleshootindx-system-head+)>
+<!--DCL 09-02-05 maybe allow multiple-->
+<!ELEMENT troubleshootindx-system-head  - -  (troubleshootindx-system)>
+<!ELEMENT troubleshootindx-system  - -  (system | troubleshootindx-entry)>
+<!ATTLIST (troubleshootindx)  
+           tocentry         %yesorno;                "0"
+                          %bodyatt;>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT troubleshootindx-entry  - -  (symptom, reference)>
+<!ATTLIST (troubleshootindx-entry)  %bodyatt;>
+
+
+<!--NSWC 07-27-05: Per USMC Req. Revised to accommodate Epic -->
+<!--NSWC 10-04-2005: Revised to solve the issue of mixed content -->
+<!--NSWC 2-28-06: Added %bodyatt; to the element locsubsystem  -->
+
+<!ELEMENT system - -  (locsubsystem | %text;)+>
+<!ATTLIST system  
+          tocentry         %yesorno;                "0"
+                      %bodyatt;>
+
+<!ELEMENT locsubsystem  - -  %text;>
+<!ATTLIST locsubsystem  %bodyatt;>
+
+<!ELEMENT symptom  - -  %text;>
+<!ATTLIST symptom  
+          tocentry         %yesorno;                "0"
+                   %bodyatt;
+                   mode  (remote | manual | both | neither)  "neither">
+
+<!--DCL 03-10-05: Troubleshooting Test (See PDF page 12 of 31) -->
+<!--DCL 05-24-05: Per USMC Req. Revised to a CALS model -->
+<!ELEMENT troubleshoot-test  - -  (table)>
+<!ATTLIST (troubleshoot-test)  
+           tocentry         %yesorno;                "0"
+                   %bodyatt;>
+
+<!--DCL 03-10-05: Item-Material-Action (See PDF page 13 of 31) -->
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--DCL 05-24-05: Per USMC Req. Revised to a CALS model -->
+<!ELEMENT item-mat-action  - -  (table)>
+<!ATTLIST (item-mat-action)  
+           tocentry         %yesorno;                "0"
+                     %bodyatt;>
+
+<!--NSWC 08-02-05 Revised to accommodate Epic -->
+<!--DCL 03-10-05: Preventive Maintenance Checks and Services (PMCS) (See PDF page 14 of 31 and page 15 of 31) -->
+<!ELEMENT pmcs  - -  (title, prior?, title?, iteminspect-entries)>
+<!ATTLIST pmcs  
+          tocentry         %yesorno;                "0"
+                    %bodyatt;>
+
+<!ELEMENT prior  - -  (title?, note*)>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT iteminspect-entries  - -  (iteminspect-data+)>
+<!ATTLIST (iteminspect-entries)  
+           tocentry         %yesorno;                "0"
+                       %bodyatt;>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT iteminspect-data  - -  (itemno, interval, iteminspect)>
+<!ATTLIST (iteminspect-data) 
+           tocentry         %yesorno;                "0"
+                      %bodyatt;>
+
+<!--NSWC 08-10-05 revised, <equip-not-ready> no longer optional-->
+<!--DCL 03-10-05: Per USMC Req. itemno was changed to name-->
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--DCL 03-29-05: Per USMC Req. Added + to Interval -->
+<!--NSWC 11-01-05 id added to allow access to individual iteminspects -->
+<!ELEMENT iteminspect  - -  (title?, name, action, equip-not-ready)>
+<!ATTLIST iteminspect  itemno  NUMBER  #IMPLIED
+                   id      ID          #IMPLIED
+		   idrefs  IDREFS      #IMPLIED>
+
+<!ELEMENT equip-not-ready  - -  (%text;)>
+<!--DCL 3-23-06: Per USMC Req. Added %bodyatt; -->
+<!ATTLIST (equip-not-ready)  %bodyatt;>
+
+<!--DCL 05-24-05: Per USMC Req. Revise structure of interval to allow only specific cases (will need to add all cases)-->
+<!--DCL 08-26-05: Per USMC Req. Added more intervals and set custom to include any intervals that are not on the list. Revised also the attribute-->
+<!--NSWC 10-19-06: Added After as a choice in the interval element primarily used in a PMCS table.  -->
+<!ELEMENT interval  - -  (custom | Before | During | After | Weekly | Monthly | SemiAnnual | Annual | Quarterly | Daily | Hours | Operator | Organizational | AsSpecified | FunctionalCheck | AsRequired)+>
+
+<!--DCL 3-23-06: Per USMC Req. Add bodyatt for linking-->
+<!ATTLIST (interval)  %bodyatt;>
+
+<!ELEMENT custom  - -  (#PCDATA)>
+
+<!--NSWC 06-20-06: Unmarked change noted. Added Quarterly, Daily, Operator, Organizational, AsSpecified, FunctionalCheck, and AsRequired.  Also changed to %text from 0 EMPTY.-->
+<!--NSWC 08-02-05: Revised structure to accommodate Epic.  The text of an element should be the name of that element, i.e. <Monthly>Monthly</Monthly> -->
+<!--NSWC 10-19-06: Added After to the list below  -->
+<!ELEMENT (Before | During | After | Weekly | Monthly | SemiAnnual | Annual | Quarterly | Daily | Hours | Operator | Organizational | AsSpecified | FunctionalCheck | AsRequired)  - -  (%text;)>
+<!ATTLIST Hours  hour  CDATA #IMPLIED>
+
+
+<!-- NSWC 08-02-05 Revised to accommodate Epic -->
+<!--DCL 03-10-05: Consumable Materials (See PDF page 17 of 31) -->
+<!ELEMENT consumable-materials-list  - -  (title?, consumable-materials-head)>
+<!ATTLIST consumable-materials-list  
+          tocentry         %yesorno;                "0"
+                     %bodyatt;>
+
+<!ELEMENT consumable-materials-head  - -  (consumable-materials-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT consumable-materials-entry  - -  (itemno, name, specification, nsn)>
+<!ATTLIST (consumable-materials-entry)  %bodyatt;>
+
+<!-- NSWC 2-28-06 %bodyatt; added to specification  -->
+<!ELEMENT specification  - -  (%text;)>
+<!ATTLIST  specification   %bodyatt;>
+
+
+<!--NSWC 07-27-05 Revised for compatibility with Epic-->
+<!--DCL 03-10-05: Repair Parts List (See PDF page 18 of 31). This allows combination of figure and repairpartslist -->
+<!--DCL 05-24-05: Per USMC Req. Revise structure of repairpartslist to be in its own row-->
+<!--DCL 06-16-05: Per USMC Req. Revise structure of repairpartslist to CALS-->
+<!--DCL 4-24-06: Added optional title to repairparts-->
+<!ELEMENT repairparts  - -  (title?, (repairpartslist-group)+)>
+<!ATTLIST repairparts  
+          tocentry         %yesorno;                "0"
+                   %bodyatt;>
+
+<!ELEMENT repairpartslist-group  - -  (figure*, repairpartslist-head+)>
+<!ATTLIST repairpartslist-group  
+          tocentry         %yesorno;                "0"
+                  %bodyatt;>
+
+<!--DCL 3-16-06: As per USMC Req. Added optional multiple repairpartslist-title -->
+
+<!ELEMENT repairpartslist-head  - -  (repairpartslist-title+, repairpartslist)>
+
+<!ELEMENT repairpartslist-title  - -  (descriptitle)>
+
+<!ELEMENT repairpartslist  - -  (repairpartslist-entry+)>
+<!ATTLIST repairpartslist  %bodyatt;> 
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT repairpartslist-entry  - -  (figno, itemno, smrcode, nsn, cage, partno, descrip, repl, um, qty)>
+<!ATTLIST repairpartslist-entry  %bodyatt;> 
+
+<!--NSWC: Reason for using illus is unknown, illus causes problems displaying in Epic <!ELEMENT illus  - -  (figno, itemno)> -->
+
+<!-- #PCDATA added here by ESSI on 7/30/2004 to support older style smr codes (e.g. in-being). -->
+
+<!ELEMENT smrcode  - -  ((sourcecode, maintenancecode, recoverabilitycode) | oldsmrcode)+>
+
+<!--DCL 03-22-05: Per USMC Req. Add bodyatt for linking-->
+<!ATTLIST (smrcode)  %bodyatt;>
+
+
+<!ELEMENT sourcecode  - -  (sourcemethod, sourceechelon)>
+
+<!ELEMENT maintenancecode  - -  (maintenanceuse, maintenancerepair)>
+
+<!ELEMENT oldsmrcode  - -  (#PCDATA)>
+
+<!--DCL 3-23-06: Per USMC Req. DCL added bodyatt-->
+
+<!ELEMENT repl  - O  EMPTY>
+<!ATTLIST repl  value  (eco | man | neither)  #REQUIRED
+		%bodyatt;>
+
+<!--DCL 03-10-05: Per USMC Req. Removed cage, itemno, figno and toolno and grouped it together with partno -->
+<!--NSWC 11-01-05  A TOC attribute was added for descriptitle to allow for an entry within the TOC -->
+<!ELEMENT (descriptitle | descrip | sourcemethod | sourceechelon | maintenanceuse | maintenancerepair |
+			recoverabilitycode | eco | man | um | qty | uoc | name | category)  - -  (%text;)>
+<!--DCL 11-10-05: Per USMC Req. DCL added bodyatt-->
+<!ATTLIST descriptitle  tocentry     %yesorno;  "0"
+					%bodyatt;>
+<!ATTLIST (descrip | sourcemethod | sourceechelon | maintenanceuse | maintenancerepair |
+			recoverabilitycode | eco | man | um | qty | uoc | name | category)   %bodyatt;>															
+										
+<!--DCL 03-10-05: Wire List (See PDF page 20 of 31) -->
+<!--DCL 05-24-05: Per USMC Req. Revise wire-list-assembly so title will be in its own row-->
+<!ELEMENT wire-list  - -  (title?, (wire-list-assembly)+)>
+<!ATTLIST wire-list  
+          tocentry         %yesorno;                "0"
+               %bodyatt;>
+
+<!--DCL 03-13-06: Per USMC Req. Revise wire-list-assembly so title and wire-list-assembly-head can be repeated-->
+<!ELEMENT wire-list-assembly - - (title?, wire-list-assembly-head?)+>
+
+<!ELEMENT wire-list-assembly-head - - (wire-list-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC 1-19-06: Added bodyatt to from, to, size, and color.  -->
+
+<!ELEMENT wire-list-entry - - (from, to, size, color, function)>
+<!ATTLIST (wire-list-entry)  %bodyatt;>
+
+<!ELEMENT (from | to | size | color)  - -  (%text;)>
+<!ATTLIST (from | to | size | color)  %bodyatt;>
+
+
+<!-- NSWC 07-29-05: Added -head element for functionality in Epic-->
+<!--DCL 03-10-05: Nomenclature Cross-Reference List (See PDF page 19 of 31) -->
+<!ELEMENT nomen-crossref-list  - -  (title?, (nomen-crossref-list-head))>
+<!ATTLIST nomen-crossref-list  
+          tocentry         %yesorno;                "0"
+                         %bodyatt;>
+
+<!ELEMENT nomen-crossref-list-head  - - (nomen-crossref-list-entry+)>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT nomen-crossref-list-entry - - (common-name, official-name)>
+<!ATTLIST (nomen-crossref-list-entry)  %bodyatt;>
+
+<!--NSWC 1-19-06: Added tocentry and bodyatt to common-name and official name lists.  -->
+
+<!ELEMENT (common-name | official-name)  - -  (%text;)>
+<!ATTLIST (common-name | official-name) 
+          tocentry         %yesorno;                "0"
+                         %bodyatt;>
+
+
+<!--NSWC: modified 07-19-05 according to Ovitas's requirements for Epic-->
+<!ELEMENT itemidlist  - -  (itemidlist-group)+>
+<!ATTLIST itemidlist  
+          tocentry         %yesorno;                "0"
+                      %bodyatt>
+
+<!ELEMENT itemidlist-group  - -  (figure*, itemidlist-head)+>
+<!ATTLIST itemidlist-group  
+          tocentry         %yesorno;                "0"
+                     %bodyatt>
+
+<!--DCL 09-02-05 maybe add + for cases where itemidlisttitle and entry are in a middle of the table-->
+<!ELEMENT itemidlist-head  - -  (itemidlisttitle?, itemidlist-entries)>
+
+<!ELEMENT itemidlisttitle  - -  (itemno, descriptitle)>
+
+<!ELEMENT itemidlist-entries  - -  (itemidlist-entry*)>
+<!ATTLIST itemidlist-entries  %bodyatt;>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT itemidlist-entry  - -  (itemno, modelno, nsn, refdes, indent, descrip, um, appqty, equipqty, smrcode, ssi, repl-fact)> 
+<!ATTLIST (itemidlist-entry)  %bodyatt;>
+
+
+<!-- NSWC 2-28-06 added bodyatt; to ssi, repl-fact, appqty and equipqty elements  -->
+<!ELEMENT (ssi | repl-fact | appqty | equipqty)  - -  (%text;)>
+<!ATTLIST  (ssi | repl-fact | appqty | equipqty)    %bodyatt;>
+
+
+<!--DCL 03-29-05: Per USMC Req. DCL Added na for cases where there is no value-->
+<!--NSWC 2-28-06 added bodyatt; to the indent element  -->
+
+<!ELEMENT indent  - -  (#PCDATA)>
+<!ATTLIST indent  code  (a | b | c | d | e | f | na)  #IMPLIED
+                    id            ID                  #IMPLIED
+                    label         CDATA               #IMPLIED 
+                    %lvl; 
+                    idrefs	  IDREFS              #IMPLIED>
+                        
+
+<!--DCL 03-10-05: Per USMC Req. Changed cagecode to cage. Delete element cagecode-->
+<!--DCL 03-29-05: Per USMC Req. Added bodyatt-->
+<!--DCL 05-24-05: Per USMC Req. Added cages-entry and optional title-->
+<!ELEMENT cages  - - (title?, cages-entry+)>
+<!ATTLIST cages  
+          tocentry         %yesorno;                "0"
+                    %bodyatt;>
+
+<!--NSWC 11-01-05 Attribute added to allow individual cage entries to be addressable -->
+<!ELEMENT cages-entry  - - (cage, manufact)>
+<!ATTLIST (cages-entry)  
+           tocentry         %yesorno;                "0"
+                      %bodyatt;>
+<!ELEMENT manufact  - -  (organiz+, address+)>
+
+<!--NSWC 08-01-05: Added itemnocrossref-head for compatibility with Epic-->
+<!--DCL 03-10-05: Item Cross reference (See PDF page 22 of 31) -->
+<!--DCL 05-24-05: Per USMC Req. Added itemnocrossref-entry and optional title-->
+<!ELEMENT itemnocrossref  - -  (title?, itemnocrossref-head)>
+<!ATTLIST itemnocrossref  
+          tocentry         %yesorno;                "0"
+                       %bodyatt;>
+
+<!ELEMENT itemnocrossref-head  - -  (itemnocrossref-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT itemnocrossref-entry  - -  (itemno, partno, cage)>
+<!ATTLIST (itemnocrossref-entry)  %bodyatt;>
+
+
+<!--NSWC 08-01-05: Added nsncrossref-head for compatibility with Epic -->
+<!--DCL 03-10-05: NSN CROSS Reference (See PDF page 23 of 31) -->
+<!--DCL 05-24-05: Per USMC Req. Added nsncrossref-entry and optional title-->
+<!ELEMENT nsncrossref  - -  (title?, nsncrossref-head)>
+<!ATTLIST nsncrossref  
+          tocentry         %yesorno;                "0"
+                     %bodyatt;>
+
+<!ELEMENT nsncrossref-head  - -  (nsncrossref-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT nsncrossref-entry  - -  (nsn, itemno, cage, partno)>
+<!ATTLIST (nsncrossref-entry)  %bodyatt;>
+
+
+<!--NSWC 08-01-05: Added partnocrossref-head for compatibility with Epic -->
+<!--DCL 03-10-05: PART NUMBER CROSS Reference (See PDF page 24 of 31) -->
+<!--DCL 05-24-05: Per USMC Req. Added partnocrossref-entry and optional title-->
+<!ELEMENT partnocrossref  - -  (title?, partnocrossref-head)>
+<!ATTLIST partnocrossref  
+          tocentry         %yesorno;                "0"
+                       %bodyatt;>
+
+<!ELEMENT partnocrossref-head  - -  (partnocrossref-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT partnocrossref-entry  - -  (partno, cage, itemno, nsn)>
+<!ATTLIST (partnocrossref-entry)  %bodyatt;>
+
+
+<!--NSWC 08-02-05 revised to accommodate Epic-->
+<!--DCL 03-10-05: Circuit Cross reference (See PDF page 25 of 31) -->
+<!--DCL 05-24-05: Per USMC Req. Added circuitsymcrossref-entry and optional title-->
+<!ELEMENT circuitsymcrossref  - -  (title?, circuitsymcrossref-test+)>
+<!ATTLIST (circuitsymcrossref)  
+           tocentry         %yesorno;                "0"
+                             %bodyatt;>
+
+<!ELEMENT circuitsymcrossref-test  - -  (title, circuitsymcrossref-testtitle)>
+
+<!--DCL 08-26-05: Per USMC Req. Added + for multiple entry-->
+<!ELEMENT circuitsymcrossref-testtitle  - -  (circuitsymcrossref-entry+)>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!ELEMENT circuitsymcrossref-entry  - -  (circuitsymno, itemno)>
+<!ATTLIST (circuitsymcrossref-entry)  %bodyatt;>
+
+
+<!ELEMENT circuitsymno  - -  (%text;)>
+<!--DCL 03-22-05: Per USMC Req. Add bodyatt for linking-->
+<!ATTLIST (circuitsymno)  %bodyatt;>
+
+<!--NSWC 08-01-05: Added cablelist-head for compatibility with Epic-->
+<!--DCL 03-10-05: Cable List (See PDF page 26 of 31) -->
+<!--DCL 03-29-05: Per USMC Req. Changed the model to include cablelist-entry and an optional title -->
+<!ELEMENT cablelist  - -  (title?, cablelist-head)>
+<!ATTLIST (cablelist)  
+           tocentry         %yesorno;                "0"
+                    %bodyatt;>
+
+<!ELEMENT cablelist-head - - (cablelist-entry)+>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC 1-19-06: Added bodyatt to wirename, harness, from-pin,to-pin, component, connector, from-component-connector and to-component-connector -->
+
+<!ELEMENT cablelist-entry  - -  (wirename, harness, from-component-connector, 
+from-pin, to-component-connector, to-pin)>
+<!ATTLIST (cablelist-entry)  %bodyatt;>
+
+<!ELEMENT (wirename | harness | from-pin | to-pin | component | connector)  - -  
+%text;>
+
+<!ATTLIST (wirename | harness | from-pin | to-pin | component | connector)  %bodyatt;>
+
+<!ELEMENT (from-component-connector | to-component-connector)  - -
+(component, connector)> 
+<!ATTLIST (from-component-connector | to-component-connector)  %bodyatt;>
+
+
+<!--DCL 03-10-05: Procedures (See PDF page 27 of 31 and 28 of 31) -->
+<!--DCL 03-29-05: Per USMC Req. Add para with the alerts-->
+<!--NSWC 1-19-06 added a *; after (mcprocedure|jtprocedure)*); this will allow for multiple occurrences within a procedure -->
+
+<!ELEMENT procedure  - -  (procedurename, (warning | caution | note | para)*, (mcprocedure | jtprocedure)*)>
+
+<!--DCL 03-29-05: Per USMC Req. Add bodyatt for linking in procedure instead of procedurename-->
+<!--NSWC 11-01-05 A TOC attribute was added for procedure to allow for an entry within the TOC -->
+<!ATTLIST procedure    tocentry   %yesorno;  "0"
+                       %bodyatt;>
+<!--NSWC 2-28-06: Added %bodyatt; to the procedurename element.  -->
+<!--DCL 3-15-06: As per USMC req. changed from %text to name and optional type. -->
+<!ELEMENT procedurename - - (name, type?) >
+<!ATTLIST procedurename  %bodyatt;>
+
+<!--DCL 3-15-06: As per USMC req. changed from %text to name and optional type. -->
+<!ELEMENT mcprocedurename - - (name, type?) >
+
+<!ATTLIST mcprocedurename  
+            tocentry         %yesorno;                "0" 
+            %bodyatt;>
+                    
+<!-- MARINE CORPS PROCEDURE -->
+<!-- NSWC 11-01-05 The tools element was made optional to match the source data.  -->
+<!-- NSWC 1-19-06 mcprocedure name and attributes were added because it was found in the source data -->
+<!-- NSWC 1-19-06 In taskname attribute list below IDREFS was changed to bodyatt.  -->
+<!--NSWC 2-28-06 initialsetup added to DTD because it was found in the source data -->
+
+<!--DCL 4-24-06: Per USMC Req. Added %bodyatt; to mcprocedure -->
+<!ELEMENT mcprocedure  - -  (mcprocedurename?, initialsetup?, tools?, spectools?, materials?, supportequip?, references?, equipconds?, personnel?, tasks)>
+<!ATTLIST (mcprocedure)  %bodyatt;>
+
+
+<!-- JOINT PROCEDURE -->
+<!--DCL 4-24-06: Added optional title to jtprocedure-->
+<!--DCL 4-24-06: Per USMC Req. Added %bodyatt; to jtprocedure -->
+
+<!ELEMENT jtprocedure  - -  (title?, tasklist, (initialsetup, tasks, followon?)+)>
+<!ATTLIST (jtprocedure)  %bodyatt;>
+<!--DCL 4-24-06: Per USMC Req. Added %bodyatt; to tasklist -->
+<!ELEMENT tasklist  - -  (taskname*)>
+
+<!ATTLIST (tasklist)  %bodyatt;>
+
+<!--DCL 3-15-06: As per USMC req. changed from %text to name and optional type. -->
+<!ELEMENT taskname - - (name, type?) >
+<!ATTLIST taskname  
+            tocentry         %yesorno;                "0"
+            %bodyatt;>
+                    
+<!--DCL 03-10-05: Per USMC Req. -->
+<!ELEMENT initialsetup  - -  (applicconfig?, (materials?, equipconds?, personnel?, references?, jointtools?, specenvironconds?, other*), gensafeints?)>
+
+<!--DCL 3-23-06: Per USMC Req. Add bodyatt for linking-->
+<!ATTLIST (initialsetup)  %bodyatt;>
+
+<!ELEMENT tasks  - -  (task*)>
+
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--NSWC 2-28-06: Added %bodyatt; to the task element.  -->
+<!ELEMENT task  - -  (taskname, (warning | caution | note | para)*, step1*)>
+<!ATTLIST task     %bodyatt;>
+
+<!--NSWC 2-28-06: Added %bodyatt; to the equipconds and followon elements.  -->
+<!ELEMENT (equipconds | followon)  - -  (randlist*, (docno*, descrip*)*)>
+<!ATTLIST (equipconds | followon)  %bodyatt;>
+
+<!--DCL 03-10-05: Per USMC Req. Revised model and combined elements-->
+<!--DCL 05-24-05: Per USMC Req. Revised model to be more content-->
+<!--NSWC 1-19-06: Added bodyatt to tools, spectools, jointtools and materials -->
+<!--NSWC 2-28-06: Added %bodyatt; to the  supportequip, applicconfig, personnel, references,  specenvironconds, gensafeints and other elements.  -->
+<!ELEMENT (supportequip | applicconfig | personnel | references | specenvironconds | gensafeints | other)  - -  (para | randlist)*>
+<!ATTLIST (supportequip | applicconfig | personnel | references | specenvironconds | gensafeints | other)   %bodyatt;>
+
+<!--DCL 3-23-06: Per USMC Req. Added tocentry to tools, spectools, jointtools and materials -->
+
+<!ELEMENT (tools | spectools | jointtools)  - -  (tool)*>
+<!ATTLIST (tools | spectools | jointtools)
+	   %bodyatt;
+           tocentry      %yesorno;              "0">
+
+<!ELEMENT (materials)  - -  (material)*>
+<!ATTLIST (materials)  	   %bodyatt;
+           tocentry      %yesorno;              "0">
+
+<!--NSWC 08-02-05: Revised to accommodate Epic -->
+<!--DCL 03-10-05: Control or indicators (See PDF page 29 of 31) -->
+<!--NSWC 2-28-06: ready state was added as an option of type -->
+<!ELEMENT cnt-indc-tbl  - -  (title?, cnt-indc-head)>
+<!ATTLIST cnt-indc-tbl  
+          
+            tocentry         %yesorno;                "0"
+            %bodyatt;
+                        type   (setting | position | fully-operational-condition)  #REQUIRED>
+
+<!ELEMENT cnt-indc-head  - -  (cnt-indc-entry)+>
+
+<!--NSWC 07-27-05: Revised to accommodate Epic -->
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC 2-28-06: Added %bodyatt; to  key, cnt-indc, setting, setting-position and cnt-function -->
+<!--NSWC 6-26-06: Revised cnt-indc-entry to associate multiple settings and multiple functions with the key and cnt-indc-->
+
+<!ELEMENT cnt-indc-entry - -  (key, cnt-indc, (setting-position, cnt-function)+)>
+<!ATTLIST (cnt-indc-entry)  %bodyatt;>
+
+<!ELEMENT (key | cnt-indc | setting)  - -  (%text;)>
+
+<!ELEMENT setting-position  - -  (%text;)>
+
+<!ELEMENT cnt-function  - -  (para | %list)*>
+<!ATTLIST (key | cnt-indc | setting | setting-position | cnt-function)  %bodyatt;>
+
+<!--DCL 03-23-05: Per USMC Req. COEII deleted because list-of-comp is used for all models -->
+
+<!--DCL 03-23-05: Per USMC Req. BII deleted because list-of-comp is used for all models -->
+
+<!--DCL 03-23-05: Per USMC Req. AAL deleted because list-of-comp is used for all models -->
+
+
+<!--NSWC 08-01-05 Added proc-head for compatibility with Epic-->
+<!--DCL 03-10-05: Proc-tbl (See PDF page 31 of 31) -->
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--DCL 03-29-05: Per USMC Req. To allow more than 1 entry -->
+<!--DCL 05-24-05: Per USMC Req. Revised proc-entry -->
+<!ELEMENT proc-tbl  - -  (title?, proc-head)>
+<!ATTLIST proc-tbl  
+          tocentry         %yesorno;                "0"
+                  %bodyatt;>
+
+<!--DCL 6-15-06: Per USMC Req. proc-title is now optional -->
+<!ELEMENT proc-head  - -  (proc-title?, proc-entry)+>
+<!ELEMENT proc-title - -  (#PCDATA)>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC 2-28-06 remarks was added to content model to match the data -->
+<!ELEMENT proc-entry - -  (step, proc, indication*, remarks*)>
+<!ATTLIST (proc-entry)  %bodyatt;>
+
+<!--DCL 03-29-05: Per USMC Req. To allow para and note combination -->
+<!--NSWC 2-28-06 Added %bodyatt; to the step and proc elements  -->
+
+<!ELEMENT step  - -  (%paracon;)*>
+<!ATTLIST step  %bodyatt;>
+
+<!ELEMENT proc  - -  (%paracon;)*>
+<!ATTLIST proc  %bodyatt;>
+
+<!-- compstocklist and subelements added for SL-3s by ESSI on 7/30/2004. --> 
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC 1-19-06:  Added tocentry and bodyatt to csl  -->
+
+<!ELEMENT compstocklist - - (date, modelno, csl+)>
+<!ATTLIST (compstocklist)  
+           tocentry         %yesorno;                "0"
+                        %bodyatt;>
+<!ELEMENT csl - - (figure?, descriptitle, table)>
+<!ATTLIST (csl)  
+           tocentry         %yesorno;                "0"
+                        %bodyatt;>
+
+<!--NSWC 08-04-05: Revised to accommodate Epic. Again-->
+<!--NSWC 07-27-05: Revised to accommodate Epic -->
+<!--DCL 03-10-05: LIST OF COMPONENTS (or COMPONENTS STOCKLIST (See PDF page 30 of 31) -->
+<!--DCL 05-24-05: Per USMC Req. Revised model so system and subsystem are in a "row" -->
+<!--DCL 09-26-05: Per USMC Req. Added enditem... -->
+<!ELEMENT list-of-comp  - -  (title?, date, enditem, locsystem+)>
+<!ATTLIST list-of-comp  
+          tocentry         %yesorno;                "0"
+                     %bodyatt;>
+
+<!--NSWC 07-27-05: Revised to accommodate Epic -->
+<!ELEMENT locsystem  - -  (title, locsubsys)>
+<!ELEMENT locsubsys  - -  (title, locentries+)>
+<!ELEMENT locentries - -  (list-of-comp-entry+)>
+
+<!--NSWC 11-01-05 Attribute added to allow individual rows of data to be addressable -->
+<!--NSWC 2-28-06 remark changed to remarks -->
+<!ELEMENT list-of-comp-entry - -  (itemno, nsn, refdes, modelno, part-desc, um, qty, month, remarks)>
+<!ATTLIST (list-of-comp-entry)  %bodyatt;>
+
+<!--NSWC 2-28-06: removed remark from this element definition because we agreed to change remark to 
+                  remarks in the DTD, but the element remarks had already been defined. -->
+<!--NSWC 2-28-06: Added %bodyatt; to the subsystem, month and enditem elements.  -->
+
+<!ELEMENT (subsystem | month | enditem)  - -  (%text;)>
+<!ATTLIST (subsystem | month | enditem)  %bodyatt;>
+
+<!--DCL 03-10-05: Item-Material-Action (See PDF page 16 of 31) -->
+<!--DCL 03-23-05: Per USMC Req. Revised according to preferred model -->
+<!--DCL 05-24-05: Per USMC Req. Revised to a CALS model -->
+<!--DCL 09-26-05: Per USMC Req. changed to oper-under-unusual-->
+<!--NSWC 1-19-06: Added bodyatt to location, correct-action, condition and recommendation.  -->
+
+<!ELEMENT oper-under-unusual  - -  (table)>
+<!ATTLIST (oper-under-unusual)  
+           tocentry         %yesorno;                "0"
+                             %bodyatt;>
+
+<!ELEMENT (location | correct-action | condition | recommendation)  - -  (%text;)>
+<!ATTLIST (location | correct-action | condition | recommendation)  %bodyatt;>
+
+<!-- *************************************************************** -->

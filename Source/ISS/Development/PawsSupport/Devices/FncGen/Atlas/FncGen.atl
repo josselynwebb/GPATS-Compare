@@ -1,0 +1,3002 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'FncGen Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemFncGen.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'SUB-CHOICE' IS INTEGER 	$
+        DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+        DECLARE, VARIABLE, 'SUB-E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN 		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+        DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+        DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+        DECLARE, VARIABLE, 'CURRENT' IS DECIMAL		$
+        DECLARE, VARIABLE, 'CURRENT-RMS' IS DECIMAL 	$
+        DECLARE, VARIABLE, 'DC-VOLTS ' IS DECIMAL	$
+        DECLARE, VARIABLE, 'FREQ' IS DECIMAL 		$
+        DECLARE, VARIABLE, 'PERIOD' IS DECIMAL 		$
+        DECLARE, VARIABLE, 'MAX-T' IS DECIMAL 		$
+        DECLARE, VARIABLE, 'RESISTANCE' IS DECIMAL	$
+        DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+        DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$ 
+        DECLARE, VARIABLE, 'RTIME' IS DECIMAL		$
+        DECLARE, VARIABLE, 'FTIME' IS DECIMAL		$
+        DECLARE, VARIABLE, 'PWIDTH' IS DECIMAL		$
+        DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$ 
+     	DECLARE, VARIABLE, 'SAMP-COUNT' IS INTEGER	$ 
+	DECLARE, VARIABLE, 'REF-VOLTS' IS INTEGER	$ 
+        DECLARE, VARIABLE, 'IDX' IS INTEGER             $
+        DECLARE, VARIABLE, 'STAIRCASE' IS ARRAY(1 THRU 100) OF DECIMAL $
+
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, GLOBAL, CONSTANT, 'CONTINUE' IS
+         C'\LF\   Press TRUE OR FALSE to continue.\LF\'
+          $
+C $
+        DECLARE,  GLOBAL, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test\LF\
+	'
+        $
+
+C $
+ 000330 IDENTIFY, EVENT 'TRIGGER' AS
+            (VOLTAGE), SQUARE WAVE,
+            EQ 1.6 V,
+            DECREASING,
+            DELAY 0.5 SEC,
+            CNX HI FncGen_1-Trig                                                    $
+C                                                                                   $
+ 000340 IDENTIFY, EVENT 'STARTGATE' AS
+            (VOLTAGE), SQUARE WAVE,
+            EQ 1.6 V,
+            INCREASING,
+            DELAY 0.5 SEC,
+            CNX GATE-START-IN X19-7                                                 $
+C                                                                                   $
+ 000350 IDENTIFY, EVENT 'STOPGATE' AS
+            (VOLTAGE), SQUARE WAVE,
+            EQ 1.6 V,
+            DECREASING,
+            DELAY 0.5 SEC,
+            CNX GATE-STOP-IN X19-7                                                  $
+C $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', GLOBAL, PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------' $ 
+
+              OUTPUT, 
+		'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'     ','GO', C'              ','GoNogo', C'              ',NOGO, C'              ','PassFail', C'\LF\\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+        C'FncGen ATLAS Driver Benchmark',
+	C'Date/Time:','DATE-TIME',C'\LF\' $
+
+	OUTPUT, TO 'PRINTER', C'FncGen ATLAS Driver Benchmark\LF\',
+      	C'Date/Time:', 'DATE-TIME', C'\LF\' $	
+
+B $
+ 001005  OUTPUT, 
+         C'            Test Menu \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' AC SIGNAL                      2\LF\',
+         C' Square Wave                    3\LF\',
+         C' Triangular Wave                4\LF\',
+	 C' Ramp Signal                    5\LF\',
+	 C' Pulsed DC                      6\LF\',
+	 C' Sinc Wave                      7\LF\',
+	 C' Exponential Pulse Wave         8\LF\',
+	 C' DC Signal                      9\LF\',
+	 C' Waveform                      10\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+       
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','CHOICE',C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 030000 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 040000 $
+        END, IF $
+        IF, 'CHOICE' EQ 6, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 050000 $
+        END, IF $
+        IF, 'CHOICE' EQ 7, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 060000 $
+        END, IF $
+        IF, 'CHOICE' EQ 8, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 070000 $
+        END, IF $
+        IF, 'CHOICE' EQ 9, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 080000 $
+        END, IF $
+        IF, 'CHOICE' EQ 10, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 090000 $
+        END, IF $
+ 
+     	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * AC SIGNAL               
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         AC SIGNAL              \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage                        2\LF\',
+	 C' Voltage-p                      3\LF\',
+         C' Voltage-pp                     4\LF\',
+         C' Triggered                      5\LF\',
+         C' Gated                          6\LF\',
+         C' With Sync                      7\LF\',
+	 C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010300 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 5, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010400 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 6, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010500 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 7, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 010600 $
+        END, IF $
+ 
+     	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 010005 $
+C $ 
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE) Test
+C ******************************************************************* $
+C $
+B $
+ 010100 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'REF-VOLTS'  = 2 		$
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010199 $
+        END, IF $
+
+CJW REMOVED?????       REMOVE, AC SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           TEST-EQUIP-IMP 50 Ohm,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  AC Signal                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'                                    \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+
+        CALCULATE, 'TESTNO' = 10120$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [Voltage], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+    40 REMOVE, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           TEST-EQUIP-IMP 50 Ohm,
+          CNX HI FncGen_1-HI $
+
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010100 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE-P) Test
+C ******************************************************************* $
+C $
+B $
+ 010200 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'REF-VOLTS'  = 0 		$
+
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010299 $
+        END, IF $
+
+CJW REMOVED       REMOVE, AC SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, AC SIGNAL, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           PERIOD 'PERIOD' RANGE .000000021 Sec TO 10000 Sec,
+           DC-OFFSET 2 V,
+          CNX HI FncGen_1-HI $
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  AC Signal                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  2 V DC-OFFSET                     \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+
+        CALCULATE, 'TESTNO' = 10220$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [Voltage-P], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage-P], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+CJW ADDED $
+    40 REMOVE, AC SIGNAL, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           PERIOD 'PERIOD' RANGE .000000021 Sec TO 10000 Sec,
+           DC-OFFSET 2 V,
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010200 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE-PP) Test
+C ******************************************************************* $
+C $
+B $
+ 010300 CALCULATE, 'AC-VOLTS-P' = 5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010399 $
+        END, IF $
+
+CJW REMOVED       REMOVE, AC SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, AC SIGNAL, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE .01 V to 16 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           DC-OFFSET 0 V,
+           BURST 10 Cycles, 
+           BURST-REP-RATE 40 Hz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  AC Signal                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  Bursting for 10 cycles            \LF\',
+        C'  Repeating every 25 mSec           \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+
+        CALCULATE, 'TESTNO' = 10320$
+        PERFORM, 'RESULTS' $
+
+C $
+        OUTPUT,
+        C'   AC [Voltage-PP], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage-PP], Ranged, non-Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+CJW ADDED $
+    40 REMOVE, AC SIGNAL, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE .01 V to 16 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           DC-OFFSET 0 V,
+           BURST 10 Cycles, 
+           BURST-REP-RATE 40 Hz,
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010400 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010300 $
+        END, IF $
+
+C       END OF AC [VOLTAGE-PP] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE) Test - Triggered
+C ******************************************************************* $
+C $
+B $
+ 010400 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'REF-VOLTS'  = 2 		$
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE] Test - Triggered \LF\',
+        C'  -------------------------------------------- \LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+        C'  Connect a 2 Volt Peak 1 KHz Square Wave signal the the \LF\',
+	C'  Trigger port of the Function Generator		    \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010499 $
+        END, IF $
+
+CJW REMOVED       REMOVE, AC SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+       ENABLE, EVENT 'TRIGGER' $
+
+    20 APPLY, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           SYNC TO EVENT 'TRIGGER' MAX-TIME 10 SEC,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Function Generator is         \LF\',
+        C'  triggered with the parameters below.  Also\LF\',
+	C'  Verify the Triggered signal is no longer	\LF\',
+	C'  when the 2Vpk-pk Square Wave is removed.\LF\', 
+        C'  --------------------------------------\LF\',
+        C'  AC Signal                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'                                    \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+
+        CALCULATE, 'TESTNO' = 10420$
+        PERFORM, 'RESULTS' $
+
+        DISABLE, EVENT 'TRIGGER' $
+	REMOVE, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           SYNC TO EVENT 'TRIGGER' MAX-TIME 10 SEC,
+          CNX HI FncGen_1-HI $
+
+C $
+        OUTPUT,
+        C'   AC [Voltage], Ranged, Triggered\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage], Ranged, Triggered\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010500 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010400 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE) Test - Gated
+C ******************************************************************* $
+C $
+B $
+ 010500 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'REF-VOLTS'  = 2 		$
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE] Test - Gated \LF\',
+        C'  -------------------------------------------- \LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010599 $
+        END, IF $
+
+        ENABLE, EVENT 'STARTGATE', 'STOPGATE'                                   $
+
+    20 APPLY, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           GATED FROM 'STARTGATE' TO 'STOPGATE',
+          CNX HI FncGen_1-HI $
+
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'   when a 1.6 V signal is applied to the \LF\',
+        C'   external trigger and stops when it is \LF\',
+        C'   removed                               \LF\',
+        C'  --------------------------------------\LF\',
+        C'  AC Signal                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'                                    \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+
+        CALCULATE, 'TESTNO' = 10520$
+        PERFORM, 'RESULTS' $
+        DISABLE,  EVENT 'STARTGATE', 'STOPGATE'                                   $
+
+CJW	REMOVE, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+           GATED FROM 'STARTGATE' TO 'STOPGATE',
+          CNX HI FncGen_1-HI $
+	REMOVE, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+          CNX HI FncGen_1-HI $
+C $
+        OUTPUT,
+        C'   AC [Voltage], Ranged, Gated\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage], Ranged, Gated\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010600 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010500 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * AC SIGNAL (VOLTAGE) Test - With Sync
+C ******************************************************************* $
+C $
+B $
+ 010600 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+        CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        CALCULATE, 'REF-VOLTS'  = 2 		$
+C $
+     05 OUTPUT,
+        C'          AC SIGNAL [VOLTAGE] Test - With Sync\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 010699 $
+        END, IF $
+       
+    20 APPLY, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+          CNX HI FncGen_1-HI SYNC-OUT X19-6 $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  AC Signal                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'                                    \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+
+        CALCULATE, 'TESTNO' = 10620$
+        PERFORM, 'RESULTS' $
+	
+	REMOVE, AC SIGNAL, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+          CNX HI FncGen_1-HI SYNC-OUT X19-6 $
+C $
+        OUTPUT,
+        C'   AC [Voltage], Ranged, With Sync\LF\',
+        C'  --------------------------------------\LF\'  $
+
+        OUTPUT, TO 'PRINTER',
+        C'   AC [Voltage], Ranged, With Sync\LF\', 
+        C'  --------------------------------------\LF\'  $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 010005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 010005 $
+	ELSE $
+            GO TO, STEP 010600 $
+        END, IF $
+C $
+C       END OF AC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 010005 $
+C $
+C *******************************************************************
+C * Square Wave                
+C ******************************************************************* $
+C $
+C $
+B $
+ 020000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         Square Wave             \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage-P                      2\LF\',
+	 C' Voltage-PP                     3\LF\',
+	 C' Burst                          4\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 020100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 020300 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 020005 $
+
+C *******************************************************************
+C * Square Wave (VOLTAGE-P) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020100 CALCULATE, 'AC-VOLTS-P' = 5 		$
+        CALCULATE, 'DC-VOLTS'   = 2 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$
+ 
+B $
+     05 OUTPUT,
+        C'          Square Wave [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020199 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+CJW       REMOVE, SQUARE WAVE, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, SQUARE WAVE, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           DUTY-CYCLE 50 PC,
+           BANDWIDTH 50 MHz,	  
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Square Wave                       \LF\',
+        C'  5 V Peak                          \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  50 % duty cycle                   \LF\',
+        C'  2 Volt DC offset                  \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 20120$
+        PERFORM, 'RESULTS' $
+C $
+	REMOVE, SQUARE WAVE,    
+          CNX HI FncGen_1-HI $
+
+        OUTPUT,
+        C'   Square Wave [Voltage-P], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Square Wave [Voltage-P], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020100 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGES] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * Square Wave (VOLTAGE-PP) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020200 CALCULATE, 'AC-VOLTS-P' = 10 		$
+        CALCULATE, 'DC-VOLTS'   = 0 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$ 
+B $
+     05 OUTPUT,
+        C'          Square Wave [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020299 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+ 
+    20 APPLY, SQUARE WAVE, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE 0.01 V TO 16 V,
+           PERIOD 'PERIOD' RANGE .000000021 Sec TO 10000 Sec,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           DUTY-CYCLE 75 PC, 
+	   BANDWIDTH 50 MHz,  	        
+          CNX HI FncGen_1-HI $
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Square Wave                       \LF\',
+        C'  10 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  75 % duty cycle                   \LF\',
+        C'  0 Volt DC offset                  \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+
+        CALCULATE, 'TESTNO' = 20220$
+        PERFORM, 'RESULTS' $
+
+C $
+      REMOVE, SQUARE WAVE, 
+          CNX HI FncGen_1-HI $
+
+        OUTPUT,
+        C'   Square Wave [Voltage-PP], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Square Wave [Voltage-PP], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+C $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020200 $
+        END, IF $
+C $
+C       END OF DC [VOLTAGE-PP] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * Square Wave (BURST) Test
+C ******************************************************************* $
+C $
+C $
+B $
+ 020300 CALCULATE, 'AC-VOLTS-P' = 2.5 		$
+        CALCULATE, 'DC-VOLTS'   = 0 		$
+        CALCULATE, 'FREQ'       = 1000 		$
+        CALCULATE, 'MAX-T'      = 5 		$
+	CALCULATE, 'SAMP-COUNT' = 1000		$
+	CALCULATE, 'PERIOD'	= 0.001		$ 
+ 
+B $
+     05 OUTPUT,
+        C'          Square Wave [BURST] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 020399 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+
+
+    20 APPLY, SQUARE WAVE, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 50000000 Hz,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           DUTY-CYCLE 50 PC,
+           BANDWIDTH 50 MHz,
+           BURST 10 Cycles,
+           BURST-REP-RATE 20 Hz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Square Wave                       \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  50 % duty cycle                   \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  10 Bursts                         \LF\',
+        C'  Repeating every 50 mSec           \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+       REMOVE, SQUARE WAVE, 
+          CNX HI FncGen_1-HI $
+
+        CALCULATE, 'TESTNO' = 20320$
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+        C'   Square Wave [BURST], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Square Wave [BURST], Ranged, non-Triggered\LF\',
+        C'  --------------------------------------\LF\'        $
+
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 030100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 020005 $
+        END, IF $
+
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 020005 $
+	ELSE $ 
+            GO TO, STEP 020300 $
+        END, IF $
+C $
+C       END OF Square Wave [BURST] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Triangular Wave
+C ******************************************************************* $
+C $
+C $
+B $
+ 030000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'        Triangular Wave         \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage-P                      2\LF\',
+	 C' Voltage-PP                     3\LF\',
+	 C' Burst                          4\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 030100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 030100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 030200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 030300 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 030005 $
+
+C *******************************************************************
+C * Triangular Wave Test [VOLTAGE-P]
+C ******************************************************************* $
+C $
+C $
+B $
+ 030100 CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 2.5 $
+       
+B $
+     05 OUTPUT,
+        C'          Triangular Wave [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030199 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJWREMOVED       REMOVE, TRIANGULAR WAVE SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, TRIANGULAR WAVE SIGNAL, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           BANDWIDTH 50 MHz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Triangle Wave                     \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  2.5 Volt DC offset                  \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 30120$
+        PERFORM, 'RESULTS' $
+C $
+
+        OUTPUT,
+        C'   Triangular Wave [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Triangular Wave [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJWADDED $
+       REMOVE, TRIANGULAR WAVE SIGNAL, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 030200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030005 $
+	ELSE $ 
+            GO TO, STEP 030100 $
+        END, IF $
+C $
+C       END OF Triangular Wave [VOLTAGE-P] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Triangular Wave Test [VOLTAGE-PP]
+C ******************************************************************* $
+C $
+C $
+B $
+ 030200 CALCULATE, 'AC-VOLTS-P' = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+	CALCULATE, 'PERIOD'	= 0.001	$ 
+
+B $
+     05 OUTPUT,
+        C'          Triangular Wave [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030299 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJWREMOVED       REMOVE, TRIANGULAR WAVE SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, TRIANGULAR WAVE SIGNAL, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE 0.01 V TO 16 V,
+           PERIOD 'PERIOD' RANGE .000101 Sec TO 10000 Sec,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           BANDWIDTH 50 MHz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Triangle Wave                     \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 30220$
+        PERFORM, 'RESULTS' $
+C $
+
+        OUTPUT,
+        C'   Triangular Wave [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Triangular Wave [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJWADDED $
+       REMOVE, TRIANGULAR WAVE SIGNAL, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 030300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030005 $
+	ELSE $ 
+            GO TO, STEP 030200 $
+        END, IF $
+C $
+C       END OF Triangular Wave [VOLTAGE-PP] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C $
+C *******************************************************************
+C * Triangular Wave Test [BURST]
+C ******************************************************************* $
+C $
+C $
+B $
+ 030300 CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+
+B $
+     05 OUTPUT,
+        C'          Triangular Wave [BURST] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 030399 $
+        END, IF $
+C $
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+C $
+CJW REMOVED       REMOVE, TRIANGULAR WAVE SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, TRIANGULAR WAVE SIGNAL, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           BANDWIDTH 50 MHz,
+           BURST 10 Cycles,
+           BURST-REP-RATE 20 Hz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Triangle Wave                     \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  10 Bursts                         \LF\',
+        C'  Repeating every 50 mSec           \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 30320$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Triangular Wave [BURST], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Triangular Wave [BURST], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+CJW ADDED $
+       REMOVE, TRIANGULAR WAVE SIGNAL, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 040100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 030005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 030005 $
+	ELSE $ 
+            GO TO, STEP 030300 $
+        END, IF $
+C $
+C       END OF Triangular Wave [BURST] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C *******************************************************************
+C * Ramp Signal                
+C ******************************************************************* $
+C $
+C $
+B $
+ 040000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         Ramp Signal            \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage-P                      2\LF\',
+	 C' Voltage-PP                     3\LF\',
+	 C' Burst                          4\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 040100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 040300 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 040005 $
+C *******************************************************************
+C * Ramp Signal Test [VOLTAGE-P]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040100 CALCULATE, 'AC-VOLTS-P'    = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'VER-UL' = 0	$
+        CALCULATE, 'VER-LL' = 0	$
+        CALCULATE, 'RTIME' = .00075	$
+        CALCULATE, 'FTIME' = .00025	$
+        CALCULATE, 'DC-VOLTS' = 2.5	$
+
+B $
+     05 OUTPUT,
+        C'          Ramp Signal [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+C $
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040199 $
+        END, IF $
+
+CJW REMOVED       REMOVE, RAMP SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, RAMP SIGNAL, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+	   RISE-TIME 'RTIME' RANGE .000000011 Sec TO 4950 Sec,
+           FALL-TIME 'FTIME' RANGE .000000011 Sec TO 4950 Sec,
+           BANDWIDTH 50 MHz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Ramp Signal                       \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  2.5 Volt DC offset                \LF\',
+        C'  750 uSec Rise Time                \LF\',
+        C'  250 uSec Fall Time                \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 40120$
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+        C'   Ramp Signal [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Ramp Signal [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, RAMP SIGNAL, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040100 $
+        END, IF $
+C $
+C       END OF Ramp Signal [voltage-P] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Ramp Signal Test [VOLTAGE-PP]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040200 CALCULATE, 'AC-VOLTS-P'    = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+	CALCULATE, 'PERIOD'	= 0.001	$ 
+	CALCULATE, 'RTIME' = .0005	$
+        CALCULATE, 'FTIME' = .0005	$
+        CALCULATE, 'DC-VOLTS' = 0	$
+
+
+
+B $
+     05 OUTPUT,
+        C'          Ramp Signal [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040299 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJWREMOVED       REMOVE, RAMP SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, RAMP SIGNAL, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE 0.01 V TO 16 V,
+           PERIOD 'PERIOD' RANGE .000101 Sec TO 10000 Sec,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           RISE-TIME 'RTIME' RANGE .000000011 Sec TO 4950 Sec,
+           FALL-TIME 'FTIME' RANGE .000000011 Sec TO 4950 Sec,
+           BANDWIDTH 50 MHz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Ramp Signal                       \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  500 uSec Rise Time                \LF\',
+        C'  500 uSec Fall Time                \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 40220$
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+        C'   Ramp Signal [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Ramp Signal [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJWADDED $
+       REMOVE, RAMP SIGNAL, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040200 $
+        END, IF $
+C $
+C       END OF Ramp Signal [VOLTAGE-PP] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C $
+C *******************************************************************
+C * Ramp Signal Test [Burst]
+C ******************************************************************* $
+C $
+C $
+B $
+ 040300 CALCULATE, 'AC-VOLTS-P'    = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+	CALCULATE, 'RTIME' = .0005	$
+        CALCULATE, 'FTIME' = .0005	$
+        CALCULATE, 'DC-VOLTS' = 0	$
+
+
+B $
+     05 OUTPUT,
+        C'          Ramp Signal [BURST] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 040399 $
+        END, IF $
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJW REMOVED       REMOVE, RAMP SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, RAMP SIGNAL, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           RISE-TIME 'RTIME' RANGE .000000011 Sec TO 4950 Sec,
+           FALL-TIME 'FTIME' RANGE .000000011 Sec TO 4950 Sec,
+           BANDWIDTH 50 MHz,
+           BURST 10 Cycles,
+           BURST-REP-RATE 20 Hz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Triangle Wave                     \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  500 uSec Rise Time                \LF\',
+        C'  500 uSec Fall Time                \LF\',
+	C'  10 Bursts                         \LF\',
+        C'  Repeating every 50 mSec           \LF\',
+	C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 40320$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Ramp Signal [BURST], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Ramp Signal [BURST], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+CJW ADDED $
+       REMOVE, RAMP SIGNAL, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 050100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 040005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 040005 $
+	ELSE $ 
+            GO TO, STEP 040300 $
+        END, IF $
+C $
+C       END OF Ramp Signal [BURST] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Pulsed DC                
+C ******************************************************************* $
+C $
+C $
+B $
+ 050000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         Pulsed DC               \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage-P                      2\LF\',
+	 C' Voltage-PP                     3\LF\',
+	 C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 050100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 050100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 050200 $
+        END, IF $
+        
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 050005 $
+
+C *******************************************************************
+C * Pulsed DC [VOLTAGE-P]
+C ******************************************************************* $
+C $
+C $
+B $
+ 050100 CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'RTIME'      = .00001 $
+        CALCULATE, 'FTIME'      = .00001 $
+        CALCULATE, 'PWIDTH'     = .0001 $
+        CALCULATE, 'DC-VOLTS'   = 1 $
+        
+B $
+     05 OUTPUT,
+        C'          Pulsed DC [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050199 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJWREMOVED       REMOVE, PULSED DC, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, PULSED DC, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           PRF 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           RISE-TIME 'RTIME' RANGE .000001 Sec TO 9900 Sec,
+           FALL-TIME 'FTIME' RANGE .000001 Sec TO 9900 Sec,
+	   PULSE-WIDTH 'PWIDTH' RANGE .000001 Sec TO 9900 Sec,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Pulsed DC                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  1 Volt DC offset                  \LF\',
+        C'  10 uSec Rise Time                \LF\',
+        C'  10 uSec Fall Time                \LF\',
+	C'  100 uSec Pulse Width             \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 50120$
+        PERFORM, 'RESULTS' $
+
+        OUTPUT,
+        C'   Pulsed DC [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Pulsed DC [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+C $
+CJW ADDED $
+       REMOVE, PULSED DC, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 050200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050005 $
+	ELSE $ 
+            GO TO, STEP 050100 $
+        END, IF $
+C $
+C       END OF Pulsed DC [VOLTAGE-P] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Pulsed DC Test [VOLTAGE-PP]
+C ******************************************************************* $
+C $
+C $
+B $
+ 050200 CALCULATE, 'AC-VOLTS-P' = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'RTIME'      = .00001 $
+        CALCULATE, 'FTIME'      = .00001 $
+        CALCULATE, 'PWIDTH'     = .0001 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'PERIOD'     = .001 $
+
+B $
+     05 OUTPUT,
+        C'          Pulsed DC [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 050299 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJWREMOVED       REMOVE, PULSED DC, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, PULSED DC, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE 0.01 V TO 16 V,
+           PERIOD 'PERIOD' RANGE .000101 Sec TO 10000 Sec,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           DUTY-CYCLE 12 PC,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Pulsed DC                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  12% Duty Cycle                    \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 50220$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Pulsed DC [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Pulsed DC [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, PULSED DC, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 050005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 050005 $
+	ELSE $ 
+            GO TO, STEP 050200 $
+        END, IF $
+C $
+C       END OF PULSED DC [VOLTAGE-PP] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Sinc Wave                
+C ******************************************************************* $
+C $
+C $
+B $
+ 060000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         Sinc Wave               \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage-P                      2\LF\',
+	 C' Voltage-PP                     3\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 060100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 060100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 060200 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 060005 $
+
+C *******************************************************************
+C * Sinc Wave Test [VOLTAGE-P]
+C ******************************************************************* $
+C $
+C $
+B $
+ 060100 CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 2 $
+
+B $
+     05 OUTPUT,
+        C'       Sinc Wave Test [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060199 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+C $
+CJW REMOVED       REMOVE, SINC WAVE, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, SINC WAVE, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+           BANDWIDTH 50 MHz,
+           DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Sinc Wave                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  2 Volt DC offset                  \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 50120$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Sinc Wave [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Sinc Wave [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, SINC WAVE, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 060200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 060005 $
+	ELSE $ 
+            GO TO, STEP 060100 $
+        END, IF $
+C $
+C       END OF Sinc Wave [VOLTAGE] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Sinc Wave Test [VOLTAGE-PP]
+C ******************************************************************* $
+C $
+C $
+B $
+ 060200 CALCULATE, 'AC-VOLTS-P' = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'PERIOD'     = .001 $
+
+
+B $
+     05 OUTPUT,
+        C'       Sinc Wave Test [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 060299 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJW REMOVED       REMOVE, SINC WAVE, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, SINC WAVE, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE 0.01 V TO 16 V,
+           PERIOD 'PERIOD' RANGE .000101 Sec TO 10000 Sec,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           BANDWIDTH 50 MHz,
+           BURST 5 CYCLES,
+           BURST-REP-RATE 40 Hz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Sinc Wave                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  Burst for 5 cycles                \LF\',
+        C'  Repeating every 25 mSec           \LF\',
+        C'                                    \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 50220$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Sinc Wave [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Sinc Wave [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, SINC WAVE, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 070100 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 060005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 060005 $
+	ELSE $ 
+            GO TO, STEP 060200 $
+        END, IF $
+C $
+C       END OF Sinc Wave [VOLTAGE-P] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Exponential Pulse Wave                
+C ******************************************************************* $
+C $
+C $
+B $
+ 070000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'     Exponential Pulse Wave      \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Voltage-P                      2\LF\',
+	 C' Voltage-PP                     3\LF\',
+	 C' Burst                          4\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 070100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 070100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 070200 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 4, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 070300 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 070005 $
+
+C *******************************************************************
+C * Exponential Pulse Wave Test [VOLTAGE-P]
+C ******************************************************************* $
+C $
+C $
+B $
+ 070100 CALCULATE, 'AC-VOLTS-P' = 2.5  $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10   $
+        CALCULATE, 'DC-VOLTS'   = 2    $
+
+B $
+     05 OUTPUT,
+        C'       Exponential Wave Test [VOLTAGE-P] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070199 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJW REMOVED       REMOVE, EXPONENTIAL PULSE WAVE, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, EXPONENTIAL PULSE WAVE, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+           DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           BANDWIDTH 50 MHz,
+           EXPONENT -2,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Exponential Pulse Wave            \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  2 Volt DC offset                  \LF\',
+        C'  Exponent -2                       \LF\',
+        C'                                    \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 70120$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Exponential Pulse Wave [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Exponential Pulse Wave [VOLTAGE-P], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, EXPONENTIAL PULSE WAVE, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 070200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 070005 $
+	ELSE $ 
+            GO TO, STEP 070100 $
+        END, IF $
+C $
+C       END OF Exponential Pulse Wave [VOLTAGE-P] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Exponential Pulse Wave Test [VOLTAGE-PP]
+C ******************************************************************* $
+C $
+C $
+B $
+ 070200 CALCULATE, 'AC-VOLTS-P' = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+	CALCULATE, 'PERIOD'     = .001 $
+        
+
+B $
+     05 OUTPUT,
+        C'       Exponential Wave Test [VOLTAGE-PP] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070299 $
+        END, IF $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJW REMOVED       REMOVE, EXPONENTIAL PULSE WAVE, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, EXPONENTIAL PULSE WAVE, 
+           VOLTAGE-PP 'AC-VOLTS-P' RANGE 0.01 V TO 16 V,
+           PERIOD 'PERIOD' RANGE .000101 Sec TO 10000 Sec,
+	   DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           BANDWIDTH 50 MHz,
+           EXPONENT -1,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Exponential Pulse Wave            \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  Exponent -1                       \LF\',
+        C'                                    \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 70220$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Exponential Pulse Wave [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Exponential Pulse Wave [VOLTAGE-PP], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, EXPONENTIAL PULSE WAVE, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 070300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 070005 $
+	ELSE $ 
+            GO TO, STEP 070200 $
+        END, IF $
+C $
+C       END OF Exponential Pulse Wave [VOLTAGE-PP] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+
+C $
+C *******************************************************************
+C * Exponential Pulse Wave Test [BURST]
+C ******************************************************************* $
+C $
+C $
+B $
+ 070300 CALCULATE, 'AC-VOLTS-P' = 2.5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+
+B $
+     05 OUTPUT,
+        C'       Exponential Wave Test [BURST] Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 070399 $
+        END, IF $
+C $
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJW REMOVED       REMOVE, EXPONENTIAL PULSE WAVE, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, EXPONENTIAL PULSE WAVE, 
+           VOLTAGE-P 'AC-VOLTS-P' RANGE 0.005 V TO 8 V,
+           FREQ 'FREQ' RANGE .000100 Hz TO 1000000 Hz,
+           DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           BANDWIDTH 50 MHz,
+           EXPONENT -1,
+           BURST 10 Cycles,
+           PRF 20 Hz,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Sinc Wave                         \LF\',
+        C'  5 V Peak to Peak                  \LF\',
+        C'  1000 Hz                           \LF\',
+        C'  0 Volt DC offset                  \LF\',
+        C'  Exponent -1                       \LF\',
+        C'  Burst for 10 cycles               \LF\',
+        C'  Repeating every 50 mSec           \LF\',
+	C'                                    \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 70320$
+        PERFORM, 'RESULTS' $
+C $
+
+        OUTPUT,
+        C'   Exponential Pulse Wave [BURST], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Exponential Pulse Wave [BURST], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, EXPONENTIAL PULSE WAVE, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 080000 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 070005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 070005 $
+	ELSE $ 
+            GO TO, STEP 070300 $
+        END, IF $
+C $
+C       END OF Exponential Pulse Wave [BURST] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * DC Signal                
+C ******************************************************************* $
+C $
+C $
+B $
+ 080000 CALCULATE, 'RESISTANCE' = 10000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 5 $
+B $
+     05 OUTPUT,
+        C'      DC Signal Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 080099 $
+        END, IF $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+
+CJW REMOVED       REMOVE, DC SIGNAL, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, DC SIGNAL, 
+           VOLTAGE 'DC-VOLTS' RANGE -8.0 V TO 8.0 V,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  DC Signal                         \LF\',
+        C'  5 V                               \LF\',
+	C'                                    \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 80020$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   DC Signal Test, Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+
+        OUTPUT, TO 'PRINTER',
+        C'   DC Signal Test, Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	   \LF\'     $
+
+CJW ADDED $
+       REMOVE, DC SIGNAL, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 090100 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $ 
+            GO TO, STEP 080000 $
+        END, IF $
+C $
+C       END OF DC Signal TEST TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+
+C $
+C *******************************************************************
+C * Waveform                
+C ******************************************************************* $
+C $
+C $
+B $
+ 090000 CALCULATE, 'SUB-CHOICE' = 0 		$
+        CALCULATE, 'SUB-E-E' = FALSE 		$
+B $
+     05 OUTPUT,
+         C'         Waveform                \LF\',
+         C' --------------------------------\LF\',
+         C' Run All Tests                  1\LF\',
+         C' Staircase                      2\LF\',
+	 C' Staircase with DC offset       3\LF\',
+         C' Exit                           0\LF\',
+	 C'\LF\',
+         C' Enter a selection\LF\'$
+
+     10	INPUT, INTO 'SUB-CHOICE' $
+
+        OUTPUT, 
+         C' Selection:','SUB-CHOICE',C'\LF\'  $
+        IF, 'SUB-CHOICE' EQ 0, THEN $
+          GO TO, STEP 001005 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 1, THEN $
+          CALCULATE, 'SUB-E-E' = TRUE $
+          GO TO, STEP 090100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 2, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 090100 $
+        END, IF $
+        IF, 'SUB-CHOICE' EQ 3, THEN $
+          CALCULATE, 'SUB-E-E' = FALSE $
+          GO TO, STEP 090200 $
+        END, IF $
+
+    	OUTPUT, C'Not a valid option.  Please select from menu.' $
+
+        GO TO, STEP 090005 $
+
+C *******************************************************************
+C * Waveform Test [VOLTAGE]
+C ******************************************************************* $
+C $
+C $
+B $
+ 090100 CALCULATE, 'AC-VOLTS-P' = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 0 $
+        CALCULATE, 'PERIOD'     = .00001 $
+	CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        
+B $
+     05 OUTPUT,
+        C'      Waveform Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 090199 $
+        END, IF $
+
+        FOR, 'IDX' = 1 THRU 20, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 0 $
+	END, FOR $
+	FOR, 'IDX' = 21 THRU 40, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 1 $
+	END, FOR $
+	FOR, 'IDX' = 41 THRU 60, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 2 $
+	END, FOR $
+	FOR, 'IDX' = 61 THRU 80, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 3 $
+	END, FOR $
+	FOR, 'IDX' = 81 THRU 100, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 4 $
+	END, FOR $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJW REMOVED       REMOVE, WAVEFORM, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, WAVEFORM, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           STIM 'STAIRCASE'(1 THRU 100),
+           SAMPLE-SPACING 'PERIOD' RANGE .00000001 Sec TO 10 Sec,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Staircase                         \LF\',
+        C'  From 0 V to 4 V                   \LF\',
+	C'  1000 Hz                           \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 90120$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Waveform [Staircase], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Waveform [Staircase], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, WAVEFORM, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 090200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 090005 $
+	ELSE $ 
+            GO TO, STEP 090100 $
+        END, IF $
+C $
+C       END OF Waveform [Staircase] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Waveform Test [DC Offset]
+C ******************************************************************* $
+C $
+C $
+B $
+ 090200 CALCULATE, 'AC-VOLTS-P' = 5 $
+        CALCULATE, 'FREQ'       = 1000 $
+        CALCULATE, 'MAX-T'      = 10 $
+        CALCULATE, 'DC-VOLTS'   = 1 $
+        CALCULATE, 'PERIOD'     = .00001 $
+	CALCULATE, 'AC-VOLTS-RMS' = 'AC-VOLTS-P' / 1.41416 $
+        
+
+B $
+     05 OUTPUT,
+        C'      Waveform Test\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Connect the output of the Function Generator to a scope\LF\',
+	C'  with a 50 Ohm input impedance.                         \LF\',
+	C'  \LF\',
+        C'  T - Ready to test.\LF\',
+        C'  F - Skip test.\LF\'          $
+
+
+     10 INPUT, INTO'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 090299 $
+        END, IF $
+
+        FOR, 'IDX' = 1 THRU 20, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 0 $
+	END, FOR $
+	FOR, 'IDX' = 21 THRU 40, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 1 $
+	END, FOR $
+	FOR, 'IDX' = 41 THRU 60, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 2 $
+	END, FOR $
+	FOR, 'IDX' = 61 THRU 80, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 3 $
+	END, FOR $
+	FOR, 'IDX' = 81 THRU 100, THEN $
+            CALCULATE, 'STAIRCASE'('IDX') = 4 $
+	END, FOR $
+
+C $
+         CALCULATE, 'VER-UL' = 0	$
+         CALCULATE, 'VER-LL' = 0	$
+
+CJW REMOVED       REMOVE, WAVEFORM, 
+          CNX HI FncGen_1-HI $
+
+    20 APPLY, WAVEFORM, 
+           VOLTAGE 'AC-VOLTS-RMS' RANGE .00354 V TO 5.66 V,
+           DC-OFFSET 'DC-VOLTS' RANGE -7.19 V TO 7.19 V,
+           STIM 'STAIRCASE'(1 THRU 100),
+           SAMPLE-SPACING 'PERIOD' RANGE .00000001 Sec TO 10 Sec,
+          CNX HI FncGen_1-HI $
+
+C $
+     25 OUTPUT,
+        C'  Verify the Fuction Generator is generating\LF\',
+        C'   a signal with the following parameters\LF\',
+        C'  --------------------------------------\LF\',
+        C'  Staircase                         \LF\',
+        C'  From 0 V to 4 V                   \LF\',
+	C'  1000 Hz                           \LF\',
+        C'  1 V DC Offset                     \LF\',
+        C'  \LF\',
+        C'  T - Test Passed.\LF\',
+        C'  F - Test Failed.\LF\'          $
+C $
+     30 INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'TESTNO' = 90220$
+        PERFORM, 'RESULTS' $
+C $
+        OUTPUT,
+        C'   Waveform [DC OFFSET], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+        OUTPUT, TO 'PRINTER',
+        C'   Waveform [DC OFFSET], Ranged, non-Triggered \LF\',
+        C'  --------------------------------------	\LF\'        $
+
+C $
+CJW ADDED $
+       REMOVE, WAVEFORM, 
+          CNX HI FncGen_1-HI $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 100000 $
+        END, IF $
+	IF, 'SUB-E-E' EQ TRUE, THEN $
+            GO TO, STEP 090005 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 090005 $
+	ELSE $ 
+            GO TO, STEP 090200 $
+        END, IF $
+C $
+C       END OF Waveform [PERIOD] TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C *******************************************************************
+C * SUMMARY
+C ******************************************************************* $
+C $
+B $
+ 100000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+         C' --------------------------------------\LF\',
+         C'  END - END TEST			  \LF\',
+         C'     PASSED				  \LF\',
+         C' --------------------------------------\LF\'          $
+
+	  OUTPUT, TO 'PRINTER',   	
+         C' --------------------------------------\LF\',
+         C'  END - END TEST			  \LF\',
+         C'     PASSED				  \LF\',
+         C' --------------------------------------\LF\'          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\					        ',	
+         C' --------------------------------------  \LF\',
+         C'  END - END TEST			    \LF\',
+         C'  FAILED WITH', 'FAIL-FLAG', C' FAILURES \LF\',
+         C' --------------------------------------  \LF\'        $
+
+	  OUTPUT, TO 'PRINTER',
+	 C' -------------------------------------- \LF\',
+         C'  END - END TEST			   \LF\',
+         C'  FAILED WITH', 'FAIL-FLAG', C'FAILURES \LF\',
+         C' -------------------------------------- \LF\'         $
+
+
+        END, IF  $
+ 100100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+ 999999 TERMINATE, ATLAS PROGRAM 'FncGen Benchmark' $

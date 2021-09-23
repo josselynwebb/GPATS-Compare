@@ -1,0 +1,273 @@
+********************************************************************************
+*
+* FILENAME    : Srs.ddb
+*
+* INSTRUMENT  : Na65CS4 Synchro Resolver (SRS)
+*
+* ATLAS Subset: PAWS-85 (IEEE416/IEEE716-1985)
+*
+* PROJECT     : General
+*
+*                          Function Number Map
+*
+* FNC: 8-bit value such that
+*        bits 7-6: sync source
+*                     01 EXT
+*                     10 TTL
+*               5: multi-speed
+*                      0 no
+*                      1 yes
+*             4-3: channel (coarse if multi-speed)
+*                     01 CH1
+*                     10 CH2
+*               2: measurement
+*                      0 angle
+*                      1 angle-rate
+*               1: channel mode
+*                      0 synchro
+*                      1 resolver
+*               0: simulator/indicator
+*                      0 indicator
+*                      1 simulator
+*
+*
+*                 SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   20060331  Initial Release                                 EADS NA Defense
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev SRS_1;
+	begin;
+		control
+		{
+			ref-source int, ext;
+			voltage-ref range 2.0 v to 115.0 v continuous;
+		}
+
+		*** Channel 1 ***
+		begin; * using CHAN1;
+			begin using SIM_CHAN1;  * Simulator
+				cnx s1 SRS_1_1-DS-S1, s2 SRS_1_1-DS-S2, s3 SRS_1_1-DS-S3,
+				s4 SRS_1_1-DS-S4,
+				x SRS_1_1-DS-S1, y SRS_1_1-DS-S2, z SRS_1_1-DS-S3;
+				cnx event-sync SRS-EvSync;
+				cnx-ref hi SRS_1_1-DS-RHI, lo SRS_1_1-DS-RLO;
+
+				control
+				{
+					angle range 0.0 deg to 359.99 deg;
+					angle-rate 0.00 deg/sec to 4896.00 deg/sec;
+					voltage range 1.0 v to 90.0 v continuous;
+					freq range 47 hz to 2000 hz continuous;
+					event-sync;
+				}
+
+				begin FNC = 9;
+					source synchro;
+				end;
+
+				begin FNC = 11;
+					source resolver;
+				end;
+			end;  * using SIM_CHAN1
+
+			begin using IND_CHAN1;  * Indicator
+				cnx s1 SRS_1_1-SD-S1, s2 SRS_1_1-SD-S2, s3 SRS_1_1-SD-S3,
+				s4 SRS_1_1-SD-S4,
+				x SRS_1_1-SD-S1, y SRS_1_1-SD-S2, z SRS_1_1-SD-S3;
+				cnx trig-in-hi SRS_1-TRIGGER-HI, trig-in-lo SRS_1-TRIGGER-LO;
+				cnx-ref hi SRS_1_1-SD-RHI, lo SRS_1_1-SD-RLO;
+
+				control
+				{
+					angle range 0.0 deg to 359.99 deg;
+					angle-rate 0.00 deg/sec to 1684.80 deg/sec;
+					voltage range 1.0 v to 90.0 v continuous;
+					freq range 47 hz to 2000 hz continuous;
+				}
+
+				begin FNC = 8;
+					sensor (angle) synchro;
+				end;
+
+				begin FNC = 12;
+					sensor (angle-rate) synchro;
+				end;
+
+				begin FNC = 10;
+					sensor (angle) resolver;
+				end;
+
+				begin FNC = 14;
+					sensor (angle-rate) resolver;
+				end;
+			end;  * using IND_CHAN1
+		end;  * end CHAN1
+
+		*** Channel 2 ***
+		begin; * using CHAN2;
+			begin using SIM_CHAN2;  * Simulator
+				cnx s1 SRS_1_2-DS-S1, s2 SRS_1_2-DS-S2, s3 SRS_1_2-DS-S3,
+				s4 SRS_1_2-DS-S4,
+				x SRS_1_2-DS-S1, y SRS_1_2-DS-S2, z SRS_1_2-DS-S3;
+				cnx trig-in-hi SRS_1-TRIGGER-HI, trig-in-lo SRS_1-TRIGGER-LO;
+				cnx event-sync SRS-EvSync;
+				cnx-ref hi SRS_1_2-DS-RHI, lo SRS_1_2-DS-RLO;
+
+				control
+				{
+					angle range 0.0 deg to 359.99 deg;
+					angle-rate 0.00 deg/sec to 4896.00 deg/sec;
+					voltage range 1.0 v to 90.0 v continuous;
+					freq range 47 hz to 2000 hz continuous;
+					event-sync;
+				}
+
+				begin FNC = 17;
+					source synchro;
+				end;
+
+				begin FNC = 19;
+					source resolver;
+				end;
+			end;  * using SIM_CHAN2
+
+			begin using IND_CHAN2;  * Indicator
+				cnx s1 SRS_1_2-SD-S1, s2 SRS_1_2-SD-S2, s3 SRS_1_2-SD-S3,
+				s4 SRS_1_2-SD-S4,
+				x SRS_1_2-SD-S1, y SRS_1_2-SD-S2, z SRS_1_2-SD-S3;
+				cnx trig-in-hi SRS_1-TRIGGER-HI, trig-in-lo SRS_1-TRIGGER-LO;
+				cnx-ref hi SRS_1_2-SD-RHI, lo SRS_1_2-SD-RLO;
+
+				control
+				{
+					angle range 0.0 deg to 359.99 deg;
+					angle-rate 0.00 deg/sec to 1684.80 deg/sec;
+					voltage range 1.0 v to 90.0 v continuous;
+					freq range 47 hz to 2000 hz continuous;
+				}
+
+				begin FNC = 16;
+					sensor (angle) synchro;
+				end;
+
+				begin FNC = 20;
+					sensor (angle-rate) synchro;
+				end;
+
+				begin FNC = 18;
+					sensor (angle) resolver;
+				end;
+
+				begin FNC = 22;
+					sensor (angle-rate) resolver;
+				end;
+			end;  * using IND_CHAN2
+		end; * end CHAN2
+
+
+		*** Multi-Speed (CH1 & CH2) ***
+		begin; * using CHAN1, CHAN2;
+			begin using SIM_CHAN1, SIM_CHAN2;
+				cnx s1 SRS_1_1-DS-S1, s2 SRS_1_1-DS-S2, s3 SRS_1_1-DS-S3,
+				s4 SRS_1_1-DS-S4,
+				x SRS_1_1-DS-S1, y SRS_1_1-DS-S2, z SRS_1_1-DS-S3;
+				cnx s1-fine SRS_1_2-DS-S1, s2-fine SRS_1_2-DS-S2, s3-fine SRS_1_2-DS-S3,
+				s4-fine SRS_1_2-DS-S4,
+				x-fine SRS_1_2-DS-S1, y-fine SRS_1_2-DS-S2, z-fine SRS_1_2-DS-S3;
+				cnx trig-in-hi SRS_1-TRIGGER-HI, trig-in-lo SRS_1-TRIGGER-LO;
+				cnx event-sync SRS-EvSync;
+				cnx-ref hi SRS_1_1-DS-RHI, lo SRS_1_1-DS-RLO;
+
+				control
+				{
+					speed-ratio range 1 to 255 by 1;
+					angle range 0.0 deg to 359.99 deg;
+					angle-rate 0.00 deg/sec to 4896.00 deg/sec;
+					voltage range 1.0 v to 90.0 v continuous;
+					freq range 47 hz to 2000 hz continuous;
+					event-sync;
+				}
+
+				begin FNC = 41;
+					source synchro;
+				end;
+
+				begin FNC = 43;
+					source resolver;
+				end;
+			end;  * using SIM_CHAN1, SIM_CHAN2
+
+			begin using IND_CHAN1, IND_CHAN2;
+				cnx s1 SRS_1_1-SD-S1, s2 SRS_1_1-SD-S2, s3 SRS_1_1-SD-S3,
+				s4 SRS_1_1-SD-S4,
+				x SRS_1_1-SD-S1, y SRS_1_1-SD-S2, z SRS_1_1-SD-S3;
+				cnx s1-fine SRS_1_2-SD-S1, s2-fine SRS_1_2-SD-S2, s3-fine SRS_1_2-SD-S3,
+				s4-fine SRS_1_2-SD-S4,
+				x-fine SRS_1_2-SD-S1, y-fine SRS_1_2-SD-S2, z-fine SRS_1_2-SD-S3;
+				cnx trig-in-hi SRS_1-TRIGGER-HI, trig-in-lo SRS_1-TRIGGER-LO;
+				cnx-ref hi SRS_1_1-SD-RHI, lo SRS_1_1-SD-RLO;
+
+				control
+				{
+					speed-ratio range 1 to 255 by 1;
+					angle range 0.0 deg to 359.99 deg;
+					angle-rate 0.00 deg/sec to 1684.80 deg/sec;
+					voltage range 1.0 v to 90.0 v continuous;
+					freq range 47 hz to 2000 hz continuous;
+				}
+
+				begin FNC = 40;
+					sensor (angle) synchro;
+				end;
+
+				begin FNC = 44;
+					sensor (angle-rate) synchro;
+				end;
+
+				begin FNC = 42;
+					sensor (angle) resolver;
+				end;
+
+				begin FNC = 46;
+					sensor (angle-rate) resolver;
+				end;
+			end;  * using SIM_CHAN1, SIM_CHAN2
+		end; * end CHAN1, CHAN2
+	end;  * end SRS-SYNC
+
+
+	begin;  * events
+		control
+		{
+			voltage range 0 v to 50 v continuous;
+			pos-slope;
+			neg-slope;
+		}
+
+		begin using SRS-SYNC; * events for sync
+			event monitor (voltage) dc signal;
+			cnx event-out SRS-EvSync;
+			control
+			{
+				event-indicator;
+				event-out;
+				voltage range 0 v to 50 v continuous;
+				event-slope pos,neg;
+			}
+
+			begin FNC = 64;
+				cnx hi SRS_1-TRIGGER-HI, lo SRS_1-TRIGGER-LO;
+			end;
+
+			begin FNC = 128;
+				cnx hi SRS_1-TTL;
+			end;
+		end;
+	end;  * end events
+
+end;  * end SRS_1

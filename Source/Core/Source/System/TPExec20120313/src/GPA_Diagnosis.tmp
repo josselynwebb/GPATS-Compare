@@ -1,0 +1,7 @@
+** Seeding Enabled with 5 Mismatch and 5 Fault Sets **
+** Reset of DTI is Disabled **
+** Detecting failure from GO/NOGO...
+** Primary Output pin P1_72 failed at pattern 15452
+** DIAGNOSED FAULT ON NET U19_3:
+** Driving Output Pin(s) -  U27_15
+** Input Pin(s) -  U19_3

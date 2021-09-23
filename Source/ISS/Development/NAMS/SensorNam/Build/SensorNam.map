@@ -1,0 +1,563 @@
+ SensorNam
+
+ Timestamp is 4f904b38 (Thu Apr 19 13:28:24 2012)
+
+ Preferred load address is 00400000
+
+ Start         Length     Name                   Class
+ 0001:00000000 0000686eH .text                   CODE
+ 0002:00000000 000002f4H .rdata                  DATA
+ 0002:000002f4 00000000H .edata                  DATA
+ 0003:00000000 00000004H .CRT$XCA                DATA
+ 0003:00000004 00000014H .CRT$XCU                DATA
+ 0003:00000018 00000004H .CRT$XCZ                DATA
+ 0003:0000001c 00000004H .CRT$XIA                DATA
+ 0003:00000020 00000004H .CRT$XIZ                DATA
+ 0003:00000030 000006e4H .data                   DATA
+ 0003:00000718 00000fccH .bss                    DATA
+ 0004:00000000 0000008cH .idata$2                DATA
+ 0004:0000008c 00000014H .idata$3                DATA
+ 0004:000000a0 0000011cH .idata$4                DATA
+ 0004:000001bc 0000011cH .idata$5                DATA
+ 0004:000002d8 0000037eH .idata$6                DATA
+ 0005:00000000 00000058H .rsrc$01                DATA
+ 0005:00000060 00000408H .rsrc$02                DATA
+
+  Address         Publics by Value              Rva+Base     Lib:Object
+
+ 0001:00000200       ?getClientCount@IRFPm_if@@QAEJPAJ@Z 00401200 f   rfms.obj
+ 0001:00000260       ?setLock@IRFPm_if@@QAEJJ@Z 00401260 f   rfms.obj
+ 0001:000002c0       ?getLock@IRFPm_if@@QAEJPAJ@Z 004012c0 f   rfms.obj
+ 0001:00000320       ?getSimulatorMode@IRFPm_if@@QAEJPAJ@Z 00401320 f   rfms.obj
+ 0001:00000380       ?open@IRFPm_if@@QAEJJ@Z    00401380 f   rfms.obj
+ 0001:000003e0       ?close@IRFPm_if@@QAEJXZ    004013e0 f   rfms.obj
+ 0001:00000430       ?reset@IRFPm_if@@QAEJXZ    00401430 f   rfms.obj
+ 0001:00000480       ?bit@IRFPm_if@@QAEJXZ      00401480 f   rfms.obj
+ 0001:000004d0       ?restoreInstrSettings@IRFPm_if@@QAEJPBD@Z 004014d0 f   rfms.obj
+ 0001:00000530       ?saveInstrSettings@IRFPm_if@@QAEJPBD@Z 00401530 f   rfms.obj
+ 0001:00000590       ?getError@IRFPm_if@@QAEJPAJ0PAPAGJ1J@Z 00401590 f   rfms.obj
+ 0001:00000600       ?getLockStatus@IRFPm_if@@QAEJPAJ@Z 00401600 f   rfms.obj
+ 0001:00000660       ?setMeasureMode@IRFPm_if@@QAEJJ@Z 00401660 f   rfms.obj
+ 0001:000006c0       ?getMeasureMode@IRFPm_if@@QAEJPAJ@Z 004016c0 f   rfms.obj
+ 0001:00000720       ?setCalState@IRFPm_if@@QAEJJ@Z 00401720 f   rfms.obj
+ 0001:00000780       ?getCalState@IRFPm_if@@QAEJPAJ@Z 00401780 f   rfms.obj
+ 0001:000007e0       ?setPowerOffset@IRFPm_if@@QAEJJ@Z 004017e0 f   rfms.obj
+ 0001:00000840       ?getPowerOffset@IRFPm_if@@QAEJPAJ@Z 00401840 f   rfms.obj
+ 0001:000008a0       ?setPowerOffsetVal@IRFPm_if@@QAEJMPBD@Z 004018a0 f   rfms.obj
+ 0001:00000900       ?getPowerOffsetVal@IRFPm_if@@QAEJPAMPAPAG@Z 00401900 f   rfms.obj
+ 0001:00000960       ?setPowerHead@IRFPm_if@@QAEJPBD@Z 00401960 f   rfms.obj
+ 0001:000009c0       ?getPowerHead@IRFPm_if@@QAEJPAPAG@Z 004019c0 f   rfms.obj
+ 0001:00000a20       ?setPwrCorrectionFactor@IRFPm_if@@QAEJM@Z 00401a20 f   rfms.obj
+ 0001:00000a80       ?getPwrCorrectionFactor@IRFPm_if@@QAEJPAM@Z 00401a80 f   rfms.obj
+ 0001:00000ae0       ?setExpFreq@IRFPm_if@@QAEJMPBD@Z 00401ae0 f   rfms.obj
+ 0001:00000b40       ?getExpFreq@IRFPm_if@@QAEJPAMPAPAG@Z 00401b40 f   rfms.obj
+ 0001:00000ba0       ?setAveraging@IRFPm_if@@QAEJJ@Z 00401ba0 f   rfms.obj
+ 0001:00000c00       ?getAveraging@IRFPm_if@@QAEJPAJ@Z 00401c00 f   rfms.obj
+ 0001:00000c60       ?setNumOfAverages@IRFPm_if@@QAEJJ@Z 00401c60 f   rfms.obj
+ 0001:00000cc0       ?getNumOfAverages@IRFPm_if@@QAEJPAJ@Z 00401cc0 f   rfms.obj
+ 0001:00000d20       ?setTrigType@IRFPm_if@@QAEJJ@Z 00401d20 f   rfms.obj
+ 0001:00000d80       ?getTrigType@IRFPm_if@@QAEJPAJ@Z 00401d80 f   rfms.obj
+ 0001:00000de0       ?setRefOsc@IRFPm_if@@QAEJJ@Z 00401de0 f   rfms.obj
+ 0001:00000e40       ?getRefOsc@IRFPm_if@@QAEJPAJ@Z 00401e40 f   rfms.obj
+ 0001:00000ea0       ?setDisplayRate@IRFPm_if@@QAEJJ@Z 00401ea0 f   rfms.obj
+ 0001:00000f00       ?getDisplayRate@IRFPm_if@@QAEJPAJ@Z 00401f00 f   rfms.obj
+ 0001:00000f60       ?getMeasurement@IRFPm_if@@QAEJPAMPAPAG@Z 00401f60 f   rfms.obj
+ 0001:00000fc0       ?setMeasureUnits@IRFPm_if@@QAEJPBD@Z 00401fc0 f   rfms.obj
+ 0001:00001020       ?doCal@IRFPm_if@@QAEJXZ    00402020 f   rfms.obj
+ 0001:00001070       ?doZero@IRFPm_if@@QAEJXZ   00402070 f   rfms.obj
+ 0001:000010c0       ?getLastMeasurement@IRFPm_if@@QAEJPAMPAPAG@Z 004020c0 f   rfms.obj
+ 0001:00001120       ?setPwrMeterOn_Off@IRFPm_if@@QAEJJ@Z 00402120 f   rfms.obj
+ 0001:00001180       ?getNumOfPowerHeads@IRFPm_if@@QAEJPAJ@Z 00402180 f   rfms.obj
+ 0001:000011e0       ?readCFTable@IRFPm_if@@QAEJPAPAG@Z 004021e0 f   rfms.obj
+ 0001:00001240       ?getPowerHeadList@IRFPm_if@@QAEJPAUtagVARIANT@@@Z 00402240 f   rfms.obj
+ 0001:000012a0       ?changePHDescr@IRFPm_if@@QAEJPBD@Z 004022a0 f   rfms.obj
+ 0001:00001300       ?saveCFTable@IRFPm_if@@QAEJPBD@Z 00402300 f   rfms.obj
+ 0001:00001360       ?getRFMSVXIResrcInfo@IRFPm_if@@QAEJPAPAG000@Z 00402360 f   rfms.obj
+ 0001:000013c0       ?getVersion@IRFPm_if@@QAEJPAPAG@Z 004023c0 f   rfms.obj
+ 0001:00001420       ?setMaxTime@IRFPm_if@@QAEJJ@Z 00402420 f   rfms.obj
+ 0001:00001480       ?getMaxTime@IRFPm_if@@QAEJPAJ@Z 00402480 f   rfms.obj
+ 0001:000014e0       ?setMonitorMode@IRFPm_if@@QAEJJ@Z 004024e0 f   rfms.obj
+ 0001:00001540       ?getMonitorMode@IRFPm_if@@QAEJPAJ@Z 00402540 f   rfms.obj
+ 0001:000015a0       ?getMeasureUnits@IRFPm_if@@QAEJPAPAG@Z 004025a0 f   rfms.obj
+ 0001:00001600       ?getPwrMeterOn_Off@IRFPm_if@@QAEJPAJ@Z 00402600 f   rfms.obj
+ 0001:00001660       ?setRefCalFac@IRFPm_if@@QAEJM@Z 00402660 f   rfms.obj
+ 0001:000016c0       ?getRefCalFac@IRFPm_if@@QAEJPAM@Z 004026c0 f   rfms.obj
+ 0001:00001720       ?doZeroAndCal@IRFPm_if@@QAEJXZ 00402720 f   rfms.obj
+ 0001:00001770       ?setRangeUpper@IRFPm_if@@QAEJMPBD@Z 00402770 f   rfms.obj
+ 0001:000017d0       ?getRangeUpper@IRFPm_if@@QAEJPAMPAPAG@Z 004027d0 f   rfms.obj
+ 0001:00001830       ?setRangeLower@IRFPm_if@@QAEJMPBD@Z 00402830 f   rfms.obj
+ 0001:00001890       ?getRangeLower@IRFPm_if@@QAEJPAMPAPAG@Z 00402890 f   rfms.obj
+ 0001:000018f0       ?setAutoRange@IRFPm_if@@QAEJXZ 004028f0 f   rfms.obj
+ 0001:00001940       ?getRangeMode@IRFPm_if@@QAEJPAJ@Z 00402940 f   rfms.obj
+ 0001:000019a0       ?setPowerHeadSerNum@IRFPm_if@@QAEJPBD@Z 004029a0 f   rfms.obj
+ 0001:00001a00       ?getPowerHeadSerNum@IRFPm_if@@QAEJPAPAG@Z 00402a00 f   rfms.obj
+ 0001:00001a60       ?setAttenuatorSerNum@IRFPm_if@@QAEJPBD@Z 00402a60 f   rfms.obj
+ 0001:00001ac0       ?getAttenuatorSerNum@IRFPm_if@@QAEJPAPAG@Z 00402ac0 f   rfms.obj
+ 0001:00001b20       ?getZeroCalStatus@IRFPm_if@@QAEJPAJ@Z 00402b20 f   rfms.obj
+ 0001:00001b80       ?getInstrStatus@IRFPm_if@@QAEJPAJ@Z 00402b80 f   rfms.obj
+ 0001:00001e60       ??0IRFPm_if@@QAE@XZ        00402e60 f i SensorNAM.obj
+ 0001:00001f20       ??1IRFPm_if@@QAE@XZ        00402f20 f i SensorNAM.obj
+ 0001:00001f60       ?strtoupper@@YAPADPAD@Z    00402f60 f   SensorNAM.obj
+ 0001:00001fe0       ?CloseNAM@@YAXJQAD@Z       00402fe0 f   SensorNAM.obj
+ 0001:00002090       ?VisaErrorMessage@@YAPADJ@Z 00403090 f   SensorNAM.obj
+ 0001:00002230       ?AtlW2AHelper@@YGPADPADPBGH@Z 00403230 f i SensorNAM.obj
+ 0001:00002270       ?AtlW2AHelper@@YGPADPADPBGHI@Z 00403270 f i SensorNAM.obj
+ 0001:00002340       ?WaitForResponse@@YAXH@Z   00403340 f   SensorNAM.obj
+ 0001:000024a0       ?get_datatable@@YAXQADPAD@Z 004034a0 f   SensorNAM.obj
+ 0001:00002620       _main                      00403620 f   SensorNAM.obj
+ 0001:00002c08       _lstrlenW@4                00403c08 f   kernel32:KERNEL32.dll
+ 0001:00002c0e       _WideCharToMultiByte@32    00403c0e f   kernel32:KERNEL32.dll
+ 0001:00002c14       _Sleep@4                   00403c14 f   kernel32:KERNEL32.dll
+ 0001:00002c1a       _GetPrivateProfileStringA@24 00403c1a f   kernel32:KERNEL32.dll
+ 0001:00002c20       _GetWindowsDirectoryA@8    00403c20 f   kernel32:KERNEL32.dll
+ 0001:00002c26       _CoUninitialize@0          00403c26 f   ole32:ole32.dll
+ 0001:00002c2c       _CoInitialize@4            00403c2c f   ole32:ole32.dll
+ 0001:00002c32       _SysFreeString@4           00403c32 f   oleaut32:OLEAUT32.dll
+ 0001:00002c38       _SysAllocStringLen@8       00403c38 f   oleaut32:OLEAUT32.dll
+ 0001:00002c70       _v_init                    00403c70 f   nam:vm.obj
+ 0001:00002d50       _v_fini                    00403d50 f   nam:vm.obj
+ 0001:00002db0       _v_opn                     00403db0 f   nam:vm.obj
+ 0001:00002de0       _v_map                     00403de0 f   nam:vm.obj
+ 0001:00002ec0       _v_cls                     00403ec0 f   nam:vm.obj
+ 0001:00002f30       _v_cpy                     00403f30 f   nam:vm.obj
+ 0001:00002fe0       _v_dts                     00403fe0 f   nam:vm.obj
+ 0001:00003130       _get_ciil                  00404130 f   nam:vir.obj
+ 0001:000031c0       _mov_dfv                   004041c0 f   nam:vir.obj
+ 0001:00003220       _mov_dtv                   00404220 f   nam:vir.obj
+ 0001:00003270       _get_dfv                   00404270 f   nam:vir.obj
+ 0001:00003e00       _put_dtv                   00404e00 f   nam:vir.obj
+ 0001:00004b60       _mov_dvv                   00405b60 f   nam:vir.obj
+ 0001:00004d70       _mov_str                   00405d70 f   nam:vir.obj
+ 0001:00005170       _processArgs               00406170 f   nam:OSmain.obj
+ 0001:00005440       _OSmain                    00406440 f   nam:OSmain.obj
+ 0001:00005480       _OSwmain                   00406480 f   nam:OSmain.obj
+ 0001:000054c0       _CScomm                    004064c0 f   nam:CScomm.obj
+ 0001:000054d0       _OScomm                    004064d0 f   nam:OScomm.obj
+ 0001:000054e0       _FmtA1                     004064e0 f   nam:dummy.obj
+ 0001:000054f0       _FmtA5                     004064f0 f   nam:dummy.obj
+ 0001:00005500       _IOputs                    00406500 f   nam:dummy.obj
+ 0001:00005510       _chk_clk                   00406510 f   nam:dummy.obj
+ 0001:00005520       _crash                     00406520 f   nam:dummy.obj
+ 0001:00005530       _eror_msg                  00406530 f   nam:dummy.obj
+ 0001:00005540       _inform                    00406540 f   nam:dummy.obj
+ 0001:00005550       _message                   00406550 f   nam:dummy.obj
+ 0001:00005560       _warn_msg                  00406560 f   nam:dummy.obj
+ 0001:00005570       _OSmalloc                  00406570 f   nam:OSmalloc.obj
+ 0001:000055b0       _OSmfree                   004065b0 f   nam:OSmfree.obj
+ 0001:000055d0       _OSfopen                   004065d0 f   nam:OSfopen.obj
+ 0001:00005750       _OSfclose                  00406750 f   nam:OSfclose.obj
+ 0001:000057a0       _OSfwrite                  004067a0 f   nam:OSfwrite.obj
+ 0001:000057d0       _OSfseek                   004067d0 f   nam:OSfseek.obj
+ 0001:00005800       _OSfread                   00406800 f   nam:OSfread.obj
+ 0001:00005830       _putxlong                  00406830 f   nam:vircpy.obj
+ 0001:00005850       _putxdouble                00406850 f   nam:vircpy.obj
+ 0001:00005880       _pt_short                  00406880 f   nam:vircpy.obj
+ 0001:000058e0       _pt_long                   004068e0 f   nam:vircpy.obj
+ 0001:00005910       _pt_double                 00406910 f   nam:vircpy.obj
+ 0001:00005940       _getxlong                  00406940 f   nam:vircpy.obj
+ 0001:00005960       _getxdouble                00406960 f   nam:vircpy.obj
+ 0001:00005980       _pg_short                  00406980 f   nam:vircpy.obj
+ 0001:000059d0       _pg_long                   004069d0 f   nam:vircpy.obj
+ 0001:00005a00       _pg_double                 00406a00 f   nam:vircpy.obj
+ 0001:00005a40       _stat_tab_bld              00406a40 f   nam:vircpy.obj
+ 0001:00005aa0       _lex_head_bld              00406aa0 f   nam:vircpy.obj
+ 0001:00005ae0       _lex_info_bld              00406ae0 f   nam:vircpy.obj
+ 0001:00005b30       _obj_head_bld              00406b30 f   nam:vircpy.obj
+ 0001:00005ba0       _obj_info_bld              00406ba0 f   nam:vircpy.obj
+ 0001:00005d90       _obj_stm_bld               00406d90 f   nam:vircpy.obj
+ 0001:00005da0       _OStimes                   00406da0 f   nam:OStimes.obj
+ 0001:00005dc0       _CSci2o                    00406dc0 f   nam:CSci2o.obj
+ 0001:00005e50       _CScj2n                    00406e50 f   nam:CScj2n.obj
+ 0001:00005e70       _CSflc                     00406e70 f   nam:CSflc.obj
+ 0001:00005ea0       _oserr                     00406ea0 f   nam:oserr.obj
+ 0001:00005f40       _CSksb                     00406f40 f   nam:CSksb.obj
+ 0001:00005f60       _CSks                      00406f60 f   nam:CSks.obj
+ 0001:00005f90       _OSdata                    00406f90 f   nam:OSdata.obj
+ 0001:00005fd0       _OSmrealloc                00406fd0 f   nam:OSmrealc.obj
+ 0001:00006000       _CScopy                    00407000 f   nam:CScopy.obj
+ 0001:000060a0       _OSfcreate                 004070a0 f   nam:OSfcreat.obj
+ 0001:00006260       _CSftc                     00407260 f   nam:CSftc.obj
+ 0001:00006290       _CSdata                    00407290 f   nam:CSdata.obj
+ 0001:000062a0       _osfacb                    004072a0 f   nam:osfacb.obj
+ 0001:00006300       _CSci2n                    00407300 f   nam:CSci2n.obj
+ 0001:000064a0       _OSexit                    004074a0 f   nam:OSexit.obj
+ 0001:00006500       __chkesp                   00407500 f   msvcrtd:MSVCRTD.dll
+ 0001:00006510       __onexit                   00407510 f   msvcrtd:atonexit.obj
+ 0001:00006550       _atexit                    00407550 f   msvcrtd:atonexit.obj
+ 0001:00006570       _toupper                   00407570 f   msvcrtd:MSVCRTD.dll
+ 0001:00006576       _exit                      00407576 f   msvcrtd:MSVCRTD.dll
+ 0001:0000657c       _strcpy                    0040757c f   msvcrtd:MSVCRTD.dll
+ 0001:00006582       _sprintf                   00407582 f   msvcrtd:MSVCRTD.dll
+ 0001:00006590       __chkstk                   00407590 f   msvcrtd:chkstk.obj
+ 0001:00006590       __alloca_probe             00407590 f   msvcrtd:chkstk.obj
+ 0001:000065c0       __CrtDbgReport             004075c0 f   msvcrtd:MSVCRTD.dll
+ 0001:000065c6       _strcat                    004075c6 f   msvcrtd:MSVCRTD.dll
+ 0001:000065cc       _time                      004075cc f   msvcrtd:MSVCRTD.dll
+ 0001:000065d2       _strncpy                   004075d2 f   msvcrtd:MSVCRTD.dll
+ 0001:000065d8       _strlen                    004075d8 f   msvcrtd:MSVCRTD.dll
+ 0001:000065de       _strcmp                    004075de f   msvcrtd:MSVCRTD.dll
+ 0001:000065e4       _strncmp                   004075e4 f   msvcrtd:MSVCRTD.dll
+ 0001:000065ea       _atol                      004075ea f   msvcrtd:MSVCRTD.dll
+ 0001:000065f0       _mainCRTStartup            004075f0 f   msvcrtd:crtexe.obj
+ 0001:00006738       _fclose                    00407738 f   msvcrtd:MSVCRTD.dll
+ 0001:0000673e       _fscanf                    0040773e f   msvcrtd:MSVCRTD.dll
+ 0001:00006744       _fopen                     00407744 f   msvcrtd:MSVCRTD.dll
+ 0001:0000674a       _strtok                    0040774a f   msvcrtd:MSVCRTD.dll
+ 0001:00006750       _malloc                    00407750 f   msvcrtd:MSVCRTD.dll
+ 0001:00006756       _free                      00407756 f   msvcrtd:MSVCRTD.dll
+ 0001:0000675c       _realloc                   0040775c f   msvcrtd:MSVCRTD.dll
+ 0001:00006762       ___dllonexit               00407762 f   msvcrtd:MSVCRTD.dll
+ 0001:00006768       __exit                     00407768 f   msvcrtd:MSVCRTD.dll
+ 0001:0000676e       __XcptFilter               0040776e f   msvcrtd:MSVCRTD.dll
+ 0001:00006774       ___p___initenv             00407774 f   msvcrtd:MSVCRTD.dll
+ 0001:0000677a       ___getmainargs             0040777a f   msvcrtd:MSVCRTD.dll
+ 0001:00006780       __initterm                 00407780 f   msvcrtd:MSVCRTD.dll
+ 0001:00006790       __setdefaultprecision      00407790 f   msvcrtd:fp8.obj
+ 0001:000067a8       ___setusermatherr          004077a8 f   msvcrtd:MSVCRTD.dll
+ 0001:000067b0       __matherr                  004077b0 f   msvcrtd:merr.obj
+ 0001:000067c0       __setargv                  004077c0 f   msvcrtd:dllargv.obj
+ 0001:000067c6       ___p__commode              004077c6 f   msvcrtd:MSVCRTD.dll
+ 0001:000067cc       ___p__fmode                004077cc f   msvcrtd:MSVCRTD.dll
+ 0001:000067d2       ___set_app_type            004077d2 f   msvcrtd:MSVCRTD.dll
+ 0001:000067d8       __except_handler3          004077d8 f   msvcrtd:MSVCRTD.dll
+ 0001:000067de       __controlfp                004077de f   msvcrtd:MSVCRTD.dll
+ 0001:000067e4       ?InvokeHelper@COleDispatchDriver@@QAAXJGGPAXPBEZZ 004077e4 f   mfco42d:MFCO42D.DLL
+ 0001:000067ea       ??0COleDispatchDriver@@QAE@XZ 004077ea f   mfco42d:MFCO42D.DLL
+ 0001:000067f0       ??1COleDispatchDriver@@QAE@XZ 004077f0 f   mfco42d:MFCO42D.DLL
+ 0001:000067f6       ?CreateDispatch@COleDispatchDriver@@QAEHPBDPAVCOleException@@@Z 004077f6 f   mfco42d:MFCO42D.DLL
+ 0001:000067fc       ??0Init@ios_base@std@@QAE@XZ 004077fc f   msvcprtd:MSVCP60D.dll
+ 0001:00006802       ??1Init@ios_base@std@@QAE@XZ 00407802 f   msvcprtd:MSVCP60D.dll
+ 0001:00006808       ??0_Winit@std@@QAE@XZ      00407808 f   msvcprtd:MSVCP60D.dll
+ 0001:0000680e       ??1_Winit@std@@QAE@XZ      0040780e f   msvcprtd:MSVCP60D.dll
+ 0001:00006820       _GetTickCount@0            00407820 f   kernel32:KERNEL32.dll
+ 0001:00006826       _SetHandleCount@4          00407826 f   kernel32:KERNEL32.dll
+ 0001:0000682c       _ExitProcess@4             0040782c f   kernel32:KERNEL32.dll
+ 0001:00006832       _MessageBoxA@16            00407832 f   user32:USER32.dll
+ 0001:00006838       _GetDesktopWindow@0        00407838 f   user32:USER32.dll
+ 0001:0000683e       _MessageBeep@4             0040783e f   user32:USER32.dll
+ 0001:00006844       __close                    00407844 f   msvcrtd:MSVCRTD.dll
+ 0001:00006844       _close                     00407844 f   msvcrtd:MSVCRTD.dll
+ 0001:0000684a       _fstat                     0040784a f   msvcrtd:MSVCRTD.dll
+ 0001:0000684a       __fstat                    0040784a f   msvcrtd:MSVCRTD.dll
+ 0001:00006850       _open                      00407850 f   msvcrtd:MSVCRTD.dll
+ 0001:00006850       __open                     00407850 f   msvcrtd:MSVCRTD.dll
+ 0001:00006856       _write                     00407856 f   msvcrtd:MSVCRTD.dll
+ 0001:00006856       __write                    00407856 f   msvcrtd:MSVCRTD.dll
+ 0001:0000685c       __lseek                    0040785c f   msvcrtd:MSVCRTD.dll
+ 0001:0000685c       _lseek                     0040785c f   msvcrtd:MSVCRTD.dll
+ 0001:00006862       _read                      00407862 f   msvcrtd:MSVCRTD.dll
+ 0001:00006862       __read                     00407862 f   msvcrtd:MSVCRTD.dll
+ 0001:00006868       __unlink                   00407868 f   msvcrtd:MSVCRTD.dll
+ 0001:00006868       _unlink                    00407868 f   msvcrtd:MSVCRTD.dll
+ 0002:0000001c       ??_C@_07DAJE@?$CFs?5?9?5?$CFs?$AA@ 0040801c     SensorNAM.obj
+ 0002:00000024       ??_C@_11A@?$AA?$AA@        00408024     SensorNAM.obj
+ 0002:00000028       ??_C@_08PEKM@lpa?5?$CB?$DN?50?$AA@ 00408028     SensorNAM.obj
+ 0002:00000034       ??_C@_0EE@JLKB@c?3?2program?5files?2microsoft?5visua@ 00408034     SensorNAM.obj
+ 0002:00000078       ??_C@_08NDGO@lpw?5?$CB?$DN?50?$AA@ 00408078     SensorNAM.obj
+ 0002:00000084       ??_C@_0CO@PIBN@ERROR?5?9?5Operation?5Incomplete?5due@ 00408084     SensorNAM.obj
+ 0002:000000b4       ??_C@_0CP@MOAJ@ERROR?5?9?5Power?5Meter?5Execution?5Er@ 004080b4     SensorNAM.obj
+ 0002:000000e4       ??_C@_0EF@EKMG@ERROR?5?9?5ViperT?4ini?5file?5does?5not@ 004080e4     SensorNAM.obj
+ 0002:0000012c       ??_C@_02DILL@?$CFs?$AA@    0040812c     SensorNAM.obj
+ 0002:00000130       ??_C@_0O@NJEO@Serial?5Number?$AA@ 00408130     SensorNAM.obj
+ 0002:00000140       ??_C@_01KOI@x?$AA@         00408140     SensorNAM.obj
+ 0002:00000144       ??_C@_04DCMN@?$CFs?$CFs?$AA@ 00408144     SensorNAM.obj
+ 0002:0000014c       ??_C@_0M@HBDA@?2Vipert?4ini?$AA@ 0040814c     SensorNAM.obj
+ 0002:00000158       ??_C@_0BI@CAAL@SensorNAM?5?9?5Successful?6?$AA@ 00408158     SensorNAM.obj
+ 0002:00000170       ??_C@_0CH@EHAI@ERROR?5?9?5Unable?5to?5set?5VISA?5ATTRI@ 00408170     SensorNAM.obj
+ 0002:00000198       ??_C@_0CL@POFH@ERROR?5?9?5Unable?5to?5open?5INSTRUMEN@ 00408198     SensorNAM.obj
+ 0002:000001c4       ??_C@_0N@KMIG@RFMS?4RFPm_if?$AA@ 004081c4     SensorNAM.obj
+ 0002:000001d4       ??_C@_06ECIM@GET_SN?$AA@   004081d4     SensorNAM.obj
+ 0002:000001dc       ??_C@_0CD@MPAC@ERROR?5?9?5Unrecognized?5argument?3?6?5@ 004081dc     SensorNAM.obj
+ 0002:00000200       ??_C@_04LHLC@ZERO?$AA@     00408200     SensorNAM.obj
+ 0002:00000208       ??_C@_08LIAF@HP11708A?$AA@ 00408208     SensorNAM.obj
+ 0002:00000214       ??_C@_0BA@NLEH@GET_SN_HP11708A?$AA@ 00408214     SensorNAM.obj
+ 0002:00000224       ??_C@_07NLPH@HP8481D?$AA@  00408224     SensorNAM.obj
+ 0002:0000022c       ??_C@_0M@IBFM@CAL_HP8481D?$AA@ 0040822c     SensorNAM.obj
+ 0002:00000238       ??_C@_0P@JJDN@GET_SN_HP8481D?$AA@ 00408238     SensorNAM.obj
+ 0002:00000248       ??_C@_07NLDM@HP8481A?$AA@  00408248     SensorNAM.obj
+ 0002:00000250       ??_C@_0M@IBJH@CAL_HP8481A?$AA@ 00408250     SensorNAM.obj
+ 0002:0000025c       ??_C@_0P@JJPG@GET_SN_HP8481A?$AA@ 0040825c     SensorNAM.obj
+ 0002:0000026c       ??_C@_04OMOF@?4TMP?$AA@    0040826c     SensorNAM.obj
+ 0002:00000274       ??_C@_00A@?$AA@            00408274     SensorNAM.obj
+ 0002:00000278       _IID_IDocHostUIHandlerDispatch 00408278     mfcs42d:stdafx.obj
+ 0002:00000288       _IID_IInternalConnection   00408288     mfcs42d:stdafx.obj
+ 0002:00000298       _IID_IAxWinAmbientDispatch 00408298     mfcs42d:stdafx.obj
+ 0002:000002a8       _IID_IAxWinHostWindow      004082a8     mfcs42d:stdafx.obj
+ 0002:000002b8       _IID_IRegistrar            004082b8     mfcs42d:stdafx.obj
+ 0002:000002c8       _CLSID_Registrar           004082c8     mfcs42d:stdafx.obj
+ 0002:000002d8       _LIBID_ATLLib              004082d8     mfcs42d:stdafx.obj
+ 0003:00000000       ___xc_a                    00409000     msvcrtd:cinitexe.obj
+ 0003:00000018       ___xc_z                    00409018     msvcrtd:cinitexe.obj
+ 0003:0000001c       ___xi_a                    0040901c     msvcrtd:cinitexe.obj
+ 0003:00000020       ___xi_z                    00409020     msvcrtd:cinitexe.obj
+ 0003:00000190       _OSncbx                    00409190     SensorNAM.obj
+ 0003:00000194       _OSignsig                  00409194     SensorNAM.obj
+ 0003:0000019c       _Vid                       0040919c     nam:vm.obj
+ 0003:000003f8       _CSfft                     004093f8     nam:CScomm.obj
+ 0003:000003fc       _OSfft                     004093fc     nam:OScomm.obj
+ 0003:00000400       _pcmPTE                    00409400     nam:dummy.obj
+ 0003:00000428       _pcmpnl                    00409428     nam:dummy.obj
+ 0003:00000440       _pcmpnh                    00409440     nam:dummy.obj
+ 0003:00000458       _pcmess                    00409458     nam:dummy.obj
+ 0003:00000460       _pcmrss                    00409460     nam:dummy.obj
+ 0003:00000470       _pcmres                    00409470     nam:dummy.obj
+ 0003:00000478       _pcmebs                    00409478     nam:dummy.obj
+ 0003:00000488       _pcmhlt                    00409488     nam:dummy.obj
+ 0003:00000490       _pcmrun                    00409490     nam:dummy.obj
+ 0003:00000498       _pcmunl                    00409498     nam:dummy.obj
+ 0003:000004a8       _pcmmod                    004094a8     nam:dummy.obj
+ 0003:000004b8       _pcment                    004094b8     nam:dummy.obj
+ 0003:000004c0       _pcmneg                    004094c0     nam:dummy.obj
+ 0003:000004d0       _pcmnai                    004094d0     nam:dummy.obj
+ 0003:000004e8       _pcmarf                    004094e8     nam:dummy.obj
+ 0003:000004f8       _pcmenb                    004094f8     nam:dummy.obj
+ 0003:00000500       _pcmdis                    00409500     nam:dummy.obj
+ 0003:00000508       _pcmtst                    00409508     nam:dummy.obj
+ 0003:00000510       _pcmEntCmd                 00409510     nam:dummy.obj
+ 0003:00000528       _pcmBoole                  00409528     nam:dummy.obj
+ 0003:00000540       _pcmInt                    00409540     nam:dummy.obj
+ 0003:00000548       _pcmDec                    00409548     nam:dummy.obj
+ 0003:00000550       _pcmTxt                    00409550     nam:dummy.obj
+ 0003:00000558       _pcmDig                    00409558     nam:dummy.obj
+ 0003:00000570       _pcmHlp                    00409570     nam:dummy.obj
+ 0003:00000598       _pcmprg                    00409598     nam:dummy.obj
+ 0003:000005a0       _pcmnva                    004095a0     nam:dummy.obj
+ 0003:000005c0       _pcmvlk                    004095c0     nam:dummy.obj
+ 0003:000005c8       _pcmvsn                    004095c8     nam:dummy.obj
+ 0003:000005d0       _pcmvfd                    004095d0     nam:dummy.obj
+ 0003:000005d8       _pcmvsk                    004095d8     nam:dummy.obj
+ 0003:000005e0       _pcmvwr                    004095e0     nam:dummy.obj
+ 0003:000005e8       _pcmvrd                    004095e8     nam:dummy.obj
+ 0003:000005f0       _pcmuix                    004095f0     nam:dummy.obj
+ 0003:00000610       _pcmuac                    00409610     nam:dummy.obj
+ 0003:0000065c       _OSpcsi                    0040965c     nam:OSdata.obj
+ 0003:00000670       _OSpcso                    00409670     nam:OSdata.obj
+ 0003:00000684       _OSpcse                    00409684     nam:OSdata.obj
+ 0003:00000688       _OSnsacx                   00409688     nam:OSdata.obj
+ 0003:0000068c       _OSnpfx                    0040968c     nam:OSdata.obj
+ 0003:00000698       _CScsc                     00409698     nam:CSdata.obj
+ 0003:0000069c       _CScwm1                    0040969c     nam:CSdata.obj
+ 0003:000006a0       _CScwm2                    004096a0     nam:CSdata.obj
+ 0003:000006a8       _CSfpru                    004096a8     nam:CSdata.obj
+ 0003:000006b0       _CSm1                      004096b0     nam:CSdata.obj
+ 0003:000006b8       _CS0                       004096b8     nam:CSdata.obj
+ 0003:000006c0       _CSp1em1                   004096c0     nam:CSdata.obj
+ 0003:000006c8       _CSp5em1                   004096c8     nam:CSdata.obj
+ 0003:000006d0       _CSp1                      004096d0     nam:CSdata.obj
+ 0003:000006d8       _CSp10                     004096d8     nam:CSdata.obj
+ 0003:00000700       ?GUID_ATLVer30@ATL@@3U_GUID@@A 00409700     mfcs42d:stdafx.obj
+ 0003:00000710       ___defaultmatherr          00409710     msvcrtd:merr.obj
+ 0003:00000720       ?ErrorStr@@3PADA           00409720     SensorNAM.obj
+ 0003:00000914       ?InstrHndl@@3KA            00409914     SensorNAM.obj
+ 0003:00000918       ?iGetSnFlag@@3HA           00409918     SensorNAM.obj
+ 0003:0000091c       ?retCnt@@3KA               0040991c     SensorNAM.obj
+ 0003:00000920       ?nOperation@@3JA           00409920     SensorNAM.obj
+ 0003:00000924       ?TempFileName@@3PADA       00409924     SensorNAM.obj
+ 0003:00000a28       ?Operation@@3UDAT_ITM@@A   00409a28     SensorNAM.obj
+ 0003:00000c40       ?Results@@3UDAT_ITM@@A     00409c40     SensorNAM.obj
+ 0003:00000e50       ?defaultRM@@3KA            00409e50     SensorNAM.obj
+ 0003:00000e58       ?RFPmObj@@3VIRFPm_if@@A    00409e58     SensorNAM.obj
+ 0003:00000e60       ?ResultStr@@3UDAT_ITM@@A   00409e60     SensorNAM.obj
+ 0003:00001070       ?ReadBuffer@@3PADA         0040a070     SensorNAM.obj
+ 0003:00001170       ?ResultStrAddr@@3JA        0040a170     SensorNAM.obj
+ 0003:00001174       ?ResultsAddr@@3JA          0040a174     SensorNAM.obj
+ 0003:00001178       ?status@@3JA               0040a178     SensorNAM.obj
+ 0003:00001180       _OSascb                    0040a180     SensorNAM.obj
+ 0003:000011f8       ?lSystErr@@3JA             0040a1f8     SensorNAM.obj
+ 0003:00001330       __afxForceEXCLUDE          0040a330     mfcs42d:nolib.obj
+ 0003:00001334       ?ATL_CREATE_OBJECT@CComApartment@ATL@@2IA 0040a334     mfcs42d:stdafx.obj
+ 0003:00001338       ?m_libid@CComModule@ATL@@2U_GUID@@A 0040a338     mfcs42d:stdafx.obj
+ 0003:00001348       ?_pModule@ATL@@3PAVCComModule@1@A 0040a348     mfcs42d:stdafx.obj
+ 0003:0000134c       __afxForceSTDAFX           0040a34c     mfcs42d:stdafx.obj
+ 0003:00001350       __fmode                    0040a350     msvcrtd:xtxtmode.obj
+ 0003:00001354       __dowildcard               0040a354     msvcrtd:wildcard.obj
+ 0003:00001358       __newmode                  0040a358     msvcrtd:_newmode.obj
+ 0003:0000135c       __commode                  0040a35c     msvcrtd:xncommod.obj
+ 0003:00001360       _CSfei                     0040a360     <common>
+ 0003:00001364       _CSfdp                     0040a364     <common>
+ 0003:00001368       _CSfbz                     0040a368     <common>
+ 0003:0000136c       _CSfes                     0040a36c     <common>
+ 0003:00001370       _CSfns                     0040a370     <common>
+ 0003:00001374       _CSfru                     0040a374     <common>
+ 0003:00001378       _CSned                     0040a378     <common>
+ 0003:0000137c       _CSnfd                     0040a37c     <common>
+ 0003:00001380       _CSnid                     0040a380     <common>
+ 0003:00001384       _CSnfw                     0040a384     <common>
+ 0003:00001388       _CSnsf                     0040a388     <common>
+ 0003:0000138c       _OSnatin                   0040a38c     <common>
+ 0003:00001390       _OSnatip                   0040a390     <common>
+ 0003:00001394       _OSfati                    0040a394     <common>
+ 0003:00001398       _OSfeoi                    0040a398     <common>
+ 0003:0000139c       _nArgAlloc                 0040a39c     <common>
+ 0003:000013a0       _OSnmd                     0040a3a0     <common>
+ 0003:000013c0       _OSanpid                   0040a3c0     <common>
+ 0003:000013f8       _OSnbto                    0040a3f8     <common>
+ 0003:000013fc       _OSneix                    0040a3fc     <common>
+ 0003:00001400       _OSpcci                    0040a400     <common>
+ 0003:00001404       _pArgBuf                   0040a404     <common>
+ 0003:00001408       _OSberr                    0040a408     <common>
+ 0003:00001410       _OSanpf                    0040a410     <common>
+ 0003:0000141c       _OSnatif                   0040a41c     <common>
+ 0003:00001420       _xyzint                    0040a420     <common>
+ 0003:00001424       _SYVA                      0040a424     <common>
+ 0003:00001428       _t_clk                     0040a428     <common>
+ 0003:0000142c       _pres_vlc                  0040a42c     <common>
+ 0003:00001440       _d_item1                   0040a440     <common>
+ 0003:00001650       _STNVA                     0040a650     <common>
+ 0003:00001660       _siolf                     0040a660     <common>
+ 0003:000016a0       _ciil_dsc                  0040a6a0     <common>
+ 0003:000016cc       _csnull                    0040a6cc     <common>
+ 0003:000016d0       _LTLVA                     0040a6d0     <common>
+ 0003:000016d4       _v_mru                     0040a6d4     <common>
+ 0003:000016d8       __adjust_fdiv              0040a6d8     <common>
+ 0003:000016dc       ___onexitend               0040a6dc     <common>
+ 0003:000016e0       ___onexitbegin             0040a6e0     <common>
+ 0004:00000000       __IMPORT_DESCRIPTOR_KERNEL32 0040b000     kernel32:KERNEL32.dll
+ 0004:00000014       __IMPORT_DESCRIPTOR_ole32  0040b014     ole32:ole32.dll
+ 0004:00000028       __IMPORT_DESCRIPTOR_OLEAUT32 0040b028     oleaut32:OLEAUT32.dll
+ 0004:0000003c       __IMPORT_DESCRIPTOR_MSVCRTD 0040b03c     msvcrtd:MSVCRTD.dll
+ 0004:00000050       __IMPORT_DESCRIPTOR_MFCO42D 0040b050     mfco42d:MFCO42D.DLL
+ 0004:00000064       __IMPORT_DESCRIPTOR_MSVCP60D 0040b064     msvcprtd:MSVCP60D.dll
+ 0004:00000078       __IMPORT_DESCRIPTOR_USER32 0040b078     user32:USER32.dll
+ 0004:0000008c       __NULL_IMPORT_DESCRIPTOR   0040b08c     kernel32:KERNEL32.dll
+ 0004:000001bc       __imp__lstrlenW@4          0040b1bc     kernel32:KERNEL32.dll
+ 0004:000001c0       __imp__WideCharToMultiByte@32 0040b1c0     kernel32:KERNEL32.dll
+ 0004:000001c4       __imp__Sleep@4             0040b1c4     kernel32:KERNEL32.dll
+ 0004:000001c8       __imp__GetPrivateProfileStringA@24 0040b1c8     kernel32:KERNEL32.dll
+ 0004:000001cc       __imp__GetWindowsDirectoryA@8 0040b1cc     kernel32:KERNEL32.dll
+ 0004:000001d0       __imp__SetHandleCount@4    0040b1d0     kernel32:KERNEL32.dll
+ 0004:000001d4       __imp__GetTickCount@0      0040b1d4     kernel32:KERNEL32.dll
+ 0004:000001d8       __imp__ExitProcess@4       0040b1d8     kernel32:KERNEL32.dll
+ 0004:000001dc       \177KERNEL32_NULL_THUNK_DATA 0040b1dc     kernel32:KERNEL32.dll
+ 0004:000001e0       __imp_??0COleDispatchDriver@@QAE@XZ 0040b1e0     mfco42d:MFCO42D.DLL
+ 0004:000001e4       __imp_??1COleDispatchDriver@@QAE@XZ 0040b1e4     mfco42d:MFCO42D.DLL
+ 0004:000001e8       __imp_?CreateDispatch@COleDispatchDriver@@QAEHPBDPAVCOleException@@@Z 0040b1e8     mfco42d:MFCO42D.DLL
+ 0004:000001ec       __imp_?InvokeHelper@COleDispatchDriver@@QAAXJGGPAXPBEZZ 0040b1ec     mfco42d:MFCO42D.DLL
+ 0004:000001f0       \177MFCO42D_NULL_THUNK_DATA 0040b1f0     mfco42d:MFCO42D.DLL
+ 0004:000001f4       __imp_??1Init@ios_base@std@@QAE@XZ 0040b1f4     msvcprtd:MSVCP60D.dll
+ 0004:000001f8       __imp_??0_Winit@std@@QAE@XZ 0040b1f8     msvcprtd:MSVCP60D.dll
+ 0004:000001fc       __imp_??0Init@ios_base@std@@QAE@XZ 0040b1fc     msvcprtd:MSVCP60D.dll
+ 0004:00000200       __imp_??1_Winit@std@@QAE@XZ 0040b200     msvcprtd:MSVCP60D.dll
+ 0004:00000204       \177MSVCP60D_NULL_THUNK_DATA 0040b204     msvcprtd:MSVCP60D.dll
+ 0004:00000208       __imp__time                0040b208     msvcrtd:MSVCRTD.dll
+ 0004:0000020c       __imp__strncpy             0040b20c     msvcrtd:MSVCRTD.dll
+ 0004:00000210       __imp__strlen              0040b210     msvcrtd:MSVCRTD.dll
+ 0004:00000214       __imp__strcmp              0040b214     msvcrtd:MSVCRTD.dll
+ 0004:00000218       __imp__strncmp             0040b218     msvcrtd:MSVCRTD.dll
+ 0004:0000021c       __imp__atol                0040b21c     msvcrtd:MSVCRTD.dll
+ 0004:00000220       __imp__fclose              0040b220     msvcrtd:MSVCRTD.dll
+ 0004:00000224       __imp__fscanf              0040b224     msvcrtd:MSVCRTD.dll
+ 0004:00000228       __imp__fopen               0040b228     msvcrtd:MSVCRTD.dll
+ 0004:0000022c       __imp__strtok              0040b22c     msvcrtd:MSVCRTD.dll
+ 0004:00000230       __imp__malloc              0040b230     msvcrtd:MSVCRTD.dll
+ 0004:00000234       __imp___write              0040b234     msvcrtd:MSVCRTD.dll
+ 0004:00000238       __imp__realloc             0040b238     msvcrtd:MSVCRTD.dll
+ 0004:0000023c       __imp__strcat              0040b23c     msvcrtd:MSVCRTD.dll
+ 0004:00000240       __imp___onexit             0040b240     msvcrtd:MSVCRTD.dll
+ 0004:00000244       __imp___exit               0040b244     msvcrtd:MSVCRTD.dll
+ 0004:00000248       __imp___XcptFilter         0040b248     msvcrtd:MSVCRTD.dll
+ 0004:0000024c       __imp____p___initenv       0040b24c     msvcrtd:MSVCRTD.dll
+ 0004:00000250       __imp____getmainargs       0040b250     msvcrtd:MSVCRTD.dll
+ 0004:00000254       __imp___initterm           0040b254     msvcrtd:MSVCRTD.dll
+ 0004:00000258       __imp____setusermatherr    0040b258     msvcrtd:MSVCRTD.dll
+ 0004:0000025c       __imp___adjust_fdiv        0040b25c     msvcrtd:MSVCRTD.dll
+ 0004:00000260       __imp____p__commode        0040b260     msvcrtd:MSVCRTD.dll
+ 0004:00000264       __imp____p__fmode          0040b264     msvcrtd:MSVCRTD.dll
+ 0004:00000268       __imp____set_app_type      0040b268     msvcrtd:MSVCRTD.dll
+ 0004:0000026c       __imp___except_handler3    0040b26c     msvcrtd:MSVCRTD.dll
+ 0004:00000270       __imp___controlfp          0040b270     msvcrtd:MSVCRTD.dll
+ 0004:00000274       __imp___CrtDbgReport       0040b274     msvcrtd:MSVCRTD.dll
+ 0004:00000278       __imp__sprintf             0040b278     msvcrtd:MSVCRTD.dll
+ 0004:0000027c       __imp__strcpy              0040b27c     msvcrtd:MSVCRTD.dll
+ 0004:00000280       __imp__exit                0040b280     msvcrtd:MSVCRTD.dll
+ 0004:00000284       __imp__toupper             0040b284     msvcrtd:MSVCRTD.dll
+ 0004:00000288       __imp___chkesp             0040b288     msvcrtd:MSVCRTD.dll
+ 0004:0000028c       __imp___close              0040b28c     msvcrtd:MSVCRTD.dll
+ 0004:00000290       __imp___fstat              0040b290     msvcrtd:MSVCRTD.dll
+ 0004:00000294       __imp____dllonexit         0040b294     msvcrtd:MSVCRTD.dll
+ 0004:00000298       __imp___open               0040b298     msvcrtd:MSVCRTD.dll
+ 0004:0000029c       __imp___lseek              0040b29c     msvcrtd:MSVCRTD.dll
+ 0004:000002a0       __imp___read               0040b2a0     msvcrtd:MSVCRTD.dll
+ 0004:000002a4       __imp__free                0040b2a4     msvcrtd:MSVCRTD.dll
+ 0004:000002a8       __imp___unlink             0040b2a8     msvcrtd:MSVCRTD.dll
+ 0004:000002ac       \177MSVCRTD_NULL_THUNK_DATA 0040b2ac     msvcrtd:MSVCRTD.dll
+ 0004:000002b0       __imp__SysFreeString@4     0040b2b0     oleaut32:OLEAUT32.dll
+ 0004:000002b4       __imp__SysAllocStringLen@8 0040b2b4     oleaut32:OLEAUT32.dll
+ 0004:000002b8       \177OLEAUT32_NULL_THUNK_DATA 0040b2b8     oleaut32:OLEAUT32.dll
+ 0004:000002bc       __imp__MessageBeep@4       0040b2bc     user32:USER32.dll
+ 0004:000002c0       __imp__GetDesktopWindow@0  0040b2c0     user32:USER32.dll
+ 0004:000002c4       __imp__MessageBoxA@16      0040b2c4     user32:USER32.dll
+ 0004:000002c8       \177USER32_NULL_THUNK_DATA 0040b2c8     user32:USER32.dll
+ 0004:000002cc       __imp__CoUninitialize@0    0040b2cc     ole32:ole32.dll
+ 0004:000002d0       __imp__CoInitialize@4      0040b2d0     ole32:ole32.dll
+ 0004:000002d4       \177ole32_NULL_THUNK_DATA  0040b2d4     ole32:ole32.dll
+
+ entry point at        0001:000065f0
+
+ Static symbols
+
+ 0001:00001be0       _$E224                     00402be0 f   SensorNAM.obj
+ 0001:00001c20       _$E221                     00402c20 f   SensorNAM.obj
+ 0001:00001c60       _$E223                     00402c60 f   SensorNAM.obj
+ 0001:00001ca0       _$E222                     00402ca0 f   SensorNAM.obj
+ 0001:00001ce0       _$E230                     00402ce0 f   SensorNAM.obj
+ 0001:00001d20       _$E227                     00402d20 f   SensorNAM.obj
+ 0001:00001d60       _$E229                     00402d60 f   SensorNAM.obj
+ 0001:00001da0       _$E228                     00402da0 f   SensorNAM.obj
+ 0001:00001de0       _$E235                     00402de0 f   SensorNAM.obj
+ 0001:00001e20       _$E232                     00402e20 f   SensorNAM.obj
+ 0001:00001ea0       _$E234                     00402ea0 f   SensorNAM.obj
+ 0001:00001ee0       _$E233                     00402ee0 f   SensorNAM.obj
+ 0001:00000000       _$E224                     00401000 f   rfms.obj
+ 0001:00000040       _$E221                     00401040 f   rfms.obj
+ 0001:00000080       _$E223                     00401080 f   rfms.obj
+ 0001:000000c0       _$E222                     004010c0 f   rfms.obj
+ 0001:00000100       _$E230                     00401100 f   rfms.obj
+ 0001:00000140       _$E227                     00401140 f   rfms.obj
+ 0001:00000180       _$E229                     00401180 f   rfms.obj
+ 0001:000001c0       _$E228                     004011c0 f   rfms.obj
+ 0001:00004dd0       _fatalMemErr               00405dd0 f   nam:OSmain.obj
+ 0001:00004df0       _findArgument              00405df0 f   nam:OSmain.obj
+ 0001:00004e90       _expandAlloc               00405e90 f   nam:OSmain.obj
+ 0001:00004ed0       _dupStr                    00405ed0 f   nam:OSmain.obj
+ 0001:00004f10       _readFile                  00405f10 f   nam:OSmain.obj
+ 0001:00004fe0       _expandArgs                00405fe0 f   nam:OSmain.obj
+ 0001:00005070       _expandCmdLine             00406070 f   nam:OSmain.obj
+ 0001:00004c90       _bad_data                  00405c90 f   nam:vir.obj
+ 0001:00002c40       _v_crash                   00403c40 f   nam:vm.obj
+ 0001:00002ff0       _v_put                     00403ff0 f   nam:vm.obj
+ 0001:00003090       _v_get                     00404090 f   nam:vm.obj
+ 0001:00006590       _$$$00001                  00407590 f   msvcrtd:chkstk.obj
+ 0001:0000659c       probepages                 0040759c f   msvcrtd:chkstk.obj
+ 0001:000065b0       lastpage                   004075b0 f   msvcrtd:chkstk.obj
+
+FIXUPS: 7558 ffffc827 9 3a b5 14 17 41 3c 22 18 4e 1f 52 18 f 12 12 14
+FIXUPS: 40ac 18 1a 12 12 16 3686 fffffec8 1c f 3b 1f 27 fffffe2c ffffe381
+FIXUPS: 592c 67 6b 61 5e bb 41 92 e c 9 f 44 25 15 11 14 25 9 9 23 ffffded0
+FIXUPS: 3c53 9 1c 16 f 13 2f 15 6d 1226 49 9 9 12 26 e5 15c 2e 18 3b 4d
+FIXUPS: 536b 9 9 12 3c 2a 31 6e 61 5e 78 66 49 31 4c 4c 4c 4c 4c 4c ffffee8f
+FIXUPS: 476a 57 1d 34 57 2f 37 42 42 42 42 42 42 42 57 57 55 36 32 c 12
+FIXUPS: 4c32 48 62 4b 42 11f 18 29 6b 18 143b 12 c c 9f 10 c 26 15 c ffffdcec
+FIXUPS: 41ef 1a 46 18 38 33 4a 66 20 14 7f 49 dc 32 c 12 c 93 39 1f 14
+FIXUPS: 5f27 26 33 17 1d e 4b 16 14 11 36 e 2c 16 26 13 11 e 19 15 2e 9e
+FIXUPS: 624b 3f 9 13 24 25 22 1b 2f 12 8be 14 115 17 fffffaaf ffffffd0
+FIXUPS: 67ba ffffffc0 ffffff06 1b 1e 19 1f 1b 27 fffffe87 ffffffbe ffffff59
+FIXUPS: 64c1 fffff91a 21 19 19 19 19 19 2b e 2a a e 7 13d9 fffffe70 15
+FIXUPS: 6fe0 f fffffec4 15 1b c 33 ffffff44 fffffa49 41 b 25 d 82 28 10
+FIXUPS: 6a12 4c 19 30 49 48 30 48 17 14 14 14 14 ffffbaf1 46 13 4d 13 48
+FIXUPS: 281c 52 13 48 13 42 13 44 13 4d 13 4d 13 4d 13 4d 13 4d 13 4d 13
+FIXUPS: 74c4 1a fffffea0 ffffff3f 9 ffffae46 49 13 4d 13 4d 13 4d 13 4d
+FIXUPS: 22e8 4d 13 59 13 41 13 4d 13 4d 13 4d 13 4d 13 4d 13 4d 13 52 13
+FIXUPS: 26f5 fffff43c 48 13 49 13 4d 13 4d 13 4d 13 4d 13 4d 13 4d 13 4d
+FIXUPS: 1e88 4d 13 4d 13 51 13 49 13 46 13 3d 13 48 fffff41f 4d 13 61 13
+FIXUPS: 1635 13 4d 13 4d 13 4d 13 4d 13 4d 13 4d 13 56 13 48 13 49 13 4d
+FIXUPS: 1a08 52 13 48 13 56 fffff54a d 29 10 3a d 24 5 d 3d d 29 10 3a
+FIXUPS: 11f5 40 13 4d 13 4d 13 4d 13 4d 13 46 13 3d 13 3d 13 44 24d0 12
+FIXUPS: 3a11 b e 12 a 14 17 c 24 11 2a c e 12 d 2a b e 12 a 14 2a c e 12
+FIXUPS: 3bed 13 ffffd419 5 d 270c 1c 16 1c 16 11 15 15 16 15 15 13 15 13
+FIXUPS: 3878 c 20 1c f 1e 1b c 1d a e f f 1d a e f d fffffa31 e 12 1f f
+FIXUPS: 3453 7 e 12 10 45 27 2a 22 11 32 f 12 1c 11 2f 10 8c 5 d 8 11 12
+FIXUPS: 36ec 1c 15 11 fffff89b 41 14 13 16 f 7 14 d 62 19 21 2d 14 14 2b
+FIXUPS: 31ae 14 27 13 13 48 d 48 34 39 10 41 16 25 e 2a fffff81c 5 d 3d
+FIXUPS: 2c55 29 10 3a d 24 5 d 3d d 29 10 3a d 24 5 d 33 d 36 10 2d 10
+FIXUPS: 2efe d 36 d 61

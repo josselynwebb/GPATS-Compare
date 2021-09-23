@@ -1,0 +1,483 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'Bus_Ethernet_Gigabit Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemBus_Ethernet_Gigabit.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+        ESTABLISH, BUS PROTOCOL 'UDP-0', SPEC 'ETHERNET',
+            STANDARD PRIMARY BUS,
+            BUS-PARAMETER UDP,
+ 	    CNX HI GIG-ETH-1 $
+
+        ESTABLISH, BUS PROTOCOL 'TCP-0', SPEC 'ETHERNET',
+            STANDARD PRIMARY BUS,
+            BUS-PARAMETER TCP,
+ 	    CNX HI GIG-ETH-1 $
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'IDX' IS INTEGER             $
+	DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-VOLTS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MAX-T' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+        DECLARE, TYPE, 'ADDRESS' IS STRING(20) OF CHAR $
+        DECLARE, VARIABLE, 'CMD WORDS-T', 'CMD WORDS-L' IS ARRAY(1 THRU 4) OF 'ADDRESS' $
+        DECLARE, VARIABLE, 'DATA WORDS-T', 'DATA WORDS-L' IS STRING(100) OF CHAR $
+
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, CONSTANT, 'CONTINUE' IS
+         C' Press TRUE OR FALSE to continue '
+          $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test
+	'
+        $
+C $
+        DEFINE, 'TEST1001-T', EXCHANGE, PROTOCOL 'UDP-0', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP, 
+            DATA 'DATA WORDS-T', 
+	    COMMAND 'CMD WORDS-T'(1 THRU 4)$
+
+	DEFINE, 'TEST1001-L', EXCHANGE, PROTOCOL 'UDP-0', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP, 
+            COMMAND 'CMD WORDS-L'(1 THRU 4) $
+
+        DEFINE, 'TEST1002-T', EXCHANGE, PROTOCOL 'TCP-0', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP, 
+            DATA 'DATA WORDS-T', 
+	    COMMAND 'CMD WORDS-T'(1 THRU 4)$
+
+	DEFINE, 'TEST1002-L', EXCHANGE, PROTOCOL 'TCP-0', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP, 
+            COMMAND 'CMD WORDS-L'(1 THRU 4) $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, 
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+      C'Bus_RS485 ATLAS Driver Benchmark\LF\',
+      C'Date/Time:','DATE-TIME' $
+	
+	OUTPUT, TO 'PRINTER', C'      Bus_RS485 ATLAS Driver Benchmark\LF\',
+      C'Date/Time:', 'DATE-TIME', C'\LF\' $
+B $
+ 001005  OUTPUT, 
+        C'           Test Menu
+          --------------------------------
+          Run All Tests                  1
+          Exit                           0
+
+          Enter a selection'
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+       
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * UDP
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'MAX-T'      = 20,
+                   'VER-UL'     = 0,
+                   'VER-LL'     = 0  $
+B $
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* UDP TRANSMIT Pretest Instructions:                       *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Connect an ethernet cable between the tested gigabit     *\LF\',
+            C'* port and a ethernet port on another computer with an     *\LF\',
+            C'* IP address of 192.168.0.2, Subnet Mask of 255.255.255.0, *\LF\',
+            C'* and default gateway of 192.168.0.1                       *\LF\',
+            C'* On that computer, start the program                      *\LF\',
+            C'* "Benchmark Tester.exe" found in the Build directory      *\LF\',
+            C'* on this computer                                         *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press True to continue.                                  *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 010099 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T' = C'THIS IS MY TEST MESSAGE',
+		   'DATA WORDS-L' = C' ',
+                   'CMD WORDS-L'(1)    = C'192.168.0.2:21',
+                   'CMD WORDS-L'(2)    = C'192.168.0.1',
+                   'CMD WORDS-L'(3)    = C'255.255.255.0',
+                   'CMD WORDS-L'(4)    = C'192.168.0.2',
+		   'CMD WORDS-T'(1)    = C'192.168.0.2:21',
+		   'CMD WORDS-T'(2)    = C'192.168.0.1', 
+		   'CMD WORDS-T'(3)    = C'255.255.255.0',
+		   'CMD WORDS-T'(4)    = C'192.168.0.2' $
+C $
+     17 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-T', 
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+
+     20	DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-L', 
+                TEST-EQUIP-MONITOR DATA 'DATA WORDS-L',
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+	
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* Verify that the following data was sent:                 *\LF\',
+            C'* "THIS IS MY TEST MESSAGE"                                *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* ENTER TRUE IF THE DATA WAS SENT PROPERLY                *\LF\',
+            C'************************************************************\LF\',
+	$
+
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 10017$
+        PERFORM, 'RESULTS' $
+
+	OUTPUT, C'MESSAGE RECIEVED:\LF\' $
+
+     70	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 23, THEN $
+		OUTPUT,'DATA WORDS-L'('IDX') $
+            IF, 'DATA WORDS-T'('IDX') EQ 'DATA WORDS-L'('IDX'), THEN $ 
+	    ELSE $
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+C $
+        IF, NOGO, THEN $
+          OUTPUT, C'TRANSFER FAILED!\LF\' $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        ELSE $
+          OUTPUT, C'TRANSFER PASSED!\LF\' $
+	END, IF $
+
+	CALCULATE, 'TESTNO' = 10020$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 010000 $
+        END, IF $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * TCP
+C ******************************************************************* $
+C $
+B $
+ 020000 CALCULATE, 'MAX-T'      = 5,
+                   'VER-UL'     = 0,
+                   'VER-LL'     = 0  $
+B $
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* TCP Transmit Pretest Instructions:                       *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press True to continue.                                  *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020099 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T' = C'THIS IS MY TEST MESSAGE',
+		   'DATA WORDS-L' = C' ',
+                   'CMD WORDS-L'(1)    = C'192.168.0.2:21',
+                   'CMD WORDS-L'(2)    = C'192.168.0.1',
+                   'CMD WORDS-L'(3)    = C'255.255.255.0',
+                   'CMD WORDS-L'(4)    = C'192.168.0.2',
+		   'CMD WORDS-T'(1)    = C'192.168.0.2:21',
+		   'CMD WORDS-T'(2)    = C'192.168.0.1', 
+		   'CMD WORDS-T'(3)    = C'255.255.255.0',
+		   'CMD WORDS-T'(4)    = C'192.168.0.2' $
+C $
+	OUTPUT, C'MESSAGE SENT:\LF\' $
+	FOR, 'IDX' = 1 THRU 23, THEN $
+		OUTPUT,'DATA WORDS-T'('IDX') $
+	END, FOR $ 
+
+     17 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1002-T', 
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+
+     20 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1002-L', 
+                TEST-EQUIP-MONITOR DATA 'DATA WORDS-L',
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 20 SEC $
+
+ OUTPUT,
+            C'************************************************************\LF\',
+            C'* Verify that the following data was sent:                 *\LF\',
+            C'* "THIS IS MY TEST MESSAGE"                                *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* ENTER TRUE IF THE DATA WAS SENT PROPERLY                *\LF\',
+            C'************************************************************\LF\',
+	$
+
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 20017$
+        PERFORM, 'RESULTS' $
+
+	OUTPUT, C'MESSAGE RECIEVED:\LF\' $
+
+     65	CALCULATE, 'GO' = TRUE $
+	FOR, 'IDX' = 1 THRU 23, THEN $
+		OUTPUT,'DATA WORDS-L'('IDX') $
+            IF, 'DATA WORDS-T'('IDX') EQ 'DATA WORDS-L'('IDX'), THEN $ 
+	    ELSE $
+		CALCULATE, 'GO' = FALSE,
+			   'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+	    END, IF $
+	END, FOR $
+C $
+        IF, NOGO, THEN $
+          OUTPUT, C'TRANSFER FAILED!\LF\' $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        ELSE $
+          OUTPUT, C'TRANSFER PASSED!\LF\' $
+	END, IF $
+
+	CALCULATE, 'TESTNO' = 20020$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C $
+B $
+ 060000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+        C'--------------------------------------\LF\',
+        C' END - END TEST\LF\',
+        C'    PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'\LF\', 
+          C'--------------------------------------\LF\',
+         C'END - END TEST\LF\',
+         C'   PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\',
+        C'--------------------------------------\LF\',
+        C' END - END TEST \LF\',
+        C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+       C' --------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	 C'\LF\',  
+        C'--------------------------------------\LF\',
+         C'END - END TEST\LF\ ',
+         C'FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+
+        END, IF  $
+ 060100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+B $
+ 999999 TERMINATE, ATLAS PROGRAM 'Bus_Ethernet_Gigabit Benchmark' $

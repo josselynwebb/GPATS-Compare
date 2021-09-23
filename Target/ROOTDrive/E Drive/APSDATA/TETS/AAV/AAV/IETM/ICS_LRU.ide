@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="ICS-LRU" LABEL="XII"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\INTERCOMMUNICATION_SET_LRU_ANMIQ-1\TP_AAV_ICS_LRU.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s12.ide!c4s12'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/ICS_LRU/ASSY/ICS_LRU_1.pic' ?><?BUTTON POS='4' SHOW='Y' LABEL='FB DIAG' TYPE='PIC' LINK='./graphics/ICS_LRU/SCHEM/ICS_LRU_FBD.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s12.ide!Table3-13'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s12.ide!c3s12'?><?FRAME ID="5-12a" TITLE="Chapter 5. Maintenance, Section XII. ELTD FOR INTERCOMMUNICATIONS SET LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3" previous="./CON_A1.ide" next="./ics_a1.ide"?><?TOCENTRY TITLE="SECTION XII. ELTD for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3" TOCLEVEL="2" LABEL="XII"?>
+<TITLE>SECTION XII. ELTD for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3</TITLE>
+<PARA0 ID="P5-12" LABEL="5.12"><?TOCENTRY TITLE="5.12 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the Intercommunications Set LRU, (V)1 P/N 2618500-1, (V)2 -2 and (V)3 -3.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-InterComm ANMIQ-1(V)3.PDF"?>Intercommunication Set LRU ELTD<?endhotspot?></PARA></PARA0></SECTION>

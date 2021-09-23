@@ -1,0 +1,392 @@
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE rear SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub EntList alpha bull copy rArr sect trade sup2>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 11504A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<rear>
+<?FRAME label='A1s1a' title='APPENDIX A. ACRONYM/ABBREVIATION LIST.' previous='.\C6s1.ide!C6s1g'>
+<appendix id="A1s1" label="APPENDIX A" tocentry="1">
+<?PUB TOCLEVEL="1" TEXT="APPENDIX A - ACRONYM/ABBREVIATION LIST"?>
+<title>ACRONYM/ABBREVIATION LIST</title>
+<para0 id="A-1" label="A-1" tocentry="2">
+<?PUB TOCLEVEL="2" TEXT="A-1 Introduction."?>
+<title>Introduction.</title>
+<para><?hotspot href="TA-1">Table A-1<?endhotspot?> lists the acronyms,
+symbols or abbreviations used throughout this IETM and their associated
+definition.</para>
+<para><table id="TA-1" tocentry="0">
+<title>Table A-1. Acronym/Abbreviation List</title>
+<tgroup align="left" cols="2">
+<colspec colname="1" colnum="1" colwidth="1.13in">
+<colspec colname="2" colnum="2" colwidth="2.31in">
+<thead>
+<row>
+<entry align="center">Acronym/Abbreviation</entry>
+<entry align="center">Definition</entry><?Pub Caret -1>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>AC</entry>
+<entry>Alternating Current</entry>
+</row>
+<row>
+<entry>ADC</entry>
+<entry>Analog-to-Digital Converter</entry>
+</row>
+<row>
+<entry>AGC</entry>
+<entry>Automatic Gain Control</entry>
+</row>
+<row>
+<entry>Amp</entry>
+<entry>Ampere</entry>
+</row>
+<row>
+<entry>ANSI</entry>
+<entry>American National Standard Institute</entry>
+</row>
+<row>
+<entry>AP</entry>
+<entry>Armor Piercing</entry>
+</row>
+<row>
+<entry>APS</entry>
+<entry>Application Program Set</entry>
+</row>
+<row>
+<entry>AR</entry>
+<entry>As Required</entry>
+</row>
+<row>
+<entry>Assy</entry>
+<entry>Assembly</entry>
+</row>
+<row>
+<entry>ATE</entry>
+<entry>Automatic Test Equipment</entry>
+</row>
+<row>
+<entry>ATEP</entry>
+<entry>Automatic Test Equipment Program</entry>
+</row>
+<row>
+<entry>AZ</entry>
+<entry>Azimuth</entry>
+</row>
+<row>
+<entry>BRT</entry>
+<entry>Brightness</entry>
+</row>
+<row>
+<entry>CAGE</entry>
+<entry>Commercial and Government Entity</entry>
+</row>
+<row>
+<entry>CAGEC</entry>
+<entry>Commercial and Government Entity Code</entry>
+</row>
+<row>
+<entry>CAL</entry>
+<entry>Calibration</entry>
+</row>
+<row>
+<entry>CCA</entry>
+<entry>Circuit Card Assembly</entry>
+</row>
+<row>
+<entry>CDA</entry>
+<entry>Control Display Assembly</entry>
+</row>
+<row>
+<entry>CHAP</entry>
+<entry>Chapter</entry>
+</row>
+<row>
+<entry>CL</entry>
+<entry>Component Layout</entry>
+</row>
+<row>
+<entry>Cmd</entry>
+<entry>Command</entry>
+</row>
+<row>
+<entry>CMI</entry>
+<entry>Corrective Maintenance Instruction</entry>
+</row>
+<row>
+<entry>CPM</entry>
+<entry>Computer Programming Manual</entry>
+</row>
+<row>
+<entry>DC</entry>
+<entry>Direct Current</entry>
+</row>
+<row>
+<entry>DCPS</entry>
+<entry>Direct Current Power Supply</entry>
+</row>
+<row>
+<entry>EL</entry>
+<entry>Elevation</entry>
+</row>
+<row>
+<entry>ELTD</entry>
+<entry>English Language Test Description</entry>
+</row>
+<row>
+<entry>ESD</entry>
+<entry>Electrostatic Discharge</entry>
+</row>
+<row>
+<entry>GCU</entry>
+<entry>Gun Control Unit</entry>
+</row>
+<row>
+<entry>GTD</entry>
+<entry>Gun Turret Drive</entry>
+</row>
+<row>
+<entry>HE</entry>
+<entry>High Explosive</entry>
+</row>
+<row>
+<entry>Hz</entry>
+<entry>Hertz</entry>
+</row>
+<row>
+<entry>I&sup2;C</entry>
+<entry>Inter Integrated Circuit</entry>
+</row>
+<row>
+<entry>ID SCH</entry>
+<entry>Interconnection Diagram Schematic</entry>
+</row>
+<row>
+<entry>IAW</entry>
+<entry>In Accordance With</entry>
+</row>
+<row>
+<entry>IC</entry>
+<entry>Instrument Controller</entry>
+</row>
+<row>
+<entry>ID</entry>
+<entry>Interface Device</entry>
+</row>
+<row>
+<entry>IETM</entry>
+<entry>Interactive Electronic Technical Manual</entry>
+</row>
+<row>
+<entry>I/O</entry>
+<entry>Input/Output</entry>
+</row>
+<row>
+<entry>IP</entry>
+<entry>Integrated Processor</entry>
+</row>
+<row>
+<entry>LAV</entry>
+<entry>Light Armored Vehicle </entry>
+</row>
+<row>
+<entry>LED</entry>
+<entry>Light Emitting Diode</entry>
+</row>
+<row>
+<entry>LRU</entry>
+<entry>Line Replaceable Unit</entry>
+</row>
+<row>
+<entry>Max</entry>
+<entry>Maximum</entry>
+</row>
+<row>
+<entry>MC</entry>
+<entry>Motor Controller</entry>
+</row>
+<row>
+<entry>MCO</entry>
+<entry>Marine Corps Order</entry>
+</row>
+<row>
+<entry>N/A</entry>
+<entry>Not Applicable, Not Available</entry>
+</row>
+<row>
+<entry>NATO</entry>
+<entry>North Atlantic Treaty Organization</entry>
+</row>
+<row>
+<entry>NBC</entry>
+<entry>Nuclear, Biological, Chemical</entry>
+</row>
+<row>
+<entry>NSN</entry>
+<entry>National Stock Number</entry>
+</row>
+<row>
+<entry>P/N</entry>
+<entry>Part Number</entry>
+</row>
+<row>
+<entry>PBIT</entry>
+<entry>Power Up Built in Test</entry>
+</row>
+<row>
+<entry>PDA</entry>
+<entry>Power Distribution Assembly</entry>
+</row>
+<row>
+<entry>PM</entry>
+<entry>Preventive Maintenance</entry>
+</row>
+<row>
+<entry>PMCS</entry>
+<entry>Preventive Maintenance Checks and Services</entry>
+</row>
+<row>
+<entry>P/O</entry>
+<entry>Part Of</entry>
+</row>
+<row>
+<entry>POL</entry>
+<entry>Polarity</entry>
+</row>
+<row>
+<entry>PS</entry>
+<entry>Power Supply</entry>
+</row>
+<row>
+<entry>PSI</entry>
+<entry>Pounds Per Square inch</entry>
+</row>
+<row>
+<entry>PWR</entry>
+<entry>Power</entry>
+</row>
+<row>
+<entry>QRG</entry>
+<entry>Quick Reference Guide</entry>
+</row>
+<row>
+<entry>Qty</entry>
+<entry>Quantity</entry>
+</row>
+<row>
+<entry>RAM</entry>
+<entry>Random Access Memory</entry>
+</row>
+<row>
+<entry>Reqd</entry>
+<entry>Required</entry>
+</row>
+<row>
+<entry>RPSTL</entry>
+<entry>Repair Parts &amp; Special Tools List</entry>
+</row>
+<row>
+<entry>RTN</entry>
+<entry>Return</entry>
+</row>
+<row>
+<entry>SDS</entry>
+<entry>Safety Data Sheets</entry>
+</row>
+<row>
+<entry>SAIF</entry>
+<entry>Stand Alone Instrument Fixture</entry>
+</row>
+<row>
+<entry>SCH</entry>
+<entry>Schematic</entry>
+</row>
+<row>
+<entry>SECT</entry>
+<entry>Section</entry>
+</row>
+<row>
+<entry>SER</entry>
+<entry>Serial</entry>
+</row>
+<row>
+<entry>SLEP</entry>
+<entry>Service Life Extension Program</entry>
+</row>
+<row>
+<entry>SMR</entry>
+<entry>Source, Maintenance, and Recoverability</entry>
+</row>
+<row>
+<entry>SRU</entry>
+<entry>Shop Replaceable Unit</entry>
+</row>
+<row>
+<entry>STBY</entry>
+<entry>Standby</entry>
+</row>
+<row>
+<entry>TM</entry>
+<entry>Technical Manual</entry>
+</row>
+<row>
+<entry>TOO</entry>
+<entry>Theory Of Operation</entry>
+</row>
+<row>
+<entry>TETS-B</entry>
+<entry>Third Echelon Test System &ndash; Version B</entry>
+</row>
+<row>
+<entry>TPH</entry>
+<entry>Test Program Hardware</entry>
+</row>
+<row>
+<entry>TPI</entry>
+<entry>Test Program Instructions</entry>
+</row>
+<row>
+<entry>TPS</entry>
+<entry>Test Program Set</entry>
+</row>
+<row>
+<entry>UOC</entry>
+<entry>Usable On Code</entry>
+</row>
+<row>
+<entry>&micro;m</entry>
+<entry>micrometer</entry>
+</row>
+<row>
+<entry>UUT</entry>
+<entry>Unit Under Test</entry>
+</row>
+<row>
+<entry>USB</entry>
+<entry>Universal Serial Bus</entry>
+</row>
+<row>
+<entry>V</entry>
+<entry>Volt</entry>
+</row>
+<row>
+<entry>VDC</entry>
+<entry>Voltage Direct Current</entry>
+</row>
+<row>
+<entry>VIPER/T</entry>
+<entry>Virtual Instrument Portable Equipment Repair/Tester</entry>
+</row>
+<row>
+<entry>WPN</entry>
+<entry>Weapon</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</para0>
+</appendix>
+</rear>

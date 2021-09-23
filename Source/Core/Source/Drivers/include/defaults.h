@@ -1,0 +1,11 @@
+#ifndef _DEFAULTS_H_
+#define _DEFAULTS_H_
+
+/*
+ *	DEFINED INVALID VALUES FOR SOME DATA TYPES
+ */
+#define	INVALID_INTV	(-999999999)
+#define	INVALID_DECV	(.99999E-99)
+#define	INVALID_DIGV	(NULL)
+
+#endif /* _DEFAULTS_H_ */

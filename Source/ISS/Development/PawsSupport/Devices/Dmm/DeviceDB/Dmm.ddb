@@ -1,0 +1,572 @@
+**************************************************************************
+************    Racal 4152A (DMM) STATIC DESCRIPTION     *****************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Dmm.ddb
+*
+* INSTRUMENT  : Digital Multimeter
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev DMM_1;
+
+	begin; ** event-monitor
+		control
+		{
+			event-out;
+			sample-count range 1 to 50000;
+			delay range 0 sec to 3600 sec;
+			event-delay range 0 sec to 3600 sec;
+			event-slope neg;
+		}
+
+		cnx event-out DMM-es;
+
+		begin FNC = 202; ** External trigg.
+			cnx hi DMM-Trig; ** Double check DMM-Trig.
+			event monitor (voltage) ac signal;
+		end; ** External trigg.
+
+	end; ** event-monitor
+
+	begin;
+		control
+		{
+			strobe-to-event;
+			max-time range 0 sec to 1000 sec;
+		}    
+		**cnx hi DMM-Hi, lo DMM-Lo;
+
+		begin; ** DC Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage)dc signal;
+			control
+			{
+				voltage range -300 v to 300 v continuous;
+				ref-volt -360 v to 360 v continuous;
+				sample-width .0004 sec to 1.66667 sec;
+			}
+			
+			begin FNC = 1;
+				cnx event-strobe event-port;
+			end;
+			
+			begin FNC = 101;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** DC Voltage Measurement
+
+		begin; ** AC Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage)ac signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				ref-volt range -360 v to 360 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 2;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 102;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Voltage Measurement
+
+		begin; ** AC Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage-p)ac signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				ref-volt range -360 v to 360 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 22;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 122;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Voltage-p Measurement
+
+		begin; ** AC Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage-pp)ac signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				ref-volt range -360 v to 360 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 23;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 123;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Voltage-pp Measurement
+
+		begin; ** Impedance Measurement 2-wire
+			cnx hi DMM-Hi, lo DMM-Lo, sense-hi DMM-SHi, sense-lo DMM-SLo;
+			sensor(res)impedance;
+			control
+			{
+				res range .000100 ohm to 100000000 ohm continuous;
+				ref-res range 0 ohm to 120000000 ohm continuous;
+				sample-count range 1 to 50000;
+				sample-time range 0.0004 sec to 1.66667 sec;
+				four-wire;
+			}
+			begin FNC = 3;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 103;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Impedance Measurement
+
+		begin; ** AC Frequency Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor (freq) ac signal;
+			control
+			{
+				freq range 3.0 hz to 300.0 khz continuous;
+				voltage range 0 v to 300.0 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 4;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 104;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Frequency Measurement
+
+		begin; ** AC Current Measurement
+			cnx hi DMM-Curr, lo DMM-Lo;
+			sensor (current) ac signal;
+			control
+			{
+				current range 0.0 a to 3.0 a continuous;
+				voltage range 0 v to 300.0 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				dc-offset range -300 v to 300 v;
+				freq range 3.0 hz to 300 khz continuous;
+				bandwidth 3 hz to 300 khz;
+			}
+			begin FNC = 5;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 105;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Current Measurement
+
+		begin; ** DC Current Measurement
+			cnx hi DMM-Curr, lo DMM-Lo;
+			sensor (current) dc signal;
+			control
+			{
+				current range 0 a to 3.0 a;
+				voltage range -300.0 v to +300.0 v continuous;
+			}
+			begin FNC = 6;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 106;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** DC Current Measurement
+
+		begin; ** Period Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor (period) ac signal;
+			control
+			{
+				period range 3.33 usec to .333 sec continuous;
+				dc-offset range -300 v to 300 v;
+				voltage range 0 v to 300.0 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+			}
+			begin FNC = 7;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 107;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Period Measurement
+
+		begin; ** DC Voltage Ratio Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor (voltage-ratio) dc signal;
+			control
+			{
+				voltage-ratio  range 0 to 3000;
+				voltage range -300.0 v to 300.0 v continuous;
+				ref-volt -360 v to 360 v continuous;
+				sample-width .0004 sec to 1.66667 sec;
+			}
+			begin FNC = 8;
+				cnx event-strobe event-port ;
+			end;
+			begin FNC = 108;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** DC Voltage Ratio Measurement
+
+		begin; ** DC Voltage Average Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor (av-voltage) dc signal;
+			control
+			{
+				av-voltage range -300.0 v to 300.0 v continuous;
+				voltage range -300.0 v to 300.0 v continuous;
+				sample-count range 1 to 50000;
+				ref-volt -360 v to 360 v continuous;
+				sample-width .0004 sec to 1.66667 sec;
+			}
+			begin FNC = 9;
+				cnx event-strobe event-port ;
+			end;
+			begin FNC = 109;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** DC Voltage Average Measurement
+
+		begin; ** AC Voltage Average Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor (av-voltage) ac signal;
+			control
+			{
+				av-voltage range 0 v to 300.0 v continuous;
+				voltage range 0 v to 300.0 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				dc-offset range -300 v to 300 v;
+				sample-count range 1 to 50000;
+				ref-volt 0 v to 360 v continuous;
+			}
+			begin FNC = 10;
+				cnx event-strobe event-port ;
+			end;
+			begin FNC = 110;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Voltage Average Measurement
+
+		begin; ** DC Current Average Measurement
+			cnx hi DMM-Curr, lo DMM-Lo;
+			sensor (av-current) dc signal;
+			control
+			{
+				av-current range 0.0 a to 3.0 a continuous;
+				voltage range -300 v to 300.0 v continuous;
+				sample-count range 1 to 50000;
+				ref-volt -360 v to 360 v continuous;
+			}
+			begin FNC = 11;
+				cnx event-strobe event-port ;
+			end;
+			begin FNC = 111;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** DC Current Average Measurement
+
+		begin; ** AC Current Average Measurement
+			cnx hi DMM-Curr, lo DMM-Lo;
+			sensor (av-current) ac signal;
+			control
+			{
+				av-current range 0.0 a to 3.0 a continuous;
+				voltage range 0 v to 300.0 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				dc-offset range -300 v to 300 v;
+				sample-count range 1 to 50000;
+				ref-volt -360 v to 360 v continuous;
+			}
+			begin FNC = 12;
+				cnx event-strobe event-port ;
+			end;
+			begin FNC = 112;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Current Average Measurement
+
+		begin; ** DC SIGNAL AC-COMP Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(ac-comp)dc signal;
+			control
+			{
+				ac-comp range 0 v to 300 v continuous;
+				voltage range -300.0 v to 300.0 v continuous;
+				ref-volt -360 v to 360 v continuous;
+				sample-width .0004 sec to 1.66667 sec;
+			}
+			begin FNC = 13;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 113;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** DC SIGNAL AC-COMP Measurement
+
+		begin; ** DC SIGNAL AC-COMP-FREQ Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(ac-comp-freq)dc signal;
+			control
+			{
+				ac-comp-freq range 3 hz to 30000 hz continuous;
+				voltage range -300.0 v to 300.0 v continuous;
+				ref-volt -360 v to 360 v continuous;
+				sample-width .0004 sec to 1.66667 sec;
+			}
+			begin FNC = 14;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 114;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** DC SIGNAL AC-COMP-FREQ Measurement
+
+
+		begin; ** AC Signal Dc-Offset Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(dc-offset)ac signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				ref-volt range -360 v to 360 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 15;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 115;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** AC Signal Dc-Offset Measurement
+
+		begin; ** Square Wave Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage)square wave;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 16;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 116;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Square Wave Voltage Measurement
+
+		begin; ** Square Wave Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage-p)square wave;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 27;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 127;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Square Wave Voltage-p Measurement
+
+		begin; ** Square Wave Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage-pp)square wave;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 424 v continuous;
+				voltage-pp range 0 v to 848 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 28;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 128;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Square Wave Voltage-pp Measurement
+
+		cnx hi DMM-Hi, lo DMM-Lo;
+		begin; ** Square Wave Frequency Measurement
+			sensor(freq)square wave;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				freq 3 hz to 300 khz;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 17;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 117;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Square Wave Frequency Measurement
+
+		begin; ** Square Wave Period Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(period)square wave;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				period .0000033 sec to .333 sec;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 18;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 118;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Square Wave Period Measurement
+
+		begin; ** Triangular Wave Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage)triangular wave signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 519 v continuous;
+				voltage-pp range 0 v to 1039 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 19;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 119;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Triangular Wave Voltage Measurement
+
+		begin; ** Triangular Wave Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage-p)triangular wave signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 519 v continuous;
+				voltage-pp range 0 v to 1039 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 25;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 125;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Triangular Wave Voltage-p Measurement
+
+		begin; ** Triangular Wave Voltage Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(voltage-pp)triangular wave signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 519 v continuous;
+				voltage-pp range 0 v to 1039 v continuous;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 26;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 126;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Triangular Wave Voltage-pp Measurement
+
+		begin; ** Triangular Wave Frequency Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(freq)triangular wave signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 519 v continuous;
+				voltage-pp range 0 v to 1039 v continuous;
+				freq 3 hz to 300 khz;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 20;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 120;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Triangular Wave Frequency Measurement
+
+		begin; ** Triangular Wave Period Measurement
+			cnx hi DMM-Hi, lo DMM-Lo;
+			sensor(period)triangular wave signal;
+			control
+			{
+				voltage range 0 v to 300 v continuous;
+				voltage-p range 0 v to 519 v continuous;
+				voltage-pp range 0 v to 1039 v continuous;
+				period .0000033 sec to .333 sec;
+				bandwidth 3 hz to 300 khz;
+				dc-offset range -300 v to 300 v;
+			}
+			begin FNC = 21;
+				cnx event-strobe event-port;
+			end;
+			begin FNC = 121;
+				cnx event-strobe DMM-es;
+			end;
+		end; ** Triangular Wave Period Measurement
+
+	end;
+
+end; *end dmm

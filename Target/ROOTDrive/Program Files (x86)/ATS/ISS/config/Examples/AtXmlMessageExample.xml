@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AtXmlMessages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="../AtXmlMessageSchema.xsd"
+xmlns:c="http://www.ieee.org/ATML/2005/08/Common" 
+xmlns:stdbsc="STDBSC"  xmlns:tsf="STDTSF"
+xsi:schemaLocation="STDBSC ../STDBSC.xsd   http://www.ieee.org/ATML/2005/08/Common ../Common.xsd
+STDTSF ../USER_TSF.xsd">
+	<AtXmlSignalDescription>
+		<SignalAction>Connect</SignalAction>
+		<SignalResourceName>PAWS_SWITCH</SignalResourceName>
+		<SignalSnippet> 
+			<stdbsc:Signal Out="SHORTx"  >
+				<tsf:Connection name="SHORTx" path="12,13,1500;1,2,3"/>
+			</stdbsc:Signal>
+		</SignalSnippet>
+	</AtXmlSignalDescription>
+	<AtXmlIssueInstrumentCommands>
+		<SignalResourceName>DMM_1</SignalResourceName>
+		<InstrumentCommands>
+			<Commands>*RST;IDN?</Commands>
+			<ExpectedResponseString MaxLength="200" DelayInSeconds="0.001"/>
+		</InstrumentCommands>
+	</AtXmlIssueInstrumentCommands>
+	<AtXmlCallbackRegistered>
+		<Callback>xyz</Callback>
+		<CallbackType>ATXML_STOP_TE_ACTION</CallbackType>
+	</AtXmlCallbackRegistered>
+	<AtXmlCallbackInvoke>
+		<Callback>xyz</Callback>
+		<CallbackReason>ATXML_TE_ACTION_HALT</CallbackReason>
+	</AtXmlCallbackInvoke>
+	<AtXmlSignalDescription>
+		<SignalAction>Fetch</SignalAction>
+		<SignalResourceName>DMM_1</SignalResourceName>
+		<SignalSnippet> 
+			<stdbsc:Signal Out="DMM_DC_SIGNALx"  >
+				<stdbsc:Sinusoid name="AC_Componentx" amplitude= "pk_pk 3.0 mV" frequency= "10 Hz"/>
+				<stdbsc:Constant name="DC_Levelx" amplitude= "5V"/>
+				<stdbsc:Sum name="DMM_DC_SIGNALx" In="DC_Levelx AC_Componentx"/>
+				<stdbsc:TwoWire name="ConnDMM_DC_SIGNALx" hi="uut_pin_hi" lo="uut_pin_lo"/>
+					<stdbsc:Measure name="DMMx" As="DMM_DC_SIGNALx" attribute="dc_ampl" samples="1"
+												 Conn="ConnDMM_DC_SIGNALx"/>
+			</stdbsc:Signal>
+		</SignalSnippet>
+	</AtXmlSignalDescription>
+	<AtXmlSignalDescription>
+			<SignalAction>Measure</SignalAction>
+			<SignalResourceName>DMM_1</SignalResourceName>
+			<SignalSnippet> 
+				<stdbsc:Signal Out="DMM_DC_SIGNAL"  >
+					<stdbsc:Sinusoid name="AC_Component" amplitude= "3.0 mV" frequency= "10 Hz"/>
+					<stdbsc:Constant name="DC_Level" amplitude= "5V"/>
+					<stdbsc:Sum name="DMM_DC_SIGNAL" In="DC_Level AC_Component"/>
+					<stdbsc:TwoWire name="ConnDMM_DC_SIGNAL" hi="uut_pin_hi" lo="uut_pin_lo"/>
+						<stdbsc:Measure name="DMM" As="DMM_DC_SIGNAL" attribute="dc_ampl" samples="1" 
+						                             Conn="ConnDMM_DC_SIGNAL"/>
+				</stdbsc:Signal>
+			</SignalSnippet>
+	</AtXmlSignalDescription>
+	<AtXmlTestRequirements>
+		<ResourceRequirement>
+			<ResourceType>Source</ResourceType>
+			<SignalResourceName>DMM_1</SignalResourceName>
+		</ResourceRequirement>
+	</AtXmlTestRequirements>
+	<AtXmlAllocation>
+		<AllcationAssignment resourceName="DMM_1" stationResourceName="DMM" stationInstrumentName="Dmm_Vx407C"/>
+	</AtXmlAllocation>
+	<AtXmlResponse> 
+		<ErrStatus moduleName="DeviceXxxWrapper" leadText="Initialize" errCode="0" errText="It's Broke"></ErrStatus>
+		<Availability>
+			<ResourceAvailability resourceName="DMM_1" availability="Available" />
+		</Availability>
+	</AtXmlResponse>
+	<AtXmlResponse>
+		<ReturnData>
+			<ValuePair>
+				<Attribute>foo</Attribute>
+				<Value>
+					<c:Datum xsi:type="c:double" unit="V" value="8"/>
+				</Value>
+			</ValuePair>
+			<ValuePair>
+				<Attribute>foo</Attribute>
+				<Value>
+					<c:Datum xsi:type="c:string" unit="V"> <c:Value>xxxx</c:Value></c:Datum>
+				</Value>
+			</ValuePair>
+		</ReturnData>
+		<ErrStatus errCode="-1" errText="" leadText="" moduleName=""></ErrStatus>
+	</AtXmlResponse>
+</AtXmlMessages>

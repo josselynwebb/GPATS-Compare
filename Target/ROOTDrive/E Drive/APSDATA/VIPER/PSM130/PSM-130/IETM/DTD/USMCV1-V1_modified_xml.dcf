@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE DocumentTypeConfiguration PUBLIC "-//Arbortext//DTD Document Type Configuration 2.0//EN"
+ "dcfdtd.dtd">
+<?Pub Inc?>
+<DocumentTypeConfiguration>
+<Options allowApplicationToolbar="yes"></Options>
+<NewDialog>
+<New category="AN-PSM-130 DTD" description="USMC V1-V1"/></NewDialog>
+<ElementOptions></ElementOptions>
+<AttributeOptions></AttributeOptions>
+<Display></Display>
+<Specials>
+<Graphic element="authent" entity="boardno" inline="yes"/>
+<Graphic element="graphic" entity="boardno" inline="yes"/>
+<Graphic element="inlinegraphic" entity="boardno" inline="yes"/>
+<Graphic element="icon-set" entity="boardno" inline="yes"/>
+<Graphic element="symbol" entity="boardno" inline="yes"/></Specials>
+<ContextTransformations></ContextTransformations>
+<TextStyles>
+<Bold attribute="emph" attributeValue="b" element="emphasis"
+primary="yes"/><?Pub Caret -2?>
+<Italic attribute="emph" attributeValue="i" element="emphasis"/>
+<Underline attribute="emph" attributeValue="u" element="emphasis"/>
+</TextStyles>
+<Lists></Lists>
+<SmartInsert></SmartInsert>
+<FrameSets></FrameSets>
+<Composition></Composition>
+</DocumentTypeConfiguration>

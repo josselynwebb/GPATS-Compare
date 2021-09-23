@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C2S01" LABEL="I"><?Pub Dtl?><?FRAME title="Chapter 2. Safety Precautions, Section I. Introduction" previous="./c1s04.ide!C1S04"?>
+<?TOCENTRY TITLE="CHAPTER 2. SAFETY PRECAUTIONS" TOCLEVEL="1"?>
+<?CHAPTERINFO LABEL="2" ID="C2" TITLE="SAFETY PRECAUTIONS"?><?TOCENTRY TITLE="SECTION I. Introduction" TOCLEVEL="2" LABEL="I"?>
+<TITLE>SECTION I. Introduction</TITLE>
+<PARA0 ID="P2-1" LABEL="2.1"><?TOCENTRY TITLE="2.1 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This chapter contains a summary of safety precautions for the APS. Personnel who use or perform maintenance on the APS must be familiar with the contents of this chapter. Safety considerations fall into two categories: personnel safety and equipment safety.  Basic safety requirements and concepts are discussed in System Safety Program Requirements, MIL-STD-882C. Specific precautions, based on design features of the APS, are presented in the paragraphs below.  Section II contains a general safety summary. Section III contains maintenance safety precautions.</PARA>
+<SUBPARA1 ID="P2-1.1" LABEL="2.1.1"><?TOCENTRY TITLE="2.1.1 Safety Responsibilities" TOCLEVEL="4"?>
+<TITLE>Safety Responsibilities</TITLE>
+<PARA>Ultimately, individuals are responsible for their own safety, the safety of others working on or near the system, and the safe operation of the equipment. The processes and procedures described in this manual require compliance with standard safety precautions. The technician must adhere to the procedures, recommendations, warnings, and cautions provided to ensure the safe use, handling, storage, and disposal of components. This section provides general safety precautions and instructions that must be applied during operation and maintenance of the APS to ensure personal safety and health and the protection of Government property. (Portions of this chapter are repeated elsewhere in this Manual for reinforcement.)</PARA></SUBPARA1><?FRAME label="c2s01b" title="Chapter 2. Safety Precautions, Section I. Introduction Cont'd" next="./c2s02.ide!C2S02"?>
+<SUBPARA1 ID="P2-1.2" LABEL="2.1.2"><?TOCENTRY TITLE="2.1.2 Warnings, Cautions, and Notes" TOCLEVEL="4"?>
+<TITLE>Warnings, Cautions, and Notes</TITLE>
+<WARNING ID="W21">
+<PARA>Warning statements call attention to steps or procedures that must be strictly followed to prevent death or serious injury to personnel.</PARA></WARNING>
+<CAUTION>
+<PARA>Caution statements call attention to steps and procedures that must be strictly followed to prevent damage to equipment or destruction of equipment.</PARA></CAUTION>
+<NOTE>
+<PARA>Note statements call attention to step and procedures that require special attention to detail to prevent mishandling or improper operation of equipment.</PARA></NOTE>
+<PARA>Warning, caution, and note statements have been strategically placed throughout the text. These statements are considered essential to the protection of personnel or equipment and property and are placed prior to the procedures to which they apply. A warning or caution applies each time the related step is repeated. Before starting any task, review the warnings, cautions, or notes included in the text for that task. Warning, caution, and note statements are set apart from standard text content and immediately precede the paragraphs or steps to which they apply.</PARA></SUBPARA1></PARA0></SECTION>

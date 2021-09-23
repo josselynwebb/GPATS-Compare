@@ -1,0 +1,86 @@
+# Build results
+[Dd]ebug/
+[Bb]in/
+[Oo]bj/
+[Rr]elease/
+[Rr]eleases/
+[Mm]svc
+[Vv]6KernCDebug
+[Vv]6ApiDebug
+[Vv]6DrvrDebug
+[Ss]wx6Debug
+[Ss]wxSrvr6Debug
+Source/Core/Source/Drivers/DSO/zt1428.dll
+Source/Core/Source/Drivers/DSO/zt1428.lib
+Source/Core/Source/Drivers/DSO_TETS/Hpe1428a.dll
+Source/Core/Source/Drivers/DSO_TETS/Hpe1428a.lib
+Source/Core/Source/Drivers/FG_TETS/Ri3151.dll
+Source/Core/Source/Drivers/FG_TETS/Ri3151.lib
+Source/Core/Source/Drivers/PDU/APS6062.DLL
+Source/Core/Source/Drivers/PDU/aps6062.lib
+Source/ISS/Development/CommonInterfaceControlLayer/Cicl_Devices/Common/Lib/AtXmlWrapper.lib
+Source/ISS/Development/PawsSupport/Devices/Common/Lib/CemSupport.lib
+Source/ISS/Development/SAIS/SAIS_Devices/SR_NA65CS4/Build/NA65CS4.exe
+
+Target/Express/
+Target/ROOTDrive/Program Files (x86)/ATS/FHDB.dll
+
+Target/ROOTDrive/Program Files (x86)/ATS/CTest/SystemSurvey.exe
+Target/ROOTDrive/Program Files (x86)/ATS/CTest/FHDB.dll
+
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/ATXMLFreedom01502.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/ATXMLRI4152A.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlAgE1420B.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlApi.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlArb_AgE1445A.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlCAN.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlDriverFunc.lib
+
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlHPE1428A.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlLE1553_5.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlRi3152.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlRi3152AB.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlSLSerial.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlSbsGigabit.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlSrs_Na65CS4.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlSwxRi1260.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlTerM9.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlVeo2_IrWin.lib
+Target/ROOTDrive/Program Files (x86)/ATS/ISS/Lib/AtXmlZt1428Vxi.lib
+
+
+Target/ROOTDrive/Program Files (x86)/ATS/FHDB/FHDB_Processor.exe
+Target/ROOTDrive/Program Files (x86)/ATS/FilePrintViewer/FaultFilePrint.exe
+
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemBUS_Ethernet_Gigabit.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemSwitch.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemVEO2.dll
+Target/ROOTDrive/Program Files (x86)/ATS/Log/Syslog.exe
+Target/ROOTDrive/Program Files (x86)/ATS/SAIS/SAISMGR.exe
+Target/ROOTDrive/Program Files (x86)/ATS/SysMenu.exe
+Target/ROOTDrive/Program Files (x86)/ATS/Sysmon.exe
+Target/ROOTDrive/Program Files (x86)/ATS/System Test/FHDB.dll
+Target/ROOTDrive/Program Files (x86)/ATS/System Test/Stest.exe
+Target/ROOTDrive/Program Files (x86)/ATS/System Test/Stest_TETS.exe
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemArb_Gen.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemBUS_PciSerial.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemBus_1553.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemBus_Can.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemCntr.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemDcPs.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemDmm.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemDso.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemDso_TETS.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemDwg.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemFncGen.dll
+Target/ROOTDrive/usr/tyx/sub/IEEE716.89/GPATSCIC/Station/WcemSrs.dll
+
+Source/Software Build/ALL_CIC.opensdf
+Source/Software Build/ALL_CIC.sdf
+Source/Software Build/ALL_CIC.v11.suo
+
+
+
+
+
+

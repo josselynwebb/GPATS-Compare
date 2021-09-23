@@ -1,0 +1,75 @@
+**************************************************************************
+************    TEWS TPMC810-10R (CAN) STATIC DESCRIPTION     ************
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Bus_Can.ddb
+*
+* INSTRUMENT  : Data Bus
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  1.1   21APR09  Changed timing-value range to 20Kbits / Sec         EADS NA T&S 
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  2.1   19APR17  Updated for GPATS-CIC Common Instrument Controller, Astronics
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev CAN_1;
+
+	begin;
+
+		begin;	** DO and ESTABLISH
+			function bus protocol;
+			control
+			{
+				bus-spec can;
+				standard primary;
+				timing-value range 20000 bits/sec to 1000000 bits/sec;
+				three-samples range 0 to 1;
+				single-filter range 0 to 1;
+				acceptance-code range 0 to 4294967295;
+				acceptance-mask range 0 to 4294967295; 
+				receive-msg-codeone range 0 to 4294967295;
+				receive-msg-codetwo range 0 to 4294967295;
+				max-time range 0 msec to 60 sec continuous;
+				no-response-timeout range 0 msec to 60 sec continuous;
+				wait;
+			}
+			begin FNC=11;
+				cnx true CANCH1POUT, compl CANCH1NOUT;
+			end;
+			begin FNC=111;
+				cnx true CANCH2POUT, compl CANCH2NOUT;
+			end;
+		end;
+
+		begin;  ** CAN
+			function exchange;
+			control
+			{
+				bus-mode talker-listener;
+				test-equip-talker max 1;
+				uut-talker max 1;
+				test-equip-listener max 1;
+				uut-listener max 1;
+				data max 1;
+			}
+			begin FNC=12;
+				cnx true CANCH1POUT, compl CANCH1NOUT;
+			end;
+			begin FNC=112;
+				cnx true CANCH2POUT, compl CANCH2NOUT;
+			end;
+		end;
+	end;
+
+end; *end CAN 1

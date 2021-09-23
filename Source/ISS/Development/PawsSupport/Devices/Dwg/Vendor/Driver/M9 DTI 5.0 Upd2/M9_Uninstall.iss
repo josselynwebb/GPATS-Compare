@@ -1,0 +1,13 @@
+[{PRODUCT_GUID}-DlgOrder]
+Dlg0={PRODUCT_GUID}-SdWelcomeMaint-0
+Count=3
+Dlg1={PRODUCT_GUID}-SprintfBox-0
+Dlg2={PRODUCT_GUID}-SdFinish-0
+[{PRODUCT_GUID}-SdWelcomeMaint-0]
+Result=303
+[{PRODUCT_GUID}-SprintfBox-0]
+Result=1
+[{PRODUCT_GUID}-SdFinish-0]
+Result=1
+bOpt1=0
+bOpt2=0

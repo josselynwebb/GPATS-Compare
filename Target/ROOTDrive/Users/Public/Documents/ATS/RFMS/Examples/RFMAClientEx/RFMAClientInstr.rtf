@@ -1,0 +1,89 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}}
+\viewkind4\uc1\pard\f0\fs20 Scope\par
+This document describes how to use the RFMS API in a Microsoft visual C++ environment. It includes an example of how to build an RF measurement analyzer client interface. Then goes on to demonstraite a few of the more interesting API calls. While this document will not include examples or descriptions for every API interface, it will provide all of the information necessary to build a client interface for the RF measurement analyzer and enable the reader to understand the inferface well enough to make use of all of the API interfaces available.\par
+\par
+Creating  the client project\par
+This example assumes that the RFMS software has been installed. To build this project perform the following steps:\par
+\par
+1.) Open Microsoft Visual C++, and select File->new. Make sure you select the "Projects" tab,  then select "MFC AppWizard(exe)"\par
+2.) Enter the project name, "RFMAClientEx", and click \ul N\ulnone ext.\par
+3.) In step 2 select a \ul D\ulnone ialog based project and click on \ul N\ulnone ext. \par
+4.) Turn off support for the \ul A\ulnone bout Dialog and ActiveX \ul C\ulnone ontrols. Turn on support for A\ul u\ulnone tomation . Click on \ul N\ulnone ext. \par
+5.) Accept the defaults for the remainder of the steps by pressing \ul N\ulnone ext in each or just pressing \ul F\ulnone inish and OK on the Project Information dialog.\line\par
+At this point the project will complie without errors. The next step is to include the RFMa class which contains the API for the measurement anaylzer portion of the RFMS. Perform the following steps to insert the RFMa class into the project.\par
+\par
+1.) Open the class wizard either by View->ClassWizard or <CTRL-W>, Then click "Add Class..."\par
+2.) Click "From Type Library"\par
+3.) Navigate to the "RFMS.tlb" file and select it.\par
+4.) In the "Confirm Class" dialog select only "IRFMa_if", and click "OK"\par
+5.) Click "OK" on the "MFC ClassWizard" diaglog to close it.\par
+6.) Notice that the wizard added the files, "rfms.h" and "rfms.cpp" to the project.\par
+7.) Avoid the temptation to edit these files in any way. But to feel free to look at the "rfms.h" file as it will contain all of the IRFMa_if functions prototypes that are available to you. This is the API.\par
+\par
+Code Details (CRFMAClientExDlg.h)\par
+In this section I shall explain the code that needs to be added added and why. First lets look at the header file, "RFMAClientExDlg.h". Though the wizard generated most of the code in this file, there are some required additions. At the top the file "#include "rfms.h" has been added. This is required so that an RFMa class object may be instanced. In the \i Public\i0  section of the CRFMAClientExDlg class the following lines of code have been added:\par
+void checkError();\par
+void enterSimulationMode();\par
+void enterExecutionMode();\par
+void setInstrSettings();\par
+void getInstrSettings();\par
+\par
+The definintion for these methods is contained in "RFMAClientExDlg.cpp".\par
+\par
+In the \i Protected\i0  section of the CRFMAClientExDlg class the line of code, "IRFMa_if RFMaObj;" has been added. This instance of the RFMa class is the API interface object.\par
+\par
+Code Details (CRFMAClientExDlg.cpp)\par
+The first thing to note here is the two include statements at the top:\par
+#include <comdef.h>\par
+#include <string>\par
+The first provides support for the BSTR data types and conversions. The second for the ANSI standard string class. In the "OnInitDialog()" method the following lines of code have been added.\par
+\par
+// connect to the server\par
+RFMaObj.CreateDispatch(_T("RFMS.RFMa_if"));\par
+\tab\par
+// open a session in execution mode--if there are hardware errors\par
+//  simulation mode will be entered instead, and an error/warning will be returned.\par
+enterExecutionMode();\par
+\par
+// load some dialog text defaults\par
+SetDlgItemText(IDC_CMB_MEAS_SIG_TYPE, "AC Signal");\par
+SetDlgItemText(IDC_CMB_MEASTYPE, "FREQ");\par
+SetDlgItemText(IDC_CMB_MEAS_UNITS, "dBm");\par
+\par
+// get the current instrument settings from the RFMS server and display them\par
+getInstrSettings();\par
+\par
+The RFMaObj.CreateDispatch(_T("RFMS.RFMa_if")) call provides our connection to the RFMa interface class of the RFMS sever. Absolutely no calls on the RFMaObj will succeed until this is done.\par
+\par
+\i enterExecutionMode()\i0  is a method call that is defined further down in the file. It peforms the important \i RFMaObj.open()\i0  call. This must always be the first call on the RFMaObj as it opens a session with the instruments and no other calls will succeded until this step is completed successfully.\par
+\par
+The \i open()\i0  method takes one argument, which tells the instrument to open in either simulation mode or execution mode. If an attempt to open in execution mode fails, an error/warning is returned and the session is opened in simulation mode.\par
+\par
+Notice that before the call the \i RFMaObj.open()\i0  there is a call to \i RFMaObj.close()\i0 . Since the server ignores calls to \i RFMaObj.close() \i0 when no session is open, it is safe to preceed the \i open()\i0  calls with \i close()\i0  calls, and there is an advantage to doing so. If a session is currently open, and the user wants to switch modes, say from execution to simulation, the current execution session must be closed before a new simulation session can be opened. By preceding the \i open()\i0  call with a \i close()\i0  call it is gaurented that the current session is closed before a new sesson is opened.\par
+\par
+The next three statements set some defaults for the dialog. The last, getInstrSettings(), is defined later in this file. It demonstraits some function calls that return instrument settings and the units associated with these settings. Then it updates the dialog box for the users benifit.\par
+\par
+OnBtnMeasure()\par
+This function demonstraits the procedure for using the driver once it has been opened in either simulation or execution mode. It also demonstraits the \i COM\i0  specific interfaces and data types that you may not be familiar with if you don't use \i COM\i0 .\par
+\par
+The first \i COM\i0  data type defined in this method is \i Variant\i0 . A \i Variant\i0  is basically a union. If you are not familiar with unions, look them up. They are very usefull constructs. In our case the \i Variant\i0  is just a wrapper that contains the data types we want to pass between client and sever. In this case those types can be either a double pointer or a SafeArray of doubles depending on which measurement function you are performing. Variant types need to be initialized via the \i VariantInit(VARIANT *)\i0  menthod, and they must be cleared unsing the \i VariantClear(VARIANT *)\i0  method. The \i VariantClear()\i0  method will also take care of deallocating any memory associated with SafeArrays that the varient may contain.\par
+\par
+The next \i COM\i0  data type is a \i BSTR\i0 . This type is required to pass pointers to strings across the \i COM\i0  interface. There are examples using BSTR's through the code.\par
+\par
+\i setInstrSettings()\i0  is the first function call. It is defined later in this file. It's job is to read the settings from the dialog box and tell the instruments which settings (and the units associated with these settings) are desired for this measurment.\par
+\par
+The last important thing to note in this section is the calls to \i setMeasSignalType()\i0  and \i setMeasureMode()\i0 . Together these methods tell the virtual instrument which measurement is being requesting and on which type of signal to perform the measurement.\par
+\par
+In this example only the signal type \i AC\i0  is supported, and the measurment types \i RF Frequency\i0 , \i RF power\i0  and \i Wave form data\i0  are demonstraited. These examples cover the full range of \i Variant\i0  types for the RF measurement analyzer. That is to say this is all you will need to understand about Variants to use any of the RFMa interfaces.\par
+\par
+In the first two cases the Variant is of type double. The code "measResult.vt = VT_R8" exists to let the complier know just that. In the call getMeasurement() the Variant is passed by pointer and contains the mesured value upone returning.\par
+\par
+In the second case an array of doubles is requested. This array will contain FFT data samples when the function returns. The server creates a SafeArray and puts all of the data samples into it. This SafeArray is wrapped be the Variant. The example also shows how to extract the samples from the SafeArray.\par
+\par
+checkError()\par
+This method demonstraites how to recover error information and convert it to string and numeric data types\par
+\par
+\par
+\par
+}
+ 

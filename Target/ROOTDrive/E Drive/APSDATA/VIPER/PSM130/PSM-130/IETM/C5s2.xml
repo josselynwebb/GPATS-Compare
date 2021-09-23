@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub EntList alpha bull copy rArr sect trade amp?>
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc' ?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?FRAME id='C5s2a' title='CHAPTER 5 - MAINTENANCE' next='.\C5s3.xml!C5S3a' previous='.\C5s1.xml!C5S1a'?>
+<chapter>
+<section id="c5s2" label="Section II." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section II. Preventive Maintenance Checks and Services (PMCS)."?>
+<title>Preventive Maintenance Checks and Services (PMCS).</title>
+<para0 id="p5-2" label="5-2" tocentry="2">
+<?PUB TOCLEVEL="3" TEXT="5-2 Introduction."?>
+<title>Introduction.</title>
+<?ALERT id="w5as2a" type="warning"?>
+<para>ISOPROPYL ALCOHOL, TT-I-735 GRADE A, Flammable liquid and vapor.
+May cause eye, skin and respiratory irritation. Keep away from heat,
+sparks, and flame. Keep container closed. Use only with adequate ventilation.
+Avoid contact with eyes, skin and clothing. Wash thoroughly after
+handling. Avoid breathing dust (vapor, mist, gas). Failure to follow
+this warning may cause injury to personnel.</para>
+<?ENDALERT?>
+<para>There is no formal PMCS for the AN/PSM-130 APS. PMCS checks
+will be performed during each UUT and ID Test Program Instruction
+(TPI). Additional information on UUT PMCS can be found in the applicable
+UUT technical manuals.</para>
+<subpara1 id="p5-2.1" label="5-2.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="5-2.1 Before Use Inspections."?>
+<title>Before Use Inspections.</title><?Pub Caret 22?>
+<para>The following checks should be done before using the AN/PSM-130
+APS. Additional checks may be requested when running the TPI's. Inspection
+procedures are necessary to ensure continued operation of the Application
+Program Set. Visually inspect all electrical and mechanical parts
+for damage upon initial receipt, prior to operation, or prior to storage
+for more than 30 days. </para>
+<step1>
+<para><emphasis emph="b">Perform the following visual/functional inspections:</emphasis
+></para>
+</step1>
+<step1>
+<para>1. <emphasis emph="b">Interface Device:</emphasis></para>
+</step1>
+<step1>
+<para>a. Visually inspect the ID for any physical damage that may
+have occurred during shipping and handling.</para>
+</step1>
+<step1>
+<para>b. Visually inspect all ID connectors/jacks for missing/broken/bent
+pins.</para>
+</step1>
+<step1>
+<para>2. <emphasis emph="b">Cable Assemblies:</emphasis></para>
+</step1>
+<step1>
+<para>a. Visually inspect insulation for physical damage.</para>
+</step1>
+<step1>
+<para>b. Visually inspect all connectors/jacks for missing/broken/bent
+pins.</para>
+</step1>
+<step1>
+<para>3. <emphasis emph="b">Holding/Self-Test Fixtures:</emphasis
+></para>
+</step1>
+<step1>
+<para>a. Visually inspect all fixture hardware for completeness and
+serviceability.</para>
+</step1>
+<step1>
+<para>b. Visually inspect all connectors/jacks for missing/broken/bent
+pins.</para>
+</step1>
+</subpara1>
+<subpara1 id="p5-2.2" label="5-2.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="5-2.2 Consumable Materials."?>
+<?pub tablewidth="90%"?>
+<title>Consumable Materials.</title>
+<para>Consumable materials are used for cleaning and repair of the
+APS. Consumable materials are expendable items and supplies consumed
+during component maintenance. Use of authorized alternate parts is
+approved unless the restriction "NO SUBSTITUTIONS AUTHORIZED". A list
+of consumables used for connector cleaning can be found in <?hotspot href="T5-1"?>Table
+5-1<?endhotspot?>.</para>
+<warning id="w5as2a">
+<para>ISOPROPYL ALCOHOL, TT-I-735 GRADE A, Flammable liquid and vapor.
+May cause eye, skin and respiratory irritation. Keep away from heat,
+sparks, and flame. Keep container closed. Use only with adequate ventilation.
+Avoid contact with eyes, skin and clothing. Wash thoroughly after
+handling. Avoid breathing dust (vapor, mist, gas). Failure to follow
+this warning may cause injury to personnel.</para>
+</warning>
+<para><?pub tablewidth="90%"?><table id="T5-1">
+<title>Table 5-1. Consumable Materials</title>
+<tgroup align="left" cols="6">
+<colspec colname="1" colnum="1" colwidth="0.3*"/>
+<colspec colname="2" colnum="2" colwidth="0.9*"/>
+<colspec colname="3" colnum="3" colwidth="0.8*"/>
+<colspec colname="4" colnum="4" colwidth="0.8*"/>
+<colspec colname="5" colnum="5" colwidth="0.5*"/>
+<colspec colname="6" colnum="6" colwidth="0.8*"/>
+<thead>
+<row>
+<entry align="center">Item No.</entry>
+<entry align="center">National Stock Number (NSN)</entry>
+<entry align="center">Nomenclature</entry>
+<entry align="center">Specification or P/N</entry>
+<entry align="center">Cage</entry>
+<entry align="center">Use</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry align="center">6810-00-286-5435</entry>
+<entry>Alcohol, Isopropyl</entry>
+<entry>TT-I-735 Grade A</entry>
+<entry align="center">81348</entry>
+<entry>To clean surfaces.</entry>
+</row>
+<row>
+<entry align="center">2</entry>
+<entry align="center">7920-00-543-7728</entry>
+<entry>Brush, Acid Swabbing</entry>
+<entry>H-B-643, Type II</entry>
+<entry align="center">81349</entry>
+<entry>To clean connectors.</entry>
+</row>
+<row>
+<entry align="center">3</entry>
+<entry align="center">7920-01-386-4489</entry>
+<entry>Cloth, Cleaning</entry>
+<entry>CCC-C-46 TY1CL4</entry>
+<entry align="center">81348</entry>
+<entry>For general cleaning.</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara1>
+<subpara1 id="p5-2.2.1" label="5-2.2.1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="5-2.2.1 Specific Cleaning Procedures."?>
+<title>Specific Cleaning Procedures.</title>
+<para>The APS hardware should be kept clean for optimum performance
+of components. General cleaning procedures and corrosion preventive
+treatments are contained in NAVAIR 16-1-540 and TM 9&ndash;254 (General
+Maintenance Procedures For Fire Control Materiel).</para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body>

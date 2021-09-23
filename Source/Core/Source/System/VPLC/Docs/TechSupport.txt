@@ -1,0 +1,4 @@
+Problem: If the VPLC VB SFP complains about not being able to find
+the PLCFileMgr.dll, make sure that the CSPline.dll is in system32.
+It will not find PLCFileMgr.dll unless it can find all of the dlls
+that PLCFileMgr.dll needs.

@@ -1,0 +1,443 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'Bus_MICCAN Benchmark' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemBus_RS485.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+CJW REMOVED        ESTABLISH, BUS PROTOCOL 'MIC Bus', SPEC 'MIC',
+            STANDARD PRIMARY BUS,
+            BUS-PARAMETER BUS-TIMEOUT 100 SEC,
+            BUS-PARAMETER NO-COMMAND-TIMEOUT 100 SEC,
+            BUS-PARAMETER NO-RESPONSE-TIMEOUT 100 SEC,
+            BUS-PARAMETER INTERRUPT-ACK-TIMEOUT 100 SEC,
+            BUS-PARAMETER BASE-VECTOR 10,
+            BUS-PARAMETER ADDRESS-REG 0,
+        CNX TRUE MIC1-HI COMPL MIC1-LO $
+
+CJW changed to 20000            BUS-PARAMETER TIMING-VALUE 10000 BITS/SEC, $
+        ESTABLISH, BUS PROTOCOL 'CAN Bus 2', SPEC 'CAN',
+            STANDARD PRIMARY BUS,
+            BUS-PARAMETER TIMING-VALUE 20000 BITS/SEC,
+            BUS-PARAMETER THREE-SAMPLES 0,
+            BUS-PARAMETER SINGLE-FILTER 1,
+            BUS-PARAMETER ACCEPTANCE-CODE X'00001A1A',
+            BUS-PARAMETER ACCEPTANCE-MASK X'FFFFFFFF',
+        CNX TRUE CAN2-HI COMPL CAN2-LO $
+
+        ESTABLISH, BUS PROTOCOL 'CAN Bus 1', SPEC 'CAN',
+            STANDARD PRIMARY BUS,
+            BUS-PARAMETER TIMING-VALUE 20000 BITS/SEC,
+            BUS-PARAMETER THREE-SAMPLES 0,
+            BUS-PARAMETER SINGLE-FILTER 1,
+            BUS-PARAMETER ACCEPTANCE-CODE X'00001A1A',
+            BUS-PARAMETER ACCEPTANCE-MASK X'FFFFFFFF',
+        CNX TRUE CAN1-HI COMPL CAN1-LO $
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+        DECLARE, VARIABLE, 'IDX' IS INTEGER             $
+	DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-VOLTS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MAX-T' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+        DECLARE, TYPE, 'ADDRESS' IS STRING(17) OF BIT $
+        DECLARE, VARIABLE, 'CMD WORDS-T', 'CMD WORDS-L' IS 'ADDRESS' $
+        DECLARE, VARIABLE, 'DATA WORDS-T', 'DATA WORDS-L' IS STRING(100) OF CHAR $
+
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, CONSTANT, 'CONTINUE' IS
+         C' Press TRUE OR FALSE to continue '
+          $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test
+	'
+        $
+C $
+
+        DEFINE, 'TEST1001-T', EXCHANGE, PROTOCOL 'CAN Bus 1', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP, 
+            DATA 'DATA WORDS-T' $
+
+	DEFINE, 'TEST1001-L', EXCHANGE, PROTOCOL 'CAN Bus 1', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP  $
+
+        DEFINE, 'TEST1002-T', EXCHANGE, PROTOCOL 'CAN Bus 2', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP, 
+            DATA 'DATA WORDS-T' $
+
+	DEFINE, 'TEST1002-L', EXCHANGE, PROTOCOL 'CAN Bus 2', 
+            BUS-MODE TALKER-LISTENER,
+            TALKER 'UUT',
+            LISTENER TEST-EQUIP  $
+
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+
+             IF, 'VER-LL' EQ 0, THEN $
+
+                 CALCULATE, 'NESTED' = TRUE $
+
+             END, IF $
+
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, 
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+        
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------\LF\' $ 
+
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'    ','GO', C'    ','GoNogo', C'   ',NOGO, C'  ','PassFail', C'\LF\'$ 
+
+  
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, 
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\'   $
+
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------\LF\'   $ 
+
+              OUTPUT, TO 'PRINTER',
+	       'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\'$
+ 
+
+         END, IF $
+
+
+        END, 'RESULTS' $
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+      C'Bus_MICCAN ATLAS Driver Benchmark\LF\',
+      C'Date/Time:','DATE-TIME' $
+	
+	OUTPUT, TO 'PRINTER', C'      Bus_TCIM ATLAS Driver Benchmark\LF\',
+      C'Date/Time:', 'DATE-TIME', C'\LF\' $
+B $
+ 001005  OUTPUT, 
+        C'           Test Menu
+          --------------------------------
+          End to End                     1
+          CAN 1                          2
+          CAN 2                          3
+          Exit                           0
+
+          Enter a selection'
+        $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+
+     10 INPUT, INTO 'CHOICE' $
+
+        OUTPUT, 
+        C'Selection:', 'CHOICE', C'\LF\'  $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 020000 $
+        END, IF $
+     15 OUTPUT, 
+          C' Bad Choice!  Try again '
+           $
+
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * MIC
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'MAX-T'      = 20,
+                   'VER-UL'     = 0,
+                   'VER-LL'     = 0  $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * CAN
+C ******************************************************************* $
+C $
+B $
+ 020000 CALCULATE, 'MAX-T'      = 20,
+                   'VER-UL'     = 0,
+                   'VER-LL'     = 0  $
+B $
+     05 OUTPUT,
+            C'************************************************************\LF\',
+            C'* CAN Pretest Wiring Instructions:                         *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Make the following wiring connections between the BUS I/O*\LF\',
+            C'* connector and the UUT connector                          *\LF\',
+            C'* BUS I/O   CBTS (UUT)                                     *\LF\',
+            C'* Pin 19    Pin 22                                         *\LF\',
+            C'* Pin 20	  Pin 23                                         *\LF\', 
+            C'* Pin 21	  Pin 24                                         *\LF\',
+            C'* Pin 22    Pin 19                                         *\LF\',
+            C'* Pin 23	  Pin 20                                         *\LF\', 
+            C'* Pin 24	  Pin 21                                         *\LF\',
+            C'************************************************************\LF\', 
+           $
+     
+     07 OUTPUT,
+            C'************************************************************\LF\',
+            C'* CAN TRANSMIT Pretest Instructions:                       *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Prepare a UUT, Can Channel 1,to receive the data bytes:  *\LF\',
+            C'* "FEDC,1,FEDCBA9876543210"                                *\LF\',
+            C'* Where FEDC = 16-bit ID, 1 = 4-bit I/O flags, and         *\LF\',
+            C'* FEDCBA9876543210 = 8 data bytes                          *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press True to continue.                                  *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     10 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020045 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T' = C'FEDC,1,FE,DC,BA,98,76,54,32,10',
+		   'DATA WORDS-L' = C' ' $
+C $
+     11 OUTPUT,
+            C'************************************************************\LF\' $
+C     17 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-L', 
+                TEST-EQUIP-MONITOR DATA 'DATA WORDS-L',
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+C	INPUT, GO-NOGO $
+     18 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-T', 
+	    EXCHANGE 'TEST1002-L', 
+                TEST-EQUIP-MONITOR DATA 'DATA WORDS-L',
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+	INPUT, GO-NOGO $
+     19 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-T', 
+	    EXCHANGE 'TEST1001-L', 
+                TEST-EQUIP-MONITOR DATA 'DATA WORDS-L',
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+	INPUT, GO-NOGO $
+
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* Use the SFP to verify that the following data was sent:  *\LF\',
+            C'* "FEDC,1,FEDCBA9876543210"                                *\LF\',
+            C'* ID = FEDC, I/O Flags = 1, data = FEDCBA9876543210        *\LF\',            
+            C'* ---------------------                                    *\LF\',
+            C'* ENTER TRUE IF THE DATA WAS SENT PROPERLY                 *\LF\',
+            C'************************************************************\LF\',
+	$
+
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+	CALCULATE, 'TESTNO' = 20017$
+        PERFORM, 'RESULTS' $
+
+     45 OUTPUT,
+            C'************************************************************\LF\',
+            C'* CAN Recieve Pretest Instructions:                        *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* Use the SFP to send data:                                *\LF\', 
+            C'* Select Channel 1.                                        *\LF\',
+            C'* Enter the data "EFCDAB8967452301"                        *\LF\',
+            C'*                                                          *\LF\',
+            C'* Press True to continue.                                  *\LF\',
+            C'************************************************************\LF\', 
+            C' \LF\',
+            C' T - Ready to test.\LF\',
+            C' F - Skip test.\LF\'
+          $
+     50 INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+            GO TO, STEP 020099 $
+        END, IF $
+C $
+        CALCULATE, 'DATA WORDS-T' = C'EF,CD,AB,89,67,45,23,01\n\n\n\t\\n\ttgsdfs\n',
+		   'DATA WORDS-L' = C' ' $
+C $
+     57 DO, EXCHANGE, 
+	    EXCHANGE 'TEST1001-L', 
+                TEST-EQUIP-MONITOR DATA 'DATA WORDS-L',
+            WAIT, MAX-TIME 'MAX-T' RANGE 0 SEC TO 10 SEC $
+
+	OUTPUT, C'MESSAGE RECIEVED:\LF\' $
+
+     65	CALCULATE, 'GO' = TRUE $
+	OUTPUT,'DATA WORDS-L' $
+C $
+        OUTPUT,
+            C'************************************************************\LF\',
+            C'* Was "EFCDAB8967452301" received (above)?                 *\LF\',
+            C'* ---------------------                                    *\LF\',
+            C'* ENTER TRUE IF THE DATA WAS Recieved PROPERLY             *\LF\',
+            C'************************************************************\LF\',
+	$
+
+	INPUT, GO-NOGO $
+        IF, NOGO, THEN $
+          CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+
+	CALCULATE, 'TESTNO' = 20057$
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+C $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 060000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+	IF, 'MAIN-MENU' EQ TRUE, THEN $
+	    GO TO, STEP 001005 $
+	ELSE $
+            GO TO, STEP 020000 $
+        END, IF $
+C $
+C       END OF BC to RT TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+B $
+ 060000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+        C'--------------------------------------\LF\',
+        C' END - END TEST\LF\',
+        C'    PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'\LF\', 
+          C'--------------------------------------\LF\',
+         C'END - END TEST\LF\',
+         C'   PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\',
+        C'--------------------------------------\LF\',
+        C' END - END TEST \LF\',
+        C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+       C' --------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	 C'\LF\',  
+        C'--------------------------------------\LF\',
+         C'END - END TEST\LF\ ',
+         C'FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+
+        END, IF  $
+ 060100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+B $
+ 999999 TERMINATE, ATLAS PROGRAM 'Bus_MICCAN Benchmark' $

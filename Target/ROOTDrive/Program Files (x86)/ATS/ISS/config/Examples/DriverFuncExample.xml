@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AtXmlMessages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="../AtXmlMessageSchema.xsd"
+xmlns:c="http://www.ieee.org/ATML/2005/08/Common" 
+xmlns:stdbsc="STDBSC"  xmlns:tsf="STDTSF"
+xsi:schemaLocation="STDBSC ../STDBSC.xsd   http://www.ieee.org/ATML/2005/08/Common ../Common.xsd
+STDTSF ../USER_TSF.xsd">
+    <AtXmlIssueIst>
+		<SignalResourceName>DevX_1</SignalResourceName>
+		<Level>1</Level>
+	</AtXmlIssueIst>
+	<AtXmlDriverFunctionCall>
+		<SignalResourceName>DEVX_1</SignalResourceName>
+		<SignalChannelName>Chan1</SignalChannelName>
+		<DriverFunctionCall>
+			<FunctionName>TestParam</FunctionName>
+			<Parameter   ParamNumber="0" ParamType="RetInt32"/>
+			<Parameter   ParamNumber="1" ParamType="Handle" Value=""/>
+			<Parameter   ParamNumber="2" ParamType="SrcUInt16" Value="0x3B05"/>
+			<Parameter   ParamNumber="3" ParamType="SrcDblPtr" Value="35.e+3 36.0 37.0e5"/>
+			<Parameter   ParamNumber="4" ParamType="SrcStrPtr" Value="xxx yyy zzz"/>
+			<Parameter   ParamNumber="5" ParamType="RetInt8"/>
+			<Parameter   ParamNumber="6" ParamType="RetStrPtr" Size="52"/>
+		</DriverFunctionCall>
+	</AtXmlDriverFunctionCall>
+	<AtXmlResponse>
+		<ReturnData>
+			<ValuePair>
+				<Attribute>ReturnValue</Attribute>
+				<Value>
+					<c:Datum xsi:type="c:double" value="8"/>
+				</Value>
+			</ValuePair>
+			<ValuePair>
+				<Attribute>Parameter1</Attribute>
+				<Value>
+					<c:Datum xsi:type="c:string" unit="V"> <c:Value>xxxx</c:Value></c:Datum>
+				</Value>
+			</ValuePair>
+		</ReturnData>
+	</AtXmlResponse>
+</AtXmlMessages>

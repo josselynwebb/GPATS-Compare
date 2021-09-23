@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY graphic3.3.1 SYSTEM "GRAPHICS/3.3.1.tif" NDATA TIF>
+]>
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-5_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='2' LABEL='UUT Sch' TYPE='pic' LINK='.\graphics\Fig3-6_0.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='3' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='4' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Control Display Assy\CDA_Control Logic A (16101157-021)\ TP_LAV_LOGIC_A.OBJ"' bitmap='n' DESC='Select to launch CDA Control Logic A TPS.'?>
+<?FRAME label='C3s3a' title='CHAP. 3 - THEORY OF OPERATION' next='.\C3s3.xml!C3S3b' previous='.\C3s2.xml!C3S2b'?>
+<chapter>
+<section id="c3s3a" label="Section III." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section III. CDA Control Logic A."?>
+<title>CDA Control Logic A.</title>
+<para0 id="p3-3" label="3-3" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="3-3 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs provide information on the Theory of
+Operation for the CDA Control Logic A. Part information is also provided
+in paragraph <?hotspot href="p3-3.2"?>3-3.2 Part Information<?endhotspot?>.</para>
+<subpara1 id="p3-3.1" label="3-3.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-3.1 Theory Of Operation."?>
+<title>Theory Of Operation.</title>
+<para>The CDA Control Logic A CCA contains the commander and gunner
+circuitry which generates the controls and status lights for various
+elements of the CDA. It also contains most of the control logic modes
+for the turret systems. It contains a power supply that provides +
+and - 15 VDC used to activate the azimuth and elevation servo valves
+and to bias various circuits in the electronics. In addition, the
+CDA Control Logic A CCA generates control and annunciator signals
+for the fire control system.</para>
+<subpara2 id="p3-3.1.1" label="3-3.1.1" numbering="1" tocentry="1">
+<?PUB TOCLEVEL="5" TEXT="3-3.1.1 CDA Control Logic A Equipment Description."?>
+<title>CDA Control Logic A Equipment Description.</title>
+<para>The CDA Control Logic A CCA contains surface mount resistors,
+capacitors, IC chips, diodes, transistors and relays. Connections
+to the CDA chassis are made through the J1, J2 and J3 connectors.</para>
+</subpara2>
+</subpara1>
+<?FRAME label='C3s3b' title='CHAP. 3 - THEORY OF OPERATION, SECT. III - CDA Control Logic A' image=".\graphics\Fig3-4_1.pic" next='.\C3s4.xml!C3S4A' previous='.\C3s3.xml!C3S3A'?>
+<subpara1 id="p3-3.2" label="3-3.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="3-3.2 Part Information."?>
+<title>Part Information.</title>
+<para>The following provides part information for the CDA Control
+Logic A.</para>
+<para>Refer to <?hotspot href="T3-2"?>Table 3-2<?endhotspot?> for
+part information.</para>
+<para><table id="T3-2">
+<title id="T3-2">Table 3-2. CDA Control Logic A Part Information</title>
+<tgroup align="left" cols="5">
+<colspec colname="col1" colwidth="0.50*"/>
+<colspec colname="COL2" colwidth="0.60*"/>
+<colspec colname="COL3" colwidth="0.43*"/>
+<colspec colname="col4" colwidth="1.43*"/>
+<colspec colname="col5" colwidth="0.44*"/>
+<thead>
+<row>
+<entry align="center">Fig. 3-3 and Index Number</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">CAGEC</entry>
+<entry align="center">Description</entry>
+<entry align="center">Quantity (Qty)</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center">1</entry>
+<entry align="center">16101157-021</entry>
+<entry align="center">13160</entry>
+<entry>Circuit Card Assembly, CDA Control Logic A</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 3?>

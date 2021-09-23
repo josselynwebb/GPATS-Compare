@@ -1,0 +1,108 @@
+\\**************************************************************************
+\\
+\\  Filename: verbs
+\\  Version:  2.0
+\\  Purpose:  A source file used to build the TYX PAWS ATLAS lexical
+\\            database file LexDB.LEX.
+\\
+\\ VER   DATE     ENGINEER, ORGANIZATION, DR# (STR #): DESCRIPTION
+\\ ---   -------  --------------------------------------------------------------
+\\ 1.3   01Nov00  LMIS:
+\\                Update for Electro-Optical additions.
+\\
+\\ 2.0   28Apr09 EADS:
+\\                 Baselined VIPER/T version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\********New version scheme to meet the System software version******************
+\\*  2.1.0.X   13MAR19  Update to bring to 1.3.2.0
+\\**************************************************************************
+\\static char	*sccsid = "@(#)verbs	1.4	12/26/95";
+\\
+\\***********************************************************************
+\\ File: verbs      Version: 1.4  Date: 12/26/95
+ \***********************************************************************
+\ TO BE MOVED   * * * * * * * * * * * * * * *
+	VERBRULE == 012;
+\               * * * * * * * * * * * * * * *
+
+\\      The definition of all of the verbs follow together with
+\\      their attributes.
+
+define VERBS lexrule=VERBRULE string=3 tables 1=num 2=type;
+
+	(PRE_VC)        {
+			 (DCL_VX)          DECLARE                  "DCL";
+			 (DEF_VX)          DEFINE                   "DEF";
+			 (REQ_VX)          REQUIRE                  "REQ";
+			 (INC_VX)          INCLUDE                  "INC";
+			 (IDN_VX)          IDENTIFY                 "IDY";
+			 (XTN_VX)          EXTEND                   "XTN"; 
+			 (EST_VX)          ESTABLISH                "EST"; 
+			}
+			 (CAL_VX)          CALCULATE                "CAL";
+			 (CMP_VX)          COMPARE                  "CMP";
+
+                         (FLOW_VC)      {
+					 (FIN_VX) FINISH            "FIN";
+					 (PFM_VX) PERFORM           "PFM";
+					 (GTO_VX) GO TO             "GTO";
+					}
+			 (DSP_VC)       {
+					 (INP_VX) INPUT             "INP";
+					 (OUT_VX) OUTPUT            "OUT";
+					}
+	(S_VC ++ FLOW_VC) {
+			 (SENT_VC)      {
+					 (FOR_VX) FOR               "FOR";
+					 (WHL_VX) WHILE             "WHL";
+					 (IF_VX)  IF                "IF" ;
+					}                   
+			 (SBDY_VC)      {
+					 (LVE_VX) LEAVE             "LVE";
+					 (ELS_VX) ELSE              "ELS";
+					 (RES_VX) RESUME	    "RES";
+					}                        
+			 (SEX_VC)       {
+					 (END_VX) END               "END";
+					 (TRM_VX) TERMINATE         "TRM";
+					}
+			}
+	(SIG_VC)        {
+			 (SSA_VC)       {
+					 (SET_VX)    SETUP          "SET";
+					 (CON_VX)    CONNECT        "CON";
+                                         (CPL_VX)    COUPLE         "CPL";
+					 (DIS_VX)    DISCONNECT     "DIS";
+                                         (UCP_VX)    UNCOUPLE       "UCP";
+					 (ARM_VX)    ARM            "ARM" ;
+					 (CHG_VX)    CHANGE         "CHN" ;
+					 (RD_VX)     READ           "RD" ;
+					 (INT_VX)    INITIATE       "INX";
+					 (FTH_VX)    FETCH          "FTH";
+					 (RST_VX)    RESET          "RST" ;
+					 (STL_VX)    STIMULATE      "STI" ;
+					 (SNS_VX)    SENSE          "SNS" ;
+					 (PRV_VX)    PROVE          "PRV" ;
+					 (CLS_VX)    CLOSE          "CLS" ;
+					 (OPN_VX)    OPEN           "OPN" ;
+					}
+			 (SMA_VC)       {
+					 (APP_VX)    APPLY          "APP";
+					 (DO_VX)     DO             "DO" ;
+					}
+			 (SMAS_VC)      {
+					 (MEA_VX)    MEASURE        "MEA";
+					 (MON_VX)    MONITOR        "MON";
+					 (VER_VX)    VERIFY         "VER";
+					}
+			 (REM_VX)                    REMOVE         "REM";
+			 (CRE_VX)		     CREATE	    "CRE";
+			 (DEL_VX)		     DELETE	    "DEL";
+			 (ENB_VX)                    ENABLE         "ENB";
+			 (DSB_VX)                    DISABLE        "DSB";
+			 (UPD_VX)                    UPDATE         "UPD";
+			 (WTF_VX)                    WAIT FOR       "WTF";
+		}
+	end_unit;
+
+\***********************************************************************

@@ -1,0 +1,126 @@
+000100	BEGIN, ATLAS PROGRAM 'NAM-SCOPENAM'			         $
+C************************************************************************$
+C   BENCH MARK TO TEST THE SCOPE NON-ATLAS MODULE. THIS                  $
+C   BENCH MARK WILL SET THE "MODE" TO "SINGLE" AND OPEN THE SCOPE FRONT  $
+C   PANEL USING THE "TEST1.DSO" SCOPE CONFIG FILE. NEXT THE "MODE" WILL  $ 
+C   BE SET TO "CONTINUOUS" AND OPEN THE SCOPE FRONT PANEL USING THE      $
+C   "TEST2.DSO" SCOPE CONFIG FILE.     					 $
+C					       DAVE JOINER  05/23/2003   $
+C************************************************************************$
+C								         $
+C********************************** INCLUDES ****************************$
+C								         $
+ 000105	INCLUDE, NON-ATLAS MODULE 'SCOPENAM'		                 $
+C								         $
+C************************** DECLARE LOCAL VARIABLES *********************$
+C								         $
+ 000200	DECLARE, VARIABLE, 
+ 'MODE' IS STRING (10) OF CHAR;
+ 'DSO_FILE' IS STRING (256) OF CHAR;
+ 'MEASUREMENT' IS DECIMAL;  
+ 'ERROR-CODE' IS INTEGER;                
+ 'RETURN-STRING' IS STRING (256) OF CHAR                                 $
+C							                 $
+C ***********************************************************************$
+C * PROCEDURE: CLRSCR				    	               **$
+C ***********************************************************************$
+C 								         $
+ 001630 DEFINE, 'CLRSCR', PROCEDURE                                      $
+ 001640     OUTPUT, C' \LF\\LF\\LF\\LF\\LF\\LF\\LF\ \LF\
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\               
+		       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\	        
+		       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\	         
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\'	         $
+ 001650 END, 'CLRSCR'                                                    $
+C 									 $
+C ***********************************************************************$
+C *		       START PROGRAM EXECUTION    	               **$
+C ***********************************************************************$
+C							                 $
+E10000 CALCULATE,
+		'MODE' = C'SINGLE', 
+		'DSO_FILE' = C'TEST1.DSO'				 $
+ 	PERFORM, 'CLRSCR'                                                $
+	OUTPUT, 
+         C' \LF\',
+	 C' Connect the FG output to the Scope Input 1.',
+	 C' \LF\ \LF\',
+	 C' Open the Function Generator front panel from the SAIS Toolbar.',
+	 C' \LF\',	 						
+	 C' Set the Amplitude to 3 Vp-p, leave all other setting at default.',
+ 	 C' \LF\',
+	 C' Select the [ON] button'.,
+	 C' \LF\ \LF\' 							 $
+	OUTPUT, 
+	 C'\LF\ \LF\',
+         C'                    **** PRESS ENTER TO CONTINUE ***',
+         C'\LF\'                                                         $
+C								         $
+ 	INPUT, GO-NOGO                                                   $ 
+ 	PERFORM, 'CLRSCR'                                                $
+C									 $
+C									 $
+ 	PERFORM, 'CLRSCR'                                                $
+	OUTPUT, 
+         C' \LF\ \LF\',
+	 C'** TESTING SCOPENAM WITH THE TEST1.DSO TEST FILE IN SINGLE MODE **',
+	 C' \LF\ \LF\'	 						 $		                             
+C*****************      EXECUTE SCOPE NAM, TEST 1         ***************$
+ 	PERFORM, 'SCOPENAM' (C'SINGLE',C'TEST1.DSO',
+                 'MEASUREMENT','ERROR-CODE','RETURN-STRING')             $
+C------------- DISPLAY ERROR RESULTS ------------ 			 $
+	     OUTPUT, C'SCOPENAM MEASUREMENT: ', 'MEASUREMENT'		 $		                       
+	     OUTPUT, C'SCOPENAM ERROR CODE: ', 'ERROR-CODE'	         $
+             OUTPUT, C'SCOPENAM ERROR DESCRIPTION: ', 'RETURN-STRING'    $
+C                                                                        $
+	OUTPUT, 
+	 C'\LF\ \LF\',
+         C'                    **** PRESS ENTER TO CONTINUE ***',
+         C'\LF\'                                                         $
+C								         $
+ 	INPUT, GO-NOGO                                                   $ 
+ 	PERFORM, 'CLRSCR'                                                $
+C									 $
+	OUTPUT, 
+         C' \LF\ \LF\',
+	 C'** TESTING SCOPENAM WITH THE TEST2.DSO TEST FILE IN CONTINUOUS MODE **',
+	 C' \LF\ \LF\'	 						 $
+C								         $		                             
+C*****************      EXECUTE SCOPE NAM, TEST 2         ***************$
+ 	PERFORM, 'SCOPENAM' (C'CONTINUOUS',C'TEST2.DSO', 
+		 'MEASUREMENT','ERROR-CODE','RETURN-STRING')              $
+C------------- DISPLAY ERROR RESULTS ------------                        $
+	     OUTPUT, C'SCOPENAM MEASUREMENT: ', 'MEASUREMENT'
+	     OUTPUT,  C'\LF\'	
+	     OUTPUT, C'SCOPENAM ERROR CODE: ', 'ERROR-CODE'	         $
+             OUTPUT, C'SCOPENAM ERROR DESCRIPTION: ', 'RETURN-STRING'    $
+C        END, IF                                                         $
+	OUTPUT, 
+	 C'\LF\ \LF\',
+         C'                    **** PRESS ENTER TO CONTINUE ***',
+         C'\LF\'                                                         $
+C								         $
+ 	INPUT, GO-NOGO                                                   $ 
+ 	PERFORM, 'CLRSCR'                                                $
+C									 $
+C								         $
+ 	PERFORM, 'CLRSCR'                                                $
+	OUTPUT, 
+         C' \LF\',
+	 C' Disconect all cables from the FG and Scope.',
+	 C' \LF\',
+	 C' Close the Function Generator front panel.',
+	 C' \LF\ \LF\' 							 $
+	OUTPUT, 
+	 C'\LF\ \LF\',
+         C'                    **** PRESS ENTER TO CONTINUE ***',
+         C'\LF\'                                                         $
+C								         $
+ 	INPUT, GO-NOGO                                                   $ 
+ 	PERFORM, 'CLRSCR'                                                $
+C									 $
+
+	
+C									 $
+C									 $
+ 999999	 TERMINATE, ATLAS PROGRAM 'NAM-SCOPENAM'                         $

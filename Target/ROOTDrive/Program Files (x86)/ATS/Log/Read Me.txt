@@ -1,0 +1,1 @@
+The log folder is required to buikld SysLog.  This is the only way to the folder to the repo

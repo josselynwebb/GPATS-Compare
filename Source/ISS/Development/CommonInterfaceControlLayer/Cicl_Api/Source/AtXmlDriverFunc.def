@@ -1,0 +1,67 @@
+; Module Definition File For Creating AtXmlWrapper.DLL
+;
+
+; For Win32 DLLs, only EXPORTs really required.
+
+EXPORTS
+   atxmlDF_viSetAttribute
+   atxmlDF_viGetAttribute
+   atxmlDF_viStatusDesc
+   atxmlDF_viTerminate
+   atxmlDF_viLock
+   atxmlDF_viUnlock
+   atxmlDF_viEnableEvent
+   atxmlDF_viDisableEvent
+   atxmlDF_viDiscardEvents
+   atxmlDF_viWaitOnEvent
+   atxmlDF_viRead
+   atxmlDF_viReadAsync
+   atxmlDF_viReadToFile
+   atxmlDF_viWrite
+   atxmlDF_viWriteAsync
+   atxmlDF_viWriteFromFile
+   atxmlDF_viAssertTrigger
+   atxmlDF_viReadSTB
+   atxmlDF_viClear
+   atxmlDF_viSetBuf
+   atxmlDF_viFlush
+   atxmlDF_viBufWrite
+   atxmlDF_viBufRead
+   atxmlDF_viIn8
+   atxmlDF_viOut8
+   atxmlDF_viIn16
+   atxmlDF_viOut16
+   atxmlDF_viIn32
+   atxmlDF_viOut32
+   atxmlDF_viMoveIn8
+   atxmlDF_viMoveOut8
+   atxmlDF_viMoveIn16
+   atxmlDF_viMoveOut16
+   atxmlDF_viMoveIn32
+   atxmlDF_viMoveOut32
+   atxmlDF_viMove
+   atxmlDF_viMoveAsync
+   atxmlDF_viGpibControlREN
+   atxmlDF_viGpibControlATN
+   atxmlDF_viGpibSendIFC
+   atxmlDF_viGpibCommand
+   atxmlDF_viGpibPassControl
+   atxmlDF_viVxiCommandQuery
+   atxmlDF_viAssertUtilSignal
+   atxmlDF_viAssertIntrSignal
+   atxmlDF_viMapTrigger
+   atxmlDF_viUnmapTrigger
+   atxmlDF_zt1428_read_waveform
+   atxmlDF_hpe1428a_WvData
+   atxmlDF_hpe1428a_GtWv
+   atxmlDF_hpe1428a_FindInst	
+   atxmlDF_eip_selectCorrectionsTable
+   atxmlDF_eip_setCorrectedPower
+   atxmlDF_rf_measfreq
+   atxmlDF_rf_measpw
+   atxmlDF_rf_measpd
+   atxmlDF_rf_peaktune
+   atxmlDF_eip1315a_setLO
+   atxmlDF_gt55210a_setLO
+   atxmlDF_atlas_rf_peaktune
+   atxmlDF_rfcnt_reset

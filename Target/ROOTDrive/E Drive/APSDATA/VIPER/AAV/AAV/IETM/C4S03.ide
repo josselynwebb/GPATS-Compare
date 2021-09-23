@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY esd SYSTEM "./graphics/esd.png" NDATA FAXTILE>
+<!ENTITY fig4-5 SYSTEM "./graphics/fig4-5.pic" NDATA FAXTILE>
+<!ENTITY fig4-6 SYSTEM "./graphics/fig4-6.pic" NDATA FAXTILE>
+<!ENTITY fig4-7 SYSTEM "./graphics/fig4-7.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C4S03" LABEL="III"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\DRIVERS_DISPLAY_A1_CCA_5428412\TP_AAV_DDM_A1.OBJ' ?><?BUTTON POS='2' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s03.ide!c3s03'?><?BUTTON POS='3' SHOW='Y' LABEL='ELTD' TYPE='FRAME' LINK='!./DDM_A1.ide!5-3a'?><?BUTTON POS='4' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/DDM_A1/ASSY/DDM_A1_1.pic' ?><?BUTTON POS='5' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/DDM_A1/SCHEM/DDM_A1_sch.pic'?><?FRAME title="Chapter 4. Test Program Instructions, Section III. Display Board CCA, P/N 5428412" previous="./c4s02.ide!c4s02c"?><?TOCENTRY TITLE="SECTION III. Test Program Instructions for the Display Board CCA, P/N 5428412" TOCLEVEL="2" LABEL="III"?>
+<TITLE>SECTION III. Test Program Instructions for the Display Board CCA, P/N 5428412</TITLE>
+<PARA0 ID="P4-3" LABEL="4.3"><?TOCENTRY TITLE="4.3 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs contain information for the operator to perform test procedures on the Display Board CCA, P/N 5428412.</PARA>
+<SUBPARA1 ID="P4-3.1" LABEL="4.3.1"><?TOCENTRY TITLE="4.3.1 ATE Assets Required" TOCLEVEL="4"?>
+<TITLE>ATE Assets Required</TITLE>
+<PARA>The following table lists the ATE equipment required to test the UUT.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-3" LABEL="4-3">
+<TITLE>Test Station Instrumentation Required to Test the
+<BRK/> Display Board CCA, P/N 5428412.</TITLE>
+<TGROUP COLS="1">
+<COLSPEC COLNAME="COL1" COLWIDTH="5in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">Programmable Power Unit</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Multi-meter</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digitizing Oscilloscope</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Counter/Timer</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Arbitrary Waveform Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Digital Test System</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Function Generator</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">LF Switching</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Analog Probe (Diagnostics Only)</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-3.2" LABEL="4.3.2"><?TOCENTRY TITLE="4.3.2 TPS Equipment Required" TOCLEVEL="4"?>
+<TITLE>TPS Equipment Required</TITLE>
+<PARA>The following table lists the special equipment required to interface the UUT and the ATE.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE4-4" LABEL="4-4">
+<TITLE>TPS Equipment Required to
+<BRK/> Test the Display Board CCA, P/N 5428412.</TITLE>
+<TGROUP COLS="3">
+<COLSPEC COLNAME="COL1" COLWIDTH="3in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="1.5in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".50in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">Part Number</ENTRY>
+<ENTRY ALIGN="CENTER">Qty</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY ALIGN="CENTER">AAV Interface Test Adapter</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1000</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Card Guide Assemblies</ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1011</ENTRY>
+<ENTRY ALIGN="CENTER">2</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Printed Wiring Assembly - DDM Adapter, CP1 </ENTRY>
+<ENTRY ALIGN="CENTER">P/N 05005A1042</ENTRY>
+<ENTRY ALIGN="CENTER">1</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Connector, Stacking, Electrical </ENTRY>
+<ENTRY ALIGN="CENTER">P/N 2600260</ENTRY>
+<ENTRY ALIGN="CENTER">2</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Spacer</ENTRY>
+<ENTRY ALIGN="CENTER">P/N NAS43HT0-12</ENTRY>
+<ENTRY ALIGN="CENTER">6</ENTRY></ROW>
+<ROW>
+<ENTRY ALIGN="CENTER">Screw, Machine </ENTRY>
+<ENTRY ALIGN="CENTER">P/N MS35190-230</ENTRY>
+<ENTRY ALIGN="CENTER">6</ENTRY></ROW></TBODY></TGROUP></TABLE>
+<SUBPARA1 ID="P4-3.3" LABEL="4.3.3"><?TOCENTRY TITLE="4.3.3 Ancillary Equipment Required" TOCLEVEL="4"?>
+<TITLE>Ancillary Equipment Required</TITLE>
+<PARA>None.</PARA></SUBPARA1><?FRAME id="c4s03b" title="Chapter 4. Test Program Instructions, Section III. Display Board CCA, P/N 5428412 Cont'd"?>
+<SUBPARA1 ID="P4-3.4" LABEL="4.3.4"><?TOCENTRY TITLE="4.3.4 Special Tools Required" TOCLEVEL="4"?>
+<TITLE>Special Tools Required</TITLE>
+<PARA>7/64 HEX AND 1/4 NUT DRIVER TOOLS. (Note: Required for diagnostic testing only.)</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-3.5" LABEL="4.3.5"><?TOCENTRY TITLE="4.3.5 Special Handling Requirements" TOCLEVEL="4"?>
+<TITLE>Special Handling Requirements</TITLE>
+<CAUTION>
+<PARA>The UUT contains internal components that are subject to damage from electrostatic discharge (ESD). When handling the UUT, a grounded wrist strap must be used. <GRAPHIC BOARDNO="esd"/></PARA></CAUTION>
+<PARA>Refer to <EXTREF DOCNO="C2S02" XREFID="./C2S02.ide!P2-2.2.2" XIDTYPE="PARA">Paragraph 2.2.2.2, ESD Damage Prevention</EXTREF> for proper handling requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-3.6" LABEL="4.3.6"><?TOCENTRY TITLE="4.3.6 Test Program End-to-End Runtime" TOCLEVEL="4"?>
+<TITLE>Test Program End-to-End Runtime</TITLE>
+<PARA>4.5 Minutes.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-3.7" LABEL="4.3.7"><?TOCENTRY TITLE="4.3.7 Precautionary Notes" TOCLEVEL="4"?>
+<TITLE>Precautionary Notes</TITLE>
+<PARA>None.</PARA></SUBPARA1>
+<SUBPARA1 ID="P4-3.8" LABEL="4.3.8"><?TOCENTRY TITLE="4.3.8 Instructions" TOCLEVEL="4"?>
+<TITLE>Instructions</TITLE>
+<NOTE>
+<PARA>The ***OPERATOR ACTION*** instructions in this section are designed to guide the operator through a normal end-to-end go-run of the test program.</PARA></NOTE>
+<STEP1 ID="P4-3.81" LABEL="a">
+<PARA>Prior to executing the Display Board CCA, P/N 5428412 Test Program, install ITA P/N 05005A1000 onto the test station receiver. </PARA></STEP1>
+<STEP1 ID="P4-3.82" LABEL="b">
+<PARA>Load the test program for the Display Board CCA into the ATLAS Run-Time System (RTS). When the RTS State field of the RTS front panel displays 'READY', the test program is loaded and ready to be initiated by the operator.</PARA></STEP1>
+<STEP1 ID="P4-3.83" LABEL="c">
+<PARA>***OPERATOR ACTION***: Initiate the test program by selecting 'Run' from the RTS 'Run' menu.</PARA></STEP1>
+<STEP1 ID="P4-3.84" LABEL="d">
+<PARA>The Test Program Information screen is displayed (refer to <?hotspot linktype="picture" href="./graphics/fig4-5.pic"?>Figure 4-5<?endhotspot?>).
+<BRK/> ***OPERATOR ACTION***: Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-5" LABEL="4-5">
+<TITLE>Test Program Information Display Board CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-5.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-3.85" LABEL="e">
+<PARA>A second Test Program Information screen (refer to <?hotspot linktype="picture" href="./graphics/fig4-6.pic"?>Figure 4-6<?endhotspot?>) is displayed which identifies the UUT fault states which are non-detectable and untested by the test program. 
+<BRK/> ***OPERATOR ACTION*** Press the "ENTER" key to continue.</PARA></STEP1>
+<FIGURE ID="FIG4-6" LABEL="4-6">
+<TITLE>Nondetectable/Untested Faults Display Board CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-6.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-3.86" LABEL="f">
+<PARA>The test program MAIN MENU (refer to <?hotspot linktype="picture" href="./graphics/fig4-7.pic"?>Figure 4-7<?endhotspot?>) is displayed. From the MAIN MENU, the operator can choose the following options by entering the corresponding number: (1-2) Run an individual test module, (93) Print Ticket, (95) Run all modules (End-to-End testing), (96) Setup Instructions, (97) Access IETM and (98) Exit Testing.
+<BRK/> ***OPERATOR INPUT***: Enter 96 (test setup instructions) and press the "ENTER" key.</PARA></STEP1>
+<FIGURE ID="FIG4-7" LABEL="4-7">
+<TITLE>Test Program Main Menu Display Board CCA</TITLE><?hotspot linktype="picture" href="./graphics/fig4-7.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<STEP1 ID="P4-3.87" LABEL="g">
+<PARA>The operator is instructed to mount the ITA.
+<BRK/> ***OPERATOR ACTION***: With the test station ITA receiver handle in the down (disengaged) position, mount the AAV ITA, P/N 05005A1000, onto the ITA receiver.  Move the ITA receiver handle to the up (locked) position.</PARA></STEP1>
+<STEP1 ID="P4-3.88" LABEL="h">
+<PARA>The operator is instructed to install the Card Guide Assemblies onto the ITA.
+<BRK/> ***OPERATOR ACTION***: Secure two CARD GUIDE ASSEMBLIES (P/N 05005A1011) adjacent to the' 70 pin J7 ITA connector using the attached fasteners.</PARA></STEP1>
+<STEP1 ID="P4-3.89" LABEL="i">
+<PARA>The operator is instructed to connect DDM Adapter, CP1 to the Display Board CCA using mounting hardware.
+<BRK/> ***OPERATOR ACTION***: Connect DDM Adapter, CP1 to the Display Board CCA, P/N 5428412 using mounting hardware as follows: Secure the Two Stacking Connectors (P/N 2600260) with the six screws to the DDM Adapter, CP1 and the UUT using the spacer between the UUT PWB and the metal mounting plate. Connect assembled unit to ITA J7, with the bar graph display facing to the left.</PARA></STEP1><?FRAME id="c4s03c" title="Chapter 4. Test Program Instructions, Section III. Display Board CCA, P/N 5428412 Cont'd" next="./c4s04.ide!c4S04"?>
+<STEP1 ID="C4S03C10" LABEL="j">
+<PARA>The test program returns to the MAIN MENU after completion of the setup instructions.
+<BRK/> ***OPERATOR ACTION*** Enter 95 (Run All Test Modules) and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S03C11" LABEL="k">
+<PARA>The display prompts the operator to enter the UUT serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the UUT and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S03C12" LABEL="l">
+<PARA>The display prompts the operator to enter the UUT revision level.
+<BRK/> ***OPERATOR INPUT***: Enter the UUT revision level and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S03C13" LABEL="m">
+<PARA>The display prompts the operator to enter the Equipment Repair Order Number.
+<BRK/> ***OPERATOR INPUT***: Enter the Equipment Repair Order Number and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S03C14" LABEL="n">
+<PARA>The display prompts the operator to enter the Interface serial number.
+<BRK/> ***OPERATOR INPUT***: Enter the serial number printed on the ITA label, which is found on the upper, right corner of the right side and press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="C4S03C15" LABEL="o">
+<PARA>The display prompts the operator to verify the test setup and UUT are ready to begin testing.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P4-3.9" LABEL="4.3.9"><?TOCENTRY TITLE="4.3.9 Diagnostic Test Instructions" TOCLEVEL="4"?>
+<TITLE>Diagnostic Test Instructions</TITLE>
+<STEP1 ID="P4-3.91" LABEL="a">
+<PARA>Upon detection of a UUT failure, the test program displays a TEST STATUS screen which indicates the failed step number and UUT pin(s), in addition to the expected and measured values. If the fault is isolated, the PROBABLE CAUSE OF FAILURE will indicate the faulty component(s). Otherwise, "DIAGNOSTICS REQUIRED" will be indicated.
+<BRK/> ***OPERATOR ACTION*** Press the "ENTER" key to continue.</PARA></STEP1>
+<STEP1 ID="P4-3.92" LABEL="b">
+<PARA>The operator is prompted with a menu giving the following options: (1) RETURN TO MAIN MENU, (2) ACCESS IETM, (3) CONTINUE TESTING, (4) SAVE FAULT DATA, and (5) PERFORM DIAGNOSTICS.</PARA></STEP1></SUBPARA1></PARA0></SECTION>

@@ -1,0 +1,216 @@
+C        1         2         3         4         5         6         7
+C234567890123456789012345678901234567890123456789012345678901234567890 $
+ 000100 BEGIN, ATLAS PROGRAM 'VEO2 ELECTRO-OPTICAL BENCHMARK'          $
+C                                                                      $
+C ******************************************************************** $
+C * INCLUDE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 000200 INCLUDE, ATLAS MODULE 'VEO-2 IR BENCHMARK'                     $
+     05 INCLUDE, ATLAS MODULE 'VEO-2 LASER BENCHMARK'                  $
+     10 INCLUDE, ATLAS MODULE 'VEO-2 VIS BENCHMARK'                    $
+     15 INCLUDE, NON-ATLAS MODULE 'VIDEO-GEN'                          $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 001000 DECLARE, GLOBAL, VARIABLE, 'FAIL-CNT'  IS INTEGER              $
+     05 DECLARE, GLOBAL, VARIABLE, 'ETE TEST'  IS BOOLEAN              $
+     10 DECLARE, GLOBAL, VARIABLE, 'TESTNO'    IS INTEGER              $
+     15 DECLARE, VARIABLE, 'DATETIME'  IS STRING(15) OF CHAR           $
+     20 DECLARE, VARIABLE, 'CHOICE'    IS DECIMAL                      $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 010000 DEFINE, 'RESULTS', GLOBAL, PROCEDURE ('TEST' IS INTEGER,
+                                              'MVAL' IS DECIMAL,
+                                              'ULIM' IS DECIMAL,
+                                              'LLIM' IS DECIMAL)       $
+C                                                                      $
+     05 DECLARE, VARIABLE, 'PassFail' IS STRING(4) OF CHAR             $ 
+     10 DECLARE, VARIABLE, 'GoNogo'   IS STRING(5) OF CHAR             $
+     15 DECLARE, VARIABLE, 'NESTED'   IS BOOLEAN                       $
+C                                                                      $
+     20 IF, 'MVAL' UL 'ULIM' LL 'LLIM', THEN                           $
+     25    CALCULATE, 'PassFail' = C'PASS'                             $
+     30    CALCULATE, 'GoNogo' = C' GO '                               $
+     35 ELSE                                                           $
+     40    CALCULATE, 'PassFail' = C'FAIL'                             $
+     45    CALCULATE, 'GoNogo' = C'NOGO'                               $
+     50    CALCULATE, 'FAIL-CNT' = 'FAIL-CNT' + 1                      $
+     55 END, IF                                                        $
+C                                                                      $
+     60 CALCULATE, 'NESTED' = FALSE                                    $
+C                                                                      $
+     65 IF, 'ULIM' EQ 0, THEN                                          $
+     70    IF, 'LLIM' EQ 0, THEN                                       $
+     75       CALCULATE, 'NESTED' = TRUE                               $
+     80    END, IF                                                     $
+     85 END, IF                                                        $
+C                                                                      $
+     90 IF, 'NESTED', THEN                                             $
+     95     OUTPUT, C' TEST        UPPER LIMIT      MEAS VALUE    ',
+              C'  LOWER LIMIT    RESULT'                               $
+ 010100     OUTPUT, C'------      -------------   --------------  ',
+              C' -------------   ------'                               $
+     05     OUTPUT, 'TEST', C'         ', C'GO', C'            ',
+              'GoNogo', C'           ', C'NOGO', C'       ',
+              'PassFail'                                               $
+     25 ELSE                                                           $
+     30     OUTPUT, C' TEST       UPPER LIMIT          MEAS VALUE  ',
+              C'       LOWER LIMIT      RESULT'                        $
+     35     OUTPUT, C'------   -----------------   -----------------',
+              C'   -----------------   ------'                         $ 
+     40     OUTPUT, 'TEST', C'  ', 'ULIM':17:7, C'  ', 'MVAL':17:7,
+              C'  ', 'LLIM':17:7, C'  ', 'PassFail'                    $
+     60 END, IF                                                        $
+     65 OUTPUT, C'\LF\'                                                $
+C                                                                      $ 
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                                * $
+C ******************************************************************** $
+C                                                                      $
+ 011000 DEFINE, 'CLRSCR', GLOBAL, PROCEDURE                            $
+     05     OUTPUT, C' \LF\\LF\\LF\\LF\\LF\\LF\\LF\ \LF\
+                       \LF\\LF\\LF\\LF\\LF\\LF\ \LF\ \LF\'             $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: SETUP VIDEO-GEN                                       * $
+C ******************************************************************** $
+C                                                                      $
+ 012000 DEFINE, 'SETUP VIDEO-GEN', GLOBAL,
+          PROCEDURE('ARG' IS STRING(10) OF CHAR)                       $
+     05   PERFORM, 'VIDEO-GEN'('ARG')                                  $
+     99 END, 'SETUP VIDEO-GEN'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'IR TESTS'                                            * $
+C ******************************************************************** $
+C                                                                      $
+ 020000 DEFINE, 'IR TESTS', EXTERNAL, PROCEDURE                        $
+     99 END, 'IR TESTS'                                                $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'LASER TESTS'                                         * $
+C ******************************************************************** $
+C                                                                      $
+ 021000 DEFINE, 'LASER TESTS', EXTERNAL, PROCEDURE                     $
+     99 END, 'LASER TESTS'                                             $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'VIS TESTS'                                           * $
+C ******************************************************************** $
+C                                                                      $
+ 022000 DEFINE, 'VIS TESTS', EXTERNAL, PROCEDURE                       $
+     99 END, 'VIS TESTS'                                               $
+C                                                                      $
+C ******************************************************************** $
+C ******************************************************************** $
+E090000 CALCULATE, 'DATETIME' = DATE                                   $
+     05 OUTPUT,
+            C'BEGIN VEO2 ELECTRO-OPTICAL Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+     10 OUTPUT, 
+            C'OPERATOR ACTION\LF\',
+            C'---------------------------------------------------\LF\',
+            C'1. Enable VEO2 Power Supplies by opening\LF\',
+            C'   SAIS Toolbar and select the EO Video Display\LF\',
+            C'   Tools button. Wait for the Active lights\LF\',
+            C'   to come on for Power Supplies 1, 2, and 3 before\LF\',
+            C'   continuing.\LF\',
+            C'\LF\',
+            C'Press Enter when ready.\LF\'                             $
+     15 INPUT, GO-NOGO                                                 $
+     20 OUTPUT, C'WAITING 2.5 MINUTES FOR WARMUP'                      $
+     25 WAIT FOR, 150 SEC                                              $
+C                                                                      $
+     30 CALCULATE, 'FAIL-CNT' = 0                                      $
+     35 OUTPUT, C'PERFORMING SET TARGET POSITION TO LOAD LARRS DATA'   $
+     40 SETUP, INFRARED,
+          TARGET-TYPE TARG-OPNAPR,
+          CNX VIA ATMOSPHERE                                           $
+     45 OUTPUT, C'LARRS AZ AND EL LOADED'                              $
+     50 RESET, INFRARED,
+          CNX VIA ATMOSPHERE                                           $
+B MAIN MENU ENTRY POINT                                                $
+ 090100 OUTPUT, 
+          C'           Test Menu\LF\',
+          C'----------------------------------------------------\LF\',
+          C'INFRARED Tests                                     1\LF\',
+          C'LASER Tests                                        2\LF\',
+          C'VISIBLE LIGHT Tests                                3\LF\',
+          C'Run All Tests                                      4\LF\',
+          C'Exit                                               0\LF\',
+          C'\LF\',
+          C'Enter a selection:\LF\'                                    $
+C                                                                      $
+     15 INPUT, INTO 'CHOICE'                                           $
+C                                                                      $
+     20 IF, 'CHOICE' EQ 0, THEN                                        $
+     25   GO TO, STEP 999900                                           $
+     30 END, IF                                                        $
+     35 IF, 'CHOICE' EQ 1, THEN                                        $
+     40   CALCULATE, 'ETE TEST' = FALSE                                $
+     45   PERFORM, 'IR TESTS'                                          $
+     50 END, IF                                                        $
+     55 IF, 'CHOICE' EQ 2, THEN                                        $
+     60   CALCULATE, 'ETE TEST' = FALSE                                $
+     65   PERFORM, 'LASER TESTS'                                       $
+     70 END, IF                                                        $
+     75 IF, 'CHOICE' EQ 3, THEN                                        $
+     80   CALCULATE, 'ETE TEST' = FALSE                                $
+     85   PERFORM, 'VIS TESTS'                                         $
+     90 END, IF                                                        $
+     95 IF, 'CHOICE' EQ 4, THEN                                        $
+ 090200   CALCULATE, 'ETE TEST' = TRUE                                 $
+     05   PERFORM, 'IR TESTS'                                          $
+     10   PERFORM, 'LASER TESTS'                                       $
+     15   PERFORM, 'VIS TESTS'                                         $
+     20 END, IF                                                        $
+C                                                                      $
+     25 OUTPUT, C'INVALID SELECTION'                                   $
+     30 GO TO, STEP 090100                                             $
+C                                                                      $
+C ******************************************************************** $
+C *                  END OF BENCHMARK TESTING                        * $
+C ******************************************************************** $
+B                                                                      $
+ 999900 CALCULATE, 'DATETIME' = DATE                                   $
+     05 OUTPUT,
+            C'END RF MEASUREMENT ANALYZER ATLAS Driver Benchmark\LF\',
+            C'Date/Time:', 'DATETIME'                                  $
+     10 IF, 'FAIL-CNT' EQ 0, THEN                                      $
+     15     OUTPUT, C'TEST PASSED'                                     $
+     20 ELSE                                                           $
+     25     OUTPUT, C'TEST FAILED ', 'FAIL-CNT', C' TESTS'             $
+     30 END, IF                                                        $
+     35 OUTPUT,
+            C'OPERATOR ACTION\LF\',
+            C'--------------------------------------------------\LF\',
+            C'1. Disable VEO2 Power Supplies by switching to \LF\',
+            C'   the System Self Test panel and pressing\LF\',
+            C'   Ctrl+Shift+F9. Wait for the Active lights to go\LF\',
+            C'   out on Power Supplies 1, 2, and 3 before \LF\',
+            C'   continuing.\LF\',
+            C'\LF\',
+            C'Press Enter when ready.\LF\'                             $
+     40 INPUT, GO-NOGO                                                 $
+C                                                                      $
+ 999998 REMOVE, ALL                                                    $
+ 999999 TERMINATE, ATLAS PROGRAM 'VEO2 ELECTRO-OPTICAL BENCHMARK'      $

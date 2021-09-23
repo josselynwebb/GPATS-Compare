@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+<!ENTITY con-a7-1 SYSTEM "./graphics/CON_A7/ASSY/CON_A7_1.pic" NDATA FAXTILE>
+<!ENTITY con-a7-sch-1 SYSTEM "./graphics/CON_A7/SCHEM/CON_A7_SCH_1.pic" NDATA FAXTILE>
+<!ENTITY fig3-24 SYSTEM "./graphics/fig3-24.pic" NDATA FAXTILE>
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C3S10" LABEL="X"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' LINK='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\CONFERENCE_ACCUMULATOR_A7_CCA_2618577-1_656-3766-001\TP_AAV_CON_A7.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_A7/ASSY/CON_A7_1.pic' ?><?BUTTON POS='3' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/CON_A7/SCHEM/CON_A7_Sch_1.pic'?><?FRAME title="Chapter 3. Theory of Operation, Section X. Conference Accumulator CCA, P/N 2618577-1 and 656-3766-001" previous="./c3s09.ide!C3S09a" IMAGE="./graphics/CON_A7/ASSY/CON_A7_1.pic"?><?TOCENTRY TITLE="SECTION X. Theory of Operation for the Conference Accumulator CCA, P/N 2618577-1 and 656-3766-001" TOCLEVEL="2" LABEL="X"?>
+<TITLE>SECTION X. Theory of Operation for the Conference Accumulator CCA, P/N 2618577-1 and 656-3766-001</TITLE>
+<PARA0 ID="P3-10" LABEL="3.10"><?Pub Dtl?><?TOCENTRY TITLE="3.10 Conference Accumulator Theory of Operation" TOCLEVEL="3"?>
+<TITLE>Conference Accumulator Theory of Operation</TITLE>
+<CAUTION>
+<PARA>This Circuit Card Assembly contains components sensitive to damage by Electrostatic Discharge. Use precautionary procedures when touching, removing, or installing components.</PARA></CAUTION>
+<PARA>The following paragraphs will describe the Theory of Operation for the Conference Accumulator CCA, P/N 2618577-1 and 656-3766-001. <?hotspot linktype="picture" href="./graphics/CON_A7/ASSY/CON_A7_1.pic"?>Figure 3-23<?endhotspot?> provides the CCA Layout.</PARA>
+<FIGURE ID="CON-A7-1" LABEL="3-23">
+<TITLE>Conference Accumulator CCA Layout</TITLE><?hotspot linktype="picture" href="./graphics/CON_A7/ASSY/CON_A7_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="GENC3223" LABEL="3.10.1"><?TOCENTRY TITLE="3.10.1 Operation" TOCLEVEL="4"?>
+<TITLE>Operation</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/fig3-24.pic"?>Figure 3-24<?endhotspot?>, the functional block diagram, as necessary while reading this section. This CCA provides eight conference/switch outputs; outputs in any combination of 64 inputs; connections under microprocessor control stored in control RAM; connections made at 0 dB or -12 dB scaling; operates each ALU/accumulator at 8 MHz and two outputs; and desynchronizes outputs to 32-kHz reference signal.</PARA></SUBPARA1>
+<FIGURE ID="FIG3-24" LABEL="3-24">
+<TITLE>Conference Accumulator CCA Functional Block Diagram</TITLE><?hotspot linktype="picture" href="./graphics/fig3-24.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE>
+<SUBPARA1 ID="P3-10.1" LABEL="3.10.2"><?TOCENTRY TITLE="3.10.2 Schematic" TOCLEVEL="4"?>
+<TITLE>Schematic</TITLE>
+<PARA>Refer to <?hotspot linktype="picture" href="./graphics/CON_A7/SCHEM/CON_A7_SCH_1.pic"?>Figure 3-25<?endhotspot?> for the schematic diagram for the Conference Accumulator CCA.</PARA>
+<FIGURE ID="CON-A7-SCH-1" LABEL="3-25">
+<TITLE>Conference Accumulator CCA Schematic Diagram</TITLE><?hotspot linktype="picture" href="./graphics/CON_A7/SCHEM/CON_A7_SCH_1.pic"?><graphic icon="./icons/illusticon2.bmp"><?endhotspot?>
+</FIGURE></SUBPARA1>
+<SUBPARA1 ID="P3-10.2" LABEL="3.10.3"><?TOCENTRY TITLE="3.10.3 Parts List" TOCLEVEL="4"?>
+<TITLE>Parts List</TITLE>
+<PARA><XREF XREFID="TABLE3-11" XIDTYPE="TABLE">Table 3-13</XREF> lists all repair parts available for the Conference Accumulator CCA.</PARA><?FRAME id="c3s10a" title="Chapter 3. Theory of Operation, Section X. Conference Accumulator CCA, P/N 2618577-1 and 656-3766-001 Cont'd" NEXT="./c3s11.ide!C3S11"?>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE3-11" LABEL="3-13"><?Pub Dtl?>
+<TITLE>Parts List for Conference Accumulator CCA, P/N 2618577-1 and 656-3766-001</TITLE>
+<TGROUP COLS="7">
+<COLSPEC COLNAME="COL1" COLWIDTH=".6in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL2" COLWIDTH=".5in" ALIGN="CENTER"/>
+<COLSPEC COLNAME="COL3" COLWIDTH=".5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.5in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="1.8in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL6" COLWIDTH="2.0in" ALIGN="LEFT"/>
+<COLSPEC COLNAME="COL7" COLWIDTH=".75in" ALIGN="CENTER"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Item No.</ENTRY>
+<ENTRY ALIGN="CENTER">Qty.</ENTRY>
+<ENTRY ALIGN="CENTER">Cage</ENTRY>
+<ENTRY ALIGN="CENTER">P/N</ENTRY>
+<ENTRY ALIGN="CENTER">Description</ENTRY>
+<ENTRY ALIGN="CENTER">Reference Des.</ENTRY>
+<ENTRY ALIGN="CENTER">SMR Code</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>1</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>656-3767-001</ENTRY>
+<ENTRY>PWB, Conference Accumulator</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>2</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/07301BCX</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U41</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>3</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30901BEB</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U21</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>4</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-1882-020</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U11,U53</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>5</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/30605BCB</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U12,U32</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>6</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-1821-042</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U22,U72,U52</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>7</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510/01403BEB</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U42,U73</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>8</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-1855-020</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U13,U23,U62,U63</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>9</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M38510-31001BCB</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U33</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>10</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-1940-010</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U43</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>11</ENTRY>
+<ENTRY>4</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-1896-022</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>U14,U16,U76,U74</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>12</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-1852-012</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U15,U75</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>13</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-8441-022</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U24,U25,U26,U54,U55,U56</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>14</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>351-8621-012</ENTRY>
+<ENTRY>Microcircuit</ENTRY>
+<ENTRY>U51,U61</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>15</ENTRY>
+<ENTRY>16</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39014/01-1593</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C2,C3,C4,C6,C8,C11,C9,C14,C15,C17,C16,C13,C10,C7,C5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>16</ENTRY>
+<ENTRY>6</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR05G102JS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R1,R2,R3,R10,R12,R11</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>17</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G221KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R6,R7</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>18</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>RCR07G391KS</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R8,R9</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>19</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>015-3782-010</ENTRY>
+<ENTRY>Extractor, Left Hand</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>20</ENTRY>
+<ENTRY>11</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-01</ENTRY>
+<ENTRY>Jack, TIP, White</ENTRY>
+<ENTRY>TP1-TP7, TP9-TP12</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>21</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39024/11-03</ENTRY>
+<ENTRY>Jack, TIP, Black</ENTRY>
+<ENTRY>TP8</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>22</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>015-3782-020</ENTRY>
+<ENTRY>Extractor, Right Hand</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>XBHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>23</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>MS51923-157</ENTRY>
+<ENTRY>Pin, Spring</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>24</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M8340105M1001JC</ENTRY>
+<ENTRY>Resistor, Fixed</ENTRY>
+<ENTRY>R4,R5</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>25</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M39003/01-2962</ENTRY>
+<ENTRY>Capacitor, Fixed</ENTRY>
+<ENTRY>C1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>26</ENTRY>
+<ENTRY>40</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>372-2601-027</ENTRY>
+<ENTRY>Contact, Electrical</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>27</ENTRY>
+<ENTRY>2</ENTRY>
+<ENTRY>80064</ENTRY>
+<ENTRY>2618702</ENTRY>
+<ENTRY>Retainer</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>28</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>13499</ENTRY>
+<ENTRY>333-0605-000</ENTRY>
+<ENTRY>Nut, Self-locking</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>29</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS15795-803</ENTRY>
+<ENTRY>Washer, Flat</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>30</ENTRY>
+<ENTRY>3</ENTRY>
+<ENTRY>96906</ENTRY>
+<ENTRY>MS51959-16</ENTRY>
+<ENTRY>Screw, Machine</ENTRY>
+<ENTRY>-</ENTRY>
+<ENTRY>PAFZZ</ENTRY></ROW>
+<ROW>
+<ENTRY>31</ENTRY>
+<ENTRY>1</ENTRY>
+<ENTRY>81349</ENTRY>
+<ENTRY>M5302/59-A120Y(-0)</ENTRY>
+<ENTRY>Connector, 120 Pin</ENTRY>
+<ENTRY>P1</ENTRY>
+<ENTRY>PAHZZ</ENTRY></ROW></TBODY></TGROUP></TABLE></SUBPARA1></PARA0></SECTION>

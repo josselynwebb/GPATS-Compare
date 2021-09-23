@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Pub Inc?>
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc'?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?BUTTON POS='1' LABEL='TOO' TYPE='frame' LINK='.\C3s2.xml!C3S2A' bitmap='n' DESC='Open Theory of Operation.'?>
+<?BUTTON POS='2' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-2_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='3' LABEL='UUT Sch' TYPE='pic' LINK='./graphics/Fig3-3_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='4' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='5' LABEL='UUT ELTD' TYPE='program' LINK=''./ELTD/4_ELTD_16104813_011_CDA Logic.pdf'' bitmap='n' DESC='Open UUT English Language Test Description.'?>
+<?BUTTON POS='6' LABEL='ID ELTD' TYPE='program' LINK=''./ELTD/14_ELTD_13020A1000_TPH.pdf'' bitmap='n' DESC='Open ID English Language Test Description.'?>
+<?BUTTON POS='7' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Control Display Assy\CDA_ Logic (16104813-011)\ TP_LAV_CDA_CCA.OBJ"' bitmap='n' DESC='Select to launch CDA Logic TPS.'?>
+<?FRAME id='C4s2a' title='CHAPTER 4 - TEST PROGRAM INSTRUCTIONS' next='.\C4s3.xml!C4s3a' previous='.\C4s1.xml!C4s1a'?>
+<chapter>
+<section id="c4s2" label="Section II." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section II. CDA Logic."?>
+<title>CDA Logic</title>
+<para0 id="p4-2" label="4-2" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="4-2 Introduction."?>
+<title>Introduction.</title>
+<para>The following paragraphs will describe the Test Program Instructions
+(TPI) for the Control Display Assembly (CDA) Logic (P/N 16104813-011).</para>
+<?ALERT id="cESD" type="caution"?>
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+<?ENDALERT?>
+<para>Weapon System: LAV-25A2.</para>
+<subpara1 id="p4-2.1" label="4-2.1" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-2.1 Test Program Instructions."?>
+<title>Test Program Instructions.</title>
+<para>Required Equipment.</para>
+<para><?hotspot href="T4-1"?>Table 4-1<?endhotspot?> provides information
+on the equipment required to test the CDA Logic circuit card.</para>
+<para><?pub tablewidth="80%"?><table id="T4-1" tocentry="1">
+<title>Table 4-1. CDA Logic Required Equipment</title>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="1054.00px"?>
+<colspec colname="1" colnum="1" colwidth="0.61*"/>
+<colspec colname="2" colnum="2" colwidth="0.56*"/>
+<colspec colname="4" colnum="3" colwidth="0.41*"/>
+<thead>
+<row>
+<entry align="center">Nomenclature</entry>
+<entry align="center">Part Number</entry>
+<entry align="center">Quantity</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>VIPER/T or TETS-B ATE</entry>
+<entry align="center">AN/USM-717 or AN/USM-657B</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Interface Device</entry>
+<entry align="center">13020A1000</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Fixture Assembly, Holding</entry>
+<entry align="center">13020A9015</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>CDA Logic </entry>
+<entry align="center">16104813-011</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W1</entry>
+<entry align="center">13020A7100</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Cable Assembly, W2</entry>
+<entry align="center">13020A7200</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (VIPER/T)</entry>
+<entry align="center">93006H9009</entry>
+<entry align="center">1</entry>
+</row>
+<row>
+<entry>Analog Probe Kit (TETS-B)</entry>
+<entry align="center">93006A9007</entry>
+<entry align="center">1</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+</subpara1>
+<caution id="C422">
+<para>UUT contains electrostatic sensitive devices (ESDs). Failure
+to follow ESD handling procedures may result in damage to equipment.</para>
+</caution>
+<subpara1 id="p4-2.2" label="4-2.2" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-2.2 Set-up Instructions."?>
+<title>Set-up Instructions.</title>
+<step1>
+<para>1. Open the ATE interface handle.</para>
+</step1>
+<step1>
+<para>2. Insert Interface Device (P/N 13020A1000) into the ATE interface
+receiver.</para>
+</step1>
+<step1>
+<para>3. Close the ATE interface handle.</para>
+</step1>
+<step1>
+<para>4. Place Holding Fixture (P/N 13020A9015) on top of ID. Secure
+to holding cleat with thumb screw.</para>
+</step1>
+<step1>
+<para>5. Loosen both top knobs so that the rail slides freely. Adjust
+position of rail so that the UUT will sit firmly on both lips but
+do not tighten knobs.</para>
+</step1>
+<step1>
+<para>6. Connect W1 cable (P/N 13020A7100) P1 to ID J1. Connect W2
+cable (P/N 13020A7200) P1 to ID J2. Place W2 P4 on side bar of holding
+fixture.</para>
+</step1>
+<step1>
+<para>7. Slide UUT to the right to mate UUT J4 to W2 P4. Secure UUT
+by tightening both top knobs.</para>
+</step1>
+<step1>
+<para>8. Connect W1 P3 to UUT J3.</para>
+</step1>
+<step1>
+<para>9. Connect W1 P2 to UUT J2.</para>
+</step1>
+<step1>
+<para>10. Connect W2 P2 to UUT J1. </para>
+</step1>
+</subpara1>
+<subpara1 id="p4-2.3" label="4-2.3" tocentry="1">
+<?PUB TOCLEVEL="4" TEXT="4-2.3 Disconnect Instructions."?>
+<title>Disconnect Instructions.</title>
+<step1>
+<para>1. Disconnect all cables from UUT if testing is complete.</para>
+</step1>
+</subpara1>
+</para0>
+</section>
+</chapter>
+</body><?Pub Caret 7?>

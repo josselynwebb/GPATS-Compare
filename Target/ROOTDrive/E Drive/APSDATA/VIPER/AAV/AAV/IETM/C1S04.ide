@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C1S04" LABEL="IV"><?Pub Dtl?><?FRAME TITLE='1-4. Preparation for Use' LABEL='c1s4' previous='./c1s03.ide!C1S03' NEXT='./C2S01.ide!C2S01'?><?TOCENTRY TITLE="SECTION IV. Preparation for Use" TOCLEVEL="2" LABEL="IV"?>
+<TITLE>SECTION IV. Preparation for Use</TITLE>
+<PARA0 ID="P1-4" LABEL="1.4"><?TOCENTRY TITLE="1.4 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides the generic and necessary information to initially inspect the contents of the APS. Procedures for moving the contents of the APS to a new site, limited storage, and preparation for reshipment are also provided. </PARA>
+<SUBPARA1 ID="P1-4.1" LABEL="1.4.1"><?TOCENTRY TITLE="1.4.1 Unpacking" TOCLEVEL="4"?>
+<TITLE>Unpacking</TITLE>
+<PARA>For shipment, the APS is packed in a transit case. Open transit case and remove components.</PARA></SUBPARA1>
+<SUBPARA1 ID="P1-4.2" LABEL="1.4.2"><?TOCENTRY TITLE="1.4.2 Initial Inspection and Checkout" TOCLEVEL="4"?>
+<TITLE>Initial Inspection and Checkout</TITLE>
+<PARA>Inspect and check the components of the APS as follows:</PARA>
+<STEP1 ID="P1-4.2A" LABEL="a">
+<PARA>Check the ITA and connectors for broken, defective connectors.</PARA></STEP1>
+<STEP1 ID="P1-4.2B" LABEL="b">
+<PARA>Check that the digital media are present and in good condition.</PARA></STEP1>
+<STEP1 ID="P1-4.2C" LABEL="c">
+<PARA>Inspect the transit case for cracks, loose handles, and loose or hard-to-open latches. Check for damage to the interior.</PARA></STEP1>
+<STEP1 ID="P1-4.2D" LABEL="d">
+<PARA>Using laminated inventory sheet, ensure that all APS components are included.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P1-4.3" LABEL="1.4.3"><?TOCENTRY TITLE="1.4.3 Installation" TOCLEVEL="4"?>
+<TITLE>Installation</TITLE>
+<PARA>The APS is designed for portable field use and is not intended for permanent installation. No installation procedures are required.</PARA></SUBPARA1>
+<SUBPARA1 ID="P1-4.4" LABEL="1.4.4"><?TOCENTRY TITLE="1.4.4 Movement to a New Site" TOCLEVEL="4"?>
+<TITLE>Movement to a New Site</TITLE>
+<PARA>Procedures for relocation of the APS to a new site are as follows:</PARA>
+<STEP1 ID="P1-4.4A" LABEL="a">
+<PARA>Disconnect the ITA (if required) and place in the slot provided in the top insert tray.</PARA></STEP1>
+<STEP1 ID="P1-4.4B" LABEL="b">
+<PARA>Place Interface Device Test Fixture in the slot provided in the bottom insert tray.</PARA></STEP1>
+<STEP1 ID="P1-4.4C" LABEL="c">
+<PARA>Place any cables in the slots provided in the bottom insert tray.</PARA></STEP1>
+<STEP1 ID="P1-4.4D" LABEL="d">
+<PARA>Put the digital media in the transit case.</PARA></STEP1>
+<STEP1 ID="P1-4.4E" LABEL="e">
+<PARA>Using laminated inventory sheet, ensure that all APS components are present and packaged.</PARA></STEP1>
+<STEP1 ID="P1-4.4F" LABEL="f">
+<PARA>Close the cover on the transit case with the latches.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P1-4.5" LABEL="1.4.5"><?TOCENTRY TITLE="1.4.5 Preparation for Limited Storage" TOCLEVEL="4"?>
+<TITLE>Preparation for Limited Storage</TITLE>
+<PARA>When not in use, the APS components should be stored in the transit case to provide protection against damage.</PARA></SUBPARA1>
+<SUBPARA1 ID="P1-4.6" LABEL="1.4.6"><?TOCENTRY TITLE="1.4.6 Preparation for Domestic Reshipment" TOCLEVEL="4"?>
+<TITLE>Preparation for Domestic Reshipment</TITLE>
+<PARA>For reshipment, the APS can be shipped in its original cases.</PARA></SUBPARA1></PARA0></SECTION>

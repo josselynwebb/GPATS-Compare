@@ -1,0 +1,727 @@
+ 000100 BEGIN, ATLAS MODULE 'VEO-2 VIS BENCHMARK'                      $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 001000 DECLARE, EXTERNAL, VARIABLE, 'FAIL-CNT'  IS INTEGER            $
+     05 DECLARE, EXTERNAL, VARIABLE, 'ETE TEST'  IS BOOLEAN            $
+     10 DECLARE, EXTERNAL, VARIABLE, 'TESTNO'    IS INTEGER            $
+     15 DECLARE, VARIABLE, 'ULIM' IS DECIMAL                           $
+     20 DECLARE, VARIABLE, 'LLIM' IS DECIMAL                           $
+     25 DECLARE, VARIABLE, 'MVAL' IS DECIMAL                           $
+     30 DECLARE, VARIABLE, 'SYNTAX' IS BOOLEAN INITIAL = FALSE         $
+     35 DECLARE, VARIABLE, 'X-ALIGN-ERROR' IS DECIMAL                  $
+     40 DECLARE, VARIABLE, 'Y-ALIGN-ERROR' IS DECIMAL                  $
+     45 DECLARE, VARIABLE, 'MIODATA' IS ARRAY(1 THRU 2) OF DECIMAL     $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 001100 DEFINE, 'RESULTS', EXTERNAL, PROCEDURE ('TEST' IS INTEGER,
+                                                'MVAL' IS DECIMAL,
+                                                'ULIM' IS DECIMAL,
+                                                'LLIM' IS DECIMAL)     $
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                                * $
+C ******************************************************************** $
+C                                                                      $
+ 001200 DEFINE, 'CLRSCR', EXTERNAL, PROCEDURE                          $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'CALL VIDEO-GEN                                       * $
+C ******************************************************************** $
+C                                                                      $
+ 002200 DEFINE, 'SETUP VIDEO-GEN', EXTERNAL,
+          PROCEDURE('ARG' IS STRING(10) OF CHAR)                       $
+     99 END, 'SETUP VIDEO-GEN'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'VIS SOURCE TEST'                                     * $
+C ******************************************************************** $
+C                                                                      $
+ 020000 DEFINE, 'VIS SOURCE TEST', PROCEDURE                           $
+C                                                                      $
+C   ****************************************************************   $
+C   * TEST 020100 - Open Aperture (No Target)                      *   $
+C   ****************************************************************   $
+ 020100   OUTPUT,
+            C'VIS Source Test 0201 - Open Aperture no target'          $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020100                                 $
+     10   SETUP, LIGHT,
+            RADIANCE 1000 UW/CM2/SR,
+            TARGET-TYPE TARG-OPNAPR,
+            MAX-TIME 180 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify open aperture (no target) is displayed.\LF\',
+            C'    See CPM Table 1.5-13.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C   ****************************************************************   $
+C   * TEST 020200 - Spinning Pinhole Target                        *   $
+C   ****************************************************************   $
+ 020200   OUTPUT,
+            C'VIS Source Test 0202 - Spinning Pinhole Target'          $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020200                                 $
+     10   SETUP, LIGHT,
+            RADIANCE 3000 UW/CM2/SR,
+            TARGET-TYPE TARG-SPNPINHL,
+            ANGLE-RATE 1.0 RAD/SEC,
+            MAX-TIME 120 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify spinning pinhole target is displayed.\LF\',
+            C'    See CPM Table 1.5-12.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C   ****************************************************************   $
+C   * TEST 020300 - USAF 1951 Group 0-7 Target                     *   $
+C   ****************************************************************   $
+ 020300   OUTPUT,
+            C'VIS Source Test 0203 - USAF 1951 Group 0-7 Target'       $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020300                                 $
+     10   SETUP, LIGHT,
+            RADIANCE 200 UW/CM2/SR,
+            TARGET-TYPE TARG-TGTGRP07,
+            MAX-TIME 120 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify USAF 1951 Group 0-7 target is displayed.\LF\',
+            C'    See CPM Table 1.5-14.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LIGHT, 
+            CNX VIA ATMOSPHERE                                         $
+C   ****************************************************************   $
+C   * TEST 020400 - USAF 1951 Group -1 Target                      *   $
+C   ****************************************************************   $
+ 020400   OUTPUT,
+            C'VIS Source Test 0204 - USAF 1951 Group -1 Target'        $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020400                                 $
+     10   SETUP, LIGHT,
+            TARGET-TYPE TARG-TGTGRP1,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify USAF 1951 Group -1 target is displayed.\LF\',
+            C'    See CPM Table 1.5-15.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C   ****************************************************************   $
+C   * TEST 020500 - USAF 1951 Group -2 Target                      *   $
+C   ****************************************************************   $
+ 020500   OUTPUT,
+            C'VIS Source Test 0205 - USAF 1951 Group -2 Target'        $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020500                                 $
+     10   SETUP, LIGHT,
+            TARGET-TYPE TARG-TGTGRP2,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify USAF 1951 Group -2 target is displayed.\LF\',
+            C'    See CPM Table 1.5-16.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C   ****************************************************************   $
+C   * TEST 020600 - GRAYSCALE                                      *   $
+C   ****************************************************************   $
+ 020600   OUTPUT,
+          C'IR Source Test 0206 - Grayscale Target'                    $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020600                                 $
+     10   SETUP, LIGHT,
+            TARGET-TYPE TARG-GRYSCL,
+            MAX-TIME 60 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Verify Grayscale target is displayed.\LF\',
+            C'    See CPM Table 1.5-10.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False is incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 020700   RESET, LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 020799 END, 'VIS SOURCE TEST'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'GEOMETRIC FIDELITY TEST'                             * $
+C ******************************************************************** $
+C                                                                      $
+ 021000 DEFINE, 'GEOMETRIC FIDELITY TEST', PROCEDURE                   $
+C                                                                      $
+     05   OUTPUT, C'GEOMETRIC FIDELITY TEST'                           $
+C                                                                      $
+     10   CALCULATE, 'TESTNO' = 021000,
+                     'ULIM' = 3.9,
+                     'LLIM' = 0.0                                      $
+C NOTE: LEGACY HAD WAIT UNTIL RADIANCE IRIS HAS SETTLED                $
+c     15   PERFORM, 'SETUP VIDEO-GEN'(C'DIST1')                         $
+     20   MEASURE, (DISTORTION INTO 'MVAL'), LIGHT,
+            DISTORTION MAX 100 PC,
+            H-FIELD-OF-VIEW 0.064 RAD,
+            V-FIELD-OF-VIEW 0.048 RAD,
+            RADIANCE 500 UW/CM2/SR,
+            TGT-COORDINATE-TOP 0,
+            TGT-COORDINATE-LEFT 0,
+            TGT-COORDINATE-BOTTOM 479,
+            TGT-COORDINATE-RIGHT 639,
+            FORMAT RS170,
+            CNX VIA UUT-Video-Out                                      $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 021999 END, 'GEOMETRIC FIDELITY TEST'                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'AGC TEST'                                            * $
+C ******************************************************************** $
+C                                                                      $
+ 022000 DEFINE, 'AGC TEST', PROCEDURE                                  $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'SETTING' IS DECIMAL                      $
+     10   DECLARE, VARIABLE, 'IDX' IS INTEGER                          $
+     15   CALCULATE, 'TESTNO' = 022000                                 $
+C                                                                      $
+ 022100   OUTPUT,
+          C'-----------------------------------------------------\LF\',
+          C'                    OPERATOR ACTION\LF\',
+          C'1. The legacy instructions are :\LF\',
+          C'   Step the video generator from SiTF2 thru SiTF9 at \LF\',
+          C'   the radiance settle points. When you hear the     \LF\',
+          C'   radiance iris move to the next point select the   \LF\',
+          C'   next SiTF image.\LF\',
+          C' need to verify these instructions.'                       $
+     05   CALCULATE, 'TESTNO' = 022100,
+                     'ULIM' = 186 * 1.015,
+                     'LLIM' = 186 * 0.985                              $
+     10   MEASURE, (CAMERA-GAIN INTO 'MVAL'), LIGHT,
+            CAMERA-GAIN MAX 1 V/UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.64 RAD,
+            V-FIELD-OF-VIEW 0.48 RAD,
+            TGT-COORDINATE-TOP 100,
+            TGT-COORDINATE-LEFT 110,
+            TGT-COORDINATE-BOTTOM 382,
+            TGT-COORDINATE-RIGHT 340,
+            RADIANCE-START 1000 UW/CM2/SR,
+            RADIANCE-STOP 4500 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            TARGET-TYPE TARG-OPNAPR,
+            CNX VIA UUT-Video-Out                                      $
+     15   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 022200   OUTPUT,
+          C'----------------------------------------------------\LF\',
+          C'                 OPERATOR ACTION\LF\',
+          C'1. Legacy comments:\LF\',
+          C'   ATLAS DEMONSTRATION ONLY - NOT REQUIRED FOR FAT\LF\',
+          C'   CAMERA GAIN AGC ON.\LF\',
+          C'   The following tests require a video camera\LF\',
+          C'   Setup camera and press enter to continue.\LF\'          $
+     05   INPUT, GO-NOGO                                               $
+C VERIFY LIMITS FOR FOLLOWING SECTION                                  $
+     10   CALCULATE, 'TESTNO' = 022200,
+                     'ULIM' = 100 * 1.015,
+                     'LLIM' = 100 * 0.985                              $
+C NOTE : 'UUT-HORIZ-LOS-ERROR' and 'UUT-VERT-LOS-ERROR' are not filled anywhere in legacy $
+C H-LOS-ALIGN-ERROR 'UUT-HORIZ-LOS-ERROR' RANGE -1.5708 RAD TO 1.5708 RAD $
+C V-LOS-ALIGN-ERROR 'UUT-VERT-LOS-ERROR' RANGE -1.5708 RAD TO 1.5708 RAD $
+     15   MEASURE, (CAMERA-GAIN INTO 'MVAL'), LIGHT,
+            CAMERA-GAIN MAX 1 V/UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.064 RAD,
+            V-FIELD-OF-VIEW 0.048 RAD,
+            RADIANCE-START 30 UW/CM2/SR,
+            RADIANCE-INTERVAL 20 UW/CM2/SR,
+            RADIANCE-STOP 150 UW/CM2/SR,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            INTENSITY-RATIO 10 PC,
+            TARGET-TYPE TARG-OPNAPR,
+            H-TARGET-ANGLE 0.029 RAD,
+            V-TARGET-ANGLE 0.025 RAD,
+            CNX VIA UUT-Video-Out                                      $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 022799 END, 'AGC TEST'                                                $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'DYNAMIC RANGE TEST'                                  * $
+C ******************************************************************** $
+C                                                                      $
+ 025000 DEFINE, 'DYNAMIC RANGE TEST', PROCEDURE                        $
+C                                                                      $
+C                                                                      $
+     05   OUTPUT, 
+          C'-----------------------------------------------------\LF\',
+          C'               OPERATOR ACTION \LF\',
+          C'1. Legacy instructions follow:\LF\',
+          C'   This performs the same test as CAMERA-GAIN but\LF\',
+          C'   returns Dynamic range in dB.\FL\',
+          C'   Step the video generator from SiTF2 thru SiTF9 at\LF\',
+          C'   the radiance settle points. When you hear the \LF\',
+          C'   radiance iris move to the next point select the \LF\',
+          C'   next SiTF image.\LF\',
+          C' need to verify these instructions.'                       $
+     10   CALCULATE, 'TESTNO' = 025000,
+                     'ULIM' = 100,
+                     'LLIM' = 10                                       $
+     15   MEASURE, (DYNAMIC-RANGE INTO 'MVAL'), LIGHT,
+            DYNAMIC-RANGE MAX 100 DB,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            RADIANCE-START 1000 UW/CM2/SR,
+            RADIANCE-STOP 4500 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.064 RAD,
+            V-FIELD-OF-VIEW 0.048 RAD,
+            TGT-COORDINATE-TOP 212,
+            TGT-COORDINATE-LEFT 226,
+            TGT-COORDINATE-BOTTOM 332,
+            TGT-COORDINATE-RIGHT 380,
+            CNX VIA UUT-Video-Out                                      $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 025999 END, 'DYNAMIC RANGE TEST'                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'GRAYSCALE TEST'                                      * $
+C ******************************************************************** $
+C                                                                      $
+ 026000 DEFINE, 'GRAYSCALE TEST', PROCEDURE                            $
+C                                                                      $
+     05   OUTPUT, C'GRAYSCALE RESOLUTION TEST'                         $
+     10   CALCULATE, 'TESTNO' = 026000,
+                     'ULIM' = 257,
+                     'LLIM' = 255                                      $
+C                                                                      $
+C This test requires the arb to generate a 256 shade grayscale 
+  RS170 video signal. The legacy loaded a file, grayscale256.arb
+  using the ARB SAIS. Currently investigating how to generate this
+  signal using the current ARB.                                        $
+     20   MEASURE, (GRAY-SCALE-RESOLUTION INTO 'MVAL'), LIGHT,
+            GRAY-SCALE-RESOLUTION MAX 256 SHADES,
+            H-FIELD-OF-VIEW 0.036 RAD,
+            V-FIELD-OF-VIEW 0.027 RAD,
+            RADIANCE 3500 UW/CM2/SR,
+            FORMAT RS170,
+            CNX VIA UUT-Video-Out                                      $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 026100   CALCULATE, 'TESTNO' = 026100,
+                     'ULIM' = 257,
+                     'LLIM' = 255                                      $
+     05   MEASURE, (GRAY-SCALE-RESOLUTION INTO 'MVAL'), LIGHT,
+            GRAY-SCALE-RESOLUTION RANGE 0 SHADES TO 256 SHADES,
+            SAMPLE-AV 3 FRAMES,
+            FORMAT INTERNAL2,
+            RADIANCE 4000 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.36 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 256,
+            TGT-COORDINATE-RIGHT 336,
+            CNX VIA UUT-Video-Out                                      $
+     10   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 026999 END, 'GRAYSCALE TEST'                                          $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : BORESIGHT TEST                                       * $
+C ******************************************************************** $
+C                                                                      $
+ 027000 DEFINE, 'BORESIGHT TEST', PROCEDURE                            $
+C                                                                      $
+     10   OUTPUT, C'VISIBLE BORESIGHT TEST'                            $
+     15   CALCULATE, 'TESTNO' = 27000                                  $
+C                                                                      $
+     20   OUTPUT, C'OPERATOR ACTION\LF\',
+                  C'--------------------------------------------\LF\',
+                  C'1. Rotate corner cube assembly to the first \LF\',
+                  C'   detent.                                  \LF\',
+                  C'\LF\',
+                  C'Press Enter to Continue.\LF\'                      $
+     25   INPUT, GO-NOGO                                               $
+     30   MEASURE, (DIFF-BORESIGHT-ANGLE INTO 'MIODATA'), LIGHT,
+            DIFF-BORESIGHT-ANGLE RANGE -57 DEG TO 57 DEG,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT INTERNAL2,
+            RADIANCE 4000.0 UW/CM2/SR,
+            INTENSITY-RATIO 50 PC,
+            H-FIELD-OF-VIEW 0.320 RAD,
+            V-FIELD-OF-VIEW 0.256 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 236,
+            TGT-COORDINATE-RIGHT 300,
+            H-LOS-ALIGN-ERROR 0.0 RAD,
+            V-LOS-ALIGN-ERROR 0.0 RAD,
+            TARGET-TYPE TARG-BRSGHT,
+            CNX VIA ATMOSPHERE                                         $
+     45   CALCULATE, 'MVAL' = 'MIODATA'(1),
+                     'ULIM' = 25.0,
+                     'LLIM' = -25.0                                    $
+     50   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+     55   CALCULATE, 'MVAL' = 'MIODATA'(2),
+                     'TESTNO' = 27200                                  $
+     60   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     65   OUTPUT, 
+            C'OPERATOR ACTION\LF\',
+            C'---------------------------------------------------\LF\',
+            C'1. Rotate Corner Cube Assembly to the stow position\LF\',
+            C'\LF\',
+            C'Press Enter to Continue.\LF\'                            $
+     70   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 027999 END, 'BORESIGHT TEST'                                          $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'VIS SYNTAX ONLY'                                     * $
+C ******************************************************************** $
+C                                                                      $
+ 028000 DEFINE, 'VIS SYNTAX ONLY', PROCEDURE                           $
+C                                                                      $
+C CPM 1.3.2.1 SOURCE LIGHT                                             $
+ 028100   SETUP, LIGHT,
+            RADIANCE 4000.0 UW/CM2/SR,
+            TARGET-TYPE TARG-OPNAPR,
+            ANGLE-RATE 1.5 RAD/SEC,
+            MAX-TIME 60.0 SEC,
+            CNX VIA ATMOSPHERE                                         $
+     05   SETUP, LIGHT,
+            RADIANCE 1000.0 UW/CM2/SR,
+            CNX VIA ATMOSPHERE                                         $
+     10   SETUP, LIGHT,
+            TARGET-TYPE TARG-SPNPINHL,
+            ANGLE-RATE 2.0 RAD/SEC,
+            CNX VIA ATMOSPHERE                                         $
+     15   SETUP, LIGHT,
+            ANGLE-RATE 0.5 RAD/SEC,
+            CNX VIA ATMOSPERE                                          $
+     20   SETUP, LIGHT,
+            TARGET-TYPE TARG-GRYSCL,
+            CNX VIA ATMOSPHERE                                         $
+     25   RESET, LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C CPM 1.3.3.3 DISTORTION                                               $
+ 028200   MEASURE, (DISTORTION INTO 'MVAL'), LIGHT,
+            DISTORTION RANGE 0.0 PC TO 100.0 PC,
+            SAMPLE-AV 4 FRAMES,
+            FORMAT RS170,
+            RADIANCE 4000.0 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.33 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            H-TARGET-ANGLE 0.87 RAD,
+            V-TARGET-ANGLE 0.76 RAD,
+            H-LOS-ALIGN-ERROR 'X-ALIGN-ERROR' RANGE -1.0 RAD TO 1.0 RAD,
+            V-LOS-ALIGN-ERROR 'Y-ALIGN-ERROR' RANGE -1.0 RAD TO 1.0 RAD,
+            CNX VIA ATMOSPHERE                                         $
+     05   MEASURE, (DISTORTION INTO 'MVAL'), LIGHT,
+            DISTORTION MAX 100.0 PC,
+            FORMAT RS170,
+            RADIANCE 4000.0 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.33 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 284,
+            TGT-COORDINATE-RIGHT 320,
+            CNX VIA ATMOSPHERE                                         $
+     10   MEASURE, (DISTORTION INTO 'MVAL'), LIGHT,
+            DISTORTION MIN 0.0 PC,
+            FORMAT RS170,
+            RADIANCE 4000.0 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.33 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C CPM 1.3.3.5 CAMERA-GAIN                                              $
+ 028300   MEASURE, (CAMERA-GAIN INTO 'MVAL'), LIGHT,
+            CAMERA-GAIN RANGE 0.0 V/UW/CM2/SR TO 10.0 V/UW/CM2/SR,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            RADIANCE-START 500 UW/CM2/SR,
+            RADIANCE-STOP 4000 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.33 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            H-LOS-ALIGN-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            V-LOS-ALIGN-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            TARGET-TYPE TARG-GRYSCL,
+            INTENSITY-RATIO 50 PC,
+            H-TARGET-ANGLE 0.017 RAD,
+            V-TARGET-ANGLE 0.006 RAD,
+            CNX VIA UUT-Video-Out                                      $
+     05   MEASURE, (CAMERA-GAIN INTO 'MVAL'), LIGHT,
+            CAMERA-GAIN MAX 10.0 V/UW/CM2/SR,
+            FORMAT RS170,
+            RADIANCE-START 500 UW/CM2/SR,
+            RADIANCE-STOP 4000 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.33 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            TARGET-TYPE TARG-OPNAPR,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 284,
+            TGT-COORDINATE-RIGHT 320,
+            CNX VIA UUT-Video-Out                                      $
+     10   MEASURE, (CAMERA-GAIN INTO 'MVAL'), LIGHT,
+            CAMERA-GAIN MIN 0.0 V/UW/CM2/SR,
+            FORMAT RS170,
+            RADIANCE-START 500 UW/CM2/SR,
+            RADIANCE-STOP 4000 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.33 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            TARGET-TYPE TARG-GRYSCL,
+            INTENSITY-RATIO 50 PC,
+            CNX VIA UUT-Video-Out                                      $
+C                                                                      $
+C CPM 1.3.3.6 DYNAMIC RANGE                                            $
+ 028400   MEASURE, (DYNAMIC-RANGE INTO 'MVAL'), LIGHT,
+            DYNAMIC-RANGE RANGE 0 DB TO 100 DB,
+            SAMPLE-AV 5 FRAMES,
+            FORMAT RS170,
+            RADIANCE-START 1000 UW/CM2/SR,
+            RADIANCE-STOP 4500 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.064 RAD,
+            V-FIELD-OF-VIEW 0.048 RAD,
+            H-TARGET-ANGLE 1.0 RAD,
+            V-TARGET-ANGLE 0.8 RAD,
+            H-LOS-ALIGN-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            V-LOS-ALIGN-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            CNX VIA UUT-Video-Out                                      $
+     05   MEASURE, (DYNAMIC-RANGE INTO 'MVAL'), LIGHT,
+            DYNAMIC-RANGE MAX 100 DB,
+            FORMAT RS343-675-1-1,
+            RADIANCE-START 1000 UW/CM2/SR,
+            RADIANCE-STOP 4500 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.064 RAD,
+            V-FIELD-OF-VIEW 0.048 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 286,
+            TGT-COORDINATE-RIGHT 320,
+            CNX VIA UUT-Video-Out                                      $
+     10   MEASURE, (DYNAMIC-RANGE INTO 'MVAL'), LIGHT,
+            DYNAMIC-RANGE MIN 0 DB,
+            FORMAT RS343-675-4-3,
+            RADIANCE-START 1000 UW/CM2/SR,
+            RADIANCE-STOP 4500 UW/CM2/SR,
+            RADIANCE-INTERVAL 500 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.064 RAD,
+            V-FIELD-OF-VIEW 0.048 RAD,
+            CNX VIA UUT-Video-Out                                      $
+C                                                                      $
+C CPM 1.3.3.7 GRAYSCALE RESOLUTION                                     $
+ 028500   MEASURE, (GRAY-SCALE-RESOLUTION INTO 'MVAL'), LIGHT,
+            GRAY-SCALE-RESOLUTION RANGE 0 SHADES TO 256 SHADES,
+            SAMPLE-AV 3 FRAMES,
+            FORMAT RS343-729-1-1,
+            RADIANCE 4000 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.36 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 256,
+            TGT-COORDINATE-RIGHT 336,
+            H-LOS-ALIGN-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            V-LOS-ALIGN-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            CNX VIA UUT-Video-Out                                      $
+     05   MEASURE, (GRAY-SCALE-RESOLUTION INTO 'MVAL'), LIGHT,
+            GRAY-SCALE-RESOLUTION MAX 256 SHADES,
+            FORMAT RS343-729-4-3,
+            RADIANCE 4000 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.36 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            H-TARGET-ANGLE 0.020 RAD,
+            V-TARGET-ANGLE 0.015 RAD,
+            CNX VIA UUT-Video-Out                                      $
+     10   MEASURE, (GRAY-SCALE-RESOLUTION INTO 'MVAL'), LIGHT,
+            GRAY-SCALE-RESOLUTION MIN 0 SHADES,
+            FORMAT RS343-875-1-1,
+            RADIANCE 4000 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.36 RAD,
+            V-FIELD-OF-VIEW 0.24 RAD,
+            CNX VIA UUT-Video-Out                                      $
+C                                                                      $
+C CPM 1.3.3.8 DIFF-BORESIGHT-ANGLE                                     $
+ 028600   MEASURE, (DIFF-BORESIGHT-ANGLE INTO 'MIODATA'), LIGHT,
+            DIFF-BORESIGHT-ANGLE RANGE -57 DEG TO 57 DEG,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS343-945-1-1,
+            INTENSITY-RATIO 50 PC,
+            H-FIELD-OF-VIEW 0.320 RAD,
+            V-FIELD-OF-VIEW 0.256 RAD,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 236,
+            TGT-COORDINATE-RIGHT 300,
+            H-LOS-ALIGN-ERROR 0.0 RAD,
+            V-LOS-ALIGN-ERROR 0.0 RAD,
+            TARGET-TYPE TARG-BRSGHT,
+            CNX VIA ATMOSPHERE                                         $
+     05   MEASURE, (DIFF-BORESIGHT-ANGLE INTO 'MIODATA'), LIGHT,
+            DIFF-BORESIGHT-ANGLE MAX 57 DEG,
+            FORMAT RS343-945-4-3,
+            INTENSITY-RATIO 50 PC,
+            H-FIELD-OF-VIEW 0.320 RAD,
+            V-FIELD-OF-VIEW 0.256 RAD,
+            H-TARGET-ANGLE 0.020 RAD,
+            V-TARGET-ANGLE 0.017 RAD,
+            X-BORESIGHT-ANGLE 0.0 RAD,
+            Y-BORESIGHT-ANGLE 0.0 RAD,
+            CNX VIA ATMOSPHERE                                         $
+     10   MEASURE, (DIFF-BORESIGHT-ANGLE INTO 'MIODATA'), LIGHT,
+            DIFF-BORESIGHT-ANGLE MIN -57 DEG,
+            FORMAT RS343-1023-1-1,
+            H-FIELD-OF-VIEW 0.320 RAD,
+            V-FIELD-OF-VIEW 0.256 RAD,
+            H-LOS-ALIGN-ERROR 0.0 RAD,
+            V-LOS-ALIGN-ERROR 0.0 RAD,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 028999 END, 'VIS SYNTAX ONLY'                                         $
+C                                                                      $
+C ******************************************************************** $
+C * TEST 200000 VISIBLE LIGHT TESTS                                  * $
+C ******************************************************************** $
+C                                                                      $
+ 200000 DEFINE, 'VIS TESTS', GLOBAL, PROCEDURE                         $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'CHOICE' IS INTEGER                       $
+C                                                                      $
+     10   IF, 'ETE TEST', THEN                                         $
+     15     GO TO, STEP 200600                                         $
+     20   END, IF                                                      $
+B                                                                      $
+     30   OUTPUT,
+          C'                  VISUAL Test Menu\LF\',
+          C'----------------------------------------------------\LF\',
+          C'VIS Target Source                                  1\LF\',
+          C'Geometric Fidelity                                 2\LF\',
+          C'Gain/Automatic Gain Control [AGC]                  3\LF\',
+          C'Dynamic Range Measurement                          4\LF\',
+          C'Grayscale Resolution Measurement                   5\LF\',
+          C'Boresight                                          6\LF\',
+          C'All VIS Tests                                      7\LF\',
+          C'Return to Main Menu                                0\LF\',
+          C'\LF\',
+          C'Enter a Selection:'                                        $
+     35   INPUT, INTO 'CHOICE'                                         $
+     40   IF, 'CHOICE' EQ 0, THEN                                      $
+     45     GO TO, STEP 209999                                         $
+     50   END, IF                                                      $
+C                                                                      $
+ 200100   IF, 'CHOICE' EQ 1, THEN                                      $
+     05     PERFORM, 'VIS SOURCE TEST'                                 $
+     10   END, IF                                                      $
+C                                                                      $
+ 200200   IF, 'CHOICE' EQ 2, THEN                                      $
+     05     PERFORM, 'GEOMETRIC FIDELITY TEST'                         $
+     10   END, IF                                                      $
+C                                                                      $
+ 200300   IF, 'CHOICE' EQ 3, THEN                                      $
+     05     PERFORM, 'AGC TEST'                                        $
+     10   END, IF                                                      $
+C                                                                      $
+ 200400   IF, 'CHOICE' EQ 4, THEN                                      $
+     05     PERFORM, 'DYNAMIC RANGE TEST'                              $
+     10   END, IF                                                      $
+C                                                                      $
+ 200500   IF, 'CHOICE' EQ 5, THEN                                      $
+     05     PERFORM, 'GRAYSCALE TEST'                                  $
+     10   END, IF                                                      $
+C                                                                      $
+ 200600   IF, 'CHOICE' EQ 6, THEN                                      $
+     05     PERFORM, 'BORESIGHT TEST'                                  $
+     10   END, IF                                                      $
+C                                                                      $
+ 200700   IF, 'CHOICE' EQ 7, THEN                                      $
+     05     PERFORM, 'VIS SOURCE TEST'                                 $
+     10     PERFORM, 'GEOMETRIC FIDELITY TEST'                         $
+     15     PERFORM, 'AGC TEST'                                        $
+     20     PERFORM, 'DYNAMIC RANGE TEST'                              $
+     25     PERFORM, 'GRAYSCALE TEST'                                  $
+     30     PERFORM, 'BORESIGHT TEST'                                  $
+     35   END, IF                                                      $
+C                                                                      $
+ 200800   IF, 'SYNTAX', THEN                                           $
+     05     PERFORM, 'VIS SYNTAX ONLY'                                 $
+     10   END, IF                                                      $
+C                                                                      $
+ 200900   GO TO, STEP 200030                                           $
+B                                                                      $
+ 209999 END, 'VIS TESTS'                                               $
+C                                                                      $
+ 999999 TERMINATE, ATLAS MODULE 'VEO-2 VIS BENCHMARK'                  $

@@ -1,0 +1,23 @@
+** Seeding Enabled with 5 Mismatch and 5 Fault Sets **
+** Reset of DTI is Disabled **
+** Detecting failure from GO/NOGO...
+** Primary Output pin P1_72 failed at pattern 15452
+** Fault Dictionary seeding information not available
+Pin U19_15 PASSED through step 15453
+Pin U19_1 PASSED through step 15453
+Pin U19_2 PASSED through step 15453
+Pin U19_3 FAILED at step 15453
+Pin U27_11 PASSED through step 15453
+Pin U27_1 PASSED through step 15453
+** No Probetag assigned for net $FL1. Assumed Passing.
+Pin U27_9 PASSED through step 15453
+Pin U27_10 PASSED through step 15453
+Pin U27_3 PASSED through step 15453
+Pin U27_4 PASSED through step 15453
+Pin U27_5 PASSED through step 15453
+Pin U27_6 PASSED through step 15453
+** No Probetag assigned for net $FL1. Assumed Passing.
+Pin U27_15 FAILED at step 15453
+** DIAGNOSED FAULT ON NET U19_3:
+** Driving Output Pin(s) -  U27_15
+** Input Pin(s) -  U19_3

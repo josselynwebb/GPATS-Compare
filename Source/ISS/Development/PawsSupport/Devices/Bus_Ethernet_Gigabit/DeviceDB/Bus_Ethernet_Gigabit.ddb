@@ -1,0 +1,88 @@
+**************************************************************************
+*******   Intel i350-T4V2 (Gigabit Ethernet) STATIC DESCRIPTION   ********
+**************************************************************************
+********************************************************************************
+*
+* FILENAME    : Bus_Ethernet_Gigabit.ddb
+*
+* INSTRUMENT  : Data Bus
+*
+* ATLAS Subset: IEEE716-89
+*
+* PROJECT     : VIPER/T
+*
+*
+*                           SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   16SEP05  Initial Release                                  EADS
+*  2.0   27APR09  Baselined VIPER/T version number 
+*                         per DME PCR VSYS-450 based on USMC comment
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin dev ETHERNET_1;
+
+	cnx hi ICGIGPORT1;
+
+	begin FNC=1;	** DO and ESTABLISH
+		function bus protocol;
+		control
+		{
+			standard primary;
+			bus-spec ethernet;
+			max-time range 0 sec to 20 sec continuous;
+			tcp;
+			udp;
+			proceed;
+			wait;
+		}
+	end;
+
+	begin FNC=2;  ** DEFINE
+		function exchange;
+		control
+		{
+			bus-mode talker-listener;
+			test-equip-talker max 1;
+			uut-talker max 1;
+			test-equip-listener max 1;
+			uut-listener max 1;
+			data max 1;
+			command max 4;
+		}
+	end;
+end; *end ETHERNET_1
+
+begin dev ETHERNET_2;
+
+	cnx hi ICGIGPORT2;
+
+	begin FNC=1;	** DO and ESTABLISH
+		function bus protocol;
+		control
+		{
+			standard primary;
+			bus-spec ethernet;
+			max-time range 0 sec to 20 sec continuous;
+			tcp;
+			udp;
+			proceed;
+			wait;
+		}
+	end;
+
+	begin FNC=2;  ** DEFINE
+		function exchange;
+		control
+		{
+			bus-mode talker-listener;
+			test-equip-talker max 1;
+			uut-talker max 1;
+			test-equip-listener max 1;
+			uut-listener max 1;
+			data max 1;
+			command max 4;
+		}
+	end;
+end; *end ETHERNET_2

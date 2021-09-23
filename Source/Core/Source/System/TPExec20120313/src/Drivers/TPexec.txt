@@ -1,0 +1,10 @@
+The TPexec.dll file in this directory is the same one used on TETS.
+
+It is used to privide binary compatability for the two files:
+
+     ViperT TPexec.dll 
+     TETS   TPxec.dll
+
+In other words, the TETS TPexec.dll provides a GUID number for the ViperT TPexec.dll.
+
+bb

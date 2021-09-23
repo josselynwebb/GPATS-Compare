@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc' ?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<?BUTTON POS='1' LABEL='TOO' TYPE='frame' LINK='.\C3s4.xml!C3S4A' bitmap='n' DESC='Open Theory of Operation.'?>
+<?BUTTON POS='2' LABEL='Comp Lay' TYPE='pic' LINK='./graphics/Fig3-8_1.pic' bitmap='n' DESC='Open Component Layout.'?>
+<?BUTTON POS='3' LABEL='UUT Sch' TYPE='pic' LINK='.\graphics\Fig3-9_1.pic' bitmap='n' DESC='Open UUT Schematics.'?>
+<?BUTTON POS='4' LABEL='ID Sch' TYPE='pic' LINK='./graphics/Fig3-32_1.pic' bitmap='n' DESC='Open ID Schematics.'?>
+<?BUTTON POS='5' LABEL='UUT TPI' TYPE='frame' LINK='.\C4s4.xml!C4S4A' bitmap='n' DESC='Open UUT Test Program Instruction.'?>
+<?BUTTON POS='6' LABEL='ID TPI' TYPE='frame' LINK='.\C4s12.xml!C4S12b' bitmap='n' DESC='Open ID Test Procedure Instructions.'?>
+<?BUTTON POS='7' LABEL='TPS' TYPE='program' LINK='C:\USR\TYX\BIN\WRTS.EXE "PSM130\Control Display Assy\CDA_Control Logic B (7566139-121)\ TP_LAV_LOGIC_B.OBJ"' bitmap='n' DESC='Select to launch CDA Control Logic B TPS.'?>
+<?BUTTON POS='8' LABEL='RPSTL' TYPE='frame' LINK='.\C6s1.ide!C6S1A' bitmap='n' DESC='Display AN/PSM-130 APS RPSTL.'?>
+<body>
+<?FRAME id='C5s6a' title='CHAP. 5 - MAINTENANCE,  SECT. VI - CDA Control Logic B' next='.\C5s7.xml!C5S7a' previous='.\C5s5.xml!C5S5a'?>
+<chapter>
+<section id="c5s6" label="Section VI." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section VI. CDA Control Logic B."?>
+<title> CDA Control Logic B.</title>
+<para0 id="p5-6" label="5-6" tocentry="1">
+<?PUB TOCLEVEL="3" TEXT="5-6 Introduction."?>
+<title>Introduction.</title>
+<para>This section provides the English Language Test Description
+(ELTD) for the CDA Control Logic B. Each step of each module contained
+in the TPS is outlined with a description of its associated functionality
+and the full signal path present during the step. "Safe-To-Turn-On"
+and "Power-Up" steps are also provided, when applicable.</para>
+<para><?hotspot href="T5-4"?>Table 5-4<?endhotspot?> lists the UUT
+or ID name, part number, and provides a link to a external ELTD document.</para>
+<para> <?pub tablewidth="60%"?> <table id="T5-4" tocentry="1">
+<title>Table 5-4. CDA Control Logic B Information</title>
+<tgroup align="left" cols="3">
+<colspec colname="1" colnum="1" colwidth="1.5*"/>
+<colspec colname="2" colnum="2" colwidth="1.5*"/>
+<colspec colname="3" colnum="3" colwidth="1.5*"/>
+<thead>
+<row>
+<entry align="center">UUT/ID</entry>
+<entry align="center">UUT/ID ELTD<?Pub _newline?>Part Number</entry>
+<entry align="center">Link to ELTD Document</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center"> CDA Control Logic B</entry>
+<entry align="center">7566139-121</entry>
+<entry align="center"><?HOTSPOT LINKTYPE="Execute" HREF='./ELTD/6_ELTD_7566139_121_CDA Control Logic B.pdf'?>ELTD<?ENDHOTSPOT?></entry>
+</row>
+</tbody>
+</tgroup>
+</table> </para>
+</para0>
+</section>
+</chapter>
+</body>

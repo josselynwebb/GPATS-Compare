@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7DEEB5DD-A1BC-4260-A900-3A49050E28E7}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeOutput>VendorDrivers.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\PDU\APS6062.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\PDU\APS6062.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\APS6062.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO\zt1428.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO\zt1428.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\zt1428.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\HPE1428A.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.prj" -release -rebuild
+copy /Y "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.exe" "..\..\..\Target\ROOTDrive\Program Files (x86)\ATS\ISS\Bin\NA65CS4.exe"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\PDU\APS6062.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\PDU\APS6062.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\APS6062.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO\zt1428.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO\zt1428.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\zt1428.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\HPE1428A.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.prj" -release -rebuild
+copy /Y "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.exe" "..\..\..\Target\ROOTDrive\Program Files (x86)\ATS\ISS\Bin\NA65CS4.exe"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\VIPERT_RF\PM1313B\PM1313B.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\VIPERT_RF\PM1313B\PM1313B_32.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM1313B_32.dll"
+copy /Y "..\..\Core\Source\Drivers\VIPERT_RF\PM1313B\PM1313B_32.dll" "C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM1313B_32.dll"
+copy /Y  "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM20309_32.dll" "C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\PM20309_32.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\FG_TETS\RI3151.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\FG_TETS\RI3151.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\RI3151.dll"</NMakeReBuildCommandLine>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\PDU\APS6062.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\PDU\APS6062.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\APS6062.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO\zt1428.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO\zt1428.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\zt1428.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\HPE1428A.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.prj" -release -rebuild
+copy /Y "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.exe" "..\..\..\Target\ROOTDrive\Program Files (x86)\ATS\ISS\Bin\NA65CS4.exe"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\FG_TETS\RI3151.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\FG_TETS\RI3151.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\RI3151.dll"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\PDU\APS6062.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\PDU\APS6062.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\APS6062.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO\zt1428.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO\zt1428.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\zt1428.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\DSO_TETS\HPE1428A.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\HPE1428A.dll"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.prj" -release -rebuild
+copy /Y "..\..\ISS\Development\SAIS\SAIS_Devices\SR_NA65CS4\Build\NA65CS4.exe" "..\..\..\Target\ROOTDrive\Program Files (x86)\ATS\ISS\Bin\NA65CS4.exe"
+"%programfiles(x86)%\National Instruments\CVI2015\compile.exe" "..\..\Core\Source\Drivers\FG_TETS\RI3151.prj" -release -rebuild
+copy /Y "..\..\Core\Source\Drivers\FG_TETS\RI3151.dll" "..\..\..\Target\ROOTDrive\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\RI3151.dll"</NMakeReBuildCommandLine>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE docmarinecorpstm SYSTEM "USMCV1-V1_modified_xml.dtd" [
+<!ENTITY navymarinecorpsseal.png SYSTEM "navymarinecorpsseal.png" NDATA png>
+<!ENTITY micucci.png SYSTEM "micucci.png" NDATA png>
+]>
+<docmarinecorpstm>
+<fronttm>
+<idinfo><?Pub Dtl?>
+<pubno service="marinecorps"><?Pub Dtl?>
+<docno> TM NNNNNNN</docno>
+</pubno>
+<titleblk><?Pub Dtl?>
+<doctype> TECHNICAL MANUAL </doctype>
+<maintlvl> ORGANIZATIONAL MAINTENANCE </maintlvl>
+<prtitle>
+<nomen> </nomen>
+<subject>             LIGHT ARMORED VEHICLE<brk/> LAV-25A21,<brk/> TURRET<brk
+/> (2320-01-494-7606)           </subject>
+</prtitle>
+</titleblk>
+<seal>
+<graphic boardno="navymarinecorpsseal.png"/></seal>
+<notice notctype="dist">
+<para> &dist; </para>
+</notice>
+<notice notctype="destr">
+<para> &destr; </para>
+</notice>
+<notice notctype="fouo">
+<para> &fouo; </para>
+</notice>
+<pubdate> AUGUST 2008 </pubdate>
+<pcn>
+<type> 184 </type>
+<itemid> 085944 </itemid>
+<version> 00 </version>
+</pcn>
+</idinfo>
+<promul>&promulhead;
+<date>Day Month Year</date>
+<para>         1. TM NNNNNNN is effective upon receipt and contains
+      </para>
+<para>         2. Notice of discrepancies or suggested changes should
+be forwarded          .       </para>
+<direction> &marinecorpsdirect; </direction>
+<sigblk>
+<signer>Signer Name</signer>
+<position>Rank, Branch</position>
+<position>PM Office</position>
+<organiz>Branch</organiz>
+</sigblk>
+<distribution>
+<pcn>
+<type> NNN</type>
+<itemid> NNNNN</itemid>
+<version> NN</version>
+</pcn>
+</distribution>
+</promul>
+<lep/>
+<chgrec>
+<table frame="all" pgwide="1">
+<tgroup cols="4">
+<colspec colname="chgno" colnum="1" colwidth="1.1in"/>
+<colspec colname="chgdate" colnum="2" colwidth="1.1in"/>
+<colspec colname="chgdesc" colnum="3" colwidth="2.6in"/>
+<colspec colname="chgby" colnum="4" colwidth="1.9in"/>
+<thead>
+<row>
+<entry align="center" colname="chgno" valign="bottom">Change<brk/>No.</entry>
+<entry align="center" colname="chgdate" valign="bottom">Date</entry>
+<entry align="center" colname="chgdesc" valign="bottom">Title or Brief<brk
+/>Description</entry>
+<entry align="center" colname="chgby" valign="bottom">Entered By</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="chgno">1</entry>
+<entry colname="chgdate">YYYY/MM/DD</entry>
+<entry colname="chgdesc"></entry>
+<entry colname="chgby">XMCO</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</chgrec>
+<contents/>
+<illuslist/>
+<tablelist/>
+<safesum>
+<para>         Critical warnings used in this manual are repeated
+here to let you know how important they are. Study these warnings
+carefully; they can save your life and the lives of others.</para>
+<warning>
+<randlist prefix="none">
+<item>
+<para>                 CARBON MONOXIDE POISONING
+CAN BE DEADLY!               </para>
+</item>
+</randlist><?Pub Caret -1?>
+</warning>
+<para>           <randlist prefix="none">
+<item>
+<para>                 <emphasis emph="b">CARBON
+DIOXIDE GAS (CO).</emphasis> (CO) is a colorless, odorless, poisonous,
+deadly gas produced                 by incomplete combustion of any
+carbon containing material. It occurs in the exhaust             
+   fumes of fuel burning heaters and internal combustion engines,
+and becomes dangerously                 concentrated under conditions
+of inadequate ventilation.               </para>
+</item>
+<item>
+<para> </para>
+</item>
+<item>
+<para>                 <emphasis emph="b">SYMPTOMS
+OF POISONING.</emphasis> Exposure to carbon monoxide (exhaust gas)
+will result in headaches, dizziness, loss of muscular control, drowsiness
+or coma. Permanent brain damage or death can result from
+severe exposure.               </para>
+</item>
+<item>
+<para> </para>
+</item>
+<item>
+<para>                 <emphasis emph="b">PRECAUTIONS
+TO OBSERVE.</emphasis> To ensure the safety of personnel the following
+precautions                 shall be taken whenever the personnel,
+heater is operated:               </para>
+</item>
+<item>
+<para> </para>
+</item>
+<item>
+<para>                 Do not operate heater
+or engine of any vehicle in an enclosed area                 unless
+it is adequately ventilated.               </para>
+</item>
+<item>
+<para>               Do not operate heater or engine
+at idle for long periods without maintaining               adequate
+ventilation in personnel compartments.             </para>
+</item>
+<item>
+<para>               Do not drive any vehicle
+with inspection plates or cover plates removed unless            
+  necessary for maintenance purposes.             </para>
+</item>
+<item>
+<para>               Do not sleep in a vehicle
+when the heater is operating or the engine is idling.             </para>
+</item>
+<item>
+<para>               Be alert at all times during
+vehicle operation for exhaust odors and exposure symptoms.       
+       If either is present, immediately ventilate personnel compartments.
+            </para>
+</item>
+<item>
+<para> </para>
+</item>
+<item>
+<para>                 <emphasis emph="b">FIRST
+AID.</emphasis>   If symptoms of exhaust gas (CO) poisoning are present,
+remove affected personnel                 from vehicle, or confined
+areas, and treat as follows:               </para>
+</item>
+<item>
+<para> </para>
+</item>
+<item>
+<para>                 Expose to fresh air. 
+             </para>
+</item>
+<item>
+<para>                 Keep Warm.         
+     </para>
+</item>
+<item>
+<para>                 Do not permit physical
+exercise.               </para>
+</item>
+<item>
+<para>                 If victim is not breathing,
+administer artificial respiration.                 For artificial
+respiration instructions, refer to FM 21-11.               </para>
+</item>
+<item>
+<para>                 Administer oxygen, if
+it is available.               </para>
+</item>
+<item>
+<para>                 Seek prompt medical
+attention for possible delayed onset of lung congestion.         
+     </para>
+</item>
+</randlist>           </para>
+<caution>
+<para>           Crewmen are not authorized to adjust or remove daysight
+linkages. Improperly           installed sight linkages will cause
+serious damage to the sighting systems.         </para>
+</caution>
+<caution chglvl="0" id="ITSSc1" supercededby="3">
+<randlist prefix="&bull;">
+<item>
+<para>               Ground guides are required
+to guide turret so that hydraulic               lines, electrical
+lines, or equipment do not snag while turret is being lifted     
+         from stand or lowered onto vehicle.             </para>
+</item>
+<item>
+<para>               Turret basket is unable to
+support weight of turret. To avoid               damage to equipment
+lower turret onto turret stand only.             </para>
+</item>
+</randlist>
+</caution>
+</safesum>
+</fronttm>
+<body>
+<chapter>
+<section>
+<title>Chapter 1, Section 1</title>
+<para>Some text to show what it looks like</para>
+<para0>
+<step1>
+<para>A step</para>
+</step1>
+<step1>
+<para>Another Step</para>
+</step1>
+</para0>
+<table><?Pub Dtl?>
+<tgroup cols="5">
+<colspec colname="col1"/>
+<colspec colname="col2"/>
+<colspec colname="col3"/>
+<colspec colname="col4"/>
+<colspec colname="col5"/>
+<tbody>
+<row>
+<entry></entry>
+<entry></entry>
+<entry></entry>
+<entry></entry>
+<entry></entry>
+</row>
+<row>
+<entry></entry>
+<entry></entry>
+<entry></entry>
+<entry></entry>
+<entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+</chapter>
+</body>
+</docmarinecorpstm>

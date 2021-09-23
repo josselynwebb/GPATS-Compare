@@ -1,0 +1,13 @@
+REGEDIT
+; This .REG file may be used by your SETUP program.
+;   If a SETUP program is not available, the entries below will be
+;   registered in your InitInstance automatically with a call to
+;   CWinApp::RegisterShellFileTypes and COleObjectFactory::UpdateRegistryAll.
+
+
+HKEY_CLASSES_ROOT\RFMAClientEx.Application = RFMAClientEx Application
+HKEY_CLASSES_ROOT\RFMAClientEx.Application\CLSID = {DFFFD96E-C381-4877-B963-AE3363066DB3}
+
+HKEY_CLASSES_ROOT\CLSID\{DFFFD96E-C381-4877-B963-AE3363066DB3} = RFMAClientEx Application
+HKEY_CLASSES_ROOT\CLSID\{DFFFD96E-C381-4877-B963-AE3363066DB3}\ProgId = RFMAClientEx.Application
+HKEY_CLASSES_ROOT\CLSID\{DFFFD96E-C381-4877-B963-AE3363066DB3}\LocalServer32 = RFMACLIENTEX.EXE

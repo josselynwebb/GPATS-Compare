@@ -1,0 +1,41 @@
+\\**************************************************************************
+\\
+\\  Filename: config
+\\  Version:  2.0
+\\  Purpose:  A source file used to build the TYX PAWS ATLAS lexical
+\\            database file LexDB.LEX.  Also used to track Lexical Database 
+\\            (GPATSCIC CSCI 3.0) Version.
+\\
+\\ VER   DATE     ENGINEER, ORGANIZATION, DR# (STR #): DESCRIPTION
+\\ ---   -------  --------------------------------------------------------------
+\\ 1.3   01Nov00  LMIS:
+\\                Update for Electro-Optical additions.
+\\
+\\ 1.4   15Mar04  Tom Biggs, ManTech: Update to support EOV ATLAS Benchmark 
+\\                development (see ECO-3047-637).
+\\
+\\ 2.0   28Apr09 EADS:
+\\                 Baselined VIPER/T version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\
+\\ 2.1   11Jun09 EADS:
+\\                 Update version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\ 2.2   28Jul09 EADS:
+\\                 Update version number per DME PCR VSYS-450
+\\                 based on USMC comment
+\\ 2.3   31Jul09 EADS
+\\                  Update version number per DME PCR VSYS-450
+\\                  based on USMC comment*
+\\ 3.0   29Jul17 Astronics
+\\                  Updated for GPATSCIC
+\\**************************************************************************
+\\static char	*sccsid = "@(#)config	4.0	7/8/99";
+\\
+\\***********************************************************************
+\\ File: dims      Version: @(#)config	4.0  Date: 7/8/98
+\***********************************************************************
+
+	configuration  ATLAS-716-1989 ;
+
+\***********************************************************************

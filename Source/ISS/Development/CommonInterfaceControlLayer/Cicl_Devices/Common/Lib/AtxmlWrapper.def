@@ -1,0 +1,17 @@
+; Module Definition File For Creating AtXmlWrapper.DLL
+;
+
+; For Win32 DLLs, only EXPORTs really required.
+
+EXPORTS
+   Initialize
+   Close
+   RegisterTSF
+   IssueSignal
+   Status
+   RegCal
+   Reset
+   Ist
+   IssueNativeCmds
+   IssueDriverFunctionCall
+

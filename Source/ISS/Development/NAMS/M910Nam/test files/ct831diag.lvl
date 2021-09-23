@@ -1,0 +1,47 @@
+! LSRTAP IMPORTER LEVELS FILE "nodeflt.lvl"
+! 28-jan-1996 (goldstein)
+!
+! This file contains good levels for the CT831 board. The board should PASS
+! with these levels.
+!
+! This file verifies the syntax of the LSRTAP Importer Levels file.
+! Specifically,
+!	a) a pinlist can be delimited by commas or tabs
+!	b) a pinlist can span multiple lines
+!	c) levels specification can span multiple lines
+!	d) v and V are acceptable syntax for voltage
+!	e) ma, MA, Ma, and mA are acceptable syntax for current
+!
+! 					These 33 pins require TTL levels
+!
+LEVELSET ( 	AD0	AD1	AD2	AD3	AD4	AD5	AD6	AD7
+	   	A8	A9	A10	A11	A12	A13	A14	A15
+ 	   	VTTON	LEDON	RSTL	ALE	WRL	RDL 	IOM
+           	HLDA	HOLD	EXTCLK	OSCON	ROMENA	ALEDIS	CLOCKOUT
+	   	ADLTCHIN	WRITEROML 	RESETOUT)
+
+	VIH = 	4.0 v
+	VIL = 	0.0 v
+	VOH = 	2.2 v
+	VOL = 	2.0 v
+	VCOM = 	0.0 v
+	IOH =   0.0 ma
+	IOL = 	0.0 MA
+	SLEW =	M;
+!
+!
+!					 These 8 pins require ECL levels
+!
+LEVELSET ( XD0, XD1, XD2, XD3, XD4, XD5, XD6, XD7 ) 
+
+	VIH = 	-0.9 V
+	VIL = 	-1.8 V
+	VOH = 	-1.3 V
+	VOL = 	-1.3 V
+!	VCOM = 	-2.0 V Again, I changed these values on 02-11-98, Jason Chan
+!	IOH = 	-0.4 mA
+!	IOL = 	 0.4 Ma
+	VCOM = 	0.0 v
+	IOH =   0.0 ma
+	IOL = 	0.0 MA
+	SLEW =	 M;

@@ -1,0 +1,2227 @@
+C        1         2         3         4         5         6         7         8
+ 2345678901234567890123456789012345678901234567890123456789012345678901234567890
+                                                                               $
+ 000100 BEGIN, ATLAS PROGRAM 'Switch Bench' $
+C **************************************************************
+  * Purpose: To test all modifiers and ranges as required for the
+  *          WcemSwitch.dll.
+  * Subset:  PAWS_85 or PAWS_89
+  *
+  **************************************************************$
+C$
+C	REQUIRE, 'PRINTER', I-O DEVICE,
+        	CAPABILITY,
+			LINE-LENGTH 80 CHAR $
+C			PAGE-SIZE 25 LINES $
+
+C *******************************************************************
+C * DECLARE STATEMENTS
+C ******************************************************************* $
+C $
+ 000200 DECLARE, VARIABLE, 'CHOICE' IS INTEGER		$
+	DECLARE, VARIABLE, 'E-E' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MI' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN	$
+	DECLARE, VARIABLE, 'READY' IS BOOLEAN		$
+	DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL	$
+	DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'DC-VOLTS' IS DECIMAL	$
+	DECLARE, VARIABLE, 'FREQ' IS DECIMAL		$
+	DECLARE, VARIABLE, 'MAX-T' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-UL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'VER-LL' IS DECIMAL		$
+	DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER	$
+	DECLARE, VARIABLE, 'TESTNO' IS INTEGER		$
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000300 DECLARE, CONSTANT, 'CONTINUE' IS
+         C' Press TRUE OR FALSE to continue '
+          $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+        C'\LF\
+	Enter T - to return to menu
+        Enter F - to repeat test
+	'
+        $
+C $
+C        DEFINE, 'RESULTS-MSG', MESSAGE,
+            UL   ()
+              MV ()
+            LL   () $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000400 DEFINE, 'RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+           CALCULATE, 'PassFail'= C'P' $
+	   CALCULATE, 'GoNogo' = C'GO  ' $
+         ELSE  $
+	   CALCULATE, 'PassFail' = C'F' $
+	   CALCULATE, 'GoNogo' = C'NOGO' $
+           CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+         END, IF $
+
+         CALCULATE, 'NESTED' = FALSE $
+
+         IF, 'VER-UL' EQ 0, THEN $
+             IF, 'VER-LL' EQ 0, THEN $
+                 CALCULATE, 'NESTED' = TRUE $
+             END, IF $
+         END, IF $
+
+        IF, 'NESTED', THEN $		
+
+              OUTPUT, 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+              OUTPUT, 
+		C'----        ------------        ------------        ------------         ------' $ 
+              OUTPUT, 
+		'TESTNO', C'        ','GO', C'              ','GoNogo', C'              ',NOGO, C'            ','PassFail', C'\LF\'$ 
+              OUTPUT,
+                C'-------------------------------------------------------------------------------\LF\' $
+              OUTPUT, TO 'PRINTER', 
+		C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT'   $
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------        ------------        ------------         ------' $ 
+              OUTPUT, TO 'PRINTER',
+		'TESTNO', C'        ','GO', C'              ','GoNogo', C'              ',NOGO, C'            ','PassFail', C'\LF\'$ 
+              OUTPUT, TO 'PRINTER',
+                C'-------------------------------------------------------------------------------\LF\' $
+
+          ELSE $
+
+              OUTPUT, 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT'   $
+              OUTPUT, 
+		C'----        ------------               ------------            ------------             ------'   $ 
+              OUTPUT, 
+	       'TESTNO',C'     ','VER-UL',C'           ','MEASUREMENT',C'          ','VER-LL',C'              ', 'PassFail', C'\LF\'$
+              OUTPUT,
+                C'----------------------------------------------------------------------------------------------\LF\' $
+              OUTPUT, TO 'PRINTER', 
+		C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT'   $
+              OUTPUT, TO 'PRINTER',
+		C'----        ------------               ------------            ------------             ------'   $ 
+              OUTPUT, 
+	       'TESTNO',C'     ','VER-UL',C'           ','MEASUREMENT',C'          ','VER-LL',C'              ', 'PassFail', C'\LF\'$
+              OUTPUT, TO 'PRINTER',
+                C'----------------------------------------------------------------------------------------------\LF\' $
+              
+         END, IF $
+       END, 'RESULTS' $
+
+C ******************************************************************* $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+      C'Switch ATLAS Driver Benchmark\LF\',
+      C'Date/Time:','DATE-TIME' $
+	
+	OUTPUT, TO 'PRINTER', C'      Switch ATLAS Driver Benchmark\LF\',
+      C'Date/Time:', 'DATE-TIME', C'\LF\' $
+B $
+ 001005 OUTPUT, 
+        C'\LF\',
+        C'             Test Menu\LF\',
+        C'  --------------------------------\LF\',
+        C'  Run All Tests                  1\LF\',
+        C'  Test 1260-39 (11)             11\LF\',
+        C'  Test 1260-39 (12)             12\LF\',
+        C'  Test 1260-38 (16)             16\LF\',
+        C'  Test 1260-58 (21)             21\LF\',
+        C'  Test 1260-67 (24)             24\LF\',
+        C'  Exit                           0\LF\',
+        C'  \LF\',
+        C'  Enter a selection\LF\'
+        $
+        CALCULATE, 'FAIL-FLAG' = 0 $
+     10 INPUT, INTO 'CHOICE' $
+        OUTPUT, 
+          C'  Selection:', 'CHOICE', C'\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'  Selection:', 'CHOICE', C'\LF\' $
+        IF, 'CHOICE' EQ 0, THEN $
+          GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+          CALCULATE, 'E-E' = TRUE $
+          GO TO, STEP 010000 $
+        END, IF $
+        IF, 'CHOICE' EQ 11, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 110000 $
+        END, IF $
+        IF, 'CHOICE' EQ 12, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 120000 $
+        END, IF $
+        IF, 'CHOICE' EQ 16, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 160000 $
+        END, IF $
+        IF, 'CHOICE' EQ 21, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 210000 $
+        END, IF $
+        IF, 'CHOICE' EQ 24, THEN $
+          CALCULATE, 'E-E' = FALSE $
+          GO TO, STEP 240000 $
+        END, IF $
+
+     15 OUTPUT, 
+           C' Bad Choice!  Try again\LF\' 
+           $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * Run End-End
+C ******************************************************************* $
+C $
+B $
+ 010000 CALCULATE, 'E-E' = TRUE $
+C $
+C *******************************************************************
+C * 1260-39  #1
+C ******************************************************************* $
+C $
+B $
+ 110000 OUTPUT,
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-39                               \LF\',
+          C'--------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-39                               \LF\',
+          C'--------------------------------------\LF\' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+        OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-93 and J10-254.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-93  to J10-254\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-93  to J10-254\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-93  TO j10-254 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-93  to J10-254\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110000$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-93  TO j10-254 $
+C $
+ 110100 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-29 and J10-31\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-29  to J10-31\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-29  to J10-31\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-29  TO j10-31 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-29 and J10-31\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110100$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-29  TO j10-31 $
+C $
+ 110200 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-192 and J10-96\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-192  to J10-96\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-192  to J10-96\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-192  TO j10-96 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-192 and J10-96\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110200$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-192  TO j10-96 $
+C $
+ 110300 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-223 and J10-189\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-223  to J10-189\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-223  to J10-189\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-223  TO j10-189 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-223 and J10-189\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110300$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-223  TO j10-189 $
+C $
+ 110400 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-156 and J10-160\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-156  to J10-160\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-156  to J10-160\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-156  TO j10-160 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-156 and J10-160\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110400$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-156  TO j10-160 $
+C $ 
+ 110500 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-159 and J10-63.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-159  to J10-63\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-159  to J10-63\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-159  TO j10-63 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-159  to J10-63\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110500$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-159  TO j10-63 $
+C $
+ 110600 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-64 and J10-30\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-64  to J10-30\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-64  to J10-30\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-64  TO j10-30 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-64 and J10-30\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110600$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-64  TO j10-30 $
+C $
+ 110700 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-94 and J10-222\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-94  to J10-222\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-94  to J10-222\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-94  TO j10-222 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-94 and J10-222\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110700$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-94  TO j10-222 $
+C $
+ 110800 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-93 and J10-28\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-93  to J10-28\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-93  to J10-28\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-93  TO j10-28 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-93 and J10-28\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110800$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-93  TO j10-28 $
+C $
+ 110900 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-65 and J10-34\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-65  to J10-34\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-65  to J10-34\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-65  TO j10-34 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-65 and J10-34\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 110900$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-65  TO j10-34 $
+C $ 
+ 111000 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-94 and J10-61.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-94  to J10-61\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-94  to J10-61\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-94  TO j10-61 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-94  to J10-61\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 111000$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-94  TO j10-61 $
+C $
+ 111100 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-93 and J10-220\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-93  to J10-220\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-93  to J10-220\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-93  TO j10-220 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-93 and J10-220\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 111100$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-93  TO j10-220 $
+C $
+ 111200 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-194 and J10-164\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-194  to J10-164\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-194  to J10-164\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-194  TO j10-164 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-194 and J10-164\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 111200$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-194  TO j10-164 $
+C $
+ 111300 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-162 and J10-164\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-162  to J10-164\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-162  to J10-164\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-162  TO j10-164 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-162 and J10-164\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 111300$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-162  TO j10-164 $
+C $
+ 111400 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J10-94 and J10-253\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 119999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J10-94  to J10-253\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J10-94  to J10-253\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j10-94  TO j10-253 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J10-94 and J10-253\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 111400$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j10-94  TO j10-253 $
+C $
+B$
+ 119999 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 120000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, GO-NOGO $
+        IF, NOGO, THEN $ 
+            GO TO, STEP 110000 $
+        END, IF $
+C $
+C       END OF SINGLE SWITCH TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * 1260-39  #2
+C ******************************************************************* $
+C $
+B $
+ 120000 OUTPUT,
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-39                               \LF\',
+          C'--------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-39                               \LF\',
+          C'--------------------------------------\LF\' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+        OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-93 and J11-254.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-93  to J11-254\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-93  to J11-254\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-93  TO j11-254 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-93  to J11-254\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120000$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-93  TO j11-254 $
+C $
+ 120100 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-29 and J11-31\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-29  to J11-31\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-29  to J11-31\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-29  TO j11-31 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-29 and J11-31\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120100$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-29  TO j11-31 $
+C $
+ 120200 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-192 and J11-96\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-192  to J11-96\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-192  to J11-96\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-192  TO j11-96 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-192 and J11-96\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120200$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-192  TO j11-96 $
+C $
+ 120300 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-223 and J11-189\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-223  to J11-189\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-223  to J11-189\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-223  TO j11-189 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-223 and J11-189\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120300$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-223  TO j11-189 $
+C $
+ 120400 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-156 and J11-160\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-156  to J11-160\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-156  to J11-160\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-156  TO j11-160 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-156 and J11-160\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120400$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-156  TO j11-160 $
+C $ 
+ 120500 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-159 and J11-63.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-159  to J11-63\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-159  to J11-63\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-159  TO j11-63 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-159  to J11-63\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120500$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-159  TO j11-63 $
+C $
+ 120600 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-64 and J11-30\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-64  to J11-30\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-64  to J11-30\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-64  TO j11-30 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-64 and J11-30\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120600$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-64  TO j11-30 $
+C $
+ 120700 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-94 and J11-222\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-94  to J11-222\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-94  to J11-222\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-94  TO j11-222 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-94 and J11-222\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120700$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-94  TO j11-222 $
+C $
+ 120800 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-93 and J11-28\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-93  to J11-28\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-93  to J11-28\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-93  TO j11-28 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-93 and J11-28\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120800$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-93  TO j11-28 $
+C $
+ 120900 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-65 and J11-34\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-65  to J11-34\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-65  to J11-34\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-65  TO j11-34 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-65 and J11-34\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 120900$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-65  TO j11-34 $
+C $ 
+ 121000 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-94 and J11-61.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-94  to J11-61\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-94  to J11-61\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-94  TO j11-61 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-94  to J11-61\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 121000$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-94  TO j11-61 $
+C $
+ 121100 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-93 and J11-220\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-93  to J11-220\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-93  to J11-220\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-93  TO j11-220 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-93 and J11-220\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 121100$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-93  TO j11-220 $
+C $
+ 121200 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-194 and J11-164\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-194  to J11-164\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-194  to J11-164\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-194  TO j11-164 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-194 and J11-164\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 121200$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-194  TO j11-164 $
+C $
+ 121300 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-162 and J11-164\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-162  to J11-164\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-162  to J11-164\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-162  TO j11-164 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-162 and J11-164\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 121300$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-162  TO j11-164 $
+C $
+ 121400 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J11-94 and J11-253\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 129999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J11-94  to J11-253\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J11-94  to J11-253\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j11-94  TO j11-253 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J11-94 and J11-253\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 121400$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j11-94  TO j11-253 $
+C $
+B$
+ 129999 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 160000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, GO-NOGO $
+        IF, NOGO, THEN $ 
+            GO TO, STEP 120000 $
+        END, IF $
+C $
+C       END OF SINGLE SWITCH TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * 1260-38
+C ******************************************************************* $
+C $
+B $
+ 160000 OUTPUT,
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-38                               \LF\',
+          C'--------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-38                               \LF\',
+          C'--------------------------------------\LF\' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+        OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J13-2 and J12-34.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 169999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J13-2  to J12-34\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J13-2  to J12-34\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j13-2  TO j12-34 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J13-2 and J12-34.\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 160000$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j13-2  TO j12-34 $
+C $
+ 160100 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J12-16 and J12-79\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 169999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J12-16  to J12-79\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J12-16  to J12-79\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j12-16  TO j12-79 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J12-16 and J12-79\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 160100$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j12-16  TO j12-79 $
+C $
+ 160200 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J13-2 and J12-67\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 169999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J13-2  to J12-67\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J13-2  to J12-67\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j13-2  TO j12-67 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J13-2 and J12-67\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 160200$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j13-2  TO j12-67 $
+C $
+ 160300 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J12-59 and J12-89\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 169999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J12-59  to J12-89\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J12-59  to J12-89\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j12-59  TO j12-89 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J12-59 and J12-89\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 160300$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j12-59  TO j12-89 $
+C $
+ 160400 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J13-2 and J12-2\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 169999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J13-2  to J12-2\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J13-2  to J12-2\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j13-2  TO j12-2 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J13-2 and J12-2\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 160400$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j13-2  TO j12-2 $
+C $ 
+ 160500 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J12-76 and J12-4.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 169999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J12-76  to J12-4\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J12-76  to J12-4\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j12-76  TO j12-4 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J12-76  to J12-4\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 160500$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j12-76  TO j12-4 $
+C $
+B$
+ 169999 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 210000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, GO-NOGO $
+        IF, NOGO, THEN $ 
+            GO TO, STEP 160000 $
+        END, IF $
+C $
+C       END OF SINGLE SWITCH TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C *******************************************************************
+C * 1260-58
+C ******************************************************************* $
+C $
+B $
+ 210000 OUTPUT,
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-58                               \LF\',
+          C'--------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-58                               \LF\',
+          C'--------------------------------------\LF\' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+        OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J14-5 and J14-9.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 219999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J14-5  to J14-9\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J14-5  to J14-9\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j14-5  TO j14-9 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J14-5 and J14-9.\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 210000$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j14-5  TO j14-9 $
+C $
+ 210100 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J14-15 and J14-19\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 219999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J14-15  to J14-19\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J14-15  to J14-19\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j14-15  TO j14-19 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J14-15 and J14-19\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 210100$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j14-15  TO j14-19 $
+C $
+ 210200 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J15-15 and J15-19\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 219999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J15-15  to J15-19\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J15-15  to J15-19\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j15-15  TO j15-19 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J15-15 and J15-19\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 210200$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j15-15  TO j15-19 $
+C $
+ 210300 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J15-5 and J15-9\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 219999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J15-5  to J15-9\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J15-5  to J15-9\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j15-5  TO j15-9 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J15-5 and J15-9\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 210300$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j15-5  TO j15-9 $
+C $
+B$
+ 219999 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 240000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, GO-NOGO $
+        IF, NOGO, THEN $ 
+            GO TO, STEP 210000 $
+        END, IF $
+C $
+C       END OF SINGLE SWITCH TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * 1260-67
+C ******************************************************************* $
+C $
+B $
+ 240000 OUTPUT,
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-67                               \LF\',
+          C'--------------------------------------\LF\' $
+        OUTPUT, TO 'PRINTER',
+          C'\LF\',
+          C'--------------------------------------\LF\',
+          C'1260-67                               \LF\',
+          C'--------------------------------------\LF\' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+        OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J16-18 and J16-17.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J16-18  to J16-17\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J16-18  to J16-17\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j16-18  TO j16-17 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J16-18 and J16-17.\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240000$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j16-18  TO j16-17 $
+C $
+ 240100 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J17-5 and J17-4\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J17-5  to J17-4\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J17-5  to J17-4\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j17-5  TO j17-4 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J17-5 and J17-4\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240100$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j17-5  TO j17-4 $
+C $
+ 240200 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J16-23 and J16-22\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J16-23  to J16-22\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J16-23  to J16-22\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j16-23  TO j16-22 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J16-23 and J16-22\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240200$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j16-23  TO j16-22 $
+C $
+ 240300 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J17-10 and J17-9\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J17-10  to J17-9\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J17-10  to J17-9\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j17-10  TO j17-9 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J17-10 and J17-9\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240300$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j17-10  TO j17-9 $
+C $
+ 240400 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J16-18 and J16-2\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J16-18  to J16-2\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J16-18  to J16-2\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j16-18  TO j16-2 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J16-18 and J16-2\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240400$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j16-18  TO j16-2 $
+C $ 
+ 240500 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J16-28 and J16-27.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J16-28  to J16-27\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J16-28  to J16-27\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j16-28  TO j16-27 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J16-28 and J16-27.\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240500$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j16-28  TO j16-27 $
+C $
+ 240600 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J17-15 and J17-14\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J17-15  to J17-14\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J17-15  to J17-14\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j17-15  TO j17-14 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J17-15 and J17-14\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240600$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j17-15  TO j17-14 $
+C $ 
+ 240700 OUTPUT,
+          C'Verify that an open exists between:\LF\',
+          C'J17-10 and J16-25.\LF\',
+          C'  \LF\',
+          C'T - Ready to test.\LF\',
+          C'F - Skip test.\LF\'
+          $
+     05 INPUT, GO-NOGO $
+     10 IF, NOGO, THEN $
+     15     GO TO, STEP 249999 $
+     20 END, IF $
+C $
+     25 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'  SHORT, J17-10  to J16-25\LF\',
+          C'--------------------------------------\LF\'
+        $
+        OUTPUT, TO 'PRINTER',
+          C'  --------------------------------------\LF\',
+          C'   SHORT, J17-10  to J16-25\LF\',
+          C'  --------------------------------------\LF\'
+        $
+C $
+     35 APPLY, SHORT,  CNX FROM j17-10  TO j16-25 $
+C $
+     40 OUTPUT,
+          C'--------------------------------------\LF\',
+          C'Verify that a short exists between:\LF\',
+          C'  J17-10 and J16-25.\LF\',
+          C'\LF\',
+          C'T - Short Exists.\LF\',
+          C'F - Open Exists.\LF\'
+          $
+	CALCULATE, 'TESTNO' = 240700$
+     45 INPUT, GO-NOGO $
+     50 PERFORM, 'RESULTS' $
+     55 REMOVE, SHORT,  CNX FROM j17-10  TO j16-25 $
+C $
+B$
+ 249999 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 600000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, GO-NOGO $
+        IF, NOGO, THEN $ 
+            GO TO, STEP 240000 $
+        END, IF $
+C $
+C       END OF SINGLE SWITCH TESTING - LOOP BACK TO MENU $
+        GO TO, STEP 001005 $
+C $
+C $
+C $
+B $
+ 600000 IF, 'FAIL-FLAG' EQ 0, THEN $
+
+          OUTPUT,
+        C'--------------------------------------\LF\',
+        C' END - END TEST\LF\',
+        C'    PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	  C'\LF\', 
+          C'--------------------------------------\LF\',
+         C'END - END TEST\LF\',
+         C'   PASSED\LF\',
+        C'--------------------------------------\LF\'
+          $
+        ELSE $
+          OUTPUT,
+	 C'\LF\',
+        C'--------------------------------------\LF\',
+        C' END - END TEST \LF\',
+        C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+       C' --------------------------------------\LF\'
+          $
+
+	  OUTPUT, TO 'PRINTER',
+	 C'\LF\',  
+        C'--------------------------------------\LF\',
+         C'END - END TEST\LF\ ',
+         C'FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+        C'--------------------------------------\LF\'
+          $
+
+
+        END, IF  $
+ 600100 GO TO, STEP 001005 $
+B $
+ 999900 REMOVE, ALL $
+B $
+ 999999 TERMINATE, ATLAS PROGRAM 'Switch Bench' $

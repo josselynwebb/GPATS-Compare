@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Cemsupport</ProjectName>
+    <SccProjectName>"$/GSM315/PawsSupport/Devices/Common/Source/Build", JBAAAAAA</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <ProjectGuid>{DFDA054A-0D41-42C1-AAAF-36056F25326D}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>\usr\tyx\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\V6CemSupport.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\V6CemSupport.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>..\..\Lib\CemSupport.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy /Y "..\..\..\..\Build\BusConfi_TETS" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\BusConfi_TETS"
+copy /Y "..\..\..\..\Build\BusConfi_VIPERT" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\BusConfi_VIPERT"
+copy /Y "..\..\..\..\Build\DeviceDB_TETS.DEV" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\DeviceDB_TETS.DEV"
+copy /Y "..\..\..\..\Build\DeviceDB_VIPERT.DEV" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\DeviceDB_VIPERT.DEV"
+copy /Y "..\..\..\..\Build\SwitchDB_TETS.SWX" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Switch\SwitchDB_TETS.SWX"
+copy /Y "..\..\..\..\Build\SwitchDB_VIPERT.SWX" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Switch\SwitchDB_VIPERT.SWX"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>\usr\tyx\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Debug\V6CemSupport.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\V6CemSupport.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>..\..\Lib\CemSupport.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy /Y "..\..\..\..\Build\BusConfi_TETS" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\BusConfi_TETS"
+copy /Y "..\..\..\..\Build\BusConfi_VIPERT" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\BusConfi_VIPERT"
+copy /Y "..\..\..\..\Build\DeviceDB_TETS.DEV" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\DeviceDB_TETS.DEV"
+copy /Y "..\..\..\..\Build\DeviceDB_VIPERT.DEV" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Station\DeviceDB_VIPERT.DEV"
+copy /Y "..\..\..\..\Build\SwitchDB_TETS.SWX" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Switch\SwitchDB_TETS.SWX"
+copy /Y "..\..\..\..\Build\SwitchDB_VIPERT.SWX" "..\..\..\..\..\..\..\..\Target\ROOTDrive\usr\tyx\sub\IEEE716.89\GPATSCIC\Switch\SwitchDB_VIPERT.SWX"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\CemDevInfo.cpp" />
+    <ClCompile Include="..\Source\CemDisplay.cpp" />
+    <ClCompile Include="..\Source\CemStationUtil.cpp" />
+    <ClCompile Include="..\Source\CemSwitch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Include\cemsupport.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

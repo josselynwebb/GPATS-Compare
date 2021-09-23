@@ -1,0 +1,662 @@
+ 000100 BEGIN, ATLAS MODULE 'VEO-2 PHASE-II VIS BENCHMARK'             $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 000800 DECLARE, TYPE, 'DECDATA' IS ARRAY(1 THRU 512) OF DECIMAL       $
+C                                                                      $
+ 001000 DECLARE, EXTERNAL, VARIABLE, 'FAIL-CNT'  IS INTEGER            $
+     05 DECLARE, EXTERNAL, VARIABLE, 'ETE TEST'  IS BOOLEAN            $
+     10 DECLARE, VARIABLE, 'TESTNO' IS INTEGER                         $
+     15 DECLARE, VARIABLE, 'ULIM' IS DECIMAL                           $
+     20 DECLARE, VARIABLE, 'LLIM' IS DECIMAL                           $
+     25 DECLARE, VARIABLE, 'MVAL' IS DECIMAL                           $
+     30 DECLARE, VARIABLE, 'MIODATA' IS 'DECDATA'                      $
+     35 DECLARE, VARIABLE, 'X-ALIGN-ERROR' IS DECIMAL                  $
+     40 DECLARE, VARIABLE, 'Y-ALIGN-ERROR' IS DECIMAL                  $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 002000 DEFINE, 'RESULTS', EXTERNAL, PROCEDURE ('TEST' IS INTEGER,
+                                                'MVAL' IS DECIMAL,
+                                                'ULIM' IS DECIMAL,
+                                                'LLIM' IS DECIMAL)     $
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                                * $
+C ******************************************************************** $
+C                                                                      $
+ 002100 DEFINE, 'CLRSCR', EXTERNAL, PROCEDURE                          $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : PROC-MTF-DATA                                        * $
+C ******************************************************************** $
+C                                                                      $
+ 002200 DEFINE, 'PROC-MTF-DATA', PROCEDURE('TNO' IS INTEGER,
+                                           'VAL' IS 'DECDATA',
+                                           'UL'  IS DECIMAL,
+                                           'LL'  IS DECIMAL)           $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'IDX' IS INTEGER                          $
+     10   DECLARE, VARIABLE, 'RSLT' IS STRING(4) OF CHAR               $
+     15   DECLARE, VARIABLE, 'CNT' IS INTEGER                          $
+C                                                                      $
+     20   CALCULATE, 'CNT' = INT('VAL'(1)) * 2                         $
+     25   FOR, 'IDX' = 2 THRU 'CNT' BY 2, THEN                         $
+     30     IF, 'VAL'('IDX'+1) UL 'UL' LL 'LL', THEN                   $
+     35       CALCULATE, 'RSLT' = C'PASS'                              $
+     40     ELSE                                                       $
+     45       CALCULATE, 'RSLT' = C'FAIL'                              $
+     50     END, IF                                                    $
+     55     OUTPUT, 
+              C' TEST       FREQ          MTF        RESULT \LF\',
+              C'------  ------------  ------------  --------\LF\',
+              'TNO' + 'IDX',  C'  ', 'VAL'('IDX'):12:6, C'  ',
+              'VAL'('IDX'+1):12:6, C'  ', 'RSLT'                       $
+     60   END, FOR                                                     $
+C                                                                      $
+ 002299 END, 'PROC-MTF-DATA'                                           $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE : PROC-MRC-DATA                                        * $
+C ******************************************************************** $
+C                                                                      $
+ 002400 DEFINE, 'PROC-MRC-DATA', PROCEDURE('TNO'  IS INTEGER,
+                                           'VAL'  IS 'DECDATA',
+                                           'ULMT' IS DECIMAL,
+                                           'LLMT' IS DECIMAL)          $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'IDX' IS INTEGER                          $
+     10   DECLARE, VARIABLE, 'RSLT' IS STRING(4) OF CHAR               $
+C                                                                      $
+     15   IF, 'VAL'(3) UL 'ULMT' LL 'LLMT', THEN                       $
+     20     CALCULATE, 'RSLT' = C'PASS'                                $
+     25   ELSE                                                         $
+     30     CALCULATE, 'RSLT' = C'FAIL'                                $
+     35   END, IF                                                      $
+     40   OUTPUT,
+              C' TEST     MEAS       UL        LL     RESULT\LF\',        
+              C'------  --------  --------  --------  ------\LF\',
+              'TNO', C'  ', 'VAL'(3):8:4, C'  ',
+              'ULMT':8:4, C'  ', 'LLMT':8:4, C'   ', 'RSLT'            $
+C                                                                      $
+ 002499 END, 'PROC-MRC-DATA'                                           $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: MULTI-SENSOR LIGHT SOURCE                             * $
+C ******************************************************************** $
+C                                                                      $
+ 020000 DEFINE, 'MULTI-SENSOR LIGHT SOURCE', PROCEDURE                 $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020100 - TARGET TVBS01                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020100   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0201 - TARGET TVBS01'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020100                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS01,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020200 - TARGET TVBS02                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020200   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0202 - TARGET TVBS02'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020200                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS02,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020300 - TARGET TVBS03                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020300   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0203 - TARGET TVBS03'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020300                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS03,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020400 - TARGET TVBS04                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020400   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0204 - TARGET TVBS04'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020400                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS04,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020500 - TARGET TVBS05                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020500   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0205 - TARGET TVBS05'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020500                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS05,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020600 - TARGET TVBS06                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020600   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0206 - TARGET TVBS06'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020600                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS06,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020700 - TARGET TVBS07                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020700   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0207 - TARGET TVBS07'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020700                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS07,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020800 - TARGET TVBS08                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020800   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0208 - TARGET TVBS08'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020800                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS08,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 020900 - TARGET TVBS09                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 020900   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0209 - TARGET TVBS09'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 020900                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS09,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 021000 - TARGET TVBS10                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 021000   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0210 - TARGET TVBS10'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 021000                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS10,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 021100 - TARGET TVBS11                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 021100   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0211 - TARGET TVBS11'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 021100                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS11,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 021200 - TARGET TVBS12                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 021200   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0212 - TARGET TVBS12'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 021200                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS12,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 021300 - TARGET TVBS13                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 021300   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0213 - TARGET TVBS13'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 021300                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS13,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 021400 - TARGET TVBS14                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 021400   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0214 - TARGET TVBS14'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 021400                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS14,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+C    *************************************************************     $
+C    * TEST 021500 - TARGET TVBS15                               *     $
+C    *************************************************************     $
+C                                                                      $
+ 021500   OUTPUT, C'MULTI-SENSOR LIGHT TEST 0215 - TARGET TVBS15'      $
+     05   CALCULATE, 'ULIM' = 0,
+                     'LLIM' = 0,
+                     'TESTNO' = 021500                                 $
+     10   SETUP, MULTI-SENSOR-LIGHT,
+            TARGET-TYPE TARG-TVBS15,
+            CNX VIA ATMOSPHERE                                         $
+     15   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION\LF\',
+            C' 1. Visually verify boresight target is displayed.\LF\',
+            C'    See CPM Table 1.5-2.\LF\',
+            C'\LF\',
+            C' Enter GO/True if correct.\LF\',
+            C' Enter NOGO/False if incorrect\LF\'                      $
+     20   INPUT, GO-NOGO                                               $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, MULTI-SENSOR-LIGHT,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+ 021999 END, 'MULTI-SENSOR LIGHT SOURCE'                               $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: TV OPTICAL REFERENCE LINE                             * $
+C ******************************************************************** $
+C                                                                      $
+ 022000 DEFINE, 'TV OPTICAL REFERENCE LINE', PROCEDURE                 $
+C                                                                      $
+ 022100   OUTPUT, C'TV OPTICAL REFERENCE LINE TEST 022100'             $
+     05   CALCULATE, 'TESTNO' = 022100,
+                     'ULIM'   = 0.6,
+                     'LLIM'   = -0.6                                   $
+C                                                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect Video Test Generator [VTG] to VEO-2   \LF\',
+            C'    Video breakout box J1.                        \LF\',
+            C' 2. Verify Video format is NTSC (RS-170).         \LF\',
+            C' 3. Select Image ORL2.                            \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     15   INPUT, GO-NOGO                                               $
+     20   MEASURE, (LOS-ALIGN-ERROR INTO 'MIODATA'), LIGHT,
+            LOS-ALIGN-ERROR MAX 1.0 DEG,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            TARGET-TYPE TARG-BRSGHT,
+            RADIANCE 2000 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.320 RAD,
+            V-FIELD-OF-VIEW 0.256 RAD,
+            TGT-COORDINATE-TOP      20,
+            TGT-COORDINATE-LEFT     20,
+            TGT-COORDINATE-BOTTOM  600,
+            TGT-COORDINATE-RIGHT   450,
+            INTENSITY-RATIO 50.0 PC,
+            CNX VIA UUT-VIDEO-IN                                       $
+     25   CALCULATE, 'X-ALIGN-ERROR' = 'MIODATA'(1),
+                     'Y-ALIGN-ERROR' = 'MIODATA'(2)                    $
+     30   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(1), 'ULIM', 'LLIM')   $
+     35   CALCULATE, 'TESTNO' = 017200                                 $
+     40   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(2), 'ULIM', 'LLIM')   $
+C                                                                      $
+ 022900   OUTPUT, 
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Disconnect Video Test Generator [VTG] from the\LF\',
+            C'    VIPER/T docking station.                      \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     05   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 022999 END, 'TV OPTICAL REFERENCE LINE'                               $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: MODULATION TRANSFER FUNCTION                          * $
+C ******************************************************************** $
+C                                                                      $
+ 023000 DEFINE, 'MODULATION TRANSFER FUNCTION', PROCEDURE              $
+C                                                                      $
+ 023100   OUTPUT, C'TV OPTICAL REFERENCE LINE TEST 022100'             $
+     05   CALCULATE, 'TESTNO' = 023100,
+                     'ULIM'   = 1.0,
+                     'LLIM'   = 0.0                                    $
+C                                                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. Connect Video Test Generator [VTG] to VEO-2.  \LF\',
+            C' 2. Load file MTF into VTG.                       \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     15   INPUT, GO-NOGO                                               $
+C                                                                      $
+     20   MEASURE, (MODULATION-TRANSFER-FUNCTION INTO 'MIODATA'),
+            LIGHT,
+            MODULATION-TRANSFER-FUNCTION MAX 1.0,
+            SAMPLE-AV 1 FRAMES,
+            FORMAT RS170,
+            RADIANCE 500.0 UW/CM2/SR,
+            H-FIELD-OF-VIEW 0.010667 RAD,
+            V-FIELD-OF-VIEW 0.008 RAD,
+            TGT-COORDINATE-TOP 200,
+            TGT-COORDINATE-LEFT 200,
+            TGT-COORDINATE-BOTTOM 250,
+            TGT-COORDINATE-RIGHT 400,
+            MTF-DIRECTION HORIZ,
+            MTF-FREQ-POINTS 8,
+            CNX VIA UUT-VIDEO-IN                                       $
+     25   PERFORM, 'PROC-MTF-DATA'('TESTNO',
+                                   'MIODATA',
+                                   'ULIM',
+                                   'LLIM')                             $            
+C                                                                      $
+ 023999 END, 'MODULATION TRANSFER FUNCTION'                            $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: MINIMUM RESOLVABLE CONTRAST                           * $
+C ******************************************************************** $
+C                                                                      $
+ 024000 DEFINE, 'MINIMUM RESOLVABLE CONTRAST', PROCEDURE               $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'TGT-DATA' IS ARRAY(1 THRU 2, 1 THRU 4) 
+            OF DECIMAL                                                 $
+C                                                                      $
+ 024100   OUTPUT, C'TEST 0241 - MINIMUM RESOLVABLE CONTRAST'           $
+     05   CALCULATE, 'TESTNO' = 024100,
+                     'ULIM' = 510.0,
+                     'LLIM' = 490.0,
+                     'TGT-DATA'(1,1) = 500.0,
+                     'TGT-DATA'(1,2) = 500.0,
+                     'TGT-DATA'(1,3) = 500.0,
+                     'TGT-DATA'(1,4) = 500.0,
+                     'TGT-DATA'(2,1) = 0.71,
+                     'TGT-DATA'(2,2) = 0.90,
+                     'TGT-DATA'(2,3) = 6.40,
+                     'TGT-DATA'(2,4) = 36.2                            $
+C                                                                      $
+     10   OUTPUT,
+            C'--------------------------------------------------\LF\',
+            C'                   OPERATOR ACTION                \LF\',
+            C' 1. When the IrWindows dialog appears querying    \LF\',
+            C'    if the target feature is visible, click yes.  \LF\',
+            C'\LF\',
+            C'Press ENTER to continue.\LF\'                            $
+     15   INPUT, GO-NOGO                                               $
+C                                                                      $
+     20   MEASURE, (MIN-RESOLV-CONTRAST INTO 'MIODATA'), LIGHT,
+            MIN-RESOLV-CONTRAST MAX 20000 UW/CM2/SR,
+            TARGET-DATA 'TGT-DATA' MAX 8,
+            TEST-POINT-COUNT 4,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     25   PERFORM, 'PROC-MRC-DATA'('TESTNO',
+                                   'MIODATA',
+                                   'ULIM',
+                                   'LLIM')                             $
+C                                                                      $
+ 024999 END, 'MINIMUM RESOLVABLE CONTRAST'                             $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'IR TESTS'                                            * $
+C ******************************************************************** $
+C                                                                      $
+ 100000 DEFINE, 'VIS PHASE-II TESTS', GLOBAL, PROCEDURE                $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'CHOICE' IS INTEGER                       $
+C                                                                      $
+     15   IF, 'ETE TEST', THEN                                         $
+     20     GO TO, STEP 100500                                         $
+     25   END, IF                                                      $
+B                                                                      $
+     30   OUTPUT, 
+          C'                  VISIBLE Test Menu\LF\',
+          C'----------------------------------------------------\LF\',
+          C'Multi-Sensor Light Source                          1\LF\',
+          C'TV Optical Reference Line Measurement              2\LF\',
+          C'Modulation Transfer Function Measurement           3\LF\',
+          C'Minimum Resolvable Contrast Measurement            4\LF\',
+          C'All LIGHT Measurements                             5\LF\',
+          C'Return to Main Menu                                0\LF\',
+          C'\LF\',
+          C'Enter a Selection:'                                        $
+     35   INPUT, INTO 'CHOICE'                                         $
+     40   IF, 'CHOICE' EQ 0, THEN                                      $
+     45     GO TO, STEP 199999                                         $
+     50   END, IF                                                      $
+C                                                                      $
+ 100100   IF, 'CHOICE' EQ 1, THEN                                      $
+     05     PERFORM, 'MULTI-SENSOR LIGHT SOURCE'                       $
+     10   END, IF                                                      $
+C                                                                      $
+ 100200   IF, 'CHOICE' EQ 2, THEN                                      $
+     05     PERFORM, 'TV OPTICAL REFERENCE LINE'                       $
+     10   END, IF                                                      $
+C                                                                      $
+ 100300   IF, 'CHOICE' EQ 3, THEN                                      $
+     05     PERFORM, 'MODULATION TRANSFER FUNCTION'                    $
+     10   END, IF                                                      $
+C                                                                      $
+ 100400   IF, 'CHOICE' EQ 4, THEN                                      $
+     05     PERFORM, 'MINIMUM RESOLVABLE CONTRAST'                     $
+     10   END, IF                                                      $
+B                                                                      $
+ 100500   IF, 'CHOICE' EQ 5, THEN                                      $
+     05     PERFORM, 'MULTI-SENSOR LIGHT SOURCE'                       $
+     10     PERFORM, 'TV OPTICAL REFERENCE LINE'                       $
+     15     PERFORM, 'MODULATION TRANSFER FUNCTION'                    $
+     20     PERFORM, 'MINIMUM RESOLVABLE CONTRAST'                     $
+     25   END, IF                                                      $
+C                                                                      $
+ 100600   GO TO, STEP 100030                                           $
+B                                                                      $
+ 199999 END, 'VIS PHASE-II TESTS'                                      $
+C                                                                      $
+ 999999 TERMINATE, ATLAS MODULE 'VEO-2 PHASE-II VIS BENCHMARK'         $
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<!DOCTYPE body SYSTEM ".\DTD\USMCV1-V1_modified_xml.dtd">
+
+<?Domainfile href='.\PSM130.lst'?>
+<?TOCfile href='.\PSM130.toc' ?>
+<?Stylesheet href='.\styles\content1.STY'?>
+<?Title href="TM 12541A-OD/1 AN/PSM-130 APPLICATION PROGRAM SET MANUAL"?>
+<body>
+<?FRAME id='C5s3a' title='CHAPTER 5 - Maintenance' next='.\C5s4.xml!C5S4a' previous='.\C5s2.xml!C5s2a'?>
+<chapter>
+<section id="c5s3" label="Section III." tocentry="1">
+<?PUB TOCLEVEL="2" TEXT="Section III. Corrective Maintenance Instructions."?>
+<title>Corrective Maintenance Instructions.</title>
+<para0 id="p5-3" label="5-3" tocentry="2">
+<?PUB TOCLEVEL="3" TEXT="5-3 Introduction."?>
+<title>Introduction.</title>
+<para>There are no formal corrective maintenance instructions for
+the AN/PSM-130 APS. Limited CMI&rsquo;s may be
+performed during each UUT and ID Test Program Instruction (TPI). 
+Using Units are authorized to perform repairs to the AN/PSM-130 using
+standard repair procedures. </para>
+<para>Additional information on UUT CMI&rsquo;s can be found in the
+UUT technical manuals.</para>
+</para0>
+</section>
+</chapter><?Pub Caret -2?>
+</body>

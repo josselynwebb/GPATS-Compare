@@ -1,0 +1,7 @@
+from    DMM_1-Curr       to     J20-4;
+from    DMM_1-Lo       to     J20-3;
+from    DMM_1-LO       to     J20-3;
+from    DMM_1-HI       to     J20-2;
+from    DMM_1-S-HI 	to 	J20-5;
+from DMM_1-S-LO		to	J20-6;
+from    X21-1       to     J21-1;

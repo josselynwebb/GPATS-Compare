@@ -1,0 +1,59 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: gpnam - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Release/Script1.res" /d "NDEBUG" "E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\Script1.rc"" 
+Creating temporary file "C:\DOCUME~1\atep\LOCALS~1\Temp\RSP42.tmp" with contents
+[
+/nologo /ML /W4 /GX /O2 /I "../../../include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Release/gpnam.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\concurrent.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\error.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\file_utils.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\gpnam.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\gpnam_main.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\insert_file.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\message.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\process_utils.cpp"
+"E:\TETS_B_20101201\20101201Source\Source\NAM\GPNAM\Source\setAddress.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\atep\LOCALS~1\Temp\RSP42.tmp" 
+Creating temporary file "C:\DOCUME~1\atep\LOCALS~1\Temp\RSP43.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib Psapi.lib oldnam.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/gpnam.pdb" /machine:I386 /out:"Release/gpnam.exe" /libpath:"../../../lib" 
+.\Release\concurrent.obj
+.\Release\error.obj
+.\Release\file_utils.obj
+.\Release\gpnam.obj
+.\Release\gpnam_main.obj
+.\Release\insert_file.obj
+.\Release\message.obj
+.\Release\process_utils.obj
+.\Release\setAddress.obj
+.\Release\Script1.res
+]
+Creating command line "link.exe @C:\DOCUME~1\atep\LOCALS~1\Temp\RSP43.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+concurrent.cpp
+error.cpp
+file_utils.cpp
+gpnam.cpp
+gpnam_main.cpp
+insert_file.cpp
+message.cpp
+process_utils.cpp
+setAddress.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+gpnam.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

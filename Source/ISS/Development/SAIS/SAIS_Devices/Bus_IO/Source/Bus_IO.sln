@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Bus_IO", "Bus_IO.vbproj", "{DF623A0B-1B64-45DD-BD50-19C7A962D4AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF623A0B-1B64-45DD-BD50-19C7A962D4AB}.Debug|x86.ActiveCfg = Debug|x86
+		{DF623A0B-1B64-45DD-BD50-19C7A962D4AB}.Debug|x86.Build.0 = Debug|x86
+		{DF623A0B-1B64-45DD-BD50-19C7A962D4AB}.Release|x86.ActiveCfg = Release|x86
+		{DF623A0B-1B64-45DD-BD50-19C7A962D4AB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

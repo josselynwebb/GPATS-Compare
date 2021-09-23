@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C1S01" LABEL="I"><?Pub Dtl?><?FRAME TITLE='Chapter 1. General Information, Section I. Introduction' NEXT='./c1s02.ide!c1s02' previous='./SAFESUM.IDE'?>
+<?TOCENTRY TITLE="CHAPTER 1. GENERAL INFORMATION" TOCLEVEL="1"?>
+<?CHAPTERINFO LABEL="1" ID="C1" TITLE="GENERAL INFORMATION"?><?TOCENTRY TITLE="SECTION I. Introduction" TOCLEVEL="2" LABEL="I"?>
+<TITLE>SECTION I. Introduction</TITLE>
+<PARA0 ID="P1-1" LABEL="1.1"><?TOCENTRY TITLE="1.1 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This manual describes the operation and maintenance of the AN/PSM-115 Application Program Set (APS), which supports the Driver's Display Module (DDM), the Controller, C-10879/MSQ-115, and the AN/MIQ-1(V)3 Intercommunications Set. This Chapter is broken down into four sections.  Section I is an introduction to the AN/PSM-115 APS, hereafter described as the APS, which will provide a cross reference of the Unit Under Test (UUT) and the APS. Additionally, this section will describe the documents used to support the Test Program Set (TPS) and methods to report errors or improvements to this APS. Section II provides a description of all the APS components as they are packed for shipment.  Section III will describe the procedures and methods to demolish this APS to prevent enemy use. Section IV will identify the procedures for moving the APS to a new site, setup, tear down, limited storage, and preparation for reshipment.</PARA>
+<SUBPARA1 ID="P1-1.1" LABEL="1.1.1"><?TOCENTRY TITLE="1.1.1 Documents" TOCLEVEL="4"?>
+<TITLE>Documents</TITLE>
+<PARA>The current edition of the SL 1-2 provides a listing of associated DDM, MSQ-115 and the AN/MIQ-1(V)3 Technical Manuals and when used in conjunction with this manual aid the technician in troubleshooting and repair of the DDM, MSQ-115 and the AN/MIQ-1(V)3 Circuit Card Assemblies (CCAs) and Line Replaceable Unit (LRU) Assemblies.</PARA></SUBPARA1>
+<SUBPARA1 ID="P1-1.2" LABEL="1.1.2"><?TOCENTRY TITLE="1.1.2 Reporting Errors and Improvements" TOCLEVEL="4"?>
+<TITLE>Reporting Errors and Improvements</TITLE>
+<PARA>The Test Measurement and Diagnostic Equipment (TMDE) Branch, Marine Corps Logistics Bases, Albany, Georgia, has been assigned the responsibility to provide technical engineering services for the Marine Corps Automatic Test Equipment Program as described in MCO 10510.18.  Contact the Marine Corps Liaison at DSN 567-6338 or Commercial (229) 639-6338.</PARA></SUBPARA1>
+<SUBPARA1 ID="P1-1.3" LABEL="1.1.3"><?TOCENTRY TITLE="1.1.3 Nomenclature Cross Reference" TOCLEVEL="4"?>
+<TITLE>Nomenclature Cross Reference</TITLE>
+<PARA>The fourteen LRUs and CCAs that are supported by this APS are listed in <XREF XREFID="TABLE1-1" XIDTYPE="TABLE">Table 1-1</XREF> which provides an applicable cross reference table of the Nomenclature, UUT Part Number, National Stock Number (NSN), Test Program File Name and Test Program Hardware (TPH)/Part Number.</PARA></SUBPARA1>
+<TABLE COLSEP="1" ROWSEP="1" HEADERROWS="1" ID="TABLE1-1" LABEL="1-1"><?Pub Dtl?>
+<TITLE>Cross Reference Table</TITLE>
+<TGROUP COLS="5">
+<COLSPEC COLNAME="COL1" COLWIDTH="1.81in"/>
+<COLSPEC COLNAME="COL2" COLWIDTH="0.91in"/>
+<COLSPEC COLNAME="COL3" COLWIDTH="1.09in"/>
+<COLSPEC COLNAME="COL4" COLWIDTH="1.45in"/>
+<COLSPEC COLNAME="COL5" COLWIDTH="2.25in"/>
+<THEAD>
+<ROW>
+<ENTRY ALIGN="CENTER">Nomenclature</ENTRY>
+<ENTRY ALIGN="CENTER">UUT PN</ENTRY>
+<ENTRY ALIGN="CENTER">NSN</ENTRY>
+<ENTRY ALIGN="CENTER">Test Program File Name</ENTRY>
+<ENTRY ALIGN="CENTER">TPH - Part Number</ENTRY></ROW></THEAD>
+<TBODY>
+<ROW>
+<ENTRY>Driver's Display Module LRU</ENTRY>
+<ENTRY>5429249</ENTRY>
+<ENTRY>2350-01-199-6319</ENTRY>
+<ENTRY>TP_AAV_DDM_LRU.obj TP_AAV_DDM_LRU.dat</ENTRY>
+<ENTRY>Interface Test Adapter (ITA) - P/N 05005A1000 
+<BRK/> Cable W8 - P/N 05005A0108 
+<BRK/> LRU Support Assy - P/N 05005A1013-1 &amp; -2 
+<BRK/>    FOR DIAGNOSTICS ONLY: 
+<BRK/> PWA - DDM Adapter, CP1 - P/N 05005A1042 
+<BRK/> Screw, Machine (Qty 6) - P/N MS35190-230 
+<BRK/> Spacer (Qty 6) - P/N NAS43HT0-12  
+<BRK/> Connector, Stacking, Elec (Qty 2) P/N 2600260 </ENTRY></ROW>
+<ROW>
+<ENTRY>Display Board CCA</ENTRY>
+<ENTRY>5428412</ENTRY>
+<ENTRY>5998-01-203-7299</ENTRY>
+<ENTRY>TP_AAV_DDM_A1.obj TP_AAV_DDM_A1.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Card Guide Assy (Qty 2) - P/N 05005A1011 
+<BRK/> PWA, DDM Adapter, CP1 - P/N 05005A1042  
+<BRK/> Connector Stacking, Elec (Qty 2) - P/N 2600260 
+<BRK/> Spacer (Qty 6) - P/N NAS43HT0-12 
+<BRK/> Screw Machine (Qty 6) - P/N MS35190-230</ENTRY></ROW>
+<ROW>
+<ENTRY>Signal Conditioner CCA</ENTRY>
+<ENTRY>5429427 5428551</ENTRY>
+<ENTRY>5998-01-352-1051 5998-01-202-9761</ENTRY>
+<ENTRY>TP_AAV_DDM_A2.obj TP_AAV_DDM_A2.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Card Guide Assy (Qty 2) - P/N 05005A1011 
+<BRK/> PWA, DDM Adapter, CP1 - P/N 05005A1042 
+<BRK/> Screw Machine (Qty 6) - P/N MS35190-230 
+<BRK/> Connector Stacking, Elec (Qty 2) - P/N 2600260 </ENTRY></ROW>
+<ROW>
+<ENTRY>Power Supply CCA</ENTRY>
+<ENTRY>6227570 5429442</ENTRY>
+<ENTRY>5998-01-108-9786 Not Available</ENTRY>
+<ENTRY>TP_AAV_DDM_A3.obj TP_AAV_DDM_A3.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W8 - P/N 05005A0108  
+<BRK/> Cable W9 - P/N 05005A0109 Support Assy, 
+<BRK/> LRU - P/N 05005A1013-1 &amp; -2 
+<BRK/> Secondary Support, LRU - P/N 05005A1015</ENTRY></ROW>
+<ROW>
+<ENTRY>Controller C-10879/ MSQ-115 LRU</ENTRY>
+<ENTRY>2618506-1 </ENTRY>
+<ENTRY>5895-01-123-4800</ENTRY>
+<ENTRY>TP_AAV_CON_LRU.obj TP_AAV_CON_LRU.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W1 - P/N 05005A0101  
+<BRK/> Cable W2 - P/N 05005A0102 
+<BRK/> Cable W3 - P/N 05005A0103 
+<BRK/> Cable W4 - P/N 05005A0104  
+<BRK/> Cable W5 - P/N 05005A0105  
+<BRK/> PWA Controller XA5 Adapter, CP2 - P/N 05005A1045  
+<BRK/> Cover, Connectors, ITA - P/N 05005A1006 </ENTRY></ROW>
+<ROW>
+<ENTRY>6802 Computer CCA</ENTRY>
+<ENTRY>2618567-2</ENTRY>
+<ENTRY>5998-01-166-3813</ENTRY>
+<ENTRY>TP_AAV_CON_A4.obj TP_AAV_CON_A4.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W10 - P/N 05005A0110 
+<BRK/> Card Guide Assy, 14/120 Pos CCA - P/N 05005A1008-1 &amp; -2 </ENTRY></ROW>
+<ROW>
+<ENTRY>Control - Input/Output CCA</ENTRY>
+<ENTRY>2618572-1</ENTRY>
+<ENTRY>5998-01-119-7557</ENTRY>
+<ENTRY>TP_AAV_CON_A3.obj TP_AAV_CON_A3.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W10 - P/N 05005A0110 
+<BRK/> Card Guide Assy, 14/120 Pos CCA - P/N 05005A1008-1 &amp; -2 </ENTRY></ROW>
+<ROW>
+<ENTRY>DPCM Assembly CCA</ENTRY>
+<ENTRY>2618582-1</ENTRY>
+<ENTRY>5998-01-127-2524</ENTRY>
+<ENTRY>TP_AAV_CON_A6.obj TP_AAV_CON_A6.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W10 - P/N 05005A0110 
+<BRK/> Card Guide Assy, 14/120 Pos CCA - P/N 05005A1008-1 &amp; -2 </ENTRY></ROW>
+<ROW>
+<ENTRY>Conference Accumulator CCA</ENTRY>
+<ENTRY>2618577-1 656-3766-001</ENTRY>
+<ENTRY>5998-01-131-2883</ENTRY>
+<ENTRY>TP_AAV_CON_A7.obj TP_AAV_CON_A7.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W10 - P/N 05005A0110 
+<BRK/> Card Guide Assy, 14/120 Pos CCA - P/N 05005A1008-1 &amp; -2 </ENTRY></ROW>
+<ROW>
+<ENTRY>CVSD Input/Output CCA</ENTRY>
+<ENTRY>2618587-1</ENTRY>
+<ENTRY>5998-01-119-7555</ENTRY>
+<ENTRY>TP_AAV_CON_A1.obj TP_AAV_CON_A1.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Card Guide Assy, 14/120 Pos CCA - P/N 05005A1008-1 &amp; -2 </ENTRY></ROW>
+<ROW>
+<ENTRY>Intercommunications Set AN/MIQ-1 LRU</ENTRY>
+<ENTRY>(V)1, 2618500-1 (V)2, 2618500-2 (V)3, 2618500-3</ENTRY>
+<ENTRY>5830-01-167-5761 5830-01-167-6622 5830-01-168-3184</ENTRY>
+<ENTRY>TP_AAV_ICS_LRU.obj TP_AAV_ICS_LRU.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W6 - P/N 05005A0106  
+<BRK/>   FOR DIAGNOSTICS ONLY: 
+<BRK/> Extender Card Assy - Elec Test, 70 Pin to 70 Pin, A1 - P/N 05005A1033</ENTRY></ROW>
+<ROW>
+<ENTRY>CVSD Encoder/Decoder CCA</ENTRY>
+<ENTRY>2618553-1</ENTRY>
+<ENTRY>5998-01-118-2041</ENTRY>
+<ENTRY>TP_AAV_ICS_A1.obj TP_AAV_ICS_A1.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W10 - P/N 05005A0110 
+<BRK/> Card Guide Assy (Qty 2) - P/N 05005A1011 </ENTRY></ROW>
+<ROW>
+<ENTRY>Control Encode/Decode CCA</ENTRY>
+<ENTRY>2618541-1</ENTRY>
+<ENTRY>5998-01-119-7558</ENTRY>
+<ENTRY>TP_AAV_ICS_A4.obj TP_AAV_ICS_A4.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W10 - P/N 05005A0110 
+<BRK/> Card Guide Assy (Qty 2) - P/N 05005A1011 </ENTRY></ROW>
+<ROW>
+<ENTRY>Power Amplifier CCA</ENTRY>
+<ENTRY>2618547-1</ENTRY>
+<ENTRY>5998-01-119-7560</ENTRY>
+<ENTRY>TP_AAV_ICS_A5.obj TP_AAV_ICS_A5.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W7 - P/N 05005A0107 
+<BRK/> Card Guide Assy, 14/120 Pos CCA - P/N 05005A1008-1 &amp; -2 </ENTRY></ROW>
+<ROW>
+<ENTRY>ITA</ENTRY>
+<ENTRY>05005A1000</ENTRY>
+<ENTRY>TBD</ENTRY>
+<ENTRY>TP_AAV_ITA.obj TP_AAV_ITA.dat </ENTRY>
+<ENTRY>ITA - P/N 05005A1000  
+<BRK/> Cable W1 - P/N 05005A0101 
+<BRK/> Cable W2 - P/N 05005A0102 
+<BRK/> Cable W3 - P/N 05005A0103 
+<BRK/> Cable W4 - P/N 05005A0104  
+<BRK/> Cable W5 - P/N 05005A0105  
+<BRK/> Cable W6 - P/N 05005A0106 
+<BRK/> Cable W7 - P/N 05005A0107 
+<BRK/> Cable W8 - P/N 05005A0108 
+<BRK/> Cable W9 - P/N 05005A0109  
+<BRK/> Cable W10 - P/N 05005A0110  
+<BRK/> Card Guide Assy, 14/120 Pos CCA -  P/N 05005A1008-1 &amp; -2  
+<BRK/> Card Guide Assy (Qty 2) - P/N 05005A1011 
+<BRK/> Extender Card Assy - Elec Test, 70 Pin to 70 Pin, A1 - P/N 05005A1033 
+<BRK/> Consolidated Self-Test Adapter, A2 - P/N 05005A1017  
+<BRK/> PWA - CP1 Self-Test Adapter, A3 - P/N 05005A1039  
+<BRK/> PWA - 70-Pin Self-Test Adapter, A4 - P/N 05005A1049  
+<BRK/> PWA - DDM Adapter, CP1 - P/N 05005A1042 
+<BRK/> PWA - Controller XA5 Adapter, CP2 - P/N 05005A1045 
+<BRK/> Shorting Plug, SP1 - P/N 05005A1048 
+<BRK/> Test Station W16 Cable - P/N 93006A9011-2 (or BNC-M to BNC-M equivalent) </ENTRY></ROW></TBODY></TGROUP></TABLE></PARA0></SECTION>

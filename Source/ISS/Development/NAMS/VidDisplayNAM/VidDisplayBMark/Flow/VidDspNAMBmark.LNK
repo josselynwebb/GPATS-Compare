@@ -1,0 +1,22 @@
+BGN D P 'NAM-VIDDISPLAY';
+\\     REF - DEF       <-------
+REF 'ARBNAM' 17 'Non-Atlas';
+REF 'VIDDISPLAYNAM' 17 'Non-Atlas';
+DEF 'NAM-VIDDISPLAY' 17 'Program';
+.
+\\     UUT PIN
+.
+\\     CNX DEF
+.
+\\     REQ DEF
+.
+\\     SIG - REF       <-------
+SRF 015554C 241
+;
+.
+\\     MAC - REF       <-------
+.
+END 117 14 18;
+BGN D M '_END'
+DEF '_END' 17 'Module';
+END;

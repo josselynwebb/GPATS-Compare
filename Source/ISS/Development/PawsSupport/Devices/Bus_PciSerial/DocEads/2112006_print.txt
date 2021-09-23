@@ -1,0 +1,37 @@
+       Bus_RS485 ATLAS Driver Benchmark
+ Date/Time: Sat Feb 11 13:10:50 2006 
+
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 10017      TRUE      GO       FALSE    P 
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 10065      TRUE      GO       FALSE    P 
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 20017      TRUE      GO       FALSE    P 
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 20065      TRUE      GO       FALSE    P 
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 30017      TRUE      GO       FALSE    P 
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 30065      TRUE      GO       FALSE    P 
+ TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT
+ ----        ------------        ------------        ------------         ------
+
+ 30090      TRUE      GO       FALSE    P 
+ 
+ --------------------------------------
+ END - END TEST
+    PASSED
+ --------------------------------------
+

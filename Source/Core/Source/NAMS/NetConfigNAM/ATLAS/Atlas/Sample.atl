@@ -1,0 +1,106 @@
+ 000001 BEGIN, ATLAS PROGRAM 'NET' $
+C $
+C         ************************************************ $
+C         ***              NET CONFIG NAM              *** $
+C         ************************************************ $
+C $
+        INCLUDE, NON-ATLAS MODULE 'NetConfigNAM' $
+C $
+        DECLARE, VARIABLE,
+	  'ACTION'    IS STRING (10) OF CHAR INITIAL  = C'STATICIP';
+          'INTERFACE' IS STRING (50) OF CHAR INITIAL  = C'Local Area Connection';
+          'ADDRESS'   IS STRING (21) OF CHAR INITIAL  = C'192.168.99.10';
+          'NETMASK'   IS STRING (21) OF CHAR INITIAL  = C'255.255.255.0';
+          'GATEWAY'   IS STRING (19) OF CHAR INITIAL  = C'192.168.99.1';
+          'RETVALUE'  IS INTEGER             INITIAL  = -1 $       
+
+C $
+C         ************************************************ $
+C         ***        SET STATIC IP PROCEDURE           *** $
+C         ************************************************ $
+C $
+          DEFINE, 'SET_STATIC_IP', PROCEDURE('INTERFACE' IS STRING (50) OF CHAR, 'ADDRESS' IS STRING (21) OF CHAR, 'NETMASK' IS STRING (21) OF CHAR, 'GATEWAY' IS STRING (19) OF CHAR)
+            RESULT('RESPONSE' IS INTEGER) $
+C $
+            DECLARE, VARIABLE, 'ACTION' IS STRING (10) OF CHAR INITIAL  = C'STATICIP' $
+C $
+            CALCULATE, 
+              'INTERFACE' = C'/INTFC:' & 'INTERFACE',
+              'ADDRESS' = C'/ADDR:' & 'ADDRESS',
+              'NETMASK' = C'/MASK:' & 'NETMASK',
+              'GATEWAY' = C'/GW:' & 'GATEWAY',
+              'RESPONSE' = -1 $
+C $
+            PERFORM, 'NetConfigNAM' ('ACTION', 'INTERFACE', 'ADDRESS', 'NETMASK', 'GATEWAY', 'RESPONSE') $
+C $
+          END, 'SET_STATIC_IP' $
+C $
+C         ************************************************ $
+C         ***           SET DHCP PROCEDURE             *** $
+C         ************************************************ $
+C $
+          DEFINE, 'SET_DHCP', PROCEDURE('INTERFACE' IS STRING (50) OF CHAR)
+            RESULT('RESPONSE' IS INTEGER) $
+C $
+            DECLARE, VARIABLE, 'ACTION' IS STRING (10) OF CHAR INITIAL = C'DHCP' $
+C $
+            CALCULATE, 'INTERFACE' = C'/INTFC:' & 'INTERFACE' $
+C $
+            PERFORM, 'NetConfigNAM' ('ACTION', 'INTERFACE', 'RESPONSE') $
+C $
+          END, 'SET_DHCP' $
+C $
+C         ************************************************ $
+C         ***            RESET PROCEDURE               *** $
+C         ************************************************ $
+C $
+          DEFINE, 'RESET_PORT', PROCEDURE('INTERFACE' IS STRING (50) OF CHAR)
+            RESULT('RESPONSE' IS INTEGER) $
+
+            DECLARE, VARIABLE, 'ACTION' IS STRING (10) OF CHAR INITIAL = C'RESET' $
+
+            CALCULATE, 'INTERFACE' = C'/INTFC:' & 'INTERFACE' $
+
+            PERFORM, 'NetConfigNAM' ('ACTION', 'INTERFACE', 'RESPONSE') $
+
+          END, 'RESET_PORT' $
+C $
+E000010   OUTPUT, C'*** BEGIN ATLAS PROGRAM ***\LF\\LF\' $
+          OUTPUT, C'NOTE:  This NAM requires the GPATSUtils windows service to be installed and running\LF\' $
+          OUTPUT, C'Upon completion of successful attempt, NAM will return a <int> 0\LF\' $
+          OUTPUT, C'Press ENTER when ready\LF\' $
+          INPUT, GO-NOGO $
+
+
+     15   OUTPUT, C'Configuring','INTERFACE',C' to use a static IP...' $
+
+     20   PERFORM, 'SET_STATIC_IP'('INTERFACE', 'ADDRESS', 'NETMASK', 'GATEWAY')
+            RESULT('RETVALUE') $
+
+     25   OUTPUT, 'RETVALUE' $
+
+          INPUT, GO-NOGO $
+
+          CALCULATE, 'RETVALUE' = -1 $
+
+     30   OUTPUT, C'Configuring','INTERFACE',C' to use DHCP...' $
+
+     35   PERFORM, 'SET_DHCP'('INTERFACE')
+            RESULT('RETVALUE') $
+
+     40   OUTPUT, 'RETVALUE' $
+
+          INPUT, GO-NOGO $
+
+          CALCULATE, 'RETVALUE' = -1 $
+
+     45   OUTPUT, C'Resetting ','INTERFACE',C' to default config...' $
+
+     50   PERFORM, 'RESET_PORT'('INTERFACE')
+            RESULT('RETVALUE') $
+
+     55   OUTPUT, 'RETVALUE' $
+
+     90   FINISH $
+C $
+ 999999 TERMINATE, ATLAS PROGRAM 'NET' $

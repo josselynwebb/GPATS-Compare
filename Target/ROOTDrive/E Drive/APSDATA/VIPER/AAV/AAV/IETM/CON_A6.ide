@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="CON-A6" LABEL="IX"><?Pub Dtl?><?BUTTON POS='1' SHOW='Y' LABEL='TPS' TYPE='PROGRAM' link='C:\USR\TYX\BIN\WRTS.EXE E:\AAV_\ASSAULT_AMPHIBIOUS_VEHICLE\DPCM_ASSY_A6_CCA_2618582-1\TP_AAV_CON_A6.OBJ'?><?BUTTON POS='2' SHOW='Y' LABEL='TPI' TYPE='FRAME' LINK='!./c4s09.ide!c4s09'?><?BUTTON POS='3' SHOW='Y' LABEL='LAYOUT' TYPE='PIC' LINK='./graphics/CON_A6/ASSY/CON_A6_1.pic' ?><?BUTTON POS='4' SHOW='Y' LABEL='SCHEM' TYPE='PIC' LINK='./graphics/CON_A6/SCHEM/CON_A6_Sch_1.pic'?><?BUTTON POS='5' SHOW='Y' LABEL='PL' TYPE='FRAME' LINK='!./c3s09.ide!Table3-10'?><?BUTTON POS='6' SHOW='Y' LABEL='WL' TYPE='PIC' LINK='./graphics/ITA/SCHEM/ITA_SCH_1.pic'?><?BUTTON POS='7' SHOW='Y' LABEL='THEORY' TYPE='FRAME' LINK='!./c3s09.ide!c3s09'?><?FRAME ID="5-9a" TITLE="Chapter 5. Maintenance, Section IX. ELTD FOR DPCM ASSEMBLY CCA, P/N 2618582-1" previous="./CON_A3.ide" next="./con_a7.ide"?><?TOCENTRY TITLE="SECTION IX. ELTD for the DPCM Assembly CCA, P/N 2618582-1" TOCLEVEL="2" LABEL="IX"?>
+<TITLE>SECTION IX. ELTD for the DPCM Assembly CCA, P/N 2618582-1</TITLE>
+<PARA0 ID="P5-9" LABEL="5.9"><?TOCENTRY TITLE="5.9 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>This section provides an ELTD for the DPCM Assembly CCA, P/N 2618582-1.</PARA>
+<PARA><?hotspot linktype="execute" href="./ELTD/ELTD-DPCM-2618582-1.PDF"?>DPCM CCA ELTD<?endhotspot?></PARA></PARA0></SECTION>

@@ -1,0 +1,1964 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<?APT StylesheetID Title="USMC Arbortext Stylesheet" Description="Stylesheet for viewing in Arbortext Editor" CompositionTypes="" StylerVersion="6.02"?>
+<Styler xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://www.arbortext.com/namespace/doctypes/styler"
+xmlns:atidlm="http://www.arbortext.com/namespace/atidlm"
+xmlns:ch="http://www.arbortext.com/namespace/chunker"
+xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements"
+xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements"
+xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements"
+xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements"
+xmlns:_acl="java:com.arbortext.epic.Acl"
+xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript"
+xmlns:saxon="http://saxon.sf.net/"><StyleSheetInfo minorVersion="2"
+printPdfEngine="APP" stylerVersion="6"><ElementSet/><ChunkConfig/>
+<HtmlOutputConfig cssStyleLocation="inHtmlHead"
+cssStyling="allProperties" listItemsAsTables="yes" output="htmlfile"
+outputXhtml="no" titlesAsTables="yes"/><HtmlOutputConfig
+cssStyleLocation="externalCssFile" cssStyling="allProperties"
+listItemsAsTables="yes" output="web" outputXhtml="no"
+titlesAsTables="no"/><HtmlOutputConfig
+cssStyleLocation="externalCssFile" cssStyling="allProperties"
+listItemsAsTables="yes" output="epub" outputHtml5="yes"
+outputXhtml="yes" titlesAsTables="no"/><HtmlOutputConfig
+cssStyleLocation="externalCssFile" cssStyling="allProperties"
+listItemsAsTables="yes" output="htmlhelp" outputXhtml="no"
+titlesAsTables="no"/><HtmlOutputConfig
+cssStyleLocation="externalCssFile" cssStyling="allProperties"
+listItemsAsTables="yes" output="dmp" outputXhtml="no"
+titlesAsTables="no"/><Language defaultLanguage="en"
+langAttribute="xml:lang" langDetermination="attribute"
+multiLanguage="yes"><GentextLanguage gentextLanguageName="en"/>
+<LanguageMap sourceLanguage="de" targetLanguage="de-1996"/><LanguageMap
+sourceLanguage="en" targetLanguage="en-US"/></Language></StyleSheetInfo>
+<PropertySets><PropertySet propertySetId="bold"><BaseProperties><Font
+weight="bold"/></BaseProperties></PropertySet><PropertySet
+comment="Edited source is used to get as close as possible to the desired effect for all outputs."
+propertySetId="box"><BaseProperties><Highlight shading="#F0F0F0"/>
+</BaseProperties><EditedSource minorVersion="23" sourceType="app"
+stylerVersion="5"><OnEnter type="application/x-javascript"
+xml:space="preserve"><![CDATA[//APP source for applying boxing around a block. This should not be applied to inline elements.
+var block = arguments[0];
+var paragraph = block.defaultParagraph;
+var style = block.defaultStyle;
+
+//Apply a -2.999pt rule to the block to offset the main rule
+var rule = new fRule();
+with (rule) {
+   thickness = "-2.999pt";
+   lineColor = "None";
+   sides = "tblr";
+}
+block.rules.addRule(rule);
+
+//Apply the main rule to the block
+var rule = new fRule();
+with (rule) {
+   //Line thickness
+   thickness = "1pt";
+   //Line colour
+   lineColor = "Black";
+   //Sides (top, bottom, left and right)
+   sides = "tblr";
+   //Fill colour specifies background for boxing
+   fillColor = "#F0F0F0";
+}
+block.rules.addRule(rule);
+
+//Apply a final rule to the block to remove the offset
+var rule = new fRule();
+with (rule) {
+   thickness = "2pt";
+   lineColor = "None";
+   sides = "tblr";
+}
+block.rules.addRule(rule);
+
+]]></OnEnter>
+<OnExit type="application/x-javascript" xml:space="preserve"><![CDATA[/* commands to execute before leaving a node go here */
+]]></OnExit></EditedSource><EditedSource sourceType="fosi">&lt;charsubset
+charsubsetid="box">
+&lt;boxing toffset="3pt" boffset="4pt" loffset="2pt" roffset="2pt"
+thick="1pt" inclr="#F0F0F0"/>&lt;/charsubset></EditedSource>
+<EditedSource sourceType="xslFo">&lt;xsl:template name="ps-box"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">     &lt;xsl:attribute
+name="background-color">#F0F0F0&lt;/xsl:attribute>     &lt;xsl:attribute
+name="border">thin solid&lt;/xsl:attribute>   &lt;xsl:attribute name="padding"
+>2pt&lt;/xsl:attribute>   &lt;/xsl:template></EditedSource>
+<EditedSource sourceType="xslFoRtf">&lt;xsl:template name="ps-box"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">     &lt;xsl:attribute
+name="background-color">#F0F0F0&lt;/xsl:attribute>     &lt;xsl:attribute
+name="border">thin solid&lt;/xsl:attribute>   &lt;xsl:attribute name="padding"
+>2pt&lt;/xsl:attribute>   &lt;/xsl:template></EditedSource>
+<EditedSource sourceType="xslHtml">&lt;xsl:variable name="ps-box"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">background-color:
+#F0F0F0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslDmp">&lt;xsl:variable name="ps-box"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">background-color:
+#F0F0F0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslHtmlHelp">&lt;xsl:variable name="ps-box"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">background-color:
+#F0F0F0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslEpub">&lt;xsl:variable name="ps-box"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">background-color:
+#F0F0F0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslWeb">&lt;xsl:variable name="ps-box"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">background-color:
+#F0F0F0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+</PropertySet><PropertySet propertySetId="customTableTitle">
+<BaseProperties><Font size="14pt" weight="bold"/></BaseProperties>
+</PropertySet><PropertySet
+comment="Edited source is used to get as close as possible to the desired effect for HTML outputs."
+propertySetId="double-underline"><BaseProperties><Highlight
+textUnderlineStyle="double"/></BaseProperties><EditedSource
+sourceType="xslHtml">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslHtmlHelp">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslDmp">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslEpub">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslWeb">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource></PropertySet>
+<PropertySet propertySetId="Footnote_font"><BaseProperties><Font
+family="Serif" italic="no" size="12pt" weight="normal"/><Highlight
+allcaps="no" color="#000000" shading="#FFFFFF" smallcaps="no"
+strikeThrough="no" textUnderlineStyle="none"/></BaseProperties>
+</PropertySet><PropertySet propertySetId="Index_grouphead_space">
+<BaseProperties><SpaceAfter minimum="0.3pc" optimum="0.5pc"
+precedence="medium"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Index_group_space"><BaseProperties><SpaceBefore
+maximum="1.6pc" minimum="1.2pc" optimum="1.5pc" precedence="medium"/>
+</BaseProperties></PropertySet><PropertySet propertySetId="italic">
+<BaseProperties><Font italic="yes"/></BaseProperties></PropertySet>
+<PropertySet propertySetId="Link"><BaseProperties><Highlight
+color="#0000FF" underline="yes"/></BaseProperties></PropertySet>
+<PropertySet propertySetId="List_item_space"><BaseProperties>
+<SpaceBefore conditionality="discard" maximum="8pt" minimum="4pt"
+optimum="6pt" precedence="medium"/><SpaceAfter maximum="8pt"
+minimum="4pt" optimum="6pt" precedence="medium"/><Breaks
+blockOrInline="block"/></BaseProperties></PropertySet><PropertySet
+comment="Edited source is used to get as close as possible to the desired effect for all outputs."
+propertySetId="overline"><BaseProperties></BaseProperties><EditedSource
+minorVersion="23" sourceType="app" stylerVersion="5"><OnEnter
+type="application/x-javascript" xml:space="preserve"><![CDATA[//APP source code edit to turn on overlines
+var block = arguments[0];
+var paragraph = block.defaultParagraph;
+var style = block.defaultStyle;
+
+//Use the inbuilt function to set the overline rule's properties to that used for underline. Use other line style names from Styler to set different line styles eg heavy, double, dot, jagged
+template.content.functions._app.LineStyle( style.overlineRule, 'underline' );
+
+//Set the overline colour to the font colour
+style.overlineRule.color = 'fontColor';
+
+]]></OnEnter>
+<OnExit type="application/x-javascript" xml:space="preserve"><![CDATA[/* commands to execute before leaving a node go here */
+]]></OnExit></EditedSource><EditedSource sourceType="fosi">&lt;charsubset
+charsubsetid="overline">&lt;highlt
+xscoring="1" xscorewt="0.05em" xscoreoff="-0.8em">&lt;/charsubset></EditedSource>
+<EditedSource sourceType="xslFo">&lt;xsl:template name="ps-overline">&lt;xsl:attribute
+name="text-decoration">overline&lt;/xsl:attribute>&lt;/xsl:template></EditedSource>
+<EditedSource sourceType="xslHtml">&lt;xsl:variable name="ps-overline">text-decoration:
+overline; &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslDmp">&lt;xsl:variable name="ps-overline">text-decoration:
+overline; &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslHtmlHelp">&lt;xsl:variable name="ps-overline">text-decoration:
+overline; &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslEpub">&lt;xsl:variable name="ps-overline">text-decoration:
+overline; &lt;/xsl:variable></EditedSource><EditedSource
+sourceType="xslWeb">&lt;xsl:variable name="ps-overline">text-decoration:
+overline; &lt;/xsl:variable></EditedSource></PropertySet><PropertySet
+comment="Edited source is used to get as close as possible to the desired effect for print/pdf output. For HTML outputs, this property set will simply result in a single line through text."
+propertySetId="overstrike-with-slash"><BaseProperties><Highlight
+textLineThroughStyle="wordsAndSpaces"/></BaseProperties><EditedSource
+minorVersion="23" sourceType="app" stylerVersion="5"><OnEnter
+type="application/x-javascript" xml:space="preserve"><![CDATA[//APP source code edit for overstrike-with-slash
+var block = arguments[0];
+var paragraph = block.defaultParagraph;
+var style = block.defaultStyle;
+
+with (style.strikethroughRule) {
+   color = "fontColor";
+   thickness = "0.76em";
+   offset = "-0.4em";
+   lineStyle = "_li_slashes1";
+   show = true;
+}
+
+]]></OnEnter>
+<OnExit type="application/x-javascript" xml:space="preserve"><![CDATA[/* commands to execute before leaving a node go here */
+]]></OnExit></EditedSource><EditedSource sourceType="fosi">&lt;charsubset
+charsubsetid="overstrike-with-slash">
+&lt;highlt scorechron="1" scorechr="/"/>&lt;/charsubset></EditedSource>
+<EditedSource sourceType="xslFo">&lt;xsl:template name="ps-overstrike-with-slash">
+    &lt;xsl:attribute name="atixslfoext:overstrike">true&lt;/xsl:attribute>
+    &lt;xsl:attribute name="atixslfoext:overstrike-character">/&lt;/xsl:attribute>
+  &lt;/xsl:template></EditedSource></PropertySet><PropertySet
+propertySetId="preformatted_font"><BaseProperties><Font
+family="Monospace"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Standard_space"><BaseProperties><SpaceBefore
+conditionality="discard" maximum="10pt" minimum="6pt" optimum="8pt"
+precedence="none"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Table_space"><BaseProperties><SpaceBefore maximum="1.2em"
+minimum="1.2em" optimum="1.2em" precedence="low"/></BaseProperties>
+</PropertySet><PropertySet propertySetId="Title_1"><BaseProperties>
+<Font size="20pt" weight="bold"/></BaseProperties></PropertySet>
+<PropertySet propertySetId="Title_2"><BaseProperties><Font size="18pt"
+weight="bold"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Title_3"><BaseProperties><Font size="16pt" weight="bold"/>
+</BaseProperties></PropertySet><PropertySet propertySetId="Title_4">
+<BaseProperties><Font size="14pt" weight="bold"/></BaseProperties>
+</PropertySet><PropertySet propertySetId="Title_5"><BaseProperties>
+<Font size="12pt" weight="bold"/></BaseProperties></PropertySet>
+<PropertySet propertySetId="Title_6"><BaseProperties><Font size="12pt"/>
+</BaseProperties></PropertySet><PropertySet propertySetId="Title_7">
+<BaseProperties><Font size="12pt" weight="bold"/></BaseProperties>
+</PropertySet><PropertySet propertySetId="Title_8"><BaseProperties>
+<Font size="12pt" weight="bold"/></BaseProperties></PropertySet>
+<PropertySet propertySetId="Title_9"><BaseProperties><Font size="12pt"
+weight="bold"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Title_alignment"><BaseProperties><Alignment align="left"
+lastLineAlign="relative"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Title_color"><BaseProperties><Highlight color="#0000FF"/>
+</BaseProperties></PropertySet><PropertySet
+propertySetId="Title_document"><BaseProperties><Font size="24pt"
+weight="bold"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Title_font"><BaseProperties><Font family="Sanserif"/>
+</BaseProperties></PropertySet><PropertySet
+propertySetId="Title_formalBlock"><BaseProperties><Font size="14pt"
+weight="bold"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Title_keeps"><BaseProperties><Hyphenation hyphenate="no"/>
+<Keep keepScope="withinColumn" together="7" withNext="7"/>
+</BaseProperties></PropertySet><PropertySet propertySetId="Title_space">
+<BaseProperties><LineSpacing lineHeight="1.1em"/><SpaceBefore
+maximum="2em" minimum="1em" optimum="1.5em" precedence="medium"/>
+<SpaceAfter maximum="1.5em" minimum="0.8em" optimum="1em"
+precedence="high"/></BaseProperties></PropertySet><PropertySet
+propertySetId="Title_TOC"><BaseProperties><Font size="18pt"
+weight="bold"/></BaseProperties></PropertySet></PropertySets><Elements>
+<Element name="After" style="unstyled"><Context priority="0"
+selector="After"><BaseProperties></BaseProperties></Context></Element>
+<Element name="Annual" style="unstyled"><Context priority="0"
+selector="Annual"><BaseProperties></BaseProperties></Context></Element>
+<Element name="AsRequired" style="unstyled"><Context priority="0"
+selector="AsRequired"><BaseProperties></BaseProperties></Context>
+</Element><Element name="AsSpecified" style="unstyled"><Context
+priority="0" selector="AsSpecified"><BaseProperties></BaseProperties>
+</Context></Element><Element name="Before" style="unstyled"><Context
+priority="0" selector="Before"><BaseProperties></BaseProperties>
+</Context></Element><Element
+description='This element wraps all "Add before" and "Add after" generated text.'
+name="_sfe:BeforeOrAfterText" style="nostyle"><Context priority="0"
+selector="_sfe:BeforeOrAfterText"><BaseProperties></BaseProperties>
+</Context></Element><Element
+description='This element wraps the content of each item whose content is inserted by Insert Element Content, when occurrence is "all".'
+name="_sfe:CollectionItem" style="inline"><Context priority="14.01"
+selector="_sfe:CollectionItem[1]"><BaseProperties></BaseProperties>
+</Context><Context priority="9.01"
+selector="_sfe:CollectionItem[position()>1 and not(position()=last())]">
+<BaseProperties><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="on"
+id="A6053b3f4-f2a6-4248-a9a3-df30ddac0f18"><_gte:Target lang="en"
+>, </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText></BaseProperties></Context><Context priority="4.01"
+selector="_sfe:CollectionItem[last()]"><BaseProperties><GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A1d2092f4-6b8f-4960-81d4-934068a5e00f"><_gte:Target lang="en"
+>, and </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText></BaseProperties></Context><Context priority="0"
+selector="_sfe:CollectionItem"><BaseProperties></BaseProperties>
+</Context></Element><Element
+description="This element wraps all generated cross-references."
+name="_sfe:CrossReference" style="inline"><Context priority="0"
+selector="_sfe:CrossReference"><BaseProperties></BaseProperties>
+</Context></Element><Element
+description="This element wraps title text in a cross-reference"
+name="_sfe:CrossReferenceTitle" style="inline"><Context priority="10"
+selector="_sfe:HeaderOrFooter//_sfe:CrossReferenceTitle">
+<BaseProperties></BaseProperties></Context><Context priority="0"
+selector="_sfe:CrossReferenceTitle"><BaseProperties
+propertySetReferences="italic"></BaseProperties></Context></Element>
+<Element name="Daily" style="unstyled"><Context priority="0"
+selector="Daily"><BaseProperties></BaseProperties></Context></Element>
+<Element name="During" style="unstyled"><Context priority="0"
+selector="During"><BaseProperties></BaseProperties></Context></Element>
+<Element name="EMPTY" style="unstyled"><Context priority="0"
+selector="EMPTY"><BaseProperties></BaseProperties></Context></Element>
+<Element name="FunctionalCheck" style="unstyled"><Context priority="0"
+selector="FunctionalCheck"><BaseProperties></BaseProperties></Context>
+</Element><Element
+description="This element wraps headers, footers, TOCs, cross references, and repeating titles generated text."
+name="_sfe:Gentext" style="nostyle"><Context priority="0"
+selector="_sfe:Gentext"><BaseProperties></BaseProperties></Context>
+</Element><Element
+description="This element wraps all headers and footers."
+name="_sfe:HeaderOrFooter" style="block"><Context priority="0"
+selector="_sfe:HeaderOrFooter"><BaseProperties><SpaceBefore
+maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+name="Hours" style="unstyled"><Context priority="0" selector="Hours">
+<BaseProperties></BaseProperties></Context></Element><Element
+description="This element wraps all indexes." name="_sfe:Index"
+style="block"><Context priority="0" selector="_sfe:Index">
+<BaseProperties><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Element><Element
+description="This element wraps the group head and all index entries for an alphabetic group."
+name="_sfe:IndexAlphaGroup_Main_Index" style="block"><Context
+priority="0" selector="_sfe:IndexAlphaGroup_Main_Index"><BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Element><Element
+description="This element contains the text of the last page number in a merged page number range."
+name="_sfe:IndexEndPage_Main_Index" style="inline"><Context priority="0"
+selector="_sfe:IndexEndPage_Main_Index"><BaseProperties><GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A32a2eb8c-c31f-4403-b25b-8733e1a25596"><_gte:Target lang="en"
+>–</_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText></BaseProperties></Context></Element><Element
+description="This element wraps an index entry at any level."
+name="_sfe:IndexEntry_Main_Index" style="block"><Context priority="30"
+selector="_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index">
+<BaseProperties><Indent firstLineIndent="*-0.5em" leftIndent="@1em"/>
+<Alignment align="left"/><Breaks blockOrInline="block"/>
+</BaseProperties></Context><Context priority="20"
+selector="_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index">
+<BaseProperties><Indent firstLineIndent="*-0.5em" leftIndent="@1em"/>
+<Alignment align="left"/><Breaks blockOrInline="block"/>
+</BaseProperties></Context><Context priority="10"
+selector="_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index">
+<BaseProperties><Indent firstLineIndent="*-0.5em" leftIndent="@1em"/>
+<Alignment align="left"/><Breaks blockOrInline="block"/>
+</BaseProperties></Context><Context priority="0"
+selector="_sfe:IndexEntry_Main_Index"><BaseProperties><Indent
+firstLineIndent="*-0.5em" lastLineRightIndent="0pt" leftIndent="@0.5em"
+rightIndent="@2pc"/><Alignment align="left"/><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+description="This element contains the heading for a group of index entries."
+name="_sfe:IndexGroupHead_Main_Index" style="block"><Context
+priority="0" selector="_sfe:IndexGroupHead_Main_Index"><BaseProperties>
+<Font family="Sanserif" size="14pt" weight="bold"/><Highlight
+allcaps="yes"/><Alignment align="left"/><SpaceAfter minimum="0.3pc"
+optimum="0.5pc" precedence="medium"/><Breaks blockOrInline="block"/>
+<Keep withNext="7"/></BaseProperties></Context></Element><Element
+description="This element contains the indexed text of an index entry."
+name="_sfe:IndexHeading_Main_Index" style="inline"><Context priority="0"
+selector="_sfe:IndexHeading_Main_Index"><BaseProperties><Keep
+keepScope="withinLine" together="3"/></BaseProperties></Context>
+</Element><Element
+description="This element wraps the page numbers or other locators of an index entry."
+name="_sfe:IndexLocators_Main_Index" style="inline"><Context
+priority="0" selector="_sfe:IndexLocators_Main_Index"><BaseProperties>
+<GeneratedText><AddBefore><_sfe:BeforeOrAfterText><_gte:Translate
+translate="off" id="A1525731d-c00e-492a-ad60-65a45603075b"><_gte:Target
+lang="en"><_gte:Leaders leaderType="space" leaderSpacing="3pt"
+lenType="fit" minLen="3em"/></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore></GeneratedText></BaseProperties></Context></Element>
+<Element
+description="This element contains the text of a single page number or other locator."
+name="_sfe:IndexPage_Main_Index" style="inline"><Context priority="2"
+selector="_sfe:IndexPage_Main_Index[position()>1]"><BaseProperties>
+<GeneratedText><AddBefore><_sfe:BeforeOrAfterText><_gte:Translate
+translate="on" id="A0220713a-bc9a-4243-a54b-a5a28764d807"><_gte:Target
+lang="en">, </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore></GeneratedText></BaseProperties></Context><Context
+priority="0" selector="_sfe:IndexPage_Main_Index"><BaseProperties>
+</BaseProperties></Context></Element><Element
+description="This element wraps a group head and all index entries that follow alphabetic entries."
+name="_sfe:IndexPostGroup_Main_Index" style="block"><Context
+priority="0" selector="_sfe:IndexPostGroup_Main_Index"><BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Element><Element
+description="This element wraps a group head and all index entries that precede alphabetic entries."
+name="_sfe:IndexPreGroup_Main_Index" style="block"><Context priority="0"
+selector="_sfe:IndexPreGroup_Main_Index"><BaseProperties><SpaceBefore
+maximum="1.6pc" minimum="1.2pc" optimum="1.5pc" precedence="medium"/>
+<Breaks blockOrInline="block"/></BaseProperties></Context></Element>
+<Element
+description="This element wraps the group head and all index entries for a group that encompasses a range of characters."
+name="_sfe:IndexRangeGroup_Main_Index" style="block"><Context
+priority="0" selector="_sfe:IndexRangeGroup_Main_Index"><BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Element><Element
+description='This element contains the text of a "See Also" reference in an index entry.'
+name="_sfe:IndexSeeAlso_Main_Index" style="block"><Context priority="0"
+selector="_sfe:IndexSeeAlso_Main_Index"><BaseProperties><Indent
+firstLineIndent="*-1.5em" leftIndent="@3em"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="on"
+id="A35343db0-f2ef-41f2-8c99-5a71adf951a6"><_gte:Target lang="en"
+><_gte:Font Posture="italic">See also </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore></GeneratedText></BaseProperties>
+<OutputProperties output="rtf"><Breaks blockOrInline="inline"/>
+<GeneratedText><AddBefore><_sfe:BeforeOrAfterText><_gte:Translate
+translate="on" id="Adecfcd60-6009-4264-a3fd-f45c2e5b7df6"><_gte:Target
+lang="en">, <_gte:Font Posture="italic">See also </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore></GeneratedText>
+</OutputProperties></Context></Element><Element
+description='This element contains the text of a "See" reference in an index entry.'
+name="_sfe:IndexSee_Main_Index" style="inline"><Context priority="0"
+selector="_sfe:IndexSee_Main_Index"><BaseProperties><GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab9c23649-eb2b-46a7-90f3-6c455071780d"><_gte:Target lang="en"
+>, <_gte:Font Posture="italic">See </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore></GeneratedText></BaseProperties>
+<OutputProperties output="rtf"><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="on"
+id="A884bcdc4-3145-4b30-931b-146f19407601"><_gte:Target lang="en"
+><_gte:Font Posture="italic">See </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore></GeneratedText>
+</OutputProperties></Context></Element><Element
+description="This element contains the heading for a sub-group of index entries (Chinese modes 1 and 3 only)."
+name="_sfe:IndexSubGroupHead_Main_Index" style="block"><Context
+priority="0" selector="_sfe:IndexSubGroupHead_Main_Index">
+<BaseProperties><Font size="14pt" weight="bold"/><Highlight
+allcaps="yes"/><Alignment align="left"/><SpaceBefore maximum="2pc"
+minimum="2pc" optimum="2pc" precedence="high"/><Breaks
+blockOrInline="block"/><Keep withNext="7"/></BaseProperties></Context>
+</Element><Element description="This element wraps an index."
+name="_sfe:Index_Main_Index" style="block"><Context priority="0"
+selector="_sfe:Index_Main_Index"><BaseProperties><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+name="Monthly" style="unstyled"><Context priority="0" selector="Monthly">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="NewElement" style="unstyled"><Context priority="0"
+selector="NewElement"><BaseProperties></BaseProperties></Context>
+</Element><Element name="Operator" style="unstyled"><Context
+priority="0" selector="Operator"><BaseProperties></BaseProperties>
+</Context></Element><Element name="Organizational" style="unstyled">
+<Context priority="0" selector="Organizational"><BaseProperties>
+</BaseProperties></Context></Element><Element name="Quarterly"
+style="unstyled"><Context priority="0" selector="Quarterly">
+<BaseProperties></BaseProperties></Context></Element><Element
+description="This element wraps repeating titles (also known as continued titles)."
+name="_sfe:RepeatingTitle" style="block"><Context priority="0"
+selector="_sfe:RepeatingTitle"><BaseProperties><SpaceAfter
+conditionality="keep" optimum="18pt"/><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Element><Element
+description="This element wraps repeating bottom titles (also known as bottom continued titles)."
+name="_sfe:RepeatingTitleBottom" style="block"><Context priority="0"
+selector="_sfe:RepeatingTitleBottom"><BaseProperties><SpaceBefore
+conditionality="keep" optimum="18pt"/><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Element><Element name="SemiAnnual"
+style="unstyled"><Context priority="0" selector="SemiAnnual">
+<BaseProperties></BaseProperties></Context></Element><Element
+description="This element wraps all tables of contents."
+name="_sfe:TableOfContents" style="block"><Context priority="0"
+selector="_sfe:TableOfContents"><BaseProperties></BaseProperties>
+</Context></Element><Element name="Weekly" style="unstyled"><Context
+priority="0" selector="Weekly"><BaseProperties></BaseProperties>
+</Context></Element><Element name="action" style="unstyled"><Context
+priority="0" selector="action"><BaseProperties></BaseProperties>
+</Context></Element><Element name="address" style="unstyled"><Context
+priority="0" selector="address"><BaseProperties></BaseProperties>
+</Context></Element><Element name="allocation-chart-entry"
+style="unstyled"><Context priority="0" selector="allocation-chart-entry">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="allocation-chart-head" style="unstyled"><Context priority="0"
+selector="allocation-chart-head"><BaseProperties></BaseProperties>
+</Context></Element><Element name="appendix" style="unstyled"><Context
+priority="0" selector="appendix"><BaseProperties></BaseProperties>
+</Context></Element><Element name="applicconfig" style="unstyled">
+<Context priority="0" selector="applicconfig"><BaseProperties>
+</BaseProperties></Context></Element><Element name="appqty"
+style="unstyled"><Context priority="0" selector="appqty">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="assembly" style="unstyled"><Context priority="0"
+selector="assembly"><BaseProperties></BaseProperties></Context>
+</Element><Element name="audio" style="unstyled"><Context priority="0"
+selector="audio"><BaseProperties></BaseProperties></Context></Element>
+<Element name="authrty" style="unstyled"><Context priority="0"
+selector="authrty"><BaseProperties></BaseProperties></Context></Element>
+<Element name="body" style="unstyled"><Context priority="0"
+selector="body"><BaseProperties></BaseProperties></Context></Element>
+<Element name="brk" style="unstyled"><Context priority="0"
+selector="brk"><BaseProperties></BaseProperties></Context></Element>
+<Element name="cablelist" style="unstyled"><Context priority="0"
+selector="cablelist"><BaseProperties></BaseProperties></Context>
+</Element><Element name="cablelist-entry" style="unstyled"><Context
+priority="0" selector="cablelist-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="cablelist-head"
+style="unstyled"><Context priority="0" selector="cablelist-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="cage" style="unstyled"><Context priority="0" selector="cage">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="cages" style="unstyled"><Context priority="0" selector="cages">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="cages-entry" style="unstyled"><Context priority="0"
+selector="cages-entry"><BaseProperties></BaseProperties></Context>
+</Element><Element name="callout" style="unstyled"><Context priority="0"
+selector="callout"><BaseProperties></BaseProperties></Context></Element>
+<Element name="category" style="unstyled"><Context priority="0"
+selector="category"><BaseProperties></BaseProperties></Context>
+</Element><Element name="cause" style="unstyled"><Context priority="0"
+selector="cause"><BaseProperties></BaseProperties></Context></Element>
+<Element name="caution" style="unstyled"><Context priority="0"
+selector="caution"><BaseProperties></BaseProperties></Context></Element>
+<Element name="cclheader" style="unstyled"><Context priority="0"
+selector="cclheader"><BaseProperties></BaseProperties></Context>
+</Element><Element name="cclheaderentry" style="unstyled"><Context
+priority="0" selector="cclheaderentry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="cclitem" style="unstyled"><Context
+priority="0" selector="cclitem"><BaseProperties></BaseProperties>
+</Context></Element><Element name="cclitementry" style="unstyled">
+<Context priority="0" selector="cclitementry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="change"
+style="unstyled"><Context priority="0" selector="change">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="chapter" style="unstyled"><Context priority="0" selector="chapter">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="char-or-test" style="unstyled"><Context priority="0"
+selector="char-or-test"><BaseProperties></BaseProperties></Context>
+</Element><Element name="chart" style="unstyled"><Context priority="0"
+selector="chart"><BaseProperties></BaseProperties></Context></Element>
+<Element name="check" style="unstyled"><Context priority="0"
+selector="check"><BaseProperties></BaseProperties></Context></Element>
+<Element name="chgdate" style="unstyled"><Context priority="0"
+selector="chgdate"><BaseProperties></BaseProperties></Context></Element>
+<Element name="chglist" style="unstyled"><Context priority="0"
+selector="chglist"><BaseProperties></BaseProperties></Context></Element>
+<Element name="chgnum" style="unstyled"><Context priority="0"
+selector="chgnum"><BaseProperties></BaseProperties></Context></Element>
+<Element name="chgrec" style="unstyled"><Context priority="0"
+selector="chgrec"><BaseProperties></BaseProperties></Context></Element>
+<Element name="chgsheet" style="unstyled"><Context priority="0"
+selector="chgsheet"><BaseProperties></BaseProperties></Context>
+</Element><Element name="circuitsymcrossref" style="unstyled"><Context
+priority="0" selector="circuitsymcrossref"><BaseProperties>
+</BaseProperties></Context></Element><Element
+name="circuitsymcrossref-entry" style="unstyled"><Context priority="0"
+selector="circuitsymcrossref-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="circuitsymcrossref-test"
+style="unstyled"><Context priority="0"
+selector="circuitsymcrossref-test"><BaseProperties></BaseProperties>
+</Context></Element><Element name="circuitsymcrossref-testtitle"
+style="unstyled"><Context priority="0"
+selector="circuitsymcrossref-testtitle"><BaseProperties>
+</BaseProperties></Context></Element><Element name="circuitsymno"
+style="unstyled"><Context priority="0" selector="circuitsymno">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="cmdrchklst" style="unstyled"><Context priority="0"
+selector="cmdrchklst"><BaseProperties></BaseProperties></Context>
+</Element><Element name="cnt-function" style="unstyled"><Context
+priority="0" selector="cnt-function"><BaseProperties></BaseProperties>
+</Context></Element><Element name="cnt-indc" style="unstyled"><Context
+priority="0" selector="cnt-indc"><BaseProperties></BaseProperties>
+</Context></Element><Element name="cnt-indc-entry" style="unstyled">
+<Context priority="0" selector="cnt-indc-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="cnt-indc-head"
+style="unstyled"><Context priority="0" selector="cnt-indc-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="cnt-indc-tbl" style="unstyled"><Context priority="0"
+selector="cnt-indc-tbl"><BaseProperties></BaseProperties></Context>
+</Element><Element name="color" style="unstyled"><Context priority="0"
+selector="color"><BaseProperties></BaseProperties></Context></Element>
+<Element name="colspec" style="table"><Context priority="0"
+selector="colspec"><BaseProperties><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Element><Element name="common-name"
+style="unstyled"><Context priority="0" selector="common-name">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="component" style="unstyled"><Context priority="0"
+selector="component"><BaseProperties></BaseProperties></Context>
+</Element><Element name="component-assembly" style="unstyled"><Context
+priority="0" selector="component-assembly"><BaseProperties>
+</BaseProperties></Context></Element><Element name="component-symptom"
+style="unstyled"><Context priority="0" selector="component-symptom">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="compstocklist" style="unstyled"><Context priority="0"
+selector="compstocklist"><BaseProperties></BaseProperties></Context>
+</Element><Element name="condition" style="unstyled"><Context
+priority="0" selector="condition"><BaseProperties></BaseProperties>
+</Context></Element><Element name="connector" style="unstyled"><Context
+priority="0" selector="connector"><BaseProperties></BaseProperties>
+</Context></Element><Element name="consumable-materials-entry"
+style="unstyled"><Context priority="0"
+selector="consumable-materials-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="consumable-materials-head"
+style="unstyled"><Context priority="0"
+selector="consumable-materials-head"><BaseProperties></BaseProperties>
+</Context></Element><Element name="consumable-materials-list"
+style="unstyled"><Context priority="0"
+selector="consumable-materials-list"><BaseProperties></BaseProperties>
+</Context></Element><Element name="contents" style="unstyled"><Context
+priority="0" selector="contents"><BaseProperties></BaseProperties>
+</Context></Element><Element name="contractno" style="unstyled">
+<Context priority="0" selector="contractno"><BaseProperties>
+</BaseProperties></Context></Element><Element name="correct-action"
+style="unstyled"><Context priority="0" selector="correct-action">
+<BaseProperties></BaseProperties></Context></Element><Element name="csl"
+style="unstyled"><Context priority="0" selector="csl"><BaseProperties>
+</BaseProperties></Context></Element><Element name="ctrl-office"
+style="unstyled"><Context priority="0" selector="ctrl-office">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="custom" style="unstyled"><Context priority="0" selector="custom">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="databrk" style="unstyled"><Context priority="0" selector="databrk">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="date" style="unstyled"><Context priority="0" selector="date">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="date-of-determ" style="unstyled"><Context priority="0"
+selector="date-of-determ"><BaseProperties></BaseProperties></Context>
+</Element><Element name="def" style="unstyled"><Context priority="0"
+selector="def"><BaseProperties></BaseProperties></Context></Element>
+<Element name="defhead" style="unstyled"><Context priority="0"
+selector="defhead"><BaseProperties></BaseProperties></Context></Element>
+<Element name="deflist" style="unstyled"><Context priority="0"
+selector="deflist"><BaseProperties></BaseProperties></Context></Element>
+<Element name="descrip" style="unstyled"><Context priority="0"
+selector="descrip"><BaseProperties></BaseProperties></Context></Element>
+<Element name="descriptitle" style="unstyled"><Context priority="0"
+selector="descriptitle"><BaseProperties></BaseProperties></Context>
+</Element><Element name="dialink" style="unstyled"><Context priority="0"
+selector="dialink"><BaseProperties></BaseProperties></Context></Element>
+<Element name="direction" style="unstyled"><Context priority="0"
+selector="direction"><BaseProperties></BaseProperties></Context>
+</Element><Element name="dista" style="unstyled"><Context priority="0"
+selector="dista"><BaseProperties></BaseProperties></Context></Element>
+<Element name="distb" style="unstyled"><Context priority="0"
+selector="distb"><BaseProperties></BaseProperties></Context></Element>
+<Element name="distc" style="unstyled"><Context priority="0"
+selector="distc"><BaseProperties></BaseProperties></Context></Element>
+<Element name="distd" style="unstyled"><Context priority="0"
+selector="distd"><BaseProperties></BaseProperties></Context></Element>
+<Element name="diste" style="unstyled"><Context priority="0"
+selector="diste"><BaseProperties></BaseProperties></Context></Element>
+<Element name="distf" style="unstyled"><Context priority="0"
+selector="distf"><BaseProperties></BaseProperties></Context></Element>
+<Element name="distrib" style="unstyled"><Context priority="0"
+selector="distrib"><BaseProperties></BaseProperties></Context></Element>
+<Element name="distribution" style="unstyled"><Context priority="0"
+selector="distribution"><BaseProperties></BaseProperties></Context>
+</Element><Element name="distributionli" style="unstyled"><Context
+priority="0" selector="distributionli"><BaseProperties></BaseProperties>
+</Context></Element><Element name="docmarinecorpssl3" style="unstyled">
+<Context priority="0" selector="docmarinecorpssl3"><BaseProperties>
+</BaseProperties></Context></Element><Element name="docmarinecorpssl4"
+style="unstyled"><Context priority="0" selector="docmarinecorpssl4">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="docmarinecorpstm" style="document"><Context priority="0"
+selector="docmarinecorpstm"><BaseProperties><Breaks
+blockOrInline="block" newPageSet="Default_Page_Set" startNew="page"/>
+</BaseProperties></Context></Element><Element name="docmfr"
+style="unstyled"><Context priority="0" selector="docmfr">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="docno" style="unstyled"><Context priority="0" selector="docno">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="docpartn" style="unstyled"><Context priority="0"
+selector="docpartn"><BaseProperties></BaseProperties></Context>
+</Element><Element name="doctype" style="unstyled"><Context priority="0"
+selector="doctype"><BaseProperties></BaseProperties></Context></Element>
+<Element name="downgrd" style="unstyled"><Context priority="0"
+selector="downgrd"><BaseProperties></BaseProperties></Context></Element>
+<Element name="eco" style="unstyled"><Context priority="0"
+selector="eco"><BaseProperties></BaseProperties></Context></Element>
+<Element name="emphasis" style="unstyled"><Context priority="0"
+selector="emphasis"><BaseProperties></BaseProperties></Context>
+</Element><Element name="enditem" style="unstyled"><Context priority="0"
+selector="enditem"><BaseProperties></BaseProperties></Context></Element>
+<Element name="entry" style="table"><Context priority="0"
+selector="entry"><BaseProperties><Indent firstLineIndent="*0pt"
+leftIndent="0pt" rightIndent="0pt"/><SpaceBefore maximum="0pt"
+minimum="0pt" optimum="0pt" precedence="force"/><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+name="entrypara" style="unstyled"><Context priority="0"
+selector="entrypara"><BaseProperties></BaseProperties></Context>
+</Element><Element name="entrytbl" style="table"><Context priority="0"
+selector="entrytbl"><BaseProperties><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Element><Element name="eqpttype"
+style="unstyled"><Context priority="0" selector="eqpttype">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="equip-not-ready" style="unstyled"><Context priority="0"
+selector="equip-not-ready"><BaseProperties></BaseProperties></Context>
+</Element><Element name="equipconds" style="unstyled"><Context
+priority="0" selector="equipconds"><BaseProperties></BaseProperties>
+</Context></Element><Element name="equipqty" style="unstyled"><Context
+priority="0" selector="equipqty"><BaseProperties></BaseProperties>
+</Context></Element><Element name="esm-list" style="unstyled"><Context
+priority="0" selector="esm-list"><BaseProperties></BaseProperties>
+</Context></Element><Element name="esm-list-entry" style="unstyled">
+<Context priority="0" selector="esm-list-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="esm-list-head"
+style="unstyled"><Context priority="0" selector="esm-list-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="external" style="unstyled"><Context priority="0"
+selector="external"><BaseProperties></BaseProperties></Context>
+</Element><Element name="extref" style="unstyled"><Context priority="0"
+selector="extref"><BaseProperties></BaseProperties></Context></Element>
+<Element name="faultcode" style="unstyled"><Context priority="0"
+selector="faultcode"><BaseProperties></BaseProperties></Context>
+</Element><Element name="figalt" style="unstyled"><Context priority="0"
+selector="figalt"><BaseProperties></BaseProperties></Context></Element>
+<Element name="figindex" style="unstyled"><Context priority="0"
+selector="figindex"><BaseProperties></BaseProperties></Context>
+</Element><Element name="figno" style="unstyled"><Context priority="0"
+selector="figno"><BaseProperties></BaseProperties></Context></Element>
+<Element name="figure" style="unstyled"><Context priority="0"
+selector="figure"><BaseProperties></BaseProperties></Context></Element>
+<Element name="figurealts" style="unstyled"><Context priority="0"
+selector="figurealts"><BaseProperties></BaseProperties></Context>
+</Element><Element name="foldout" style="unstyled"><Context priority="0"
+selector="foldout"><BaseProperties></BaseProperties></Context></Element>
+<Element name="followon" style="unstyled"><Context priority="0"
+selector="followon"><BaseProperties></BaseProperties></Context>
+</Element><Element name="foreword" style="unstyled"><Context
+priority="0" selector="foreword"><BaseProperties></BaseProperties>
+</Context></Element><Element name="from" style="unstyled"><Context
+priority="0" selector="from"><BaseProperties></BaseProperties></Context>
+</Element><Element name="from-component-connector" style="unstyled">
+<Context priority="0" selector="from-component-connector">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="from-pin" style="unstyled"><Context priority="0"
+selector="from-pin"><BaseProperties></BaseProperties></Context>
+</Element><Element name="frontsl3" style="unstyled"><Context
+priority="0" selector="frontsl3"><BaseProperties></BaseProperties>
+</Context></Element><Element name="frontsl4" style="unstyled"><Context
+priority="0" selector="frontsl4"><BaseProperties></BaseProperties>
+</Context></Element><Element name="fronttm" style="unstyled"><Context
+priority="0" selector="fronttm"><BaseProperties></BaseProperties>
+</Context></Element><Element name="fsection" style="unstyled"><Context
+priority="0" selector="fsection"><BaseProperties></BaseProperties>
+</Context></Element><Element name="ftnote" style="unstyled"><Context
+priority="0" selector="ftnote"><BaseProperties></BaseProperties>
+</Context></Element><Element name="ftnref" style="unstyled"><Context
+priority="0" selector="ftnref"><BaseProperties></BaseProperties>
+</Context></Element><Element name="function" style="unstyled"><Context
+priority="0" selector="function"><BaseProperties></BaseProperties>
+</Context></Element><Element name="gensafeints" style="unstyled">
+<Context priority="0" selector="gensafeints"><BaseProperties>
+</BaseProperties></Context></Element><Element name="glossary"
+style="unstyled"><Context priority="0" selector="glossary">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="glosstitle" style="unstyled"><Context priority="0"
+selector="glosstitle"><BaseProperties></BaseProperties></Context>
+</Element><Element name="graphalt" style="unstyled"><Context
+priority="0" selector="graphalt"><BaseProperties></BaseProperties>
+</Context></Element><Element name="graphic" style="graphic">
+<GraphicDetails entity="boardno"></GraphicDetails><Context priority="0"
+selector="graphic"><BaseProperties
+propertySetReferences="Standard_space"><Breaks blockOrInline="inline"/>
+</BaseProperties></Context></Element><Element name="graphicalts"
+style="unstyled"><Context priority="0" selector="graphicalts">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="group-number" style="unstyled"><Context priority="0"
+selector="group-number"><BaseProperties></BaseProperties></Context>
+</Element><Element name="harness" style="unstyled"><Context priority="0"
+selector="harness"><BaseProperties></BaseProperties></Context></Element>
+<Element name="howtouse" style="unstyled"><Context priority="0"
+selector="howtouse"><BaseProperties></BaseProperties></Context>
+</Element><Element name="idinfo" style="unstyled"><Context priority="0"
+selector="idinfo"><BaseProperties></BaseProperties></Context></Element>
+<Element name="illuslist" style="unstyled"><Context priority="0"
+selector="illuslist"><BaseProperties></BaseProperties></Context>
+</Element><Element name="indent" style="unstyled"><Context priority="0"
+selector="indent"><BaseProperties></BaseProperties></Context></Element>
+<Element name="index" style="unstyled"><Context priority="0"
+selector="index"><BaseProperties></BaseProperties></Context></Element>
+<Element name="indication" style="unstyled"><Context priority="0"
+selector="indication"><BaseProperties></BaseProperties></Context>
+</Element><Element name="indxflag" style="unstyled"><Context
+priority="0" selector="indxflag"><BaseProperties></BaseProperties>
+</Context></Element><Element name="initialsetup" style="unstyled">
+<Context priority="0" selector="initialsetup"><BaseProperties>
+</BaseProperties></Context></Element><Element name="insertpg"
+style="unstyled"><Context priority="0" selector="insertpg">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="instruction" style="unstyled"><Context priority="0"
+selector="instruction"><BaseProperties></BaseProperties></Context>
+</Element><Element name="interval" style="unstyled"><Context
+priority="0" selector="interval"><BaseProperties></BaseProperties>
+</Context></Element><Element name="intro" style="unstyled"><Context
+priority="0" selector="intro"><BaseProperties></BaseProperties>
+</Context></Element><Element name="ipcmsg" style="unstyled"><Context
+priority="0" selector="ipcmsg"><BaseProperties></BaseProperties>
+</Context></Element><Element name="item" style="unstyled"><Context
+priority="0" selector="item"><BaseProperties></BaseProperties></Context>
+</Element><Element name="item-mat-action" style="unstyled"><Context
+priority="0" selector="item-mat-action"><BaseProperties>
+</BaseProperties></Context></Element><Element name="item-mat-action-3"
+style="unstyled"><Context priority="0" selector="item-mat-action-3">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="item-mat-action-4" style="unstyled"><Context priority="0"
+selector="item-mat-action-4"><BaseProperties></BaseProperties></Context>
+</Element><Element name="item-mat-action-5" style="unstyled"><Context
+priority="0" selector="item-mat-action-5"><BaseProperties>
+</BaseProperties></Context></Element><Element name="item-material"
+style="unstyled"><Context priority="0" selector="item-material">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="itemid" style="unstyled"><Context priority="0" selector="itemid">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="itemidlist" style="unstyled"><Context priority="0"
+selector="itemidlist"><BaseProperties></BaseProperties></Context>
+</Element><Element name="itemidlist-entries" style="unstyled"><Context
+priority="0" selector="itemidlist-entries"><BaseProperties>
+</BaseProperties></Context></Element><Element name="itemidlist-entry"
+style="unstyled"><Context priority="0" selector="itemidlist-entry">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="itemidlist-group" style="unstyled"><Context priority="0"
+selector="itemidlist-group"><BaseProperties></BaseProperties></Context>
+</Element><Element name="itemidlist-head" style="unstyled"><Context
+priority="0" selector="itemidlist-head"><BaseProperties>
+</BaseProperties></Context></Element><Element name="itemidlisttitle"
+style="unstyled"><Context priority="0" selector="itemidlisttitle">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="iteminspect" style="unstyled"><Context priority="0"
+selector="iteminspect"><BaseProperties></BaseProperties></Context>
+</Element><Element name="iteminspect-data" style="unstyled"><Context
+priority="0" selector="iteminspect-data"><BaseProperties>
+</BaseProperties></Context></Element><Element name="iteminspect-entries"
+style="unstyled"><Context priority="0" selector="iteminspect-entries">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="itemno" style="unstyled"><Context priority="0" selector="itemno">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="itemnocrossref" style="unstyled"><Context priority="0"
+selector="itemnocrossref"><BaseProperties></BaseProperties></Context>
+</Element><Element name="itemnocrossref-entry" style="unstyled">
+<Context priority="0" selector="itemnocrossref-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="itemnocrossref-head"
+style="unstyled"><Context priority="0" selector="itemnocrossref-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="jointtools" style="unstyled"><Context priority="0"
+selector="jointtools"><BaseProperties></BaseProperties></Context>
+</Element><Element name="jtprocedure" style="unstyled"><Context
+priority="0" selector="jtprocedure"><BaseProperties></BaseProperties>
+</Context></Element><Element name="key" style="unstyled"><Context
+priority="0" selector="key"><BaseProperties></BaseProperties></Context>
+</Element><Element name="legend" style="unstyled"><Context priority="0"
+selector="legend"><BaseProperties></BaseProperties></Context></Element>
+<Element name="lep" style="unstyled"><Context priority="0"
+selector="lep"><BaseProperties></BaseProperties></Context></Element>
+<Element name="letter" style="unstyled"><Context priority="0"
+selector="letter"><BaseProperties></BaseProperties></Context></Element>
+<Element name="lin" style="unstyled"><Context priority="0"
+selector="lin"><BaseProperties></BaseProperties></Context></Element>
+<Element name="list-of-comp" style="unstyled"><Context priority="0"
+selector="list-of-comp"><BaseProperties></BaseProperties></Context>
+</Element><Element name="list-of-comp-entry" style="unstyled"><Context
+priority="0" selector="list-of-comp-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="location"
+style="unstyled"><Context priority="0" selector="location">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="locentries" style="unstyled"><Context priority="0"
+selector="locentries"><BaseProperties></BaseProperties></Context>
+</Element><Element name="locsubsys" style="unstyled"><Context
+priority="0" selector="locsubsys"><BaseProperties></BaseProperties>
+</Context></Element><Element name="locsubsystem" style="unstyled">
+<Context priority="0" selector="locsubsystem"><BaseProperties>
+</BaseProperties></Context></Element><Element name="locsystem"
+style="unstyled"><Context priority="0" selector="locsystem">
+<BaseProperties></BaseProperties></Context></Element><Element name="lti"
+style="unstyled"><Context priority="0" selector="lti"><BaseProperties>
+</BaseProperties></Context></Element><Element name="ltidiscrep"
+style="unstyled"><Context priority="0" selector="ltidiscrep">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="ltientry" style="unstyled"><Context priority="0"
+selector="ltientry"><BaseProperties></BaseProperties></Context>
+</Element><Element name="ltiheader" style="unstyled"><Context
+priority="0" selector="ltiheader"><BaseProperties></BaseProperties>
+</Context></Element><Element name="ltiheaderitem" style="unstyled">
+<Context priority="0" selector="ltiheaderitem"><BaseProperties>
+</BaseProperties></Context></Element><Element name="ltiheaderrow"
+style="unstyled"><Context priority="0" selector="ltiheaderrow">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="ltiitem" style="unstyled"><Context priority="0" selector="ltiitem">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="ltilegend" style="unstyled"><Context priority="0"
+selector="ltilegend"><BaseProperties></BaseProperties></Context>
+</Element><Element name="ltilegendentry" style="unstyled"><Context
+priority="0" selector="ltilegendentry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="ltilegendrow" style="unstyled">
+<Context priority="0" selector="ltilegendrow"><BaseProperties>
+</BaseProperties></Context></Element><Element name="ltilist"
+style="unstyled"><Context priority="0" selector="ltilist">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="ltinomen" style="unstyled"><Context priority="0"
+selector="ltinomen"><BaseProperties></BaseProperties></Context>
+</Element><Element name="ltisubitem1" style="unstyled"><Context
+priority="0" selector="ltisubitem1"><BaseProperties></BaseProperties>
+</Context></Element><Element name="ltisubitem2" style="unstyled">
+<Context priority="0" selector="ltisubitem2"><BaseProperties>
+</BaseProperties></Context></Element><Element name="ltisubitem3"
+style="unstyled"><Context priority="0" selector="ltisubitem3">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="ltisubitem4" style="unstyled"><Context priority="0"
+selector="ltisubitem4"><BaseProperties></BaseProperties></Context>
+</Element><Element name="ltisubitem5" style="unstyled"><Context
+priority="0" selector="ltisubitem5"><BaseProperties></BaseProperties>
+</Context></Element><Element name="mac-c" style="unstyled"><Context
+priority="0" selector="mac-c"><BaseProperties></BaseProperties>
+</Context></Element><Element name="mac-d" style="unstyled"><Context
+priority="0" selector="mac-d"><BaseProperties></BaseProperties>
+</Context></Element><Element name="mac-f" style="unstyled"><Context
+priority="0" selector="mac-f"><BaseProperties></BaseProperties>
+</Context></Element><Element name="mac-h" style="unstyled"><Context
+priority="0" selector="mac-h"><BaseProperties></BaseProperties>
+</Context></Element><Element name="mac-i" style="unstyled"><Context
+priority="0" selector="mac-i"><BaseProperties></BaseProperties>
+</Context></Element><Element name="mac-o" style="unstyled"><Context
+priority="0" selector="mac-o"><BaseProperties></BaseProperties>
+</Context></Element><Element name="maintenance-allocation-chart"
+style="unstyled"><Context priority="0"
+selector="maintenance-allocation-chart"><BaseProperties>
+</BaseProperties></Context></Element><Element
+name="maintenance-category" style="unstyled"><Context priority="0"
+selector="maintenance-category"><BaseProperties></BaseProperties>
+</Context></Element><Element name="maintenancecode" style="unstyled">
+<Context priority="0" selector="maintenancecode"><BaseProperties>
+</BaseProperties></Context></Element><Element name="maintenancerepair"
+style="unstyled"><Context priority="0" selector="maintenancerepair">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="maintenanceuse" style="unstyled"><Context priority="0"
+selector="maintenanceuse"><BaseProperties></BaseProperties></Context>
+</Element><Element name="maintlvl" style="unstyled"><Context
+priority="0" selector="maintlvl"><BaseProperties></BaseProperties>
+</Context></Element><Element name="malfunc" style="unstyled"><Context
+priority="0" selector="malfunc"><BaseProperties></BaseProperties>
+</Context></Element><Element name="malfunctests" style="unstyled">
+<Context priority="0" selector="malfunctests"><BaseProperties>
+</BaseProperties></Context></Element><Element name="malfunctests-entry"
+style="unstyled"><Context priority="0" selector="malfunctests-entry">
+<BaseProperties></BaseProperties></Context></Element><Element name="man"
+style="unstyled"><Context priority="0" selector="man"><BaseProperties>
+</BaseProperties></Context></Element><Element name="manufact"
+style="unstyled"><Context priority="0" selector="manufact">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="marker" style="unstyled"><Context priority="0" selector="marker">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="material" style="unstyled"><Context priority="0"
+selector="material"><BaseProperties></BaseProperties></Context>
+</Element><Element name="materials" style="unstyled"><Context
+priority="0" selector="materials"><BaseProperties></BaseProperties>
+</Context></Element><Element name="mcprocedure" style="unstyled">
+<Context priority="0" selector="mcprocedure"><BaseProperties>
+</BaseProperties></Context></Element><Element name="mcprocedurename"
+style="unstyled"><Context priority="0" selector="mcprocedurename">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="media" style="unstyled"><Context priority="0" selector="media">
+<BaseProperties></BaseProperties></Context></Element><Element name="mfr"
+style="unstyled"><Context priority="0" selector="mfr"><BaseProperties>
+</BaseProperties></Context></Element><Element name="modelno"
+style="unstyled"><Context priority="0" selector="modelno">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="month" style="unstyled"><Context priority="0" selector="month">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="name" style="unstyled"><Context priority="0" selector="name">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="nomen" style="unstyled"><Context priority="0" selector="nomen">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="nomen-crossref-list" style="unstyled"><Context priority="0"
+selector="nomen-crossref-list"><BaseProperties></BaseProperties>
+</Context></Element><Element name="nomen-crossref-list-entry"
+style="unstyled"><Context priority="0"
+selector="nomen-crossref-list-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="nomen-crossref-list-head"
+style="unstyled"><Context priority="0"
+selector="nomen-crossref-list-head"><BaseProperties></BaseProperties>
+</Context></Element><Element name="note" style="unstyled"><Context
+priority="0" selector="note"><BaseProperties></BaseProperties></Context>
+</Element><Element name="notice" style="unstyled"><Context priority="0"
+selector="notice"><BaseProperties></BaseProperties></Context></Element>
+<Element name="nsn" style="unstyled"><Context priority="0"
+selector="nsn"><BaseProperties></BaseProperties></Context></Element>
+<Element name="nsn-index" style="unstyled"><Context priority="0"
+selector="nsn-index"><BaseProperties></BaseProperties></Context>
+</Element><Element name="nsn-index-entry" style="unstyled"><Context
+priority="0" selector="nsn-index-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="nsn-index-head"
+style="unstyled"><Context priority="0" selector="nsn-index-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="nsncrossref" style="unstyled"><Context priority="0"
+selector="nsncrossref"><BaseProperties></BaseProperties></Context>
+</Element><Element name="nsncrossref-entry" style="unstyled"><Context
+priority="0" selector="nsncrossref-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="nsncrossref-head"
+style="unstyled"><Context priority="0" selector="nsncrossref-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="oadr" style="unstyled"><Context priority="0" selector="oadr">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="official-name" style="unstyled"><Context priority="0"
+selector="official-name"><BaseProperties></BaseProperties></Context>
+</Element><Element name="oldsmrcode" style="unstyled"><Context
+priority="0" selector="oldsmrcode"><BaseProperties></BaseProperties>
+</Context></Element><Element name="oper-under-unusual" style="unstyled">
+<Context priority="0" selector="oper-under-unusual"><BaseProperties>
+</BaseProperties></Context></Element><Element name="organiz"
+style="unstyled"><Context priority="0" selector="organiz">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="other" style="unstyled"><Context priority="0" selector="other">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="para" style="unstyled"><Context priority="0" selector="para">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="para0" style="unstyled"><Context priority="0" selector="para0">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="paraalts" style="unstyled"><Context priority="0"
+selector="paraalts"><BaseProperties></BaseProperties></Context>
+</Element><Element name="paralt" style="unstyled"><Context priority="0"
+selector="paralt"><BaseProperties></BaseProperties></Context></Element>
+<Element name="parameter" style="unstyled"><Context priority="0"
+selector="parameter"><BaseProperties></BaseProperties></Context>
+</Element><Element name="part-desc" style="unstyled"><Context
+priority="0" selector="part-desc"><BaseProperties></BaseProperties>
+</Context></Element><Element name="partdesc" style="unstyled"><Context
+priority="0" selector="partdesc"><BaseProperties></BaseProperties>
+</Context></Element><Element name="partno" style="unstyled"><Context
+priority="0" selector="partno"><BaseProperties></BaseProperties>
+</Context></Element><Element name="partnocrossref" style="unstyled">
+<Context priority="0" selector="partnocrossref"><BaseProperties>
+</BaseProperties></Context></Element><Element
+name="partnocrossref-entry" style="unstyled"><Context priority="0"
+selector="partnocrossref-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="partnocrossref-head" style="unstyled">
+<Context priority="0" selector="partnocrossref-head"><BaseProperties>
+</BaseProperties></Context></Element><Element name="parts-index"
+style="unstyled"><Context priority="0" selector="parts-index">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="parts-index-entry" style="unstyled"><Context priority="0"
+selector="parts-index-entry"><BaseProperties></BaseProperties></Context>
+</Element><Element name="parts-index-head" style="unstyled"><Context
+priority="0" selector="parts-index-head"><BaseProperties>
+</BaseProperties></Context></Element><Element name="parts-inspection"
+style="unstyled"><Context priority="0" selector="parts-inspection">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="parts-inspection-entry" style="unstyled"><Context priority="0"
+selector="parts-inspection-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="parts-inspection-head"
+style="unstyled"><Context priority="0" selector="parts-inspection-head">
+<BaseProperties></BaseProperties></Context></Element><Element name="pcn"
+style="unstyled"><Context priority="0" selector="pcn"><BaseProperties>
+</BaseProperties></Context></Element><Element name="permissible-repair"
+style="unstyled"><Context priority="0" selector="permissible-repair">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="personnel" style="unstyled"><Context priority="0"
+selector="personnel"><BaseProperties></BaseProperties></Context>
+</Element><Element name="phrase" style="unstyled"><Context priority="0"
+selector="phrase"><BaseProperties></BaseProperties></Context></Element>
+<Element name="pmcs" style="unstyled"><Context priority="0"
+selector="pmcs"><BaseProperties></BaseProperties></Context></Element>
+<Element name="position" style="unstyled"><Context priority="0"
+selector="position"><BaseProperties></BaseProperties></Context>
+</Element><Element name="possible-remedy" style="unstyled"><Context
+priority="0" selector="possible-remedy"><BaseProperties>
+</BaseProperties></Context></Element><Element name="precaut"
+style="unstyled"><Context priority="0" selector="precaut">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="preface" style="unstyled"><Context priority="0" selector="preface">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="prior" style="unstyled"><Context priority="0" selector="prior">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="probable-causes" style="unstyled"><Context priority="0"
+selector="probable-causes"><BaseProperties></BaseProperties></Context>
+</Element><Element name="probable-scenario" style="unstyled"><Context
+priority="0" selector="probable-scenario"><BaseProperties>
+</BaseProperties></Context></Element><Element name="proc"
+style="unstyled"><Context priority="0" selector="proc"><BaseProperties>
+</BaseProperties></Context></Element><Element name="proc-entry"
+style="unstyled"><Context priority="0" selector="proc-entry">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="proc-head" style="unstyled"><Context priority="0"
+selector="proc-head"><BaseProperties></BaseProperties></Context>
+</Element><Element name="proc-tbl" style="unstyled"><Context
+priority="0" selector="proc-tbl"><BaseProperties></BaseProperties>
+</Context></Element><Element name="proc-title" style="unstyled">
+<Context priority="0" selector="proc-title"><BaseProperties>
+</BaseProperties></Context></Element><Element name="procedure"
+style="unstyled"><Context priority="0" selector="procedure">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="procedurename" style="unstyled"><Context priority="0"
+selector="procedurename"><BaseProperties></BaseProperties></Context>
+</Element><Element name="process" style="unstyled"><Context priority="0"
+selector="process"><BaseProperties></BaseProperties></Context></Element>
+<Element name="promul" style="unstyled"><Context priority="0"
+selector="promul"><BaseProperties></BaseProperties></Context></Element>
+<Element name="promulhead" style="unstyled"><Context priority="0"
+selector="promulhead"><BaseProperties></BaseProperties></Context>
+</Element><Element name="promulli" style="unstyled"><Context
+priority="0" selector="promulli"><BaseProperties></BaseProperties>
+</Context></Element><Element name="prtitle" style="unstyled"><Context
+priority="0" selector="prtitle"><BaseProperties></BaseProperties>
+</Context></Element><Element name="pslist" style="unstyled"><Context
+priority="0" selector="pslist"><BaseProperties></BaseProperties>
+</Context></Element><Element name="pubdate" style="unstyled"><Context
+priority="0" selector="pubdate"><BaseProperties></BaseProperties>
+</Context></Element><Element name="pubno" style="unstyled"><Context
+priority="0" selector="pubno"><BaseProperties></BaseProperties>
+</Context></Element><Element name="purpose" style="unstyled"><Context
+priority="0" selector="purpose"><BaseProperties></BaseProperties>
+</Context></Element><Element name="qty" style="unstyled"><Context
+priority="0" selector="qty"><BaseProperties></BaseProperties></Context>
+</Element><Element name="randlist" style="unstyled"><Context
+priority="0" selector="randlist"><BaseProperties></BaseProperties>
+</Context></Element><Element name="rear" style="unstyled"><Context
+priority="0" selector="rear"><BaseProperties></BaseProperties></Context>
+</Element><Element name="reason" style="unstyled"><Context priority="0"
+selector="reason"><BaseProperties></BaseProperties></Context></Element>
+<Element name="recommendation" style="unstyled"><Context priority="0"
+selector="recommendation"><BaseProperties></BaseProperties></Context>
+</Element><Element name="recoverabilitycode" style="unstyled"><Context
+priority="0" selector="recoverabilitycode"><BaseProperties>
+</BaseProperties></Context></Element><Element name="ref-code"
+style="unstyled"><Context priority="0" selector="ref-code">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="refdes" style="unstyled"><Context priority="0" selector="refdes">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="reference" style="unstyled"><Context priority="0"
+selector="reference"><BaseProperties></BaseProperties></Context>
+</Element><Element name="references" style="unstyled"><Context
+priority="0" selector="references"><BaseProperties></BaseProperties>
+</Context></Element><Element name="remarks" style="unstyled"><Context
+priority="0" selector="remarks"><BaseProperties></BaseProperties>
+</Context></Element><Element name="remarks-code" style="unstyled">
+<Context priority="0" selector="remarks-code"><BaseProperties>
+</BaseProperties></Context></Element><Element name="remarks-list"
+style="unstyled"><Context priority="0" selector="remarks-list">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="remarks-list-entry" style="unstyled"><Context priority="0"
+selector="remarks-list-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="remarks-list-head" style="unstyled">
+<Context priority="0" selector="remarks-list-head"><BaseProperties>
+</BaseProperties></Context></Element><Element name="remedy"
+style="unstyled"><Context priority="0" selector="remedy">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="removepg" style="unstyled"><Context priority="0"
+selector="removepg"><BaseProperties></BaseProperties></Context>
+</Element><Element name="repairparts" style="unstyled"><Context
+priority="0" selector="repairparts"><BaseProperties></BaseProperties>
+</Context></Element><Element name="repairpartslist" style="unstyled">
+<Context priority="0" selector="repairpartslist"><BaseProperties>
+</BaseProperties></Context></Element><Element
+name="repairpartslist-entry" style="unstyled"><Context priority="0"
+selector="repairpartslist-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="repairpartslist-group"
+style="unstyled"><Context priority="0" selector="repairpartslist-group">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="repairpartslist-head" style="unstyled"><Context priority="0"
+selector="repairpartslist-head"><BaseProperties></BaseProperties>
+</Context></Element><Element name="repairpartslist-title"
+style="unstyled"><Context priority="0" selector="repairpartslist-title">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="repl" style="unstyled"><Context priority="0" selector="repl">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="repl-fact" style="unstyled"><Context priority="0"
+selector="repl-fact"><BaseProperties></BaseProperties></Context>
+</Element><Element name="requirement" style="unstyled"><Context
+priority="0" selector="requirement"><BaseProperties></BaseProperties>
+</Context></Element><Element name="revnum" style="unstyled"><Context
+priority="0" selector="revnum"><BaseProperties></BaseProperties>
+</Context></Element><Element name="row" style="table"><Context
+priority="0" selector="row"><BaseProperties><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+name="rsection" style="unstyled"><Context priority="0"
+selector="rsection"><BaseProperties></BaseProperties></Context>
+</Element><Element name="safesum" style="unstyled"><Context priority="0"
+selector="safesum"><BaseProperties></BaseProperties></Context></Element>
+<Element name="seal" style="unstyled"><Context priority="0"
+selector="seal"><BaseProperties></BaseProperties></Context></Element>
+<Element name="section" style="unstyled"><Context priority="0"
+selector="section"><BaseProperties></BaseProperties></Context></Element>
+<Element name="seqlist" style="unstyled"><Context priority="0"
+selector="seqlist"><BaseProperties></BaseProperties></Context></Element>
+<Element name="serno" style="unstyled"><Context priority="0"
+selector="serno"><BaseProperties></BaseProperties></Context></Element>
+<Element name="setting" style="unstyled"><Context priority="0"
+selector="setting"><BaseProperties></BaseProperties></Context></Element>
+<Element name="setting-position" style="unstyled"><Context priority="0"
+selector="setting-position"><BaseProperties></BaseProperties></Context>
+</Element><Element name="sigblk" style="unstyled"><Context priority="0"
+selector="sigblk"><BaseProperties></BaseProperties></Context></Element>
+<Element name="signer" style="unstyled"><Context priority="0"
+selector="signer"><BaseProperties></BaseProperties></Context></Element>
+<Element name="size" style="unstyled"><Context priority="0"
+selector="size"><BaseProperties></BaseProperties></Context></Element>
+<Element name="smrcode" style="unstyled"><Context priority="0"
+selector="smrcode"><BaseProperties></BaseProperties></Context></Element>
+<Element name="sourcecode" style="unstyled"><Context priority="0"
+selector="sourcecode"><BaseProperties></BaseProperties></Context>
+</Element><Element name="sourceechelon" style="unstyled"><Context
+priority="0" selector="sourceechelon"><BaseProperties></BaseProperties>
+</Context></Element><Element name="sourcemethod" style="unstyled">
+<Context priority="0" selector="sourcemethod"><BaseProperties>
+</BaseProperties></Context></Element><Element name="spanspec"
+style="table"><Context priority="0" selector="spanspec"><BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties></Context></Element>
+<Element name="specenvironconds" style="unstyled"><Context priority="0"
+selector="specenvironconds"><BaseProperties></BaseProperties></Context>
+</Element><Element name="special-tools-entry" style="unstyled"><Context
+priority="0" selector="special-tools-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="special-tools-head"
+style="unstyled"><Context priority="0" selector="special-tools-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="special-tools-list" style="unstyled"><Context priority="0"
+selector="special-tools-list"><BaseProperties></BaseProperties>
+</Context></Element><Element name="specification" style="unstyled">
+<Context priority="0" selector="specification"><BaseProperties>
+</BaseProperties></Context></Element><Element name="spectools"
+style="unstyled"><Context priority="0" selector="spectools">
+<BaseProperties></BaseProperties></Context></Element><Element name="ssi"
+style="unstyled"><Context priority="0" selector="ssi"><BaseProperties>
+</BaseProperties></Context></Element><Element name="sssn"
+style="unstyled"><Context priority="0" selector="sssn"><BaseProperties>
+</BaseProperties></Context></Element><Element name="step"
+style="unstyled"><Context priority="0" selector="step"><BaseProperties>
+</BaseProperties></Context></Element><Element name="step1"
+style="unstyled"><Context priority="0" selector="step1"><BaseProperties>
+</BaseProperties></Context></Element><Element name="step1r"
+style="unstyled"><Context priority="0" selector="step1r">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step2" style="unstyled"><Context priority="0" selector="step2">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step2r" style="unstyled"><Context priority="0" selector="step2r">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step3" style="unstyled"><Context priority="0" selector="step3">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step3r" style="unstyled"><Context priority="0" selector="step3r">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step4" style="unstyled"><Context priority="0" selector="step4">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step4r" style="unstyled"><Context priority="0" selector="step4r">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step5" style="unstyled"><Context priority="0" selector="step5">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step5r" style="unstyled"><Context priority="0" selector="step5r">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step6" style="unstyled"><Context priority="0" selector="step6">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step6r" style="unstyled"><Context priority="0" selector="step6r">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step7" style="unstyled"><Context priority="0" selector="step7">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="step7r" style="unstyled"><Context priority="0" selector="step7r">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="stitle" style="unstyled"><Context priority="0" selector="stitle">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="sub-entry1" style="unstyled"><Context priority="0"
+selector="sub-entry1"><BaseProperties></BaseProperties></Context>
+</Element><Element name="sub-entry2" style="unstyled"><Context
+priority="0" selector="sub-entry2"><BaseProperties></BaseProperties>
+</Context></Element><Element name="sub-entry3" style="unstyled">
+<Context priority="0" selector="sub-entry3"><BaseProperties>
+</BaseProperties></Context></Element><Element name="sub-entry4"
+style="unstyled"><Context priority="0" selector="sub-entry4">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="subfig" style="unstyled"><Context priority="0" selector="subfig">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="subject" style="unstyled"><Context priority="0" selector="subject">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="subpara1" style="unstyled"><Context priority="0"
+selector="subpara1"><BaseProperties></BaseProperties></Context>
+</Element><Element name="subpara2" style="unstyled"><Context
+priority="0" selector="subpara2"><BaseProperties></BaseProperties>
+</Context></Element><Element name="subpara3" style="unstyled"><Context
+priority="0" selector="subpara3"><BaseProperties></BaseProperties>
+</Context></Element><Element name="subpara4" style="unstyled"><Context
+priority="0" selector="subpara4"><BaseProperties></BaseProperties>
+</Context></Element><Element name="subpara5" style="unstyled"><Context
+priority="0" selector="subpara5"><BaseProperties></BaseProperties>
+</Context></Element><Element name="subpara6" style="unstyled"><Context
+priority="0" selector="subpara6"><BaseProperties></BaseProperties>
+</Context></Element><Element name="subpara7" style="unstyled"><Context
+priority="0" selector="subpara7"><BaseProperties></BaseProperties>
+</Context></Element><Element name="subscrpt" style="unstyled"><Context
+priority="0" selector="subscrpt"><BaseProperties></BaseProperties>
+</Context></Element><Element name="subsection" style="unstyled">
+<Context priority="0" selector="subsection"><BaseProperties>
+</BaseProperties></Context></Element><Element name="subsystem"
+style="unstyled"><Context priority="0" selector="subsystem">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="subtask" style="unstyled"><Context priority="0" selector="subtask">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="supportequip" style="unstyled"><Context priority="0"
+selector="supportequip"><BaseProperties></BaseProperties></Context>
+</Element><Element name="supscrpt" style="unstyled"><Context
+priority="0" selector="supscrpt"><BaseProperties></BaseProperties>
+</Context></Element><Element name="symbol" style="graphic">
+<GraphicDetails entity="boardno"></GraphicDetails><Context priority="0"
+selector="symbol"><BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="inline"/></BaseProperties></Context></Element>
+<Element name="symptom" style="unstyled"><Context priority="0"
+selector="symptom"><BaseProperties></BaseProperties></Context></Element>
+<Element name="system" style="unstyled"><Context priority="0"
+selector="system"><BaseProperties></BaseProperties></Context></Element>
+<Element name="system-checks" style="unstyled"><Context priority="0"
+selector="system-checks"><BaseProperties></BaseProperties></Context>
+</Element><Element name="tabalt" style="unstyled"><Context priority="0"
+selector="tabalt"><BaseProperties></BaseProperties></Context></Element>
+<Element name="table" style="unstyled"><Context priority="0"
+selector="table"><BaseProperties></BaseProperties></Context></Element>
+<Element name="tablealts" style="unstyled"><Context priority="0"
+selector="tablealts"><BaseProperties></BaseProperties></Context>
+</Element><Element name="tablelist" style="unstyled"><Context
+priority="0" selector="tablelist"><BaseProperties></BaseProperties>
+</Context></Element><Element name="tamcn" style="unstyled"><Context
+priority="0" selector="tamcn"><BaseProperties></BaseProperties>
+</Context></Element><Element name="task" style="unstyled"><Context
+priority="0" selector="task"><BaseProperties></BaseProperties></Context>
+</Element><Element name="tasklist" style="unstyled"><Context
+priority="0" selector="tasklist"><BaseProperties></BaseProperties>
+</Context></Element><Element name="taskname" style="unstyled"><Context
+priority="0" selector="taskname"><BaseProperties></BaseProperties>
+</Context></Element><Element name="tasks" style="unstyled"><Context
+priority="0" selector="tasks"><BaseProperties></BaseProperties>
+</Context></Element><Element name="tbody" style="table"><Context
+priority="0" selector="tbody"><BaseProperties><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+name="term" style="unstyled"><Context priority="0" selector="term">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="termhead" style="unstyled"><Context priority="0"
+selector="termhead"><BaseProperties></BaseProperties></Context>
+</Element><Element name="test" style="unstyled"><Context priority="0"
+selector="test"><BaseProperties></BaseProperties></Context></Element>
+<Element name="testeq" style="unstyled"><Context priority="0"
+selector="testeq"><BaseProperties></BaseProperties></Context></Element>
+<Element name="tgroup" style="table"><Context priority="4"
+selector="tgroup[1]"><BaseProperties propertySetReferences="Table_space">
+<Breaks blockOrInline="block"/></BaseProperties></Context><Context
+priority="0" selector="tgroup"><BaseProperties><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+name="thead" style="table"><Context priority="0" selector="thead">
+<BaseProperties propertySetReferences="bold"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Element><Element
+name="title" style="unstyled"><Context priority="0" selector="title">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="titleblk" style="unstyled"><Context priority="0"
+selector="titleblk"><BaseProperties></BaseProperties></Context>
+</Element><Element name="to" style="unstyled"><Context priority="0"
+selector="to"><BaseProperties></BaseProperties></Context></Element>
+<Element name="to-component-connector" style="unstyled"><Context
+priority="0" selector="to-component-connector"><BaseProperties>
+</BaseProperties></Context></Element><Element name="to-pin"
+style="unstyled"><Context priority="0" selector="to-pin">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="tool" style="unstyled"><Context priority="0" selector="tool">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="toolno" style="unstyled"><Context priority="0" selector="toolno">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="tools" style="unstyled"><Context priority="0" selector="tools">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="tools-and-equipment" style="unstyled"><Context priority="0"
+selector="tools-and-equipment"><BaseProperties></BaseProperties>
+</Context></Element><Element name="tools-list" style="unstyled">
+<Context priority="0" selector="tools-list"><BaseProperties>
+</BaseProperties></Context></Element><Element name="tools-list-entry"
+style="unstyled"><Context priority="0" selector="tools-list-entry">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="tools-list-head" style="unstyled"><Context priority="0"
+selector="tools-list-head"><BaseProperties></BaseProperties></Context>
+</Element><Element name="tools-test-eqp" style="unstyled"><Context
+priority="0" selector="tools-test-eqp"><BaseProperties></BaseProperties>
+</Context></Element><Element name="tools-test-eqp-entry"
+style="unstyled"><Context priority="0" selector="tools-test-eqp-entry">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="tools-test-eqp-head" style="unstyled"><Context priority="0"
+selector="tools-test-eqp-head"><BaseProperties></BaseProperties>
+</Context></Element><Element name="topic" style="unstyled"><Context
+priority="0" selector="topic"><BaseProperties></BaseProperties>
+</Context></Element><Element name="torqueval" style="unstyled"><Context
+priority="0" selector="torqueval"><BaseProperties></BaseProperties>
+</Context></Element><Element name="troubleshoot-test" style="unstyled">
+<Context priority="0" selector="troubleshoot-test"><BaseProperties>
+</BaseProperties></Context></Element><Element name="troubleshootcheck"
+style="unstyled"><Context priority="0" selector="troubleshootcheck">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="troubleshootcheck-entry" style="unstyled"><Context priority="0"
+selector="troubleshootcheck-entry"><BaseProperties></BaseProperties>
+</Context></Element><Element name="troubleshootcheck-head"
+style="unstyled"><Context priority="0" selector="troubleshootcheck-head">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="troubleshootindx" style="unstyled"><Context priority="0"
+selector="troubleshootindx"><BaseProperties></BaseProperties></Context>
+</Element><Element name="troubleshootindx-entry" style="unstyled">
+<Context priority="0" selector="troubleshootindx-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element
+name="troubleshootindx-system" style="unstyled"><Context priority="0"
+selector="troubleshootindx-system"><BaseProperties></BaseProperties>
+</Context></Element><Element name="troubleshootindx-system-head"
+style="unstyled"><Context priority="0"
+selector="troubleshootindx-system-head"><BaseProperties>
+</BaseProperties></Context></Element><Element name="ts-reference"
+style="unstyled"><Context priority="0" selector="ts-reference">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="ts-system" style="unstyled"><Context priority="0"
+selector="ts-system"><BaseProperties></BaseProperties></Context>
+</Element><Element name="ts-system-head" style="unstyled"><Context
+priority="0" selector="ts-system-head"><BaseProperties></BaseProperties>
+</Context></Element><Element name="ts-table" style="unstyled"><Context
+priority="0" selector="ts-table"><BaseProperties></BaseProperties>
+</Context></Element><Element name="type" style="unstyled"><Context
+priority="0" selector="type"><BaseProperties></BaseProperties></Context>
+</Element><Element name="uid" style="unstyled"><Context priority="0"
+selector="uid"><BaseProperties></BaseProperties></Context></Element>
+<Element name="um" style="unstyled"><Context priority="0" selector="um">
+<BaseProperties></BaseProperties></Context></Element><Element name="uoc"
+style="unstyled"><Context priority="0" selector="uoc"><BaseProperties>
+</BaseProperties></Context></Element><Element name="url"
+style="unstyled"><Context priority="0" selector="url"><BaseProperties>
+</BaseProperties></Context></Element><Element name="use"
+style="unstyled"><Context priority="0" selector="use"><BaseProperties>
+</BaseProperties></Context></Element><Element name="user"
+style="unstyled"><Context priority="0" selector="user"><BaseProperties>
+</BaseProperties></Context></Element><Element name="verbatim"
+style="unstyled"><Context priority="0" selector="verbatim">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="version" style="unstyled"><Context priority="0" selector="version">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="video" style="unstyled"><Context priority="0" selector="video">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="volnum" style="unstyled"><Context priority="0" selector="volnum">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="volume" style="unstyled"><Context priority="0" selector="volume">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="warning" style="unstyled"><Context priority="0" selector="warning">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="warnpage" style="unstyled"><Context priority="0"
+selector="warnpage"><BaseProperties></BaseProperties></Context>
+</Element><Element name="warnsum" style="unstyled"><Context priority="0"
+selector="warnsum"><BaseProperties></BaseProperties></Context></Element>
+<Element name="wire-list" style="unstyled"><Context priority="0"
+selector="wire-list"><BaseProperties></BaseProperties></Context>
+</Element><Element name="wire-list-assembly" style="unstyled"><Context
+priority="0" selector="wire-list-assembly"><BaseProperties>
+</BaseProperties></Context></Element><Element
+name="wire-list-assembly-head" style="unstyled"><Context priority="0"
+selector="wire-list-assembly-head"><BaseProperties></BaseProperties>
+</Context></Element><Element name="wire-list-entry" style="unstyled">
+<Context priority="0" selector="wire-list-entry"><BaseProperties>
+</BaseProperties></Context></Element><Element name="wirename"
+style="unstyled"><Context priority="0" selector="wirename">
+<BaseProperties></BaseProperties></Context></Element><Element
+name="wrappertable" style="unstyled"><Context priority="0"
+selector="wrappertable"><BaseProperties></BaseProperties></Context>
+</Element><Element name="xelemloc" style="unstyled"><Context
+priority="0" selector="xelemloc"><BaseProperties></BaseProperties>
+</Context></Element><Element name="xlink" style="unstyled"><Context
+priority="0" selector="xlink"><BaseProperties></BaseProperties>
+</Context></Element><Element name="xref" style="unstyled"><Context
+priority="0" selector="xref"><BaseProperties></BaseProperties></Context>
+</Element></Elements><Styles
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://www.arbortext.com/namespace/doctypes/styler"
+xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements"
+xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements">
+<Style styleName="block"><Context priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Style><Style styleName="crossReference"><Context
+priority="0" selector="$elemname"><BaseProperties><GeneratedText>
+</GeneratedText></BaseProperties></Context></Style><Style
+styleName="customTable"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Table_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="customTableCell"><Context priority="0"
+selector="$customTable//$elemname"><BaseProperties><Indent
+firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/><SpaceBefore
+maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="customTableHeaderCell"><Context priority="0"
+selector="$customTable//$elemname"><BaseProperties><Indent
+firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/><SpaceBefore
+maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="customTableRow"><Context priority="0"
+selector="$customTable/$elemname"><BaseProperties><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="customTableHeaderRow"><Context priority="0"
+selector="$customTable/$elemname"><BaseProperties
+propertySetReferences="bold"><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="customTableTitle">
+<Context priority="10" selector="$customTable/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space customTableTitle">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A5ccfd71f-327a-4a9c-8ad8-283e38e972aa"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><RepeatingTitle><_sfe:Gentext
+><_sfe:RepeatingTitle><_gte:Translate translate="on"
+id="A0319abcf-ed36-462e-8dc6-34b51ecb6e97"><_gte:Target lang="en"
+><_gte:ElementLabelAndNumber/><_gte:Leaders leaderType="space"
+lenType="specified" specLen="1em"/><_gte:ElementContent/> (cont'd.)</_gte:Target
+></_gte:Translate></_sfe:RepeatingTitle></_sfe:Gentext></RepeatingTitle>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberScope="(none)" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Ad7888deb-4282-4789-b43c-b4157be73ef1"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context></Style><Style
+styleName="definitionList"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="definitionListItem"><Context priority="0"
+selector="$elemname"><BaseProperties
+propertySetReferences="List_item_space"><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="division1">
+<Context divisionLevel="1" priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="block" startNew="page"/>
+</BaseProperties></Context></Style><Style styleName="division2">
+<Context divisionLevel="2" priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="block" startNew="page"/>
+</BaseProperties></Context></Style><Style styleName="division3">
+<Context divisionLevel="3" priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Style><Style styleName="division4"><Context
+divisionLevel="4" priority="0" selector="$elemname"><BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties></Context></Style>
+<Style styleName="division5"><Context divisionLevel="5" priority="0"
+selector="$elemname"><BaseProperties><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="division6">
+<Context divisionLevel="6" priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Style><Style styleName="division7"><Context
+divisionLevel="7" priority="0" selector="$elemname"><BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties></Context></Style>
+<Style styleName="division8"><Context divisionLevel="8" priority="0"
+selector="$elemname"><BaseProperties><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="division9">
+<Context divisionLevel="9" priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Style><Style styleName="document"><Context priority="0"
+selector="$elemname"><BaseProperties><Breaks blockOrInline="block"
+newPageSet="Default_Page_Set" startNew="page"/></BaseProperties>
+</Context></Style><Style styleName="footnote"><Context priority="0"
+selector="$elemname"><BaseProperties><Hidden hidden="yes"/><Breaks
+blockOrInline="inline"/><Footnote
+footnoteModelReference="Default_Footnotes"/><GeneratedText><AddBefore
+><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A39b907e7-17ee-464f-94c3-262e74c9c130"><_gte:Target lang="en"
+><_gte:Font TypeSize=".69em" Offset=".33em"><_gte:ElementNumber/></_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="nothing" format="(CURRENT)"
+numberAlignment="left"><LabelAndNumber><_gte:Translate translate="off"
+id="Aa7dcf3af-92ec-4d19-a916-eeababcffcc9"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+footnoteModelReference="Default_Footnotes" priority="-0.005"
+selector="$elemname"><BaseProperties
+propertySetReferences="Footnote_font"><Indent firstLineIndent="*-1.5pc"
+leftIndent="@1.5pc"/><Alignment align="left"/><Breaks
+blockOrInline="block"/><Footnote
+footnoteModelReference="Default_Footnotes"/><GeneratedText><AddBefore
+><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A83f3359e-2f13-42ac-b28a-4553c2d18095"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+display="1."/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore><Numbering
+alignAt="0pt" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="left" tabtoAfter="1.5pc"><LabelAndNumber><_gte:Translate
+translate="off" id="A163a97ac-13bf-40d1-bfcd-6d2b018997f0"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context></Style><Style
+styleName="footnoteReference"><Context priority="0" selector="$elemname">
+<BaseProperties><Hidden hidden="yes"/><Breaks blockOrInline="inline"/>
+<Footnote footnoteIdRefAttrName="rid"
+footnoteModelReference="Default_Footnotes" referenceType="references"/>
+<GeneratedText><AddBefore><_sfe:BeforeOrAfterText><_gte:Translate
+translate="off" id="Aca7f4ab4-ccdd-4327-b19a-e33ea86c97f0"><_gte:Target
+lang="en"><_gte:Font TypeSize=".69em" Offset=".33em"><_gte:CrossReference
+refAttr="rid" xrefStyle="Number"/></_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore></GeneratedText></BaseProperties>
+</Context></Style><Style styleName="formalBlock"><Context priority="0"
+selector="$elemname"><BaseProperties
+propertySetReferences="Standard_space"><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="graphic"><Context
+priority="0" selector="$elemname"><BaseProperties
+propertySetReferences="Standard_space"><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="hidden"><Context
+priority="0" selector="$elemname"><BaseProperties><Hidden hidden="yes"/>
+</BaseProperties></Context></Style><Style styleName="index"><Context
+priority="0" selector="$elemname"><BaseProperties><Breaks
+blockOrInline="block" spanInto="2" startNew="page"/><GeneratedText>
+</GeneratedText></BaseProperties></Context></Style><Style
+styleName="indexTermAttributeModel"><Context priority="0"
+selector="$elemname"><BaseProperties><Hidden hidden="yes"/><Breaks
+blockOrInline="inline"/></BaseProperties></Context></Style><Style
+styleName="indexTermElementModel"><Context priority="0"
+selector="$elemname"><BaseProperties><Breaks blockOrInline="inline"/>
+</BaseProperties></Context></Style><Style
+styleName="indexTermNestingElementModel"><Context priority="20"
+selector="$elemname//$elemname//$elemname//$elemname"><BaseProperties>
+<Hidden hidden="yes"/><Breaks blockOrInline="inline"/></BaseProperties>
+</Context><Context priority="15"
+selector="$elemname//$elemname//$elemname"><BaseProperties><Hidden
+hidden="yes"/><Breaks blockOrInline="inline"/></BaseProperties>
+</Context><Context priority="10" selector="$elemname//$elemname">
+<BaseProperties><Hidden hidden="yes"/><Breaks blockOrInline="inline"/>
+</BaseProperties></Context><Context priority="0" selector="$elemname">
+<BaseProperties><Hidden hidden="yes"/><Breaks blockOrInline="inline"/>
+</BaseProperties></Context></Style><Style styleName="inline"><Context
+priority="0" selector="$elemname"><BaseProperties><Breaks
+blockOrInline="inline"/></BaseProperties></Context></Style><Style
+styleName="link"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Link"><Breaks
+blockOrInline="inline"/></BaseProperties></Context></Style><Style
+styleName="linkTarget"><Context priority="0" selector="$elemname">
+<BaseProperties></BaseProperties></Context></Style><Style
+styleName="bulletedList"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="numberedList"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="listItem"><Context priority="25"
+selector="*numberedList//*numberedList//*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space"><Indent
+firstLineIndent="*-2.5em" leftIndent="@2.5em"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A79ba6028-d470-40fd-81ea-3320d7be865a"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="1.5em"
+followWith="tab" format="(CURRENT) ')'" numberAlignment="right"
+numberStyle="1" tabtoAfter="2.5em"><LabelAndNumber><_gte:Translate
+translate="off" id="Af8d50b8d-953a-480c-8173-14cb2789dc74"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="20"
+selector="*bulletedList//*bulletedList//*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space"><Indent
+firstLineIndent="*-1.25em" leftIndent="@1.25em"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="Adae1308d-0fe2-4e06-8773-9a21e29b70f9"><_gte:Target lang="en"
+><_gte:BulletMarker><_gte:Font>♦</_gte:Font></_gte:BulletMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore><Bulleting
+alignAt="0em" followWith="tab" tabtoAfter="1.25em"/></GeneratedText>
+</BaseProperties></Context><Context priority="20"
+selector="*numberedList//*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space"><Indent
+firstLineIndent="*-3em" leftIndent="@3em"/><Breaks blockOrInline="block"/>
+<GeneratedText><AddBefore><_sfe:BeforeOrAfterText><_gte:Translate
+translate="off" id="Acdb75f26-04c8-49d6-ad3d-2f5815e49734"><_gte:Target
+lang="en"><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="2em"
+followWith="tab" format="(CURRENT) '.'" numberAlignment="right"
+numberStyle="i" tabtoAfter="3em"><LabelAndNumber><_gte:Translate
+translate="off" id="A4bc952b5-16e1-40e8-ba94-76f50683c552"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="15" selector="*bulletedList//*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space"><Indent
+firstLineIndent="*-1.25em" leftIndent="@1.25em"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A5526f8d3-6519-4655-b22f-9bdbebeb9377"><_gte:Target lang="en"
+><_gte:BulletMarker><_gte:Font>–</_gte:Font></_gte:BulletMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore><Bulleting
+alignAt="0em" followWith="tab" tabtoAfter="1.25em"/></GeneratedText>
+</BaseProperties></Context><Context priority="15"
+selector="*numberedList//*numberedList/$elemname"><BaseProperties
+propertySetReferences="List_item_space"><Indent firstLineIndent="*-2em"
+leftIndent="@2em"/><Breaks blockOrInline="block"/><GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A8916e511-9ef7-43c2-8d11-ba7b1a6d7a82"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="1em"
+followWith="tab" format="(CURRENT) '.'" numberAlignment="right"
+numberStyle="a" tabtoAfter="2em"><LabelAndNumber><_gte:Translate
+translate="off" id="Abc2ba347-51ce-4cb1-93f5-550a46488933"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="10" selector="*bulletedList/$elemname"><BaseProperties
+propertySetReferences="List_item_space"><Indent
+firstLineIndent="*-1.25em" leftIndent="@1.25em"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A403d4936-fd7d-4b42-8e53-ebdff7ddbd35"><_gte:Target lang="en"
+><_gte:BulletMarker><_gte:Font>•</_gte:Font></_gte:BulletMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore><Bulleting
+alignAt="0em" followWith="tab" tabtoAfter="1.25em"/></GeneratedText>
+</BaseProperties></Context><Context priority="10"
+selector="*numberedList/$elemname"><BaseProperties
+propertySetReferences="List_item_space"><Indent
+firstLineIndent="*-2.5em" leftIndent="@2.5em"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A1011ce30-686a-44db-ae52-0afce5d6988c"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="1.5em"
+followWith="tab" format="(CURRENT) '.'" numberAlignment="right"
+numberStyle="1" tabtoAfter="2.5em"><LabelAndNumber><_gte:Translate
+translate="off" id="Aa5a70906-d4e3-4b30-8a10-a11e57e4f0e9"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="10" selector="*definitionList/$elemname"><BaseProperties
+propertySetReferences="List_item_space"><Breaks blockOrInline="block"/>
+</BaseProperties></Context><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="List_item_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="paragraph"><Context priority="20"
+selector="*listItem/$elemname[1]"><BaseProperties><Breaks
+blockOrInline="inline"/></BaseProperties></Context><Context
+priority="15" selector="*footnote//$elemname[1]"><BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties></Context><Context
+priority="10" selector="*listItem/$elemname[position()>1]">
+<BaseProperties propertySetReferences="List_item_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context><Context priority="0"
+selector="$elemname"><BaseProperties
+propertySetReferences="Standard_space"><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="preformatted">
+<Context priority="0" selector="$elemname"><BaseProperties
+propertySetReferences="preformatted_font"><Alignment
+align="preformatted"/><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Style><Style
+description="Not used to style a table; see tableRoot and tableTgroup"
+styleName="table"><Context priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="block"/></BaseProperties>
+</Context></Style><Style styleName="tableCell"><Context priority="0"
+selector="$elemname"><BaseProperties><Indent firstLineIndent="*0pt"
+leftIndent="0pt" rightIndent="0pt"/><SpaceBefore maximum="0pt"
+minimum="0pt" optimum="0pt" precedence="force"/><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="tableHeaderCell"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="bold"><Indent
+firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/><SpaceBefore
+maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="tableHead"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="bold"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+styleName="tableFoot"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="bold"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+description="Used to style the table element in the HTML table model"
+styleName="tableRoot"><Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Table_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context></Style><Style
+description="Used to style tgroup in CALS/OASIS table model"
+styleName="tableTgroup"><Context priority="10" selector="$elemname[1]">
+<BaseProperties propertySetReferences="Table_space"><Breaks
+blockOrInline="block"/></BaseProperties></Context><Context priority="0"
+selector="$elemname"><BaseProperties><Breaks blockOrInline="block"/>
+</BaseProperties></Context></Style><Style styleName="tableOfContents">
+<Context priority="0" selector="$elemname"><BaseProperties><Breaks
+blockOrInline="block"/><GeneratedText></GeneratedText></BaseProperties>
+</Context></Style><Style styleName="title"><Context priority="10"
+selector="*document/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_document">
+<Breaks blockOrInline="block"/></BaseProperties></Context><Context
+priority="10" selector="*tableOfContents/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_TOC">
+<Breaks blockOrInline="block"/><GeneratedText></GeneratedText>
+</BaseProperties></Context><Context priority="10"
+selector="*formalBlock/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_formalBlock">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="Ab59ad1be-f89c-456e-89eb-66ed01694c50"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><RepeatingTitle><_sfe:Gentext
+><_sfe:RepeatingTitle><_gte:Translate translate="on"
+id="A894d7db4-57e5-400b-bcc9-0e2a1f46f2f2"><_gte:Target lang="en"
+><_gte:ElementLabelAndNumber/><_gte:Leaders leaderType="space"
+lenType="specified" specLen="1em"/><_gte:ElementContent/> (cont'd.)</_gte:Target
+></_gte:Translate></_sfe:RepeatingTitle></_sfe:Gentext></RepeatingTitle>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberScope="(none)" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A9a5771be-5770-4b8b-a983-fff9889f0deb"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="10" selector="*division1/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_1">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A7f1ff3b8-a788-49a0-8137-e8ffb0e21962"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(CURRENT)" numberAlignment="left"
+numberStyle="1"><LabelAndNumber><_gte:Translate translate="off"
+id="Ae4f15cd6-75a7-4687-a8c6-c5f5ea1f20b6"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="10" selector="*division2/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_2">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="Aa1d8872e-0751-49b1-86e6-e6eed5c90a5a"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="A1a0380a1-3378-4010-b97b-d3cc96f1df5f"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="10" selector="*division3/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_3">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="Aa37904cd-e751-4d5a-8af6-913c4ce4271e"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="Ac120e40d-7994-40db-8438-55808d0e9937"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+selector="*division4/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_4">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A9186fafd-6081-426b-9a03-ba482d208192"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="A55ed43a4-135a-483f-9cd4-47df6a0e7bfb"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+selector="*division5/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_5">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="Ad55957a6-c24f-4a8c-809a-86e54faee6bb"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="Afce47915-8840-4233-8a9d-0c382c55d03f"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+selector="*division6/$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_6">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A51c1d6c5-104e-4d9d-8916-6181d8ad9d73"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="A45cf8cbd-5885-4c19-82d7-91f81e514df8"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+selector="*division7/$elemname"><BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_7">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="Aa643f778-2b59-4379-bc78-a0fe9ab4a1e1"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="A163e75ae-c58c-4033-8b24-bedcaaeefd7e"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+selector="*division8/$elemname"><BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_8">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="A348b60b9-5ac2-45e9-b7f9-f4120b6dc5fb"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="A26707ce9-2236-46c3-8b54-5b3f1fe9eaf6"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+selector="*division9/$elemname"><BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_9">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/><Breaks
+blockOrInline="block"/><GeneratedText><AddBefore><_sfe:BeforeOrAfterText
+><_gte:Translate translate="off"
+id="Aa9124fa1-231d-44fe-8705-949e51fb5558"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore><Numbering alignAt="0pt"
+followWith="space" format="(PREVIOUS) '.' (CURRENT)"
+numberAlignment="left" numberStyle="1"><LabelAndNumber><_gte:Translate
+translate="off" id="A890a1fd7-64f0-4d99-8978-54710e428d24"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering></GeneratedText></BaseProperties></Context><Context
+priority="0" selector="$elemname"><BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space bold">
+<Breaks blockOrInline="block"/></BaseProperties></Context></Style>
+<Style styleName="nostyle"><Context priority="0" selector="$elemname">
+<BaseProperties><Breaks blockOrInline="inline"/></BaseProperties>
+</Context></Style><Style styleName="unstyled"><Context priority="0"
+selector="$elemname"><BaseProperties></BaseProperties></Context></Style>
+</Styles><Bullets><Bullet><_gte:Font>•</_gte:Font></Bullet><Bullet
+><_gte:Font>–</_gte:Font></Bullet><Bullet><_gte:Font>♦</_gte:Font
+></Bullet><Bullet><_gte:Font>◊</_gte:Font></Bullet><Bullet><_gte:Font
+>⇒</_gte:Font></Bullet></Bullets><ReferenceFormats><ReferenceFormat
+referenceFormatName="Label_Number"><_gte:Translate translate="off"
+id="A48ec2658-2aba-4332-b003-e112d2dbe11a"><_gte:Target lang="en"
+><_gte:ElementLabelAndNumber/></_gte:Target></_gte:Translate></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Label_Number_Text"><_gte:Translate
+translate="off" id="A4f7d729d-a61b-41a4-b38e-4390d4321279"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/> <_sfe:CrossReferenceTitle
+><_gte:ElementContent/></_sfe:CrossReferenceTitle></_gte:Target></_gte:Translate
+></ReferenceFormat><ReferenceFormat
+referenceFormatName="Label_Number_Text_Page"><_gte:Translate
+translate="on" id="A8ecee57f-59b4-4785-9de8-0ae56583ea85"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/> <_sfe:CrossReferenceTitle
+><_gte:ElementContent/></_sfe:CrossReferenceTitle>, page <_gte:PageNumberReference
+/></_gte:Target></_gte:Translate></ReferenceFormat><ReferenceFormat
+referenceFormatName="Number"><_gte:Translate translate="off"
+id="A9c844c07-7cee-4d7a-89ec-e92cc4763824"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Number_Text"><_gte:Translate
+translate="off" id="A5d864f1f-a6ee-42f7-904d-26228e782975"><_gte:Target
+lang="en"><_gte:ElementNumber/> <_sfe:CrossReferenceTitle><_gte:ElementContent
+/></_sfe:CrossReferenceTitle></_gte:Target></_gte:Translate></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Page"><_gte:Translate
+translate="off" id="A272abcbe-4a80-41a9-b361-64bd7915297d"><_gte:Target
+lang="en"><_gte:PageNumberReference/></_gte:Target></_gte:Translate
+></ReferenceFormat><ReferenceFormat referenceFormatName="Text"><_gte:Translate
+translate="off" id="Ac6948ce4-418e-48ac-af93-eab1d0e15783"><_gte:Target
+lang="en"><_sfe:CrossReferenceTitle><_gte:ElementContent/></_sfe:CrossReferenceTitle
+></_gte:Target></_gte:Translate></ReferenceFormat></ReferenceFormats>
+<Indexes><Index indexName="Main_Index"/></Indexes><PrintPageSets>
+<PrintPageSet pageSetName="Default_Page_Set"><Margins
+bottom="Bottom_Margin" evenLeft="Left_Margin" evenRight="Right_Margin"
+oddLeft="Left_Margin" oddRight="Right_Margin" paperHeight="Page_Height"
+paperWidth="Page_Width" top="Top_Margin"/><Headers></Headers><Footers>
+</Footers><Layouts right="Default_Page_Set_right"/><Columns></Columns>
+<PageNumbers><_gte:Translate translate="off"
+id="A84ca2a6d-2442-4c5f-bfbf-49bc9154e750"><_gte:Target lang="en"
+><_gte:PageNumber/></_gte:Target></_gte:Translate></PageNumbers>
+</PrintPageSet></PrintPageSets><PageTypes><PageType
+pageTypeName="Default_Page_Set_right"><PageRegionReference
+pageRegionName="main_content"/></PageType></PageTypes><PageRegions>
+<PageRegion pageRegionName="main_content"><PageRegionPosition/>
+<PageRegionTextContent contentType="main"/></PageRegion></PageRegions>
+<GeneratedContents></GeneratedContents><TablesOfContents>
+</TablesOfContents><FootnoteModels><FootnoteModel
+columnOrPageWide="page" footnoteModelName="Default_Footnotes"
+footnoteNumberStyle="1" insertSeparator="yes" separatorAlign="left"
+separatorLengthType="specified" separatorRuleLength="9pc"
+separatorRuleThickness="0.5pt" spaceAboveFootnote="15pt"
+spaceBelowSeparator="2pt"/></FootnoteModels><Tables><TableModel
+model="cals" primary="yes"/></Tables><CustomTables></CustomTables>
+<SizeDefinitions><SizeDefinition sizeName="Bottom_Margin"
+sizeValue="1.5in"/><SizeDefinition sizeName="Footer_from_Bottom"
+sizeValue="1in"/><SizeDefinition sizeName="Header_from_Top"
+sizeValue="1in"/><SizeDefinition sizeName="Inside_Mirror_Margin"
+sizeValue="1.25in"/><SizeDefinition sizeName="Left_Margin"
+sizeValue="1in"/><SizeDefinition sizeName="Outside_Mirror_Margin"
+sizeValue="0.75in"/><SizeDefinition sizeName="Page_Height"
+sizeValue="11in"/><SizeDefinition sizeName="Page_Width"
+sizeValue="8.5in"/><SizeDefinition sizeName="Right_Margin"
+sizeValue="1in"/><SizeDefinition sizeName="Top_Margin" sizeValue="1.5in"/>
+</SizeDefinitions><CombinedFonts></CombinedFonts></Styler>

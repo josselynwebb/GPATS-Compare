@@ -1,0 +1,127 @@
+ 000001 BEGIN, ATLAS PROGRAM 'CAN' $
+C $
+C         ************************************************ $
+C         ***           CAN BUS LOOPBACK NAM           *** $
+C         ************************************************ $
+C $
+        INCLUDE, NON-ATLAS MODULE 'CANBusNAM' $
+C $
+        DECLARE, VARIABLE,
+	  'ACTION'    IS STRING (10) OF CHAR INITIAL  = C'TRANSMIT';
+          'TX_CHAN'   IS STRING (10) OF CHAR INITIAL  = C'/TXCH:1';
+          'RX_CHAN'   IS STRING (10) OF CHAR INITIAL  = C'/RXCH:2';
+          'TIMING'    IS STRING (15) OF CHAR INITIAL  = C'/TIME:20000';
+          'SAMPLES'   IS STRING (10) OF CHAR INITIAL  = C'/SMPL:1';
+          'FILTER'    IS STRING (10) OF CHAR INITIAL  = C'/FLTR:0';
+          'ACC_CODE'  IS STRING (20) OF CHAR INITIAL  = C'/CODE:1A1A';
+          'ACC_MASK'  IS STRING (20) OF CHAR INITIAL  = C'/MASK:FFFFFFFF';
+          'TIMEOUT'   IS STRING (15) OF CHAR INITIAL  = C'/TMO:5000';
+          'IDENT'     IS STRING (20) OF CHAR INITIAL  = C'/ID:FEDC';
+          'DATA'      IS STRING (100) OF CHAR INITIAL = C'/DATA:EF,DC,BA,98,76,54,32,10';
+          'ASYNC'     IS STRING (10) OF CHAR INITIAL  = C'/ASYNC';
+          'RETSTRING' IS STRING (255) OF CHAR INITIAL = C'RTN_ARG' $       
+
+C $
+C         ************************************************ $
+C         ***         GET RESPONSE PROCEDURE           *** $
+C         ************************************************ $
+C $
+          DEFINE, 'GET_RESP', PROCEDURE('PRINT' IS BOOLEAN)
+            RESULT('RESPONSE' IS STRING (255) OF CHAR) $
+C $
+            DECLARE, VARIABLE, 
+              'TEXTFILE' IS FILE OF TEXT;
+	      'TMP'      IS STRING (100) OF CHAR INITIAL = C'';
+              'FILENAME' IS STRING (30) OF CHAR INITIAL = C'C:\APS\DATA\CANBUS_DATA.TXT' $
+   
+            CALCULATE, 
+              'TMP'      = C'',
+              'RESPONSE' = C'' $
+
+            ENABLE, I-O OLD 'FILENAME', VIA 'TEXTFILE' $
+	   
+	    WHILE, NOT EOF('TEXTFILE'), THEN $
+              INPUT, FROM 'TEXTFILE', INTO 'TMP' $
+              IF, LEN('RESPONSE') EQ 0, THEN $
+                CALCULATE, 'RESPONSE' = 'RESPONSE' & 'TMP' $
+              ELSE $
+                CALCULATE, 'RESPONSE' = 'RESPONSE' & C' ' & 'TMP' $
+              END, IF $
+            END, WHILE $
+
+            DISABLE, 'TEXTFILE' $  
+C $
+            IF, 'PRINT' EQ TRUE, THEN $
+              OUTPUT, C'\ESC\[40;33m***', 'RESPONSE', C'***\ESC\[m' $      
+            END, IF $
+C $
+          END, 'GET_RESP' $
+C $
+E000010   OUTPUT, C'*** BEGIN ATLAS PROGRAM ***\LF\\LF\' $
+          OUTPUT, C'Verify shorting cable is attached to CIC J21 & J22\LF\' $
+          OUTPUT, C'NOTE:  Place a file named "DEBUGIT_CANBusNAM" in the \APS\DATA folder for debug output\LF\' $
+          OUTPUT, C'Upon completion of successful transmit, NAM will return "Success"' $
+          OUTPUT, C'Upon completion of successful receive, NAM will return the message buffer, or error string if unsuccessful' $
+          OUTPUT, C'Upon completion of loopback test, NAM will return a "Passed" or "Failed" status string\LF\' $
+          OUTPUT, C'Press ENTER when ready\LF\' $
+          INPUT, GO-NOGO $
+
+
+          OUTPUT, C'CAN Transmit...' $
+C         Executing NAM to TX with default options $
+          CALCULATE, 
+            'ACTION'    = C'TRANSMIT',
+            'RETSTRING' = C'' $
+
+     20   PERFORM, 'CANBusNAM'('ACTION', 'DATA', 'RETSTRING') $
+
+     30   OUTPUT, 'RETSTRING' $
+
+C	  INPUT, GO-NOGO $
+
+     40   OUTPUT, C'CAN Receive....' $
+C         Executing NAM to RX with default options on CH 2 $
+     50   CALCULATE,
+            'ACTION'    = C'RECEIVE',
+            'RETSTRING' = C'' $
+
+     60   PERFORM, 'CANBusNAM'('ACTION', 'RX_CHAN', 'RETSTRING') $
+     70   OUTPUT, 'RETSTRING' $
+
+	  INPUT, GO-NOGO $
+
+          OUTPUT, C'CAN Loopback...' $
+
+          CALCULATE, 
+            'ACTION'    = C'LOOPBACK',
+            'RETSTRING' = C'' $
+
+          PERFORM, 'CANBusNAM'('ACTION', 'RETSTRING') $
+
+          OUTPUT, 'RETSTRING' $
+C $
+          OUTPUT, C'CAN Concurrent RX...' $
+
+	  CALCULATE, 
+            'ACTION' = C'RECEIVE',
+            'RETSTRING' = C'' $
+
+          PERFORM, 'CANBusNAM'('ACTION', 'RX_CHAN', 'TIMEOUT', 'ASYNC', 'RETSTRING') $
+          
+	  WAIT FOR, 6 SEC $
+
+	  OUTPUT, C'CAN TX....' $
+	  CALCULATE, 'ACTION' = C'TRANSMIT' $
+          PERFORM, 'CANBusNAM' ('ACTION', 'TX_CHAN', 'RETSTRING') $
+
+          WAIT FOR, 4 SEC $
+
+          PERFORM, 'GET_RESP'(FALSE)
+            RESULT('RETSTRING') $
+
+	  OUTPUT, 'RETSTRING' $
+
+          CALCULATE, 'RETSTRING' = C'' $
+     90   FINISH $
+C $
+ 999999 TERMINATE, ATLAS PROGRAM 'CAN' $

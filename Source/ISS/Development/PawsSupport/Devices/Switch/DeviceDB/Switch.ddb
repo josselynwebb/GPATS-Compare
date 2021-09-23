@@ -1,0 +1,35 @@
+********************************************************************************
+*
+* FILENAME    : Switch.ddb 
+*
+* INSTRUMENT  : SwitchBP
+* 
+* ATLAS Subset: PAWS-85 (IEEE416/IEEE716-1985)
+*
+* PROJECT     : SwitchBP Special
+*
+*                          Function Number Map
+*
+* FNC                           Signal Description
+* ---  -------------------------------------------------------------------------
+*  0   Supports APPLY, SHORT / REMOVE, SHORT statements
+*
+*                 SOURCE REVISION HISTORY
+*
+*  VER  DATE     DESCRIPTION                                 AUTHOR
+*  ---      -------       ------------------------------------------            -------------------
+*  1.0   20051128 Initial Release                                 S.A.Redington, EADS NA DEFCO
+*  2.0   27APR09 Baselined VIPER/T version number 
+*                        per DME PCR VSYS-450 based on USMC comment
+*  2.3   31JUL09  Update version number per DME PCR VSYS-450
+*                         based on USMC comment
+*  2.4   19APR17  Update for GPATS-CIC Common Instrument Controller
+*  3.0   13MAR19  Update for 2100 SW version
+********************************************************************************
+begin DEV SWITCH;
+
+    begin FNC = 1; 
+        source short;
+    end;
+
+end;

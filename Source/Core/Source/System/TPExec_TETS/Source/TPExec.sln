@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TPExec_TETS", "TPExec_TETS.vbproj", "{E607AF2F-4E0E-4709-A64A-CBD000A7B329}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TPS02005B1000", "TPS02005B1000.NET\TPS02005B1000.vbproj", "{A6694C79-FB95-4112-965A-00FD06A55D1B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E607AF2F-4E0E-4709-A64A-CBD000A7B329} = {E607AF2F-4E0E-4709-A64A-CBD000A7B329}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E607AF2F-4E0E-4709-A64A-CBD000A7B329}.Debug|x86.ActiveCfg = Debug|x86
+		{E607AF2F-4E0E-4709-A64A-CBD000A7B329}.Debug|x86.Build.0 = Debug|x86
+		{E607AF2F-4E0E-4709-A64A-CBD000A7B329}.Release|x86.ActiveCfg = Release|x86
+		{E607AF2F-4E0E-4709-A64A-CBD000A7B329}.Release|x86.Build.0 = Release|x86
+		{A6694C79-FB95-4112-965A-00FD06A55D1B}.Debug|x86.ActiveCfg = Debug|x86
+		{A6694C79-FB95-4112-965A-00FD06A55D1B}.Debug|x86.Build.0 = Debug|x86
+		{A6694C79-FB95-4112-965A-00FD06A55D1B}.Release|x86.ActiveCfg = Release|x86
+		{A6694C79-FB95-4112-965A-00FD06A55D1B}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

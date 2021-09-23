@@ -1,0 +1,540 @@
+ 000100 BEGIN, ATLAS MODULE 'VEO-2 LASER BENCHMARK'                    $
+C                                                                      $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 001000 DECLARE, EXTERNAL, VARIABLE, 'FAIL-CNT'  IS INTEGER            $
+     05 DECLARE, EXTERNAL, VARIABLE, 'ETE TEST'  IS BOOLEAN            $
+     10 DECLARE, EXTERNAL, VARIABLE, 'TESTNO'    IS INTEGER            $
+     15 DECLARE, VARIABLE, 'MVAL' IS DECIMAL                           $
+     20 DECLARE, VARIABLE, 'MIODATA' IS ARRAY(1 THRU 2) OF DECIMAL     $
+     25 DECLARE, VARIABLE, 'ULIM' IS DECIMAL                           $
+     30 DECLARE, VARIABLE, 'LLIM' IS DECIMAL                           $
+     35 DECLARE, VARIABLE, 'X-ALIGN-ERROR' IS DECIMAL                  $
+     40 DECLARE, VARIABLE, 'Y-ALIGN-ERROR' IS DECIMAL                  $
+     45 DECLARE, VARIABLE, 'SYNTAX' IS BOOLEAN INITIAL = FALSE         $
+C                                                                      $
+C ******************************************************************** $
+C * DEFINE STATEMENTS                                                * $
+C ******************************************************************** $
+C                                                                      $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: RESULTS                                               * $
+C ******************************************************************** $
+C                                                                      $
+ 010000 DEFINE, 'RESULTS', EXTERNAL, PROCEDURE ('TEST' IS INTEGER,
+                                                'MVAL' IS DECIMAL,
+                                                'ULIM' IS DECIMAL,
+                                                'LLIM' IS DECIMAL)     $
+     99 END, 'RESULTS'                                                 $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: CLRSCR                                                * $
+C ******************************************************************** $
+C                                                                      $
+ 011000 DEFINE, 'CLRSCR', EXTERNAL, PROCEDURE                          $
+     99 END, 'CLRSCR'                                                  $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'LASER SOURCE TEST'                                   * $
+C ******************************************************************** $
+C                                                                      $
+ 030000 DEFINE, 'LASER SOURCE TEST', PROCEDURE                         $
+C                                                                      $
+C   ****************************************************************   $
+C   * 1064 uM Laser Source Test                                    *   $
+C   ****************************************************************   $
+C                                                                      $
+ 031000   OUTPUT,
+          C'1064 uM Laser Test - Boresight Angle Measurement'          $
+C                                                                      $
+     05   CALCULATE, 'TESTNO' = 031000,
+                     'ULIM' = 25.0,
+                     'LLIM' = -25.0                                    $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.064 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TRIGGER-MODE INT,
+            MAX-TIME 200 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     15   MEASURE, (BORESIGHT-ANGLE INTO 'MIODATA'), LASER,
+            BORESIGHT-ANGLE RANGE -57.2958 DEG TO 57.2958 DEG,
+            X-AUTOCOLLIMATION-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            Y-AUTOCOLLIMATION-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            INTENSITY-RATIO 50 PC,
+            DELAY 0 SEC,
+            SAMPLE-AV 1 FRAMES,
+            SAMPLE-TIME 0.033 SEC,
+            TRIGGER-MODE INT,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 236,
+            TGT-COORDINATE-RIGHT 300,
+            CNX VIA LASER-Video-Out                                    $
+C                                                                      $
+     20   OUTPUT, C'X BORESIGHT ANGLE'                                 $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(1), 'ULIM', 'LLIM')   $
+     30   CALCULATE, 'TESTNO' = 031100                                 $
+     35   OUTPUT, C'Y BORESIGHT ANGLE'                                 $
+     40   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(2), 'ULIM', 'LLIM')   $
+     45   INPUT, GO-NOGO                                               $
+C                                                                      $
+C PULSE ENERGY MEASUREMENT                                             $
+C Pulse energy throws exception $
+C                                                                      $
+ 031100   CALCULATE, 'TESTNO' = 031100,
+                     'ULIM' = 0.3,
+                     'LLIM' = 0.0                                      $
+     05   OUTPUT, 
+            C'OPERATOR ACTION\LF\',
+            C'--------------------------------------------------\LF\',
+            C'1. Connect the pulse energy output port to DSO\LF\',
+            C'   Ch. 1.\LF\',
+            C'Press enter to continue'                                 $
+     10   INPUT, GO-NOGO                                               $      
+     15   MEASURE, (PULSE-ENERGY INTO 'MVAL'), LASER,
+            PULSE-ENERGY MAX 0.3 J,
+            MAIN-BEAM-ATTEN 0 OD,
+            POWER-P 1E-6 W,
+            WAVE-LENGTH 1.064 UM,
+            SAMPLE-COUNT 1,
+            CNX VIA SCOPE-CH1                                          $
+     20   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 031200   RESET, LASER,
+            CNX VIA ATMOSPHERE                                         $
+     05   INPUT, GO-NOGO                                               $
+C                                                                      $
+C 1540 NM BORESIGHT                                                    $
+ 032000   OUTPUT,
+          C'1540 uM Laser Test - Boresight Angle Measurement'          $
+C                                                                      $
+     05   CALCULATE, 'TESTNO' = 032000,
+                     'ULIM' = 25.0,
+                     'LLIM' = -25.0                                    $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.540 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TRIGGER-MODE INT,
+            MAX-TIME 200 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     15   MEASURE, (BORESIGHT-ANGLE INTO 'MIODATA'), LASER,
+            BORESIGHT-ANGLE RANGE -57.2958 DEG TO 57.2958 DEG,
+            X-AUTOCOLLIMATION-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            Y-AUTOCOLLIMATION-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            INTENSITY-RATIO 50 PC,
+            DELAY 0 SEC,
+            SAMPLE-AV 1 FRAMES,
+            SAMPLE-TIME 0.033 SEC,
+            TRIGGER-MODE INT,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 236,
+            TGT-COORDINATE-RIGHT 300,
+            CNX VIA LASER-Video-Out                                    $
+C                                                                      $
+     20   OUTPUT, C'X BORESIGHT ANGLE'                                 $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(1), 'ULIM', 'LLIM')   $
+     30   CALCULATE, 'TESTNO' = 032100                                 $
+     35   OUTPUT, C'Y BORESIGHT ANGLE'                                 $
+     40   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(2), 'ULIM', 'LLIM')   $
+     45   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 032100   CALCULATE, 'TESTNO' = 032100,
+                     'ULIM' = 0.3,
+                     'LLIM' = 0.0                                      $
+     05   MEASURE, (PULSE-ENERGY INTO 'MVAL'), LASER,
+            PULSE-ENERGY MAX 0.3 J,
+            MAIN-BEAM-ATTEN 0 OD,
+            POWER-P 1E-6 W,
+            WAVE-LENGTH 1.064 UM,
+            SAMPLE-COUNT 1,
+            CNX VIA SCOPE-CH1                                          $
+c     10   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+C                                                                      $
+ 032200   RESET, LASER,
+            CNX VIA ATMOSPHERE                                         $
+     05   INPUT, GO-NOGO                                               $
+C                                                                      $
+C 1570 NM BORESIGHT                                                    $
+ 033000   OUTPUT,
+          C'1570 uM Laser Test - Boresight Angle Measurement'          $
+C                                                                      $
+     05   CALCULATE, 'TESTNO' = 032000,
+                     'ULIM' = 25.0,
+                     'LLIM' = -25.0                                    $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.570 UM,
+            PULSE-WIDTH 20.0E-9 SEC,
+            TRIGGER-MODE INT,
+            MAX-TIME 200 SEC,
+            CNX VIA ATMOSPHERE                                         $
+C                                                                      $
+     15   MEASURE, (BORESIGHT-ANGLE INTO 'MIODATA'), LASER,
+            BORESIGHT-ANGLE RANGE -57.2958 DEG TO 57.2958 DEG,
+            X-AUTOCOLLIMATION-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            Y-AUTOCOLLIMATION-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            INTENSITY-RATIO 50 PC,
+            DELAY 0 SEC,
+            SAMPLE-AV 1 FRAMES,
+            SAMPLE-TIME 0.033 SEC,
+            TRIGGER-MODE INT,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 236,
+            TGT-COORDINATE-RIGHT 300,
+            CNX VIA LASER-Video-Out                                    $
+C                                                                      $
+     20   OUTPUT, C'X BORESIGHT ANGLE'                                 $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(1), 'ULIM', 'LLIM')   $
+     30   CALCULATE, 'TESTNO' = 032100                                 $
+     35   OUTPUT, C'Y BORESIGHT ANGLE'                                 $
+     40   PERFORM, 'RESULTS'('TESTNO', 'MIODATA'(2), 'ULIM', 'LLIM')   $
+C                                                                      $
+ 033100   CALCULATE, 'TESTNO' = 033100,
+                     'ULIM' = 0.3,
+                     'LLIM' = 0.0                                      $
+     05   MEASURE, (PULSE-ENERGY INTO 'MVAL'), LASER,
+            PULSE-ENERGY MAX 0.3 J,
+            MAIN-BEAM-ATTEN 0 OD,
+            POWER-P 1E-6 W,
+            WAVE-LENGTH 1.064 UM,
+            SAMPLE-COUNT 1,
+            CNX VIA SCOPE-CH1                                          $
+     10   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+ 033200   RESET, LASER,
+            CNX VIA ATMOSPHERE                                         $
+     05   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 033399 END, 'LASER SOURCE TEST'                                       $
+C                                                                      $
+ 034000 DEFINE, 'LASER PULSE WIDTH TEST', PROCEDURE                    $
+C                                                                      $
+     05   OUTPUT, C'1540 NM LASER PULSE WIDTH TEST'                    $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.540 UM,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (PULSE-WIDTH INTO 'MVAL'), LASER,
+            PULSE-WIDTH RANGE 4.0E-9 SEC TO 70.0E-9 SEC,
+            POWER-P 0.0001 W,
+            WAVE-LENGTH 1.540 UM,
+            SAMPLE-COUNT 1,
+            SAMPLE-TIME 1.0E-6 SEC,
+            TRIG-SOURCE INT,
+            TRIG-LEVEL 0.1 V,
+            CNX VIA Scope-ch1                                          $
+     20   CALCULATE, 'TESTNO' = 034000,
+                     'ULIM' = 70.0E-9,
+                     'LLIM' = 0.0E-9                                   $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LASER, CNX VIA ATMOSPHERE                             $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 034100   OUTPUT, C'1570 NM LASER PULSE WIDTH TEST'                    $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.570 UM,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (PULSE-WIDTH INTO 'MVAL'), LASER,
+            PULSE-WIDTH RANGE 4.0E-9 SEC TO 70.0E-9 SEC,
+            POWER-P 0.0001 W,
+            WAVE-LENGTH 1.570 UM,
+            SAMPLE-COUNT 1,
+            SAMPLE-TIME 1.0E-6 SEC,
+            TRIG-SOURCE INT,
+            TRIG-LEVEL 0.1 V,
+            CNX VIA Scope-ch1                                          $
+     20   CALCULATE, 'TESTNO' = 034100,
+                     'ULIM' = 70.0E-9,
+                     'LLIM' = 0.0E-9                                   $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LASER, CNX VIA ATMOSPHERE                             $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 034200   OUTPUT, C'1064 NM LASER PULSE WIDTH TEST'                    $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.064 UM,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (PULSE-WIDTH INTO 'MVAL'), LASER,
+            PULSE-WIDTH RANGE 4.0E-9 SEC TO 70.0E-9 SEC,
+            POWER-P 0.0001 W,
+            WAVE-LENGTH 1.064 UM,
+            SAMPLE-COUNT 1,
+            SAMPLE-TIME 1.0E-6 SEC,
+            TRIG-SOURCE INT,
+            TRIG-LEVEL 0.1 V,
+            CNX VIA Scope-ch1                                          $
+     20   CALCULATE, 'TESTNO' = 034200,
+                     'ULIM' = 70.0E-9,
+                     'LLIM' =  0.0E-9                                  $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LASER, CNX VIA ATMOSPHERE                             $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 034999 END, 'LASER PULSE WIDTH TEST'                                  $
+C                                                                      $
+ 035000 DEFINE, 'LASER PRF TEST', PROCEDURE                            $
+C                                                                      $
+     05   OUTPUT, C'1570 NM LASER PRF TEST'                            $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.570 UM,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (PRF INTO 'MVAL'), LASER,
+            PRF RANGE 8.0 PPS TO 20.0 PPS,
+            SAMPLE-COUNT 1,
+            TRIG-LEVEL 0.1 V,
+            WAVE-LENGTH 1.570 UM,
+            POWER-P 0.0001 W,
+            CNX VIA Counter-Ch1                                        $
+     20   CALCULATE, 'TESTNO' = 035000,
+                     'ULIM' = 20.0,
+                     'LLIM' = 0.0                                      $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LASER, CNX VIA ATMOSPHERE                             $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 035100   OUTPUT, C'1540 NM LASER PRF TEST'                            $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.540 UM,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (PRF INTO 'MVAL'), LASER,
+            PRF RANGE 8.0 PPS TO 20.0 PPS,
+            SAMPLE-COUNT 1,
+            TRIG-LEVEL 0.1 V,
+            WAVE-LENGTH 1.540 UM,
+            POWER-P 0.0001 W,
+            CNX VIA Counter-Ch1                                        $
+     20   CALCULATE, 'TESTNO' = 035100,
+                     'ULIM' = 20.0,
+                     'LLIM' =  0.0                                     $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LASER, CNX VIA ATMOSPHERE                             $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 035200   OUTPUT, C'1064 NM LASER PRF TEST'                            $
+     10   SETUP, LASER,
+            WAVE-LENGTH 1.064 UM,
+            CNX VIA ATMOSPHERE                                         $
+     15   MEASURE, (PRF INTO 'MVAL'), LASER,
+            PRF RANGE 8.0 PPS TO 20.0 PPS,
+            SAMPLE-COUNT 1,
+            TRIG-LEVEL 0.1 V,
+            WAVE-LENGTH 1.064 UM,
+            POWER-P 0.0001 W,
+            CNX VIA Counter-Ch1                                        $
+     20   CALCULATE, 'TESTNO' = 035100,
+                     'ULIM' = 20.0,
+                     'LLIM' =  0.0                                     $
+     25   PERFORM, 'RESULTS'('TESTNO', 'MVAL', 'ULIM', 'LLIM')         $
+     30   RESET, LASER, CNX VIA ATMOSPHERE                             $
+     35   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 035999 END, 'LASER PRF TEST'                                          $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'LASER SYNTAX ONLY'                                   * $
+C ******************************************************************** $
+C                                                                      $
+ 036000 DEFINE, 'LASER SYNTAX ONLY', PROCEDURE                         $
+C                                                                      $
+C CPM 1.2.3.1.1 PULSE ENERGY                                           $
+ 036100   MEASURE, (PULSE-ENERGY INTO 'MVAL'), LASER,
+            PULSE-ENERGY RANGE 0.003 J TO 0.3 J,
+            MAIN-BEAM-ATTEN 0 OD,
+            POWER-P 1E-6 W,
+            WAVE-LENGTH 1.064 UM,
+            SAMPLE-COUNT 1,
+            CNX VIA SCOPE-CH1                                          $
+     05   MEASURE, (PULSE-ENERGY INTO 'MVAL'), LASER,
+            PULSE-ENERGY MAX 0.3 J,
+            POWER-P 1E-6 W,
+            WAVE-LENGTH 1.540 UM,
+            TRIG-SOURCE CH1,
+            TRIG-SLOPE POS,
+            TRIG-LEVEL 0.2 V,
+            CNX VIA SCOPE-CH1                                          $
+     10   MEASURE, (PULSE-ENERGY INTO 'MVAL'), LASER,
+            PULSE-ENERGY MIN 0.003 J,
+            POWER-P 1E-6 W,
+            WAVE-LENGTH 1.064 UM,
+            CNX VIA SCOPE-CH1                                          $
+C                                                                      $
+C CPM 1.2.3.2 PULSE WIDTH                                              $
+ 036200   MEASURE, (PULSE-WIDTH INTO 'MVAL'), LASER,
+            PULSE-WIDTH RANGE 3 NSEC TO 30 NSEC,
+            MAIN-BEAM-ATTEN 0 OD,
+            POWER-P 50E-6 W,
+            WAVE-LENGTH 1.064 UM,
+            SAMPLE-COUNT 5,
+            SAMPLE-TIME 1.0E-6 SEC,
+            TRIG-SOURCE INT,
+            TRIG-SLOPE POS,
+            TRIG-LEVEL 0.1 V,
+            CNX VIA Scope-Ch1                                          $
+     05   MEASURE, (PULSE-WIDTH INTO 'MVAL'), LASER,
+            PULSE-WIDTH MAX 30 NSEC,
+            POWER-P 100.0E-6 W,
+            WAVE-LENGTH 1.540 UM,
+            CNX VIA Scope-Ch2                                          $
+     10   MEASURE, (PULSE-WIDTH INTO 'MVAL'), LASER,
+            PULSE-WIDTH MIN 3.0 NSEC,
+            POWER-P 75.0E-6 W,
+            CNX VIA Scope-Ch2                                          $
+C                                                                      $
+C CPM 1.2.3.3 PRF MEASUREMENT                                          $
+ 036300   MEASURE, (PRF INTO 'MVAL'), LASER,
+            PRF RANGE 8.0 PPS TO 20.0 PPS,
+            SAMPLE-COUNT 5,
+            DELAY 100.0E-3 SEC,
+            TRIG-LEVEL 0.1 V,
+            WAVE-LENGTH 1.064 UM,
+            POWER-P 110E-6 W,
+            CNX VIA Counter-Ch1                                        $
+     05   MEASURE, (PRF INTO 'MVAL'), LASER,
+            PRF MAX 20.0 PPS,
+            MAIN-BEAM-ATTEN 0 OD,
+            WAVE-LENGTH 1.540 UM,
+            POWER-P 100E-6 W,
+            CNX VIA Counter-Ch1                                        $
+     10   MEASURE, (PRF INTO 'MVAL'), LASER,
+            PRF MIN 8.0 PPS,
+            WAVE-LENGTH 1.570 UM,
+            POWER-P 50.0E-6 W,
+            CNX VIA Counter-Ch1                                        $
+C                                                                      $
+C CPM 1.2.3.6 BORESIGHT                                                $
+ 036400   MEASURE, (BORESIGHT-ANGLE INTO 'MIODATA'), LASER,
+            BORESIGHT-ANGLE RANGE -1.0 DEG TO 1.0 DEG,
+            X-AUTOCOLLIMATION-ERROR 'X-ALIGN-ERROR' MAX 1.0 RAD,
+            Y-AUTOCOLLIMATION-ERROR 'Y-ALIGN-ERROR' MAX 1.0 RAD,
+            INTENSITY-RATIO 50 PC,
+            DELAY 0.5 SEC,
+            SAMPLE-AV 3 FRAMES,
+            SAMPLE-TIME 40.0E-6 SEC,
+            TRIGGER-MODE INT,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 284,
+            TGT-COORDINATE-RIGHT 320,
+            CNX VIA LASER-Video-Out                                    $
+     05   MEASURE, (BORESIGHT-ANGLE INTO 'MIODATA'), LASER,
+            BORESIGHT-ANGLE MAX 1.0 DEG,
+            TRIGGER-MODE EXT,
+            CNX VIA LASER-Video-Out                                    $
+     10   MEASURE, (BORESIGHT-ANGLE INTO 'MIODATA'), LASER,
+            BORESIGHT-ANGLE MIN -1.0 DEG,
+            TGT-COORDINATE-TOP 20,
+            TGT-COORDINATE-LEFT 20,
+            TGT-COORDINATE-BOTTOM 284,
+            TGT-COORDINATE-RIGHT 320,
+            CNX VIA LASER-Video-Out                                    $
+C                                                                      $
+C CPM 1.2.5 AUTOCOLLIMATION-ERROR                                      $
+C Deleted in phase 2 $
+C036500   MEASURE, (AUTOCOLLIMATION-ERROR INTO 'MIODATA'), LASER,
+            AUTOCOLLIMATION-ERROR RANGE -1.0 DEG TO 1.0 DEG,
+            WAVE-LENGTH 1.064 UM,
+            PULSE-ATTEN 0,
+            PULSE-WIDTH 150.0E-9 SEC,
+            INTENSITY-RATIO 50 PC,
+            DELAY 100.0E-3 SEC,
+            SAMPLE-AV 20 FRAMES,
+            SAMPLE-TIME 20.0E-3 SEC,
+            TRIGGER-MODE LASR,
+            CNX VIA LASER-Video-Out                                    $
+C     05   MEASURE, (AUTOCOLLIMATION-ERROR INTO 'MIODATA'), LASER,
+            AUTOCOLLIMATION-ERROR MAX 1.0 DEG,
+            WAVE-LENGTH 1.540 UM,
+            CNX VIA LASER-Video-Out                                    $
+C     10   MEASURE, (AUTOCOLLIMATION-ERROR INTO 'MIODATA'), LASER,
+            AUTOCOLLIMATION-ERROR MIN -1.0 DEG,
+            WAVE-LENGTH 1.570 UM,
+            TRIGGER-MODE INT,
+            CNX VIA LASER-Video-Out                                    $
+C                                                                      $
+ 036999 END, 'LASER SYNTAX ONLY'                                       $
+C                                                                      $
+C ******************************************************************** $
+C * PROCEDURE: 'LASER TESTS'                                         * $
+C ******************************************************************** $
+C                                                                      $
+ 300000 DEFINE, 'LASER TESTS', GLOBAL, PROCEDURE                       $
+C                                                                      $
+     05   DECLARE, VARIABLE, 'CHOICE' IS INTEGER                       $
+C                                                                      $
+     10   OUTPUT,
+          C'-----------------------------------------------------\LF\',
+          C'                 OPERATOR ACTION\LF\',
+          C'\LF\',
+          C'1. Connect the selftest fixture and LaRRS to the\LF\',
+          C'   VEO-2 front panel.\LF\',
+          C'2. Connect W303 & W304 from the VEO-2 to the LaRRS.\LF\',
+          C'3. Connect BNC shorting plug to VEO-2 J7 LASR INTLK.\LF\',
+          C'\LF\',
+          C'Press Enter to continue.\LF\'                              $
+     15   INPUT, GO-NOGO                                               $
+C                                                                      $
+     20   IF, 'ETE TEST', THEN                                         $
+     25     GO TO, STEP 300000                                         $
+     30   END, IF                                                      $
+B                                                                      $
+     35   OUTPUT, 
+          C'                  LASER Test Menu\LF\',
+          C'----------------------------------------------------\LF\',
+          C'Laser Source                                       1\LF\',
+          C'Pulse Width Tests                                  2\LF\',
+          C'PRF Tests                                          3\LF\',
+          C'All Tests                                          4\LF\',
+          C'Return to Main Menu                                0\LF\',
+          C'\LF\',
+          C'Enter a Selection:'                                        $
+     40   INPUT, INTO 'CHOICE'                                         $
+     45   IF, 'CHOICE' EQ 0, THEN                                      $
+     50     GO TO, STEP 309900                                         $
+     55   END, IF                                                      $
+C                                                                      $
+ 300100   IF, 'CHOICE' EQ 1, THEN                                      $
+     05     PERFORM, 'LASER SOURCE TEST'                               $
+     10   END, IF                                                      $
+C                                                                      $
+ 300200   IF, 'CHOICE' EQ 2, THEN                                      $
+     05     PERFORM, 'LASER PULSE WIDTH TEST'                          $
+     10   END, IF                                                      $
+C                                                                      $
+ 300300   IF, 'CHOICE' EQ 3, THEN                                      $
+     05     PERFORM, 'LASER PRF TEST'                                  $
+     10   END, IF                                                      $
+C                                                                      $
+ 300400   IF, 'CHOICE' EQ 4, THEN                                      $
+     05     PERFORM, 'LASER SOURCE TEST'                               $
+     10     PERFORM, 'LASER PULSE WIDTH TEST'                          $
+     15     PERFORM, 'LASER PRF TEST'                                  $
+     20   END, IF                                                      $
+C                                                                      $
+ 300500   IF, 'SYNTAX', THEN                                           $
+     05     PERFORM, 'LASER SYNTAX ONLY'                               $
+     10   END, IF                                                      $
+C                                                                      $
+ 300600   GO TO, STEP 300035                                           $
+B                                                                      $
+ 309900   OUTPUT,
+          C'----------------------------------------------------\LF\',
+          C'                 OPERATOR ACTION \LF\',
+          C'1. Disconnect the LaRRS and Self Test Fixture from \LF\',
+          C'   the front of the VEO-2.\LF\',
+          C'2. Disconnect shorting plug from VEO-2 J7.\LF\',
+          C'\LF\',
+          C'Press Enter to continue.\LF\'                              $
+     05   INPUT, GO-NOGO                                               $
+C                                                                      $
+ 309999 END, 'LASER TESTS'                                             $
+C                                                                      $
+ 999999 TERMINATE, ATLAS MODULE 'VEO-2 LASER BENCHMARK'                $

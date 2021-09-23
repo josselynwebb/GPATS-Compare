@@ -1,0 +1,23 @@
+; Module Definition File For Creating WCEM.DLL
+; This is a part of the WCEM Building Input
+; Copyright (C) TYX Corporation
+; All rights reserved.
+;
+
+; For Win32 DLLs, only EXPORTs really required.
+
+EXPORTS
+ CHconn
+ CHdisc
+ cem_close_msg
+ cem_dcl
+ cem_error_dequeue
+ cem_exit
+ cem_itr
+ cem_misc
+ cem_open_msg
+ cem_read_msg
+ cem_reset
+ cem_tlklsn
+ cem_untunl
+ cem_write_msg

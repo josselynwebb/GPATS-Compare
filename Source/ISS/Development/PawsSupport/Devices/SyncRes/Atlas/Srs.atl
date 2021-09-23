@@ -1,0 +1,1461 @@
+C        1         2         3         4         5         6         7
+C234567890123456789012345678901234567890123456789012345678901234567890 $
+ 000100 BEGIN, ATLAS PROGRAM 'Srs Benchmark' $
+C $
+C ******************************************************************** $
+C * REQUIRE STATEMENTS                                               * $
+C ******************************************************************** $
+C $
+C $
+C ******************************************************************** $
+C * IDENTITY STATEMENTS                                              * $
+C ******************************************************************** $
+C $
+        IDENTIFY, EVENT 'TRIGGER' AS (VOLTAGE), DC SIGNAL,
+          EQ 1.5 V,
+          INCREASING,
+          CNX HI SRS_1_EXT_TRIG_HI LO SRS_1_EXT_TRIG_LO $
+C $
+C ******************************************************************** $
+C * DECLARE STATEMENTS                                               * $
+C ******************************************************************** $
+C $
+ 000300 DECLARE, VARIABLE, 'CHOICE' IS INTEGER $
+        DECLARE, VARIABLE, 'E-E' IS BOOLEAN $
+        DECLARE, VARIABLE, 'MI' IS BOOLEAN $
+        DECLARE, VARIABLE, 'MAIN-MENU' IS BOOLEAN $
+        DECLARE, VARIABLE, 'READY' IS BOOLEAN $
+        DECLARE, VARIABLE, 'AMPLITUDE' IS DECIMAL $
+        DECLARE, VARIABLE, 'AC-VOLTS-P' IS DECIMAL $
+        DECLARE, VARIABLE, 'AC-VOLTS-RMS' IS DECIMAL $
+        DECLARE, VARIABLE, 'ANGLE' IS DECIMAL $
+        DECLARE, VARIABLE, 'EFF-ANGLE' IS DECIMAL $
+        DECLARE, VARIABLE, 'ANGLE-RATE' IS DECIMAL $
+        DECLARE, VARIABLE, 'FAIL-FLAG' IS INTEGER $
+        DECLARE, VARIABLE, 'FREQ' IS DECIMAL $
+        DECLARE, VARIABLE, 'MAX-T' IS DECIMAL $
+        DECLARE, VARIABLE, 'REF-VOLT' IS DECIMAL $
+        DECLARE, VARIABLE, 'SPEED-RATIO' IS DECIMAL $
+        DECLARE, VARIABLE, 'TESTNO' IS INTEGER $
+        DECLARE, VARIABLE, 'VER-UL' IS DECIMAL $
+        DECLARE, VARIABLE, 'VER-LL' IS DECIMAL $
+        DECLARE, VARIABLE, 'VOLTAGE' IS DECIMAL $
+
+C *******************************************************************
+C * DEFINE MESSAGE STATEMENTS
+C ******************************************************************* $
+ 000400 DECLARE, CONSTANT, 'CONTINUE' IS
+          C' Press TRUE OR FALSE to continue ' $
+C $
+        DECLARE, CONSTANT, 'RETURN-MENU' IS
+          C'\LF\
+          Enter T - to return to menu
+          Enter F - to repeat test
+          ' $
+C $
+C        DEFINE, 'RESULTS-MSG', MESSAGE,
+            UL   ()
+              MV ()
+            LL   () $
+C $
+C *******************************************************************
+C * DEFINE PROCEDURE STATEMENTS
+C ******************************************************************* $
+C $
+ 000500 DEFINE, 'RESULTS', PROCEDURE $
+        DECLARE, VARIABLE, 'PassFail' IS STRING (1) OF CHAR $
+        DECLARE, VARIABLE, 'GoNogo' IS STRING (5) OF CHAR $
+        DECLARE, VARIABLE, 'NESTED' IS BOOLEAN $
+
+        IF, GO, THEN $
+            CALCULATE, 'PassFail'= C'P' $
+            CALCULATE, 'GoNogo' = C'GO  ' $
+        ELSE $
+            CALCULATE, 'PassFail' = C'F' $
+            CALCULATE, 'GoNogo' = C'NOGO' $
+            CALCULATE, 'FAIL-FLAG' = 'FAIL-FLAG' + 1 $
+        END, IF $
+
+        CALCULATE, 'NESTED' = FALSE $
+
+        IF, 'VER-UL' EQ 0, THEN $
+            IF, 'VER-LL' EQ 0, THEN $
+                CALCULATE, 'NESTED' = TRUE $
+            END, IF $
+        END, IF $
+
+        IF, 'NESTED', THEN $
+            OUTPUT,
+                C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT' $
+            OUTPUT,
+                C'----        ------------        ------------        ------------         ------\LF\' $
+            OUTPUT,
+                'TESTNO', C'        ','GO', C'               ','GoNogo', C'             ',NOGO, C'               ','PassFail', C'\LF\' $
+            OUTPUT, TO 'PRINTER',
+                C'TEST        UPPER LIMIT         MEAS VALUE          LOWER LIMIT          RESULT' $
+            OUTPUT, TO 'PRINTER',
+                C'----        ------------        ------------        ------------         ------\LF\' $
+            OUTPUT, TO 'PRINTER',
+                'TESTNO', C'        ','GO', C'               ','GoNogo', C'             ',NOGO, C'               ','PassFail', C'\LF\' $
+        ELSE $
+            OUTPUT,
+                C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\' $
+            OUTPUT,
+                C'----        ------------               ------------            ------------             ------\LF\' $
+            OUTPUT,
+                'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\' $
+            OUTPUT, TO 'PRINTER',
+                C'TEST         UPPER LIMIT               MEAS VALUE              LOWER LIMIT              RESULT\LF\' $
+            OUTPUT, TO 'PRINTER',
+                C'----        ------------               ------------            ------------             ------\LF\' $
+            OUTPUT, TO 'PRINTER',
+                'TESTNO',C'  ','VER-UL',C'    ','MEASUREMENT',C'   ','VER-LL',C'   ',C'      ', 'PassFail', C'\LF\' $
+        END, IF $
+
+        END, 'RESULTS' $
+C $
+C *******************************************************************
+C * TEST MENU
+C ******************************************************************* $
+C $
+
+E001000 OUTPUT,
+          C'Srs ATLAS Driver Benchmark\LF\',
+          C'Date/Time:','DATE-TIME' $
+
+        OUTPUT, TO 'PRINTER',
+          C'      Srs ATLAS Driver Benchmark\LF\',
+          C'Date/Time:', 'DATE-TIME', C'\LF\' $
+B $
+ 001005 OUTPUT,
+          C'  Main Test Menu\LF\',
+          C'  --------------------------------\LF\',
+          C'   0 Run All Tests\LF\\LF\',
+          C'   1 Synchro Simulator\LF\',
+          C'   2 Synchro Indicator\LF\\LF\',
+          C'   3 Resolver Simulator\LF\',
+          C'   4 Resolver Indicator\LF\\LF\',
+          C'   5 Triggered Simulator\LF\\LF\',
+          C'  99 Exit\LF\\LF\',
+          C'  Enter a selection\LF\' $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+     10 INPUT, INTO 'CHOICE' $
+        OUTPUT,
+            C'  Selection:', 'CHOICE', C'\LF\' $
+        IF, 'CHOICE' EQ 99, THEN $
+            GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 0, THEN $
+            CALCULATE, 'E-E' = TRUE $
+            GO TO, STEP 111000 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 110000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 120000 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 130000 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 140000 $
+        END, IF $
+        IF, 'CHOICE' EQ 5, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 200000 $
+        END, IF $
+
+     15 OUTPUT,
+          C'Not a valid option.  Please select from menu.' $
+        GO TO, STEP 001005 $
+C $
+C ************************************ $
+C * CHANNEL 1 SYNCHRO SIMULATOR MENU * $
+C ************************************ $
+B $
+ 110000 OUTPUT,
+          C'  SRS Synchro Simulator Test\LF\',
+          C'    Menu\LF\',
+          C'  --------------------------------\LF\',
+          C'   0 Run All Tests\LF\\LF\',
+          C'   1 Single Speed Operation\LF\',
+          C'   2 Multi-Speed Operation\LF\\LF\',
+          C'  88 Main Menu\LF\',
+          C'  99 Exit\LF\\LF\',
+          C'  Enter a selection\LF\' $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+     10 INPUT, INTO 'CHOICE' $
+        OUTPUT,
+            C'  Selection:', 'CHOICE', C'\LF\' $
+        IF, 'CHOICE' EQ 88, THEN $
+            GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 99, THEN $
+            GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 0, THEN $
+            CALCULATE, 'E-E' = TRUE $
+            GO TO, STEP 111000 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 111000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 112000 $
+        END, IF $
+
+     15 OUTPUT,
+          C'Not a valid option.  Please select from menu.' $
+        GO TO, STEP 110000 $
+C $
+C **************************************************** $
+C * SRS 1 SYNCHRO SIMULATOR - SINGLE SPEED OPERATION * $
+C **************************************************** $
+B $
+ 111000 CALCULATE, 'ANGLE'              = 240 $
+        CALCULATE, 'FREQ'               = 400 $
+        CALCULATE, 'VOLTAGE'            = 11.8 $
+        CALCULATE, 'REF-VOLT'           = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Setup to measure the following\LF\',
+          C' voltages:\LF\',
+          C'   1. X-Z (DS1-S1 - DS1-S3)\LF\',
+          C'   2. Z-Y (DS1-S3 - DS1-S2)\LF\',
+          C'   3. Y-X (DS1-S2 - DS1-S1)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 111099 $
+        END, IF $
+
+        APPLY, SYNCHRO,
+          ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          FREQ 'FREQ' RANGE 47 HZ TO 800 HZ,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          REF-SOURCE INT,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z $
+
+        CALCULATE, 'AMPLITUDE' = SIN('ANGLE' + 120) * 'VOLTAGE' $
+
+        OUTPUT,
+          C'\LF\',
+          C' Verify the voltages are as\LF\',
+          C' exptected:\LF\',
+          C'   X-Z: ', (SIN('ANGLE')       * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'   Z-Y: ', (SIN('ANGLE' + 120) * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'   Y-X: ', (SIN('ANGLE' + 240) * 'VOLTAGE'):3:1, C'Vrms\LF\\LF\',
+          C' T - Output is correct.\LF\',
+          C' F - Output is incorrect.\LF\' $
+C $
+        INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+
+        OUTPUT,
+          C'SRS 1 SYNCHRO SIMULATOR, SINGLE SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 SYNCHRO SIMULATOR, SINGLE SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+C $
+        CALCULATE, 'TESTNO' = 111000 $
+        PERFORM, 'RESULTS' $
+
+        REMOVE, SYNCHRO,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 112000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT, INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 111000 $
+        END, IF $
+C $
+C *************************************************** $
+C * SRS 1 SYNCHRO SIMULATOR - MULTI-SPEED OPERATION * $
+C *************************************************** $
+B $
+ 112000 CALCULATE, 'ANGLE'       = 129 $
+        CALCULATE, 'SPEED-RATIO' = 36 $
+C            EFF-ANGLE = MOD(ANGLE * SPEED-RATIO, 360) $
+        CALCULATE, 'EFF-ANGLE'   = 324 $
+        CALCULATE, 'VOLTAGE'     = 11.8 $
+        CALCULATE, 'FREQ'        = 400 $
+        CALCULATE, 'REF-VOLT'    = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Setup to measure the following\LF\',
+          C' voltages:\LF\\LF\',
+          C'   1. X-Z (DS1-S1 - DS1-S3)\LF\',
+          C'   2. Z-Y (DS1-S3 - DS1-S2)\LF\',
+          C'   3. Y-X (DS1-S2 - DS1-S1)\LF\\LF\',
+          C'   4. Fine X-Z (DS2-S1 - DS2-S3)\LF\',
+          C'   5. Fine Z-Y (DS2-S3 - DS2-S2)\LF\',
+          C'   6. Fine Y-X (DS2-S2 - DS2-S1)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 112099 $
+        END, IF $
+
+     05 APPLY, SYNCHRO,
+          ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          REF-SOURCE INT,
+          FREQ 'FREQ' RANGE 47 HZ TO 800 HZ,
+          SPEED-RATIO 'SPEED-RATIO' RANGE 2 TO 50,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z
+              X-FINE SRS_SIM_2_X Y-FINE SRS_SIM_2_Y Z-FINE SRS_SIM_2_Z $
+
+        OUTPUT,
+          C'\LF\',
+          C' Verify the voltages are as\LF\',
+          C' exptected:\LF\',
+          C'        X-Z: ', (SIN('ANGLE')       * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'        Z-Y: ', (SIN('ANGLE' + 120) * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'        Y-X: ', (SIN('ANGLE' + 240) * 'VOLTAGE'):3:1, C'Vrms\LF\\LF\',
+          C'   Fine X-Z: ', (SIN('EFF-ANGLE')       * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'   Fine Z-Y: ', (SIN('EFF-ANGLE' + 120) * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'   Fine Y-X: ', (SIN('EFF-ANGLE' + 240) * 'VOLTAGE'):3:1, C'Vrms\LF\\LF\',
+          C' T - Output is correct.\LF\',
+          C' F - Output is incorrect.\LF\' $
+C $
+        INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+
+        OUTPUT,
+          C'SRS 1/2 SYNCHRO SIMULATOR, MULTI-SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1/2 SYNCHRO SIMULATOR, MULTI-SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+     10 REMOVE, SYNCHRO,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z
+              X-FINE SRS_SIM_2_X Y-FINE SRS_SIM_2_Y Z-FINE SRS_SIM_2_Z $
+
+        CALCULATE, 'TESTNO' = 112000 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 121200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 112000 $
+        END, IF $
+C $
+C ************************************ $
+C * CHANNEL 1 SYNCHRO INDICATOR MENU * $
+C ************************************ $
+B $
+ 120000 OUTPUT,
+          C'  SRS Synchro Indicator Test\LF\',
+          C'    Menu\LF\',
+          C'  --------------------------------\LF\',
+          C'   0 Run All Tests\LF\\LF\',
+          C'   1 Angle Measurement, Single Speed\LF\',
+          C'   2 Angle-Rate Measurement, Single Speed\LF\\LF\',
+          C'   3 Angle Measurement, Multi-Speed\LF\',
+          C'   4 Angle-Rate Measurement, Multi-Speed\LF\\LF\',
+          C'  88 Main Menu\LF\',
+          C'  99 Exit\LF\\LF\',
+          C'  Enter a selection\LF\' $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+     10 INPUT, INTO 'CHOICE' $
+        OUTPUT,
+          C'  Selection:', 'CHOICE', C'\LF\' $
+        IF, 'CHOICE' EQ 88, THEN $
+            GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 99, THEN $
+            GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 0, THEN $
+            CALCULATE, 'E-E' = TRUE $
+            GO TO, STEP 121200 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 121200 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 121300 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 122200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 122300 $
+        END, IF $
+
+     15 OUTPUT,
+          C'Not a valid option.  Please select from menu.' $
+        GO TO, STEP 120000 $
+C $
+C ********************************************************************** $
+C * SRS 1 SYNCHRO INDICATOR ANGLE MEASUREMENT - SINGLE SPEED OPERATION * $
+C ********************************************************************** $
+B $
+ 121200 CALCULATE, 'ANGLE'        = 300.0 $
+        CALCULATE, 'ANGLE-RATE'   = 0.0 $
+        CALCULATE, 'VOLTAGE'      = 11.8 $
+        CALCULATE, 'FREQ'         = 400 $
+        CALCULATE, 'REF-VOLT'     = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (X)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (Y)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (Z)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 121299 $
+        END, IF $
+C $
+        APPLY, SYNCHRO,
+         ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+         VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+         VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+         CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z $
+
+        CALCULATE, 'VER-UL' = 'ANGLE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE' * 0.9 $
+
+     20 VERIFY, (ANGLE INTO 'MEASUREMENT'), SYNCHRO,
+          UL 'VER-UL' DEG LL 'VER-LL' DEG,
+          ANGLE MAX 359.99 DEG,
+          CNX X SRS_IND_1_X Y SRS_IND_1_Y Z SRS_IND_1_Z $
+C $
+     25 OUTPUT,
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        REMOVE, SYNCHRO,
+            CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z $
+
+        CALCULATE, 'TESTNO' = 121200 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+    99  IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 121300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 121200 $
+        END, IF $
+C $
+C *************************************************************************** $
+C * SRS 1 SYNCHRO INDICATOR ANGLE-RATE MEASUREMENT - SINGLE SPEED OPERATION * $
+C *************************************************************************** $
+B $
+ 121300 CALCULATE, 'ANGLE'        = 0 $
+        CALCULATE, 'ANGLE-RATE'   = 258 $
+        CALCULATE, 'VOLTAGE'      = 11.8 $
+        CALCULATE, 'FREQ'         = 400 $
+        CALCULATE, 'REF-VOLT'     = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (X)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (Y)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (Z)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 121399 $
+        END, IF $
+C $
+        APPLY, SYNCHRO,
+          ANGLE-RATE 'ANGLE-RATE' RANGE 0.0 DEG/SEC TO 4896.0 DEG/SEC,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z $
+
+        CALCULATE, 'VER-UL' = 'ANGLE-RATE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE-RATE' * 0.9 $
+C $
+     20 VERIFY, (ANGLE-RATE INTO 'MEASUREMENT'), SYNCHRO,
+            UL 'VER-UL' DEG/SEC LL 'VER-LL' DEG/SEC,
+            ANGLE-RATE MAX 1684.8 DEG/SEC,
+            CNX X SRS_IND_1_X Y SRS_IND_1_Y Z SRS_IND_1_Z $
+C $
+     25 OUTPUT,
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE-RATE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE-RATE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        REMOVE, SYNCHRO,
+           CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z $
+
+        CALCULATE, 'TESTNO' = 121300 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 122200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 121300 $
+        END, IF $
+C $
+C ********************************************************************* $
+C * SRS 1 SYNCHRO INDICATOR ANGLE MEASUREMENT - MULTI-SPEED OPERATION * $
+C ********************************************************************* $
+B $
+ 122200 CALCULATE, 'ANGLE'       = 250.0 $
+        CALCULATE, 'ANGLE-RATE'  = 0.0 $
+        CALCULATE, 'VOLTAGE'     = 11.8 $
+        CALCULATE, 'FREQ'        = 400 $
+        CALCULATE, 'REF-VOLT'    = 26 $
+        CALCULATE, 'SPEED-RATIO' = 10 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (X)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (Y)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (Z)\LF\\LF\',
+          C'   4. DS2-S1 - SD2-S1 (X-FINE)\LF\',
+          C'   5. DS2-S2 - SD2-S2 (Y-FINE)\LF\',
+          C'   6. DS2-S3 - SD2-S3 (Z-FINE)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+     10 INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 122299 $
+        END, IF $
+C $
+        APPLY, SYNCHRO,
+          ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          SPEED-RATIO 'SPEED-RATIO' RANGE 1 TO 255,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z
+              X-FINE SRS_SIM_2_X Y-FINE SRS_SIM_2_Y Z-FINE SRS_SIM_2_Z $
+
+        CALCULATE, 'VER-UL' = 'ANGLE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE' * 0.9 $
+
+     20 VERIFY, (ANGLE INTO 'MEASUREMENT'), SYNCHRO,
+            UL 'VER-UL' DEG LL 'VER-LL' DEG,
+            ANGLE MAX 359.99 DEG,
+            SPEED-RATIO 'SPEED-RATIO' RANGE 1 TO 255,
+            CNX X SRS_IND_1_X Y SRS_IND_1_Y Z SRS_IND_1_Z
+                X-FINE SRS_IND_2_X Y-FINE SRS_IND_2_Y Z-FINE SRS_IND_2_Z $
+C $
+     25 OUTPUT,
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        REMOVE, SYNCHRO,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z
+              X-FINE SRS_SIM_2_X Y-FINE SRS_SIM_2_Y Z-FINE SRS_SIM_2_Z $
+
+        CALCULATE, 'TESTNO' = 122200 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 122300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 122200 $
+        END, IF $
+C $
+C ************************************************************************** $
+C * SRS 1 SYNCHRO INDICATOR ANGLE-RATE MEASUREMENT - MULTI-SPEED OPERATION * $
+C ************************************************************************** $
+B $
+ 122300 CALCULATE, 'ANGLE'        = 0 $
+        CALCULATE, 'ANGLE-RATE'   = 258 $
+        CALCULATE, 'VOLTAGE'      = 11.8 $
+        CALCULATE, 'FREQ'         = 400 $
+        CALCULATE, 'REF-VOLT'     = 26 $
+        CALCULATE, 'SPEED-RATIO'  = 10 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (X)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (Y)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (Z)\LF\\LF\',
+          C'   4. DS2-S1 - SD2-S1 (X-FINE)\LF\',
+          C'   5. DS2-S2 - SD2-S2 (Y-FINE)\LF\',
+          C'   6. DS2-S3 - SD2-S3 (Z-FINE)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 122399 $
+        END, IF $
+C $
+        APPLY, SYNCHRO,
+          ANGLE-RATE 'ANGLE-RATE' RANGE 0.0 DEG/SEC TO 4896.0 DEG/SEC,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          SPEED-RATIO 'SPEED-RATIO' RANGE 1 TO 255,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z
+              X-FINE SRS_SIM_2_X Y-FINE SRS_SIM_2_Y Z-FINE SRS_SIM_2_Z $
+
+        CALCULATE, 'VER-UL' = 'ANGLE-RATE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE-RATE' * 0.9 $
+C $
+     20 VERIFY, (ANGLE-RATE INTO 'MEASUREMENT'), SYNCHRO,
+            UL 'VER-UL' DEG/SEC LL 'VER-LL' DEG/SEC,
+            ANGLE-RATE MAX 1684.8 DEG/SEC,
+            SPEED-RATIO 'SPEED-RATIO' RANGE 1 TO 255,
+            CNX X SRS_IND_1_X Y SRS_IND_1_Y Z SRS_IND_1_Z
+                X-FINE SRS_IND_2_X Y-FINE SRS_IND_2_Y Z-FINE SRS_IND_2_Z $
+C $
+     25 OUTPUT,
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE-RATE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 SYNCHRO INDICATOR [ANGLE-RATE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        REMOVE, SYNCHRO,
+            CNX X SRS_SIM_1_X Y SRS_SIM_1_Y Z SRS_SIM_1_Z
+                X-FINE SRS_SIM_2_X Y-FINE SRS_SIM_2_Y Z-FINE SRS_SIM_2_Z $
+
+        CALCULATE, 'TESTNO' = 122300 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 131000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 122300 $
+        END, IF $
+C $
+C ************************************* $
+C * CHANNEL 1 RESOLVER SIMULATOR MENU * $
+C ************************************* $
+B $
+ 130000 OUTPUT,
+          C'  SRS Resolver Simulator Test\LF\',
+          C'    Menu\LF\',
+          C'  --------------------------------\LF\',
+          C'   0 Run All Tests\LF\\LF\',
+          C'   1 Single Speed Operation\LF\',
+          C'   2 Multi Speed Operation\LF\\LF\',
+          C'  88 Main Menu\LF\',
+          C'  99 Exit\LF\\LF\',
+          C'  Enter a selection\LF\' $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+     10 INPUT, INTO 'CHOICE' $
+        OUTPUT,
+          C'  Selection:', 'CHOICE', C'\LF\' $
+        IF, 'CHOICE' EQ 88, THEN $
+            GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 99, THEN $
+            GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 0, THEN $
+            CALCULATE, 'E-E' = TRUE $
+            GO TO, STEP 131000 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 131000 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 132000 $
+        END, IF $
+
+     15 OUTPUT,
+            C'Not a valid option.  Please select from menu.' $
+        GO TO, STEP 130000 $
+C $
+C ***************************************************** $
+C * SRS 1 RESOLVER SIMULATOR - SINGLE SPEED OPERATION * $
+C ***************************************************** $
+B $
+ 131000 CALCULATE, 'VOLTAGE'    = 70 $
+        CALCULATE, 'ANGLE'      = 123 $
+        CALCULATE, 'FREQ'       = 400 $
+        CALCULATE, 'ANGLE-RATE' = 0 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Setup to measure the following\LF\',
+          C' voltages:\LF\',
+          C'   1. S1-S3 (DS1-S1 - DS1-S3)\LF\',
+          C'   2. S2-S4 (DS1-S2 - DS1-S4)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 131099 $
+        END, IF $
+
+        APPLY, RESOLVER,
+          ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          FREQ 'FREQ' RANGE 360 HZ TO 2000 HZ,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4 $
+
+        OUTPUT,
+          C'\LF\',
+          C' Verify the voltages are as\LF\',
+          C' exptected:\LF\',
+          C'   S1-S3: ', (SIN('ANGLE') * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'   S2-S4: ', (COS('ANGLE') * 'VOLTAGE'):3:1, C'Vrms\LF\\LF\',
+          C' T - Output is correct.\LF\',
+          C' F - Output is incorrect.\LF\' $
+
+        INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+
+        OUTPUT,
+          C'SRS 1 RESOLVER SIMULATOR, SINGLE SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 RESOLVER SIMULATOR, SINGLE SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+     05 REMOVE, RESOLVER,
+            CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4 $
+
+        CALCULATE, 'TESTNO' = 131000 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 132000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 131000 $
+        END, IF $
+C $
+C **************************************************** $
+C * SRS 1 RESOLVER SIMULATOR - MULTI-SPEED OPERATION * $
+C **************************************************** $
+B $
+ 132000 CALCULATE, 'ANGLE'       = 350 $
+        CALCULATE, 'SPEED-RATIO' = 10 $
+C            EFF-ANGLE = MOD(ANGLE * SPEED-RATIO, 360) $
+        CALCULATE, 'EFF-ANGLE'   = 260 $
+        CALCULATE, 'ANGLE-RATE'  = 0 $
+        CALCULATE, 'VOLTAGE'     = 11.8 $
+        CALCULATE, 'FREQ'        = 400 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Setup to measure the following\LF\',
+          C' voltages:\LF\\LF\',
+          C'   1. S1-S3 (DS1-S1 - DS1-S3)\LF\',
+          C'   2. S2-S4 (DS1-S2 - DS1-S4)\LF\\LF\',
+          C'   3. Fine S1-S3 (DS2-S1 - DS2-S3)\LF\',
+          C'   4. Fine S2-S4 (DS2-S2 - DS2-S4)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 132099 $
+        END, IF $
+
+        APPLY, RESOLVER,
+          ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          FREQ 'FREQ' RANGE 360 HZ TO 2000 HZ,
+          SPEED-RATIO 'SPEED-RATIO' RANGE 2 TO 50,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4
+              S1-FINE SRS_SIM_2_S1 S2-FINE SRS_SIM_2_S2
+              S3-FINE SRS_SIM_2_S3 S4-FINE SRS_SIM_2_S4 $
+
+        OUTPUT,
+          C'\LF\',
+          C' Verify the voltages are as\LF\',
+          C' expected:\LF\',
+          C'        S1-S3: ', (SIN('ANGLE') * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'        S2-S4: ', (COS('ANGLE') * 'VOLTAGE'):3:1, C'Vrms\LF\\LF\',
+          C'   FINE S1-S3: ', (SIN('EFF-ANGLE') * 'VOLTAGE'):3:1, C'Vrms\LF\',
+          C'   FINE S2-S4: ', (COS('EFF-ANGLE') * 'VOLTAGE'):3:1, C'Vrms\LF\\LF\',
+          C' T - Output is correct.\LF\',
+          C' F - Output is incorrect.\LF\' $
+
+        INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+
+        OUTPUT,
+          C'SRS 1 RESOLVER SIMULATOR, MULTI-SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 RESOLVER SIMULATOR, MULTI-SPEED, NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+     05 REMOVE, RESOLVER,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4
+              S1-FINE SRS_SIM_2_S1 S2-FINE SRS_SIM_2_S2
+              S3-FINE SRS_SIM_2_S3 S4-FINE SRS_SIM_2_S4 $
+
+        CALCULATE, 'TESTNO' = 132000 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 141200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 132000 $
+        END, IF $
+C $
+C ************************************* $
+C * CHANNEL 1 RESOLVER INDICATOR MENU * $
+C ************************************* $
+B $
+ 140000 OUTPUT,
+          C'  SRS Resolver Indicator Test\LF\',
+          C'    Menu\LF\',
+          C'  --------------------------------\LF\',
+          C'   0 Run All Tests\LF\\LF\',
+          C'   1 Angle Measurement, Single Speed\LF\',
+          C'   2 Angle-Rate Measurement, Single Speed\LF\\LF\',
+          C'   3 Angle Measurement, Multi-Speed\LF\',
+          C'   4 Angle-Rate Measurement, Multi-Speed\LF\\LF\',
+          C'  88 Main Menu\LF\',
+          C'  99 Exit\LF\\LF\',
+          C'  Enter a selection\LF\' $
+
+        CALCULATE, 'FAIL-FLAG' = 0 $
+     10 INPUT, INTO 'CHOICE' $
+        OUTPUT,
+          C'  Selection:', 'CHOICE', C'\LF\' $
+        IF, 'CHOICE' EQ 88, THEN $
+            GO TO, STEP 001005 $
+        END, IF $
+        IF, 'CHOICE' EQ 99, THEN $
+            GO TO, STEP 999900 $
+        END, IF $
+        IF, 'CHOICE' EQ 0, THEN $
+            CALCULATE, 'E-E' = TRUE $
+            GO TO, STEP 141200 $
+        END, IF $
+        IF, 'CHOICE' EQ 1, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 141200 $
+        END, IF $
+        IF, 'CHOICE' EQ 2, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 141300 $
+        END, IF $
+        IF, 'CHOICE' EQ 3, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 142200 $
+        END, IF $
+        IF, 'CHOICE' EQ 4, THEN $
+            CALCULATE, 'E-E' = FALSE $
+            GO TO, STEP 142300 $
+        END, IF $
+
+     15 OUTPUT,
+          C'Not a valid option.  Please select from menu.' $
+        GO TO, STEP 140000 $
+C $
+C *********************************************************************** $
+C * SRS 1 RESOLVER INDICATOR ANGLE MEASUREMENT - SINGLE SPEED OPERATION * $
+C *********************************************************************** $
+B $
+ 141200 CALCULATE, 'ANGLE'      = 150 $
+        CALCULATE, 'ANGLE-RATE' = 0 $
+        CALCULATE, 'VOLTAGE'    = 11.8 $
+        CALCULATE, 'FREQ'       = 400 $
+        CALCULATE, 'REF-VOLT'   = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (S1)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (S2)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (S3)\LF\',
+          C'   4. DS1-S4 - SD1-S4 (S4)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 141299 $
+        END, IF $
+C $
+        APPLY, RESOLVER,
+          ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4 $
+
+        CALCULATE, 'VER-UL' = 'ANGLE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE' * 0.9 $
+C $
+     20 VERIFY, (ANGLE INTO 'MEASUREMENT'), RESOLVER,
+            UL 'VER-UL' DEG LL 'VER-LL' DEG,
+            ANGLE MAX 359.99 DEG,
+            CNX S1 SRS_IND_1_S1 S2 SRS_IND_1_S2 S3 SRS_IND_1_S3 S4 SRS_IND_1_S4 $
+C $
+     25 OUTPUT,
+          C'SRS 1 RESOLVER INDICATOR [ANGLE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 RESOLVER INDICATOR [ANGLE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        REMOVE, RESOLVER,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4 $
+
+        CALCULATE, 'TESTNO' = 141200 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 141300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 141200 $
+        END, IF $
+C $
+C **************************************************************************** $
+C * SRS 1 RESOLVER INDICATOR ANGLE-RATE MEASUREMENT - SINGLE SPEED OPERATION * $
+C **************************************************************************** $
+B $
+ 141300 CALCULATE, 'ANGLE'      = 0 $
+        CALCULATE, 'ANGLE-RATE' = 50 $
+        CALCULATE, 'VOLTAGE'    = 11.8 $
+        CALCULATE, 'FREQ'       = 400 $
+        CALCULATE, 'REF-VOLT'   = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (S1)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (S2)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (S3)\LF\',
+          C'   4. DS1-S4 - SD1-S4 (S4)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 141399 $
+        END, IF $
+
+        APPLY, RESOLVER,
+            ANGLE-RATE 'ANGLE-RATE' RANGE 0.0 DEG/SEC TO 4896.00 DEG/SEC,
+            VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+            VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+            CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4 $
+
+        CALCULATE, 'VER-UL' = 'ANGLE-RATE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE-RATE' * 0.9 $
+C $
+     20 VERIFY, (ANGLE-RATE INTO 'MEASUREMENT'), RESOLVER,
+            UL 'VER-UL' DEG/SEC LL 'VER-LL' DEG/SEC,
+            ANGLE-RATE MAX 1684.8 DEG/SEC,
+            CNX S1 SRS_IND_1_S1 S2 SRS_IND_1_S2 S3 SRS_IND_1_S3 S4 SRS_IND_1_S4 $
+C $
+     25 OUTPUT,
+          C'SRS 1 RESOLVER INDICATOR [ANGLE-RATE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 RESOLVER INDICATOR [ANGLE-RATE], SINGLE SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        CALCULATE, 'TESTNO' = 141300 $
+        PERFORM, 'RESULTS' $
+
+        REMOVE, RESOLVER,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4 $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 142200 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 141300 $
+        END, IF $
+C $
+C ********************************************************************** $
+C * SRS 1 RESOLVER INDICATOR ANGLE MEASUREMENT - MULTI-SPEED OPERATION * $
+C ********************************************************************** $
+B $
+ 142200 CALCULATE, 'ANGLE'      = 150 $
+        CALCULATE, 'ANGLE-RATE' = 0 $
+        CALCULATE, 'VOLTAGE'    = 11.8 $
+        CALCULATE, 'FREQ'       = 400 $
+        CALCULATE, 'REF-VOLT'   = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (S1)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (S2)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (S3)\LF\',
+          C'   4. DS1-S4 - SD1-S4 (S4)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 141299 $
+        END, IF $
+C $
+        APPLY, RESOLVER,
+          ANGLE 'ANGLE' RANGE 0.0 DEG TO 359.99 DEG,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4
+              S1-FINE SRS_SIM_2_S1 S2-FINE SRS_SIM_2_S2
+              S3-FINE SRS_SIM_2_S3 S4-FINE SRS_SIM_2_S4 $
+
+        CALCULATE, 'VER-UL' = 'ANGLE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE' * 0.9 $
+C $
+     20 VERIFY, (ANGLE INTO 'MEASUREMENT'), RESOLVER,
+            UL 'VER-UL' DEG LL 'VER-LL' DEG,
+            ANGLE MAX 359.99 DEG,
+            CNX S1 SRS_IND_1_S1 S2 SRS_IND_1_S2 S3 SRS_IND_1_S3 S4 SRS_IND_1_S4
+                S1-FINE SRS_IND_2_S1 S2-FINE SRS_IND_2_S2
+                S3-FINE SRS_IND_2_S3 S4-FINE SRS_IND_2_S4 $
+C $
+     25 OUTPUT,
+          C'SRS 1 RESOLVER INDICATOR [ANGLE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 RESOLVER INDICATOR [ANGLE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        REMOVE, RESOLVER,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4
+              S1-FINE SRS_SIM_2_S1 S2-FINE SRS_SIM_2_S2
+              S3-FINE SRS_SIM_2_S3 S4-FINE SRS_SIM_2_S4 $
+
+        CALCULATE, 'TESTNO' = 141200 $
+        PERFORM, 'RESULTS' $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 142300 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 142200 $
+        END, IF $
+C $
+C *************************************************************************** $
+C * SRS 1 RESOLVER INDICATOR ANGLE-RATE MEASUREMENT - MULTI-SPEED OPERATION * $
+C *************************************************************************** $
+B $
+ 142300 CALCULATE, 'ANGLE'      = 0 $
+        CALCULATE, 'ANGLE-RATE' = 50 $
+        CALCULATE, 'VOLTAGE'    = 11.8 $
+        CALCULATE, 'FREQ'       = 400 $
+        CALCULATE, 'REF-VOLT'   = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DS1-S1 - SD1-S1 (S1)\LF\',
+          C'   2. DS1-S2 - SD1-S2 (S2)\LF\',
+          C'   3. DS1-S3 - SD1-S3 (S3)\LF\',
+          C'   4. DS1-S4 - SD1-S4 (S4)\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 142399 $
+        END, IF $
+
+        APPLY, RESOLVER,
+          ANGLE-RATE 'ANGLE-RATE' RANGE 0.0 DEG/SEC TO 4896.00 DEG/SEC,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          VOLTAGE-REF 'REF-VOLT' RANGE 2.0 V TO 115.0 V,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4
+              S1-FINE SRS_SIM_2_S1 S2-FINE SRS_SIM_2_S2
+              S3-FINE SRS_SIM_2_S3 S4-FINE SRS_SIM_2_S4 $
+
+        CALCULATE, 'VER-UL' = 'ANGLE-RATE' * 1.1 $
+        CALCULATE, 'VER-LL' = 'ANGLE-RATE' * 0.9 $
+C $
+     20 VERIFY, (ANGLE-RATE INTO 'MEASUREMENT'), RESOLVER,
+          UL 'VER-UL' DEG/SEC LL 'VER-LL' DEG/SEC,
+          ANGLE-RATE MAX 1684.8 DEG/SEC,
+          CNX S1 SRS_IND_1_S1 S2 SRS_IND_1_S2 S3 SRS_IND_1_S3 S4 SRS_IND_1_S4
+              S1-FINE SRS_IND_2_S1 S2-FINE SRS_IND_2_S2
+              S3-FINE SRS_IND_2_S3 S4-FINE SRS_IND_2_S4 $
+C $
+     25 OUTPUT,
+          C'SRS 1 RESOLVER INDICATOR [ANGLE-RATE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 1 RESOLVER INDICATOR [ANGLE-RATE], MULTI-SPEED,\LF\',
+          C'  NON-TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        CALCULATE, 'TESTNO' = 142300 $
+        PERFORM, 'RESULTS' $
+
+        REMOVE, RESOLVER,
+          CNX S1 SRS_SIM_1_S1 S2 SRS_SIM_1_S2 S3 SRS_SIM_1_S3 S4 SRS_SIM_1_S4
+              S1-FINE SRS_SIM_2_S1 S2-FINE SRS_SIM_2_S2
+              S3-FINE SRS_SIM_2_S3 S4-FINE SRS_SIM_2_S4 $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 200000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 142300 $
+        END, IF $
+C $
+C ************************************************************************************ $
+C * SRS 2 SYNCHRO INDICATOR ANGLE-RATE W/ TRIGGER & EXT REF - SINGLE SPEED OPERATION * $
+C ************************************************************************************ $
+B $
+ 200000 CALCULATE, 'ANGLE'              = 0 $
+        CALCULATE, 'ANGLE-RATE'         = 50 $
+        CALCULATE, 'FREQ'               = 400 $
+        CALCULATE, 'VOLTAGE'            = 11.8 $
+        CALCULATE, 'REF-VOLT'           = 26 $
+
+        OUTPUT,
+          C'\LF\',
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Make the following connections:\LF\',
+          C'   1. DC PS HI - TRIG+\LF\',
+          C'   2. DC PS LO - TRIG-\LF\\LF\',
+          C' Setup to measure the following\LF\',
+          C' voltage:\LF\',
+          C'   X-Z (DS2-S1 - DS2-S3)\LF\',
+          C' Set the DC PS to output 0V.\LF\\LF\',
+          C' T - Ready to test.\LF\',
+          C' F - Skip test.\LF\' $
+
+        INPUT, INTO 'READY' $
+        IF, 'READY' EQ FALSE, THEN $
+            GO TO, STEP 200099 $
+        END, IF $
+C $
+        ENABLE, EVENT 'TRIGGER' $
+
+        APPLY, SYNCHRO,
+          ANGLE-RATE 'ANGLE-RATE' RANGE 0.0 DEG/SEC TO 1684.8 DEG/SEC,
+          VOLTAGE 'VOLTAGE' RANGE 1 V TO 90 V,
+          FREQ 'FREQ' RANGE 47 HZ TO 800 HZ,
+          SYNC TO EVENT 'TRIGGER' MAX-TIME 10 SEC,
+          CNX X SRS_SIM_2_X Y SRS_SIM_2_Y Z SRS_SIM_2_Z $
+
+        OUTPUT,
+          C'****** OPERATOR INSTRUCTIONS ******\LF\\LF\',
+          C' Verify the X-Z voltage is constant\LF\',
+          C' then set the DC PS to output 5V\LF\',
+          C' and verify the Synchro begins to\LF\',
+          C' rotate (voltage begins varying).\LF\\LF\',
+          C' T - Output is correct.\LF\',
+          C' F - Output is incorrect.\LF\' $
+C $
+        INPUT, INTO 'GO' $
+C $
+        CALCULATE, 'VER-UL' = 0 $
+        CALCULATE, 'VER-LL' = 0 $
+C $
+        DISABLE, EVENT 'TRIGGER' $
+
+     25 OUTPUT,
+          C'SRS 2 SYNCHRO INDICATOR [ANGLE-RATE], SINGLE-SPEED,\LF\',
+          C'  TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        OUTPUT, TO 'PRINTER',
+          C'SRS 2 SYNCHRO INDICATOR [ANGLE-RATE], SINGLE-SPEED,\LF\',
+          C'  TRIGGERED\LF\',
+          C'-----------------------------------------------------\LF\' $
+
+        CALCULATE, 'TESTNO' = 200000 $
+        PERFORM, 'RESULTS' $
+
+        REMOVE, SYNCHRO,
+          CNX X SRS_SIM_2_X Y SRS_SIM_2_Y Z SRS_SIM_2_Z $
+
+        IF, 'E-E' EQ FALSE, THEN $
+            OUTPUT, 'CONTINUE' $
+            INPUT, INTO 'MI' $
+        END, IF $
+C $
+B $
+     99 IF, 'E-E' EQ TRUE, THEN $
+            GO TO, STEP 800000 $
+        END, IF $
+C $
+        OUTPUT, 'RETURN-MENU' $
+        INPUT,  INTO 'MAIN-MENU' $
+
+        IF, 'MAIN-MENU' EQ TRUE, THEN $
+            GO TO, STEP 001005 $
+        ELSE $
+            GO TO, STEP 200000 $
+        END, IF $
+C $
+C *******************************************************************
+C * SUMMARY
+C ******************************************************************* $
+C $
+B $
+ 800000 IF, 'FAIL-FLAG' EQ 0, THEN $
+            OUTPUT,
+                C'--------------------------------------\LF\',
+                C' END - END TEST                       \LF\',
+                C'    PASSED                            \LF\',
+                C'--------------------------------------\LF\' $
+
+            OUTPUT, TO 'PRINTER',
+                C'--------------------------------------\LF\',
+                C' END - END TEST                       \LF\',
+                C'    PASSED                            \LF\',
+                C'--------------------------------------\LF\' $
+        ELSE $
+            OUTPUT,
+                C'--------------------------------------\LF\',
+                C' END - END TEST                       \LF\',
+                C' FAILED WITH', 'FAIL-FLAG', C' FAILURES\LF\',
+                C'--------------------------------------\LF\' $
+
+            OUTPUT, TO 'PRINTER',
+                C'--------------------------------------\LF\',
+                C' END - END TEST                       \LF\',
+                C' FAILED WITH', 'FAIL-FLAG', C'FAILURES\LF\',
+                C'--------------------------------------\LF\' $
+        END, IF $
+C $
+ 800100 GO TO, STEP 001005 $
+C $
+C *******************************************************************
+C * END
+C ******************************************************************* $
+C $
+B $
+ 999900 REMOVE, ALL $
+ 999999 TERMINATE, ATLAS PROGRAM 'Srs Benchmark' $

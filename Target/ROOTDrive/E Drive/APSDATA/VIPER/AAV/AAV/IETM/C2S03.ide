@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE SECTION SYSTEM ".\dtd\USMCV1-V1_modified_xml.dtd" [
+]>
+<?Stylesheet href='.\style\usmcv1.sty'?>
+<?embedwarnings ?>
+<?Domainfile href=".\AAV_.lst"?><?TOCfile href=".\AAV_.toc"?><?Indexfile href="./index.ide!TOC"?>
+<SECTION ID="C2S03" LABEL="III"><?Pub Dtl?><?FRAME title="Chapter 2. Safety Precautions, Section III. Maintenance Safety Precautions" previous="./c2s02.ide!C2s02b"?><?TOCENTRY TITLE="SECTION III. Maintenance Safety Precautions" TOCLEVEL="2" LABEL="III"?>
+<TITLE>SECTION III. Maintenance Safety Precautions</TITLE>
+<PARA0 ID="P2-3" LABEL="2.3"><?TOCENTRY TITLE="2.3 Introduction" TOCLEVEL="3"?>
+<TITLE>Introduction</TITLE>
+<PARA>The following paragraphs are a summary of the operational maintenance safety.</PARA>
+<SUBPARA1 ID="P2-3.1" LABEL="2.3.1"><?TOCENTRY TITLE="2.3.1 General Maintenance Safety Guidelines" TOCLEVEL="4"?>
+<TITLE>General Maintenance Safety Guidelines</TITLE>
+<PARA>The following paragraphs provide general maintenance safety guidelines.</PARA>
+<STEP1 ID="P2-3.1A" LABEL="a">
+<PARA>Allow only qualified maintenance personnel to perform corrective maintenance actions on electronic equipment and components.</PARA></STEP1>
+<STEP1 ID="P2-3.1B" LABEL="b">
+<PARA>During corrective maintenance or repairs on electronic equipment or components, ensure that under no circumstances should any person service or adjust the equipment except in the presence of someone who is capable of rendering aid.</PARA></STEP1>
+<STEP1 ID="P2-3.1C" LABEL="c">
+<PARA>Ensure that all internal and external grounds are properly connected before energizing shop equipment.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P2-3.2" LABEL="2.3.2"><?TOCENTRY TITLE="2.3.2 Personal Safety Guidelines" TOCLEVEL="4"?>
+<TITLE>Personal Safety Guidelines</TITLE>
+<PARA>The following paragraphs provide personal safety guidelines.</PARA>
+<STEP1 ID="P2-3.2A" LABEL="a">
+<PARA>Do not wear loose or floppy clothing, rings, wrist watches, and/or any other conductive material.</PARA></STEP1>
+<STEP1 ID="P2-3.2B" LABEL="b">
+<PARA>Keep all metal objects clear of any energized device.</PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P2-3.3" LABEL="2.3.3"><?TOCENTRY TITLE="2.3.3 Hand Tool and Test Equipment Safety Guidelines" TOCLEVEL="4"?>
+<TITLE>Hand Tool and Test Equipment Safety Guidelines</TITLE>
+<PARA>The following paragraphs provide hand tool and test equipment safety guidelines.</PARA>
+<STEP1 ID="P2-3.3A" LABEL="a">
+<PARA>Use tools with insulated handles, grips, or bodies when working on electronic equipment.</PARA></STEP1>
+<STEP1 ID="P2-3.3B" LABEL="b">
+<PARA>Use only AC grounding type (3-prong) tools, test equipment, or extension power cords.</PARA></STEP1>
+<STEP1 ID="P2-3.3C" LABEL="c">
+<PARA>Discharge all capacitors before taking any measurements on any de-energized equipment. </PARA></STEP1></SUBPARA1>
+<SUBPARA1 ID="P2-3.4" LABEL="2.3.4"><?TOCENTRY TITLE="2.3.4 Chemical Agent Safety Guidelines" TOCLEVEL="4"?>
+<TITLE>Chemical Agent Safety Guidelines</TITLE>
+<PARA>The following paragraphs provide chemical agent safety guidelines.</PARA>
+<STEP1 ID="P2-3.4A" LABEL="a">
+<PARA>Ensure working area is adequately ventilated when using chemicals.</PARA></STEP1>
+<STEP1 ID="P2-3.4B" LABEL="b">
+<PARA>Use the correct type of chemical for the correct application on a specific equipment.</PARA></STEP1>
+<STEP1 ID="P2-3.4C" LABEL="c">
+<PARA>Use only approved chemical agents or materials. Do not use unauthorized chemical agents or materials to clean or repair equipment items.</PARA></STEP1>
+<STEP1 ID="P2-3.4D" LABEL="d">
+<PARA>Do not use flammable solvents, such as gasoline, benzene, ether, or like substances, as cleaning solvents for electronic parts or components.</PARA></STEP1>
+<STEP1 ID="P2-3.4E" LABEL="e">
+<PARA>Do not use carbon tetrachloride as a cleaning solvent.</PARA></STEP1>
+<STEP1 ID="P2-3.4F" LABEL="f">
+<PARA>When using cleaning solvents or chemical washes, allow the equipment to cool before applying the solvent. Never apply a cleaning solvent to internal parts of energized equipment.</PARA></STEP1></SUBPARA1><?FRAME id="c2s03b" title="Chapter 2. Safety Precautions, Section III. Maintenance Safety Precautions Cont'd" next="./c3S01.ide!C3S01"?>
+<SUBPARA1 ID="P2-3.5" LABEL="2.3.5"><?TOCENTRY TITLE="2.3.5 Do Not Service Alone" TOCLEVEL="4"?>
+<TITLE>Do Not Service Alone</TITLE>
+<PARA>Do not attempt internal service or adjustment unless another person capable of rendering aid and resuscitation is present.</PARA></SUBPARA1>
+<SUBPARA1 ID="P2-3.6" LABEL="2.3.6"><?TOCENTRY TITLE="2.3.6 Keep Away From Live Circuits" TOCLEVEL="4"?>
+<TITLE>Keep Away From Live Circuits</TITLE>
+<PARA>Operating personnel must at all times observe safety regulations.  Do not replace components inside the equipment with the voltage supply turned on. Under certain conditions, dangerous potentials may exist when the power control is in the off position due to charges retained by capacitors. To avoid injuries, always remove power from, discharge, and ground a circuit before touching it. Adhere to all lock out/tag out requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P2-3.7" LABEL="2.3.7"><?TOCENTRY TITLE="2.3.7 Resuscitation" TOCLEVEL="4"?>
+<TITLE>Resuscitation</TITLE>
+<PARA>Personnel working with or near high voltages or hazardous materials shall be trained in modern methods of resuscitation.</PARA></SUBPARA1>
+<SUBPARA1 ID="P2-3.8" LABEL="2.3.8"><?TOCENTRY TITLE="2.3.8 Flammable Liquids" TOCLEVEL="4"?>
+<TITLE>Flammable Liquids</TITLE>
+<PARA>When flammable liquids are used in compartments containing non-operating equipment, be sure that there is sufficient ventilation to avoid any accumulation of fumes and that all fumes are cleared before the equipment is energized. When flammable cleaners and primers are being applied, approved explosion-proof lights, blowers, and other equipment shall be used. Ensure that firefighting equipment is readily available and in working order.</PARA></SUBPARA1>
+<SUBPARA1 ID="P2-3.9" LABEL="2.3.9"><?TOCENTRY TITLE="2.3.9 Chemicals/Cleaners" TOCLEVEL="4"?>
+<TITLE>Chemicals/Cleaners</TITLE>
+<PARA>Keep in approved safety containers and in minimum quantities.  Some cleaners/chemicals may have an effect on skin, eyes, and respiratory tract. Observe manufacturer WARNING labels, Material Safety Data Sheets (MSDS), and current safety directives for proper handling and disposal of cleaners/chemicals and soiled clothing. Use only in authorized areas. Unless otherwise indicated in the text, use as described in this publication should not result in any immediate health concerns. Consult the local Bio-Environmental Engineer for specific protective equipment and ventilation requirements.</PARA></SUBPARA1>
+<SUBPARA1 ID="P2-3.10" LABEL="2.3.10"><?TOCENTRY TITLE="2.3.10 Personal Protective Equipment" TOCLEVEL="4"?>
+<TITLE>Personal Protective Equipment</TITLE>
+<PARA>Wear protective clothing/equipment (gloves, apron, eye protection, etc.) approved for the materials and tools being used. Contact supervisor for guidance. If necessary, the local Bio-environmental Engineer should be contacted for guidance.</PARA></SUBPARA1>
+<SUBPARA1 ID="P2-3.11" LABEL="2.3.11"><?TOCENTRY TITLE="2.3.11 Soldering" TOCLEVEL="4"?>
+<TITLE>Soldering</TITLE>
+<PARA>Personnel shall use eye protection when soldering. Soldering irons are hot; use proper precautions to prevent burns. Avoid fumes generated by soldering. Good general ventilation is normally adequate.</PARA></SUBPARA1>
+<SUBPARA1 ID="P2-3.12" LABEL="2.3.12"><?TOCENTRY TITLE="2.3.12 Do Not Wear Jewelry" TOCLEVEL="4"?>
+<TITLE>Do Not Wear Jewelry</TITLE>
+<PARA>Remove rings, watches, and other metallic objects which may cause shock or burn hazards. Snagged finger rings have caused many serious injuries. Remove finger rings during all periods of maintenance.</PARA></SUBPARA1></PARA0></SECTION>

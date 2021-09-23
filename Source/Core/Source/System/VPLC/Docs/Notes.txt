@@ -1,0 +1,23 @@
+Need to go through the SICL at least for the RF Generator.
+Need to deal with new EADS drivers for RF GEn and how they deal
+ with the SAIF loss data.
+
+Legacy system has the following characteristics:
+Start Frequency = 100Mhz.
+End Frequency = 8.5Ghz.
+Frequency step size = 100Mhz.
+Total number of calibration factors generated for each frequency is 85.
+With all the paths taken into account the total measurements taken is 1,360.
+
+Proposed system shall have the following characteristics:
+Start Frequency = 100Mhz.
+End Frequency = 18.1Ghz.
+Frequency step size = 200Mhz.
+Total number of calibration factors generated for each frequency is 90.
+With all the paths taken into account the total measurements taken is 1,440.
+Test time approxamatly 5.6% > than legacy system.
+Since the increase in attenuation is very linear with increase in frequency,
+ linear interpilation shall be used to find correction factors which lie
+ between two points in the measured data.
+
+[] Need PLC_1.bmp, PLC_3.BMP

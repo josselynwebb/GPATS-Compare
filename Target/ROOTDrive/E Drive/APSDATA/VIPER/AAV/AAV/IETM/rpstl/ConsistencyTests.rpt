@@ -1,0 +1,32 @@
+	Consistency Test Results
+
+This test checks the RPSTL for problems and inconsistencies between
+different parts of the database.  This is mostly accomplished by comparing
+the data loaded from the section 2 file to data loaded by other means.
+This particular report contains two sections, each performing a different
+check on the database.
+
+
+_______________________________________________________________________
+
+	Section 2 Items Vs Sheet Items - Test Results
+
+Any Figure Items below exist in the Section 2 Item table (Item)
+but are not found in the Sheet Item table (Shtitem).
+
+All Figure Items in the Section 2 Item table were
+also found in the Sheet Item table.
+
+No problems detected.
+
+_______________________________________________________________________
+
+	Sheet Items Vs Section 2 Items - Test Results
+
+Any Figure Items below exist in the Sheet Item table (Shtitem)
+but are not found in the Section 2 Item table (Item).
+
+All Figure Items in the Sheet Item table (Shtitem) were
+also found in the Section 2 Item table (Item).
+
+No problems detected.

@@ -1,0 +1,110 @@
+[uuid(b4c5c305-fffa-11cf-a158-00a024553fa4), helpfile("Hpe1445a.hlp"), helpcontext(11), helpstring("HPE1445A Arb.Waveform Generator (VISA)")]
+library Hpe1445a{
+typedef [public] long           ViStatus;
+typedef [public] long*          ViAStatus;
+typedef [public] long*          ViPStatus;
+typedef [public] short        ViBoolean;
+typedef [public] short*       ViPBoolean;
+typedef [public] short*       ViABoolean;
+typedef [public] char           ViChar;
+typedef [public] LPSTR          ViPChar;
+typedef [public] LPSTR          ViAChar;
+typedef [public] char  ViByte;
+typedef [public] LPSTR ViPByte;
+typedef [public] LPSTR ViAByte;
+typedef [public] char           ViInt8;
+typedef [public] LPSTR          ViPInt8;
+typedef [public] LPSTR          ViAInt8;
+typedef [public] char  ViUInt8;
+typedef [public] LPSTR ViPUInt8;
+typedef [public] LPSTR ViAUInt8;
+typedef [public] short          ViInt16;
+typedef [public] short*         ViPInt16;
+typedef [public] short*         ViAInt16;
+typedef [public] short          ViUInt16;
+typedef [public] short*         ViPUInt16;
+typedef [public] short*         ViAUInt16;
+typedef [public] long           ViInt32;
+typedef [public] long*          ViPInt32;
+typedef [public] long*          ViAInt32;
+typedef [public] long           ViUInt32;
+typedef [public] long*          ViPUInt32;
+typedef [public] long*          ViAUInt32;
+typedef [public] float          ViReal32;
+typedef [public] float*         ViPReal32;
+typedef [public] float*         ViAReal32;
+typedef [public] double         ViReal64;
+typedef [public] double*        ViPReal64;
+typedef [public] double*        ViAReal64;
+typedef [public] LPSTR ViBuf;
+typedef [public] LPSTR* ViPBuf;
+typedef [public] LPSTR           ViString;
+typedef [public] LPSTR*          ViPString;
+typedef [public] LPSTR*          ViAString;
+typedef [public] LPSTR           ViRsrc;
+typedef [public] LPSTR*          ViPRsrc;
+typedef [public] LPSTR*          ViARsrc;
+typedef [public] LPSTR           ViKeyId;
+typedef [public] LPSTR*          ViPKeyId;
+typedef [public] LPSTR           ViClass;
+typedef [public] LPSTR*          ViPClass;
+typedef [public] long           ViAddr;
+typedef [public] long*          ViPAddr;
+typedef [public] long*          ViAAddr;
+typedef [public] long           ViVersion;
+typedef [public] long*          ViPVersion;
+typedef [public] long*          ViAVersion;
+typedef [public] long           ViAccessMode;
+typedef [public] long           ViJobId;
+typedef [public] long*          ViPJobId;
+typedef [public] long           ViJobStatus;
+typedef [public] long*          ViPJobStatus;
+typedef [public] long           ViEventType;
+typedef [public] long*          ViPEventType;
+typedef [public] long           ViFilterType;
+typedef [public] long*          ViPFilterType;
+typedef [public] long           ViBusAddress;
+typedef [public] long*          ViPBusAddress;
+typedef [public] long           ViBusSize;
+typedef [public] long           ViHndlr;
+typedef [public] long           ViObject;
+typedef [public] long           ViSession;
+typedef [public] long*           ViPSession;
+typedef [public] long           ViEvent;
+typedef [public] long*           ViPEvent;
+typedef [public] long           ViEventFilter;
+typedef [public] long           ViFindList;
+typedef [public] long*           ViPFindList;
+typedef [public] long           ViAttrState;
+typedef [public] void*           ViPAttrState;
+typedef [public] long           ViAttr;
+	[dllname("Hpe1445a.dll"), helpcontext(11), helpstring("Initialize")]
+	module Initialize{
+		[helpcontext(1), entry("hpe1445a_init"), helpstring("Initialize")]
+		ViStatus __stdcall hpe1445a_init([in] ViRsrc resourceName, [in] ViBoolean IDQuery, [in] ViBoolean resetDevice, [in, out] ViSession *instrumentHandle);
+	};
+	[dllname("Hpe1445a.dll"), helpcontext(11), helpstring("Utility Functions")]
+	module UtilityFunctions{
+		[helpcontext(2), entry("hpe1445a_writeInstrData"), helpstring("Write To Instrument")]
+		ViStatus __stdcall hpe1445a_writeInstrData([in] ViSession instrumentHandle, [in] ViString writeBuffer);
+		[helpcontext(3), entry("hpe1445a_readInstrData"), helpstring("Read Instrument Data")]
+		ViStatus __stdcall hpe1445a_readInstrData([in] ViSession instrumentHandle, [in] ViInt16 numberBytesToRead, [in] LPSTR readBuffer, [in, out] ViInt32 *numBytesRead);
+		[helpcontext(4), entry("hpe1445a_reset"), helpstring("Reset")]
+		ViStatus __stdcall hpe1445a_reset([in] ViSession instrumentHandle);
+		[helpcontext(5), entry("hpe1445a_selfTest"), helpstring("Self-Test")]
+		ViStatus __stdcall hpe1445a_selfTest([in] ViSession instrumentHandle, [in, out] ViInt16 *selfTestResult, [in] LPSTR selfTestMessage);
+		[helpcontext(6), entry("hpe1445a_errorQuery"), helpstring("Error-Query")]
+		ViStatus __stdcall hpe1445a_errorQuery([in] ViSession instrumentHandle, [in, out] ViInt32 *errorCode, [in] LPSTR errorMessage);
+		[helpcontext(7), entry("hpe1445a_errorMessage"), helpstring("Error Message")]
+		ViStatus __stdcall hpe1445a_errorMessage([in] ViSession instrumentHandle, [in] ViStatus errorCode, [in] LPSTR errorMessage);
+		[helpcontext(8), entry("hpe1445a_revisionQuery"), helpstring("Revision Query")]
+		ViStatus __stdcall hpe1445a_revisionQuery([in] ViSession instrumentHandle, [in] LPSTR instrumentDriverRevision, [in] LPSTR firmwareRevision);
+		[helpcontext(9), entry("hpe1445a_waitForRqs"), helpstring("Wait for RQS")]
+		ViStatus __stdcall hpe1445a_waitForRqs([in] ViSession instrumentHandle, [in] ViInt32 timeoutms, [in, out] ViInt16 *statusByte);
+	};
+	[dllname("Hpe1445a.dll"), helpcontext(11), helpstring("Close")]
+	module Close{
+		[helpcontext(10), entry("hpe1445a_close"), helpstring("Close")]
+		ViStatus __stdcall hpe1445a_close([in] ViSession instrumentHandle);
+	};
+};
